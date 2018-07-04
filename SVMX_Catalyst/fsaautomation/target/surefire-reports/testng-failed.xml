@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"/>
+  </listeners>
+  <test thread-count="5" verbose="0" name="Test(failed)">
+    <classes>
+      <class name="com.ge.fsa.tests.SampleTest">
+        <methods>
+          <include name="toTest"/>
+          <include name="setAPP"/>
+          <include name="startServer"/>
+          <include name="initializeObject"/>
+        </methods>
+      </class> <!-- com.ge.fsa.tests.SampleTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
