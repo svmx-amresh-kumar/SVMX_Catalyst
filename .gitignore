@@ -1,0 +1,8 @@
+
+Reports/*
+fsaautomation/test-output/*
+fsaautomation/target/*
+fsaautomation/.settings/*
+fsaautomation/target/*
+*.lst
+*.class
