@@ -2,6 +2,7 @@ package com.ge.fsa.pageobjects;
 
 import java.util.Iterator;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,8 +48,8 @@ public class CommonsPO
 	}
 
 	//Customised touch Tap
-		public void tap(Point point) throws InterruptedException
-		{
+		public void tap(WebElement el) throws InterruptedException
+		{   Point point = el.getLocation();
 			touchAction = new TouchAction(driver);
 			touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
@@ -63,8 +64,8 @@ public class CommonsPO
 		}
 		
 		//Customised touch LongPress
-		public void longPress(Point point) throws InterruptedException
-		{
+		public void longPress(WebElement el) throws InterruptedException
+		{Point point = el.getLocation();
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
@@ -126,7 +127,7 @@ public class CommonsPO
 			element.click();
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
-			tap(getEleDonePickerWheelBtn().getLocation());
+			tap(getEleDonePickerWheelBtn());
 			switchContext("WebView");
 		}
 		
@@ -145,5 +146,6 @@ public class CommonsPO
 			
 			
 		}
+		
 	
 }

@@ -138,6 +138,57 @@ public class WorkOrderPO {
 	{
 		return eleDatePickerPopup;
 	}
+	
+
+	@FindBy(xpath="//span[text()='Part']/../../div[2]//input[@class='x-input-el']")
+	private WebElement elePartLaborLkUp;
+	public WebElement getElePartLaborLkUp()
+	{
+		return elePartLaborLkUp;
+	}
+	
+	private WebElement eleProductNameTxt;
+	public WebElement getEleProductNameTxt(String sProductName)
+	{
+		eleProductNameTxt=driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sProductName+"']"));
+		return eleProductNameTxt;
+	}
+	
+	@FindBy(xpath="//*[. = 'Activity Type']//input")
+	private WebElement eleActivityTypeLst;
+	public WebElement getEleActivityTypeLst()
+	{
+		return eleActivityTypeLst;
+	}
+	
+	@FindBy(xpath="//*[. = 'Line Qty']//*[@class = 'x-input-el']")
+	private WebElement eleLineQtyTxtFld;
+	public WebElement getEleLineQtyTxtFld()
+	{
+		return eleLineQtyTxtFld;
+	}
+	
+	@FindBy(xpath="//*[. = 'Line Price Per Unit']//*[@class = 'x-input-el']")
+	private WebElement eleLinePerUnitTxtFld;
+	public WebElement getEleLinePerUnitTxtFld()
+	{
+		return eleLinePerUnitTxtFld;
+	}
+	
+	@FindBy(xpath="//*[text() = 'Done']")
+	private WebElement eleDoneBtn;
+	public WebElement getEleDoneBtn()
+	{
+		return eleDoneBtn;
+	}
+	
+	@FindBy(xpath="//div[@class='x-size-monitors scroll']")
+	private WebElement eleUsePriceToggleBtn;
+	public WebElement getEleUsePriceToggleBtn()
+	{
+		return eleUsePriceToggleBtn;
+	}
+	
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
 	{
 		element.click();
@@ -167,17 +218,17 @@ public class WorkOrderPO {
 		getEleDatePickerPopUp().get(3).sendKeys("PM");
 	}
 	
-	public void navigateToActions(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+	public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 	{
 		getEleActionsLnk().click();
-		commonsPo.tap(getEleActionsLnk().getLocation());	
+		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
-		commonsPo.tap(getEleActionsTxt(sActionsName).getLocation());
+		commonsPo.tap(getEleActionsTxt(sActionsName));
 		
 	}
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
 	{
-		navigateToActions(commonsPo, "New Event");
+		selectAction(commonsPo, "New Event");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
 		
@@ -186,20 +237,20 @@ public class WorkOrderPO {
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
-		commonsPo.tap(getEleSaveLnk().getLocation());
+		commonsPo.tap(getEleSaveLnk());
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
 	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	
-		navigateToActions(commonsPo, sPrintReportSearch);
+		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(getEleWOServiceReportTxt().isDisplayed(), "Work Order Service Report is not displayed.");
 		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
 		getEleDoneLnk().click();
-		commonsPo.tap(getEleDoneLnk().getLocation());
+		commonsPo.tap(getEleDoneLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
@@ -209,4 +260,50 @@ public class WorkOrderPO {
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
+	
+	
+	
+	//To add labor parts
+	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType) throws InterruptedException
+	{	//Adding labor parts name
+		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+		commonsPo.tap(getElePartLaborLkUp());
+		commonsPo.longPress(getEleProductNameTxt(sProductName1));
+		
+		//Selecting Activity Type
+		commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+		
+		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
+		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
+		
+		//Add the price and quantity
+		commonsPo.tap(getEleUsePriceToggleBtn());
+		getEleLineQtyTxtFld().sendKeys("10");
+		getEleLinePerUnitTxtFld().sendKeys("1000");	
+		commonsPo.tap(getEleDoneBtn());
+		
+		//Verify to Manage WO lines
+		Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+		NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+	}
+	
+	//To add Travel
+		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo) throws InterruptedException
+		{	//Adding labor parts name
+			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
+		
+			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
+			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
+			
+			//Add the price and quantity
+			commonsPo.tap(getEleUsePriceToggleBtn());
+			getEleLineQtyTxtFld().sendKeys("10");
+			getEleLinePerUnitTxtFld().sendKeys("1000");	
+			commonsPo.tap(getEleDoneBtn());
+			
+			//Verify to Manage WO lines
+			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+		}
 }
+

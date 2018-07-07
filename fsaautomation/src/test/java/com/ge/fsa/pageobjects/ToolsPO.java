@@ -65,14 +65,14 @@ public class ToolsPO
 		GenericLib.lWaitTime=3*60*1000;
 		
 		//Navigation to Tools screen
-		commonsPo.tap(getEleToolsIcn().getLocation());	
+		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		NXGReports.addStep("Tools screen is displayed successfully", LogAs.PASSED, null);
 		
 		getEleSyncDataNowLnk().click();
-		commonsPo.tap(getEleSyncDataNowLnk().getLocation());	
+		commonsPo.tap(getEleSyncDataNowLnk());	
 		getEleStartSyncBtn().click();
-		commonsPo.longPress(getEleStartSyncBtn().getLocation());
+		commonsPo.longPress(getEleStartSyncBtn());
 		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
 		//Verification of successful sync

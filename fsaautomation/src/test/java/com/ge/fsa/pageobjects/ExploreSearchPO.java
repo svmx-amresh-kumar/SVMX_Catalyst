@@ -72,8 +72,8 @@ public class ExploreSearchPO
 		try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		getEleExploreSearchTxtFld().clear();
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
-		commonsPo.tap(getEleExploreSearchBtn().getLocation());
-		commonsPo.tap(getEleWorkOrderIDTxt(sWOName).getLocation());
+		commonsPo.tap(getEleExploreSearchBtn());
+		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 }
