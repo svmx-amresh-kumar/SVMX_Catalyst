@@ -46,6 +46,33 @@ public class CommonsPO
 	{
 		return eleDonePickerWheelBtn;
 	}
+	
+	@FindBy(xpath="//input[@placeholder='Search'][@class='x-input-el']")
+	private WebElement elesearchTap;
+	public WebElement getElesearchTap()
+	{
+		return elesearchTap;
+	}
+	
+	@FindBy(xpath="//span[text()='Search']")
+	private WebElement elesearchButton;
+	public WebElement getElesearchButton()
+	{
+		return elesearchButton;
+	}
+	
+	
+
+	private WebElement eleSearchListItem;
+	public WebElement getElesearchListItem(String searchName)
+	{
+		eleSearchListItem=driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		return eleSearchListItem;
+	}
+	
+	
+
+	
 
 	//Customised touch Tap
 		public void tap(WebElement el) throws InterruptedException
@@ -144,6 +171,18 @@ public class CommonsPO
 				lElapsedTime++;
 			}
 			
+			
+		}
+		
+		// This method will search the required value and then click on it 
+		public void lookupSearch(String value)throws InterruptedException
+		{
+			
+			this.tap(this.getElesearchTap());
+			this.getElesearchTap().sendKeys(value);
+			this.tap(this.getElesearchButton());
+			this.tap(this.getElesearchListItem(value));
+
 			
 		}
 		
