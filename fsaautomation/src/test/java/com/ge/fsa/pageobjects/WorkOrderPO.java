@@ -271,7 +271,7 @@ public class WorkOrderPO {
 		commonsPo.longPress(getEleProductNameTxt(sProductName1));
 		
 		//Selecting Activity Type
-		commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time

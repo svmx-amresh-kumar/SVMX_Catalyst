@@ -149,7 +149,7 @@ public class CommonsPO
 		}
 		
 		//To set the value in PickerWheel native app
-		public void pickerWheel(WebElement element, String sValue) throws InterruptedException
+		public void pickerWheel( WebElement element, String sValue) throws InterruptedException
 		{
 			element.click();
 			switchContext("Native");

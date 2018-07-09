@@ -74,10 +74,15 @@ public class CreateNewPO
 		return eleClickProductfield;
 	}
 	
+	// Xpath for Priority Value
+	@FindBy(xpath="//span[text()='Priority']/../..//div[@class='x-body-el x-widthed']")
+	private WebElement eleClickPriorityPicklist;
+	public WebElement getEleClickPriorityPicklist()
+	{
+		return eleClickPriorityPicklist;
+	}
 	
-	
-	
-	
+
 	
 	
 	//To add Travel
