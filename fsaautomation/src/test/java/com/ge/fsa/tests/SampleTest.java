@@ -54,7 +54,6 @@ public class SampleTest extends BaseLib {
 		
 		toolsPo = new ToolsPO(driver);
 		commonsPo = new CommonsPO(driver);
-
 	
 	}
 
