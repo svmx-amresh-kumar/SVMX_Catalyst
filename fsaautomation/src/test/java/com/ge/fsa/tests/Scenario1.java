@@ -46,15 +46,15 @@ public class Scenario1 extends BaseLib
 		toolsPo = new ToolsPO(driver);	
 		commonsPo = new CommonsPO(driver);
 		createNewPO = new CreateNewPO(driver);
-		restServices.getAccessToken();
-		//Creation of dynamic Work Order
-		sWOJsonData="{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";	
-		
-		sWorkOrderID=restServices.getWOORecordID(sWOJsonData);
-		sWOName =restServices.getWOName(sWorkOrderID);
-				
-		//Pre Login to app
-	    loginHomePo.login(commonsPo,exploreSearchPo);
+//		restServices.getAccessToken();
+//		//Creation of dynamic Work Order
+//		sWOJsonData="{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";	
+//		
+//		sWorkOrderID=restServices.getWOORecordID(sWOJsonData);
+//		sWOName =restServices.getWOName(sWorkOrderID);
+//				
+//		//Pre Login to app
+//	    loginHomePo.login(commonsPo,exploreSearchPo);
 	}
 	
 	@Test
@@ -64,6 +64,21 @@ public class Scenario1 extends BaseLib
 		System.out.println("Automation : "+createNewPO.getEleCreateNew().getLocation());
 		commonsPo.tap(createNewPO.getEleCreateNew());
 		commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
+		Thread.sleep(2000);
+		// Adding Value for Account
+//		commonsPo.tap(createNewPO.getEleClickAccountfield());
+//		commonsPo.lookupSearch("Acc2952018141658");
+//	
+//		// Adding Value for Contact
+//		commonsPo.tap(createNewPO.getEleClickContactfield());
+//		commonsPo.lookupSearch("Con2952018141725");
+//		
+//		// Adding Value for Product
+//		commonsPo.tap(createNewPO.getEleClickProductfield());
+//		commonsPo.lookupSearch("BMW 1");
+		
+		// Selecting the Priority Medium
+		commonsPo.pickerWheel( createNewPO.getEleClickPriorityPicklist(), "Medium");
 		
 	}
 	

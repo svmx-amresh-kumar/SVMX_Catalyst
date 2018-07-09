@@ -53,7 +53,36 @@ public class CreateNewPO
 		return eleCreateNewWorkOrder;
 	}
 	
+	@FindBy(xpath="//div[. = 'Account']//input[@class = 'x-input-el']")
+	private WebElement eleClickAccountfield;
+	public WebElement getEleClickAccountfield()
+	{
+		return eleClickAccountfield;
+	}
 	
+	@FindBy(xpath="//div[. = 'Contact']//input[@class = 'x-input-el']")
+	private WebElement eleClickContactfield;
+	public WebElement getEleClickContactfield()
+	{
+		return eleClickContactfield;
+	}
+	
+	@FindBy(xpath="//div[. = 'Product']//input[@class = 'x-input-el']")
+	private WebElement eleClickProductfield;
+	public WebElement getEleClickProductfield()
+	{
+		return eleClickProductfield;
+	}
+	
+	// Xpath for Priority Value
+	@FindBy(xpath="//span[text()='Priority']/../..//div[@class='x-body-el x-widthed']")
+	private WebElement eleClickPriorityPicklist;
+	public WebElement getEleClickPriorityPicklist()
+	{
+		return eleClickPriorityPicklist;
+	}
+	
+
 	
 	
 	//To add Travel
