@@ -1,5 +1,6 @@
 package com.ge.fsa.pageobjects;
 
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
@@ -185,7 +186,17 @@ public class CommonsPO
 
 			
 		}
-		
+		/*
+		 * This method is used to generate the Random value timestamped with current time
+		 */
+		public String generaterandomnumber(String value)
+		{
+			
+			String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis( ));
+			System.out.println(date);
+			String randomstring = value + date;
+			return randomstring;
+		}
 		
 		
 	

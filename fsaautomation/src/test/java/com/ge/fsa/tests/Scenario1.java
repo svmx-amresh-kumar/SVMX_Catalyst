@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -59,19 +60,22 @@ public class Scenario1 extends BaseLib
 	}
 	
 	@Test
-	public void CallingScenario1Functions() throws Exception
+	public void Scenario1Functions() throws Exception
 	{
 	
-	
+		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		String sproformainvoice = "TestingAutomation1234";
 		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(2000);
 		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
 		restServices.getAccessToken();
-		String sworkOrderName = restServices.restapisoql(soqlquery);
-		System.out.println(sworkOrderName);
+		String sworkOrderName = restServices.restapisoql(soqlquery);	
+		
 	}
+	
+	
+	
 	
 	
 	
