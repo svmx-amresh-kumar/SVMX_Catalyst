@@ -189,6 +189,14 @@ public class WorkOrderPO {
 		return eleUsePriceToggleBtn;
 	}
 	
+
+	@FindBy(xpath="//*[text() = 'Yes']")
+	private WebElement eleYesBtn;
+	public WebElement getEleYesBtn()
+	{
+		return eleYesBtn;
+	}
+	
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
 	{
 		element.click();
@@ -238,6 +246,11 @@ public class WorkOrderPO {
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
 		commonsPo.tap(getEleSaveLnk());
+		
+		if(getEleYesBtn() != null){
+			commonsPo.tap(getEleYesBtn());	
+		}
+		
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
