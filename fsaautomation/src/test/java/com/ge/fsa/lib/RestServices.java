@@ -13,6 +13,9 @@ import com.ge.fsa.lib.GenericLib;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -165,17 +168,71 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	return sWorkOrderName;
 	}
   
-	
-	public static void main(String[] args) throws IOException {
-		RestServices appServices = new RestServices();
 
-		appServices.getAccessToken();
+	// To pass the required SOQL and then grab the data
+	/**
+	 * Author : Meghana Rao
+	 * @param soqlquery - The Query which is passed as value
+	 * @return
+	 * @throws IOException
+	 */
+		public String restapisoql(String soqlquery) throws IOException {		
+		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+		URL url = new URL(sURL);
+		System.out.println(sURL);
+		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+		httpsUrlCon.setDoOutput(true);
+		httpsUrlCon.setRequestMethod("GET");
+		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		
+		BufferedReader bufferedReader = null;
+		StringBuilder stringBuilder = new StringBuilder();
+		String line;
+		try {
+		   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
+		   while ((line =bufferedReader.readLine())!=null){
+		         stringBuilder.append(line);
+		   }
+		} catch (IOException e) {
+		   e.printStackTrace();
+		} finally {
+		   if (bufferedReader != null) {
+		         try {
+		                bufferedReader.close();
+		         } catch (IOException e) {
+		                e.printStackTrace();
+		         }
+		   }
+		
 
-		String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+			}
+		JSONObject json = new JSONObject(stringBuilder.toString());
+		
+		JSONArray msg = (JSONArray) json.get("records");
+		Iterator iterator = msg.iterator();
+		while (iterator.hasNext()) {
+	         JSONObject value = (JSONObject) iterator.next();
+	         System.out.println((String) value.get("Name"));
+	         
+	         sWorkOrderName=(String) value.get("Name");
+	     }
+		
+		return sWorkOrderName;
+		}
+		
+		
+		public static void main(String[] args) throws IOException {
+			RestServices appServices = new RestServices();
 
-		String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
-		System.out.println("WO NUMBER FETCHED " + woNum);
-	
-	}
+			appServices.getAccessToken();
 
+			String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+
+			String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
+			System.out.println("WO NUMBER FETCHED " + woNum);
+		
+		}
+		
 }

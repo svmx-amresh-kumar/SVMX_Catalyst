@@ -178,13 +178,15 @@ public class CommonsPO
 		public void lookupSearch(String value)throws InterruptedException
 		{
 			
-			this.tap(this.getElesearchTap());
-			this.getElesearchTap().sendKeys(value);
-			this.tap(this.getElesearchButton());
-			this.tap(this.getElesearchListItem(value));
+			tap(getElesearchTap());
+			getElesearchTap().sendKeys(value);
+			tap(getElesearchButton());
+			tap(getElesearchListItem(value));
 
 			
 		}
+		
+		
 		
 	
 }

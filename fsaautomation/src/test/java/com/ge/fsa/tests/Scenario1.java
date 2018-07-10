@@ -3,7 +3,15 @@
  */
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import javax.net.ssl.HttpsURLConnection;
+
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.BaseLib;
@@ -30,6 +38,7 @@ public class Scenario1 extends BaseLib
 	CommonsPO commonsPo = null;
 	CreateNewPO createNewPO = null;
 	ToolsPO toolsPo=null;
+	
 	int iWhileCnt =0;
 	String sTestCaseID=null; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
@@ -39,47 +48,31 @@ public class Scenario1 extends BaseLib
 	{	// Initialization of objects
 		genericLib=new GenericLib();
 		restServices = new RestServices();
-		
 		loginHomePo = new LoginHomePO(driver);
 		exploreSearchPo = new ExploreSearchPO(driver);	
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);	
 		commonsPo = new CommonsPO(driver);
+		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
-//		restServices.getAccessToken();
-//		//Creation of dynamic Work Order
-//		sWOJsonData="{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";	
-//		
-//		sWorkOrderID=restServices.getWOORecordID(sWOJsonData);
-//		sWOName =restServices.getWOName(sWorkOrderID);
-//				
-//		//Pre Login to app
-//	    loginHomePo.login(commonsPo,exploreSearchPo);
+		
 	}
 	
 	@Test
-	public void scenario1() throws Exception
+	public void CallingScenario1Functions() throws Exception
 	{
-		
-		System.out.println("Automation : "+createNewPO.getEleCreateNew().getLocation());
-		commonsPo.tap(createNewPO.getEleCreateNew());
-		commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
-		Thread.sleep(2000);
-		// Adding Value for Account
-//		commonsPo.tap(createNewPO.getEleClickAccountfield());
-//		commonsPo.lookupSearch("Acc2952018141658");
-//	
-//		// Adding Value for Contact
-//		commonsPo.tap(createNewPO.getEleClickContactfield());
-//		commonsPo.lookupSearch("Con2952018141725");
-//		
-//		// Adding Value for Product
-//		commonsPo.tap(createNewPO.getEleClickProductfield());
-//		commonsPo.lookupSearch("BMW 1");
-		
-		// Selecting the Priority Medium
-		commonsPo.pickerWheel( createNewPO.getEleClickPriorityPicklist(), "Medium");
-		
+	
+	
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		//toolsPo.syncData(commonsPo);
+		String sproformainvoice = "TestingAutomation1234";
+		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
+//		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
+//		restServices.getAccessToken();
+//		String sworkOrderName = restServices.restapisoql(soqlquery);
+//		System.out.println(sworkOrderName);
 	}
+	
+	
 	
 }
