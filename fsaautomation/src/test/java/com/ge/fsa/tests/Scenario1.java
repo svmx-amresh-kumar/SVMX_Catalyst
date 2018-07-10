@@ -64,13 +64,13 @@ public class Scenario1 extends BaseLib
 	
 	
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		//toolsPo.syncData(commonsPo);
 		String sproformainvoice = "TestingAutomation1234";
 		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
-//		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
-//		restServices.getAccessToken();
-//		String sworkOrderName = restServices.restapisoql(soqlquery);
-//		System.out.println(sworkOrderName);
+		toolsPo.syncData(commonsPo);
+		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
+		restServices.getAccessToken();
+		String sworkOrderName = restServices.restapisoql(soqlquery);
+		System.out.println(sworkOrderName);
 	}
 	
 	
