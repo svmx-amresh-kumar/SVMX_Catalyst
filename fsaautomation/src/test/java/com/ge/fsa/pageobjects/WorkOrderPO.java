@@ -228,6 +228,7 @@ public class WorkOrderPO {
 	
 	public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 	{
+		Thread.sleep(1000);
 		getEleActionsLnk().click();
 		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
@@ -240,17 +241,20 @@ public class WorkOrderPO {
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
 		
-		setTime(commonsPo, getEleStartDateTimeLst(), 1,"6"); //set start time
-		setTime(commonsPo, getEleEndDateTimeLst(), 1,"8"); //set end time
+		setTime(commonsPo, getEleStartDateTimeLst(), 0,"6"); //set start time
+		setTime(commonsPo, getEleEndDateTimeLst(), 0,"8"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
 		commonsPo.tap(getEleSaveLnk());
-		
+		try {
 		if(getEleYesBtn() != null){
 			commonsPo.tap(getEleYesBtn());	
 		}
-		
+		}
+		catch(Exception e){
+			
+		}
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}

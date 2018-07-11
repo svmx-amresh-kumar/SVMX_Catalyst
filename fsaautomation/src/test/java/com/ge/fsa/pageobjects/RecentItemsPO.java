@@ -67,7 +67,7 @@ public class RecentItemsPO
 	public WebElement getEleWorkordernumberclick(String workordername)
 	{
 		
-		eleWorkorderNumberClick = driver.findElement(By.xpath("//div[text()='"+workordername+"']"));
+		eleWorkorderNumberClick = driver.findElement(By.xpath("(//div[@class='x-inner-el'][text()='"+workordername+"'])[1]"));
 		return eleWorkorderNumberClick;
 	}
 	
@@ -84,11 +84,18 @@ public class RecentItemsPO
 		Thread.sleep(1000);
 		commonsPo.tap(getEleSearchtext());
 		getEleSearchtext().sendKeys(workordername);
-		commonsPo.tap(getEleworkordertabtap());
-		commonsPo.tap(getEleWorkordernumberclick(workordername));
 		
-		
-		
+		try {
+			if(getEleWorkordernumberclick(workordername) == null){
+				commonsPo.tap(getEleworkordertabtap());
+			}
+			}
+			catch(Exception e){
+				
+			}
+	
+			commonsPo.tap(getEleWorkordernumberclick(workordername));
+	
 		
 	}
 	
