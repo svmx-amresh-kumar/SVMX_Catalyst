@@ -187,7 +187,7 @@ public class CommonsPO
 			
 		}
 		/*
-		 * This method is used to generate the Random value timestamped with current time
+		 * This method is used to generate the Random value times stamped with current time
 		 */
 		public String generaterandomnumber(String value)
 		{
