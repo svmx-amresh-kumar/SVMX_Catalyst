@@ -64,7 +64,25 @@ public class WorkOrderPO {
 	{
 		return eleAddTravelLnk;
 	}
-		
+	
+	@FindBy(xpath="//*[contains(text(),'Expenses (')]/../../../../..//*[contains(text(),'Add')]")
+	private WebElement eleAddExpenseLnk;
+	public WebElement getEleAddExpenseLnk()
+	{
+		return eleAddExpenseLnk;
+	}
+	
+	
+	@FindBy(xpath="//span[text()='Expense Type']/../..//div[@class='x-mask-el']")
+	private WebElement eleAddExpenseType;
+	public WebElement getEleAddExpenseType()
+	{
+		return eleAddExpenseType;
+	}
+	
+	
+	
+	
 	@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 	private WebElement eleManageWOLinesTxt;
 	public WebElement getEleManageWOLinesTxt()
@@ -154,6 +172,21 @@ public class WorkOrderPO {
 		return eleProductNameTxt;
 	}
 	
+	@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
+
+	
+	private WebElement eleChildLinesadded;
+	public WebElement getEleChildLinesadded(String childLineName)
+	{
+		
+		//eleChildLinesadded = driver.findElement(By.xpath("(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[contains(text(),'"+childLineName+"')])[2]/../.."));
+		eleChildLinesadded = driver.findElement(By.xpath("//div[contains(text(), 'rrrr')]/../div[2]"));
+
+		return eleChildLinesadded;
+	}
+	
+	
+	
 	@FindBy(xpath="//*[. = 'Activity Type']//input")
 	private WebElement eleActivityTypeLst;
 	public WebElement getEleActivityTypeLst()
@@ -197,6 +230,59 @@ public class WorkOrderPO {
 		return eleYesBtn;
 	}
 	
+	
+	private WebElement eledeleteChildline;
+	public WebElement getEledeletechildline(String childlinevalue)
+	{
+
+		eledeleteChildline = driver.findElement(By.xpath("(//div[@class='x-inner-el'][contains(text(),'"+childlinevalue+"')])[2]"));
+
+		return eledeleteChildline;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Remove item']")
+	private WebElement eleremoveitem;
+	public  WebElement getEleremoveitem()
+	{
+		
+		return eleremoveitem;
+	}
+
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")
+	private WebElement eleclickyes;
+	public  WebElement getEleclickyesitem()
+	{
+		
+		return eleclickyes;
+	}
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
+	private WebElement eleclickOK;
+	public  WebElement getEleclickOK()
+	{
+		
+		return eleclickOK;
+	}
+	
+	// Saving the Child Line records
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Save']")
+	private WebElement eleClickSave;
+	public  WebElement getEleClickSave()
+	{
+		
+		return eleClickSave;
+	}
+	//Verifying the Workorder name after saving the value
+	private WebElement eleworkordernameonUI;
+	public WebElement getEleworkordernameonUI(String workordername)
+	{
+
+		eleworkordernameonUI = driver.findElement(By.xpath("//div[@class='x-innerhtml'][text()='"+workordername+"']"));
+
+		return eleworkordernameonUI;
+	}
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
 	{
 		element.click();
@@ -322,5 +408,54 @@ public class WorkOrderPO {
 			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
 			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
 		}
+		
+		
+	// To add Expense
+		
+		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType, String expensetype) throws InterruptedException
+		{	//Adding Expense name
+			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
+			commonsPo.tap(workOrderPo.getEleAddExpenseType());
+			commonsPo.pickerWheel(getEleAddExpenseType(), expensetype);
+			commonsPo.tap(getEleDoneBtn());
+
+			//Add the price and quantity
+			commonsPo.tap(getEleUsePriceToggleBtn());
+			getEleLineQtyTxtFld().sendKeys("10");
+			getEleLinePerUnitTxtFld().sendKeys("1000");	
+			commonsPo.tap(getEleDoneBtn());
+			
+			//Verify to Manage WO lines
+			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+		}
+		
+		
+		// Delete the Childlines
+		public void deletechildlines(CommonsPO commonsPo, WorkOrderPO workOrderPo, String childlinesvalue, String workordervalue) throws InterruptedException {
+			commonsPo.tap(workOrderPo.getEledeletechildline(childlinesvalue));
+			commonsPo.tap(workOrderPo.getEleremoveitem());
+			commonsPo.tap(workOrderPo.getEleclickyesitem());
+			commonsPo.tap(workOrderPo.getEleclickOK());
+			Thread.sleep(10000);
+			commonsPo.tap(workOrderPo.getEleClickSave());
+			Thread.sleep(10000);
+			if(workOrderPo.getEleworkordernameonUI(workordervalue) != null)
+			{
+				System.out.println("Chidlines are saved");
+			
+			}
+			else 
+			{
+				System.err.println("Chidlines are not saved");
+				
+			}
+			
+		}
+		
+		// Edit the ChildLines and save them
+		
+		
 }
+
 

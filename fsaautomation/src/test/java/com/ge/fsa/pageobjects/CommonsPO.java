@@ -1,6 +1,7 @@
 package com.ge.fsa.pageobjects;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
@@ -15,8 +16,13 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static java.time.Duration.ofSeconds;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+
 
 public class CommonsPO 
 {
@@ -67,7 +73,7 @@ public class CommonsPO
 	private WebElement eleSearchListItem;
 	public WebElement getElesearchListItem(String searchName)
 	{
-		eleSearchListItem=driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		eleSearchListItem = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
 		return eleSearchListItem;
 	}
 	
@@ -121,6 +127,19 @@ public class CommonsPO
 			touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
 		}
 		
+		public void swipeLeft(WebElement ele)
+		{	int offset = 30;
+			Point point = ele.getLocation();
+			int x = point.getX();
+			int y = point.getY();
+			
+			int xOff = x+100;
+			//int yOff = y-100;
+			touchAction = new TouchAction(driver);
+			touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
+		}
+		
+
 		//To search the element scrolling
 		public void getSearch(WebElement wElement)
 		{
