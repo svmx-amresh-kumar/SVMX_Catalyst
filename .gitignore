@@ -6,3 +6,4 @@ fsaautomation/.settings/*
 fsaautomation/target/*
 *.lst
 *.class
+fsaautomation/.DS_Store
