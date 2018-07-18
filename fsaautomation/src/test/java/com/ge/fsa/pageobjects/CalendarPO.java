@@ -48,7 +48,8 @@ public class CalendarPO
 	private WebElement eleworkordernumonCalendar;
 	public WebElement getEleworkordernumonCalendar(String sWorkOrdernumber)
 	{
-		eleworkordernumonCalendar=driver.findElement(By.xpath("//div[contains(@class, 'sfmevent-title')][text()='"+sWorkOrdernumber+"']"));
+		eleworkordernumonCalendar=driver.findElement(By.xpath("//div[contains(.,'\" "+ sWorkOrdernumber +" \"')]/div[@class='sfmevent-location-container']"));
+		
 		return eleworkordernumonCalendar;
 	}
 	
