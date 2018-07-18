@@ -8,7 +8,6 @@ fsaautomation/target/*
 *.class
 fsaautomation/.DS_Store
 fsaautomation/bin/pom.xml
-Executable/data.properties
 fsaautomation/.classpath
 fsaautomation/bin/resources/config.properties
 fsaautomation/bin/resources/FSA.ipa
@@ -17,3 +16,5 @@ fsaautomation/bin/resources/jars/NXGReporter_lite.jar
 fsaautomation/bin/resources/KIRWA.properties
 fsaautomation/bin/resources/TestData.xlsx
 fsaautomation/bin/testng.xml
+.DS_Store
+fsaautomation/.project
