@@ -73,7 +73,7 @@ public class Scenario1 extends BaseLib
 		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
 		String seventSubject = commonsPo.generaterandomnumber("EventName");
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
+		createNewPO.createWorkOrder(commonsPo,"Account47201811263","ContactAutomation 234567", "Product9876789", "Medium", "Loan", sproformainvoice);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(2000);
 		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
