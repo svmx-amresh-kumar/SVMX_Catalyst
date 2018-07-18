@@ -53,6 +53,29 @@ public class CalendarPO
 		return eleworkordernumonCalendar;
 	}
 	
+	private WebElement eleworkordernumonCalendarWeek;
+	public WebElement getEleworkordernumonCalendarWeek(String sWorkOrdernumber)
+	{
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("	(//div[@class='sfmevent-week']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+ sWorkOrdernumber +"')])[2]"));
+		
+		return eleworkordernumonCalendarWeek;
+	}
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Week']")
+	private WebElement elecalendarWeektap;
+	public WebElement getElecalendarWeektap()
+	{
+		return elecalendarWeektap;
+	}
+	
+
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Day']")
+	private WebElement elecalendarDaytap;
+	public WebElement getElecalendarDaytap()
+	{
+		return elecalendarDaytap;
+	}
 	/**
 	 * Author - Meghana Rao
 	 * @param commonsPo - Passing CommonsPO Function
@@ -62,12 +85,15 @@ public class CalendarPO
 	public void verifyworkorderCalendar(CommonsPO commonsPo, String workordername) throws Exception 
 	{
 		commonsPo.tap(getEleCalendarClick());
+		commonsPo.tap(getElecalendarWeektap());
+		//commonsPo.tap(getElecalendarDaytap());
+		
 		Thread.sleep(2000);
 		
 
-			if(getEleworkordernumonCalendar(workordername) != null){
+			if(getEleworkordernumonCalendarWeek(workordername) != null){
 				
-				commonsPo.tap(getEleworkordernumonCalendar(workordername));
+				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
 				
 			}
 			else
