@@ -6,7 +6,6 @@ package com.ge.fsa.pageobjects;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Rotatable;
@@ -16,11 +15,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -58,39 +55,13 @@ public class WorkOrderPO {
 		return eleAddLaborLnk;
 	}
 	
-	@FindBy(xpath="//div[contains(text(),'Parts (')]/../../../../..//span[text()='Add']")
-	private WebElement elePartLnk;
-	public WebElement getElePartLnk()
-	{
-		return elePartLnk;
-	}
-	
-	
 	@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 	private WebElement eleAddTravelLnk;
 	public WebElement getEleAddTravelLnk()
 	{
 		return eleAddTravelLnk;
 	}
-	
-	@FindBy(xpath="//*[contains(text(),'Expenses (')]/../../../../..//*[contains(text(),'Add')]")
-	private WebElement eleAddExpenseLnk;
-	public WebElement getEleAddExpenseLnk()
-	{
-		return eleAddExpenseLnk;
-	}
-	
-	
-	@FindBy(xpath="//span[text()='Expense Type']/../..//div[@class='x-mask-el']")
-	private WebElement eleAddExpenseType;
-	public WebElement getEleAddExpenseType()
-	{
-		return eleAddExpenseType;
-	}
-	
-	
-	
-	
+		
 	@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 	private WebElement eleManageWOLinesTxt;
 	public WebElement getEleManageWOLinesTxt()
@@ -180,21 +151,6 @@ public class WorkOrderPO {
 		return eleProductNameTxt;
 	}
 	
-	@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
-
-	
-	private WebElement eleChildLinesadded;
-	public WebElement getEleChildLinesadded(String childLineName)
-	{
-		
-		//eleChildLinesadded = driver.findElement(By.xpath("(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[contains(text(),'"+childLineName+"')])[2]/../.."));
-		eleChildLinesadded = driver.findElement(By.xpath("//div[contains(text(), 'rrrr')]/../div[2]"));
-
-		return eleChildLinesadded;
-	}
-	
-	
-	
 	@FindBy(xpath="//*[. = 'Activity Type']//input")
 	private WebElement eleActivityTypeLst;
 	public WebElement getEleActivityTypeLst()
@@ -238,85 +194,6 @@ public class WorkOrderPO {
 		return eleYesBtn;
 	}
 	
-	
-	private WebElement eledeletepartChildline;
-	public WebElement getEledeletepartchildline(String childlinevalue)
-	{
-
-		eledeletepartChildline = driver.findElement(By.xpath("(//div[@class='x-inner-el'][contains(text(),'"+childlinevalue+"')])[1]"));
-
-		return eledeletepartChildline;
-	}
-	
-	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Remove item']")
-	private WebElement eleremoveitem;
-	public  WebElement getEleremoveitem()
-	{
-		
-		return eleremoveitem;
-	}
-
-	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")
-	private WebElement eleclickyes;
-	public  WebElement getEleclickyesitem()
-	{
-		
-		return eleclickyes;
-	}
-
-	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
-	private WebElement eleclickOK;
-	public  WebElement getEleclickOK()
-	{
-		
-		return eleclickOK;
-	}
-	
-
-	private WebElement eleclickparts;
-	public WebElement getEleclickparts(String partsname)
-	{
-
-		eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
-
-		return eleclickparts;
-	}
-	
-
-	
-	// Saving the Child Line records
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Save']")
-	private WebElement eleClickSave;
-	public  WebElement getEleClickSave()
-	{
-		
-		return eleClickSave;
-	}
-	
-	// Add selected button
-	
-	//span[@class='x-button-label'][text()='Add Selected']
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
-	private WebElement eleAddselectedbutton;
-	public  WebElement getEleAddselectedbutton()
-	{
-		
-		return eleAddselectedbutton;
-	}
-	
-	//Verifying the Workorder name after saving the value
-	private WebElement eleworkordernameonUI;
-	public WebElement getEleworkordernameonUI(String workordername)
-	{
-
-		eleworkordernameonUI = driver.findElement(By.xpath("//div[@class='x-innerhtml'][text()='"+workordername+"']"));
-
-		return eleworkordernameonUI;
-	}
-	/*
-	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
 	{
 		element.click();
@@ -345,7 +222,7 @@ public class WorkOrderPO {
 		getEleDatePickerPopUp().get(2).sendKeys("00");
 		getEleDatePickerPopUp().get(3).sendKeys("PM");
 	}
-	*/
+	
 	public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 	{
 		Thread.sleep(1000);
@@ -361,8 +238,8 @@ public class WorkOrderPO {
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
 		
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "00", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 0,"0","05", "0"); //set end time
+		setTime(commonsPo, getEleStartDateTimeLst(), 0,"6"); //set start time
+		setTime(commonsPo, getEleEndDateTimeLst(), 0,"8"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -398,15 +275,8 @@ public class WorkOrderPO {
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
 	
-	// To add Parts
 	
-	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
-	{
-		commonsPo.tap(workOrderPo.getElePartLnk());
-		commonsPo.tap(workOrderPo.getEleclickparts(sProductName1));
-		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
-
-	}
+	
 	//To add labor parts
 	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType) throws InterruptedException
 	{	//Adding labor parts name
@@ -417,13 +287,9 @@ public class WorkOrderPO {
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
+		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
+		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
 		
-		commonsPo.setTime(getEleStartDateTimeLst(), 1,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 1,"8","00", "PM"); //set end time
-		
-//		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
-//		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
-	
 		//Add the price and quantity
 		commonsPo.tap(getEleUsePriceToggleBtn());
 		getEleLineQtyTxtFld().sendKeys("10");
@@ -440,10 +306,8 @@ public class WorkOrderPO {
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime(getEleStartDateTimeLst(), 1,"5", "0", "0"); //set start time to Today
-			commonsPo.setTime(getEleEndDateTimeLst(), 1,"9","00", "PM"); //set end time
-//			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
-//			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
+			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
+			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
 			
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
@@ -455,54 +319,5 @@ public class WorkOrderPO {
 			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
 			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
 		}
-		
-		
-	// To add Expense
-		
-		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType, String expensetype) throws InterruptedException
-		{	//Adding Expense name
-			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.pickerWheel(getEleAddExpenseType(), expensetype);
-			commonsPo.tap(getEleDoneBtn());
-
-			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
-			getEleLineQtyTxtFld().sendKeys("10");
-			getEleLinePerUnitTxtFld().sendKeys("1000");	
-			commonsPo.tap(getEleDoneBtn());
-			
-			//Verify to Manage WO lines
-			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
-		}
-		
-		
-		// Delete the Childlines
-		public void deletechildlines(CommonsPO commonsPo, WorkOrderPO workOrderPo, String partname, String workordervalue) throws InterruptedException {
-			commonsPo.tap(workOrderPo.getEledeletepartchildline(partname));
-			commonsPo.tap(workOrderPo.getEleremoveitem());
-			commonsPo.tap(workOrderPo.getEleclickyesitem());
-			commonsPo.tap(workOrderPo.getEleclickOK());
-			Thread.sleep(10000);
-			commonsPo.tap(workOrderPo.getEleClickSave());
-			Thread.sleep(10000);
-			if(workOrderPo.getEleworkordernameonUI(workordervalue) != null)
-			{
-				System.out.println("Chidlines are saved");
-			
-			}
-			else 
-			{
-				System.err.println("Chidlines are not saved");
-				
-			}
-			
-		}
-		
-		// Edit the ChildLines and save them
-		
-		
 }
-
 

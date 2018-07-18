@@ -1,14 +1,9 @@
 package com.ge.fsa.pageobjects;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,13 +15,8 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.TapOptions;
-import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static java.time.Duration.ofSeconds;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-
 
 public class CommonsPO 
 {
@@ -77,7 +67,7 @@ public class CommonsPO
 	private WebElement eleSearchListItem;
 	public WebElement getElesearchListItem(String searchName)
 	{
-		eleSearchListItem = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		eleSearchListItem=driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
 		return eleSearchListItem;
 	}
 	
@@ -131,19 +121,6 @@ public class CommonsPO
 			touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
 		}
 		
-		public void swipeLeft(WebElement ele)
-		{	int offset = 30;
-			Point point = ele.getLocation();
-			int x = point.getX();
-			int y = point.getY();
-			
-			int xOff = x+100;
-			//int yOff = y-100;
-			touchAction = new TouchAction(driver);
-			touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
-		}
-		
-
 		//To search the element scrolling
 		public void getSearch(WebElement wElement)
 		{
@@ -221,81 +198,6 @@ public class CommonsPO
 			return randomstring;
 		}
 		
-	/**
-	 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
-	 *
-	 * @param element
-	 * @param iDaysToScroll
-	 * @param sTimeHrs
-	 * @param sTimeMin
-	 * @param sTimeAMPM
-	 * @throws InterruptedException
-	 */
-		public void setTime( WebElement element, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
-		{
-			element.click();
-			switchContext("Native");
-			datePicker(0,iDaysToScroll);
-			if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
-				getEleDonePickerWheelBtn().click();
-
-			}else {
-				timeSetter(1, sTimeHrs,sTimeMin,sTimeAMPM);
-				getEleDonePickerWheelBtn().click();
-				switchContext("Webview");
-				Thread.sleep(GenericLib.iLowSleep);
-			}
-			switchContext("Webview");
-			
-		}
-		
-		@FindBy(xpath="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")	
-		private List<WebElement> eleDatePickerPopup;
-		public  List<WebElement> getEleDatePickerPopUp()
-		{
-			return eleDatePickerPopup;
-		}
-		
-		/**
-		 * Set the specific date picker wheel by scrolling up or down based on +ve or -ve value
-		 * 
-		 * @param iDateWheelIndex
-		 * @param scrollNum
-		 */
-		public void datePicker(int iDateWheelIndex, int scrollNum)
-		{ 	int i=0;
-			for(i=0;i<scrollNum;i++)
-			{JavascriptExecutor js = (JavascriptExecutor) driver;
-		    Map<String, Object> params = new HashMap<>();
-		    params.put("order", "next");
-		    params.put("offset", 0.15);
-		    params.put("element", getEleDatePickerPopUp().get(iDateWheelIndex));
-		    js.executeScript("mobile: selectPickerWheelValue", params);	
-			}
-		}
-		
-		/**
-		 * Set the time, if the hrs, min, AMPM values in 0 then it will be skipped
-		 * 
-		 * @param iIndex
-		 * @param sTimeHrs
-		 * @param sTimeMin
-		 * @param sTimeAMPM
-		 */
-		public void timeSetter(int iIndex, String sTimeHrs,String sTimeMin,String sTimeAMPM )
-		{
-			if(sTimeHrs !="0") {
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-			}
-			if(sTimeMin !="0") {
-				getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
-			}
-			if(sTimeAMPM !="0") {
-				getEleDatePickerPopUp().get(3).sendKeys(sTimeAMPM);
-			}
-			
-			
-		}
 		
 	
 }

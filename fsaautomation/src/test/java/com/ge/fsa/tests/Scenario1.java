@@ -20,6 +20,7 @@ import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.RecentItemsPO;
+import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.CreateNewPO;
 import com.ge.fsa.pageobjects.ToolsPO;
@@ -41,6 +42,7 @@ public class Scenario1 extends BaseLib
 	CreateNewPO createNewPO = null;
 	ToolsPO toolsPo=null;
 	RecentItemsPO recenItemsPO = null;
+	CalendarPO calendarPO = null;
 
 	
 	int iWhileCnt =0;
@@ -60,6 +62,7 @@ public class Scenario1 extends BaseLib
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
+		calendarPO = new CalendarPO(driver);
 
 	}
 	
@@ -67,21 +70,34 @@ public class Scenario1 extends BaseLib
 	public void Scenario1Functions() throws Exception
 	{
 
-//		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
-//		loginHomePo.login(commonsPo, exploreSearchPo);
-//		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
-//		toolsPo.syncData(commonsPo);
-//		Thread.sleep(2000);
-//		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
-//		restServices.getAccessToken();
-//		String sworkOrderName = restServices.restapisoql(soqlquery);	
-		//recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-		recenItemsPO.clickonWorkOrder(commonsPo, "WO-00009240");
-		
+		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
+		String seventSubject = commonsPo.generaterandomnumber("EventName");
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		createNewPO.createWorkOrder(commonsPo,"Acc2952018142418","Con2952018142443", "BMW 1", "Medium", "Loan", sproformainvoice);
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(2000);
+		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
+		restServices.getAccessToken();
+		String sworkOrderName = restServices.restapisoql(soqlquery);	
+
+		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+
 		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo, "Test Subject", "Test Desscription");
-		
-		
+		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Desscription");
+		calendarPO.verifyworkorderCalendar(commonsPo, sworkOrderName);
+		// To add Labor, Parts , Travel , Expense
+		String sProcessname = "Record T&M";
+		workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.addParts(commonsPo, workOrderPo,"Max Product");
+		workOrderPo.addLaborParts(commonsPo, workOrderPo, "Max Product", "Calibration");
+		workOrderPo.addTravel(commonsPo, workOrderPo);
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(10000);
+//		commonsPo.swipeLeft(workOrderPo.getEleChildLinesadded("Calibration"));
+		workOrderPo.deletechildlines(commonsPo, workOrderPo, "Max Product", sworkOrderName);
+
+//		
+
 		
 	}
 	
