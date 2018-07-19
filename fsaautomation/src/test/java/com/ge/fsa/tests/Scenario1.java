@@ -82,14 +82,17 @@ public class Scenario1 extends BaseLib
 		String sworkOrderName = restServices.restapisoql(soqlquery);	
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Desscription");
+		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Description");
+
 		calendarPO.verifyworkorderCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
+		Thread.sleep(2000);
 		workOrderPo.addParts(commonsPo, workOrderPo,"Product9876789");
 		workOrderPo.addLaborParts(commonsPo, workOrderPo, "Product9876789", "Calibration", sProcessname);
 		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
+		workOrderPo.addExpense(commonsPo, workOrderPo, "Airfare",sProcessname);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
 		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);

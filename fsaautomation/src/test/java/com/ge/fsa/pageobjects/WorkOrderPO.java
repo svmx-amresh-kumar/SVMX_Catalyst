@@ -435,7 +435,7 @@ public class WorkOrderPO {
 		
 		
 		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 0,"8","0", "0"); //set end time
+		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time

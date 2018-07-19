@@ -88,6 +88,27 @@ public class CommonsPO
 	//Customised touch Tap
 		public void tap(WebElement el) throws InterruptedException
 		{   Point point = el.getLocation();
+		
+		
+		for(int i= 0;i<10;i++) {
+			if (point.getX() == 0 && point.getY() == 0) {
+				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
+				Thread.sleep(1000);
+
+			} else if (point.getY() == 0) {
+				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
+
+				// SOmetimes the y coordinates are hidden under the screen space so tap on it and wait for it to generate a coordinate
+				Thread.sleep(1000);
+				point = el.getLocation();
+			}
+
+			else {
+				break;
+			}
+			
+		}
+		
 			touchAction = new TouchAction(driver);
 			touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
