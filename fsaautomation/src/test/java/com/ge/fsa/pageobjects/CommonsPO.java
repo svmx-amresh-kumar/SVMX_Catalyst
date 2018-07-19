@@ -242,8 +242,6 @@ public class CommonsPO
 			}else {
 				timeSetter(1, sTimeHrs,sTimeMin,sTimeAMPM);
 				getEleDonePickerWheelBtn().click();
-				switchContext("Webview");
-				Thread.sleep(GenericLib.iLowSleep);
 			}
 			
 			switchContext("Webview");

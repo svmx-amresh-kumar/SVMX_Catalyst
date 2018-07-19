@@ -62,7 +62,13 @@ public class CalendarPO
 	private WebElement eleworkordernumonCalendarWeek;
 	public WebElement getEleworkordernumonCalendarWeek(String sWorkOrdernumber)
 	{
-		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("	(//div[@class='sfmevent-week']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-week']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
 		
 		return eleworkordernumonCalendarWeek;
 	}
@@ -95,8 +101,6 @@ public class CalendarPO
 		//commonsPo.tap(getElecalendarDaytap());
 		
 		Thread.sleep(2000);
-		
-
 			if(getEleworkordernumonCalendarWeek(workordername) != null){
 				
 				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
