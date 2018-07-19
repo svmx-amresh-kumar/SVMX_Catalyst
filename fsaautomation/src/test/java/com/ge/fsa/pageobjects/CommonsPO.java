@@ -246,6 +246,10 @@ public class CommonsPO
 				Thread.sleep(GenericLib.iLowSleep);
 			}
 			
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			
 		}
 		
 		@FindBy(xpath="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")	

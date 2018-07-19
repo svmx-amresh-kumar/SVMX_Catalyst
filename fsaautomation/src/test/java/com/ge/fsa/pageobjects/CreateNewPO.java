@@ -52,7 +52,7 @@ public class CreateNewPO
 		return eleActivityTypeLst;
 	}
 	
-	@FindBy(xpath="//div[text()='Create Work Order']")
+	@FindBy(xpath="//div[text()='Create New Work Order']")
 	private WebElement eleCreateNewWorkOrder;
 	public WebElement getEleCreateNewWorkOrder()
 	{

@@ -63,6 +63,7 @@ public class Scenario1 extends BaseLib
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
 		calendarPO = new CalendarPO(driver);
+		sPrintReportSearch = "Print Service Report";
 
 	}
 	
@@ -70,40 +71,36 @@ public class Scenario1 extends BaseLib
 	public void Scenario1Functions() throws Exception
 	{
 
-		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
-		String seventSubject = commonsPo.generaterandomnumber("EventName");
+//		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
+//		String seventSubject = commonsPo.generaterandomnumber("EventName");
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		createNewPO.createWorkOrder(commonsPo,"Account47201811263","ContactAutomation 234567", "Product9876789", "Medium", "Loan", sproformainvoice);
-		toolsPo.syncData(commonsPo);
-		Thread.sleep(2000);
-		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
-		restServices.getAccessToken();
-		String sworkOrderName = restServices.restapisoql(soqlquery);	
-
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-
-		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Desscription");
+//		createNewPO.createWorkOrder(commonsPo,"Account47201811263","ContactAutomation 234567", "Product9876789", "Medium", "Loan", sproformainvoice);
+//		toolsPo.syncData(commonsPo);
+//		Thread.sleep(2000);
+//		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
+//		restServices.getAccessToken();
+//		String sworkOrderName = restServices.restapisoql(soqlquery);	
+//
+//		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+//
+//		// To create a new Event for the given Work Order
+//		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Desscription");
+		String sworkOrderName = "WO-00000072";
 		calendarPO.verifyworkorderCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
-		String sProcessname = "Record T&M";
+		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
-		workOrderPo.addParts(commonsPo, workOrderPo,"Max Product");
-		workOrderPo.addLaborParts(commonsPo, workOrderPo, "Max Product", "Calibration");
-		workOrderPo.addTravel(commonsPo, workOrderPo);
+		//workOrderPo.addParts(commonsPo, workOrderPo,"Product9876789");
+		workOrderPo.addLaborParts(commonsPo, workOrderPo, "Product9876789", "Calibration", sProcessname);
+		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
-//		commonsPo.swipeLeft(workOrderPo.getEleChildLinesadded("Calibration"));
-		workOrderPo.deletechildlines(commonsPo, workOrderPo, "Max Product", sworkOrderName);
-
-//		
+		//workOrderPo.deletechildlines(commonsPo, workOrderPo, "Product9876789", sworkOrderName, schildtype);
+		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
 
 		
 	}
 	
-	
-	
-	
-	
+
 	
 }

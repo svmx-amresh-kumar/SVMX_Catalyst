@@ -108,10 +108,10 @@ public class SampleTest extends BaseLib {
 			workOrderPo.selectAction(commonsPo, sFieldServiceName);
 
 			// Add labor parts and update the Work Order
-			workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName1, sActivityType);
+			workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName1, sActivityType, "Manage WO Lines Usage");
 
 			// Add Travel and update the Work Order
-			workOrderPo.addTravel(commonsPo, workOrderPo);
+			workOrderPo.addTravel(commonsPo, workOrderPo, "Manage WO Lines Usage");
 
 			// Save the updated Work Order
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
