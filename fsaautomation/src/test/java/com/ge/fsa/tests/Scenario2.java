@@ -2,6 +2,7 @@ package com.ge.fsa.tests;
 
 import java.io.IOException;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,7 +20,9 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario2 extends BaseLib {
+public class Scenario2 extends BaseLib{
+	
+	
 	GenericLib genericLib = null;
 	RestServices restServices = null;
 	LoginHomePO loginHomePo = null;
@@ -45,7 +48,20 @@ public class Scenario2 extends BaseLib {
 	String sChecklistName = null;
 
 	@BeforeMethod
-	public void initializeObject() throws IOException { // Initialization of objects
+	public void initializeObject() throws Exception { // Initialization of objects
+//Installing fresh
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "false");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		driver.quit();
+		setAPP();
+		//driver = bl.driver;
+		driver.quit();
+		//Not reinstalling fresh
+
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		setAPP();
+		
 		genericLib = new GenericLib();
 		restServices = new RestServices();
 		loginHomePo = new LoginHomePO(driver);
@@ -54,6 +70,7 @@ public class Scenario2 extends BaseLib {
 		toolsPo = new ToolsPO(driver);
 		commonsPo = new CommonsPO(driver);
 		checklistPo = new ChecklistPO(driver);
+
 	
 	}
 
@@ -95,26 +112,52 @@ public class Scenario2 extends BaseLib {
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			// Navigate to Field Service
 			workOrderPo.selectAction(commonsPo, sFieldServiceName);	
-			//Navigating to the checklist
-		
+			//Navigating to the checklist		
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			//tapping the next button in checklist
+			commonsPo.tap(checklistPo.eleNext());
+			//submitting the checklist
+			commonsPo.tap(checklistPo.eleChecklistSubmit());
+		
+			//tapping on the validation sucessfull checklist popup		   
+		    Thread.sleep(10000);
+		   commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
+		    System.out.println("finished clicking on submit popup.");
+		    Thread.sleep(10000);
+		    
+		    //Tapping on Show Completed Checklists
+		    System.out.println("going to tap on show completedchecklists");
+		    commonsPo.longPress(checklistPo.eleShowCompletedChecklist());
+		    System.out.println("tapped on completed checklist");
+	  
+		    
+		   System.out.println("going to tap on the completedchecklist");
+		   System.out.println(driver.getPageSource());
+		    commonsPo.tap(checklistPo.eleCompletedChecklistName(sChecklistName));
+		    System.out.println(checklistPo.eleCompletedChecklistName(sChecklistName));
+		    System.out.println("tapped on completed checklist");
 			// Sync the Data
-		//	toolsPo.syncData(commonsPo);
-			
-
+			//	toolsPo.syncData(commonsPo);
 			// Execute Sahi for server side validation
 			genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
 					sTestCaseID);
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} 
 		catch (Exception e) {
-			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,
-					new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			//NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}
 
 	}
 
+	
+	@AfterMethod
+		public void tearDownDriver()
+		{
+			driver.quit();
+		}
+		
+		
 }
 	
 	
