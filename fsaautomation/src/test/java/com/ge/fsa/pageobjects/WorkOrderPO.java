@@ -90,13 +90,20 @@ public class WorkOrderPO {
 	
 	
 	
-	
 	@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 	private WebElement eleManageWOLinesTxt;
 	public WebElement getEleManageWOLinesTxt()
 	{
 		return eleManageWOLinesTxt;
 	}
+	
+	private WebElement eleProcessName;
+	public WebElement getEleProcessName(String sprocessname)
+	{
+		eleProcessName=driver.findElement(By.xpath("//span[text()='"+sprocessname+"']"));
+		return eleProcessName;
+	}
+
 	
 	@FindBy(xpath="//*[text() = 'Save']")
 	private WebElement eleSaveLnk;
@@ -176,7 +183,7 @@ public class WorkOrderPO {
 	private WebElement eleProductNameTxt;
 	public WebElement getEleProductNameTxt(String sProductName)
 	{
-		eleProductNameTxt=driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sProductName+"']"));
+		eleProductNameTxt=driver.findElement(By.xpath("//div[@class='x-listitem x-gridrow x-component x-has-height x-heighted x-layout-auto-item x-first x-last']//div[@class='x-inner-el'][text()='"+sProductName+"']"));
 		return eleProductNameTxt;
 	}
 	
@@ -243,9 +250,18 @@ public class WorkOrderPO {
 	public WebElement getEledeletepartchildline(String childlinevalue)
 	{
 
-		eledeletepartChildline = driver.findElement(By.xpath("(//div[@class='x-inner-el'][contains(text(),'"+childlinevalue+"')])[1]"));
+		eledeletepartChildline = driver.findElement(By.xpath("(//div[@class='x-inner-el'][contains(text(),'"+childlinevalue+"')])[2]"));
 
 		return eledeletepartChildline;
+	}
+	
+	private WebElement eledeletelaborChildline;
+	public WebElement getEledeletelaborChildline(String childlinevalue)
+	{
+
+		eledeletelaborChildline = driver.findElement(By.xpath("(//div[@class='x-inner-el'][contains(text(),'"+childlinevalue+"')])[23"));
+
+		return eledeletelaborChildline;
 	}
 	
 	
@@ -408,18 +424,18 @@ public class WorkOrderPO {
 
 	}
 	//To add labor parts
-	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType) throws InterruptedException
+	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType, String sprocessname) throws InterruptedException
 	{	//Adding labor parts name
 		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 		commonsPo.tap(getElePartLaborLkUp());
-		commonsPo.longPress(getEleProductNameTxt(sProductName1));
+		commonsPo.tap(getEleProductNameTxt(sProductName1));
 		
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		
-		commonsPo.setTime(getEleStartDateTimeLst(), 1,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 1,"8","00", "PM"); //set end time
+		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
+		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
@@ -430,17 +446,18 @@ public class WorkOrderPO {
 		getEleLinePerUnitTxtFld().sendKeys("1000");	
 		commonsPo.tap(getEleDoneBtn());
 		
+
 		//Verify to Manage WO lines
-		Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");   
 		NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
 	}
 	
 	//To add Travel
-		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo) throws InterruptedException
+		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime(getEleStartDateTimeLst(), 1,"5", "0", "0"); //set start time to Today
+			commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
 			commonsPo.setTime(getEleEndDateTimeLst(), 1,"9","00", "PM"); //set end time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
@@ -452,18 +469,18 @@ public class WorkOrderPO {
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines
-			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
 			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
-		}
+	}
 		
 		
 	// To add Expense
 		
-		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType, String expensetype) throws InterruptedException
+		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
 			commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.pickerWheel(getEleAddExpenseType(), expensetype);
+			commonsPo.pickerWheel(getEleAddExpenseType(), expenseType);
 			commonsPo.tap(getEleDoneBtn());
 
 			//Add the price and quantity
@@ -473,13 +490,12 @@ public class WorkOrderPO {
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines
-			Assert.assertTrue(workOrderPo.getEleManageWOLinesTxt().isDisplayed(), "Failed to add Labor parts");   
+			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
 			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
 		}
-		
-		
+
 		// Delete the Childlines
-		public void deletechildlines(CommonsPO commonsPo, WorkOrderPO workOrderPo, String partname, String workordervalue) throws InterruptedException {
+		public void deletechildlines(CommonsPO commonsPo, WorkOrderPO workOrderPo, String partname, String workordervalue, String schildtype) throws InterruptedException {
 			commonsPo.tap(workOrderPo.getEledeletepartchildline(partname));
 			commonsPo.tap(workOrderPo.getEleremoveitem());
 			commonsPo.tap(workOrderPo.getEleclickyesitem());

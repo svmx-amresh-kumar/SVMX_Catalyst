@@ -6,6 +6,7 @@ package com.ge.fsa.pageobjects;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -48,6 +49,12 @@ public class CalendarPO
 	private WebElement eleworkordernumonCalendar;
 	public WebElement getEleworkordernumonCalendar(String sWorkOrdernumber)
 	{
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		eleworkordernumonCalendar=driver.findElement(By.xpath("//div[contains(.,'\" "+ sWorkOrdernumber +" \"')]/div[@class='sfmevent-location-container']"));
 		
 		return eleworkordernumonCalendar;
@@ -56,8 +63,14 @@ public class CalendarPO
 	private WebElement eleworkordernumonCalendarWeek;
 	public WebElement getEleworkordernumonCalendarWeek(String sWorkOrdernumber)
 	{
-		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("	(//div[@class='sfmevent-week']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+ sWorkOrdernumber +"')])[2]"));
-		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container']"));
 		return eleworkordernumonCalendarWeek;
 	}
 
@@ -86,21 +99,21 @@ public class CalendarPO
 	{
 		commonsPo.tap(getEleCalendarClick());
 		commonsPo.tap(getElecalendarWeektap());
-		//commonsPo.tap(getElecalendarDaytap());
+		commonsPo.tap(getElecalendarDaytap());
 		
 		Thread.sleep(2000);
-		
 
-			if(getEleworkordernumonCalendarWeek(workordername) != null){
-				
-				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
-				
-			}
-			else
-			{
-				throw new Exception("WorkOrder not found on the Calendar");
-				
-			}
+		
+		
+		if(getEleworkordernumonCalendarWeek(workordername) != null){
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
+		}
+		else
+		{
+			throw new Exception("WorkOrder not found on the Calendar");
+			
+		}
+			
 		
 
 	}
