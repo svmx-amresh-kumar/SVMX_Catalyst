@@ -30,7 +30,6 @@ public class Scenario2 extends BaseLib{
 	WorkOrderPO workOrderPo = null;
 	CommonsPO commonsPo = null;
 	ChecklistPO checklistPo = null;
-	
 	ToolsPO toolsPo = null;
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -50,7 +49,7 @@ public class Scenario2 extends BaseLib{
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
 //Installing fresh
-		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "false");
+	/*	GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "false");
 		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
 		driver.quit();
 		setAPP();
@@ -60,7 +59,7 @@ public class Scenario2 extends BaseLib{
 
 		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
-		setAPP();
+		setAPP();*/
 		
 		genericLib = new GenericLib();
 		restServices = new RestServices();
@@ -89,12 +88,13 @@ public class Scenario2 extends BaseLib{
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		
-		restServices.getAccessToken();
+	//	restServices.getAccessToken();
 		// Creation of dynamic Work Order
 		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 
-		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-		sWOName = restServices.getWOName(sWorkOrderID);
+	//	sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
+	//	sWOName = restServices.getWOName(sWorkOrderID);
+		sWOName="WO-00000151";
 
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
@@ -102,7 +102,10 @@ public class Scenario2 extends BaseLib{
 
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
+			toolsPo.configSync(commonsPo);
+			System.out.println("Config Sync completed.....");
 			toolsPo.syncData(commonsPo);
+			
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			// Explore and Navigate to the Search Process
 			commonsPo.getSearch(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
@@ -120,10 +123,10 @@ public class Scenario2 extends BaseLib{
 			commonsPo.tap(checklistPo.eleChecklistSubmit());
 		
 			//tapping on the validation sucessfull checklist popup		   
-		    Thread.sleep(10000);
+		   
 		   commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
 		    System.out.println("finished clicking on submit popup.");
-		    Thread.sleep(10000);
+		 
 		    
 		    //Tapping on Show Completed Checklists
 		    System.out.println("going to tap on show completedchecklists");
