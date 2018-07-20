@@ -20,18 +20,18 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario2 extends BaseLib{
+public class Scenario3 extends BaseLib{
 	
 	
-//	GenericLib genericLib = null;
-//	RestServices restServices = null;
-//	LoginHomePO loginHomePo = null;
-//	ExploreSearchPO exploreSearchPo = null;
-//	WorkOrderPO workOrderPo = null;
-//	CommonsPO commonsPo = null;
-//	ChecklistPO checklistPo = null;	
-//	ToolsPO toolsPo = null;
+	GenericLib genericLib = null;
+	RestServices restServices = null;
+	LoginHomePO loginHomePo = null;
+	ExploreSearchPO exploreSearchPo = null;
+	WorkOrderPO workOrderPo = null;
+	CommonsPO commonsPo = null;
+	ChecklistPO checklistPo = null;
 	
+	ToolsPO toolsPo = null;
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
 	String sCaseWOID = null;
@@ -49,29 +49,33 @@ public class Scenario2 extends BaseLib{
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
+//Installing fresh
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "false");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		driver.quit();
+		setAPP();
+		//driver = bl.driver;
+		driver.quit();
+		//Not reinstalling fresh
+
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		setAPP();
 		
-		
-		
-//		genericLib = new GenericLib();
-//		restServices = new RestServices();
-//		loginHomePo = new LoginHomePO(driver);
-//		exploreSearchPo = new ExploreSearchPO(driver);
-//		workOrderPo = new WorkOrderPO(driver);
-//		toolsPo = new ToolsPO(driver);
-//		commonsPo = new CommonsPO(driver);
-//		checklistPo = new ChecklistPO(driver);
+		genericLib = new GenericLib();
+		restServices = new RestServices();
+		loginHomePo = new LoginHomePO(driver);
+		exploreSearchPo = new ExploreSearchPO(driver);
+		workOrderPo = new WorkOrderPO(driver);
+		toolsPo = new ToolsPO(driver);
+		commonsPo = new CommonsPO(driver);
+		checklistPo = new ChecklistPO(driver);
 
 	
 	}
 
 	@Test(enabled = true)
 	public void scenario2_checklist() throws Exception {
-		
-		//lauchNewApp("false");
-//		lauchNewApp();
-
-		System.out.println("Scenario 2");
-		
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
@@ -95,7 +99,7 @@ public class Scenario2 extends BaseLib{
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
 			
-			lauchNewApp("true");
+
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			toolsPo.syncData(commonsPo);

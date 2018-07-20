@@ -33,43 +33,35 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario1 extends BaseLib
 {
-	GenericLib genericLib = null;
-	RestServices restServices = null;
-	LoginHomePO loginHomePo = null;
-	ExploreSearchPO exploreSearchPo = null;	
-	WorkOrderPO workOrderPo = null;
-	CommonsPO commonsPo = null;
-	CreateNewPO createNewPO = null;
-	ToolsPO toolsPo=null;
-	RecentItemsPO recenItemsPO = null;
-	CalendarPO calendarPO = null;
-
+	
 	
 	int iWhileCnt =0;
 	String sTestCaseID=null; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch=null;
-	@BeforeMethod
-	public void initializeObject() throws IOException
-	{	// Initialization of objects
-		genericLib=new GenericLib();
-		restServices = new RestServices();
-		loginHomePo = new LoginHomePO(driver);
-		exploreSearchPo = new ExploreSearchPO(driver);	
-		workOrderPo = new WorkOrderPO(driver);
-		toolsPo = new ToolsPO(driver);	
-		commonsPo = new CommonsPO(driver);
-		restServices = new RestServices();
-		createNewPO = new CreateNewPO(driver);
-		recenItemsPO = new RecentItemsPO(driver);
-		calendarPO = new CalendarPO(driver);
-		sPrintReportSearch = "Print Service Report";
-
-	}
+//	//@BeforeMethod
+//	public void initializeObject() throws IOException
+//	{	// Initialization of objects
+//		genericLib=new GenericLib();
+//		restServices = new RestServices();
+//		loginHomePo = new LoginHomePO(driver);
+//		exploreSearchPo = new ExploreSearchPO(driver);	
+//		workOrderPo = new WorkOrderPO(driver);
+//		toolsPo = new ToolsPO(driver);	
+//		commonsPo = new CommonsPO(driver);
+//		restServices = new RestServices();
+//		createNewPO = new CreateNewPO(driver);
+//		recenItemsPO = new RecentItemsPO(driver);
+//		calendarPO = new CalendarPO(driver);
+//		
+//
+//	}
 	
 	@Test
 	public void Scenario1Functions() throws Exception
-	{
+	{sPrintReportSearch = "Print Service Report";
+
+		System.out.println("Scenario 1");
 
 		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
 		String seventSubject = commonsPo.generaterandomnumber("EventName");
