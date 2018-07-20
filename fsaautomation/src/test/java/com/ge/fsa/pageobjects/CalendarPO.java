@@ -70,7 +70,7 @@ public class CalendarPO
 			e.printStackTrace();
 		}
 		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
-		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container']"));
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container'])[1]"));
 		return eleworkordernumonCalendarWeek;
 	}
 
@@ -101,15 +101,17 @@ public class CalendarPO
 		commonsPo.tap(getElecalendarWeektap());
 		commonsPo.tap(getElecalendarDaytap());
 		
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 
-		
-		
+commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
+
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
+			System.out.println("Found WO " + workordername);
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
 		}
 		else
 		{
+			System.out.println("Found WO " + workordername);
 			throw new Exception("WorkOrder not found on the Calendar");
 			
 		}

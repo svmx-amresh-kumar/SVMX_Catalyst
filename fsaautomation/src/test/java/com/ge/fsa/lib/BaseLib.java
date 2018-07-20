@@ -69,6 +69,9 @@ public class BaseLib {
 	public void setAPP() throws Exception
 	{
 		try { 
+			//Resetting to true always first
+			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getCongigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
@@ -79,7 +82,7 @@ public class BaseLib {
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getCongigValue(GenericLib.sConfigFile, "UDID"));
 			capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET,GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET")));
 			capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS,true);		
 			capabilities.setCapability("xcodeOrgId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
 			capabilities.setCapability("xcodeSigningId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));

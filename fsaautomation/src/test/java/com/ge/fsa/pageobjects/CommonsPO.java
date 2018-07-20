@@ -87,26 +87,28 @@ public class CommonsPO
 
 	//Customised touch Tap
 		public void tap(WebElement el) throws InterruptedException
-		{   Point point = el.getLocation();
+		{   
+			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
+			Point point = el.getLocation();
 		
 		
 		for(int i= 0;i<10;i++) {
 			if (point.getX() == 0 && point.getY() == 0) {
 				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
 				Thread.sleep(1000);
-
+			
 			} else if (point.getY() == 0) {
 				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
 
 				// SOmetimes the y coordinates are hidden under the screen space so tap on it and wait for it to generate a coordinate
 				Thread.sleep(1000);
-				point = el.getLocation();
+				
 			}
 
 			else {
 				break;
 			}
-			
+			point = el.getLocation();
 		}
 		
 			touchAction = new TouchAction(driver);
@@ -197,6 +199,7 @@ public class CommonsPO
 		public void pickerWheel( WebElement element, String sValue) throws InterruptedException
 		{
 			element.click();
+			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
 			tap(getEleDonePickerWheelBtn());
