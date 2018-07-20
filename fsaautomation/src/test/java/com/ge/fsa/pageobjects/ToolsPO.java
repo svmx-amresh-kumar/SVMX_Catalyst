@@ -88,6 +88,7 @@ public class ToolsPO
 		return eleConfigSyncBarMenuLnk;
 	}
 	
+	//@FindBy(xpath="//div")
 	//To sync the data
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
