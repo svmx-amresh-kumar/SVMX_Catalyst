@@ -58,7 +58,7 @@ public class RecentItemsPO
 	public WebElement getEleworkordertabtap()
 	{
 		
-		eleworkordertabtap = driver.findElement(By.xpath("(//div[@class='x-innerhtml'][contains(text(),'Work Order')])[1]"));
+		eleworkordertabtap = driver.findElement(By.xpath("(//div[@class='x-innerhtml'][contains(text(),'Work Order ')])[1]"));
 		return eleworkordertabtap;
 	}
 	
@@ -84,17 +84,10 @@ public class RecentItemsPO
 		Thread.sleep(1000);
 		commonsPo.tap(getEleSearchtext());
 		getEleSearchtext().sendKeys(workordername);
-		
-		try {
-			if(getEleWorkordernumberclick(workordername) == null){
-				commonsPo.tap(getEleworkordertabtap());
-			}
-			}
-			catch(Exception e){
-				
-			}
+		commonsPo.tap(getEleworkordertabtap());
+		commonsPo.tap(getEleWorkordernumberclick(workordername));
 	
-			commonsPo.tap(getEleWorkordernumberclick(workordername));
+		
 	
 		
 	}

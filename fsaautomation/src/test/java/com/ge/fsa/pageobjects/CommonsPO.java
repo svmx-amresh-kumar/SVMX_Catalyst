@@ -86,8 +86,19 @@ public class CommonsPO
 	
 
 	//Customised touch Tap
-		public void tap(WebElement el) throws InterruptedException
+		public void tap(WebElement el,int... pointxy) throws InterruptedException
 		{   
+
+		    Integer p1 = pointxy.length > 0 ? pointxy[0] : 0;
+		    Integer p2 = pointxy.length > 1 ? pointxy[1] : 0;
+		    
+		    int xNewOffset =0;
+		    int yNewOffset =0;
+			if(pointxy !=null) {
+				xNewOffset = p1; 
+				yNewOffset = p2; 
+			}
+			
 			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
 			Point point = el.getLocation();
 		
@@ -112,7 +123,13 @@ public class CommonsPO
 		}
 		
 			touchAction = new TouchAction(driver);
-			touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			if(xNewOffset!=0) {
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+
+			}else {
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+
+			}
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		
