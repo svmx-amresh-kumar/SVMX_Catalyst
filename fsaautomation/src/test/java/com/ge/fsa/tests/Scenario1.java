@@ -4,6 +4,9 @@
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -60,7 +63,7 @@ public class Scenario1 extends BaseLib
 		// To create a new Event for the given Work Order
 		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Description");
 
-		calendarPO.verifyworkorderCalendar(commonsPo, sworkOrderName);
+		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
@@ -72,6 +75,59 @@ public class Scenario1 extends BaseLib
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
 		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+
+		// Verifying if the Attachment is NULL before Sync
+		String soqlqueryatatchbefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String sattachmentidbefore = restServices.restsoql(soqlqueryatatchbefore, "Id");	
+		assertNull(sattachmentidbefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
+		
+		// Verifying the Childline values - Before the SYNC
+		String soqlquerychildlinesbefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String schildlinesbefore = restServices.restsoql(soqlquerychildlinesbefore, "totalSize");	
+		if(schildlinesbefore.equals("0"))
+				{
+				NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesbefore, LogAs.PASSED, null);
+
+				System.out.println("The attachment before Sync is "+schildlinesbefore);
+				}
+		else
+		{
+			NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesbefore, LogAs.FAILED, null);
+			System.out.println("The attachment before Sync is "+schildlinesbefore);
+		}
+		// Syncing the Data
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(5000);
+		/**
+		 * Verifying the values after the Syncing of the DATA
+		 */
+		// Verifying the Work details and the service report
+		String soqlquery_attachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String sattachmentIDAfter = restServices.restsoql(soqlquery_attachment, "Id");	
+		assertNotNull(sattachmentIDAfter);
+		
+		// Verifying the childlines of the Same Work Order
+		String soqlquerychildlineafter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String schildlinesafter = restServices.restsoql(soqlquerychildlineafter, "totalSize");	
+		if(schildlinesafter.equals("0"))
+		{
+		NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesafter, LogAs.FAILED, null);
+
+		System.out.println("The attachment before Sync is "+schildlinesafter);
+		}
+		else
+		{
+			NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesafter, LogAs.PASSED, null);
+			System.out.println("The attachment before Sync is "+schildlinesafter);
+		}
+	
+		
+		
+		
 
 	}
 	
