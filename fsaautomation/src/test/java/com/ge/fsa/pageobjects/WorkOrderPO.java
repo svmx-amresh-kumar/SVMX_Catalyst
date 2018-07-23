@@ -81,7 +81,7 @@ public class WorkOrderPO {
 	}
 	
 	
-	@FindBy(xpath="//span[text()='Expense Type']/../..//div[@class='x-mask-el']")
+	@FindBy(xpath="//span[text()='Expense Type']/../..//input[@class='x-input-el']")
 	private WebElement eleAddExpenseType;
 	public WebElement getEleAddExpenseType()
 	{
@@ -464,6 +464,7 @@ public class WorkOrderPO {
 			
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
+			
 			getEleLineQtyTxtFld().sendKeys("10");
 			getEleLinePerUnitTxtFld().sendKeys("1000");	
 			commonsPo.tap(getEleDoneBtn());
@@ -481,7 +482,6 @@ public class WorkOrderPO {
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
 			commonsPo.tap(workOrderPo.getEleAddExpenseType());
 			commonsPo.pickerWheel(getEleAddExpenseType(), expenseType);
-			commonsPo.tap(getEleDoneBtn());
 
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());

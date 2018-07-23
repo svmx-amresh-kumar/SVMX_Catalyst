@@ -20,10 +20,18 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario2 extends BaseLib{
+public class Scenario3 extends BaseLib{
 	
 	
+	GenericLib genericLib = null;
+	RestServices restServices = null;
+	LoginHomePO loginHomePo = null;
+	ExploreSearchPO exploreSearchPo = null;
+	WorkOrderPO workOrderPo = null;
+	CommonsPO commonsPo = null;
+	ChecklistPO checklistPo = null;
 	
+	ToolsPO toolsPo = null;
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
 	String sCaseWOID = null;
@@ -41,9 +49,30 @@ public class Scenario2 extends BaseLib{
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
+//Installing fresh
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "false");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		driver.quit();
+		setAPP();
+		//driver = bl.driver;
+		driver.quit();
+		//Not reinstalling fresh
 
+		GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+		System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+		setAPP();
+		
+		genericLib = new GenericLib();
+		restServices = new RestServices();
+		loginHomePo = new LoginHomePO(driver);
+		exploreSearchPo = new ExploreSearchPO(driver);
+		workOrderPo = new WorkOrderPO(driver);
+		toolsPo = new ToolsPO(driver);
+		commonsPo = new CommonsPO(driver);
+		checklistPo = new ChecklistPO(driver);
 
-}
+	
+	}
 
 	@Test(enabled = true)
 	public void scenario2_checklist() throws Exception {
@@ -63,9 +92,9 @@ public class Scenario2 extends BaseLib{
 		restServices.getAccessToken();
 		// Creation of dynamic Work Order
 		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+
 		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
 		sWOName = restServices.getWOName(sWorkOrderID);
-		
 
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
@@ -73,10 +102,7 @@ public class Scenario2 extends BaseLib{
 
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
-			toolsPo.configSync(commonsPo);
-			System.out.println("Config Sync completed.....");
 			toolsPo.syncData(commonsPo);
-			
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			// Explore and Navigate to the Search Process
 			commonsPo.getSearch(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
@@ -94,10 +120,10 @@ public class Scenario2 extends BaseLib{
 			commonsPo.tap(checklistPo.eleChecklistSubmit());
 		
 			//tapping on the validation sucessfull checklist popup		   
-		   
+		    Thread.sleep(10000);
 		   commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
 		    System.out.println("finished clicking on submit popup.");
-		 
+		    Thread.sleep(10000);
 		    
 		    //Tapping on Show Completed Checklists
 		    System.out.println("going to tap on show completedchecklists");
@@ -133,7 +159,6 @@ public class Scenario2 extends BaseLib{
 		
 		
 }
-	
 	
 	
 

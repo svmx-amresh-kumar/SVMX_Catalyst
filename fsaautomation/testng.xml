@@ -6,7 +6,10 @@
     </listeners>
   <test  name="Test">
     <classes>
-      <class name="com.ge.fsa.tests.SampleTest"/>
+            <class name="com.ge.fsa.tests.Scenario1"/>
+      
+            <class name="com.ge.fsa.tests.Scenario2"/>
+      
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
