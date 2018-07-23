@@ -433,7 +433,7 @@ public class WorkOrderPO {
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
-		
+		Thread.sleep(2000);
 		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
 		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
 		
