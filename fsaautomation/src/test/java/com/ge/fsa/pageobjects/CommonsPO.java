@@ -322,5 +322,47 @@ public class CommonsPO
 			
 		}
 		
+		//Wait for element until the element is displayed or time elapsed
+		public boolean waitForString(WebElement element, String sExpectedValue,long lTime)
+		{ 	
+		
+			String op = null;
+			String sd=null;
+			lElapsedTime=0L;
+			while(true)
+			{
+				waitforElement(element, GenericLib.lWaitTime);
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				op = element.getText();
+				sd=sExpectedValue;
+				try{
+					if(!op.equals(sd) && (lElapsedTime==lTime))
+					{ 
+						return false;
+						}
+				}catch(Exception ex) {
+					return false;
+				}
+				lElapsedTime++;
+				
+				if(op.equals(sd)) {
+					return true;
+				}
+			
+			}
+			
+		
+			
+		}
+		
+		
+	
+
+		
 	
 }
