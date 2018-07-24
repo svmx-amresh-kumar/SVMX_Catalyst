@@ -64,8 +64,10 @@ public class Scenario2 extends BaseLib{
 		// Creation of dynamic Work Order
 		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-		sWOName = restServices.getWOName(sWorkOrderID);
-		
+	sWOName = restServices.getWOName(sWorkOrderID);
+		//sWOName="WO-00000166";
+	String ChecklistTextQuestion ="text2372018162553";
+			
 
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
@@ -87,10 +89,15 @@ public class Scenario2 extends BaseLib{
 			// Navigate to Field Service
 			workOrderPo.selectAction(commonsPo, sFieldServiceName);	
 			//Navigating to the checklist		
+			Thread.sleep(2000);
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			Thread.sleep(2000);
+			checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).sendKeys("Text Question Answered");
+			
 			//tapping the next button in checklist
 			commonsPo.tap(checklistPo.eleNext());
 			//submitting the checklist
+			Thread.sleep(2000);
 			commonsPo.tap(checklistPo.eleChecklistSubmit());
 		
 			//tapping on the validation sucessfull checklist popup		   
@@ -110,6 +117,11 @@ public class Scenario2 extends BaseLib{
 		    commonsPo.tap(checklistPo.eleCompletedChecklistName(sChecklistName));
 		    System.out.println(checklistPo.eleCompletedChecklistName(sChecklistName));
 		    System.out.println("tapped on completed checklist");
+		    String qans = checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).getText();
+		    System.out.println("tesx====="+qans);
+		    if (qans == "Text Question Answered") {
+				System.out.println("Answered value sucessfull!");
+			}
 			// Sync the Data
 			//	toolsPo.syncData(commonsPo);
 			// Execute Sahi for server side validation

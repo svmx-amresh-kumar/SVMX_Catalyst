@@ -32,23 +32,15 @@ public class ChecklistPO {
 	{
 		return eleChecklistSubmit;
 	}
-	/*
+	
 	@FindBy(xpath="//a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']")
 
 	private WebElement eleStartNew;
 	public WebElement eleStartNew()
 	{
 		return eleStartNew;
-	}*/
+	}
 	
-/*	@FindBy(xpath="//div[@class='x-container x-unsized x-panel x-component x-msgbox x-msgbox-messagebox x-panel-messagebox x-container-messagebox x-component-messagebox x-floated']")
-	//@FindBy(xpath="//div[@class='x-dock x-dock-vertical x-unsized']//div[@class='x-component x-button x-button-no-icon x-button-button-tools-msgbox x-component-button-tools-msgbox x-button-button-highlight x-component-button-highlight svmx-msg-button-default x-haslabel x-layout-box-item x-layout-hbox-item x-flexed x-stretched']")
-  //  @FindBy(xpath="//div[@class='x-component x-button x-button-no-icon x-button-button-tools-msgbox x-component-button-tools-msgbox x-button-button-highlight x-component-button-highlight svmx-msg-button-default x-haslabel x-layout-box-item x-layout-hbox-item x-flexed x-stretched']")
-    private WebElement eleChecklistPopupSubmit;
-    public WebElement eleChecklistPopupSubmit()
-    {
-    	return eleChecklistPopupSubmit;
-    }*/
 	
     @FindBy(xpath="//span[text()='Next']")
     private WebElement eleNext;
@@ -88,5 +80,13 @@ public class ChecklistPO {
 		return eleCompletedChecklistName;
 	}
     
+	
+	private WebElement eleChecklistAnswerText;
+	public WebElement  geteleChecklistAnswerTextArea(String ChecklistTextQuestion)
+	{
+		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//textarea"));
+	}
+	
+	
 }
 

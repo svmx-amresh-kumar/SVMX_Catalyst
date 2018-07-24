@@ -124,6 +124,7 @@ public class BaseLib {
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
 		calendarPO = new CalendarPO(driver);
+		checklistPo = new ChecklistPO(driver);
 		
 
 	}   
