@@ -49,7 +49,7 @@ public class Scenario1 extends BaseLib
 	String sProductName = "Product9876789";
 	String sContactName = "ContactAutomation 234567";
 	String sExpenseType = "Airfare";
-	String sLineQty = "10";
+	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
 
 	
@@ -135,11 +135,13 @@ public class Scenario1 extends BaseLib
 		}
 		
 		Thread.sleep(1000);
-		JSONArray returnedjsonarray = commonsPo.verifyPartsdetails(restServices, "WO-00000274","Expenses");
+		// Verification of the fields of the childlines of Type = Expenses
+		JSONArray returnedjsonarray = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Expenses");
 		String expensetype = commonsPo.getJsonValue(returnedjsonarray, "SVMXC__Expense_Type__c");
 		String lineqty = commonsPo.getJsonValue(returnedjsonarray, "SVMXC__Actual_Quantity2__c");
 		assertEquals(expensetype, sExpenseType);
 		assertEquals(lineqty, sLineQty);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
 
 
 	}
