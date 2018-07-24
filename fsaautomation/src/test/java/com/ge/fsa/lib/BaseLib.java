@@ -22,6 +22,7 @@ import com.ge.fsa.pageobjects.CreateNewPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.RecentItemsPO;
+import com.ge.fsa.pageobjects.TasksPO;
 import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 import com.kirwa.nxgreport.NXGReports;
@@ -52,6 +53,7 @@ public class BaseLib {
 	public CreateNewPO createNewPO=null;
 	public RecentItemsPO recenItemsPO = null;
 	public CalendarPO calendarPO = null;
+	public TasksPO tasksPo = null;
 	
 	
 	
@@ -124,6 +126,7 @@ public class BaseLib {
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
 		calendarPO = new CalendarPO(driver);
+		tasksPo = new TasksPO(driver);
 		checklistPo = new ChecklistPO(driver);
 		
 

@@ -1,5 +1,9 @@
 package com.ge.fsa.pageobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -61,15 +65,42 @@ public class TasksPO {
 		return eleTasksLbl;
 	}
 	
+	@FindBy(xpath="//div[@class='tasks-list-item-subject']")
+	private List<WebElement> eleInTasksList;
+	public List<WebElement> getEleInTasksList() {
+		return eleInTasksList;
+	}
 	
-	public void addTask(CommonsPO commonsPo) throws InterruptedException {
+	private WebElement elePriorityIcon;
+	public WebElement getElePriorityIcon(String taskName) {
+		
+		elePriorityIcon = driver.findElement(By.xpath("//div[.='"+taskName+"']/following-sibling::span[contains(@class,'double-exclamation')]"));
+		return elePriorityIcon;
+	}
+	
+	/**
+	 * Add task , if optional sDesc is not passed , default description value will be set.
+	 * 
+	 * @param commonsPo
+	 * @param sDesc
+	 * @throws InterruptedException
+	 */
+
+	public String addTask(CommonsPO commonsPo, String...sDesc) throws InterruptedException {
+		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("Desc");
 		commonsPo.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		NXGReports.addStep("Tasks screen is displayed successfully", LogAs.PASSED, null);
-		
+		getEleAddTasksBtn().click();
+		getEleDescriptionTxtArea().sendKeys(desc);
+		getEleHighRadioBtn().click();
+		getEleSaveBtn().click();
+		List<WebElement> tasksList = new ArrayList<WebElement>();
+		tasksList = getEleInTasksList();
+		Assert.assertTrue(tasksList.contains(desc),"Task was not added successfully to the list");
+		NXGReports.addStep("Tasks added successfully", LogAs.PASSED, null);
+		Assert.assertTrue(getElePriorityIcon(desc).isDisplayed(),"High Priority Icon is not displayed");
+		NXGReports.addStep("High Priority Icon is displayed successfully", LogAs.PASSED, null);
+		return desc;
 	}
-	
-	
-	
-
 }
