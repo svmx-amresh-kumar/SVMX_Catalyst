@@ -7,10 +7,12 @@ import com.ge.fsa.lib.BaseLib;
 public class Scenario3 extends BaseLib {
 	
 	@Test
-	public void scenario3_initialSync() {
+	public void scenario3_initialSync() throws InterruptedException {
+		
 		lauchNewApp("false");
-		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		tasksPo.addTask(commonsPo);
+		
 	}
 
 }
