@@ -7,6 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -15,6 +19,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.RestServices;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
@@ -25,10 +30,17 @@ import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static java.time.Duration.ofSeconds;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import com.ge.fsa.lib.BaseLib;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 
-public class CommonsPO 
+public class CommonsPO extends BaseLib 
 {
 	public CommonsPO(AppiumDriver driver)
 	{
@@ -377,9 +389,59 @@ public class CommonsPO
 			
 		}
 		
-		
+		 /**
+		  * Based on the retuned JSONArray, in the calling methid , use String  returnvalue= (String) value.get(verifyvalue1);
+
+		  * 
+		  * @param restservices
+		  * @param sworkordername
+		  * @param slinetype
+		  * @param requieredApiNAme
+		  * @param expectedValue
+		  * @return
+		  * @throws IOException
+		  */
+		 public JSONArray verifyPartsdetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
+		 {
+			
+			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
+			 System.out.println(soqlquery);
+			 restservices.getAccessToken();
+			 JSONObject returnedvalues = restservices.restsoqlformultiplevalues(soqlquery);
+			 System.out.println(returnedvalues);
+			 JSONArray childlinesarray = (JSONArray) returnedvalues.get("records");		 
+			 
+			 return childlinesarray;
+		}
+		 
+		 /**
+		  * Get the value from any JsonArray returned
+		  * usage: 
+		  * jsonArray = commonPO.verifyPartsdetails(RestServices restservices, String sworkordername,String slineType);
+		  *
+		  * getJsonValue( jsonArray, sfieldName1)
+		  * getJsonValue( jsonArray, sfieldName2)
+		  * getJsonValue( jsonArray, sfieldName3)
+		  * 
+		  * @param jsonArray
+		  * @param sfieldName
+		  * @return
+		  */
+		 public String getJsonValue(JSONArray jsonArray,String sfieldName) {
+			 String fieldValueObtained=null;
+				Iterator iterator = jsonArray.iterator();
+				while (iterator.hasNext()) {
+			         JSONObject value = (JSONObject) iterator.next();
+			         System.out.println((String) value.get(sfieldName).toString());
+			         
+			         fieldValueObtained= (String) value.get(sfieldName).toString();
+			     }
+				
+		     return fieldValueObtained;
+			 
+		 }
+	 
+		 }
 	
 
 		
-	
-}
