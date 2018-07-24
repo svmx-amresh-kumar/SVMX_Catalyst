@@ -109,10 +109,7 @@ public class CalendarPO
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
 			System.out.println("Found WO " + workordername);
-			
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,18);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),13,13);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),3,3);
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
 			
 			}
 				

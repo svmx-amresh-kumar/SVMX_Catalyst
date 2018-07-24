@@ -99,26 +99,26 @@ public class CommonsPO extends BaseLib
 
 	//Customized touch Tap
 	/**
-	 * Tap an element by location points, passing the optional parameters optionalPointxy will tap on the x&y offset provided 
+	 * Tap an element by location points, passing the optional parameters optionalOffsetPointsxy will tap on the x&y offset provided 
 	 * useage : tap(element,pointx,pointy)
 	 * 
 	 * @param el
-	 * @param optionalPointxy
+	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-		public void tap(WebElement el,int... optionalPointxy) throws InterruptedException
+		public void tap(WebElement el,int... optionalOffsetPointsxy) throws InterruptedException
 		{   
 
-		    Integer p1 = optionalPointxy.length > 0 ? optionalPointxy[0] : 0;
-		    Integer p2 = optionalPointxy.length > 1 ? optionalPointxy[1] : 0;
+		    Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : 0;
+		    Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : 0;
 		    
-		    int xNewOffset =0;
-		    int yNewOffset =0;
-			if(optionalPointxy !=null) {
-				xNewOffset = p1; 
-				yNewOffset = p2; 
-			}
-			
+//		    int xNewOffset =0;
+//		    int yNewOffset =0;
+//			if(optionalOffsetPointsxy !=null) {
+//				xNewOffset = p1; 
+//				yNewOffset = p2; 
+//			}
+//			
 			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
 			Point point = el.getLocation();
 		
