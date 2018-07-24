@@ -3,6 +3,7 @@
  */
 package com.ge.fsa.pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -86,9 +87,23 @@ public class ToolsPO
 	public WebElement geteleConfigSyncBarMenuLnk()
 	{
 		return eleConfigSyncBarMenuLnk;
+	}	
+	
+	@FindBy(xpath="//*[text()='Cancel']")
+	private WebElement eleCancelConfigSyncBtn;
+	public WebElement geteleCancelConfigSyncBtn()
+	{
+		return eleCancelConfigSyncBtn;
 	}
 	
-	//@FindBy(xpath="//div")
+	
+	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-start x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner']//div[@class='x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description x-layout-box-item x-layout-vbox-item x-stretched'][2]//div[@class='x-innerhtml'][1]")
+	private WebElement eleConfigSyncStatusTxt;
+	public WebElement geteleConfigSyncStatusTxt()
+	{
+		return eleConfigSyncStatusTxt;
+	}
+	
 	//To sync the data
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
@@ -113,7 +128,7 @@ public class ToolsPO
 	//Config Sync
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=3*60*1000;
+			GenericLib.lWaitTime=5*60*1000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
@@ -124,18 +139,32 @@ public class ToolsPO
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			getEleOkBtn().click();
 			commonsPo.longPress(getEleOkBtn());
-			commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
+			//cancelling sync in order to reset the config sync status.
+			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
+			commonsPo.longPress(eleCancelConfigSyncBtn);
+			
+			
+			geteleSyncConfigNowLnk().click();
+			commonsPo.tap(geteleSyncConfigNowLnk());	
+			getEleOkBtn().click();
+			commonsPo.longPress(getEleOkBtn());
+			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
 			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
 			System.out.println("begining config sync");
-			boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
-			System.out.println(Syncinprogress);
+			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
+			//commonsPo.waitforElement(element, lTime);
+			
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 8000)) {
+				System.out.println("Sync Completed Sucessfully-tools po");
+
+			}else {
+				System.out.println("Sync Failed Sucessfully-tools po");
+
+			}
 																	
-			commonsPo.longPress(geteleConfigSyncBarMenuLnk());
-			System.out.println("got the bar menu link");
-			//commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 			
 			//Verification of successful sync
-			Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "config sync successfull");
+			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
 			NXGReports.addStep("Config Sync is successfull", LogAs.PASSED, null);
 		}
 	

@@ -10,7 +10,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import com.ge.fsa.lib.GenericLib;
 
+import groovy.json.JsonParser;
+import net.bytebuddy.asm.Advice.Return;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -177,6 +181,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 * @throws IOException
 	 */
 	
+	
 	public String restsoql(String soqlquery , String getvalue) throws IOException
 	{
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
@@ -211,25 +216,30 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		
 
 			}
+
+
 		JSONObject json = new JSONObject(stringBuilder.toString());
+		System.out.println(json);
+		if(getvalue == "totalSize")
+		{
+		String msgString = json.get(getvalue).toString();
+		System.out.println("msgString "+msgString);
+		returnvalue= msgString;
 		
+		}
+		else
+		{
 		JSONArray msg = (JSONArray) json.get("records");
 		Iterator iterator = msg.iterator();
 		while (iterator.hasNext()) {
 	         JSONObject value = (JSONObject) iterator.next();
-	         System.out.println((String) value.get(getvalue));
-	         
-	         returnvalue=(String) value.get(getvalue);
-	     }
-		
-		
-		
-
+	         returnvalue= (String) value.get(getvalue);
+		}
+		}
+		//System.out.println(returnvalue);
 		return returnvalue;
 		}
 		
-		
-
 		public String restapisoql(String soqlquery) throws IOException {		
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);

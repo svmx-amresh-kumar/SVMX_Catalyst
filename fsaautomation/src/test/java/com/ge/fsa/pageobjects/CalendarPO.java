@@ -64,13 +64,14 @@ public class CalendarPO
 	public WebElement getEleworkordernumonCalendarWeek(String sWorkOrdernumber)
 	{
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])[1]"));
 		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
-		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container'])[1]"));
+		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container'])[1]"));
 		return eleworkordernumonCalendarWeek;
 	}
 
@@ -95,28 +96,31 @@ public class CalendarPO
 	 * @param workordername - Passing the Work Order number
 	 * @throws Exception - Throwing Required Exception
 	 */
-	public void verifyworkorderCalendar(CommonsPO commonsPo, String workordername) throws Exception 
+	public void openWofromCalendar(CommonsPO commonsPo, String workordername) throws Exception 
 	{
 		commonsPo.tap(getEleCalendarClick());
-		commonsPo.tap(getElecalendarWeektap());
-		commonsPo.tap(getElecalendarDaytap());
-		
 		Thread.sleep(3000);
 
-commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
-
+		commonsPo.tap(getEleCalendarClick());
+		Thread.sleep(3000);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
+		
+	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
 			System.out.println("Found WO " + workordername);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
-		}
+			
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,18);
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),13,13);
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),3,3);
+			
+			}
+				
 		else
 		{
-			System.out.println("Found WO " + workordername);
-			throw new Exception("WorkOrder not found on the Calendar");
-			
-		}
-			
+			System.out.println("Did not Find WO " + workordername);
+			throw new Exception("WorkOrder not found on the Calendar");	
 		
+	}
 
 	}
 	

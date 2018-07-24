@@ -85,9 +85,28 @@ public class CommonsPO
 
 	
 
-	//Customised touch Tap
-		public void tap(WebElement el) throws InterruptedException
+	//Customized touch Tap
+	/**
+	 * Tap an element by location points, passing the optional parameters optionalPointxy will tap on the x&y offset provided 
+	 * useage : tap(element,pointx,pointy)
+	 * 
+	 * @param el
+	 * @param optionalPointxy
+	 * @throws InterruptedException
+	 */
+		public void tap(WebElement el,int... optionalPointxy) throws InterruptedException
 		{   
+
+		    Integer p1 = optionalPointxy.length > 0 ? optionalPointxy[0] : 0;
+		    Integer p2 = optionalPointxy.length > 1 ? optionalPointxy[1] : 0;
+		    
+		    int xNewOffset =0;
+		    int yNewOffset =0;
+			if(optionalPointxy !=null) {
+				xNewOffset = p1; 
+				yNewOffset = p2; 
+			}
+			
 			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
 			Point point = el.getLocation();
 		
@@ -112,7 +131,13 @@ public class CommonsPO
 		}
 		
 			touchAction = new TouchAction(driver);
-			touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			if(xNewOffset!=0) {
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+
+			}else {
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+
+			}
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		
@@ -321,6 +346,48 @@ public class CommonsPO
 			
 			
 		}
+		
+		//Wait for element until the element is displayed or time elapsed
+		public boolean waitForString(WebElement element, String sExpectedValue,long lTime)
+		{ 	
+		
+			String op = null;
+			String sd=null;
+			lElapsedTime=0L;
+			while(true)
+			{
+				waitforElement(element, GenericLib.lWaitTime);
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				op = element.getText();
+				sd=sExpectedValue;
+				try{
+					if(!op.equals(sd) && (lElapsedTime==lTime))
+					{ 
+						return false;
+						}
+				}catch(Exception ex) {
+					return false;
+				}
+				lElapsedTime++;
+				
+				if(op.equals(sd)) {
+					return true;
+				}
+			
+			}
+			
+		
+			
+		}
+		
+		
+	
+
 		
 	
 }

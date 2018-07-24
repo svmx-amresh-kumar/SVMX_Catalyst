@@ -127,6 +127,8 @@ public class BaseLib {
 		recenItemsPO = new RecentItemsPO(driver);
 		calendarPO = new CalendarPO(driver);
 		tasksPo = new TasksPO(driver);
+		checklistPo = new ChecklistPO(driver);
+		
 
 	}   
 
