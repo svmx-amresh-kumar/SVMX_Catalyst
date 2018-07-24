@@ -136,12 +136,24 @@ public class Scenario1 extends BaseLib
 		
 		Thread.sleep(1000);
 		// Verification of the fields of the childlines of Type = Expenses
-		JSONArray returnedjsonarray = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Expenses");
-		String expensetype = commonsPo.getJsonValue(returnedjsonarray, "SVMXC__Expense_Type__c");
-		String lineqty = commonsPo.getJsonValue(returnedjsonarray, "SVMXC__Actual_Quantity2__c");
+		JSONArray jsonarrayexpenses = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Expenses");
+		String expensetype = commonsPo.getJsonValue(jsonarrayexpenses, "SVMXC__Expense_Type__c");
+		String lineqty = commonsPo.getJsonValue(jsonarrayexpenses, "SVMXC__Actual_Quantity2__c");
 		assertEquals(expensetype, sExpenseType);
 		assertEquals(lineqty, sLineQty);
 		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
+
+		
+		// Verification of the fields of the childlines of Type = Parts
+		JSONArray jsonarrayparts = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Parts");
+		String productID = commonsPo.getJsonValue(jsonarrayparts, "SVMXC__Product__c");
+		String soqlproductname = "Select+Name+from+Product2+where+Id=\'"+productID+"\'";
+		restServices.getAccessToken();
+		String sproductname = restServices.restapisoql(soqlproductname);
+		String lineqtyparts = commonsPo.getJsonValue(jsonarrayparts, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sproductname, sProductName);
+		assertEquals(lineqtyparts, "1.0");
+		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
 
 
 	}
