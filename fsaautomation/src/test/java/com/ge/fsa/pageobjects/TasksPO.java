@@ -78,13 +78,20 @@ public class TasksPO {
 		return elePriorityIcon;
 	}
 	
-	
-	public void addTask(CommonsPO commonsPo) throws InterruptedException {
+	/**
+	 * Add task , if optional sDesc is not passed , default description value will be set.
+	 * 
+	 * @param commonsPo
+	 * @param sDesc
+	 * @throws InterruptedException
+	 */
+
+	public String addTask(CommonsPO commonsPo, String...sDesc) throws InterruptedException {
+		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("Desc");
 		commonsPo.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		NXGReports.addStep("Tasks screen is displayed successfully", LogAs.PASSED, null);
 		getEleAddTasksBtn().click();
-		String desc = commonsPo.generaterandomnumber("Desc");
 		getEleDescriptionTxtArea().sendKeys(desc);
 		getEleHighRadioBtn().click();
 		getEleSaveBtn().click();
@@ -94,9 +101,6 @@ public class TasksPO {
 		NXGReports.addStep("Tasks added successfully", LogAs.PASSED, null);
 		Assert.assertTrue(getElePriorityIcon(desc).isDisplayed(),"High Priority Icon is not displayed");
 		NXGReports.addStep("High Priority Icon is displayed successfully", LogAs.PASSED, null);
+		return desc;
 	}
-	
-	
-	
-
 }
