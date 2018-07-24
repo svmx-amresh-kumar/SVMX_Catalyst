@@ -85,16 +85,24 @@ public class CommonsPO
 
 	
 
-	//Customised touch Tap
-		public void tap(WebElement el,int... pointxy) throws InterruptedException
+	//Customized touch Tap
+	/**
+	 * Tap an element by location points, passing the optional parameters optionalPointxy will tap on the x&y offset provided 
+	 * useage : tap(element,pointx,pointy)
+	 * 
+	 * @param el
+	 * @param optionalPointxy
+	 * @throws InterruptedException
+	 */
+		public void tap(WebElement el,int... optionalPointxy) throws InterruptedException
 		{   
 
-		    Integer p1 = pointxy.length > 0 ? pointxy[0] : 0;
-		    Integer p2 = pointxy.length > 1 ? pointxy[1] : 0;
+		    Integer p1 = optionalPointxy.length > 0 ? optionalPointxy[0] : 0;
+		    Integer p2 = optionalPointxy.length > 1 ? optionalPointxy[1] : 0;
 		    
 		    int xNewOffset =0;
 		    int yNewOffset =0;
-			if(pointxy !=null) {
+			if(optionalPointxy !=null) {
 				xNewOffset = p1; 
 				yNewOffset = p2; 
 			}
