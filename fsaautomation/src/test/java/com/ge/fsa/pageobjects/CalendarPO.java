@@ -104,12 +104,13 @@ public class CalendarPO
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
+		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
 			System.out.println("Found WO " + workordername);
 			
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,18);
-			//commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),13,13);
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),13,13);
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),3,3);
 			
 			}

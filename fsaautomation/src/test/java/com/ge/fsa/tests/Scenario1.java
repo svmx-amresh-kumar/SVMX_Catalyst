@@ -124,9 +124,7 @@ public class Scenario1 extends BaseLib
 			NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesafter, LogAs.PASSED, null);
 			System.out.println("The attachment before Sync is "+schildlinesafter);
 		}
-	
-		
-		
+
 		
 
 	}
