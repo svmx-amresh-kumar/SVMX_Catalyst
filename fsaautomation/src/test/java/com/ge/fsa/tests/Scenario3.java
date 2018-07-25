@@ -20,7 +20,7 @@ public class Scenario3 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+taskName+"\'";
 		restServices.getAccessToken();
-		String taskcount = restServices.restsoql(soqlquery, "totalSize");
+		String taskcount = restServices.restSoql(soqlquery, "totalSize");
 		Assert.assertTrue(taskcount.equals(1));
 		NXGReports.addStep("Tasks updated successfully", LogAs.PASSED, null);
 	}

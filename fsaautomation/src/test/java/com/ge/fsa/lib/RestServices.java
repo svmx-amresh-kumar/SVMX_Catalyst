@@ -225,7 +225,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 */
 	
 	
-	public String restsoql(String soqlquery , String getvalue) throws IOException
+	public String restSoql(String soqlquery , String getvalue) throws IOException
 	{
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
@@ -283,7 +283,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		return returnvalue;
 		}
 		
-		public String restapisoql(String soqlquery) throws IOException {		
+		public String restApiSoql(String soqlquery) throws IOException {		
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);

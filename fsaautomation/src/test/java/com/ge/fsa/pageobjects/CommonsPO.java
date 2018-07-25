@@ -409,7 +409,7 @@ public class CommonsPO extends BaseLib
 		  * @return
 		  * @throws IOException
 		  */
-		 public JSONArray verifyPartsdetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
+		 public JSONArray verifyPartsDetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
 		 {
 			
 			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
