@@ -86,25 +86,25 @@ public class Scenario1 extends BaseLib
 		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
 
 		// Verifying if the Attachment is NULL before Sync
-		String soqlqueryatatchbefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String sattachmentidbefore = restServices.restsoql(soqlqueryatatchbefore, "Id");	
-		assertNull(sattachmentidbefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
+		String sAttachmentidBefore = restServices.restsoql(sSoqlQueryattachBefore, "Id");	
+		assertNull(sAttachmentidBefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
 		
 		// Verifying the Childline values - Before the SYNC
-		String soqlquerychildlinesbefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String schildlinesbefore = restServices.restsoql(soqlquerychildlinesbefore, "totalSize");	
-		if(schildlinesbefore.equals("0"))
+		String sChildlinesBefore = restServices.restsoql(sSoqlquerychildlinesBefore, "totalSize");	
+		if(sChildlinesBefore.equals("0"))
 				{
-				NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+schildlinesbefore, LogAs.PASSED, null);
+				NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
 
-				System.out.println("The attachment before Sync is "+schildlinesbefore);
+				System.out.println("The attachment before Sync is "+sChildlinesBefore);
 				}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+schildlinesbefore, LogAs.FAILED, null);
-			System.out.println("The attachment before Sync is "+schildlinesbefore);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
+			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
 		toolsPo.syncData(commonsPo);
@@ -113,46 +113,46 @@ public class Scenario1 extends BaseLib
 		 * Verifying the values after the Syncing of the DATA
 		 */
 		// Verifying the Work details and the service report
-		String soqlquery_attachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String sattachmentIDAfter = restServices.restsoql(soqlquery_attachment, "Id");	
-		assertNotNull(sattachmentIDAfter);
+		String sAttachmentIDAfter = restServices.restsoql(sSoqlqueryAttachment, "Id");	
+		assertNotNull(sAttachmentIDAfter);
 		
 		// Verifying the childlines of the Same Work Order
-		String soqlquerychildlineafter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlQueryChildlineAfter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String schildlinesafter = restServices.restsoql(soqlquerychildlineafter, "totalSize");	
-		if(schildlinesafter.equals("0"))
+		String sChildlinesAfter = restServices.restsoql(sSoqlQueryChildlineAfter, "totalSize");	
+		if(sChildlinesAfter.equals("0"))
 		{
-		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+schildlinesafter, LogAs.FAILED, null);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.FAILED, null);
 
-		System.out.println("The Childlines before Sync is "+schildlinesafter);
+		System.out.println("The Childlines before Sync is "+sChildlinesAfter);
 		}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+schildlinesafter, LogAs.PASSED, null);
-			System.out.println("The Childlines before Sync is "+schildlinesafter);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			System.out.println("The Childlines before Sync is "+sChildlinesAfter);
 		}
 		
 		Thread.sleep(1000);
 		// Verification of the fields of the childlines of Type = Expenses
-		JSONArray jsonarrayexpenses = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Expenses");
-		String expensetype = commonsPo.getJsonValue(jsonarrayexpenses, "SVMXC__Expense_Type__c");
-		String lineqty = commonsPo.getJsonValue(jsonarrayexpenses, "SVMXC__Actual_Quantity2__c");
-		assertEquals(expensetype, sExpenseType);
-		assertEquals(lineqty, sLineQty);
+		JSONArray sJsonArrayExpenses = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Expenses");
+		String sExpenseType = commonsPo.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
+		String sLineQty = commonsPo.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sExpenseType, sExpenseType);
+		assertEquals(sLineQty, sLineQty);
 		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
 
 		
 		// Verification of the fields of the childlines of Type = Parts
-		JSONArray jsonarrayparts = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Parts");
-		String productID = commonsPo.getJsonValue(jsonarrayparts, "SVMXC__Product__c");
-		String soqlproductname = "Select+Name+from+Product2+where+Id=\'"+productID+"\'";
+		JSONArray sJsonArrayParts = commonsPo.verifyPartsdetails(restServices, sworkOrderName,"Parts");
+		String sProductID = commonsPo.getJsonValue(sJsonArrayParts, "SVMXC__Product__c");
+		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
 		restServices.getAccessToken();
-		String sproductname = restServices.restapisoql(soqlproductname);
-		String lineqtyparts = commonsPo.getJsonValue(jsonarrayparts, "SVMXC__Actual_Quantity2__c");
-		assertEquals(sproductname, sProductName);
-		assertEquals(lineqtyparts, "1.0");
+		String sProductName = restServices.restapisoql(sSoqlProductName);
+		String sLineQtyParts = commonsPo.getJsonValue(sJsonArrayParts, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sProductName, sProductName);
+		assertEquals(sLineQtyParts, "1.0");
 		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
 
 
