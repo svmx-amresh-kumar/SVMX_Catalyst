@@ -38,6 +38,7 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 
+
 public class Scenario1 extends BaseLib
 {
 	
