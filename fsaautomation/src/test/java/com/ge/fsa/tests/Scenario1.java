@@ -40,14 +40,6 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 /**
  * 
  * @author Meghana rao P
- * This Scenario will create the following from FSA app
- * Create a Work Order from the SFM Process "Create a New Work Order"
- * Then it will Sync the Work Order on the Server and collect the Work Order number
- * Search the Work Order from Recent items and click on it , then add a new Event
- * Go to the Calendar and verify if the WorkOrder is present on it , if Yes then click on it.
- * Go to the Work Order and then add childlines from cloned TDM16 SFM(Parts/Expenses/Labor/Travel)
- * Save the Work Order and then generate a Service Report.
- * Data sync all this with the server . Verify if the report is generated on the Server side and then verify the childlines' fields.
  */
 public class Scenario1 extends BaseLib
 {
