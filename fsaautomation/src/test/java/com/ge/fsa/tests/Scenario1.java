@@ -1,5 +1,6 @@
 /*
  *  @author MeghanaRao
+ *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
@@ -36,13 +37,24 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-
+/**
+ * 
+ * @author Meghana rao P
+ * This Scenario will create the following from FSA app
+ * Create a Work Order from the SFM Process "Create a New Work Order"
+ * Then it will Sync the Work Order on the Server and collect the Work Order number
+ * Search the Work Order from Recent items and click on it , then add a new Event
+ * Go to the Calendar and verify if the WorkOrder is present on it , if Yes then click on it.
+ * Go to the Work Order and then add childlines from cloned TDM16 SFM(Parts/Expenses/Labor/Travel)
+ * Save the Work Order and then generate a Service Report.
+ * Data sync all this with the server . Verify if the report is generated on the Server side and then verify the childlines' fields.
+ */
 public class Scenario1 extends BaseLib
 {
 	
 	
 	int iWhileCnt =0;
-	String sTestCaseID=null; String sCaseWOID=null; String sCaseSahiFile=null;
+	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch=null;
 	String sAccountName = "Account47201811263";
@@ -61,36 +73,40 @@ public class Scenario1 extends BaseLib
 
 		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
 		String seventSubject = commonsPo.generaterandomnumber("EventName");
+		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sproformainvoice);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(2000);
+		// Collecting the Work Order number from the Server.
 		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restapisoql(soqlquery);	
+		// Select the Work Order from the Recent items
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		// To create a new Event for the given Work Order
 		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Description");
-
+		// Open the Work Order from the calendar
 		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
+		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 		workOrderPo.addParts(commonsPo, workOrderPo,sProductName);
 		workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
 		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
+		// Creating the Service Report.
 		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sAttachmentidBefore = restServices.restsoql(sSoqlQueryattachBefore, "Id");	
 		assertNull(sAttachmentidBefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
-		
 		// Verifying the Childline values - Before the SYNC
 		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
