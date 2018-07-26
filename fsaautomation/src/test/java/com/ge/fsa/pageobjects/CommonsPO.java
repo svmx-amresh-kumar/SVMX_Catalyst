@@ -398,7 +398,7 @@ public class CommonsPO extends BaseLib
 		}
 		
 		 /**
-		  * Based on the retuned JSONArray, in the calling methid , use String  returnvalue= (String) value.get(verifyvalue1);
+		  * Based on the retuned Parts Details JSONArray, in the calling method , use String  returnvalue= (String) value.get(verifyvalue1);
 
 		  * 
 		  * @param restservices
@@ -415,41 +415,13 @@ public class CommonsPO extends BaseLib
 			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
 			 System.out.println(soqlquery);
 			 restservices.getAccessToken();
-			 JSONObject returnedvalues = restservices.restsoqlformultiplevalues(soqlquery);
+			 JSONArray returnedvalues = restservices.restGetSoqlJsonArray(soqlquery);
 			 System.out.println(returnedvalues);
-			 JSONArray childlinesarray = (JSONArray) returnedvalues.get("records");		 
-			 
-			 return childlinesarray;
+
+			 return returnedvalues;
 		}
 		 
-		 /**
-		  * Get the value from any JsonArray returned
-		  * usage: 
-		  * jsonArray = commonPO.verifyPartsdetails(RestServices restservices, String sworkordername,String slineType);
-		  *
-		  * getJsonValue( jsonArray, sfieldName1)
-		  * getJsonValue( jsonArray, sfieldName2)
-		  * getJsonValue( jsonArray, sfieldName3)
-		  * 
-		  * @param jsonArray
-		  * @param sfieldName
-		  * @return
-		  */
-		 public String getJsonValue(JSONArray jsonArray,String sfieldName) {
-			 String fieldValueObtained=null;
-				Iterator iterator = jsonArray.iterator();
-				while (iterator.hasNext()) {
-			         JSONObject value = (JSONObject) iterator.next();
-			         System.out.println((String) value.get(sfieldName).toString());
-			         
-			         fieldValueObtained= (String) value.get(sfieldName).toString();
-			     }
-				
-		     return fieldValueObtained;
-			 
-		 }
-	 
-		 }
+}
 	
 
 		
