@@ -1,9 +1,11 @@
 /*
  *  @author MeghanaRao
+ *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
@@ -16,6 +18,8 @@ import java.text.SimpleDateFormat;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.BaseLib;
@@ -34,14 +38,21 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 
+
 public class Scenario1 extends BaseLib
 {
 	
 	
 	int iWhileCnt =0;
-	String sTestCaseID=null; String sCaseWOID=null; String sCaseSahiFile=null;
+	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch=null;
+	String sAccountName = "Account47201811263";
+	String sProductName = "Product9876789";
+	String sContactName = "ContactAutomation 234567";
+	String sExpenseType = "Airfare";
+	String sLineQty = "10.0";
+	String slinepriceperunit = "1000";
 
 	
 	@Test
@@ -50,52 +61,56 @@ public class Scenario1 extends BaseLib
 
 		System.out.println("Scenario 1");
 
-		String sproformainvoice = commonsPo.generaterandomnumber("Proforma");
-		String seventSubject = commonsPo.generaterandomnumber("EventName");
+		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
+		String sEventSubject = commonsPo.generaterandomnumber("EventName");
+		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		createNewPO.createWorkOrder(commonsPo,"Account47201811263","ContactAutomation 234567", "Product9876789", "Medium", "Loan", sproformainvoice);
+		// Creating the Work Order
+		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(2000);
-		String soqlquery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sproformainvoice+"\'";
+		// Collecting the Work Order number from the Server.
+		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
-		String sworkOrderName = restServices.restapisoql(soqlquery);	
+		String sworkOrderName = restServices.restApiSoql(sSoqlQuery);	
+		// Select the Work Order from the Recent items
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,seventSubject, "Test Description");
-
+		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
+		// Open the Work Order from the calendar
 		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
-		workOrderPo.addParts(commonsPo, workOrderPo,"Product9876789");
-		workOrderPo.addLaborParts(commonsPo, workOrderPo, "Product9876789", "Calibration", sProcessname);
+		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
+		workOrderPo.addParts(commonsPo, workOrderPo,sProductName);
+		workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
 		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
-		workOrderPo.addExpense(commonsPo, workOrderPo, "Airfare",sProcessname);
+		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
+		// Creating the Service Report.
 		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-
 		// Verifying if the Attachment is NULL before Sync
-		String soqlqueryatatchbefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String sattachmentidbefore = restServices.restsoql(soqlqueryatatchbefore, "Id");	
-		assertNull(sattachmentidbefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
-		
+		String sAttachmentidBefore = restServices.restSoql(sSoqlQueryattachBefore, "Id");	
+		assertNull(sAttachmentidBefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
 		// Verifying the Childline values - Before the SYNC
-		String soqlquerychildlinesbefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String schildlinesbefore = restServices.restsoql(soqlquerychildlinesbefore, "totalSize");	
-		if(schildlinesbefore.equals("0"))
+		String sChildlinesBefore = restServices.restSoql(sSoqlquerychildlinesBefore, "totalSize");	
+		if(sChildlinesBefore.equals("0"))
 				{
-				NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesbefore, LogAs.PASSED, null);
+				NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
 
-				System.out.println("The attachment before Sync is "+schildlinesbefore);
+				System.out.println("The attachment before Sync is "+sChildlinesBefore);
 				}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesbefore, LogAs.FAILED, null);
-			System.out.println("The attachment before Sync is "+schildlinesbefore);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
+			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
 		toolsPo.syncData(commonsPo);
@@ -104,28 +119,48 @@ public class Scenario1 extends BaseLib
 		 * Verifying the values after the Syncing of the DATA
 		 */
 		// Verifying the Work details and the service report
-		String soqlquery_attachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String sattachmentIDAfter = restServices.restsoql(soqlquery_attachment, "Id");	
-		assertNotNull(sattachmentIDAfter);
+		String sAttachmentIDAfter = restServices.restSoql(sSoqlqueryAttachment, "Id");	
+		assertNotNull(sAttachmentIDAfter);
 		
 		// Verifying the childlines of the Same Work Order
-		String soqlquerychildlineafter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sSoqlQueryChildlineAfter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String schildlinesafter = restServices.restsoql(soqlquerychildlineafter, "totalSize");	
-		if(schildlinesafter.equals("0"))
+		String sChildlinesAfter = restServices.restSoql(sSoqlQueryChildlineAfter, "totalSize");	
+		if(sChildlinesAfter.equals("0"))
 		{
-		NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesafter, LogAs.FAILED, null);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.FAILED, null);
 
-		System.out.println("The attachment before Sync is "+schildlinesafter);
+		System.out.println("The Childlines before Sync is "+sChildlinesAfter);
 		}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The attachment before Sync is "+schildlinesafter, LogAs.PASSED, null);
-			System.out.println("The attachment before Sync is "+schildlinesafter);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			System.out.println("The Childlines before Sync is "+sChildlinesAfter);
 		}
+		
+		Thread.sleep(1000);
+		// Verification of the fields of the childlines of Type = Expenses
+		JSONArray sJsonArrayExpenses = commonsPo.verifyPartsDetails(restServices, sworkOrderName,"Expenses");
+		String sExpenseType = commonsPo.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
+		String sLineQty = commonsPo.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sExpenseType, sExpenseType);
+		assertEquals(sLineQty, sLineQty);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
 
 		
+		// Verification of the fields of the childlines of Type = Parts
+		JSONArray sJsonArrayParts = commonsPo.verifyPartsDetails(restServices, sworkOrderName,"Parts");
+		String sProductID = commonsPo.getJsonValue(sJsonArrayParts, "SVMXC__Product__c");
+		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
+		restServices.getAccessToken();
+		String sProductName = restServices.restApiSoql(sSoqlProductName);
+		String sLineQtyParts = commonsPo.getJsonValue(sJsonArrayParts, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sProductName, sProductName);
+		assertEquals(sLineQtyParts, "1.0");
+		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
+
 
 	}
 	

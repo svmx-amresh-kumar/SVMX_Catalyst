@@ -171,6 +171,49 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	
 	return sWorkOrderName;
 	}
+	
+	
+	public JSONObject restsoqlformultiplevalues(String soqlquery ) throws IOException
+	{
+		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+		URL url = new URL(sURL);
+		System.out.println(sURL);
+		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+		httpsUrlCon.setDoOutput(true);
+		httpsUrlCon.setRequestMethod("GET");
+		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		String returnvalue = null;
+		
+		BufferedReader bufferedReader = null;
+		StringBuilder stringBuilder = new StringBuilder();
+		String line;
+		try {
+		   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
+		   while ((line =bufferedReader.readLine())!=null){
+		         stringBuilder.append(line);
+		   }
+		} catch (IOException e) {
+		   e.printStackTrace();
+		} finally {
+		   if (bufferedReader != null) {
+		         try {
+		                bufferedReader.close();
+		         } catch (IOException e) {
+		                e.printStackTrace();
+		         }
+		   }
+		
+
+			}
+
+		JSONObject json = new JSONObject(stringBuilder.toString());
+		System.out.println(json);
+		JSONArray msg = (JSONArray) json.get("records");
+		return json;
+	
+	}
   
 
 	// To pass the required SOQL and then grab the data
@@ -182,7 +225,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 */
 	
 	
-	public String restsoql(String soqlquery , String getvalue) throws IOException
+	public String restSoql(String soqlquery , String getvalue) throws IOException
 	{
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
@@ -240,7 +283,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		return returnvalue;
 		}
 		
-		public String restapisoql(String soqlquery) throws IOException {		
+		public String restApiSoql(String soqlquery) throws IOException {		
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
@@ -283,8 +326,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	         sWorkOrderName=(String) value.get("Name");
 	     }
 		
-		
-		
+	
 		return sWorkOrderName;
 		}
 		

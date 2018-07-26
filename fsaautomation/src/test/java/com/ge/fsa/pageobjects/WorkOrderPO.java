@@ -477,7 +477,7 @@ public class WorkOrderPO {
 		
 	// To add Expense
 		
-		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname) throws InterruptedException
+		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
 			commonsPo.tap(workOrderPo.getEleAddExpenseType());
@@ -485,8 +485,8 @@ public class WorkOrderPO {
 
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
-			getEleLineQtyTxtFld().sendKeys("10");
-			getEleLinePerUnitTxtFld().sendKeys("1000");	
+			getEleLineQtyTxtFld().sendKeys(sLineQty);
+			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines

@@ -69,7 +69,8 @@ public class CalendarPO
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])[1]"));
+		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')]/../div[contains(@class,'sfmevent-account')])[1]"));
+		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])[1]"));
 		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
 		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container'])[1]"));
 		return eleworkordernumonCalendarWeek;
@@ -108,10 +109,7 @@ public class CalendarPO
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
 			System.out.println("Found WO " + workordername);
-			
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,18);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),13,13);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),3,3);
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
 			
 			}
 				
