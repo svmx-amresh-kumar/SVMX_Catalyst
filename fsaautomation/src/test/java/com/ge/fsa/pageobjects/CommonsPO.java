@@ -108,8 +108,8 @@ public class CommonsPO extends BaseLib
 	 */
 	public void tap(WebElement el, int... optionalOffsetPointsxy) throws InterruptedException {
 
-		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : 0;
-		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : 0;
+		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
+		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		Point point = el.getLocation();
 		System.out.println("Tapping element " + el.getText() + " " + el.getTagName());
@@ -118,10 +118,10 @@ public class CommonsPO extends BaseLib
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 				point = el.getLocation();
 				System.out.println("New fetch \n" + 
-						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
+						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
 				break;
 			}
@@ -129,7 +129,8 @@ public class CommonsPO extends BaseLib
 		}
 
 		touchAction = new TouchAction(driver);
-		if (xNewOffset != 0) {
+		if (xNewOffset != null) {
+			System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
 			touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset))
 					.perform();
 
@@ -138,7 +139,7 @@ public class CommonsPO extends BaseLib
 					.perform();
 
 		}
-		
+		Thread.sleep(GenericLib.iLowSleep);
 	}
 		
 		//Customised touch Tap

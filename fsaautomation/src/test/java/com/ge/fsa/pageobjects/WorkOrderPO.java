@@ -368,7 +368,7 @@ public class WorkOrderPO {
 		getEleActionsLnk().click();
 		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
-		commonsPo.tap(getEleActionsTxt(sActionsName),15,5);
+		commonsPo.tap(getEleActionsTxt(sActionsName));
 		
 	}
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
