@@ -368,7 +368,7 @@ public class WorkOrderPO {
 		getEleActionsLnk().click();
 		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
-		commonsPo.tap(getEleActionsTxt(sActionsName));
+		commonsPo.tap(getEleActionsTxt(sActionsName),15,5);
 		
 	}
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
@@ -427,6 +427,7 @@ public class WorkOrderPO {
 	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType, String sprocessname) throws InterruptedException
 	{	//Adding labor parts name
 		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+		Thread.sleep(2000);
 		commonsPo.tap(getElePartLaborLkUp());
 		commonsPo.tap(getEleProductNameTxt(sProductName1));
 		
