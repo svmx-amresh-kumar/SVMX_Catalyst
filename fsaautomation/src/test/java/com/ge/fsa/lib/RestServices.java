@@ -327,7 +327,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 }
 
 	 /**
-	  * Create a new record data y passing the so object name and JSON body and returns a JSONArray, (use getJsonValue() to get the appropriate values)
+	  * Create a new record data by passing the so-object name and JSON body and returns a JSONArray, (use getJsonValue() to get the appropriate values)
 	  * 
 	  * Usage:
 	  * For a Workorder pass:

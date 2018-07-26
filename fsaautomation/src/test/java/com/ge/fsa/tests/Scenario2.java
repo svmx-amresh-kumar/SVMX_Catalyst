@@ -2,6 +2,7 @@ package com.ge.fsa.tests;
 
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -50,22 +51,18 @@ public class Scenario2 extends BaseLib{
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
-		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
-		/*
-		 * //Creation of dynamic Work Order
-		 * sWorkOrderID=restServices.getWOORecordID(sWOJsonData); sWOName
-		 * =restServices.getWOName(sWorkOrderID);
-		 */
+
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
+
+		JSONArray sJsonArrayWo = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
+
+		String sWORecordID = restServices.getJsonValue(sJsonArrayWo, "id");
 		
-		restServices.getAccessToken();
-		// Creation of dynamic Work Order
-		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-	sWOName = restServices.getWOName(sWorkOrderID);
-		//sWOName="WO-00000166";
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "name");
+
+System.out.println("WO no ="+sWOName);
 	String ChecklistTextQuestion ="text2372018162553";
 			
 

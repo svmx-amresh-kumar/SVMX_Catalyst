@@ -106,52 +106,40 @@ public class CommonsPO extends BaseLib
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-		public void tap(WebElement el,int... optionalOffsetPointsxy) throws InterruptedException
-		{   
+	public void tap(WebElement el, int... optionalOffsetPointsxy) throws InterruptedException {
 
-		    Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : 0;
-		    Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : 0;
-		    
-//		    int xNewOffset =0;
-//		    int yNewOffset =0;
-//			if(optionalOffsetPointsxy !=null) {
-//				xNewOffset = p1; 
-//				yNewOffset = p2; 
-//			}
-//			
-			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
-			Point point = el.getLocation();
-		
-		
-		for(int i= 0;i<10;i++) {
-			if (point.getX() == 0 && point.getY() == 0) {
-				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
+		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : 0;
+		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : 0;
+
+		Point point = el.getLocation();
+		System.out.println("Tapping element " + el.getText() + " " + el.getTagName());
+
+		for (int i = 0; i < 10; i++) {
+			if (point.getX() == 0 || point.getY() == 0) {
+				System.out.println("waiting... for element \n" + 
+						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
 				Thread.sleep(1000);
-			
-			} else if (point.getY() == 0) {
-				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
-
-				// SOmetimes the y coordinates are hidden under the screen space so tap on it and wait for it to generate a coordinate
-				Thread.sleep(1000);
-				
-			}
-
-			else {
+				point = el.getLocation();
+				System.out.println("New fetch \n" + 
+						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
+			} else {
 				break;
 			}
-			point = el.getLocation();
+
+		}
+
+		touchAction = new TouchAction(driver);
+		if (xNewOffset != 0) {
+			touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset))
+					.perform();
+
+		} else {
+			touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+					.perform();
+
 		}
 		
-			touchAction = new TouchAction(driver);
-			if(xNewOffset!=0) {
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
-
-			}else {
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-
-			}
-			Thread.sleep(GenericLib.iLowSleep);
-		}
+	}
 		
 		//Customised touch Tap
 		public void fingerTap(Point point, int iTapCount) throws InterruptedException
