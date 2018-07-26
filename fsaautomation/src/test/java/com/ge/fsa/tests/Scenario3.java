@@ -21,7 +21,7 @@ public class Scenario3 extends BaseLib {
 		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+taskName+"\'";
 		restServices.getAccessToken();
 		String taskcount = restServices.restsoql(soqlquery, "totalSize");
-		Assert.assertTrue(taskcount.equals(1));
+		Assert.assertTrue(taskcount.equals("1"));
 		NXGReports.addStep("Tasks updated successfully", LogAs.PASSED, null);
 	}
 
