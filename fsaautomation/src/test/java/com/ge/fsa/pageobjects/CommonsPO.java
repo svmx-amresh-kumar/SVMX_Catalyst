@@ -70,7 +70,7 @@ public class CommonsPO extends BaseLib
 		return eleDonePickerWheelBtn;
 	}
 	
-	@FindBy(xpath="//input[@placeholder='Search'][@class='x-input-el']")
+	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-center x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner x-widthed x-heighted']//input[@placeholder='Search'][@class='x-input-el']")
 	private WebElement elesearchTap;
 	public WebElement getElesearchTap()
 	{
