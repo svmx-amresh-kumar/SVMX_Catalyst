@@ -158,7 +158,7 @@ public class ToolsPO
 				System.out.println("Sync Completed Sucessfully-tools po");
 
 			}else {
-				System.out.println("Sync Failed Sucessfully-tools po");
+				System.out.println("Sync Failed");
 
 			}
 																	
