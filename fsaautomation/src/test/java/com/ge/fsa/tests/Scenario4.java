@@ -10,7 +10,7 @@ import com.ge.fsa.lib.BaseLib;
 public class Scenario4 extends BaseLib{
 	
 	@Test
-	public void scenario4_piq() throws IOException {
+	public void scenario4_piq() throws IOException, InterruptedException {
 		
 		// Create Account
 		String accName = commonsPo.generaterandomnumber("Acc");
@@ -29,7 +29,9 @@ public class Scenario4 extends BaseLib{
 		// Create Work Order
 		String woID  = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Company__c\": \""+sAccId+"\",\"SVMXC__Site__c\": \""+sLocId+"\",\"SVMXC__Installed_Product__c\":\""+ibId+"\"}");
 		String woName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+woID+"\'", "name");
-	
+		
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		toolsPo.syncData(commonsPo);
 	}
 
 }
