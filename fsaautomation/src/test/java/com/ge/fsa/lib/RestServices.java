@@ -83,94 +83,96 @@ public class RestServices
 		
 	}
 	
-//To Fetch Work Order ID
-public  String getWOORecordID(String sWOJson) throws IOException
-{
-	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "WORECORD_URL")
-			+ "Username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-			+ "&Password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
-    HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
-    httpsUrlCon.setDoOutput(true);
- 	httpsUrlCon.setRequestMethod("POST");
-	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
-	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+	//**Commenting out as we can use restCreate() and getJsonValue() in test case directly for any field and not just work order.
 	
-	OutputStream os = httpsUrlCon.getOutputStream();
-    os.write(sWOJson.getBytes());
-    os.flush();
-	
-    BufferedReader bufferedReader = null;
-    StringBuilder stringBuilder = new StringBuilder();
-    String line;
-    try {
-           bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream()));
-           while ((line =bufferedReader.readLine())!=null){
-                 stringBuilder.append(line);
-           }
-    } catch (IOException e) {
-           e.printStackTrace();
-    } finally {
-           if (bufferedReader != null) {
-                 try {
-                        bufferedReader.close();
-                 } catch (IOException e) {
-                        e.printStackTrace();
-                 }
-           }
-    }
-
-    JSONObject json = new JSONObject(stringBuilder.toString());
-    sWORecordID = (String) json.get("id");
-    System.out.println("WORecordID: "+sWORecordID);
-    return sWORecordID;
-}
-
-	// To fetch WorkOrder Name
-	public String  getWOName(String sWORecordID) throws IOException
-	{
-	String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+"SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'";
-	URL url = new URL(sURL);
-	System.out.println(sURL);
-	HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
-	httpsUrlCon.setDoOutput(true);
-	httpsUrlCon.setRequestMethod("GET");
-	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-	httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
-	
-	BufferedReader bufferedReader = null;
-	StringBuilder stringBuilder = new StringBuilder();
-	String line;
-	try {
-	   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
-	   while ((line =bufferedReader.readLine())!=null){
-	         stringBuilder.append(line);
-	   }
-	} catch (IOException e) {
-	   e.printStackTrace();
-	} finally {
-	   if (bufferedReader != null) {
-	         try {
-	                bufferedReader.close();
-	         } catch (IOException e) {
-	                e.printStackTrace();
-	         }
-	   }
-	}
-	
-	JSONObject json = new JSONObject(stringBuilder.toString());
-	
-	JSONArray msg = (JSONArray) json.get("records");
-	Iterator iterator = msg.iterator();
-	while (iterator.hasNext()) {
-         JSONObject value = (JSONObject) iterator.next();
-         System.out.println((String) value.get("Name"));
-         
-         sWorkOrderName=(String) value.get("Name");
-     }
-	
-	return sWorkOrderName;
-	}
+////To Fetch Work Order ID
+//public  String getWOORecordID(String sWOJson) throws IOException
+//{
+//	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "WORECORD_URL")
+//			+ "Username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
+//			+ "&Password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+//    HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+//    httpsUrlCon.setDoOutput(true);
+// 	httpsUrlCon.setRequestMethod("POST");
+//	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
+//	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+//	
+//	OutputStream os = httpsUrlCon.getOutputStream();
+//    os.write(sWOJson.getBytes());
+//    os.flush();
+//	
+//    BufferedReader bufferedReader = null;
+//    StringBuilder stringBuilder = new StringBuilder();
+//    String line;
+//    try {
+//           bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream()));
+//           while ((line =bufferedReader.readLine())!=null){
+//                 stringBuilder.append(line);
+//           }
+//    } catch (IOException e) {
+//           e.printStackTrace();
+//    } finally {
+//           if (bufferedReader != null) {
+//                 try {
+//                        bufferedReader.close();
+//                 } catch (IOException e) {
+//                        e.printStackTrace();
+//                 }
+//           }
+//    }
+//
+//    JSONObject json = new JSONObject(stringBuilder.toString());
+//    sWORecordID = (String) json.get("id");
+//    System.out.println("WORecordID: "+sWORecordID);
+//    return sWORecordID;
+//}
+//
+//	// To fetch WorkOrder Name
+//	public String  getWOName(String sWORecordID) throws IOException
+//	{
+//	String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+"SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'";
+//	URL url = new URL(sURL);
+//	System.out.println(sURL);
+//	HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+//	httpsUrlCon.setDoOutput(true);
+//	httpsUrlCon.setRequestMethod("GET");
+//	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+//	httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+//	httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+//	
+//	BufferedReader bufferedReader = null;
+//	StringBuilder stringBuilder = new StringBuilder();
+//	String line;
+//	try {
+//	   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
+//	   while ((line =bufferedReader.readLine())!=null){
+//	         stringBuilder.append(line);
+//	   }
+//	} catch (IOException e) {
+//	   e.printStackTrace();
+//	} finally {
+//	   if (bufferedReader != null) {
+//	         try {
+//	                bufferedReader.close();
+//	         } catch (IOException e) {
+//	                e.printStackTrace();
+//	         }
+//	   }
+//	}
+//	
+//	JSONObject json = new JSONObject(stringBuilder.toString());
+//	
+//	JSONArray msg = (JSONArray) json.get("records");
+//	Iterator iterator = msg.iterator();
+//	while (iterator.hasNext()) {
+//         JSONObject value = (JSONObject) iterator.next();
+//         System.out.println((String) value.get("Name"));
+//         
+//         sWorkOrderName=(String) value.get("Name");
+//     }
+//	
+//	return sWorkOrderName;
+//	}
 	
 	/**
 	 * Method to return the JSONArray, to be used with getJsonValue() method for multiple value extraction after a single API call
@@ -302,11 +304,11 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 /**
 	  * Get the value from any JsonArray returned
 	  * usage: 
-	  * jsonArray = commonPO.verifyPartsdetails(RestServices restservices, String sworkordername,String slineType);
+	  * JSONArray jsonArrayAcc = restServices.restCreate("SVMXC__Company__c?","{\"Name\": \""+accName+"\" }");
 	  *
-	  * getJsonValue( jsonArray, sfieldName1)
-	  * getJsonValue( jsonArray, sfieldName2)
-	  * getJsonValue( jsonArray, sfieldName3)
+	  * getJsonValue( jsonArrayAcc, id)
+	  * getJsonValue( jsonArrayAcc, sfieldName2)
+	  * getJsonValue( jsonArrayAcc, sfieldName3)... etc
 	  * 
 	  * @param jsonArray
 	  * @param sfieldName
@@ -327,7 +329,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 }
 
 	 /**
-	  * Create a new record data y passing the so object name and JSON body and returns a JSONArray, (use getJsonValue() to get the appropriate values)
+	  * Create a new record data by passing the so-object name and JSON body which returns a JSONArray, (use getJsonValue() to get the appropriate values)
 	  * 
 	  * Usage:
 	  * For a Workorder pass:
@@ -381,21 +383,21 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		return msg;
 	 }
 
-		/**
-		 * 
-		 * @param args
-		 * @throws IOException
-		 */
-		public static void main(String[] args) throws IOException {
-			RestServices appServices = new RestServices();
-
-			appServices.getAccessToken();
-
-			String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-
-			String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
-			System.out.println("WO NUMBER FETCHED " + woNum);
-		
-		}
+//		/**
+//		 * 
+//		 * @param args
+//		 * @throws IOException
+//		 */
+//		public static void main(String[] args) throws IOException {
+//			RestServices appServices = new RestServices();
+//
+//			appServices.getAccessToken();
+//
+//			String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+//
+//			String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
+//			System.out.println("WO NUMBER FETCHED " + woNum);
+//		
+//		}
 		
 }

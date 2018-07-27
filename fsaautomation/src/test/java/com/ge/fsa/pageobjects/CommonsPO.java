@@ -70,7 +70,7 @@ public class CommonsPO extends BaseLib
 		return eleDonePickerWheelBtn;
 	}
 	
-	@FindBy(xpath="//input[@placeholder='Search'][@class='x-input-el']")
+	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-center x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner x-widthed x-heighted']//input[@placeholder='Search'][@class='x-input-el']")
 	private WebElement elesearchTap;
 	public WebElement getElesearchTap()
 	{
@@ -89,7 +89,8 @@ public class CommonsPO extends BaseLib
 	private WebElement eleSearchListItem;
 	public WebElement getElesearchListItem(String searchName)
 	{
-		eleSearchListItem = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		//eleSearchListItem = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		eleSearchListItem = driver.findElement(By.xpath("//*[.='"+searchName+"'][@class = 'x-gridcell']"));
 		return eleSearchListItem;
 	}
 	
@@ -106,52 +107,39 @@ public class CommonsPO extends BaseLib
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-		public void tap(WebElement el,int... optionalOffsetPointsxy) throws InterruptedException
-		{   
+	public void tap(WebElement el, int... optionalOffsetPointsxy) throws InterruptedException {
 
-		    Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : 0;
-		    Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : 0;
-		    
-//		    int xNewOffset =0;
-//		    int yNewOffset =0;
-//			if(optionalOffsetPointsxy !=null) {
-//				xNewOffset = p1; 
-//				yNewOffset = p2; 
-//			}
-//			
-			System.out.println("Tapping element " + el.getText() +" "+el.getTagName());
-			Point point = el.getLocation();
-		
-		
-		for(int i= 0;i<10;i++) {
-			if (point.getX() == 0 && point.getY() == 0) {
-				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
-				Thread.sleep(1000);
-			
-			} else if (point.getY() == 0) {
-				System.out.println("waiting... for element " + point.getX()+"---"+point.getY());
+		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
+		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
-				// SOmetimes the y coordinates are hidden under the screen space so tap on it and wait for it to generate a coordinate
-				Thread.sleep(1000);
-				
-			}
+		Point point = el.getLocation();
+		System.out.println("Tapping element " + el.getText() + " " + el.getTagName());
 
-			else {
+		for (int i = 0; i < 10; i++) {
+			if (point.getX() == 0 || point.getY() == 0) {
+				System.out.println("waiting... for element \n" + 
+						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
+				Thread.sleep(2000);
+				point = el.getLocation();
+				System.out.println("New fetch \n" + 
+						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
+			} else {
 				break;
 			}
-			point = el.getLocation();
-		}
-		
-			touchAction = new TouchAction(driver);
-			if(xNewOffset!=0) {
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
-			}else {
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-
-			}
-			Thread.sleep(GenericLib.iLowSleep);
 		}
+
+		touchAction = new TouchAction(driver);
+		if (xNewOffset != null) {
+			System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
+			touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
+
+		} else {
+			touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+
+		}
+		Thread.sleep(GenericLib.iLowSleep);
+	}
 		
 		//Customised touch Tap
 		public void fingerTap(Point point, int iTapCount) throws InterruptedException
@@ -397,29 +385,29 @@ public class CommonsPO extends BaseLib
 			
 		}
 		
-		 /**
-		  * Based on the retuned Parts Details JSONArray, in the calling method , use String  returnvalue= (String) value.get(verifyvalue1);
-
-		  * 
-		  * @param restservices
-		  * @param sworkordername
-		  * @param slinetype
-		  * @param requieredApiNAme
-		  * @param expectedValue
-		  * @return
-		  * @throws IOException
-		  */
-		 public JSONArray verifyPartsDetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
-		 {
-			
-			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
-			 System.out.println(soqlquery);
-			 restservices.getAccessToken();
-			 JSONArray returnedvalues = restservices.restGetSoqlJsonArray(soqlquery);
-			 System.out.println(returnedvalues);
-
-			 return returnedvalues;
-		}
+//		 /**
+//		  * Based on the returned Parts Details JSONArray, in the calling method , use String  returnvalue= (String) value.get(verifyvalue1);
+//
+//		  * 
+//		  * @param restservices
+//		  * @param sworkordername
+//		  * @param slinetype
+//		  * @param requieredApiNAme
+//		  * @param expectedValue
+//		  * @return
+//		  * @throws IOException
+//		  */
+//		 public JSONArray verifyPartsDetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
+//		 {
+//			
+//			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
+//			 System.out.println(soqlquery);
+//			 restservices.getAccessToken();
+//			 JSONArray returnedvalues = restservices.restGetSoqlJsonArray(soqlquery);
+//			 System.out.println(returnedvalues);
+//
+//			 return returnedvalues;
+//		}
 		 
 }
 	

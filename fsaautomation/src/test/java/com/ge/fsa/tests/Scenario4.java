@@ -10,14 +10,30 @@ import com.ge.fsa.lib.BaseLib;
 public class Scenario4 extends BaseLib{
 	
 	@Test
-	public void test1() throws IOException {
-		JSONArray sJsonArrayWo = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
-
-			String sWORecordID = restServices.getJsonValue(sJsonArrayWo, "id");
+	public void scenario4_piq() throws IOException {
+		
+		// Create Account
+		String accName = commonsPo.generaterandomnumber("Acc");
+		JSONArray jsonArrayAcc = restServices.restCreate("SVMXC__Company__c?","{\"Name\": \""+accName+"\" }");
+		String accId = restServices.getJsonValue(jsonArrayAcc, "id");
+	//	String accName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+accId+"\'", "name");
+		
+		// Create Location
+		String locName = commonsPo.generaterandomnumber("Loc");
+		JSONArray jsonArrayLoc = restServices.restCreate("SVMXC__Site__c?","{\"SVMXC__Account__c\": \""+accId+"\", \"Name\": \""+locName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
+		String locId = restServices.getJsonValue(jsonArrayLoc, "id");
+		
+		// Create Installed Product
+		String ibName = commonsPo.generaterandomnumber("IB");
+		String ibNum = commonsPo.generaterandomnumber("IBNum");
+		JSONArray jsonArrayIB = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+accId+"\", \"Name\": \""+ibName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+ibNum+"\",\"SVMXC__Country__c\": \"India\", \"SVMXC__Site__c\": \""+locId+"\" }");
+		String ibId = restServices.getJsonValue(jsonArrayIB, "id");
 			
-			String sJArr = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "name");
+		// Create Work Order
+		JSONArray jsonArrayWo = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Company__c\": \""+accId+"\",\"SVMXC__Site__c\": \""+locId+"\",\"SVMXC__Installed_Product__c\":\""+ibId+"\"}");
+		String woID = restServices.getJsonValue(jsonArrayWo, "id");
+		String woName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+woID+"\'", "name");
 	
-	System.out.println("WO no ="+sJArr);
 	}
 
 }

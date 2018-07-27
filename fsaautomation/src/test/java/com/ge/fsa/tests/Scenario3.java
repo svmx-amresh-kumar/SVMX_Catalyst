@@ -18,6 +18,7 @@ public class Scenario3 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		taskName = tasksPo.addTask(commonsPo);
 		toolsPo.syncData(commonsPo);
+		//Fetching the task name and checking if the task is present on the server.
 		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+taskName+"\'";
 		restServices.getAccessToken();
 		String taskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");

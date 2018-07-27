@@ -77,6 +77,7 @@ public class Scenario1 extends BaseLib
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		// To create a new Event for the given Work Order
 		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
+
 		// Open the Work Order from the calendar
 		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
