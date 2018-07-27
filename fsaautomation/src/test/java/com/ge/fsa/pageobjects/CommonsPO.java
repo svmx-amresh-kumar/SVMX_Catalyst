@@ -267,6 +267,8 @@ public class CommonsPO extends BaseLib
 			String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis( ));
 			System.out.println(date);
 			String randomstring = value + date;
+			System.out.println(randomstring);
+
 			return randomstring;
 		}
 		

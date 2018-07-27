@@ -36,22 +36,22 @@ public class Scenario7 extends BaseLib{
 		
 		
 		//NEW REST 
-		/*JSONArray sJsonArrayWo = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
-		String sWORecordID = restServices.getJsonValue(sJsonArrayWo, "id");
+		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
+		
 		
 		System.out.println(sWORecordID);
-		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "name");
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 
-		System.out.println("WO no ="+sWOName);*/
+		System.out.println("WO no ="+sWOName);
 
 		String ChecklistTextQuestion = "What is the Work Order Number?";
 		String ChecklistrequestionQ = "This is a required question";
 		
 		
 	restServices.getAccessToken();
-		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-		sWOName = restServices.getWOName(sWorkOrderID);
+//		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+//		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
+//		sWOName = restServices.getWOName(sWorkOrderID);
 		//sWOName= "WO-00000366";
 		
 	//vt to learn!---GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);

@@ -297,7 +297,7 @@ public class RestServices
 	         returnvalue= (String) value.get(getvalue);
 		}
 		}
-		//System.out.println(returnvalue);
+		System.out.println(returnvalue);
 		return returnvalue;
 		}
 		
@@ -329,7 +329,7 @@ public class RestServices
 	 }
 
 	 /**
-	  * Create a new record data by passing the so-object name and JSON body which returns a JSONArray, (use getJsonValue() to get the appropriate values)
+	  * Create a new record data by passing the so-object name and JSON body which returns a "id" by default that can be used in other queries, (use getJsonValue() to get the appropriate values)
 	  * 
 	  * Usage:
 	  * For a Workorder pass:
@@ -341,7 +341,7 @@ public class RestServices
 	  * @return JSONArray
 	  * @throws IOException
 	  */
-	 public  JSONArray restCreate(String sSoObjectName,String sWOJson) throws IOException
+	 public  String restCreate(String sSoObjectName,String sWOJson) throws IOException
 	 {
 		 getAccessToken();
 	 	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName
@@ -353,6 +353,7 @@ public class RestServices
 	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
 	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
 	 	
+	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
 	     os.write(sWOJson.getBytes());
 	     os.flush();
@@ -377,9 +378,10 @@ public class RestServices
 	            }
 	     }
 
-	     JSONObject json = new JSONObject(stringBuilder.toString());
+
+	    JSONObject json = new JSONObject(stringBuilder.toString());
 	 	System.out.println(json);
-		JSONArray msg = (JSONArray) json.get("records");
+	 	String msg = (String) json.get("id");
 		return msg;
 	 }
 

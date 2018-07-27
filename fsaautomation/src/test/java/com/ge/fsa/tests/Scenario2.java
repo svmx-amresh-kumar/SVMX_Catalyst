@@ -65,9 +65,9 @@ public class Scenario2 extends BaseLib {
 
 		restServices.getAccessToken();
 		// Creation of dynamic Work Order
-		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-		sWOName = restServices.getWOName(sWorkOrderID);
+//		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+//		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
+//		sWOName = restServices.getWOName(sWorkOrderID);
 		// sWOName="WO-00000269";
 		String ChecklistTextQuestion = "text2372018162553";
 
