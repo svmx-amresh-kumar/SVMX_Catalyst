@@ -97,13 +97,13 @@ public class TasksPO {
 		commonsPo.tap(getEleSaveBtn());
 		List<WebElement> tasksList = new ArrayList<WebElement>();
 		tasksList = getEleInTasksList();
-		System.out.println(tasksList.size());
+		int count = 0;
 		for(WebElement we:tasksList) {
-			System.out.println(we);
-			System.out.println(we.getText());
-			
+			if(we.getText().contains(desc)) {
+				count++;
+			}
 		}
-		Assert.assertTrue(tasksList.contains(desc),"Task was not added successfully to the list");
+		Assert.assertEquals(count, 1);
 		NXGReports.addStep("Tasks added successfully", LogAs.PASSED, null);
 		Assert.assertTrue(getElePriorityIcon(desc).isDisplayed(),"High Priority Icon is not displayed");
 		NXGReports.addStep("High Priority Icon is displayed successfully", LogAs.PASSED, null);
