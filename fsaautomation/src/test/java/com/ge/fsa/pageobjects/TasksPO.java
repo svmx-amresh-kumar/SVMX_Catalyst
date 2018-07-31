@@ -87,7 +87,7 @@ public class TasksPO {
 	 */
 
 	public String addTask(CommonsPO commonsPo, String...sDesc) throws InterruptedException {
-		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("Task Desc");
+		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("TaskDesc");
 		commonsPo.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		NXGReports.addStep("Tasks screen is displayed successfully", LogAs.PASSED, null);
