@@ -331,6 +331,63 @@ public class WorkOrderPO {
 
 		return eleworkordernameonUI;
 	}
+
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
+	private WebElement eleThisRecordDoesNotPopup;
+	public  WebElement getEleThisRecordDoesNotPopup()
+	{
+		
+		return eleThisRecordDoesNotPopup;
+	}
+	
+	@FindBy(xpath="//span[text()='OK']")
+	private WebElement eleOKBtn;
+	public  WebElement getEleOKBtn()
+	{
+		
+		return eleOKBtn;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//input']")
+	private WebElement eleBillingTypeLst;
+	public WebElement getEleBillingTypeLst()
+	{
+		return eleBillingTypeLst;
+	}
+	
+	@FindBy(xpath="//div[contains(text(),'Issue found')]")
+	private WebElement eleIssueFoundTxt;
+	public WebElement getEleIssueFoundTxt()
+	{
+		return eleIssueFoundTxt;
+	}
+	
+	private WebElement eleIssuePopupTxt;
+	public WebElement getEleIssuePopupTxt(String sIssueTxt)
+	{
+		eleIssuePopupTxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sIssueTxt+"']"));
+		return eleIssuePopupTxt;
+	}
+	
+	@FindBy(xpath="//*[contains(text(),'Saved successfully')]")
+	private WebElement eleSavedSuccessTxt;
+	public WebElement getEleSavedSuccessTxt()
+	{
+		return eleSavedSuccessTxt;
+	}
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
+	private WebElement eleDiscardBtn;
+	public  WebElement getEleDiscardBtn()
+	{
+		return eleDiscardBtn;
+	}
+	@FindBy(xpath="//*[text() = 'Cancel']")
+	private WebElement eleCancelLnk;
+	public WebElement getEleCancelLnk()
+	{
+		return eleCancelLnk;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -516,6 +573,21 @@ public class WorkOrderPO {
 				System.err.println("Chidlines are not saved");
 				
 			}
+			
+		}
+		
+		//Navigation to WorkOrder SFM	
+		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			selectAction(commonsPo, sFieldServiceName);
+		
 			
 		}
 		
