@@ -1,5 +1,7 @@
 package com.ge.fsa.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Rotatable;
@@ -81,7 +83,7 @@ public class ChecklistPO {
     }
     
     private WebElement eleCompletedChecklistName;
-	public WebElement eleCompletedChecklistName(String checklistname)
+	public WebElement geteleCompletedChecklistName(String checklistname)
 	{
 		
 		eleCompletedChecklistName = driver.findElement(By.xpath("(//div[@class='checklist-lineup-list-item-name'][text()='"+checklistname+"'])[2]"));
@@ -95,6 +97,12 @@ public class ChecklistPO {
 		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//textarea"));
 	}
 	
+	
+	private WebElement eleChecklistAnsPicklist;
+	public WebElement  geteleChecklistAnsPicklist(String ChecklistTextQuestion)
+	{
+		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
+	}
 	
 	
 	private WebElement eleChecklistrequiredTxt;
@@ -136,17 +144,20 @@ public class ChecklistPO {
 			
 	private WebElement eleWONumberTxt;
 	public WebElement getEleWONumberTxt(String sWorkOrder)
+	
 	{
-		eleWONumberTxt=driver.findElement(By.xpath("//div[@class='workorder-details']//td[text()='"+sWorkOrder+"']"));
+
+		  eleWONumberTxt=driver.findElement(By.xpath("//div[@class='workorder-details']//td[2][contains(text(), '"+sWorkOrder+"')]"));
+		//eleWONumberTxt=driver.findElement(By.xpath("//div[@class='workorder-details']//td[text()='"+sWorkOrder+"']"));
 		return eleWONumberTxt;
 	}
 	
-	
-	@FindBy(xpath="//input[@value='Done']")
-	private WebElement eleDoneLnk;
-	public WebElement getEleDoneLnk()
+	 @FindBy(xpath="//input[@id='svmx_finalize']")
+	//@FindBy(xpath="//input[@value='Done']")
+	private WebElement eleopDoneLnk;
+	public WebElement getEleopDoneLnk()
 	{
-		return eleDoneLnk;
+		return eleopDoneLnk;
 	}
 	
 	@FindBy(xpath="//span[text() = 'Actions']")
@@ -156,69 +167,36 @@ public class ChecklistPO {
 		return eleActionsLnk;
 	}
 	
+	
+	//getting the entire row in checklistopdoc checklist,completed,status EntireTable.
+	@FindBy(xpath="//div//th[@class='theader'][contains(text(), 'Checklist')]/../../..//tbody")
+	private WebElement eleChecklistOPDOCRow;
+	public WebElement geteleChecklistOPDOCRow()
+	{
+		return eleChecklistOPDOCRow;
+	}
+	
+	//getting the Checklist Answers in OPDOC
+	@FindBy(xpath="//div[@class='part-details']//th//strong[text()='Question']/../../../../../../../..")
+    private WebElement eleChecklistAnswerOPDOCtbl;
+    public WebElement geteleChecklistAnswerOPDOCtbl()
+    {
+    	return eleChecklistAnswerOPDOCtbl;
+    }
+    
+	
 	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	
 	
 		workOrderPo.selectAction(commonsPo, sPrintReportSearch);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(4000);
 		Assert.assertTrue(geteleChecklistReporttxt().isDisplayed(), "Checklist Report is not displayed in OPDOC.");
 		NXGReports.addStep("Checklist Report OPDOC is displayed successfully", LogAs.PASSED, null);		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"Work Order no is not displayed in OPDOC report");
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
-		getEleDoneLnk().click();
-		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iLowSleep);
-		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iLowSleep);
-	
-		//Navigation back to Work Order after Service Report
-		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);		
-	}
-	
-	//for shadow
-	public  String getText(AppiumDriver driver, WebElement element){
-	    return (String) ((JavascriptExecutor) driver).executeScript(
-	        "return (arguments[0]).shadowRoot;", element);
-	}
-	
-	
-	//for shadow
-	  @FindBy(xpath="//div[@class='x-unsized x-textareainput x-textinput x-input x-component x-has-width x-widthed x-disabled']/div[@class='x-input-body-el']")
-	    private WebElement eledivtextarea;
-	    public WebElement geteledivtextarea()
-	    {
-	    	return eledivtextarea;
-	    }
-	
-	//for shadow
-	public WebElement expandRootElement(WebElement element) {
-		WebElement ele = (WebElement) ((JavascriptExecutor) driver)
-.executeScript("return arguments[0].shadowRoot",element);
-		return ele;
-	}
-
-	
-	//for shadow
-	@FindBy(css="textarea[id^='ext-element']")
-	private WebElement elecsstextarea;
-	public WebElement getelecsstextarea()
-	{
-		return elecsstextarea;
-	}
-	
-	//for shadow
-	@FindBy(css="div[contenteditable='false']")
-	private WebElement elecsstextarea2;
-	public WebElement getelecsstextarea2()
-	{
-		return elecsstextarea;
-	}
-	
-	
-	
-	
+		System.out.println(sWorkOrderID);
+		
+	}					
 	
 }
 

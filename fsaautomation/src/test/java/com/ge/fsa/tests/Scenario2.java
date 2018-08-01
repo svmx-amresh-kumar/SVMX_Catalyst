@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.json.JSONArray;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -65,11 +66,16 @@ public class Scenario2 extends BaseLib {
 
 		restServices.getAccessToken();
 		// Creation of dynamic Work Order
-//		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-//		sWorkOrderID = restServices.getWOORecordID(sWOJsonData);
-//		sWOName = restServices.getWOName(sWorkOrderID);
-		// sWOName="WO-00000269";
+		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
+		System.out.println(sWORecordID);
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
+		System.out.println("WO no ="+sWOName);
+		//sWOName="WO-00000269";
 		String ChecklistTextQuestion = "text2372018162553";
+		String ChecklistTextAnswerQuestion = "Text Question Answered";
+		String picklistQuestion = "picklist2372018162550";
+		String picklistAns = "Answer23702018163046";
+		
 
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
@@ -105,8 +111,12 @@ public class Scenario2 extends BaseLib {
 			 */
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(2000);
-			checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).sendKeys("Text Question Answered");
-
+			checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).sendKeys(ChecklistTextAnswerQuestion);
+			
+			//setting picklist value in picklist q
+			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(ChecklistTextQuestion), picklistAns);
+			
+			
 			// tapping the next button in checklist
 			commonsPo.tap(checklistPo.eleNext());
 			// submitting the checklist
@@ -123,32 +133,18 @@ public class Scenario2 extends BaseLib {
 			commonsPo.longPress(checklistPo.eleShowCompletedChecklist());
 			System.out.println("tapped on completed checklist");
 			System.out.println("going to tap on the completedchecklist");
-			commonsPo.tap(checklistPo.eleCompletedChecklistName(sChecklistName));
+			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			//System.out.println(checklistPo.eleCompletedChecklistName(sChecklistName));
 			System.out.println("tapped on completed checklist");
 		//	System.out.println("printing checklisttextquesion" + ChecklistTextQuestion);
 		//	Thread.sleep(5000);
 			System.out.println("=============================================");
 			//checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion)ChecklistTextQuestion.click();
-			String qans = checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).getText();
-			System.out.println("trying with eleone----.......");
-			
+			String qans = checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).getAttribute("value");
+			System.out.println("trying with eleone----......."+qans);
+			Assert.assertEquals(ChecklistTextAnswerQuestion, qans, "textquestion answered is not displayed");
 			//checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion);
-			System.out.println(checklistPo.getText(driver, checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion)));
-			WebElement ws = checklistPo.getelecsstextarea2();
-			System.out.println(checklistPo.getelecsstextarea2().getText());
-			
-		  //  System.out.println("vinaya printing ws"+ws);
-		    checklistPo.expandRootElement(ws);
-		    System.out.println("post expanding root");
-		    System.out.println(ws);
-		    System.err.println("-----------------");
-		    System.out.println(ws.getText());
-		    System.out.println("innerhtml------");
-		    System.out.println(ws.getAttribute("innerHTML"));
-		    System.out.println("----innertext-----");		
-		    System.out.println(ws.getAttribute("innerText"));
-		    
+		
 		    
 			//System.out.println(checklistPo.getshadowroot(ChecklistTextQuestion).getText());;
 			//WebElement shadowroot = (WebElement) ((JavascriptExecutor)driver) .executeScript("return arguments[0].shadowRoot",checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion));

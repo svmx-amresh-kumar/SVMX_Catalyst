@@ -294,7 +294,7 @@ public class RestServices
 		Iterator iterator = msg.iterator();
 		while (iterator.hasNext()) {
 	         JSONObject value = (JSONObject) iterator.next();
-	         returnvalue= (String) value.get(getvalue);
+	         returnvalue= (String) value.get(getvalue).toString();
 		}
 		}
 		System.out.println(returnvalue);

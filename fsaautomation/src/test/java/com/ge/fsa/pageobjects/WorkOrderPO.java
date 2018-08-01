@@ -331,6 +331,24 @@ public class WorkOrderPO {
 
 		return eleworkordernameonUI;
 	}
+	
+	
+	//Verifying the OrderStatus of workorder
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Order Status']/../..//div[@class='x-innerhtml']")
+	private WebElement eleOrderStatusvaluelbl;
+	public WebElement geteleOrderStatusvaluelbl()
+	{
+		return eleOrderStatusvaluelbl;
+	}
+	
+	
+	//verifying ProblemDescription in WorkOrder
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span")
+	private WebElement eleProblemDescriptionlbl;
+	public WebElement geteleProblemDescriptionlbl()
+	{
+		return eleProblemDescriptionlbl;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -419,8 +437,7 @@ public class WorkOrderPO {
 	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
-		commonsPo.lookupSearch(sProductName1);
-		//commonsPo.tap(workOrderPo.getEleclickparts(sProductName1));
+		commonsPo.tap(workOrderPo.getEleclickparts(sProductName1));
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
@@ -428,10 +445,8 @@ public class WorkOrderPO {
 	public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType, String sprocessname) throws InterruptedException
 	{	//Adding labor parts name
 		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
-		Thread.sleep(2000);
 		commonsPo.tap(getElePartLaborLkUp());
-		commonsPo.lookupSearch(sProductName1);
-		//commonsPo.tap(getEleProductNameTxt(sProductName1));
+		commonsPo.tap(getEleProductNameTxt(sProductName1));
 		
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
