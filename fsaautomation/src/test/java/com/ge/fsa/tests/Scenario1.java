@@ -131,14 +131,14 @@ public class Scenario1 extends BaseLib
 		String sChildlinesAfter = restServices.restGetSoqlValue(sSoqlQueryChildlineAfter, "totalSize");	
 		if(sChildlinesAfter.equals("0"))
 		{
-		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
 
-		System.out.println("The Childlines before Sync is "+sChildlinesAfter);
+		System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesAfter, LogAs.PASSED, null);
-			System.out.println("The Childlines before Sync is "+sChildlinesAfter);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
 		
 		Thread.sleep(1000);

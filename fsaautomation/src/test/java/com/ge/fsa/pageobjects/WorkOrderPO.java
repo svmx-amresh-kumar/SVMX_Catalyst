@@ -606,7 +606,30 @@ public class WorkOrderPO {
 			
 		}
 		
-		// Edit the ChildLines and save them
+		// To verify if the Work Order is not available for Download Criteria
+		
+		public void downloadcriteriaverification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
+			
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			exploreSearchPo.getEleExploreSearchTxtFld().click();
+			try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+			exploreSearchPo.getEleExploreSearchTxtFld().clear();
+			exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName);
+			commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+			
+			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
+			{
+				commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
+				commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+	
+			}
+
+			Thread.sleep(GenericLib.iLowSleep);
+
+		}
 		
 		
 }

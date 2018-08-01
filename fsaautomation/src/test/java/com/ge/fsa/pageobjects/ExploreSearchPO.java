@@ -40,6 +40,14 @@ public class ExploreSearchPO
 		 return eleWorkOrderIDTxt;
 	}
 	
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='No records to display.']")
+	private WebElement eleNorecordsToDisplay;
+	public WebElement getEleNorecordsToDisplay()
+	{
+		return eleNorecordsToDisplay;
+	}
+	
 	@FindBy(xpath="//div[text()='Explore']")
 	private WebElement eleExploreIcn;
 	public WebElement getEleExploreIcn()
@@ -67,11 +75,25 @@ public class ExploreSearchPO
 		return eleResetFilerBtn;
 	}
 	
+	@FindBy(xpath="//div[@class='x-label-el sfmsearch-include-online-label']/../div[@class = 'x-body-el']/div/div[5]")
+	private WebElement eleOnlineBttn;
+	public WebElement getEleOnlineBttn()
+	{
+		return eleOnlineBttn;
+	}
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
 		 return eleExploreChildSearchTxt;
+	}
+	
+	//div[@class='icon-cloud-download sfmsearch-download-icon']
+	@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
+	private WebElement eleCloudSymbol;
+	public WebElement getEleCloudSymbol()
+	{
+		return eleCloudSymbol;
 	}
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
