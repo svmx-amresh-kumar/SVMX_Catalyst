@@ -502,7 +502,7 @@ public class WorkOrderPO {
 	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
-		commonsPo.tap(workOrderPo.getEleclickparts(sProductName1));
+		commonsPo.lookupSearch(sProductName1);
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
@@ -511,7 +511,8 @@ public class WorkOrderPO {
 	{	//Adding labor parts name
 		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 		commonsPo.tap(getElePartLaborLkUp());
-		commonsPo.tap(getEleProductNameTxt(sProductName1));
+		commonsPo.lookupSearch(sProductName1);
+		//commonsPo.tap(getEleProductNameTxt(sProductName1));
 		
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
