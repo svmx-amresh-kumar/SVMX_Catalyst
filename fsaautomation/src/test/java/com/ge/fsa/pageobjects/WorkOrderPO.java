@@ -591,7 +591,20 @@ public class WorkOrderPO {
 			
 		}
 		
-		//Navigation to WorkOrder SFM	
+		//Navigation to WorkOrder SFM without child search
+		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			selectAction(commonsPo, sFieldServiceName);		
+		}
+		
+		
+		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -601,10 +614,35 @@ public class WorkOrderPO {
 
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			selectAction(commonsPo, sFieldServiceName);
-		
+			selectAction(commonsPo, sFieldServiceName);		
 			
 		}
+		
+		
+		
+		//Navigate to WorkOrder Screen with a child search present
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
+		}
+		
+		//Navigate to WorkOrder Screen without child search.
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
+		}
+		
 		
 		// Edit the ChildLines and save them
 		

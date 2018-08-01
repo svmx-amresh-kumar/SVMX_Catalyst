@@ -27,6 +27,7 @@ public class Scenario7 extends BaseLib{
 	String sWOJsonData = null;
 	String sWOName = null;
 	String sChecklistOpDocName = null;
+	String sExploreChildSearchTxt = null;
 	
 	
 	@Test(enabled = true)
@@ -38,9 +39,11 @@ public class Scenario7 extends BaseLib{
 		
 		//Reading from the Excel sheet
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		sChecklistOpDocName =GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
+		
 		
 		
 		//Rest to Create Workorder
@@ -61,28 +64,27 @@ public class Scenario7 extends BaseLib{
 		String checklistStatus = "Completed";
 		
 		//sWOName = "WO-00000415";
-
+		
 			
 		
+		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		
+		//Data Sync for WO's created
+		toolsPo.syncData(commonsPo);
 		//toolsPo.configSync(commonsPo);
-		toolsPo.syncData(commonsPo);	
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		// Explore and Navigate to the Search Process
-		commonsPo.getSearch(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		// Select the Work Order
-		exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
 		
-		//extract order status value
+		//Navigation to WO
+	    workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);				
 		
+		//extract order status value		
 		String OrderStatusVal= workOrderPo.geteleOrderStatusvaluelbl().getText();
-		System.out.println("Order Status of Work order is "+OrderStatusVal);
-		
+		System.out.println("Order Status of Work order is "+OrderStatusVal);		
 		
 		 // Navigate to Field Service process
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
+		
 		// Navigating to the checklist
 		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
@@ -162,28 +164,41 @@ public class Scenario7 extends BaseLib{
 		 toolsPo.syncData(commonsPo);
 		 
 		// Verifying if checklistopdoc is synced to server
-		 System.out.println("Validating if attachment is syned to server.");
+		  System.out.println("Validating if OPDOC attachment is syned to server.");
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();
 			String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
 			Thread.sleep(GenericLib.iMedSleep);
-			assertNotNull(sAttachmentIDAfter);
+			assertNotNull(sAttachmentIDAfter); 
 			
 			
 		// 	Verifying Targetobject update in SF
-			System.out.println("TArget OBJECT validation from SF");
+			System.out.println("Validating Target OBJECT update from SF");
 			System.out.println(TargetObjectUpdatevalue);		
 			String targetobjectupdateO = "Select+SVMXC__Problem_Description__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\'";
-			//String targetobjectupdateO = "Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
-			
-			
+			//String targetobjectupdateO = "Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";						
 			
 			restServices.getAccessToken();
 			//System.out.println(targetobjectupdateO);
-		//	String targetobjectupdateOL = restServices.restGetSoqlValue(targetobjectupdateO, "SVMXC__Problem_Description__c");	
 			String targetobjectupdateOL = restServices.restGetSoqlValue(targetobjectupdateO, "SVMXC__Problem_Description__c");	
 			System.out.println(targetobjectupdateOL);
 			Assert.assertTrue(TargetObjectUpdatevalue.equals(targetobjectupdateOL), "Target Object Value is not updated to server");
-		
+			
+			
+			//Validate if checklist is updated to server
+			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
+			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
+			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
+			Assert.assertTrue(ChecklistQueryval.contains(checklistStatus),"checklist being updated is not synced to server");
+			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(dynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
+			Assert.assertTrue(checklistDefaultAns.contains(checklistDefaultAns), "default answer was not sycned to server in checklist answer");
+			JSONArray checklistans= restServices.restGetSoqlJsonArray(ChecklistQuery);
+			System.out.println(checklistans.getJSONObject(0));
+			System.out.println(checklistans.getJSONObject(1));
+			
+			
+			
 	}
 }
