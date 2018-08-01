@@ -600,7 +600,20 @@ public class WorkOrderPO {
 			
 		}
 		
-		//Navigation to WorkOrder SFM	
+		//Navigation to WorkOrder SFM without child search
+		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			selectAction(commonsPo, sFieldServiceName);		
+		}
+		
+		
+		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -610,35 +623,37 @@ public class WorkOrderPO {
 
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			selectAction(commonsPo, sFieldServiceName);
-		
+			selectAction(commonsPo, sFieldServiceName);		
 			
 		}
 		
-		// To verify if the Work Order is not available for Download Criteria
 		
-		public void downloadcriteriaverification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
-			
+		
+		//Navigate to WorkOrder Screen with a child search present
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-			exploreSearchPo.getEleExploreSearchTxtFld().click();
-			try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
-			exploreSearchPo.getEleExploreSearchTxtFld().clear();
-			exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName);
-			commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
-			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
-			{
-				commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
-				commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
-	
-			}
-
-			Thread.sleep(GenericLib.iLowSleep);
-
 		}
+		
+		//Navigate to WorkOrder Screen without child search.
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
+		}
+		
+		
+		// Edit the ChildLines and save them
 		
 		
 }
