@@ -297,7 +297,7 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	         returnvalue= (String) value.get(getvalue).toString();
 		}
 		}
-		System.out.println(returnvalue);
+	 	System.out.println("Returned value for "+getvalue+" = "+returnvalue);
 		return returnvalue;
 		}
 		
@@ -323,7 +323,8 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		         
 		         fieldValueObtained= (String) value.get(sfieldName).toString();
 		     }
-			
+		 	System.out.println("Returned value for "+sfieldName+" = "+fieldValueObtained);
+
 	     return fieldValueObtained;
 		 
 	 }
@@ -380,8 +381,10 @@ public  String getWOORecordID(String sWOJson) throws IOException
 
 
 	    JSONObject json = new JSONObject(stringBuilder.toString());
-	 	System.out.println(json);
+	 	System.out.println("JSON value = "+json);
 	 	String msg = (String) json.get("id");
+	 	System.out.println("Returning ID value = "+msg);
+
 		return msg;
 	 }
 
