@@ -152,6 +152,7 @@ public class CommonsPO extends BaseLib
 		//Customised touch LongPress
 		public void longPress(WebElement el) throws InterruptedException
 		{Point point = el.getLocation();
+		System.out.println("x "+point.getX()+" y "+point.getY());
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 			Thread.sleep(GenericLib.iLowSleep);

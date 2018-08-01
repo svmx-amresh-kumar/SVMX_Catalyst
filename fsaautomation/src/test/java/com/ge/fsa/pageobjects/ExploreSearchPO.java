@@ -66,6 +66,14 @@ public class ExploreSearchPO
 	{
 		return eleResetFilerBtn;
 	}
+	
+	private WebElement eleExploreChildSearchTxt;
+	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
+	{
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
+		 return eleExploreChildSearchTxt;
+	}
+	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{
 		getEleExploreSearchTxtFld().click();

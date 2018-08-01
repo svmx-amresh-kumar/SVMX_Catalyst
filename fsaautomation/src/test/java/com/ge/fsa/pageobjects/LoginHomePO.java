@@ -118,7 +118,7 @@ public class LoginHomePO
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 		NXGReports.addStep("Logged into FSA app successfully", LogAs.PASSED, null);		
-		System.out.println("Alerady installed and logged in");		
+		System.out.println("Already installed and logged in");		
 	}
 
 	}

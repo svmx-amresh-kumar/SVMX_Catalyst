@@ -23,42 +23,42 @@ public class TasksPO {
 	}
 	AppiumDriver driver = null;
 	
-	@FindBy(xpath="//div[.='Tasks']")
+	@FindBy(xpath="//div[text()='Tasks']")
 	private WebElement eleTasksIcn;
 	public WebElement getEleTasksIcn()
 	{
 		return eleTasksIcn;
 	}
 	
-	@FindBy(xpath="//span[.='Add Task']")
+	@FindBy(xpath="//span[text()='Add Task']")
 	private WebElement eleAddTasksBtn;
 	public WebElement getEleAddTasksBtn()
 	{
 		return eleAddTasksBtn;
 	}
 	
-	@FindBy(xpath="//span[.='Save']")
+	@FindBy(xpath="//span[text()='Save']")
 	private WebElement eleSaveBtn;
 	public WebElement getEleSaveBtn()
 	{
 		return eleSaveBtn;
 	}
 	
-	@FindBy(xpath="//span[.='High']/following::div[contains(@id,'radioinput')]")
+	@FindBy(xpath="//span[text()='High']")
 	private WebElement eleHighRadioBtn;
 	public WebElement getEleHighRadioBtn()
 	{
 		return eleHighRadioBtn;
 	}
 	
-	@FindBy(xpath="//span[.='Description']/following::textarea[1]")
+	@FindBy(xpath="//span[text()='Description']/following::textarea[1]")
 	private WebElement eleDescriptionTxtArea;
 	public WebElement getEleDescriptionTxtArea()
 	{
 		return eleDescriptionTxtArea;
 	}
 	
-	@FindBy(xpath="//span[.='Tasks'])[1]")
+	@FindBy(xpath="(//span[text()='Tasks'])[1]")
 	private WebElement eleTasksLbl;
 	public WebElement getEleTasksLbl()
 	{
@@ -74,7 +74,7 @@ public class TasksPO {
 	private WebElement elePriorityIcon;
 	public WebElement getElePriorityIcon(String taskName) {
 		
-		elePriorityIcon = driver.findElement(By.xpath("//div[.='"+taskName+"']/following-sibling::span[contains(@class,'double-exclamation')]"));
+		elePriorityIcon = driver.findElement(By.xpath("//div[text()='"+taskName+"']/following-sibling::span[contains(@class,'double-exclamation')]"));
 		return elePriorityIcon;
 	}
 	
@@ -87,17 +87,23 @@ public class TasksPO {
 	 */
 
 	public String addTask(CommonsPO commonsPo, String...sDesc) throws InterruptedException {
-		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("Desc");
+		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("TaskDesc");
 		commonsPo.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		NXGReports.addStep("Tasks screen is displayed successfully", LogAs.PASSED, null);
-		getEleAddTasksBtn().click();
+		commonsPo.tap(getEleAddTasksBtn());
 		getEleDescriptionTxtArea().sendKeys(desc);
-		getEleHighRadioBtn().click();
-		getEleSaveBtn().click();
+		commonsPo.tap(getEleHighRadioBtn());
+		commonsPo.tap(getEleSaveBtn());
 		List<WebElement> tasksList = new ArrayList<WebElement>();
 		tasksList = getEleInTasksList();
-		Assert.assertTrue(tasksList.contains(desc),"Task was not added successfully to the list");
+		int count = 0;
+		for(WebElement we:tasksList) {
+			if(we.getText().contains(desc)) {
+				count++;
+			}
+		}
+		Assert.assertEquals(count, 1);
 		NXGReports.addStep("Tasks added successfully", LogAs.PASSED, null);
 		Assert.assertTrue(getElePriorityIcon(desc).isDisplayed(),"High Priority Icon is not displayed");
 		NXGReports.addStep("High Priority Icon is displayed successfully", LogAs.PASSED, null);
