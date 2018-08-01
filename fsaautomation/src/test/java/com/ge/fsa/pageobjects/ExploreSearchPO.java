@@ -66,14 +66,22 @@ public class ExploreSearchPO
 	{
 		return eleResetFilerBtn;
 	}
+	
+	private WebElement eleExploreChildSearchTxt;
+	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
+	{
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
+		 return eleExploreChildSearchTxt;
+	}
+	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{
 		getEleExploreSearchTxtFld().click();
 		try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		getEleExploreSearchTxtFld().clear();
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
-		commonsPo.tap(getEleExploreSearchBtn().getLocation());
-		commonsPo.tap(getEleWorkOrderIDTxt(sWOName).getLocation());
+		commonsPo.tap(getEleExploreSearchBtn());
+		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 }

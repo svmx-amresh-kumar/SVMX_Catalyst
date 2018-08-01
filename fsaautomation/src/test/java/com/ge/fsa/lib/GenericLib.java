@@ -93,6 +93,7 @@ public class GenericLib
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
 			for (int i = 1; i <= iRowNum; i++) {
+				
 				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
 					int iCellNum = sht.getRow(i).getLastCellNum();
 					
@@ -145,6 +146,41 @@ public class GenericLib
 		}
 	}
 	
+	/*
+	 * @author: LAKSHMI BS Description: To write test data from excel sheet
+	 */
+	public static void setExcelData(String sTestCaseID, String sKey, String sValue) {
+		String sData = null;
+		try {
+
+			FileInputStream fis = new FileInputStream(sTestDataFile);
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet("TestData");
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 1; i <= iRowNum; i++) {
+				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
+					int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
+							sht.getRow(i+1).createCell(j).setCellValue(sValue);
+							}
+					}
+					break;
+				}
+			}
+			FileOutputStream fos = new FileOutputStream(sTestDataFile);
+			wb.write(fos);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	
 	public static void main(String[] args) throws IOException {
 		GenericLib gen = new GenericLib();

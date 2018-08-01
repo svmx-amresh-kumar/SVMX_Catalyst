@@ -3,9 +3,11 @@
  */
 package com.ge.fsa.pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -39,6 +41,13 @@ public class ToolsPO
 	{
 		return eleSyncDataNowLnk;
 	}
+	@FindBy(xpath="//*[text() = 'Sync Config Now']")
+	private WebElement eleSyncConfigNowLnk;
+	public WebElement geteleSyncConfigNowLnk()
+	{
+		return eleSyncConfigNowLnk;
+	}	
+	
 	@FindBy(xpath="//*[text()='Start Sync']")
 	private WebElement eleStartSyncBtn;
 	public WebElement getEleStartSyncBtn()
@@ -59,24 +68,105 @@ public class ToolsPO
 		return eleRefreshingViewTxt;
 	}
 	
+	@FindBy(xpath="//*[text()='OK']")
+	private WebElement eleOkBtn;
+	public WebElement getEleOkBtn()
+	{
+		return eleOkBtn;
+	}
+	
+	@FindBy(xpath = "//*[text()='Config Sync in Progress']")
+	private WebElement eleConfigSyncinProgressTxt;
+	public WebElement geteleConfigSyncinProgressTxt()
+	{
+		return eleConfigSyncinProgressTxt;
+	}
+	
+	@FindBy(xpath="//span[text()='Config Sync']")
+	private WebElement eleConfigSyncBarMenuLnk;
+	public WebElement geteleConfigSyncBarMenuLnk()
+	{
+		return eleConfigSyncBarMenuLnk;
+	}	
+	
+	@FindBy(xpath="//*[text()='Cancel']")
+	private WebElement eleCancelConfigSyncBtn;
+	public WebElement geteleCancelConfigSyncBtn()
+	{
+		return eleCancelConfigSyncBtn;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-start x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner']//div[@class='x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description x-layout-box-item x-layout-vbox-item x-stretched'][2]//div[@class='x-innerhtml'][1]")
+	private WebElement eleConfigSyncStatusTxt;
+	public WebElement geteleConfigSyncStatusTxt()
+	{
+		return eleConfigSyncStatusTxt;
+	}
+	
 	//To sync the data
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
 		GenericLib.lWaitTime=3*60*1000;
 		
 		//Navigation to Tools screen
-		commonsPo.tap(getEleToolsIcn().getLocation());	
+		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		NXGReports.addStep("Tools screen is displayed successfully", LogAs.PASSED, null);
 		
 		getEleSyncDataNowLnk().click();
-		commonsPo.tap(getEleSyncDataNowLnk().getLocation());	
+		commonsPo.tap(getEleSyncDataNowLnk());	
 		getEleStartSyncBtn().click();
-		commonsPo.longPress(getEleStartSyncBtn().getLocation());
+		commonsPo.longPress(getEleStartSyncBtn());
 		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
 		//Verification of successful sync
 		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		NXGReports.addStep("Data Sync is successfull", LogAs.PASSED, null);
 	}
+	
+	//Config Sync
+		public void configSync(CommonsPO commonsPo) throws InterruptedException
+		{
+			GenericLib.lWaitTime=5*60*1000;
+			
+			//Navigation to Tools screen
+			commonsPo.tap(getEleToolsIcn());	
+			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
+			NXGReports.addStep("Tools screen is displayed successfully", LogAs.PASSED, null);
+			
+			geteleSyncConfigNowLnk().click();
+			commonsPo.tap(geteleSyncConfigNowLnk());	
+			getEleOkBtn().click();
+			commonsPo.longPress(getEleOkBtn());
+			//cancelling sync in order to reset the config sync status.
+			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
+			commonsPo.longPress(eleCancelConfigSyncBtn);
+			
+			
+			geteleSyncConfigNowLnk().click();
+			commonsPo.tap(geteleSyncConfigNowLnk());	
+			getEleOkBtn().click();
+			commonsPo.longPress(getEleOkBtn());
+			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
+			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
+			System.out.println("begining config sync");
+			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
+			//commonsPo.waitforElement(element, lTime);
+			
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 8000)) {
+				System.out.println("Sync Completed Sucessfully-tools po");
+
+			}else {
+				System.out.println("Sync Failed");
+
+			}
+																	
+			
+			//Verification of successful sync
+			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
+			NXGReports.addStep("Config Sync is successfull", LogAs.PASSED, null);
+		}
+	
+	
 }
