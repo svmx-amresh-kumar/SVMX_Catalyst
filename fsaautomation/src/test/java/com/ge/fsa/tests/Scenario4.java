@@ -1,11 +1,15 @@
+// Author: Harish.CS
 package com.ge.fsa.tests;
 
 import java.io.IOException;
 
-import org.json.JSONArray;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.GenericLib;
+import com.kirwa.nxgreport.NXGReports;
+import com.kirwa.nxgreport.logging.LogAs;
 
 public class Scenario4 extends BaseLib{
 	
@@ -36,7 +40,16 @@ public class Scenario4 extends BaseLib{
 //		System.out.println("Work Order Name Is "+ woName);
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		toolsPo.configSync(commonsPo);
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
+		
+		Assert.assertTrue(workOrderPo.getEleOnTreeView(accName).isDisplayed(),"Account not displayed in Tree View");
+		NXGReports.addStep("Account displayed on Tree View", LogAs.PASSED, null);
+		Assert.assertTrue(workOrderPo.getEleOnTreeView(locName).isDisplayed(),"Location not displayed in Tree View");
+		NXGReports.addStep("Location displayed on Tree View", LogAs.PASSED, null);
+		Assert.assertTrue(workOrderPo.getEleOnTreeView(ibName).isDisplayed(),"Installed Product not displayed in Tree View");
+		NXGReports.addStep("Installed Product displayed on Tree View", LogAs.PASSED, null);
 		
 		
 	}
