@@ -406,6 +406,14 @@ public class WorkOrderPO {
 	{
 		return eleCancelLnk;
 	}
+	
+	// Added by Harish.CS
+	private WebElement eleOnTreeView;
+	public WebElement getEleOnTreeView(String eleName) {
+	eleOnTreeView = driver.findElement(By.xpath("//div[text()='"+eleName+"']"));
+	return eleOnTreeView;
+	
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
