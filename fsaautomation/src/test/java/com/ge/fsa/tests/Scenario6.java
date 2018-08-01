@@ -22,7 +22,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario5 extends BaseLib {
+public class Scenario6 extends BaseLib {
 	GenericLib genericLib = null;
 	RestServices restServices = null;
 	LoginHomePO loginHomePo = null;
@@ -50,6 +50,7 @@ public class Scenario5 extends BaseLib {
 	String sIssueTxt = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
+	String sCaseID = null;
 
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -65,21 +66,21 @@ public class Scenario5 extends BaseLib {
 		
 		//Creation of dynamic Work Order1
 		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Canceled\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000456"; 
+	//	sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
+	//	sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
+	//	sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000456"; 
 		
 		//Creation of dynamic Work Order2
 		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
-		
+	//	sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
+	//	sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
+	//	sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
+		sCaseID = "00001000";
 	}
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
-		sTestCaseID = "SANITY5";
+		sTestCaseID = "SANITY6";
 		
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
@@ -91,47 +92,10 @@ public class Scenario5 extends BaseLib {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
-			//Data Sync for WO's created
-			toolsPo.syncData(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
 			
-			//Validation of not qualifying Work Order
-			Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-			NXGReports.addStep("Error popup This is record does not meet is displayed successfully", LogAs.PASSED, null);		
-			commonsPo.tap(workOrderPo.getEleOKBtn());
-			Thread.sleep(GenericLib.iLowSleep);
-		
-			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
-			commonsPo.tap(workOrderPo.getEleClickSave());
-			
-			//Validation of qualifying workorder with Issue found text error.
-			Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
-			NXGReports.addStep("Issue found is displayed successfully", LogAs.PASSED, null);		
-			
-			//Validation of qualifying workorder with Issue found text popup.
-			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());	
-			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
-			NXGReports.addStep("Error popup Issue found is displayed successfully", LogAs.PASSED, null);		
-			
-			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
-			Thread.sleep(GenericLib.iMedSleep);
-			commonsPo.tap(workOrderPo.getEleCancelLnk());
-			commonsPo.tap(workOrderPo.getEleDiscardBtn());
-			
-			//Navigation to WO
-			workOrderPo.selectAction(commonsPo, sFieldServiceName);
-			Thread.sleep(GenericLib.iMedSleep);
-			
-			//Selecting Billing Type to loan to make sure sfm is working fine.
-			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
-			commonsPo.tap(workOrderPo.getEleSaveLnk());
-			
-			//Validation of qualifying workorder with Issue found text error.
-			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 			NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);		
 		
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
