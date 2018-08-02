@@ -105,6 +105,7 @@ public class Scenario7 extends BaseLib{
 		System.out.println("Validating default value entered to textbox");
 		String ans =checklistPo.geteleChecklistAnswerTextArea(checklistDefaultQuestion).getAttribute("value");
 		Assert.assertTrue(ans.equals(checklistDefaultAns), "Defualt value is not populated correctly");
+		NXGReports.addStep("Default Value in checklist Answer validated", LogAs.PASSED, null);
 	//	checklistDefaultQuestion 
 		
 		//tapping next button
@@ -116,7 +117,7 @@ public class Scenario7 extends BaseLib{
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
-		NXGReports.addStep("checklist required question validation passed", LogAs.PASSED, null);
+		NXGReports.addStep("checklist required question validation passed", LogAs.PASSED, null);		
 		commonsPo.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
 		Assert.assertTrue(checklistPo.geteleissuefoundlbl().isDisplayed(),"Failed to display issue found for required question-checklist");
 		NXGReports.addStep("checklist required question validation issue display passed", LogAs.PASSED, null);
@@ -141,12 +142,14 @@ public class Scenario7 extends BaseLib{
 		 Assert.assertTrue(checklistPo.geteleChecklistOPDOCRow().getText().toString().contains(sChecklistName), "Checklist Name is displayed");
 				
 		 		 
-		//validting if it picks the checklist Question and answer.
+		//validating if it picks the checklist Question and answer.
 		 checklistPo.geteleChecklistAnswerOPDOCtbl();
 		 System.out.println( checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString());
-		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(dynamicResponseTextQuestion), "Couldnt find the checklist question in OPDOC");		 		
+		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(dynamicResponseTextQuestion), "Couldnt find the checklist question in OPDOC");	
+		 NXGReports.addStep("Found Dynamic REsponse Text question in OPDOC", LogAs.PASSED, null);
 		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sWOName), "Couldnt get the WorkOrder no populated through dynamic response");	 	
-		
+		 NXGReports.addStep("WorkORder No populated through dynamic response displayed in OPDOC", LogAs.PASSED, null);
+		 
 		checklistPo.getEleopDoneLnk().click();
 		
 		commonsPo.tap(checklistPo.getEleopDoneLnk());

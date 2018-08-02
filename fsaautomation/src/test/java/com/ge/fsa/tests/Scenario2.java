@@ -20,6 +20,7 @@ import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.google.gson.internal.bind.DateTypeAdapter;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
@@ -55,7 +56,7 @@ public class Scenario2 extends BaseLib {
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
-		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
+		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
@@ -87,7 +88,7 @@ public class Scenario2 extends BaseLib {
 		String dateTimeAns = null;
 		String checklistStatus = "Completed";
 		
-		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
+	//	GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
 
 			// Pre Login to app
@@ -99,7 +100,7 @@ public class Scenario2 extends BaseLib {
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
 
-			System.out.println("going to Enter checklist");
+			System.out.println("Going to Enter checklist");
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
@@ -129,9 +130,7 @@ public class Scenario2 extends BaseLib {
 		    
 		    System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(radioQuestion).click();
-		    System.out.println("//check tap");
-		    
-		   commonsPo.longPress(checklistPo.geteleChecklistAnsradio(radioQuestion));
+		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(radioQuestion));
 			
 		    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.eleNext());
@@ -188,8 +187,11 @@ public class Scenario2 extends BaseLib {
 			
 			// Sync the Data
 			 toolsPo.syncData(commonsPo);		
+			 
 			
-			
+			 									//SERVER SIDE API VALIDATIONS
+			 
+			 
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
@@ -200,8 +202,20 @@ public class Scenario2 extends BaseLib {
 			
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");			
 			Assert.assertTrue(ChecklistAnsjson.contains(textAns), "checklist text question answer is not synced to server");
-			Assert.assertTrue(ChecklistAnsjson.contains(numberAns), "checklist number answer was not sycned to server in checklist answer");
+			NXGReports.addStep("checklist text question answer is not synced to server", LogAs.PASSED, null);
 			
+			Assert.assertTrue(ChecklistAnsjson.contains(numberAns), "checklist number answer sycned to server in checklist answer");
+			NXGReports.addStep("checklist number answer sycned to server in checklist answer", LogAs.PASSED, null);
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(dateAns), "checklist date answer was not sycned to server in checklist answer");
+			NXGReports.addStep("checklist date question answer synced to server", LogAs.PASSED, null);
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(dateTimeAns), "checklist datetime answer was not sycned to server in checklist answer");
+			NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(picklistAns), "checklist picklist answer was not sycned to server in checklist answer");
+			NXGReports.addStep("checklist picklist question answer synced to server", LogAs.PASSED, null);
+
 			
 			
 																	
