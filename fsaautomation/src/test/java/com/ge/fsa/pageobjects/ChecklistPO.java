@@ -118,6 +118,15 @@ public class ChecklistPO {
 		return eleChecklistAnsDate = driver.findElement(By.xpath("//div[text()='"+checklistDateQuestion+"'][@class='x-innerhtml']/../..//input"));
 	}
 	
+	
+	private WebElement eleChecklistAnsradio;
+	public WebElement  geteleChecklistAnsradio(String checklistRadioQuestion)
+	{
+		
+		
+		return eleChecklistAnsradio = driver.findElement(By.xpath("//div[text()='"+checklistRadioQuestion+"'][@class='x-innerhtml']/../..//span"));
+	}
+	
 	private WebElement eleChecklistrequiredTxt;
 	public WebElement  geteleChecklistrequiredTxt(String ChecklistTextQuestion)
 	{
@@ -146,7 +155,19 @@ public class ChecklistPO {
 		return eleBacktoWorkOrderlnk;
 	}
 	
+	@FindBy(xpath="//span[text()='< Back']")
+	private WebElement eleBacklnk;
+	public WebElement geteleBacklnk()
+	{
+		return eleBacklnk;
+	}
 	
+	@FindBy(xpath="//span[text()='< Checklists']")
+	private WebElement eleBacktoChecklistslnk;
+	public WebElement geteleBacktoChecklistslnk()
+	{
+		return eleBacktoChecklistslnk;
+	}
 	
 	@FindBy(xpath="//strong[text()='Checklist Report']")
 	private WebElement eleChecklistReporttxt;
@@ -209,7 +230,29 @@ public class ChecklistPO {
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
 		System.out.println(sWorkOrderID);
 		
-	}					
+	}	
+	
+	
+	public void navigateBacktoWorkOrder(CommonsPO commonsPo) throws InterruptedException
+	{
+		
+		
+		try {
+			commonsPo.tap(geteleBacktoChecklistslnk());
+			commonsPo.tap(geteleBacktoWorkOrderlnk());
+			
+		} catch (Exception e) {
+			commonsPo.tap(geteleBacklnk());
+			commonsPo.tap(geteleBacktoChecklistslnk());
+			commonsPo.tap(geteleBacktoWorkOrderlnk());
+		}
+		
+		
+		
+		
+		
+	}
+	
 	
 }
 

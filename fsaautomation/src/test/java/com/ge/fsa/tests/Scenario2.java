@@ -56,34 +56,37 @@ public class Scenario2 extends BaseLib {
 		sCaseWOID = "RS_2389_checklistID";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
 		sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
-		/*
-		 * //Creation of dynamic Work Order
-		 * sWorkOrderID=restServices.getWOORecordID(sWOJsonData); sWOName
-		 * =restServices.getWOName(sWorkOrderID);
-		 */
+		
+		//Extracting Excel Data
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 
-		restServices.getAccessToken();
 		// Creation of dynamic Work Order
+		restServices.getAccessToken();
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
-		//sWOName="WO-00000269";
+		//sWOName="WO-00000609";
 		
 		
-		String ChecklistTextQuestion = "text2372018162553";
-		String ChecklistTextAnswerQuestion = "Text Question Answered";
+		String radioQuestion ="checkbox2372018162542";
+		String radioAns = null;		
+		String textQuestion = "text2372018162553";
+		String textAns = "Text Question Answered";
 		String numberQuestion = "number2372018162548";
-		String numbnerAns ="200";		
+		String numberAns ="200";		
 		String picklistQuestion = "picklist2372018162550";
-		String picklistAns = "Answer23702018163046";
+		String picklistAns = "Answer2372018163046";
 		String dateQuestion = "date2372018162544";
-
+		String dateAns = null;
+		String dateTimeQuestion = "dateTime2372018162545";
+		String dateTimeAns = null;
+		String checklistStatus = "Completed";
+		
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
 
@@ -94,82 +97,117 @@ public class Scenario2 extends BaseLib {
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
-			Thread.sleep(5000);
-			
-			//for new element still pending
-		//	System.out.println(checklistPo.geteleStartNew());
-			/*
-			 * if (checklistPo.geteleStartNew() != null) {
-			 * System.out.println("entered loop -now click start new");
-			 * commonsPo.tap(checklistPo.geteleStartNew(),15,18);
-			 * 
-			 * 
-			 * //checklistPo.geteleStartNew().click(); //
-			 * System.out.println(checklistPo.geteleStartNew().getLocation()); // Point p =
-			 * checklistPo.geteleStartNew().getLocation(); // p.x = p.x*2; //
-			 * System.out.println("loc"+p); // p.move(p.x, p.y); // // //
-			 * //commonsPo.longPress(checklistPo.geteleStartNew()); //
-			 * commonsPo.tap(checklistPo.geteleStartNew(),p.x,p.y); } else
-			 */
+			Thread.sleep(GenericLib.iMedSleep);
+
 			System.out.println("going to Enter checklist");
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			System.out.println("Entering Text Question Answer");
-			checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).sendKeys(ChecklistTextAnswerQuestion);
+			checklistPo.geteleChecklistAnswerTextArea(textQuestion).sendKeys(textAns);
 			
 			System.out.println("Entering Number Question Answer");
-			checklistPo.geteleChecklistAnsNumber(numberQuestion).sendKeys(numbnerAns);;
+			checklistPo.geteleChecklistAnsNumber(numberQuestion).sendKeys(numberAns);;
+			
+			System.out.println("Selecting Picklist Question Answer");
+			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(picklistQuestion), picklistAns);
 			
 			System.out.println("Setting  Date Question Answer");
-			commonsPo.tap(checklistPo.geteleChecklistAnsDate(dateQuestion));
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			checklistPo.geteleChecklistAnsDate(dateQuestion).click();
+			commonsPo.switchContext("Native");
+		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		    commonsPo.switchContext("WebView");
+		    dateAns = checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value");
+		    
+		    System.out.println("Setting dateTime Question Answer");
+		    checklistPo.geteleChecklistAnsDate(dateTimeQuestion).click();
+		    commonsPo.switchContext("Native");
+		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		    commonsPo.switchContext("WebView");
+		    dateTimeAns = checklistPo.geteleChecklistAnsDate(dateTimeQuestion).getAttribute("value");
+		 
+		    
+		    System.out.println("Setting Radio button  Question Answer");
+		    checklistPo.geteleChecklistAnsradio(radioQuestion).click();
+		    System.out.println("//check tap");
+		    
+		   commonsPo.longPress(checklistPo.geteleChecklistAnsradio(radioQuestion));
 			
-			//setting picklist value in picklist q
-			System.out.println("Selecting Picklist Question Answer");
-			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(ChecklistTextQuestion), picklistAns);
-			
-		
-			
-			
-			// tapping the next button in checklist
-			commonsPo.tap(checklistPo.eleNext());
+		    // tapping the next button in checklist
+		 	commonsPo.tap(checklistPo.eleNext());
+
+		 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(checklistPo.eleChecklistSubmit());
+			commonsPo.tap(checklistPo.eleChecklistSubmit());			
+		
 
 			// tapping on the validation sucessfull checklist popup
-
 			commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 
+			
 			// Tapping on Show Completed Checklists
 			System.out.println("going to tap on show completedchecklists");
 			commonsPo.longPress(checklistPo.eleShowCompletedChecklist());
 			System.out.println("tapped on completed checklist");
 			System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
-			//System.out.println(checklistPo.eleCompletedChecklistName(sChecklistName));
 			System.out.println("tapped on completed checklist");
-		//	System.out.println("printing checklisttextquesion" + ChecklistTextQuestion);
-		//	Thread.sleep(5000);
-			System.out.println("=============================================");
-			//checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion)ChecklistTextQuestion.click();
-			String qans = checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).getAttribute("value");
-			System.out.println("trying with eleone----......."+qans);
-			Assert.assertEquals(ChecklistTextAnswerQuestion, qans, "textquestion answered is not displayed");
-			//checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion);
+			
+			
+			
+			
+			System.out.println("====================Checklist Answers Valdation=========================");
+			
+			//String qans = checklistPo.geteleChecklistAnswerTextArea(textQuestion).getAttribute("value");
+			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(textQuestion).getAttribute("value"), textAns, "textquestion answered is not displayed");
+			NXGReports.addStep("ChecklistText Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		
+			
+		    //String dateCompletedval = checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value");
+			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value"), dateAns, "date checklist question answered is not displayed");
+			NXGReports.addStep("Checklist Date Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		    
-			//System.out.println(checklistPo.getshadowroot(ChecklistTextQuestion).getText());;
-			//WebElement shadowroot = (WebElement) ((JavascriptExecutor)driver) .executeScript("return arguments[0].shadowRoot",checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion));
-			//System.out.println("shadowroot.text"+shadowroot.getText());
-			//*[@id="ext-element-1731"]//div
+					
+			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(dateTimeQuestion).getAttribute("value"), dateTimeAns, "datetime checklist question answered is not displayed");
+			NXGReports.addStep("Checklist Datetime Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			
+		
+			Assert.assertEquals(checklistPo.geteleChecklistAnsNumber(numberQuestion).getAttribute("value"), numberAns, "number checklist question answered is not displayed");
+			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			
+			
+			Assert.assertEquals(checklistPo.geteleChecklistAnsPicklist(picklistQuestion).getAttribute("value"), picklistAns, "number checklist question answered is not displayed");
+			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			
+			
+			checklistPo.navigateBacktoWorkOrder(commonsPo);
+			
+			
+			
 			// Sync the Data
-			// toolsPo.syncData(commonsPo);																	
-			genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
-					sTestCaseID);
-			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
+			 toolsPo.syncData(commonsPo);		
+			
+			
+			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
+			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
+			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
+			Assert.assertTrue(ChecklistQueryval.contains(checklistStatus),"checklist completed is not synced to server");
+			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
+			
+			
+			
+			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");			
+			Assert.assertTrue(ChecklistAnsjson.contains(textAns), "checklist text question answer is not synced to server");
+			Assert.assertTrue(ChecklistAnsjson.contains(numberAns), "checklist number answer was not sycned to server in checklist answer");
+			
+			
+			
+																	
+		//	genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
+		//			sTestCaseID);
+		//	NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} catch (Exception e) {
 			// NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
 			// CaptureScreen(ScreenshotOf.BROWSER_PAGE));

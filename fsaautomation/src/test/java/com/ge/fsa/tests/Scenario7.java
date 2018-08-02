@@ -198,6 +198,7 @@ public class Scenario7 extends BaseLib{
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
 			Assert.assertTrue(ChecklistQueryval.contains(checklistStatus),"checklist being updated is not synced to server");
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
+			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(dynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
 			Assert.assertTrue(checklistDefaultAns.contains(checklistDefaultAns), "default answer was not sycned to server in checklist answer");
