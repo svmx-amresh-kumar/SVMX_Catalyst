@@ -101,9 +101,22 @@ public class ChecklistPO {
 	private WebElement eleChecklistAnsPicklist;
 	public WebElement  geteleChecklistAnsPicklist(String ChecklistTextQuestion)
 	{
-		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
+		return eleChecklistAnsPicklist = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
 	}
 	
+	
+	private WebElement eleChecklistAnsNumber;
+	public WebElement  geteleChecklistAnsNumber(String checklistNumberQuestion)
+	{
+		return eleChecklistAnsNumber = driver.findElement(By.xpath("//div[text()='"+checklistNumberQuestion+"'][@class='x-innerhtml']/../..//input"));
+	}
+	
+	
+	private WebElement eleChecklistAnsDate;
+	public WebElement  geteleChecklistAnsDate(String checklistDateQuestion)
+	{
+		return eleChecklistAnsDate = driver.findElement(By.xpath("//div[text()='"+checklistDateQuestion+"'][@class='x-innerhtml']/../..//input"));
+	}
 	
 	private WebElement eleChecklistrequiredTxt;
 	public WebElement  geteleChecklistrequiredTxt(String ChecklistTextQuestion)

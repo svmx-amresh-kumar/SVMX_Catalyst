@@ -16,6 +16,8 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
+import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
+import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario7 extends BaseLib{
 	String sTestCaseID= null;
@@ -35,15 +37,14 @@ public class Scenario7 extends BaseLib{
 		sTestCaseID = "Scenario7_Checklist";
 		sCaseWOID = "Data_Scenario7_Checklist";
 		
-		
-		
+
 		//Reading from the Excel sheet
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		sChecklistOpDocName =GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
-		
+		try {
 		
 		
 		//Rest to Create Workorder
@@ -52,7 +53,7 @@ public class Scenario7 extends BaseLib{
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
 		
-		//checklist q's set--check if this needs to come from excel?
+		//checklist q's set--
 		String dynamicResponseTextQuestion = "What is the Work Order Number?";
 		String dynamicResponseTextAnswer = null;	
 		String checklistrequestionQ = "This is a required question";
@@ -70,10 +71,11 @@ public class Scenario7 extends BaseLib{
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
+		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
-		//toolsPo.configSync(commonsPo);
-			
+		Thread.sleep(GenericLib.iMedSleep);
+		//toolsPo.configSync(commonsPo);			
 		
 		//Navigation to WO
 	    workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);				
@@ -164,11 +166,13 @@ public class Scenario7 extends BaseLib{
 		 toolsPo.syncData(commonsPo);
 		 
 		// Verifying if checklistopdoc is synced to server
-		  System.out.println("Validating if OPDOC attachment is syned to server.");
+		  	System.out.println("Validating if OPDOC attachment is syned to server.");
+		  	Thread.sleep(GenericLib.iMedSleep);
+		  	Thread.sleep(GenericLib.iMedSleep);
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();
 			String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
-			Thread.sleep(GenericLib.iMedSleep);
+			
 			assertNotNull(sAttachmentIDAfter); 
 			
 			
@@ -186,6 +190,9 @@ public class Scenario7 extends BaseLib{
 			
 			
 			//Validate if checklist is updated to server
+			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.iHighSleep);
+			
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
@@ -194,11 +201,11 @@ public class Scenario7 extends BaseLib{
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(dynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
 			Assert.assertTrue(checklistDefaultAns.contains(checklistDefaultAns), "default answer was not sycned to server in checklist answer");
-			JSONArray checklistans= restServices.restGetSoqlJsonArray(ChecklistQuery);
-			System.out.println(checklistans.getJSONObject(0));
-			System.out.println(checklistans.getJSONObject(1));
 			
-			
+		} catch (Exception e) {
+			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			throw e;
+		}	
 			
 	}
 }

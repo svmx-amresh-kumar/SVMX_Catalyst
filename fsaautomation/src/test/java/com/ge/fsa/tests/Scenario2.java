@@ -43,6 +43,7 @@ public class Scenario2 extends BaseLib {
 	String sActivityType = null;
 	String sPrintReportSearch = null;
 	String sChecklistName = null;
+	String sExploreChildSearchTxt = null;
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
@@ -62,6 +63,8 @@ public class Scenario2 extends BaseLib {
 		 */
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 
 		restServices.getAccessToken();
@@ -71,11 +74,15 @@ public class Scenario2 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
 		//sWOName="WO-00000269";
+		
+		
 		String ChecklistTextQuestion = "text2372018162553";
 		String ChecklistTextAnswerQuestion = "Text Question Answered";
+		String numberQuestion = "number2372018162548";
+		String numbnerAns ="200";		
 		String picklistQuestion = "picklist2372018162550";
 		String picklistAns = "Answer23702018163046";
-		
+		String dateQuestion = "date2372018162544";
 
 		GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 		try {
@@ -83,18 +90,13 @@ public class Scenario2 extends BaseLib {
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//toolsPo.configSync(commonsPo);
-			toolsPo.syncData(commonsPo);	
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			// Explore and Navigate to the Search Process
-			commonsPo.getSearch(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			// // Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			// // Navigate to Field Service
-			workOrderPo.selectAction(commonsPo, sFieldServiceName);
-			// Navigating to the checklist
+			toolsPo.syncData(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
+			
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(5000);
+			
+			//for new element still pending
 		//	System.out.println(checklistPo.geteleStartNew());
 			/*
 			 * if (checklistPo.geteleStartNew() != null) {
@@ -109,18 +111,31 @@ public class Scenario2 extends BaseLib {
 			 * //commonsPo.longPress(checklistPo.geteleStartNew()); //
 			 * commonsPo.tap(checklistPo.geteleStartNew(),p.x,p.y); } else
 			 */
+			System.out.println("going to Enter checklist");
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
-			Thread.sleep(2000);
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			System.out.println("Entering Text Question Answer");
 			checklistPo.geteleChecklistAnswerTextArea(ChecklistTextQuestion).sendKeys(ChecklistTextAnswerQuestion);
 			
+			System.out.println("Entering Number Question Answer");
+			checklistPo.geteleChecklistAnsNumber(numberQuestion).sendKeys(numbnerAns);;
+			
+			System.out.println("Setting  Date Question Answer");
+			commonsPo.tap(checklistPo.geteleChecklistAnsDate(dateQuestion));
+			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			
 			//setting picklist value in picklist q
+			System.out.println("Selecting Picklist Question Answer");
 			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(ChecklistTextQuestion), picklistAns);
+			
+		
 			
 			
 			// tapping the next button in checklist
 			commonsPo.tap(checklistPo.eleNext());
 			// submitting the checklist
-			Thread.sleep(2000);
+			Thread.sleep(GenericLib.iLowSleep);
 			commonsPo.tap(checklistPo.eleChecklistSubmit());
 
 			// tapping on the validation sucessfull checklist popup
@@ -151,8 +166,7 @@ public class Scenario2 extends BaseLib {
 			//System.out.println("shadowroot.text"+shadowroot.getText());
 			//*[@id="ext-element-1731"]//div
 			// Sync the Data
-			// toolsPo.syncData(commonsPo);
-			// Execute Sahi for server side validation
+			// toolsPo.syncData(commonsPo);																	
 			genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
 					sTestCaseID);
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
@@ -166,7 +180,7 @@ public class Scenario2 extends BaseLib {
 
 	@AfterMethod
 	public void tearDownDriver() {
-		driver.quit();
+	//	driver.quit();
 	}
 
 }
