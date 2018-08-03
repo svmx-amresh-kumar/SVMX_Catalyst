@@ -88,13 +88,14 @@ public class ExploreSearchPO
 		 return eleExploreChildSearchTxt;
 	}
 	
-	//div[@class='icon-cloud-download sfmsearch-download-icon']
+
 	@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
 	private WebElement eleCloudSymbol;
 	public WebElement getEleCloudSymbol()
 	{
 		return eleCloudSymbol;
 	}
+	
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{

@@ -650,6 +650,20 @@ public class WorkOrderPO {
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
 		}
+	public void downloadCriteriaVerification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+			
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			exploreSearchPo.getEleExploreSearchTxtFld().click();
+			try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+			exploreSearchPo.getEleExploreSearchTxtFld().clear();
+			exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWoName);
+			commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+			
+		}
+		
 		
 		//Navigate to WorkOrder Screen without child search.
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
