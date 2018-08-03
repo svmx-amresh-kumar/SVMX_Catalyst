@@ -131,7 +131,9 @@ public class Scenario2 extends BaseLib {
 		    System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(radioQuestion).click();
 		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(radioQuestion));
-			
+		    radioAns = checklistPo.geteleChecklistAnsradio(radioQuestion).getText();
+		    
+		    
 		    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.eleNext());
 
@@ -159,12 +161,10 @@ public class Scenario2 extends BaseLib {
 			
 			System.out.println("====================Checklist Answers Valdation=========================");
 			
-			//String qans = checklistPo.geteleChecklistAnswerTextArea(textQuestion).getAttribute("value");
 			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(textQuestion).getAttribute("value"), textAns, "textquestion answered is not displayed");
 			NXGReports.addStep("ChecklistText Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		
 			
-		    //String dateCompletedval = checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value");
 			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value"), dateAns, "date checklist question answered is not displayed");
 			NXGReports.addStep("Checklist Date Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		    
@@ -181,6 +181,7 @@ public class Scenario2 extends BaseLib {
 			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 			
 			
+			//Navigating back to Work Orders
 			checklistPo.navigateBacktoWorkOrder(commonsPo);
 			
 			
@@ -217,14 +218,17 @@ public class Scenario2 extends BaseLib {
 			NXGReports.addStep("checklist picklist question answer synced to server", LogAs.PASSED, null);
 
 			
+			Assert.assertTrue(ChecklistAnsjson.contains(radioAns), "radio picklist answer was not sycned to server in checklist answer");
+			NXGReports.addStep("checklist checkbox question answer synced to server", LogAs.PASSED, null);
+			
 			
 																	
 		//	genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
 		//			sTestCaseID);
 		//	NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} catch (Exception e) {
-			// NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
-			// CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			 NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
+					 CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}
 
