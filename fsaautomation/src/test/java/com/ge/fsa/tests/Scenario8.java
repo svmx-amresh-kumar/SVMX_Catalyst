@@ -73,13 +73,14 @@ public class Scenario8 extends BaseLib
 					// To search the Created Work Order
 					toolsPo.syncData(commonsPo);
 					//toolsPo.configSync(commonsPo);
-		
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				workOrderPo.downloadcriteriaverification(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+				workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+				// If the value "Records not Displayed" is Visible then the Work Order is Online.
 				if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
 					commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
 					commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+					// If the Cloud button is Visible then need to Tap on it
 					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 					{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
@@ -88,18 +89,24 @@ public class Scenario8 extends BaseLib
 						workOrderPo.selectAction(commonsPo,sProcessname);
 						
 					}
+					// If the cloud button is not visible then throw an Error in the Report
 					else
 					{
 					NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, null);
 
 					}
 					}
-
+				// If the value "Records not displayed" is not visible then the WO is not Online.
 				else
 				{
 					NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, null);
 					System.out.println("DOD of the Work Order didn't meet");
 				}
+				
+		
+	// Creating Product A and Product B
+				
+	// Creating Installed Base A and Installed Base B
 	}
 	
 

@@ -640,7 +640,7 @@ public class WorkOrderPO {
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
 		}
-	public void downloadcriteriaverification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+	public void downloadCriteriaVerification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 			
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
