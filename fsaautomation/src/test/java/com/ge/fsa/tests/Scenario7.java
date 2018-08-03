@@ -65,9 +65,7 @@ public class Scenario7 extends BaseLib{
 		String checklistStatus = "Completed";
 		
 		//sWOName = "WO-00000415";
-		
-			
-		
+							
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
