@@ -57,7 +57,7 @@ public class Scenario1 extends BaseLib
 	
 	@Test
 	public void Scenario1Functions() throws Exception
-	{sPrintReportSearch = "Print Service Report";
+	{sPrintReportSearch = "Auto_PrintServiceReport";
 
 		System.out.println("Scenario 1");
 

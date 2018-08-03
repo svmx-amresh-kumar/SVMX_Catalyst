@@ -126,12 +126,22 @@ public class WorkOrderPO {
 		return eleWONumberTxt;
 	}
 	
-	@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
+	//@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
+	private WebElement eleWOServiceReportTxt;
+	public WebElement getEleWOServiceReportTxt(String sReportTitle)
+	{
+		eleWOServiceReportTxt=driver.findElement(By.xpath("//label[@class='opdoc-title'][text()='"+sReportTitle+"']"));
+		return eleWOServiceReportTxt;
+
+	}
+	
+	
+	/*@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
 	private WebElement eleWOServiceReportTxt;
 	public WebElement getEleWOServiceReportTxt()
 	{
 		return eleWOServiceReportTxt;
-	}
+	}*/
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='New Event']")
 	private WebElement eleNewEventTxt;
@@ -477,11 +487,11 @@ public class WorkOrderPO {
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
-	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
+	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 	{	
 		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
-		Assert.assertTrue(getEleWOServiceReportTxt().isDisplayed(), "Work Order Service Report is not displayed.");
+		Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
 		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
