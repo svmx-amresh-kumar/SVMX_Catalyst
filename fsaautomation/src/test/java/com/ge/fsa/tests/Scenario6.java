@@ -5,6 +5,13 @@ package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -48,10 +55,11 @@ public class Scenario6 extends BaseLib {
 	String sActivityType = null;
 	String sPrintReportSearch = null;
 	String sIssueTxt = null;
+	String sOrderStatus = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
 	String sCaseID = null;
-
+	String[] sDate = null;
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		genericLib = new GenericLib();
@@ -63,19 +71,16 @@ public class Scenario6 extends BaseLib {
 		commonsPo = new CommonsPO(driver);
 		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
-		
-		//Creation of dynamic Work Order1
-		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Canceled\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-	//	sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-	//	sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-	//	sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000456"; 
-		
-		//Creation of dynamic Work Order2
-		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-	//	sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-	//	sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-	//	sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
+			
 		sCaseID = "00001000";
+		sDate = driver.getDeviceTime().split(" ");
+		/*
+		DateTimeFormatter f = new DateTimeFormatterBuilder().appendPattern("yyyy MMMM dd").toFormatter();
+		LocalDate parsedDate = LocalDate.parse(driver.getDeviceTime(), f);
+		DateTimeFormatter f2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		
+		System.out.println("****"+parsedDate.format(f2));
+			*/	
 	}
 
 	@Test(enabled = true)
@@ -86,21 +91,43 @@ public class Scenario6 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
+		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sProductName1= GenericLib.getExcelData(sTestCaseID, "ProductName1");
 		try {
-			
+		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
-			
 			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
 			
-			NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);		
-		
+			//workOrderPo.getEleScheduledDateTxt().click();
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			//Set the orer status
+			commonsPo.pickerWheel(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			//Set the billing type
+			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			//Add the workorder parts
+			workOrderPo.addParts(commonsPo, workOrderPo, sProductName1);
+			commonsPo.singleTap(workOrderPo.getElePartsIcn(sProductName1).getLocation());
+			Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
+			NXGReports.addStep("Work Order Description Mapped is dispalyed successfully", LogAs.PASSED, null);		
+			
+			//Save the workorder updates and validate
+			commonsPo.singleTap(workOrderPo.getEleDoneBtn().getLocation());
+			commonsPo.singleTap(workOrderPo.getEleSaveLnk().getLocation());
+			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
+			NXGReports.addStep("Work Order Saved successfully", LogAs.PASSED, null);
+	
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} catch (Exception e) {
-			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		//	NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}
 

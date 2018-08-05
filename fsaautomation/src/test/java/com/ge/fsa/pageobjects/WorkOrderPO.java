@@ -424,6 +424,57 @@ public class WorkOrderPO {
 	return eleOnTreeView;
 	
 	}
+	
+
+	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleScheduledDateLst;
+	public WebElement getEleScheduledDateLst()
+	{
+		return eleScheduledDateLst;
+	}
+	
+	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-innerhtml']/../..//input")
+	private WebElement eleScheduledDateTxt;
+	public WebElement getEleScheduledDateTxt()
+	{
+		return eleScheduledDateTxt;
+	}
+	
+	@FindBy(xpath="//*[text()='Order Status']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleOrderStatusCaseLst;
+	public WebElement getEleOrderStatusCaseLst()
+	{
+		return eleOrderStatusCaseLst;
+	}
+	
+	@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleBillingTypeCaseLst;
+	public WebElement getEleBillingTypeCaseLst()
+	{
+		return eleBillingTypeCaseLst;
+	}
+	
+	private WebElement elePartsIcn;
+	public WebElement getElePartsIcn(String sPart)
+	{
+		elePartsIcn=driver.findElement(By.xpath("//div[@class='x-cells-el']//div[text()='"+sPart+"']"));
+		
+		return elePartsIcn;
+	}
+	
+	@FindBy(xpath="//span[text()='Description']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleDescriptionTxt;
+	public WebElement getEleDescriptionTxt()
+	{
+		return eleDescriptionTxt;
+	}
+	
+	@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-innerhtml']/span")
+	private WebElement eleWODesMappedTxt;
+	public WebElement getEleWODesMappedTxt()
+	{
+		return eleWODesMappedTxt;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException

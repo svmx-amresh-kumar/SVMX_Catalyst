@@ -140,6 +140,14 @@ public class CommonsPO extends BaseLib
 		}
 		Thread.sleep(GenericLib.iLowSleep);
 	}
+	//Customised touch Tap
+			public void singleTap(Point point) throws InterruptedException
+			{
+				touchAction = new TouchAction(driver);
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+				Thread.sleep(GenericLib.iLowSleep);
+			}
+			
 		
 		//Customised touch Tap
 		public void fingerTap(Point point, int iTapCount) throws InterruptedException
