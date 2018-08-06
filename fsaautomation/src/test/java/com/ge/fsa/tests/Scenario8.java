@@ -5,42 +5,13 @@
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.xml.xpath.XPath;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByXPath;
-import org.testng.annotations.BeforeMethod;
-import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.RecentItemsPO;
-import com.ge.fsa.pageobjects.CalendarPO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.CreateNewPO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.kirwa.nxgreport.NXGReports;
+
+import com.kirwa.nxgreport.*;
 import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
-
-import net.bytebuddy.implementation.bytecode.Throw;
 
 
 
@@ -56,7 +27,7 @@ public class Scenario8 extends BaseLib
 	String woID = null;	
 	String sProcessname = "EditWoAutoTimesstamp";
 	@Test
-	public void Scenario8Functions() throws Exception
+	public void Scenario8() throws Exception
 	{
 
 					System.out.println("Scenario 8");
@@ -85,28 +56,74 @@ public class Scenario8 extends BaseLib
 					{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
 						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName),10,10);
-						
-						workOrderPo.selectAction(commonsPo,sProcessname);
+					
 						
 					}
 					// If the cloud button is not visible then throw an Error in the Report
 					else
 					{
-					NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, null);
+					NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 
 					}
-					}
+				}
 				// If the value "Records not displayed" is not visible then the WO is not Online.
 				else
 				{
-					NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, null);
+					NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 					System.out.println("DOD of the Work Order didn't meet");
 				}
 				
 		
-	// Creating Product A and Product B
+	// Creating Product A 
+				String sProductAName = commonsPo.generaterandomnumber("Prod");
+				String sProductAId = restServices.restCreate("Product2?","{\"Name\": \""+sProductAName+"\", \"IsActive\": \"true\"}");
+				System.out.println(sProductAId);
+				String sProductNameA = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductAId+"\'", "Name");
+				System.out.println(sProductNameA);
+	// Creating Product B
+				String sProductBName = commonsPo.generaterandomnumber("Prod");
+				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
+				System.out.println(sProductBId);
+				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
+				System.out.println(sProductNameB);
 				
-	// Creating Installed Base A and Installed Base B
+	// Creating Installed Base A 
+				String sInstalledBaseAName = commonsPo.generaterandomnumber("IB");
+				String sIBIdA = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseAName+"\", \"SVMXC__Product__c\": \""+sProductAId+"\"}");
+				System.out.println(sIBIdA);
+				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
+				System.out.println(sInstalledProductAName);
+				
+	// Creating Installed Base B
+				String sInstalledBaseBName = commonsPo.generaterandomnumber("IB");
+				String sIBIdB = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseBName+"\", \"SVMXC__Product__c\": \""+sProductBId+"\"}");
+				System.out.println(sIBIdB);
+				String sInstalledProductBName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdB+"\'", "Name");
+				System.out.println(sInstalledProductBName);
+				
+		// Syncing the Data
+				toolsPo.syncData(commonsPo);
+				
+		// Config Sync
+				//toolsPo.configSync(commonsPo);
+				
+		// Adding the values to the childlines 
+				String sProcessname = "Senario8_childlinesSFM";
+				System.out.println(sWorkOrderName);
+				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+				exploreSearchPo.selectWorkOrder(commonsPo, sWorkOrderName);
+				workOrderPo.selectAction(commonsPo,sProcessname);
+		// Adding Product A to the Header and verifying the child values
+				commonsPo.tap(createNewPO.getEleClickProductfield());
+				commonsPo.lookupSearch(sProductAName);
+				
+		// Coming to the Childlines and Verifying on the IB Serial Number
+				
+				
+				
+				
+				
+			
 	}
 	
 
