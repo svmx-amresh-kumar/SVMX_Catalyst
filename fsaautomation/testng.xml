@@ -9,8 +9,8 @@
     <classes>
             <class name="com.ge.fsa.tests.Scenario1"/>
       
-            <class name="com.ge.fsa.tests.Scenario2"/>
-             <class name="com.ge.fsa.tests.Scenario3"/>
+<!--             <class name="com.ge.fsa.tests.Scenario2"/>
+             <class name="com.ge.fsa.tests.Scenario3"/> -->
       
     </classes>
   </test> <!-- Test -->

@@ -110,7 +110,7 @@ public class Scenario1 extends BaseLib
 				}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
+			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
@@ -131,7 +131,7 @@ public class Scenario1 extends BaseLib
 		String sChildlinesAfter = restServices.restGetSoqlValue(sSoqlQueryChildlineAfter, "totalSize");	
 		if(sChildlinesAfter.equals("0"))
 		{
-		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 
 		System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
