@@ -101,7 +101,7 @@ public class CalendarPO
 
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
