@@ -31,7 +31,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onStart(ISuite arg0) {
 
-		Reporter.log("About to begin executing Suite " + arg0.getName(), true);
+		//Reporter.log("About to begin executing Suite " + arg0.getName(), true);
 
 	}
 
@@ -41,7 +41,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onFinish(ISuite arg0) {
 
-		Reporter.log("About to end executing Suite " + arg0.getName(), true);
+		//Reporter.log("About to end executing Suite " + arg0.getName(), true);
 
 	}
 
@@ -49,7 +49,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onStart(ITestContext arg0) {
 
-		Reporter.log("About to begin executing Test " + arg0.getName(), true);
+		//Reporter.log("About to begin executing Test " + arg0.getName(), true);
 
 	}
 
@@ -57,7 +57,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onFinish(ITestContext arg0) {
 
-		Reporter.log("Completed executing test " + arg0.getName(), true);
+		//Reporter.log("Completed executing test " + arg0.getName(), true);
 
 	}
 
@@ -76,6 +76,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 	public void onTestFailure(ITestResult arg0) {
 
 		// This is calling the printTestResults method
+		System.out.println("Failure Encountered ☢ ⚠ ");
 		NXGReports.addStep("Testcase " + "" + " FAILED", LogAs.FAILED,
 				new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 		printTestResults(arg0);
@@ -86,7 +87,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onTestStart(ITestResult arg0) {
 
-		System.out.println("The execution of the main test starts now");
+		//System.out.println("The execution of the main test starts now");
 
 	}
 
@@ -154,9 +155,9 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void beforeInvocation(IInvokedMethod arg0, ITestResult arg1) {
 
-		String textMsg = "About to begin executing following method : " + returnMethodName(arg0.getTestMethod());
+		//String textMsg = "About to begin executing following method : " + returnMethodName(arg0.getTestMethod());
 
-		Reporter.log(textMsg, true);
+		//Reporter.log(textMsg, true);
 
 	}
 
@@ -164,9 +165,9 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void afterInvocation(IInvokedMethod arg0, ITestResult arg1) {
 
-		String textMsg = "Completed executing following method : " + returnMethodName(arg0.getTestMethod());
+		//String textMsg = "Completed executing following method : " + returnMethodName(arg0.getTestMethod());
 
-		Reporter.log(textMsg, true);
+		//Reporter.log(textMsg, true);
 
 	}
 

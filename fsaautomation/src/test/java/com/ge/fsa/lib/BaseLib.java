@@ -166,7 +166,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 		
-		//driver.quit();
+		driver.quit();
 	}
 
 }
