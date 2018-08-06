@@ -67,7 +67,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 		// This is calling the printTestResults method
 
-		printTestResults(arg0);
+		//printTestResults(arg0);
 
 	}
 
