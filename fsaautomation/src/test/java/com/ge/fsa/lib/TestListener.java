@@ -95,7 +95,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 	public void onTestSkipped(ITestResult arg0) {
 
-		printTestResults(arg0);
+		//printTestResults(arg0);
 
 	}
 
