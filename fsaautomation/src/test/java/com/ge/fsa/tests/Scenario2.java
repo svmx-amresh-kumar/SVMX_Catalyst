@@ -1,6 +1,9 @@
 package com.ge.fsa.tests;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -71,7 +74,7 @@ public class Scenario2 extends BaseLib {
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
-		//sWOName="WO-00000609";
+		//sWOName="WO-00000695";
 		
 		
 		String radioQuestion ="checkbox2372018162542";
@@ -92,7 +95,10 @@ public class Scenario2 extends BaseLib {
 		try {
 
 			// Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsPo, exploreSearchPo);			
+			
+			
+			
 			//toolsPo.configSync(commonsPo);
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
@@ -119,6 +125,15 @@ public class Scenario2 extends BaseLib {
 		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
 		    dateAns = checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value");
+		    System.out.println("dateANS is "+dateAns);
+		   	    		    
+		    
+		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
+	        Date date = parser.parse(dateAns);
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        String formattedDate = formatter.format(date);
+		    System.out.println("formateed date"+formattedDate);    	    	    	    
+		      
 		    
 		    System.out.println("Setting dateTime Question Answer");
 		    checklistPo.geteleChecklistAnsDate(dateTimeQuestion).click();
@@ -126,7 +141,14 @@ public class Scenario2 extends BaseLib {
 		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
 		    dateTimeAns = checklistPo.geteleChecklistAnsDate(dateTimeQuestion).getAttribute("value");
-		 
+		    		    		    
+		    SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
+	        Date datetime1 = parser.parse(dateTimeAns);
+	        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	        String formattedDatetime = formatter.format(datetime1);
+		    System.out.println("formateed dateTime"+formattedDate);
+		    
+		
 		    
 		    System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(radioQuestion).click();
@@ -208,10 +230,10 @@ public class Scenario2 extends BaseLib {
 			Assert.assertTrue(ChecklistAnsjson.contains(numberAns), "checklist number answer sycned to server in checklist answer");
 			NXGReports.addStep("checklist number answer sycned to server in checklist answer", LogAs.PASSED, null);
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(dateAns), "checklist date answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
 			NXGReports.addStep("checklist date question answer synced to server", LogAs.PASSED, null);
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(dateTimeAns), "checklist datetime answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(formattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
 			NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(picklistAns), "checklist picklist answer was not sycned to server in checklist answer");
@@ -227,8 +249,8 @@ public class Scenario2 extends BaseLib {
 		//			sTestCaseID);
 		//	NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} catch (Exception e) {
-			 NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
-					 CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		//	 NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
+			//		 CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}
 
