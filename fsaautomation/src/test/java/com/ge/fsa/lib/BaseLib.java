@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
@@ -35,7 +36,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
-
+@Listeners(TestListener.class )
 public class BaseLib {
 	{
 		System.setProperty("KIRWA.reporter.config",	GenericLib.sResources+"//KIRWA.properties");
@@ -56,7 +57,6 @@ public class BaseLib {
 	public TasksPO tasksPo = null;
 	
 	
-	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
@@ -66,10 +66,10 @@ public class BaseLib {
 	{
 
 	}
-
 	@BeforeClass
 	public void setAPP() throws Exception
 	{
+		
 		try { 
 			//Resetting to true always first
 			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
@@ -166,7 +166,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 		
-		driver.quit();
+		//driver.quit();
 	}
 
 }

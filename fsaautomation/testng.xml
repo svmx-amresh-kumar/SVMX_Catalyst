@@ -3,6 +3,7 @@
 <suite name="Suite">
  <listeners>
         <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener>
+        <listener class-name="com.ge.fsa.lib.TestListener"></listener>
     </listeners>
   <test  name="Test">
     <classes>
