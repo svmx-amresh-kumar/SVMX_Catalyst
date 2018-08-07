@@ -16,7 +16,7 @@
              <class name="com.ge.fsa.tests.Scenario7"/>
              <class name="com.ge.fsa.tests.Scenario8"/>
              
-      
+     
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

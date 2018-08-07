@@ -77,8 +77,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 		// This is calling the printTestResults method
 		System.out.println("Failure Encountered ☢ ⚠ ");
-		NXGReports.addStep("Testcase " + "" + " FAILED", LogAs.FAILED,
-				new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		NXGReports.addStep("Testcase Failure Encountered ☢ ⚠ " + "" + " FAILED", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 		printTestResults(arg0);
 
 	}
