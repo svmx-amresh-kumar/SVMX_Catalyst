@@ -11,13 +11,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 
-public class ChecklistPO {
+public class ChecklistPO extends BaseLib{
 	
 	public ChecklistPO(AppiumDriver driver)
 	{

@@ -15,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.ge.fsa.lib.BaseLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
@@ -22,7 +23,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class RecentItemsPO 
+public class RecentItemsPO extends BaseLib
 {
 	public RecentItemsPO(AppiumDriver driver)
 	{

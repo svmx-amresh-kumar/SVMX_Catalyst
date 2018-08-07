@@ -10,12 +10,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.ge.fsa.lib.BaseLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 
-public class TasksPO {
+public class TasksPO extends BaseLib{
 	
 	public TasksPO(AppiumDriver driver)
 	{

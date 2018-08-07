@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
@@ -18,7 +19,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ToolsPO 
+public class ToolsPO extends BaseLib
 {
 	public ToolsPO(AppiumDriver driver)
 	{

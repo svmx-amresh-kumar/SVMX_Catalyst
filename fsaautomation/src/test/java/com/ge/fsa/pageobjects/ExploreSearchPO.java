@@ -10,12 +10,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ExploreSearchPO 
+public class ExploreSearchPO extends BaseLib
 {
 	public ExploreSearchPO(AppiumDriver driver)
 	{

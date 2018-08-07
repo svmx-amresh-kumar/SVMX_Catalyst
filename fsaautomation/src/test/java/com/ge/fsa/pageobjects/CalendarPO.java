@@ -22,7 +22,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class CalendarPO 
+public class CalendarPO extends BaseLib
 {
 	public CalendarPO(AppiumDriver driver)
 	{
