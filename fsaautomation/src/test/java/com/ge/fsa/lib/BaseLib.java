@@ -21,6 +21,7 @@ import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.CreateNewPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
+import com.ge.fsa.pageobjects.InventoryPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.RecentItemsPO;
 import com.ge.fsa.pageobjects.TasksPO;
@@ -55,6 +56,7 @@ public class BaseLib {
 	public RecentItemsPO recenItemsPO = null;
 	public CalendarPO calendarPO = null;
 	public TasksPO tasksPo = null;
+	public InventoryPO inventoryPo = null;
 	
 	
 	DesiredCapabilities capabilities = null;
@@ -128,6 +130,7 @@ public class BaseLib {
 		calendarPO = new CalendarPO(driver);
 		tasksPo = new TasksPO(driver);
 		checklistPo = new ChecklistPO(driver);
+		inventoryPo = new InventoryPO(driver);
 		
 
 	}   
