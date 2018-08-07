@@ -3,6 +3,8 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 
@@ -21,11 +23,12 @@ public class Scenario8 extends BaseLib
 	
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-8"; String sCaseWOID=null; String sCaseSahiFile=null;
-	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
+	String sExploreSearch="AUTOMATION SEARCH";String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch=null;
 	String sAccountName = null;
 	String woID = null;	
 	String sProcessname = "EditWoAutoTimesstamp";
+	String sExploreChildSearchTxt = "Work Orders";
 	@Test
 	public void Scenario8() throws Exception
 	{
@@ -45,7 +48,7 @@ public class Scenario8 extends BaseLib
 					toolsPo.syncData(commonsPo);
 					//toolsPo.configSync(commonsPo);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+			workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
 				// If the value "Records not Displayed" is Visible then the Work Order is Online.
 				if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
@@ -75,27 +78,27 @@ public class Scenario8 extends BaseLib
 				
 		
 	// Creating Product A 
-				String sProductAName = commonsPo.generaterandomnumber("Prod");
+				String sProductAName = commonsPo.generaterandomnumber("ProdA");
 				String sProductAId = restServices.restCreate("Product2?","{\"Name\": \""+sProductAName+"\", \"IsActive\": \"true\"}");
 				System.out.println(sProductAId);
 				String sProductNameA = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductAId+"\'", "Name");
 				System.out.println(sProductNameA);
 	// Creating Product B
-				String sProductBName = commonsPo.generaterandomnumber("Prod");
+				String sProductBName = commonsPo.generaterandomnumber("ProdB");
 				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
 				System.out.println(sProductBId);
 				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
 				System.out.println(sProductNameB);
 				
 	// Creating Installed Base A 
-				String sInstalledBaseAName = commonsPo.generaterandomnumber("IB");
+				String sInstalledBaseAName = commonsPo.generaterandomnumber("IBA");
 				String sIBIdA = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseAName+"\", \"SVMXC__Product__c\": \""+sProductAId+"\"}");
 				System.out.println(sIBIdA);
 				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
 				System.out.println(sInstalledProductAName);
 				
 	// Creating Installed Base B
-				String sInstalledBaseBName = commonsPo.generaterandomnumber("IB");
+				String sInstalledBaseBName = commonsPo.generaterandomnumber("IBB");
 				String sIBIdB = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseBName+"\", \"SVMXC__Product__c\": \""+sProductBId+"\"}");
 				System.out.println(sIBIdB);
 				String sInstalledProductBName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdB+"\'", "Name");
@@ -109,17 +112,25 @@ public class Scenario8 extends BaseLib
 				
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
-				System.out.println(sWorkOrderName);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				exploreSearchPo.selectWorkOrder(commonsPo, sWorkOrderName);
+//				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+//				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+//				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
-				commonsPo.tap(createNewPO.getEleClickProductfield());
+				commonsPo.tap(workOrderPo.getEleProductLookup());
 				commonsPo.lookupSearch(sProductAName);
-				
 		// Coming to the Childlines and Verifying on the IB Serial Number
-				
-				
+				commonsPo.tap(workOrderPo.getElePartLnk());
+				commonsPo.lookupSearch(sProductAName);
+				commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		// Tapping on the Parts added and checking the IB Serial Number
+				commonsPo.tap(workOrderPo.getEleTaponParts(sProductAName));
+				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
+				System.out.println("Before the Element");
+				WebElement eleCount = workOrderPo.getEleIBSerialNumber(sInstalledBaseAName);
+				System.out.println(eleCount);
 				
 				
 				

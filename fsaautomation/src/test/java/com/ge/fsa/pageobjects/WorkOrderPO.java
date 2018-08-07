@@ -310,6 +310,34 @@ public class WorkOrderPO {
 		return eleclickparts;
 	}
 	
+	// Added by Meghana
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='IB Serial Number']/../..//div[@class='x-mask-el']")
+	private WebElement eleIbSerialnumTap;
+	public WebElement getEleIbSerialnumTap()
+	{
+		return eleIbSerialnumTap;
+	}
+
+	
+
+	private WebElement eleIBSerialNumber;
+	public WebElement getEleIBSerialNumber(String sIbserialNumber)
+	{
+
+		eleIBSerialNumber = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sIbserialNumber+"']"));
+
+		return eleIBSerialNumber;
+	}
+	
+
+	@FindBy(xpath="(//div[. = 'Product']//input[@class = 'x-input-el'])[2]")
+	private WebElement eleProductLookup;
+	public  WebElement getEleProductLookup()
+		{
+				
+			return eleProductLookup;
+		}
+			
 
 	
 	// Saving the Child Line records
@@ -322,8 +350,7 @@ public class WorkOrderPO {
 	}
 	
 	// Add selected button
-	
-	//span[@class='x-button-label'][text()='Add Selected']
+
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
 	private WebElement eleAddselectedbutton;
 	public  WebElement getEleAddselectedbutton()
@@ -331,6 +358,18 @@ public class WorkOrderPO {
 		
 		return eleAddselectedbutton;
 	}
+	
+	// Added by Meghana
+
+	private WebElement eleTaponParts;
+	public WebElement getEleTaponParts(String sProductName)
+	{
+
+		eleTaponParts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sProductName+"']"));
+
+		return eleTaponParts;
+	}
+	
 	
 	//Verifying the Workorder name after saving the value
 	private WebElement eleworkordernameonUI;
