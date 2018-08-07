@@ -515,6 +515,20 @@ public class WorkOrderPO extends BaseLib{
 	{
 		return eleWODesMappedTxt;
 	}
+	@FindBy(xpath="(//div[@class='x-inner x-container-inner x-layout-auto x-component-inner x-widthed'])[1]")
+	private WebElement eleCasePartIcn;
+	public WebElement getEleCasePartIcn()
+	{
+		return eleCasePartIcn;
+	}
+	
+	@FindBy(xpath="//span[text()='Part']/../..//input")
+	private WebElement elePartLst;
+	public WebElement getElePartLst()
+	{
+		return elePartLst;
+	}
+
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -603,6 +617,15 @@ public class WorkOrderPO extends BaseLib{
 	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
+		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+//To add product to parts
+	public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+	{
+		commonsPo.longPress(workOrderPo.getEleCasePartIcn());
+		commonsPo.singleTap(workOrderPo.getElePartLst().getLocation());
 		commonsPo.lookupSearch(sProductName1);
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
