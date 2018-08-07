@@ -92,7 +92,7 @@ public class Scenario2 extends BaseLib {
 		String checklistStatus = "Completed";
 		
 	//	GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
-		try {
+
 
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);			
@@ -248,12 +248,7 @@ public class Scenario2 extends BaseLib {
 		//	genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
 		//			sTestCaseID);
 		//	NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
-		} catch (Exception e) {
-		//	 NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new
-			//		 CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-			throw e;
-		}
-
+		
 	}
 
 	@AfterMethod

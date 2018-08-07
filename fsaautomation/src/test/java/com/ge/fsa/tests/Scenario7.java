@@ -44,7 +44,7 @@ public class Scenario7 extends BaseLib{
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		sChecklistOpDocName =GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
-		try {
+	
 		
 		
 		//Rest to Create Workorder
@@ -204,10 +204,7 @@ public class Scenario7 extends BaseLib{
 			Assert.assertTrue(ChecklistAnsjson.contains(dynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
 			Assert.assertTrue(checklistDefaultAns.contains(checklistDefaultAns), "default answer was not sycned to server in checklist answer");
 			
-		} catch (Exception e) {
-			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-			throw e;
-		}	
+		
 			
 	}
 }
