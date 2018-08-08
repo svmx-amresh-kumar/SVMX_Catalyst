@@ -11,10 +11,10 @@ import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
-public class Scenario4 extends BaseLib{
+public class Scenario4Test extends BaseLib{
 	
 	@Test
-	public void scenario4_piq() throws IOException, InterruptedException {
+	public void scenario4_test() throws IOException, InterruptedException {
 		
 		// Create Account
 		String accName = commonsPo.generaterandomnumber("Acc");

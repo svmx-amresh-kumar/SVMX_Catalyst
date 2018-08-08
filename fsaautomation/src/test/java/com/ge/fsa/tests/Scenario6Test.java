@@ -29,7 +29,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario6 extends BaseLib {
+public class Scenario6Test extends BaseLib {
 	GenericLib genericLib = null;
 	RestServices restServices = null;
 	LoginHomePO loginHomePo = null;

@@ -31,7 +31,7 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 import io.appium.java_client.TouchAction;
 
-public class Scenario2 extends BaseLib {
+public class Scenario2Test extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestCaseID = null;

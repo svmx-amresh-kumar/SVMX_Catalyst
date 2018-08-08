@@ -10,7 +10,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
-public class Scenario3 extends BaseLib {
+public class Scenario3Test extends BaseLib {
 	
 	@Test
 	public void scenario3_initialSync() throws InterruptedException, IOException {

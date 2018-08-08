@@ -37,7 +37,9 @@ public class Scenario8 extends BaseLib
 	@Test		
 	public void Scenario8Test() throws Exception
 	{
-
+		// running the Sahi Script Pre-requisites
+		genericLib.executeSahiScript("appium/scenario8_scenariolevel_afterrun.sah", "sTestCaseID");
+		
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		//Create a Work Order to verify the Download Criteria
