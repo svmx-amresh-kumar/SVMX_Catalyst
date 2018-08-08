@@ -100,7 +100,7 @@ public class RestServices
 	 * @throws IOException
 	 */
 	public JSONArray restGetSoqlJsonArray(String soqlquery ) throws IOException
-	{
+	{getAccessToken();
 		soqlquery = parseQuery(soqlquery);
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
@@ -156,7 +156,7 @@ public class RestServices
 	
 	public String restGetSoqlValue(String soqlquery , String getvalue) throws IOException
 	{
-		
+		getAccessToken();
 		soqlquery = parseQuery(soqlquery);
 		
 		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
