@@ -782,7 +782,7 @@ public class WorkOrderPO extends BaseLib{
 		 * @param sWoName
 		 * @throws InterruptedException
 		 */
-	public void downloadCriteriaVerification(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+	public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 			
 			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
 			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();

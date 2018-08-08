@@ -38,22 +38,20 @@ public class Scenario8 extends BaseLib
 	public void Scenario8()throws Exception
 	{
 
-					System.out.println("Scenario 8");
-					loginHomePo.login(commonsPo, exploreSearchPo);
-					//Create a Work Order to verify the Download Criteria
-					restServices.getAccessToken();
-					sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-					woID = restServices.restCreate("SVMXC__Service_Order__c?", sWOJsonData);
-					System.out.println("WO ID FETCHED " + woID);
-					// To extract the work order name from the Work Order ID
-					String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
-					restServices.getAccessToken();
-					String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
-					// To search the Created Work Order
-					toolsPo.syncData(commonsPo);
-					//toolsPo.configSync(commonsPo);
+				System.out.println("Scenario 8");
+				loginHomePo.login(commonsPo, exploreSearchPo);
+				//Create a Work Order to verify the Download Criteria
+				restServices.getAccessToken();
+				sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+				woID = restServices.restCreate("SVMXC__Service_Order__c?", sWOJsonData);
+				System.out.println("WO ID FETCHED " + woID);
+				// To extract the work order name from the Work Order ID
+				String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
+				restServices.getAccessToken();
+				String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
+				toolsPo.syncData(commonsPo);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+				workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
 				// If the value "Records not Displayed" is Visible then the Work Order is Online.
 				if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
@@ -65,7 +63,6 @@ public class Scenario8 extends BaseLib
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
 						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName),10,10);
 					
-						
 					}
 					// If the cloud button is not visible then throw an Error in the Report
 					else
@@ -102,13 +99,12 @@ public class Scenario8 extends BaseLib
 				System.out.println(sIBIdA);
 				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
 				System.out.println(sInstalledProductAName);
-				
 
 		// Syncing the Data
 				toolsPo.syncData(commonsPo);
 				
 		// Config Sync
-				//toolsPo.configSync(commonsPo);
+				toolsPo.configSync(commonsPo);
 				
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
@@ -125,13 +121,15 @@ public class Scenario8 extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductAName));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
-				Thread.sleep(5000);
+				Thread.sleep(2000);
+		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
 				if(workOrderPo.getEleIBSerialNumber().size() == 1)
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
 				}
+		// Else print with a Failure because there are more than 1 IB under the Lookup
 				else
 				{
 					NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
