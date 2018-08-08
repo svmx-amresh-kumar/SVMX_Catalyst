@@ -16,7 +16,7 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ExploreSearchPO extends BaseLib
+public class ExploreSearchPO
 {
 	public ExploreSearchPO(AppiumDriver driver)
 	{

@@ -25,7 +25,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class WorkOrderPO extends BaseLib{
+public class WorkOrderPO{
 
 	public WorkOrderPO(AppiumDriver driver)
 	{

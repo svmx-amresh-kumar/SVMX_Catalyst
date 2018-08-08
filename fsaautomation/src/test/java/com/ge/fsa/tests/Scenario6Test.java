@@ -61,7 +61,7 @@ public class Scenario6Test extends BaseLib {
 //		toolsPo = new ToolsPO(driver);
 //		commonsPo = new CommonsPO(driver);
 //		restServices.getAccessToken();
-//		sDeviceDate = driver.getDeviceTime().split(" ");
+		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 	}
 

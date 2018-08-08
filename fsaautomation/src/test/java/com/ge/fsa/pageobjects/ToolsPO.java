@@ -19,7 +19,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ToolsPO extends BaseLib
+public class ToolsPO
 {
 	public ToolsPO(AppiumDriver driver)
 	{

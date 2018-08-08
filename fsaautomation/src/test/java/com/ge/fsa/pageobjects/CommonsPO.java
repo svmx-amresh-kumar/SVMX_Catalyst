@@ -40,7 +40,7 @@ import com.ge.fsa.lib.BaseLib;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 
-public class CommonsPO extends BaseLib 
+public class CommonsPO
 {
 	public CommonsPO(AppiumDriver driver)
 	{
@@ -107,20 +107,20 @@ public class CommonsPO extends BaseLib
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement el, int... optionalOffsetPointsxy) throws InterruptedException {
+	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
 
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
-		Point point = el.getLocation();
-		System.out.println("Tapping element " + el.getText() + " " + el.getTagName());
+		Point point =  wElement.getLocation();
+		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName());
 
 		for (int i = 0; i < 10; i++) {
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
 				Thread.sleep(2000);
-				point = el.getLocation();
+				point =  wElement.getLocation();
 				System.out.println("New fetch \n" + 
 						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
@@ -158,8 +158,8 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//Customised touch LongPress
-		public void longPress(WebElement el) throws InterruptedException
-		{Point point = el.getLocation();
+		public void longPress(WebElement  wElement) throws InterruptedException
+		{Point point =  wElement.getLocation();
 		System.out.println("x "+point.getX()+" y "+point.getY());
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
@@ -167,10 +167,10 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//Customised touch Doubletap
-		public void doubleTap(WebElement element) throws InterruptedException
+		public void doubleTap(WebElement  wElement) throws InterruptedException
 		{
 			touchAction = new TouchAction(driver);
-			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)element)).perform();
+			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) wElement)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		
@@ -188,9 +188,9 @@ public class CommonsPO extends BaseLib
 			touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
 		}
 		
-		public void swipeLeft(WebElement ele)
+		public void swipeLeft(WebElement  wElement)
 		{	int offset = 30;
-			Point point = ele.getLocation();
+			Point point =  wElement.getLocation();
 			int x = point.getX();
 			int y = point.getY();
 			
@@ -230,9 +230,9 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//To set the value in PickerWheel native app
-		public void pickerWheel( WebElement element, String sValue) throws InterruptedException
+		public void pickerWheel( WebElement wElement, String sValue) throws InterruptedException
 		{
-			element.click();
+			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
@@ -242,12 +242,12 @@ public class CommonsPO extends BaseLib
 		
 		
 		//Wait for element until the element is displayed or time elapsed
-		public void waitforElement(WebElement element, long lTime)
+		public void waitforElement(WebElement wElement, long lTime)
 		{ lElapsedTime=0L;
 			while(true)
 			{
 				try{
-					if(element.isDisplayed()|| (lElapsedTime==lTime))
+					if(wElement.isDisplayed()|| (lElapsedTime==lTime))
 					{ break;}
 				}catch(Exception ex) {}
 				lElapsedTime++;
@@ -284,16 +284,16 @@ public class CommonsPO extends BaseLib
 	/**
 	 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 	 *
-	 * @param element
+	 * @param wElement
 	 * @param iDaysToScroll
 	 * @param sTimeHrs
 	 * @param sTimeMin
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 */
-		public void setTime( WebElement element, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
+		public void setTime( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
 		{
-			element.click();
+			wElement.click();
 			switchContext("Native");
 			datePicker(0,iDaysToScroll);
 			if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
@@ -359,7 +359,7 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//Wait for element until the element is displayed or time elapsed
-		public boolean waitForString(WebElement element, String sExpectedValue,long lTime)
+		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime)
 		{ 	
 		
 			String op = null;
@@ -367,14 +367,14 @@ public class CommonsPO extends BaseLib
 			lElapsedTime=0L;
 			while(true)
 			{
-				waitforElement(element, GenericLib.lWaitTime);
+				waitforElement(wElement, GenericLib.lWaitTime);
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				op = element.getText();
+				op = wElement.getText();
 				sd=sExpectedValue;
 				try{
 					if(!op.equals(sd) && (lElapsedTime==lTime))
