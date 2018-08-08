@@ -30,13 +30,13 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario6Test extends BaseLib {
-	GenericLib genericLib = null;
-	RestServices restServices = null;
-	LoginHomePO loginHomePo = null;
-	ExploreSearchPO exploreSearchPo = null;
-	WorkOrderPO workOrderPo = null;
-	CommonsPO commonsPo = null;
-	ToolsPO toolsPo = null;
+//	GenericLib genericLib = null;
+//	RestServices restServices = null;
+//	LoginHomePO loginHomePo = null;
+//	ExploreSearchPO exploreSearchPo = null;
+//	WorkOrderPO workOrderPo = null;
+//	CommonsPO commonsPo = null;
+//	ToolsPO toolsPo = null;
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -62,15 +62,15 @@ public class Scenario6Test extends BaseLib {
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
-		genericLib = new GenericLib();
-		restServices = new RestServices();
-		loginHomePo = new LoginHomePO(driver);
-		exploreSearchPo = new ExploreSearchPO(driver);
-		workOrderPo = new WorkOrderPO(driver);	
-		toolsPo = new ToolsPO(driver);
-		commonsPo = new CommonsPO(driver);
-		restServices.getAccessToken();
-		sDeviceDate = driver.getDeviceTime().split(" ");
+//		genericLib = new GenericLib();
+//		restServices = new RestServices();
+//		loginHomePo = new LoginHomePO(driver);
+//		exploreSearchPo = new ExploreSearchPO(driver);
+//		workOrderPo = new WorkOrderPO(driver);	
+//		toolsPo = new ToolsPO(driver);
+//		commonsPo = new CommonsPO(driver);
+//		restServices.getAccessToken();
+//		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 	}
 
@@ -99,7 +99,7 @@ public class Scenario6Test extends BaseLib {
 		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
 		
-		try {
+	//	try {
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
@@ -138,10 +138,10 @@ public class Scenario6Test extends BaseLib {
 			NXGReports.addStep("Work Order Saved successfully", LogAs.PASSED, null);
 	
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
-		} catch (Exception e) {
-			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-			throw e;
-		}
+//		} catch (Exception e) {
+//			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+//			throw e;
+//		}
 
 	}
 	
