@@ -83,22 +83,19 @@ public class Scenario8 extends BaseLib
 	// Creating Product A 
 				String sProductAName = commonsPo.generaterandomnumber("ProdA");
 				String sProductAId = restServices.restCreate("Product2?","{\"Name\": \""+sProductAName+"\", \"IsActive\": \"true\"}");
-				System.out.println(sProductAId);
 				String sProductNameA = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductAId+"\'", "Name");
 				System.out.println(sProductNameA);
 	// Creating Product B
 				String sProductBName = commonsPo.generaterandomnumber("ProdB");
 				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
-				System.out.println(sProductBId);
 				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
 				System.out.println(sProductNameB);
 				
 	// Creating Installed Base A 
 				String sInstalledBaseAName = commonsPo.generaterandomnumber("IBA");
 				String sIBIdA = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseAName+"\", \"SVMXC__Product__c\": \""+sProductAId+"\"}");
-				System.out.println(sIBIdA);
 				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
-				System.out.println(sInstalledProductAName);
+				
 
 		// Syncing the Data
 				toolsPo.syncData(commonsPo);
