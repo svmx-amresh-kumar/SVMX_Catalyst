@@ -39,7 +39,7 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 
 
-public class Scenario1 extends BaseLib
+public class Scenario1Test extends BaseLib
 {
 	
 	

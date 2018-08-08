@@ -19,7 +19,7 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 
-public class Scenario8 extends BaseLib
+public class Scenario8Test extends BaseLib
 {
 	
 	
@@ -37,7 +37,7 @@ public class Scenario8 extends BaseLib
 	@Test		
 	public void Scenario8Test() throws Exception
 	{
-		// running the Sahi Script Pre-requisites
+		// running the Sahi Script Pre-requisites - To make All Records to My Records
 		genericLib.executeSahiScript("appium/scenario8_scenariolevel_afterrun.sah", "sTestCaseID");
 		
 		System.out.println("Scenario 8");

@@ -8,7 +8,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario9 extends BaseLib {
+public class Scenario9Test extends BaseLib {
 	
 	
 @Test
