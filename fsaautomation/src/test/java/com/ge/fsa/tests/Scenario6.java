@@ -44,22 +44,22 @@ public class Scenario6 extends BaseLib {
 	String sCaseSahiFile = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
-	String sWorkOrderID = null;
-	String sWOObejctApi = null;
-	String sWOJsonData = null;
-	String sWOName1 = null;
-	String sWOName2 = null;
+	String sObjectID = null;
+	String sObjectApi = null;
+	String sJsonData = null;
+	String sProductName = null;
 	String sFieldServiceName = null;
 	String sProductName1 = null;
-	String sProductName2 = null;
 	String sActivityType = null;
-	String sPrintReportSearch = null;
+	String sCase = null;
 	String sIssueTxt = null;
 	String sOrderStatus = null;
 	String sBillingType = null;
-	String sWOSqlQuery = null;
+	String sSqlQuery = null;
 	String sCaseID = null;
-	String[] sDate = null;
+	String[] sDeviceDate = null;
+	String[] sAppDate = null;
+	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		genericLib = new GenericLib();
@@ -70,42 +70,54 @@ public class Scenario6 extends BaseLib {
 		toolsPo = new ToolsPO(driver);
 		commonsPo = new CommonsPO(driver);
 		restServices.getAccessToken();
-		sWOObejctApi="SVMXC__Service_Order__c?";
-			
-		sCaseID = "00001000";
-		sDate = driver.getDeviceTime().split(" ");
-		/*
-		DateTimeFormatter f = new DateTimeFormatterBuilder().appendPattern("yyyy MMMM dd").toFormatter();
-		LocalDate parsedDate = LocalDate.parse(driver.getDeviceTime(), f);
-		DateTimeFormatter f2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		System.out.println("****"+parsedDate.format(f2));
-			*/	
 	}
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
 		sTestCaseID = "SANITY6";
+		sObjectApi = "Product2?";
+		sJsonData = "{\"Name\": \""+sTestCaseID+"\", \"IsActive\": \"true\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
+		sProductName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		System.out.println(sProductName1);
+		sCaseID = "00001001";
 		
+		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Sanity6 is validated\", \"Priority\": \"High\", \"Description\": \"Description of Sanity6 \",\"Status\": \"Escalated\"}";
+		sObjectApi = "Case?";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
+		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
+		System.out.println(sCaseID);
+		sCaseID = "00001001";
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
-		sProductName1= GenericLib.getExcelData(sTestCaseID, "ProductName1");
+		
 		try {
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
+			//Data Sync for WO's created
+			toolsPo.syncData(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
+			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
-			
-			//workOrderPo.getEleScheduledDateTxt().click();
+				
+			sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
+			System.out.println(sAppDate[1]);
+			System.out.println(sDeviceDate[3]);
+			Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
 			Thread.sleep(GenericLib.iLowSleep);
 			
-			//Set the orer status
+			//Set the order status
 			commonsPo.pickerWheel(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
 			Thread.sleep(GenericLib.iLowSleep);
 			
@@ -114,7 +126,7 @@ public class Scenario6 extends BaseLib {
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			//Add the workorder parts
-			workOrderPo.addParts(commonsPo, workOrderPo, sProductName1);
+			workOrderPo.addProductParts(commonsPo, workOrderPo, sProductName1);
 			commonsPo.singleTap(workOrderPo.getElePartsIcn(sProductName1).getLocation());
 			Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
 			NXGReports.addStep("Work Order Description Mapped is dispalyed successfully", LogAs.PASSED, null);		
@@ -127,7 +139,7 @@ public class Scenario6 extends BaseLib {
 	
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 		} catch (Exception e) {
-		//	NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}
 
