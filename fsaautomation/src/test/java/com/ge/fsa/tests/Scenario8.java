@@ -17,10 +17,6 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-import groovyjarjarantlr.collections.List;
-
-
-
 public class Scenario8 extends BaseLib
 {
 	

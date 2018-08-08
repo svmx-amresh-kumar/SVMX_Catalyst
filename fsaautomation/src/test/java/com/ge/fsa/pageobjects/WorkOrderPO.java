@@ -774,12 +774,12 @@ public class WorkOrderPO extends BaseLib{
 			
 		}
 		/**
-		 * 
-		 * @param commonsPo
+		 * Author : Meghana Rao
+		 * @param commonsPo - Passing the objects
 		 * @param exploreSearchPo
-		 * @param sExploreSearch
-		 * @param sExploreChildSearchTxt
-		 * @param sWoName
+		 * @param sExploreSearch - Search Name from Explore
+		 * @param sExploreChildSearchTxt - WorkOrder object lookup
+		 * @param sWoName - Work Order Name
 		 * @throws InterruptedException
 		 */
 	public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
