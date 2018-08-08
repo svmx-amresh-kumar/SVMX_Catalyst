@@ -3,6 +3,8 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
+import static org.testng.Assert.assertEquals;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -15,6 +17,8 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
+import groovyjarjarantlr.collections.List;
+
 
 
 public class Scenario8 extends BaseLib
@@ -23,14 +27,15 @@ public class Scenario8 extends BaseLib
 	
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-8"; String sCaseWOID=null; String sCaseSahiFile=null;
-	String sExploreSearch="AUTOMATION SEARCH";String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
+	String sExploreSearch="AUTOMATION SEARCH";
+	String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch=null;
 	String sAccountName = null;
 	String woID = null;	
 	String sProcessname = "EditWoAutoTimesstamp";
 	String sExploreChildSearchTxt = "Work Orders";
 	@Test
-	public void Scenario8() throws Exception
+	public void Scenario8()throws Exception
 	{
 
 					System.out.println("Scenario 8");
@@ -48,7 +53,7 @@ public class Scenario8 extends BaseLib
 					toolsPo.syncData(commonsPo);
 					//toolsPo.configSync(commonsPo);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+				workOrderPo.downloadCriteriaVerification(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
 				// If the value "Records not Displayed" is Visible then the Work Order is Online.
 				if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
@@ -66,7 +71,7 @@ public class Scenario8 extends BaseLib
 					else
 					{
 					NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-
+					driver.quit();
 					}
 				}
 				// If the value "Records not displayed" is not visible then the WO is not Online.
@@ -74,6 +79,7 @@ public class Scenario8 extends BaseLib
 				{
 					NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 					System.out.println("DOD of the Work Order didn't meet");
+					driver.quit();
 				}
 				
 		
@@ -97,13 +103,7 @@ public class Scenario8 extends BaseLib
 				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
 				System.out.println(sInstalledProductAName);
 				
-	// Creating Installed Base B
-				String sInstalledBaseBName = commonsPo.generaterandomnumber("IBB");
-				String sIBIdB = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseBName+"\", \"SVMXC__Product__c\": \""+sProductBId+"\"}");
-				System.out.println(sIBIdB);
-				String sInstalledProductBName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdB+"\'", "Name");
-				System.out.println(sInstalledProductBName);
-				
+
 		// Syncing the Data
 				toolsPo.syncData(commonsPo);
 				
@@ -113,9 +113,6 @@ public class Scenario8 extends BaseLib
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-//				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-//				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-//				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
@@ -128,15 +125,20 @@ public class Scenario8 extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductAName));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
-				System.out.println("Before the Element");
-				WebElement eleCount = workOrderPo.getEleIBSerialNumber(sInstalledBaseAName);
-				System.out.println(eleCount);
-				
-				
-				
-			
+				Thread.sleep(5000);
+				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
+				if(workOrderPo.getEleIBSerialNumber().size() == 1)
+				{
+					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
+					commonsPo.tap(workOrderPo.getEleDoneBtn());
+				}
+				else
+				{
+					NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					
+				}
+
 	}
-	
 
 	
 }

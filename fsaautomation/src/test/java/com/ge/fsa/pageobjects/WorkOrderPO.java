@@ -33,7 +33,7 @@ public class WorkOrderPO extends BaseLib{
 		PageFactory.initElements(driver, this);
 	}
 	
-	AppiumDriver driver = null;
+	AppiumDriver<WebElement> driver = null;
 	TouchAction touchAction = null;
 	int iWhileCnt =0;
 	int i=0;
@@ -321,13 +321,22 @@ public class WorkOrderPO extends BaseLib{
 
 	
 
-	private WebElement eleIBSerialNumber;
-	public WebElement getEleIBSerialNumber(String sIbserialNumber)
+	public List<WebElement> getEleIBSerialNumber()
 	{
 
-		eleIBSerialNumber = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sIbserialNumber+"']"));
+		List<WebElement> eleIBSerialNumber = driver.findElements(By.xpath("//div[@class='x-inner-el'][contains(text(),'IB')]"));
 
 		return eleIBSerialNumber;
+	}
+	
+	
+	private WebElement eleIBId;
+	public WebElement getEleeleIBId(String sInstalledProductId)
+	{
+
+		eleIBId = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sInstalledProductId+"']"));
+
+		return eleIBId;
 	}
 	
 
@@ -764,17 +773,26 @@ public class WorkOrderPO extends BaseLib{
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
 		}
-	public void downloadCriteriaVerification(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+		/**
+		 * 
+		 * @param commonsPo
+		 * @param exploreSearchPo
+		 * @param sExploreSearch
+		 * @param sExploreChildSearchTxt
+		 * @param sWoName
+		 * @throws InterruptedException
+		 */
+	public void downloadCriteriaVerification(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 			
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-			exploreSearchPo.getEleExploreSearchTxtFld().click();
-			try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
-			exploreSearchPo.getEleExploreSearchTxtFld().clear();
-			exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWoName);
-			commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
+			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			exploreSearchPO.getEleExploreSearchTxtFld().click();
+			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+			exploreSearchPO.getEleExploreSearchTxtFld().clear();
+			exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
+			commonsPo.tap(exploreSearchPO.getEleExploreSearchBtn());
 			
 		}
 		
