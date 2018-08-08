@@ -781,6 +781,7 @@ public class WorkOrderPO extends BaseLib{
 		 * @param sExploreChildSearchTxt - WorkOrder object lookup
 		 * @param sWoName - Work Order Name
 		 * @throws InterruptedException
+		 * this function will click on the Work Order button when the Work Order is there on DOD.
 		 */
 	public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 			

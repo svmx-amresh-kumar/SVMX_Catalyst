@@ -55,10 +55,10 @@ public class Scenario8 extends BaseLib
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
 			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
-					commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
-					commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
-					// If the Cloud button is Visible then need to Tap on it
-						if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
+				 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
+				 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+				 // If the Cloud button is Visible then need to Tap on it
+					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 						{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
 						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName),10,10);
@@ -121,10 +121,12 @@ public class Scenario8 extends BaseLib
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
+				NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 				if(workOrderPo.getEleIBSerialNumber().size() == 1)
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
+					NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 				}
 		// Else print with a Failure because there are more than 1 IB under the Lookup
 				else
