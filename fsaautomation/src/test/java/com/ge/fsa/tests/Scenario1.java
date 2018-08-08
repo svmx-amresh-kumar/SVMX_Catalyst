@@ -55,9 +55,10 @@ public class Scenario1 extends BaseLib
 	String slinepriceperunit = "1000";
 
 	
-	@Test
-	public void Scenario1Functions() throws Exception
-	{sPrintReportSearch = "Auto_PrintServiceReport";
+@Test
+public void Scenario1Test() throws Exception
+{
+
 
 		System.out.println("Scenario 1");
 
@@ -96,8 +97,9 @@ public class Scenario1 extends BaseLib
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
-		String sAttachmentidBefore = restServices.restGetSoqlValue(sSoqlQueryattachBefore, "Id");	
-		assertNull(sAttachmentidBefore); // This will verify if the Id retrived from the Work Order's attachment is not null.
+		String sAttachmentidBefore = restServices.restGetSoqlValue(sSoqlQueryattachBefore, "Id");
+		// This will verify if the Id retrived from the Work Order's attachment is not null.
+		assertNull(sAttachmentidBefore); 
 		// Verifying the Childline values - Before the SYNC
 		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -116,9 +118,6 @@ public class Scenario1 extends BaseLib
 		// Syncing the Data
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(5000);
-		/**
-		 * Verifying the values after the Syncing of the DATA
-		 */
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -143,8 +142,7 @@ public class Scenario1 extends BaseLib
 		
 		Thread.sleep(1000);
 		// Verification of the fields of the childlines of Type = Expenses
-	//	JSONArray sJsonArrayExpenses = commonsPo.verifyPartsDetails(restServices, sworkOrderName,"Expenses");
-		 JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Expenses'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
+		JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Expenses'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
 		String sExpenseType = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
 		String sLineQty = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
 		assertEquals(sExpenseType, sExpenseType);
@@ -153,9 +151,7 @@ public class Scenario1 extends BaseLib
 
 		
 		// Verification of the fields of the childlines of Type = Parts
-		//JSONArray sJsonArrayParts = commonsPo.verifyPartsDetails(restServices, sworkOrderName,"Parts");
-		 sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
-
+		sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
 		String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
 		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
 		restServices.getAccessToken();

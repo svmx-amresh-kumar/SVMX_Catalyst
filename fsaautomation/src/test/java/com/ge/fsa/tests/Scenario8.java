@@ -7,6 +7,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
@@ -16,6 +17,7 @@ import com.kirwa.nxgreport.*;
 import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
+
 
 public class Scenario8 extends BaseLib
 {
@@ -30,42 +32,44 @@ public class Scenario8 extends BaseLib
 	String woID = null;	
 	String sProcessname = "EditWoAutoTimesstamp";
 	String sExploreChildSearchTxt = "Work Orders";
-	@Test
-	public void Scenario8()throws Exception
+
+
+	@Test		
+	public void Scenario8Test() throws Exception
 	{
 
-				System.out.println("Scenario 8");
-				loginHomePo.login(commonsPo, exploreSearchPo);
-				//Create a Work Order to verify the Download Criteria
-				restServices.getAccessToken();
-				sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-				woID = restServices.restCreate("SVMXC__Service_Order__c?", sWOJsonData);
-				System.out.println("WO ID FETCHED " + woID);
-				// To extract the work order name from the Work Order ID
-				String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
-				restServices.getAccessToken();
-				String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
-				toolsPo.syncData(commonsPo);
-				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
-				// If the value "Records not Displayed" is Visible then the Work Order is Online.
-				if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
+		System.out.println("Scenario 8");
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		//Create a Work Order to verify the Download Criteria
+		restServices.getAccessToken();
+		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
+		woID = restServices.restCreate("SVMXC__Service_Order__c?", sWOJsonData);
+		System.out.println("WO ID FETCHED " + woID);
+		// To extract the work order name from the Work Order ID
+		String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
+		restServices.getAccessToken();
+		String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
+		toolsPo.syncData(commonsPo);
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+		// If the value "Records not Displayed" is Visible then the Work Order is Online.
+			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
 					commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
 					commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
 					// If the Cloud button is Visible then need to Tap on it
-					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
-					{
+						if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
+						{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
 						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName),10,10);
 					
-					}
+						}
 					// If the cloud button is not visible then throw an Error in the Report
-					else
-					{
-					NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-					driver.quit();
-					}
+						else
+						{
+							NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							driver.quit();
+						}
 				}
 				// If the value "Records not displayed" is not visible then the WO is not Online.
 				else
