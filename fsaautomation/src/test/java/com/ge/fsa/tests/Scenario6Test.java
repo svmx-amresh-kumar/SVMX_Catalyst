@@ -5,21 +5,12 @@ package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
-
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.ToolsPO;
@@ -75,23 +66,22 @@ public class Scenario6Test extends BaseLib {
 	}
 
 	@Test(enabled = true)
-	public void toTest() throws Exception {
+	public void scenario6Test() throws Exception {
 		sTestCaseID = "SANITY6";
 		sObjectApi = "Product2?";
 		sJsonData = "{\"Name\": \""+sTestCaseID+"\", \"IsActive\": \"true\"}";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
 		sProductName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		System.out.println(sProductName1);
-		sCaseID = "00001001";
+		sProductName1="v1";
 		
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Sanity6 is validated\", \"Priority\": \"High\", \"Description\": \"Description of Sanity6 \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
-		System.out.println(sCaseID);
-		sCaseID = "00001001";
+		//sCaseID="00001001";
+		
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
@@ -110,10 +100,8 @@ public class Scenario6Test extends BaseLib {
 			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
-				
+			
 			sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
-			System.out.println(sAppDate[1]);
-			System.out.println(sDeviceDate[3]);
 			Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
 			Thread.sleep(GenericLib.iLowSleep);
 			
@@ -127,7 +115,7 @@ public class Scenario6Test extends BaseLib {
 			
 			//Add the workorder parts
 			workOrderPo.addProductParts(commonsPo, workOrderPo, sProductName1);
-			commonsPo.singleTap(workOrderPo.getElePartsIcn(sProductName1).getLocation());
+			commonsPo.tap(workOrderPo.getElePartsIcn(sProductName1));
 			Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
 			NXGReports.addStep("Work Order Description Mapped is dispalyed successfully", LogAs.PASSED, null);		
 			
