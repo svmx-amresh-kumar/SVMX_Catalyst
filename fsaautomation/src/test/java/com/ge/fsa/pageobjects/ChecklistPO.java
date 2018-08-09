@@ -46,18 +46,18 @@ public class ChecklistPO extends BaseLib{
 	
 	@FindBy(xpath="//a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']")
 
-	private WebElement eleStartNew;
+	private WebElement eleStartNewLnk;
 	public WebElement geteleStartNew()
 	{
-		return eleStartNew;
+		return eleStartNewLnk;
 	}
 	
 	
     @FindBy(xpath="//span[text()='Next']")
-    private WebElement eleNext;
-    public WebElement eleNext()
+    private WebElement eleNextLnk;
+    public WebElement geteleNext()
     {
-    	return eleNext;
+    	return eleNextLnk;
     }
     
     
@@ -70,25 +70,25 @@ public class ChecklistPO extends BaseLib{
     
     
 	@FindBy(xpath="//div[@class='x-component x-button x-button-no-icon x-button-button-tools-msgbox x-component-button-tools-msgbox x-button-button-highlight x-component-button-highlight svmx-msg-button-default x-haslabel x-layout-box-item x-layout-hbox-item x-flexed x-stretched']/span[text()='Submit']")
-	private WebElement eleChecklistPopupSubmit;
-    public WebElement eleChecklistPopupSubmit()
+	private WebElement eleChecklistPopupSubmitBtn;
+    public WebElement geteleChecklistPopupSubmit()
     {
-    	return eleChecklistPopupSubmit;
+    	return eleChecklistPopupSubmitBtn;
     }
     
     @FindBy(xpath="//span[text()='Show completed checklists']")
-    private WebElement eleShowCompletedChecklist;
-    public WebElement eleShowCompletedChecklist()
+    private WebElement eleShowCompletedChecklistLnk;
+    public WebElement geteleShowCompletedChecklist()
     {
-    	return eleShowCompletedChecklist;
+    	return eleShowCompletedChecklistLnk;
     }
     
-    private WebElement eleCompletedChecklistName;
+    private WebElement eleCompletedChecklistNameLnk;
 	public WebElement geteleCompletedChecklistName(String checklistname)
 	{
 		
-		eleCompletedChecklistName = driver.findElement(By.xpath("(//div[@class='checklist-lineup-list-item-name'][text()='"+checklistname+"'])[2]"));
-		return eleCompletedChecklistName;
+		eleCompletedChecklistNameLnk = driver.findElement(By.xpath("(//div[@class='checklist-lineup-list-item-name'][text()='"+checklistname+"'])[2]"));
+		return eleCompletedChecklistNameLnk;
 	}
     
 	

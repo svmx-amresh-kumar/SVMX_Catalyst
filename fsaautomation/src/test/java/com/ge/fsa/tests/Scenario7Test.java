@@ -30,6 +30,7 @@ public class Scenario7Test extends BaseLib{
 	String sWOName = null;
 	String sChecklistOpDocName = null;
 	String sExploreChildSearchTxt = null;
+	String OrderStatusVal =null;
 	
 	
 	@Test(enabled = true)
@@ -54,15 +55,15 @@ public class Scenario7Test extends BaseLib{
 		System.out.println("WO no ="+sWOName);
 		
 		//checklist q's set--
-		String dynamicResponseTextQuestion = "What is the Work Order Number?";
-		String dynamicResponseTextAnswer = null;	
-		String checklistrequestionQ = "This is a required question";
-		String checklistDefaultQuestion = "Which Division are you from ? default Answer:SVMX";
-		String checklistDefaultAns = "SVMX";
-		String checklistPickListdynamicQuestion = "What is the Order Status?";
-		String checklistPickListdynamicQuestionAns;
-		String TargetObjectUpdatevalue = "Target Object Update";
-		String checklistStatus = "Completed";
+		String sDynamicResponseTextQuestion = "What is the Work Order Number?";
+		String sDynamicResponseTextAnswer = null;	
+		String sChecklistReQuestion = "This is a required question";
+		String sChecklistDefaultQuestion = "Which Division are you from ? default Answer:SVMX";
+		String sChecklistDefaultAns = "SVMX";
+		String sChecklistPickListDynamicQuestion = "What is the Order Status?";
+		String sChecklistPickListdynamicQuestionAns;
+		String sTargetObjectUpdateValue = "Target Object Update";
+		String sChecklistStatus = "Completed";
 		
 		//sWOName = "WO-00000415";
 							
@@ -79,7 +80,7 @@ public class Scenario7Test extends BaseLib{
 	    workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);				
 		
 		//extract order status value		
-		String OrderStatusVal= workOrderPo.geteleOrderStatusvaluelbl().getText();
+		OrderStatusVal= workOrderPo.geteleOrderStatusvaluelbl().getText();
 		System.out.println("Order Status of Work order is "+OrderStatusVal);		
 		
 		 // Navigate to Field Service process
@@ -90,24 +91,24 @@ public class Scenario7Test extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 			
 		System.out.println("validating dynamic response,checking if work order no is populated inside answer ");
-		dynamicResponseTextAnswer = checklistPo.geteleChecklistAnswerTextArea(dynamicResponseTextQuestion).getAttribute("value");
-		Assert.assertTrue(dynamicResponseTextAnswer.equals(sWOName), "Textbox is not autopopulated with dynamic response, workorder no.");
+		sDynamicResponseTextAnswer = checklistPo.geteleChecklistAnswerTextArea(sDynamicResponseTextQuestion).getAttribute("value");
+		Assert.assertTrue(sDynamicResponseTextAnswer.equals(sWOName), "Textbox is not autopopulated with dynamic response, workorder no.");
 		NXGReports.addStep("checklist dynamic response Workorderno-textbox populated into checklist", LogAs.PASSED, null);
 		
 		System.out.println("Validating Dynamic response, checking if orderstatus is populated based on workOrder status");
-		checklistPickListdynamicQuestionAns = checklistPo.geteleChecklistAnsPicklist(checklistPickListdynamicQuestion).getAttribute("value");
-		Assert.assertTrue(checklistPickListdynamicQuestionAns.equals(OrderStatusVal), "OrderStatus value is not populated correctly .");
+		sChecklistPickListdynamicQuestionAns = checklistPo.geteleChecklistAnsPicklist(sChecklistPickListDynamicQuestion).getAttribute("value");
+		Assert.assertTrue(sChecklistPickListdynamicQuestionAns.equals(OrderStatusVal), "OrderStatus value is not populated correctly .");
 		NXGReports.addStep("checklist dynamic response orderstatus-picklist populated into checklist", LogAs.PASSED, null);
 		
 		
 		System.out.println("Validating default value entered to textbox");
-		String ans =checklistPo.geteleChecklistAnswerTextArea(checklistDefaultQuestion).getAttribute("value");
-		Assert.assertTrue(ans.equals(checklistDefaultAns), "Defualt value is not populated correctly");
+		String ans =checklistPo.geteleChecklistAnswerTextArea(sChecklistDefaultQuestion).getAttribute("value");
+		Assert.assertTrue(ans.equals(sChecklistDefaultAns), "Defualt value is not populated correctly");
 		NXGReports.addStep("Default Value in checklist Answer validated", LogAs.PASSED, null);
 	//	checklistDefaultQuestion 
 		
 		//tapping next button
-		commonsPo.tap(checklistPo.eleNext());
+		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
@@ -119,13 +120,13 @@ public class Scenario7Test extends BaseLib{
 		commonsPo.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
 		Assert.assertTrue(checklistPo.geteleissuefoundlbl().isDisplayed(),"Failed to display issue found for required question-checklist");
 		NXGReports.addStep("checklist required question validation issue display passed", LogAs.PASSED, null);
-		checklistPo.geteleChecklistrequiredTxt(checklistrequestionQ).sendKeys("required answer");
+		checklistPo.geteleChecklistrequiredTxt(sChecklistReQuestion).sendKeys("required answer");
 		
 		
 		//submitting of checklist
 		
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
+		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
 		
 		//Navigating back to work Orders
@@ -136,14 +137,14 @@ public class Scenario7Test extends BaseLib{
 	  	checklistPo.geteleChecklistOPDOCRow();
 	
 	  	//Validating is checklist status in opdoc is completed and also if checklist name is displayed.	  	  	
-	  	 Assert.assertTrue(checklistPo.geteleChecklistOPDOCRow().getText().toString().contains(checklistStatus), "Checklist status is not displayed as completed.");		 		
+	  	 Assert.assertTrue(checklistPo.geteleChecklistOPDOCRow().getText().toString().contains(sChecklistStatus), "Checklist status is not displayed as completed.");		 		
 		 Assert.assertTrue(checklistPo.geteleChecklistOPDOCRow().getText().toString().contains(sChecklistName), "Checklist Name is displayed");
 				
 		 		 
 		//validating if it picks the checklist Question and answer.
 		 checklistPo.geteleChecklistAnswerOPDOCtbl();
 		 System.out.println( checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString());
-		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(dynamicResponseTextQuestion), "Couldnt find the checklist question in OPDOC");	
+		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDynamicResponseTextQuestion), "Couldnt find the checklist question in OPDOC");	
 		 NXGReports.addStep("Found Dynamic REsponse Text question in OPDOC", LogAs.PASSED, null);
 		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sWOName), "Couldnt get the WorkOrder no populated through dynamic response");	 	
 		 NXGReports.addStep("WorkORder No populated through dynamic response displayed in OPDOC", LogAs.PASSED, null);
@@ -162,7 +163,7 @@ public class Scenario7Test extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
-		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().toString().equals(TargetObjectUpdatevalue), "Target Object UPDATE did not happen");
+		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().toString().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
 		
 		 toolsPo.syncData(commonsPo);
 		 
@@ -179,7 +180,7 @@ public class Scenario7Test extends BaseLib{
 			
 		// 	Verifying Targetobject update in SF
 			System.out.println("Validating Target OBJECT update from SF");
-			System.out.println(TargetObjectUpdatevalue);		
+			System.out.println(sTargetObjectUpdateValue);		
 			String targetobjectupdateO = "Select+SVMXC__Problem_Description__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\'";
 			//String targetobjectupdateO = "Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";						
 			
@@ -187,7 +188,7 @@ public class Scenario7Test extends BaseLib{
 			//System.out.println(targetobjectupdateO);
 			String targetobjectupdateOL = restServices.restGetSoqlValue(targetobjectupdateO, "SVMXC__Problem_Description__c");	
 			System.out.println(targetobjectupdateOL);
-			Assert.assertTrue(TargetObjectUpdatevalue.equals(targetobjectupdateOL), "Target Object Value is not updated to server");
+			Assert.assertTrue(sTargetObjectUpdateValue.equals(targetobjectupdateOL), "Target Object Value is not updated to server");
 			
 			
 			//Validate if checklist is updated to server
@@ -197,12 +198,12 @@ public class Scenario7Test extends BaseLib{
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
-			Assert.assertTrue(ChecklistQueryval.contains(checklistStatus),"checklist being updated is not synced to server");
+			Assert.assertTrue(ChecklistQueryval.contains(sChecklistStatus),"checklist being updated is not synced to server");
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(dynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
-			Assert.assertTrue(checklistDefaultAns.contains(checklistDefaultAns), "default answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(sDynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
+			Assert.assertTrue(sChecklistDefaultAns.contains(sChecklistDefaultAns), "default answer was not sycned to server in checklist answer");
 			
 		
 			
