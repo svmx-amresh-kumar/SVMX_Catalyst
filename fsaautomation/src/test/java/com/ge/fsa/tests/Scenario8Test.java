@@ -38,21 +38,21 @@ public class Scenario8Test extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/scenario8_scenariolevel_beforerun.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			return;
-		}
+//		genericLib.executeSahiScript("appium/scenario8_scenariolevel_beforerun.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			return;
+//		}
 		
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		//Create a Work Order to verify the Download Criteria
 		restServices.getAccessToken();
 		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -114,12 +114,23 @@ public class Scenario8Test extends BaseLib
 				toolsPo.syncData(commonsPo);
 				
 		// Config Sync
-				toolsPo.configSync(commonsPo);
+				//toolsPo.configSync(commonsPo);
 				
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			try
+			{
+				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+			}
+			catch(Exception e)
+			{
+				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+				
+			}
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());
@@ -134,12 +145,12 @@ public class Scenario8Test extends BaseLib
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
-				NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);
 				if(workOrderPo.getEleIBSerialNumber().size() == 1)
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
-					NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
 				}
 		// Else print with a Failure because there are more than 1 IB under the Lookup
 				else
