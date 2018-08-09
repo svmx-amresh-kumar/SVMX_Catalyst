@@ -13,7 +13,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 public class Scenario3Test extends BaseLib {
 	
 	@Test
-	public void scenario3_initialSync() throws InterruptedException, IOException {
+	public void scenario3Test() throws InterruptedException, IOException {
 		String sTaskName = "";
 		lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);
