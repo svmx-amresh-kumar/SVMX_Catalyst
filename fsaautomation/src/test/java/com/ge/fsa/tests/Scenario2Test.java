@@ -77,19 +77,19 @@ public class Scenario2Test extends BaseLib {
 		//sWOName="WO-00000695";
 		
 		
-		String radioQuestion ="checkbox2372018162542";
-		String radioAns = null;		
-		String textQuestion = "text2372018162553";
-		String textAns = "Text Question Answered";
-		String numberQuestion = "number2372018162548";
-		String numberAns ="200";		
-		String picklistQuestion = "picklist2372018162550";
-		String picklistAns = "Answer2372018163046";
-		String dateQuestion = "date2372018162544";
-		String dateAns = null;
-		String dateTimeQuestion = "dateTime2372018162545";
-		String dateTimeAns = null;
-		String checklistStatus = "Completed";
+		String sradioQuestion ="checkbox2372018162542";
+		String sradioAns = null;		
+		String stextQuestion = "text2372018162553";
+		String stextAns = "Text Question Answered";
+		String snumberQuestion = "number2372018162548";
+		String snumberAns ="200";		
+		String spicklistQuestion = "picklist2372018162550";
+		String spicklistAns = "Answer2372018163046";
+		String sdateQuestion = "date2372018162544";
+		String sdateAns = null;
+		String sdateTimeQuestion = "dateTime2372018162545";
+		String sdateTimeAns = null;
+		String schecklistStatus = "Completed";
 		
 	//	GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
 
@@ -106,58 +106,58 @@ public class Scenario2Test extends BaseLib {
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
 
-			System.out.println("Going to Enter checklist");
+			//System.out.println("Going to Enter checklist");
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
-			System.out.println("Entering Text Question Answer");
-			checklistPo.geteleChecklistAnswerTextArea(textQuestion).sendKeys(textAns);
+			//System.out.println("Entering Text Question Answer");
+			checklistPo.geteleChecklistAnswerTextArea(stextQuestion).sendKeys(stextAns);
 			
-			System.out.println("Entering Number Question Answer");
-			checklistPo.geteleChecklistAnsNumber(numberQuestion).sendKeys(numberAns);;
+			//System.out.println("Entering Number Question Answer");
+			checklistPo.geteleChecklistAnsNumber(snumberQuestion).sendKeys(snumberAns);;
 			
-			System.out.println("Selecting Picklist Question Answer");
-			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(picklistQuestion), picklistAns);
+			//System.out.println("Selecting Picklist Question Answer");
+			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
 			
-			System.out.println("Setting  Date Question Answer");
-			checklistPo.geteleChecklistAnsDate(dateQuestion).click();
+			//System.out.println("Setting  Date Question Answer");
+			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
 			commonsPo.switchContext("Native");
 		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
-		    dateAns = checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value");
-		    System.out.println("dateANS is "+dateAns);
+		    sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
+		    System.out.println("dateANS is "+sdateAns);
 		   	    		    
 		    
 		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
-	        Date date = parser.parse(dateAns);
+	        Date date = parser.parse(sdateAns);
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        String formattedDate = formatter.format(date);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
 		      
 		    
-		    System.out.println("Setting dateTime Question Answer");
-		    checklistPo.geteleChecklistAnsDate(dateTimeQuestion).click();
+		    //System.out.println("Setting dateTime Question Answer");
+		    checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
 		    commonsPo.switchContext("Native");
 		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
-		    dateTimeAns = checklistPo.geteleChecklistAnsDate(dateTimeQuestion).getAttribute("value");
+		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");
 		    		    		    
 		    SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
-	        Date datetime1 = parser.parse(dateTimeAns);
+	        Date datetime1 = parser.parse(sdateTimeAns);
 	        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	        String formattedDatetime = formatter.format(datetime1);
 		    System.out.println("formateed dateTime"+formattedDate);
 		    
 		
 		    
-		    System.out.println("Setting Radio button  Question Answer");
-		    checklistPo.geteleChecklistAnsradio(radioQuestion).click();
-		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(radioQuestion));
-		    radioAns = checklistPo.geteleChecklistAnsradio(radioQuestion).getText();
+		    //System.out.println("Setting Radio button  Question Answer");
+		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
+		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(sradioQuestion));
+		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
 		    
 		    
 		    // tapping the next button in checklist
-		 	commonsPo.tap(checklistPo.eleNext());
+		 	commonsPo.tap(checklistPo.geteleNext());
 
 		 	
 			// submitting the checklist
@@ -166,40 +166,40 @@ public class Scenario2Test extends BaseLib {
 		
 
 			// tapping on the validation sucessfull checklist popup
-			commonsPo.longPress(checklistPo.eleChecklistPopupSubmit());
+			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 
 			
 			// Tapping on Show Completed Checklists
-			System.out.println("going to tap on show completedchecklists");
-			commonsPo.longPress(checklistPo.eleShowCompletedChecklist());
-			System.out.println("tapped on completed checklist");
-			System.out.println("going to tap on the completedchecklist");
+			//System.out.println("going to tap on show completedchecklists");
+			commonsPo.longPress(checklistPo.geteleShowCompletedChecklist());
+			//System.out.println("tapped on completed checklist");
+			//System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
-			System.out.println("tapped on completed checklist");
+			//System.out.println("tapped on completed checklist");
 			
 			
 			
 			
-			System.out.println("====================Checklist Answers Valdation=========================");
+			//System.out.println("====================Checklist Answers Valdation=========================");
 			
-			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(textQuestion).getAttribute("value"), textAns, "textquestion answered is not displayed");
+			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(stextQuestion).getAttribute("value"), stextAns, "textquestion answered is not displayed");
 			NXGReports.addStep("ChecklistText Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		
 			
-			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(dateQuestion).getAttribute("value"), dateAns, "date checklist question answered is not displayed");
+			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value"), sdateAns, "date checklist question answered is not displayed");
 			NXGReports.addStep("Checklist Date Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 		    
 					
-			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(dateTimeQuestion).getAttribute("value"), dateTimeAns, "datetime checklist question answered is not displayed");
+			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value"), sdateTimeAns, "datetime checklist question answered is not displayed");
 			NXGReports.addStep("Checklist Datetime Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 			
 		
-			Assert.assertEquals(checklistPo.geteleChecklistAnsNumber(numberQuestion).getAttribute("value"), numberAns, "number checklist question answered is not displayed");
+			Assert.assertEquals(checklistPo.geteleChecklistAnsNumber(snumberQuestion).getAttribute("value"), snumberAns, "number checklist question answered is not displayed");
 			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 			
 			
-			Assert.assertEquals(checklistPo.geteleChecklistAnsPicklist(picklistQuestion).getAttribute("value"), picklistAns, "number checklist question answered is not displayed");
+			Assert.assertEquals(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion).getAttribute("value"), spicklistAns, "number checklist question answered is not displayed");
 			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
 			
 			
@@ -218,16 +218,16 @@ public class Scenario2Test extends BaseLib {
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
-			Assert.assertTrue(ChecklistQueryval.contains(checklistStatus),"checklist completed is not synced to server");
+			Assert.assertTrue(ChecklistQueryval.contains(schecklistStatus),"checklist completed is not synced to server");
 			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
 			
 			
 			
-			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");			
-			Assert.assertTrue(ChecklistAnsjson.contains(textAns), "checklist text question answer is not synced to server");
+			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
+			Assert.assertTrue(ChecklistAnsjson.contains(stextAns), "checklist text question answer is not synced to server");
 			NXGReports.addStep("checklist text question answer is not synced to server", LogAs.PASSED, null);
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(numberAns), "checklist number answer sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(snumberAns), "checklist number answer sycned to server in checklist answer");
 			NXGReports.addStep("checklist number answer sycned to server in checklist answer", LogAs.PASSED, null);
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
@@ -236,11 +236,11 @@ public class Scenario2Test extends BaseLib {
 			Assert.assertTrue(ChecklistAnsjson.contains(formattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
 			NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(picklistAns), "checklist picklist answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
 			NXGReports.addStep("checklist picklist question answer synced to server", LogAs.PASSED, null);
 
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(radioAns), "radio picklist answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
 			NXGReports.addStep("checklist checkbox question answer synced to server", LogAs.PASSED, null);
 			
 			

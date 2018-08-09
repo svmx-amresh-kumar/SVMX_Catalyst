@@ -14,16 +14,16 @@ public class Scenario3Test extends BaseLib {
 	
 	@Test
 	public void scenario3_initialSync() throws InterruptedException, IOException {
-		String taskName = "";
+		String sTaskName = "";
 		lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		taskName = tasksPo.addTask(commonsPo);
+		sTaskName = tasksPo.addTask(commonsPo);
 		toolsPo.syncData(commonsPo);
 		//Fetching the task name and checking if the task is present on the server.
-		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+taskName+"\'";
+		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+sTaskName+"\'";
 		restServices.getAccessToken();
-		String taskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");
-		Assert.assertTrue(taskcount.equals("1"));
+		String sTaskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");
+		Assert.assertTrue(sTaskcount.equals("1"));
 		NXGReports.addStep("Tasks updated successfully", LogAs.PASSED, null);
 	}
 
