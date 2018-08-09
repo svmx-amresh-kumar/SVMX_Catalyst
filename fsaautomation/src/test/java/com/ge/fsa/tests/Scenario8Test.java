@@ -37,11 +37,22 @@ public class Scenario8Test extends BaseLib
 	@Test		
 	public void Scenario8Test() throws Exception
 	{
-		// running the Sahi Script Pre-requisites - To make All Records to My Records
-		genericLib.executeSahiScript("appium/scenario8_scenariolevel_afterrun.sah", "sTestCaseID");
+	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
+		genericLib.executeSahiScript("appium/scenario8_scenariolevel_beforerun.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			return;
+		}
 		
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		// Syncing after the Pre-Requisite is done
+		toolsPo.configSync(commonsPo);
 		//Create a Work Order to verify the Download Criteria
 		restServices.getAccessToken();
 		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -136,8 +147,21 @@ public class Scenario8Test extends BaseLib
 					NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 					
 				}
-
+				
+				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
+				genericLib.executeSahiScript("appium/scenario8_scenariolevel_afterrun.sah", "sTestCaseID");
+				if(commonsPo.verifySahiExecution()) {
+					
+					System.out.println("PASSED");
+				}
+				else 
+				{
+					System.out.println("FAILED");
+					return;
+				}
+	
 	}
 
+	
 	
 }

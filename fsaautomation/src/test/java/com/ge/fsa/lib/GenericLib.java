@@ -136,11 +136,11 @@ public class GenericLib
 			process = processBuilder.start(); // Start the process.
 			process.waitFor(); // Wait for the process to finish.
 			
-			Assert.assertTrue(process.exitValue()==1, "Sahi script failed");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
+			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.PASSED,null);
 				
 		} catch (Exception e) {
-			Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
+			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
 			NXGReports.addStep("Sahi script for case "+sTestCaseID+" failed",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}

@@ -32,10 +32,15 @@ import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static java.time.Duration.ofSeconds;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.ge.fsa.lib.BaseLib;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
@@ -397,8 +402,76 @@ public class CommonsPO
 		}
 		
 		
+		public String readTextFile(String filePath) throws Exception {
+			// pass the path to the file as a parameter
+			// FileReader fr =
+			// new FileReader(filePath);
+			//
+			// int i;
+			// while ((i=fr.read()) != -1) {
+			// System.out.print("result common file read = "+(char) i);
+			//
+			// }
+			//
+			// return fr.toString();
 
+			String data = "";
+			data = new String(Files.readAllBytes(Paths.get(filePath)));
+
+			System.out.println("resultCommon.txt file read as = " + data);
+			return data;
+
+		}
+
+		public void writeTextFile(String filePath, String data) throws IOException {
+
+			File file = new File(filePath);
+			// Create the file
+			if (file.createNewFile()) {
+				System.out.println("File is created!");
+			} else {
+				System.out.println("File already exists.");
+			}
+
+			// Write Content an create the shell or bat file
+			FileWriter writer = new FileWriter(file);
+			writer.write(data);
+			writer.close();
+			System.out.println("resultCommon.txt file Write as = " + data);
+
+		}
 		 
+		
+		public Boolean verifySahiExecution() {
+			String resultCommon=null;
+			Boolean result=false;
+			try {
+				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahResultCommon.txt");
+
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String[] arrValues = resultCommon.split(",");
+			int i = 0;
+			for (String arrValRead : arrValues) {
+				System.out.println("use  arrValues[" + i + "] = " + arrValRead);
+				i++;
+			}
+
+			if (arrValues[0].toLowerCase().equals("true")) {
+
+				System.out.println("Its a Match , Read File = " + resultCommon);
+				// Incase you want to stop even if the script passes
+				result = true;
+
+			} else {
+				System.out.println("Its Not a Match , Read File = " + resultCommon);
+				result = false;
+			}
+			
+			return result;
+		}
 }
 	
 
