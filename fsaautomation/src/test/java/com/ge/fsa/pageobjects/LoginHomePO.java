@@ -34,7 +34,7 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class LoginHomePO extends BaseLib
+public class LoginHomePO
 {
 	public LoginHomePO(AppiumDriver driver)
 	{

@@ -8,11 +8,11 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario9 extends BaseLib {
+public class Scenario9Test extends BaseLib {
 	
 	
 @Test
-public void Scenario9() throws InterruptedException
+public void Scenario9Test() throws InterruptedException
 {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);

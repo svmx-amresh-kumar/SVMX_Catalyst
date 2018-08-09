@@ -9,7 +9,7 @@ import com.ge.fsa.lib.BaseLib;
 import io.appium.java_client.AppiumDriver;
 
 
-public class InventoryPO extends BaseLib{
+public class InventoryPO{
 	
 	public InventoryPO(AppiumDriver driver) 
 	{

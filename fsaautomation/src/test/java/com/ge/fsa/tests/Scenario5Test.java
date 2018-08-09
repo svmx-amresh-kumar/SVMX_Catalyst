@@ -22,14 +22,14 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
-public class Scenario5 extends BaseLib {
-	GenericLib genericLib = null;
-	RestServices restServices = null;
-	LoginHomePO loginHomePo = null;
-	ExploreSearchPO exploreSearchPo = null;
-	WorkOrderPO workOrderPo = null;
-	CommonsPO commonsPo = null;
-	ToolsPO toolsPo = null;
+public class Scenario5Test extends BaseLib {
+//	GenericLib genericLib = null;
+//	RestServices restServices = null;
+//	LoginHomePO loginHomePo = null;
+//	ExploreSearchPO exploreSearchPo = null;
+//	WorkOrderPO workOrderPo = null;
+//	CommonsPO commonsPo = null;
+//	ToolsPO toolsPo = null;
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -53,13 +53,13 @@ public class Scenario5 extends BaseLib {
 
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
-		genericLib = new GenericLib();
-		restServices = new RestServices();
-		loginHomePo = new LoginHomePO(driver);
-		exploreSearchPo = new ExploreSearchPO(driver);
-		workOrderPo = new WorkOrderPO(driver);	
-		toolsPo = new ToolsPO(driver);
-		commonsPo = new CommonsPO(driver);
+//		genericLib = new GenericLib();
+//		restServices = new RestServices();
+//		loginHomePo = new LoginHomePO(driver);
+//		exploreSearchPo = new ExploreSearchPO(driver);
+//		workOrderPo = new WorkOrderPO(driver);	
+//		toolsPo = new ToolsPO(driver);
+//		commonsPo = new CommonsPO(driver);
 		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
 		
@@ -86,7 +86,7 @@ public class Scenario5 extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
-		try {
+		//try {
 			
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
@@ -135,10 +135,10 @@ public class Scenario5 extends BaseLib {
 			NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);		
 		
 			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
-		} catch (Exception e) {
-			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-			throw e;
-		}
+//		} catch (Exception e) {
+//			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+//			throw e;
+//		}
 
 	}
 	

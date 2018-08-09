@@ -21,7 +21,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class CreateNewPO extends BaseLib
+public class CreateNewPO
 {
 	public CreateNewPO(AppiumDriver driver)
 	{
