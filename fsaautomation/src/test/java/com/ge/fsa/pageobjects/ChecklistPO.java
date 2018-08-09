@@ -18,7 +18,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 
-public class ChecklistPO extends BaseLib{
+public class ChecklistPO{
 	
 	public ChecklistPO(AppiumDriver driver)
 	{
