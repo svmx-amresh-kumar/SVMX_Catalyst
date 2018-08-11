@@ -1,5 +1,7 @@
 package com.ge.fsa.tests;
 
+import static org.testng.Assert.assertTrue;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -14,7 +16,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.pageobjects.ChecklistPO;
@@ -56,6 +61,7 @@ public class Scenario2Test extends BaseLib {
 
 	@Test(enabled = true)
 	public void scenario2_checklist() throws Exception {
+		
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
@@ -184,24 +190,29 @@ public class Scenario2Test extends BaseLib {
 			//System.out.println("====================Checklist Answers Valdation=========================");
 			
 			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(stextQuestion).getAttribute("value"), stextAns, "textquestion answered is not displayed");
-			NXGReports.addStep("ChecklistText Quesiton Answer validation sucessfull", LogAs.PASSED, null);
-		
+			//NXGReports.addStep("ChecklistText Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"ChecklistText Quesiton Answer validation sucessfull");
+
 			
 			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value"), sdateAns, "date checklist question answered is not displayed");
-			NXGReports.addStep("Checklist Date Quesiton Answer validation sucessfull", LogAs.PASSED, null);
-		    
+			//NXGReports.addStep("Checklist Date Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Date Quesiton Answer validation sucessfull");
+
 					
 			Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value"), sdateTimeAns, "datetime checklist question answered is not displayed");
-			NXGReports.addStep("Checklist Datetime Quesiton Answer validation sucessfull", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("Checklist Datetime Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Datetime Quesiton Answer validation sucessfull");
+
 		
 			Assert.assertEquals(checklistPo.geteleChecklistAnsNumber(snumberQuestion).getAttribute("value"), snumberAns, "number checklist question answered is not displayed");
-			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Number Quesiton Answer validation sucessfull");
+
 			
 			Assert.assertEquals(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion).getAttribute("value"), spicklistAns, "number checklist question answered is not displayed");
-			NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("Checklist Number Quesiton Answer validation sucessfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Number Quesiton Answer validation sucessfull");
+
 			
 			//Navigating back to Work Orders
 			checklistPo.navigateBacktoWorkOrder(commonsPo);
@@ -219,30 +230,36 @@ public class Scenario2Test extends BaseLib {
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
 			Assert.assertTrue(ChecklistQueryval.contains(schecklistStatus),"checklist completed is not synced to server");
-			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Completed status is displayed in Salesforce after sync");
+
 			
 			
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			Assert.assertTrue(ChecklistAnsjson.contains(stextAns), "checklist text question answer is not synced to server");
-			NXGReports.addStep("checklist text question answer is not synced to server", LogAs.PASSED, null);
-			
-			Assert.assertTrue(ChecklistAnsjson.contains(snumberAns), "checklist number answer sycned to server in checklist answer");
-			NXGReports.addStep("checklist number answer sycned to server in checklist answer", LogAs.PASSED, null);
-			
-			Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
-			NXGReports.addStep("checklist date question answer synced to server", LogAs.PASSED, null);
-			
-			Assert.assertTrue(ChecklistAnsjson.contains(formattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
-			NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
-			
-			Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
-			NXGReports.addStep("checklist picklist question answer synced to server", LogAs.PASSED, null);
+			//NXGReports.addStep("checklist text question answer is not synced to server", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist text question answer is not synced to server");
 
+			Assert.assertTrue(ChecklistAnsjson.contains(snumberAns), "checklist number answer sycned to server in checklist answer");
+			//NXGReports.addStep("checklist number answer sycned to server in checklist answer", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist number answer sycned to server in checklist answer");
+
+			Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
+			//NXGReports.addStep("checklist date question answer synced to server", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist date question answer synced to server");
+
+			Assert.assertTrue(ChecklistAnsjson.contains(formattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
+			//NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist datetime question answer synced to server");
+
+			Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
+			//NXGReports.addStep("checklist picklist question answer synced to server", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist picklist question answer synced to server");
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
-			NXGReports.addStep("checklist checkbox question answer synced to server", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("checklist checkbox question answer synced to server", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");
+
 			
 																	
 		//	genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),

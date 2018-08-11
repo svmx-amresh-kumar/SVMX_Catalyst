@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,9 +21,16 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.util.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
@@ -37,6 +45,8 @@ import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
+import io.appium.java_client.AppiumDriver;
+
 
 
 public class Scenario1Test extends BaseLib
@@ -46,7 +56,7 @@ public class Scenario1Test extends BaseLib
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch=null;
+	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
 	String sAccountName = "Account47201811263";
 	String sProductName = "Product9876789";
 	String sContactName = "ContactAutomation 234567";
@@ -58,7 +68,6 @@ public class Scenario1Test extends BaseLib
 @Test
 public void Scenario1Test() throws Exception
 {
-
 
 		System.out.println("Scenario 1");
 
@@ -102,17 +111,19 @@ public void Scenario1Test() throws Exception
 		assertNull(sAttachmentidBefore); 
 		// Verifying the Childline values - Before the SYNC
 		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
-		restServices.getAccessToken();
 		String sChildlinesBefore = restServices.restGetSoqlValue(sSoqlquerychildlinesBefore, "totalSize");	
 		if(sChildlinesBefore.equals("0"))
 				{
-				NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"The Childlines before Sync is "+sChildlinesBefore);
+				//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
 
 				System.out.println("The attachment before Sync is "+sChildlinesBefore);
 				}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
+			ExtentManager.logger.log(Status.FAIL,"The Childlines before Sync is "+sChildlinesBefore);
+
+			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
@@ -130,13 +141,17 @@ public void Scenario1Test() throws Exception
 		String sChildlinesAfter = restServices.restGetSoqlValue(sSoqlQueryChildlineAfter, "totalSize");	
 		if(sChildlinesAfter.equals("0"))
 		{
-		NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+			ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlinesAfter);
+
+		//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
 
 		System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
 		else
 		{
-			NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlinesAfter);
+
+			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
 			System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
 		
@@ -147,19 +162,23 @@ public void Scenario1Test() throws Exception
 		String sLineQty = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
 		assertEquals(sExpenseType, sExpenseType);
 		assertEquals(sLineQty, sLineQty);
-		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Expenses match");
+
+		//NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
 
 		
 		// Verification of the fields of the childlines of Type = Parts
 		sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
 		String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
 		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
-		restServices.getAccessToken();
+		
 		String sProductName = restServices.restGetSoqlValue(sSoqlProductName,"Name");
 		String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
 		assertEquals(sProductName, sProductName);
 		assertEquals(sLineQtyParts, "1.0");
-		NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Parts match");
+
+		//NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
 
 
 	}

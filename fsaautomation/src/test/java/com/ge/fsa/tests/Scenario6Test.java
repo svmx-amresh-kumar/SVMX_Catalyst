@@ -61,12 +61,13 @@ public class Scenario6Test extends BaseLib {
 //		toolsPo = new ToolsPO(driver);
 //		commonsPo = new CommonsPO(driver);
 //		restServices.getAccessToken();
-		sDeviceDate = driver.getDeviceTime().split(" ");
+	//	sDeviceDate = driver.getDeviceTime().split(" ");
 		
 	}
 
 	@Test(enabled = true)
 	public void scenario6Test() throws Exception {
+		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 		sObjectApi = "Product2?";
 		sJsonData = "{\"Name\": \""+sTestCaseID+"\", \"IsActive\": \"true\"}";

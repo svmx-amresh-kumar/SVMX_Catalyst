@@ -1,5 +1,7 @@
 package com.ge.fsa.lib;
 
+import java.io.IOException;
+
 import org.testng.IInvokedMethod;
 
 import org.testng.IInvokedMethodListener;
@@ -18,12 +20,16 @@ import org.testng.ITestResult;
 
 import org.testng.Reporter;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
+
 
 	// This belongs to ISuiteListener and will execute before the Suite start
 
@@ -77,8 +83,22 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
 		// This is calling the printTestResults method
 		System.out.println("Failure Encountered ☢ ⚠ ");
-		NXGReports.addStep("Testcase Failure Encountered ☢ ⚠ " + "" + " FAILED", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-		printTestResults(arg0);
+	
+			String temp= ExtentManager.getScreenshot();
+			
+			try {
+				ExtentManager.logger.fail(arg0.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+			ExtentManager.extent.flush();
+	//	NXGReports.addStep("Testcase Failure Encountered ☢ ⚠ " + "" + " FAILED", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			
+			System.out.println("Exception : "+arg0.getThrowable());
+			printTestResults(arg0);
 
 	}
 

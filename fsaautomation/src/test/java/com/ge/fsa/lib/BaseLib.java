@@ -4,18 +4,27 @@
 
 package com.ge.fsa.lib;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
@@ -62,7 +71,7 @@ public class BaseLib {
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
-	
+
 	@BeforeSuite
 	public void startServer()
 	{
@@ -71,7 +80,7 @@ public class BaseLib {
 	@BeforeClass
 	public void setAPP() throws Exception
 	{
-		
+
 		try { 
 			//Resetting to true always first
 			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
@@ -104,12 +113,16 @@ public class BaseLib {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			
 			
-			
-			Thread.sleep(20000);
+			ExtentManager.getInstance(driver);
+			Thread.sleep(2000);
 			NXGReports.setWebDriver(driver);
 			NXGReports.addStep("App is launched successfully", LogAs.PASSED, null);
 			
 		} catch (Exception e) {
+			ExtentManager.createInstance(ExtentManager.sReportPath);
+			 ExtentManager.logger("BaseLib Failure");
+			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+			 ExtentManager.extent.flush();
 			NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		} 
@@ -148,12 +161,10 @@ public class BaseLib {
 //		System.out.println("App removed");
 //		driver.installApp(sAppPath);
 //		System.out.println("App installed");
-//
 
-		
 		//Installing fresh
 				GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+				System.out.println("Set App Start mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
 		
 				
 				try {
@@ -163,7 +174,31 @@ public class BaseLib {
 					e.printStackTrace();
 				}
 	}
+	@BeforeMethod
+	public void startReport(ITestResult result) {
+		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		 
+	}
+	
+	@AfterMethod
+	public void endReport(ITestResult result)
+	{
+		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
+		{
+			String temp= ExtentManager.getScreenshot();
 			
+			try {
+				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 ExtentManager.extent.flush();
+			
+	}
+	
+	
 
 	@AfterClass
 	public void tearDownDriver()

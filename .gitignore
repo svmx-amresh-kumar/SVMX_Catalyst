@@ -18,3 +18,5 @@ fsaautomation/bin/resources/TestData.xlsx
 fsaautomation/bin/testng.xml
 .DS_Store
 fsaautomation/.project
+fsaautomation/ExtentReports/*
+fsaautomation/Screenshot/*
