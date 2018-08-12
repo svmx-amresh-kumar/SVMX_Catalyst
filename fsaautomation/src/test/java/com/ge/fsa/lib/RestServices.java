@@ -146,9 +146,15 @@ public class RestServices
 	
 	/**
 	 * 
-	 * This method will query other objects and will send the values which is requested by us
+	 * This method will query other objects and will send the values which is requested by us, this can be used for fetching the key value pair of any top first level object
+	 * For "records" object it will go one level within to extract the value from the records JasonArray
 	 * 
+	 * e.g
+	 * {"totalSize":1,"records":[{"SVMXC__Status__c":"Completed","SVMXC__ChecklistJSON__c":"{\"QB000033\":\"Answer2372018162849\"}}],"done":true}
+	 * To fetch "records" array of json object or "totalSize" int or "done" boolean
+	 *
 	 * @param soqlquery
+	 * @param getvalue
 	 * @return
 	 * @throws IOException
 	 */
@@ -202,6 +208,14 @@ public class RestServices
 		returnvalue= msgString;
 		
 		}
+		else if(getvalue == "done")
+		{
+		String msgString = json.get(getvalue).toString();
+	 	System.out.println("Returned value for "+getvalue+" = "+msgString);
+		returnvalue= msgString;
+		
+		}
+		//For "records" we first get the records array and then we extract the JSON key value pair from one level within
 		else
 		{
 		JSONArray msg = (JSONArray) json.get("records");
@@ -216,13 +230,12 @@ public class RestServices
 		}
 		
 	 /**
-	  * Get the value from any JsonArray returned
+	  * Get the value from any JsonArray returned for "records" array only
 	  * usage: 
-	  * JSONArray jsonArrayAcc = restServices.restCreate("SVMXC__Company__c?","{\"Name\": \""+accName+"\" }");
-	  *
-	  * getJsonValue( jsonArrayAcc, id)
-	  * getJsonValue( jsonArrayAcc, sfieldName2)
-	  * getJsonValue( jsonArrayAcc, sfieldName3)... etc
+	  *	JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Expenses'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
+	  *	
+	  * String sExpenseType = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
+	  * String sLineQty = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");... etc
 	  * 
 	  * @param jsonArray
 	  * @param sfieldName
@@ -232,10 +245,8 @@ public class RestServices
 		 String fieldValueObtained=null;
 			Iterator iterator = jsonArray.iterator();
 			while (iterator.hasNext()) {
-		         JSONObject value = (JSONObject) iterator.next();
-		         System.out.println((String) value.get(sfieldName).toString());
-		         
-		         fieldValueObtained= (String) value.get(sfieldName).toString();
+		         JSONObject jsonObjectKey = (JSONObject) iterator.next();
+		         fieldValueObtained = (String) jsonObjectKey.get(sfieldName).toString();
 		     }
 		 	System.out.println("Returned value for "+sfieldName+" = "+fieldValueObtained);
 
@@ -313,21 +324,5 @@ public class RestServices
 			return query;
 		}
 
-//		/**
-//		 * 
-//		 * @param args
-//		 * @throws IOException
-//		 */
-//		public static void main(String[] args) throws IOException {
-//			RestServices appServices = new RestServices();
-//
-//			appServices.getAccessToken();
-//
-//			String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-//
-//			String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
-//			System.out.println("WO NUMBER FETCHED " + woNum);
-//		
-//		}
-		
+
 }

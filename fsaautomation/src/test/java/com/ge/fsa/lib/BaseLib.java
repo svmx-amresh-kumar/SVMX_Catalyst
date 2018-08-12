@@ -148,9 +148,8 @@ public class BaseLib {
 
 	}   
 
-	
 	/**
-	 * Launch the app either by re-istalling (false) or by re-launching existing(true) app, by passing the sResetMode parameter as true or false
+	 * Launch the app either by re-installing (false) or by re-launching existing(true) app, by passing the sResetMode parameter as true or false
 	 * 
 	 * @param sResetMode
 	 * @throws Exception
@@ -174,6 +173,7 @@ public class BaseLib {
 					e.printStackTrace();
 				}
 	}
+	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
@@ -198,8 +198,6 @@ public class BaseLib {
 			
 	}
 	
-	
-
 	@AfterClass
 	public void tearDownDriver()
 	{

@@ -341,7 +341,7 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the time, if the hrs, min, AMPM values in 0 then it will be skipped
+		 * Set the time, if the hrs, min, AMPM values, if 0 then it will be skipped
 		 * 
 		 * @param iIndex
 		 * @param sTimeHrs
@@ -363,7 +363,13 @@ public class CommonsPO
 			
 		}
 		
-		//Wait for element until the element is displayed or time elapsed
+		/**
+		 * Wait for element until the element is displayed or time elapsed
+		 * @param wElement
+		 * @param sExpectedValue
+		 * @param lTime
+		 * @return
+		 */
 		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime)
 		{ 	
 		
@@ -401,20 +407,13 @@ public class CommonsPO
 			
 		}
 		
-		
+		/**
+		 * Read a text file
+		 * @param filePath
+		 * @return
+		 * @throws Exception
+		 */
 		public String readTextFile(String filePath) throws Exception {
-			// pass the path to the file as a parameter
-			// FileReader fr =
-			// new FileReader(filePath);
-			//
-			// int i;
-			// while ((i=fr.read()) != -1) {
-			// System.out.print("result common file read = "+(char) i);
-			//
-			// }
-			//
-			// return fr.toString();
-
 			String data = "";
 			data = new String(Files.readAllBytes(Paths.get(filePath)));
 
@@ -423,6 +422,12 @@ public class CommonsPO
 
 		}
 
+		/**
+		 * Write to a text file
+		 * @param filePath
+		 * @param data
+		 * @throws IOException
+		 */
 		public void writeTextFile(String filePath, String data) throws IOException {
 
 			File file = new File(filePath);
@@ -441,7 +446,10 @@ public class CommonsPO
 
 		}
 		 
-		
+		/**
+		 * Verify if the sahi execution was a success based on the sahResultCommon.txt file having true or false
+		 * @return
+		 */
 		public Boolean verifySahiExecution() {
 			String resultCommon=null;
 			Boolean result=false;
@@ -462,7 +470,7 @@ public class CommonsPO
 			if (arrValues[0].toLowerCase().equals("true")) {
 
 				System.out.println("Its a Match , Read File = " + resultCommon);
-				// Incase you want to stop even if the script passes
+				// In case you want to stop even if the script passes
 				result = true;
 
 			} else {
