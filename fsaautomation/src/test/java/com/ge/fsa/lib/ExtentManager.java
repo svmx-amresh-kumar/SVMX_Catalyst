@@ -3,8 +3,6 @@
  */
 package com.ge.fsa.lib;
 
-import static org.testng.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,8 +14,6 @@ import org.openqa.selenium.TakesScreenshot;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;

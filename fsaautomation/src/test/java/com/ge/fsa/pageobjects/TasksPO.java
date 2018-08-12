@@ -1,4 +1,3 @@
-//Author: Harish.CS
 package com.ge.fsa.pageobjects;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.ge.fsa.lib.BaseLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 

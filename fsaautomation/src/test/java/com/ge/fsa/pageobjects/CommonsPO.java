@@ -7,10 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -19,7 +15,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.lib.RestServices;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
@@ -28,21 +23,11 @@ import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static java.time.Duration.ofSeconds;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import com.ge.fsa.lib.BaseLib;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 
 public class CommonsPO

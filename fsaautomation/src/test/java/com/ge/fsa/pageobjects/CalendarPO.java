@@ -1,6 +1,4 @@
-/*
- *  @author MeghanaRao
- */
+
 package com.ge.fsa.pageobjects;
 
 import java.io.IOException;

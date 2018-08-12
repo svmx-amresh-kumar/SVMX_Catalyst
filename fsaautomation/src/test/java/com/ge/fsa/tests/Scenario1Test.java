@@ -8,44 +8,10 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-
-import javax.net.ssl.HttpsURLConnection;
-
 import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.util.Assert;
-import org.testng.annotations.BeforeMethod;
-import com.ge.fsa.lib.RestServices;
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.Markup;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.RecentItemsPO;
-import com.ge.fsa.pageobjects.CalendarPO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.CreateNewPO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
-
-import io.appium.java_client.AppiumDriver;
 
 
 

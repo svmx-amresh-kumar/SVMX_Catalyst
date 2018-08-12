@@ -20,13 +20,7 @@ import org.testng.ITestResult;
 
 import org.testng.Reporter;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class TestListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
 

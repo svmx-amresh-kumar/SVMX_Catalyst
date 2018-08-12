@@ -1,40 +1,17 @@
 package com.ge.fsa.tests;
 
-import static org.testng.Assert.assertTrue;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebElement;
-import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.lib.RestServices;
-import com.ge.fsa.pageobjects.ChecklistPO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.google.gson.internal.bind.DateTypeAdapter;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
-
-import io.appium.java_client.TouchAction;
 
 public class Scenario2Test extends BaseLib {
 

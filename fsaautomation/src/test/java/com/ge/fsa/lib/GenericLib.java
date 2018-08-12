@@ -1,6 +1,4 @@
-/*
- *  @author lakshmibs
- */
+
 package com.ge.fsa.lib;
 import java.io.File;
 import java.io.FileInputStream;

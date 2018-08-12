@@ -1,18 +1,11 @@
 package com.ge.fsa.pageobjects;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Rotatable;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
