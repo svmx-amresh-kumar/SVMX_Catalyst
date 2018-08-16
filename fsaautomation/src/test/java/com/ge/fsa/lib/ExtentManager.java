@@ -41,18 +41,20 @@ public class ExtentManager {
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/" + LocalDateTime.now().format(formatter)
-			+ "_report.html";
+    public static String sReportName = LocalDateTime.now().format(formatter)+ "_report.html";
+	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
 
 	/**
 	 * This will create return/get a instance of the ExtentReports and we pass the driver from baselib class here for screenshots
 	 * @param driver
 	 * @return
+	 * @throws IOException 
 	 */
-	public static ExtentReports getInstance(AppiumDriver driver) {
-
+	public static ExtentReports getInstance(AppiumDriver driver) throws IOException {
+		File file = new File(sReportPath);
+		file.mkdir();
 		if (extent == null)
-			createInstance(sReportPath);
+			createInstance(sReportPath+sReportName);
 		localDriver = driver;
 		return extent;
 	}

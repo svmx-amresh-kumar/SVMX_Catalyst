@@ -85,8 +85,8 @@ public class LoginHomePO
 			//SignIn to App
 			getEleSignInBtn().click();
 			Thread.sleep(10000);
-			getEleUserNameTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_USN"));
-			getElePasswordTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_PWD"));
+			getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
+			getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 			getEleLoginBtn().click();
 			try{getEleAllowBtn().click();}catch(Exception e) {}
 			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);

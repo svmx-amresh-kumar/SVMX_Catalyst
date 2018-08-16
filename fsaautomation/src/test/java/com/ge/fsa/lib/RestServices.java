@@ -28,17 +28,17 @@ public class RestServices
 	//To Fetch Access Token
 	public void getAccessToken() throws IOException
 	{
-		URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "OAUTH_URL"));
+		URL url = new URL(GenericLib.getConfigValue(GenericLib.sConfigFile, "OAUTH_URL"));
         HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setRequestMethod("POST");
 		httpsUrlCon.setRequestProperty("User-Agent", USER_AGENT);
 		httpsUrlCon.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		
 		String urlParameters = "grant_type=password"
-				+ "&client_id="+GenericLib.getCongigValue(GenericLib.sConfigFile, "CLIENT_ID")
-				+ "&client_secret="+GenericLib.getCongigValue(GenericLib.sConfigFile, "CLIENT_SECRET")
-				+ "&username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-				+ "&password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD");
+				+ "&client_id="+GenericLib.getConfigValue(GenericLib.sConfigFile, "CLIENT_ID")
+				+ "&client_secret="+GenericLib.getConfigValue(GenericLib.sConfigFile, "CLIENT_SECRET")
+				+ "&username="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN")
+				+ "&password="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD");
 		httpsUrlCon.setDoOutput(true);
 		
 		DataOutputStream dataOpStream = new DataOutputStream(httpsUrlCon.getOutputStream());
@@ -93,15 +93,15 @@ public class RestServices
 	public JSONArray restGetSoqlJsonArray(String soqlquery ) throws IOException
 	{getAccessToken();
 		soqlquery = parseQuery(soqlquery);
-		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+		String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -156,15 +156,15 @@ public class RestServices
 		getAccessToken();
 		soqlquery = parseQuery(soqlquery);
 		
-		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+		String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -261,9 +261,9 @@ public class RestServices
 	 public  String restCreate(String sSoObjectName,String sWOJson) throws IOException
 	 {
 		 getAccessToken();
-	 	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName
-	 			+ "Username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-	 			+ "&Password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+	 	URL url = new URL(GenericLib.getConfigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName
+	 			+ "Username="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN")
+	 			+ "&Password="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 	     httpsUrlCon.setDoOutput(true);
 	  	httpsUrlCon.setRequestMethod("POST");

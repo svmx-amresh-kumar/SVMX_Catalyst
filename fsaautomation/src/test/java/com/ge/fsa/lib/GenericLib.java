@@ -39,7 +39,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To read the basic environment settings from dc_config.properties
 	 * data from config file
 	 */
-	public static String getCongigValue(String sFile, String sKey) {
+	public static String getConfigValue(String sFile, String sKey) {
 		Properties prop = new Properties();
 		String sValue = null;
 		try {
@@ -59,7 +59,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To set the settings data in dc_config.properties
 	 * data from config file
 	 */
-	public static void setCongigValue(String sFile, String sKey, String sValue) {
+	public static void setConfigValue(String sFile, String sKey, String sValue) {
 		Properties prop = new Properties();
 		try {
 			FileInputStream fis = new FileInputStream(new File(sFile));

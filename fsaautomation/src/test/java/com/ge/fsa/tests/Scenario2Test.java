@@ -1,8 +1,16 @@
 package com.ge.fsa.tests;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
+import org.apache.http.client.utils.DateUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -30,12 +38,18 @@ public class Scenario2Test extends BaseLib {
 	String sPrintReportSearch = null;
 	String sChecklistName = null;
 	String sExploreChildSearchTxt = null;
+	String formattedDate  = null;
+	String sformattedDatetime = null;
+	Date dtempDate2;
+	Date dTempDate1;
+	
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
 
 	}
 
+	
 	@Test(enabled = true)
 	public void scenario2_checklist() throws Exception {
 		
@@ -109,12 +123,10 @@ public class Scenario2Test extends BaseLib {
 		    commonsPo.switchContext("WebView");
 		    sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
 		    System.out.println("dateANS is "+sdateAns);
-		   	    		    
-		    
 		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
-	        Date date = parser.parse(sdateAns);
+	        dTempDate1 = parser.parse(sdateAns);
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	        String formattedDate = formatter.format(date);
+	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
 		      
 		    
@@ -123,16 +135,26 @@ public class Scenario2Test extends BaseLib {
 		    commonsPo.switchContext("Native");
 		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
-		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");
-		    		    		    
-		    SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
-	        Date datetime1 = parser.parse(sdateTimeAns);
-	        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-	        String formattedDatetime = formatter.format(datetime1);
-		    System.out.println("formateed dateTime"+formattedDate);
-		    
-		
-		    
+		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");	    
+		    System.out.println("direct sdatetime"+sdateTimeAns);	    
+		    SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm");
+		    dTempDate1 = parser1.parse(sdateTimeAns);
+	        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("formatter1.format value   "+stempDate);
+	        dTempDate1 = formatter1.parse(stempDate);
+	        //adding 7 hours to set to UTC/GMT time.. this is from PST timezone as 
+        	Instant insDate =dTempDate1.toInstant().plus(7, ChronoUnit.HOURS);
+	        System.out.println("7 aded to instant"+insDate); 
+ 
+	        //formatter1.format(datetime1);
+	        //System.out.println("after format datetime1"+datetime1);
+	        sformattedDatetime = formatter1.format(dTempDate1);
+	        dTempDate1 = Date.from(insDate);
+	        sformattedDatetime = formatter1.format((dTempDate1));  
+	        System.out.println("formateed dateTime"+sformattedDatetime);
+	    
+
 		    //System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
 		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(sradioQuestion));
@@ -225,7 +247,7 @@ public class Scenario2Test extends BaseLib {
 			//NXGReports.addStep("checklist date question answer synced to server", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"checklist date question answer synced to server");
 
-			Assert.assertTrue(ChecklistAnsjson.contains(formattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
+			Assert.assertTrue(ChecklistAnsjson.contains(sformattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
 			//NXGReports.addStep("checklist datetime question answer synced to server", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"checklist datetime question answer synced to server");
 

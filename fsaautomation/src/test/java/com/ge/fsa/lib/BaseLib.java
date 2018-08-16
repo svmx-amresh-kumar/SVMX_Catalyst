@@ -70,23 +70,23 @@ public class BaseLib {
 
 		try { 
 			//Resetting to true always first
-			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+			GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 
-			sAppPath = GenericLib.sResources+"//"+GenericLib.getCongigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
+			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
-			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getCongigValue(GenericLib.sConfigFile, "UDID"));
+			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
 			capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET")));
+			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 			capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS,true);		
-			capabilities.setCapability("xcodeOrgId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
-			capabilities.setCapability("xcodeSigningId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
-			capabilities.setCapability("updatedWDABundleId", GenericLib.getCongigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
+			capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
+			capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
+			capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
 			capabilities.setCapability("startIWDP", true);
 			capabilities.setCapability("sendKeyStrategy", "grouped");
 			capabilities.setCapability("autoGrantPermissions", true);
@@ -149,8 +149,8 @@ public class BaseLib {
 //		System.out.println("App installed");
 
 		//Installing fresh
-				GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set App Start mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
+				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
 		
 				
 				try {
