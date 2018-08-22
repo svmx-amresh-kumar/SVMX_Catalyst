@@ -1,23 +1,17 @@
 package com.ge.fsa.pageobjects;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Rotatable;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.ge.fsa.lib.GenericLib;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 
-public class ChecklistPO {
+public class ChecklistPO{
 	
 	public ChecklistPO(AppiumDriver driver)
 	{
@@ -45,18 +39,18 @@ public class ChecklistPO {
 	
 	@FindBy(xpath="//a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']")
 
-	private WebElement eleStartNew;
+	private WebElement eleStartNewLnk;
 	public WebElement geteleStartNew()
 	{
-		return eleStartNew;
+		return eleStartNewLnk;
 	}
 	
 	
     @FindBy(xpath="//span[text()='Next']")
-    private WebElement eleNext;
-    public WebElement eleNext()
+    private WebElement eleNextLnk;
+    public WebElement geteleNext()
     {
-    	return eleNext;
+    	return eleNextLnk;
     }
     
     
@@ -69,25 +63,25 @@ public class ChecklistPO {
     
     
 	@FindBy(xpath="//div[@class='x-component x-button x-button-no-icon x-button-button-tools-msgbox x-component-button-tools-msgbox x-button-button-highlight x-component-button-highlight svmx-msg-button-default x-haslabel x-layout-box-item x-layout-hbox-item x-flexed x-stretched']/span[text()='Submit']")
-	private WebElement eleChecklistPopupSubmit;
-    public WebElement eleChecklistPopupSubmit()
+	private WebElement eleChecklistPopupSubmitBtn;
+    public WebElement geteleChecklistPopupSubmit()
     {
-    	return eleChecklistPopupSubmit;
+    	return eleChecklistPopupSubmitBtn;
     }
     
     @FindBy(xpath="//span[text()='Show completed checklists']")
-    private WebElement eleShowCompletedChecklist;
-    public WebElement eleShowCompletedChecklist()
+    private WebElement eleShowCompletedChecklistLnk;
+    public WebElement geteleShowCompletedChecklist()
     {
-    	return eleShowCompletedChecklist;
+    	return eleShowCompletedChecklistLnk;
     }
     
-    private WebElement eleCompletedChecklistName;
+    private WebElement eleCompletedChecklistNameLnk;
 	public WebElement geteleCompletedChecklistName(String checklistname)
 	{
 		
-		eleCompletedChecklistName = driver.findElement(By.xpath("(//div[@class='checklist-lineup-list-item-name'][text()='"+checklistname+"'])[2]"));
-		return eleCompletedChecklistName;
+		eleCompletedChecklistNameLnk = driver.findElement(By.xpath("(//div[@class='checklist-lineup-list-item-name'][text()='"+checklistname+"'])[2]"));
+		return eleCompletedChecklistNameLnk;
 	}
     
 	
@@ -101,9 +95,31 @@ public class ChecklistPO {
 	private WebElement eleChecklistAnsPicklist;
 	public WebElement  geteleChecklistAnsPicklist(String ChecklistTextQuestion)
 	{
-		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
+		return eleChecklistAnsPicklist = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
 	}
 	
+	
+	private WebElement eleChecklistAnsNumber;
+	public WebElement  geteleChecklistAnsNumber(String checklistNumberQuestion)
+	{
+		return eleChecklistAnsNumber = driver.findElement(By.xpath("//div[text()='"+checklistNumberQuestion+"'][@class='x-innerhtml']/../..//input"));
+	}
+	
+	
+	private WebElement eleChecklistAnsDate;
+	public WebElement  geteleChecklistAnsDate(String checklistDateQuestion)
+	{
+		return eleChecklistAnsDate = driver.findElement(By.xpath("//div[text()='"+checklistDateQuestion+"'][@class='x-innerhtml']/../..//input"));
+	}
+	
+	
+	private WebElement eleChecklistAnsradio;
+	public WebElement  geteleChecklistAnsradio(String checklistRadioQuestion)
+	{
+		
+		
+		return eleChecklistAnsradio = driver.findElement(By.xpath("//div[text()='"+checklistRadioQuestion+"'][@class='x-innerhtml']/../..//span"));
+	}
 	
 	private WebElement eleChecklistrequiredTxt;
 	public WebElement  geteleChecklistrequiredTxt(String ChecklistTextQuestion)
@@ -133,7 +149,19 @@ public class ChecklistPO {
 		return eleBacktoWorkOrderlnk;
 	}
 	
+	@FindBy(xpath="//span[text()='< Back']")
+	private WebElement eleBacklnk;
+	public WebElement geteleBacklnk()
+	{
+		return eleBacklnk;
+	}
 	
+	@FindBy(xpath="//span[text()='< Checklists']")
+	private WebElement eleBacktoChecklistslnk;
+	public WebElement geteleBacktoChecklistslnk()
+	{
+		return eleBacktoChecklistslnk;
+	}
 	
 	@FindBy(xpath="//strong[text()='Checklist Report']")
 	private WebElement eleChecklistReporttxt;
@@ -196,7 +224,29 @@ public class ChecklistPO {
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
 		System.out.println(sWorkOrderID);
 		
-	}					
+	}	
+	
+	
+	public void navigateBacktoWorkOrder(CommonsPO commonsPo) throws InterruptedException
+	{
+		
+		
+		try {
+			commonsPo.tap(geteleBacktoChecklistslnk());
+			commonsPo.tap(geteleBacktoWorkOrderlnk());
+			
+		} catch (Exception e) {
+			commonsPo.tap(geteleBacklnk());
+			commonsPo.tap(geteleBacktoChecklistslnk());
+			commonsPo.tap(geteleBacktoWorkOrderlnk());
+		}
+		
+		
+		
+		
+		
+	}
+	
 	
 }
 

@@ -1,20 +1,10 @@
-/*
- *  @author lakshmibs
- */
 package com.ge.fsa.pageobjects;
 
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,14 +16,10 @@ import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.touch.TapOptions;
-import io.appium.java_client.touch.offset.ElementOption;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class LoginHomePO 
+public class LoginHomePO
 {
 	public LoginHomePO(AppiumDriver driver)
 	{
@@ -99,8 +85,8 @@ public class LoginHomePO
 			//SignIn to App
 			getEleSignInBtn().click();
 			Thread.sleep(10000);
-			getEleUserNameTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_USN"));
-			getElePasswordTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_PWD"));
+			getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
+			getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 			getEleLoginBtn().click();
 			try{getEleAllowBtn().click();}catch(Exception e) {}
 			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);

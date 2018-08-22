@@ -1,6 +1,4 @@
-/*
- *  @author lakshmibs
- */
+
 package com.ge.fsa.lib;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +39,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To read the basic environment settings from dc_config.properties
 	 * data from config file
 	 */
-	public static String getCongigValue(String sFile, String sKey) {
+	public static String getConfigValue(String sFile, String sKey) {
 		Properties prop = new Properties();
 		String sValue = null;
 		try {
@@ -61,7 +59,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To set the settings data in dc_config.properties
 	 * data from config file
 	 */
-	public static void setCongigValue(String sFile, String sKey, String sValue) {
+	public static void setConfigValue(String sFile, String sKey, String sValue) {
 		Properties prop = new Properties();
 		try {
 			FileInputStream fis = new FileInputStream(new File(sFile));
@@ -136,11 +134,11 @@ public class GenericLib
 			process = processBuilder.start(); // Start the process.
 			process.waitFor(); // Wait for the process to finish.
 			
-			Assert.assertTrue(process.exitValue()==1, "Sahi script failed");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
+			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.PASSED,null);
 				
 		} catch (Exception e) {
-			Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
+			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
 			NXGReports.addStep("Sahi script for case "+sTestCaseID+" failed",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		}

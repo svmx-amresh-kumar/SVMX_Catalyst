@@ -1,20 +1,12 @@
-/*
- *  @author lakshmibs
- */
 package com.ge.fsa.pageobjects;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.ge.fsa.lib.GenericLib;
@@ -24,7 +16,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class WorkOrderPO {
+public class WorkOrderPO{
 
 	public WorkOrderPO(AppiumDriver driver)
 	{
@@ -32,7 +24,7 @@ public class WorkOrderPO {
 		PageFactory.initElements(driver, this);
 	}
 	
-	AppiumDriver driver = null;
+	AppiumDriver<WebElement> driver = null;
 	TouchAction touchAction = null;
 	int iWhileCnt =0;
 	int i=0;
@@ -126,12 +118,22 @@ public class WorkOrderPO {
 		return eleWONumberTxt;
 	}
 	
-	@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
+	//@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
+	private WebElement eleWOServiceReportTxt;
+	public WebElement getEleWOServiceReportTxt(String sReportTitle)
+	{
+		eleWOServiceReportTxt=driver.findElement(By.xpath("//label[@class='opdoc-title'][text()='"+sReportTitle+"']"));
+		return eleWOServiceReportTxt;
+
+	}
+	
+	
+	/*@FindBy(xpath="//label[@class='opdoc-title'][text()='Work Order Service Report']")
 	private WebElement eleWOServiceReportTxt;
 	public WebElement getEleWOServiceReportTxt()
 	{
 		return eleWOServiceReportTxt;
-	}
+	}*/
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='New Event']")
 	private WebElement eleNewEventTxt;
@@ -300,6 +302,43 @@ public class WorkOrderPO {
 		return eleclickparts;
 	}
 	
+	// Added by Meghana
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='IB Serial Number']/../..//div[@class='x-mask-el']")
+	private WebElement eleIbSerialnumTap;
+	public WebElement getEleIbSerialnumTap()
+	{
+		return eleIbSerialnumTap;
+	}
+
+	
+
+	public List<WebElement> getEleIBSerialNumber()
+	{
+
+		List<WebElement> eleIBSerialNumber = driver.findElements(By.xpath("//div[@class='x-inner-el'][contains(text(),'IB')]"));
+
+		return eleIBSerialNumber;
+	}
+	
+	
+	private WebElement eleIBId;
+	public WebElement getEleeleIBId(String sInstalledProductId)
+	{
+
+		eleIBId = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sInstalledProductId+"']"));
+
+		return eleIBId;
+	}
+	
+
+	@FindBy(xpath="(//div[. = 'Product']//input[@class = 'x-input-el'])[2]")
+	private WebElement eleProductLookup;
+	public  WebElement getEleProductLookup()
+		{
+				
+			return eleProductLookup;
+		}
+			
 
 	
 	// Saving the Child Line records
@@ -312,8 +351,7 @@ public class WorkOrderPO {
 	}
 	
 	// Add selected button
-	
-	//span[@class='x-button-label'][text()='Add Selected']
+
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
 	private WebElement eleAddselectedbutton;
 	public  WebElement getEleAddselectedbutton()
@@ -321,6 +359,18 @@ public class WorkOrderPO {
 		
 		return eleAddselectedbutton;
 	}
+	
+	// Added by Meghana
+
+	private WebElement eleTaponParts;
+	public WebElement getEleTaponParts(String sProductName)
+	{
+
+		eleTaponParts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sProductName+"']"));
+
+		return eleTaponParts;
+	}
+	
 	
 	//Verifying the Workorder name after saving the value
 	private WebElement eleworkordernameonUI;
@@ -366,7 +416,7 @@ public class WorkOrderPO {
 		return eleOKBtn;
 	}
 	
-	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//input']")
+	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
 	private WebElement eleBillingTypeLst;
 	public WebElement getEleBillingTypeLst()
 	{
@@ -406,6 +456,79 @@ public class WorkOrderPO {
 	{
 		return eleCancelLnk;
 	}
+	
+	// Added by Harish.CS
+	private WebElement eleOnTreeView;
+	public WebElement getEleOnTreeView(String eleName) {
+	eleOnTreeView = driver.findElement(By.xpath("//div[text()='"+eleName+"']"));
+	return eleOnTreeView;
+	
+	}
+	
+
+	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleScheduledDateLst;
+	public WebElement getEleScheduledDateLst()
+	{
+		return eleScheduledDateLst;
+	}
+	
+	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-innerhtml']/../..//input")
+	private WebElement eleScheduledDateTxt;
+	public WebElement getEleScheduledDateTxt()
+	{
+		return eleScheduledDateTxt;
+	}
+	
+	@FindBy(xpath="//*[text()='Order Status']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleOrderStatusCaseLst;
+	public WebElement getEleOrderStatusCaseLst()
+	{
+		return eleOrderStatusCaseLst;
+	}
+	
+	@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleBillingTypeCaseLst;
+	public WebElement getEleBillingTypeCaseLst()
+	{
+		return eleBillingTypeCaseLst;
+	}
+	
+	private WebElement elePartsIcn;
+	public WebElement getElePartsIcn(String sPart)
+	{
+		elePartsIcn=driver.findElement(By.xpath("//div[@class='x-cells-el']//div[text()='"+sPart+"']"));
+		
+		return elePartsIcn;
+	}
+	
+	@FindBy(xpath="//span[text()='Description']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleDescriptionTxt;
+	public WebElement getEleDescriptionTxt()
+	{
+		return eleDescriptionTxt;
+	}
+	
+	@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-innerhtml']/span")
+	private WebElement eleWODesMappedTxt;
+	public WebElement getEleWODesMappedTxt()
+	{
+		return eleWODesMappedTxt;
+	}
+	@FindBy(xpath="(//div[@class='x-inner x-container-inner x-layout-auto x-component-inner x-widthed'])[1]")
+	private WebElement eleCasePartIcn;
+	public WebElement getEleCasePartIcn()
+	{
+		return eleCasePartIcn;
+	}
+	
+	@FindBy(xpath="//span[text()='Part']/../..//input")
+	private WebElement elePartLst;
+	public WebElement getElePartLst()
+	{
+		return elePartLst;
+	}
+
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -469,11 +592,11 @@ public class WorkOrderPO {
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
 	}
-	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
+	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 	{	
 		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
-		Assert.assertTrue(getEleWOServiceReportTxt().isDisplayed(), "Work Order Service Report is not displayed.");
+		Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
 		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
@@ -494,7 +617,16 @@ public class WorkOrderPO {
 	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
-		commonsPo.tap(workOrderPo.getEleclickparts(sProductName1));
+		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+//To add product to parts
+	public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+	{
+		commonsPo.longPress(workOrderPo.getEleCasePartIcn());
+		commonsPo.singleTap(workOrderPo.getElePartLst().getLocation());
+		commonsPo.lookupSearch(sProductName1);
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
@@ -503,7 +635,8 @@ public class WorkOrderPO {
 	{	//Adding labor parts name
 		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 		commonsPo.tap(getElePartLaborLkUp());
-		commonsPo.tap(getEleProductNameTxt(sProductName1));
+		commonsPo.lookupSearch(sProductName1);
+		//commonsPo.tap(getEleProductNameTxt(sProductName1));
 		
 		//Selecting Activity Type
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
@@ -591,7 +724,20 @@ public class WorkOrderPO {
 			
 		}
 		
-		//Navigation to WorkOrder SFM	
+		//Navigation to WorkOrder SFM without child search
+		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			selectAction(commonsPo, sFieldServiceName);		
+		}
+		
+		
+		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -601,10 +747,59 @@ public class WorkOrderPO {
 
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			selectAction(commonsPo, sFieldServiceName);
-		
+			selectAction(commonsPo, sFieldServiceName);		
 			
 		}
+		
+		
+		
+		//Navigate to WorkOrder Screen with a child search present
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
+		}
+		/**
+		 * Author : Meghana Rao
+		 * @param commonsPo - Passing the objects
+		 * @param exploreSearchPo
+		 * @param sExploreSearch - Search Name from Explore
+		 * @param sExploreChildSearchTxt - WorkOrder object lookup
+		 * @param sWoName - Work Order Name
+		 * @throws InterruptedException
+		 * this function will click on the Work Order button when the Work Order is there on DOD.
+		 */
+	public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+			
+			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
+			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			exploreSearchPO.getEleExploreSearchTxtFld().click();
+			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+			exploreSearchPO.getEleExploreSearchTxtFld().clear();
+			exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
+			commonsPo.tap(exploreSearchPO.getEleExploreSearchBtn());
+			
+		}
+		
+		
+		//Navigate to WorkOrder Screen without child search.
+		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			
+		}
+		
 		
 		// Edit the ChildLines and save them
 		

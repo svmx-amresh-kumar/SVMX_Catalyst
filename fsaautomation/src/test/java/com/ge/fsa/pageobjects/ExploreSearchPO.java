@@ -1,21 +1,15 @@
-/*
- *  @author lakshmibs
- */
 package com.ge.fsa.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ExploreSearchPO 
+public class ExploreSearchPO
 {
 	public ExploreSearchPO(AppiumDriver driver)
 	{
@@ -38,6 +32,14 @@ public class ExploreSearchPO
 	{
 		eleWorkOrderIDTxt=driver.findElement(By.xpath("//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sWorkOrderIDTxt+"']"));
 		 return eleWorkOrderIDTxt;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='No records to display.']")
+	private WebElement eleNorecordsToDisplay;
+	public WebElement getEleNorecordsToDisplay()
+	{
+		return eleNorecordsToDisplay;
 	}
 	
 	@FindBy(xpath="//div[text()='Explore']")
@@ -67,12 +69,27 @@ public class ExploreSearchPO
 		return eleResetFilerBtn;
 	}
 	
+	@FindBy(xpath="//div[@class='x-label-el sfmsearch-include-online-label']/../div[@class = 'x-body-el']/div/div[5]")
+	private WebElement eleOnlineBttn;
+	public WebElement getEleOnlineBttn()
+	{
+		return eleOnlineBttn;
+	}
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
 		 return eleExploreChildSearchTxt;
 	}
+	
+
+	@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
+	private WebElement eleCloudSymbol;
+	public WebElement getEleCloudSymbol()
+	{
+		return eleCloudSymbol;
+	}
+	
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{

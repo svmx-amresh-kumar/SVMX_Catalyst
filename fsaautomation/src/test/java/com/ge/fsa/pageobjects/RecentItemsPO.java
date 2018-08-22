@@ -1,28 +1,14 @@
-/*
- *  @author MeghanaRao
- */
 package com.ge.fsa.pageobjects;
 
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class RecentItemsPO 
+public class RecentItemsPO
 {
 	public RecentItemsPO(AppiumDriver driver)
 	{

@@ -1,6 +1,4 @@
-/*
- *  @author MeghanaRao
- */
+
 package com.ge.fsa.pageobjects;
 
 import java.io.IOException;
@@ -22,7 +20,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class CalendarPO 
+public class CalendarPO
 {
 	public CalendarPO(AppiumDriver driver)
 	{
@@ -70,9 +68,6 @@ public class CalendarPO
 			e.printStackTrace();
 		}
 		eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')]/../div[contains(@class,'sfmevent-account')])[1]"));
-		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])[1]"));
-		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-content']//div[@class='sfmevent-location-container']//div[contains(text(),'"+sWorkOrdernumber+"')])"));
-		//eleworkordernumonCalendarWeek=driver.findElement(By.xpath("(//div[contains(.,'" + sWorkOrdernumber + "')]/div[@class='sfmevent-location-container'])[1]"));
 		return eleworkordernumonCalendarWeek;
 	}
 
@@ -104,7 +99,7 @@ public class CalendarPO
 
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 5000);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){

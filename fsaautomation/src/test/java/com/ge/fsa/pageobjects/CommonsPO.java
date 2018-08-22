@@ -7,10 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -19,7 +15,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.lib.RestServices;
 import com.kirwa.nxgreport.NXGReports;
 import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
@@ -28,19 +23,14 @@ import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
-import static java.time.Duration.ofSeconds;
-
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import com.ge.fsa.lib.BaseLib;
-import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
-public class CommonsPO extends BaseLib 
+public class CommonsPO
 {
 	public CommonsPO(AppiumDriver driver)
 	{
@@ -107,20 +97,20 @@ public class CommonsPO extends BaseLib
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement el, int... optionalOffsetPointsxy) throws InterruptedException {
+	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
 
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
-		Point point = el.getLocation();
-		System.out.println("Tapping element " + el.getText() + " " + el.getTagName());
+		Point point =  wElement.getLocation();
+		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName());
 
 		for (int i = 0; i < 10; i++) {
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
 				Thread.sleep(2000);
-				point = el.getLocation();
+				point =  wElement.getLocation();
 				System.out.println("New fetch \n" + 
 						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
@@ -140,6 +130,14 @@ public class CommonsPO extends BaseLib
 		}
 		Thread.sleep(GenericLib.iLowSleep);
 	}
+	//Customised touch Tap
+			public void singleTap(Point point) throws InterruptedException
+			{
+				touchAction = new TouchAction(driver);
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+				Thread.sleep(GenericLib.iLowSleep);
+			}
+			
 		
 		//Customised touch Tap
 		public void fingerTap(Point point, int iTapCount) throws InterruptedException
@@ -150,8 +148,8 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//Customised touch LongPress
-		public void longPress(WebElement el) throws InterruptedException
-		{Point point = el.getLocation();
+		public void longPress(WebElement  wElement) throws InterruptedException
+		{Point point =  wElement.getLocation();
 		System.out.println("x "+point.getX()+" y "+point.getY());
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
@@ -159,10 +157,10 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//Customised touch Doubletap
-		public void doubleTap(WebElement element) throws InterruptedException
+		public void doubleTap(WebElement  wElement) throws InterruptedException
 		{
 			touchAction = new TouchAction(driver);
-			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)element)).perform();
+			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) wElement)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		
@@ -180,9 +178,9 @@ public class CommonsPO extends BaseLib
 			touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
 		}
 		
-		public void swipeLeft(WebElement ele)
+		public void swipeLeft(WebElement  wElement)
 		{	int offset = 30;
-			Point point = ele.getLocation();
+			Point point =  wElement.getLocation();
 			int x = point.getX();
 			int y = point.getY();
 			
@@ -222,9 +220,9 @@ public class CommonsPO extends BaseLib
 		}
 		
 		//To set the value in PickerWheel native app
-		public void pickerWheel( WebElement element, String sValue) throws InterruptedException
+		public void pickerWheel( WebElement wElement, String sValue) throws InterruptedException
 		{
-			element.click();
+			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
@@ -234,12 +232,12 @@ public class CommonsPO extends BaseLib
 		
 		
 		//Wait for element until the element is displayed or time elapsed
-		public void waitforElement(WebElement element, long lTime)
+		public void waitforElement(WebElement wElement, long lTime)
 		{ lElapsedTime=0L;
 			while(true)
 			{
 				try{
-					if(element.isDisplayed()|| (lElapsedTime==lTime))
+					if(wElement.isDisplayed()|| (lElapsedTime==lTime))
 					{ break;}
 				}catch(Exception ex) {}
 				lElapsedTime++;
@@ -276,16 +274,16 @@ public class CommonsPO extends BaseLib
 	/**
 	 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 	 *
-	 * @param element
+	 * @param wElement
 	 * @param iDaysToScroll
 	 * @param sTimeHrs
 	 * @param sTimeMin
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 */
-		public void setTime( WebElement element, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
+		public void setTime( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
 		{
-			element.click();
+			wElement.click();
 			switchContext("Native");
 			datePicker(0,iDaysToScroll);
 			if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
@@ -328,7 +326,7 @@ public class CommonsPO extends BaseLib
 		}
 		
 		/**
-		 * Set the time, if the hrs, min, AMPM values in 0 then it will be skipped
+		 * Set the time, if the hrs, min, AMPM values, if 0 then it will be skipped
 		 * 
 		 * @param iIndex
 		 * @param sTimeHrs
@@ -350,8 +348,14 @@ public class CommonsPO extends BaseLib
 			
 		}
 		
-		//Wait for element until the element is displayed or time elapsed
-		public boolean waitForString(WebElement element, String sExpectedValue,long lTime)
+		/**
+		 * Wait for element until the element is displayed or time elapsed
+		 * @param wElement
+		 * @param sExpectedValue
+		 * @param lTime
+		 * @return
+		 */
+		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime)
 		{ 	
 		
 			String op = null;
@@ -359,14 +363,14 @@ public class CommonsPO extends BaseLib
 			lElapsedTime=0L;
 			while(true)
 			{
-				waitforElement(element, GenericLib.lWaitTime);
+				waitforElement(wElement, GenericLib.lWaitTime);
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				op = element.getText();
+				op = wElement.getText();
 				sd=sExpectedValue;
 				try{
 					if(!op.equals(sd) && (lElapsedTime==lTime))
@@ -388,30 +392,79 @@ public class CommonsPO extends BaseLib
 			
 		}
 		
-//		 /**
-//		  * Based on the returned Parts Details JSONArray, in the calling method , use String  returnvalue= (String) value.get(verifyvalue1);
-//
-//		  * 
-//		  * @param restservices
-//		  * @param sworkordername
-//		  * @param slinetype
-//		  * @param requieredApiNAme
-//		  * @param expectedValue
-//		  * @return
-//		  * @throws IOException
-//		  */
-//		 public JSONArray verifyPartsDetails(RestServices restservices, String sworkordername,String slineType)  throws IOException
-//		 {
-//			
-//			 String soqlquery = "Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c=\'"+slineType+"\'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkordername+"\')";
-//			 System.out.println(soqlquery);
-//			 restservices.getAccessToken();
-//			 JSONArray returnedvalues = restservices.restGetSoqlJsonArray(soqlquery);
-//			 System.out.println(returnedvalues);
-//
-//			 return returnedvalues;
-//		}
+		/**
+		 * Read a text file
+		 * @param filePath
+		 * @return
+		 * @throws Exception
+		 */
+		public String readTextFile(String filePath) throws Exception {
+			String data = "";
+			data = new String(Files.readAllBytes(Paths.get(filePath)));
+
+			System.out.println("resultCommon.txt file read as = " + data);
+			return data;
+
+		}
+
+		/**
+		 * Write to a text file
+		 * @param filePath
+		 * @param data
+		 * @throws IOException
+		 */
+		public void writeTextFile(String filePath, String data) throws IOException {
+
+			File file = new File(filePath);
+			// Create the file
+			if (file.createNewFile()) {
+				System.out.println("File is created!");
+			} else {
+				System.out.println("File already exists.");
+			}
+
+			// Write Content an create the shell or bat file
+			FileWriter writer = new FileWriter(file);
+			writer.write(data);
+			writer.close();
+			System.out.println("resultCommon.txt file Write as = " + data);
+
+		}
 		 
+		/**
+		 * Verify if the sahi execution was a success based on the sahResultCommon.txt file having true or false
+		 * @return
+		 */
+		public Boolean verifySahiExecution() {
+			String resultCommon=null;
+			Boolean result=false;
+			try {
+				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahResultCommon.txt");
+
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String[] arrValues = resultCommon.split(",");
+			int i = 0;
+			for (String arrValRead : arrValues) {
+				System.out.println("use  arrValues[" + i + "] = " + arrValRead);
+				i++;
+			}
+
+			if (arrValues[0].toLowerCase().equals("true")) {
+
+				System.out.println("Its a Match , Read File = " + resultCommon);
+				// In case you want to stop even if the script passes
+				result = true;
+
+			} else {
+				System.out.println("Its Not a Match , Read File = " + resultCommon);
+				result = false;
+			}
+			
+			return result;
+		}
 }
 	
 

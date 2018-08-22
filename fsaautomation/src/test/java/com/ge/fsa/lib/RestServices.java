@@ -1,6 +1,4 @@
-/*
- *  @author lakshmibs
- */
+
 package com.ge.fsa.lib;
 
 import java.io.BufferedReader;
@@ -10,16 +8,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import com.ge.fsa.lib.GenericLib;
 
-import groovy.json.JsonParser;
-import net.bytebuddy.asm.Advice.Return;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -37,17 +28,17 @@ public class RestServices
 	//To Fetch Access Token
 	public void getAccessToken() throws IOException
 	{
-		URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "OAUTH_URL"));
+		URL url = new URL(GenericLib.getConfigValue(GenericLib.sConfigFile, "OAUTH_URL"));
         HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setRequestMethod("POST");
 		httpsUrlCon.setRequestProperty("User-Agent", USER_AGENT);
 		httpsUrlCon.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		
 		String urlParameters = "grant_type=password"
-				+ "&client_id="+GenericLib.getCongigValue(GenericLib.sConfigFile, "CLIENT_ID")
-				+ "&client_secret="+GenericLib.getCongigValue(GenericLib.sConfigFile, "CLIENT_SECRET")
-				+ "&username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-				+ "&password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD");
+				+ "&client_id="+GenericLib.getConfigValue(GenericLib.sConfigFile, "CLIENT_ID")
+				+ "&client_secret="+GenericLib.getConfigValue(GenericLib.sConfigFile, "CLIENT_SECRET")
+				+ "&username="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN")
+				+ "&password="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD");
 		httpsUrlCon.setDoOutput(true);
 		
 		DataOutputStream dataOpStream = new DataOutputStream(httpsUrlCon.getOutputStream());
@@ -83,96 +74,7 @@ public class RestServices
 		
 	}
 	
-	//**Commenting out as we can use restCreate() and getJsonValue() in test case directly for any field and not just work order.
 	
-//To Fetch Work Order ID
-public  String getWOORecordID(String sWOJson) throws IOException
-{
-	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "WORECORD_URL")
-			+ "Username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-			+ "&Password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
-    HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
-    httpsUrlCon.setDoOutput(true);
- 	httpsUrlCon.setRequestMethod("POST");
-	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
-	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	
-	OutputStream os = httpsUrlCon.getOutputStream();
-    os.write(sWOJson.getBytes());
-    os.flush();
-	
-    BufferedReader bufferedReader = null;
-    StringBuilder stringBuilder = new StringBuilder();
-    String line;
-    try {
-           bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream()));
-           while ((line =bufferedReader.readLine())!=null){
-                 stringBuilder.append(line);
-           }
-    } catch (IOException e) {
-           e.printStackTrace();
-    } finally {
-           if (bufferedReader != null) {
-                 try {
-                        bufferedReader.close();
-                 } catch (IOException e) {
-                        e.printStackTrace();
-                 }
-           }
-    }
-
-    JSONObject json = new JSONObject(stringBuilder.toString());
-    sWORecordID = (String) json.get("id");
-    System.out.println("WORecordID: "+sWORecordID);
-    return sWORecordID;
-}
-
-	// To fetch WorkOrder Name
-	public String  getWOName(String sWORecordID) throws IOException
-	{
-	String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+"SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'";
-	URL url = new URL(sURL);
-	System.out.println(sURL);
-	HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
-	httpsUrlCon.setDoOutput(true);
-	httpsUrlCon.setRequestMethod("GET");
-	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-	httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
-	
-	BufferedReader bufferedReader = null;
-	StringBuilder stringBuilder = new StringBuilder();
-	String line;
-	try {
-	   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
-	   while ((line =bufferedReader.readLine())!=null){
-	         stringBuilder.append(line);
-	   }
-	} catch (IOException e) {
-	   e.printStackTrace();
-	} finally {
-	   if (bufferedReader != null) {
-	         try {
-	                bufferedReader.close();
-	         } catch (IOException e) {
-	                e.printStackTrace();
-	         }
-	   }
-	}
-	
-	JSONObject json = new JSONObject(stringBuilder.toString());
-	
-	JSONArray msg = (JSONArray) json.get("records");
-	Iterator iterator = msg.iterator();
-	while (iterator.hasNext()) {
-         JSONObject value = (JSONObject) iterator.next();
-         System.out.println((String) value.get("Name"));
-         
-         sWorkOrderName=(String) value.get("Name");
-     }
-	
-	return sWorkOrderName;
-	}
 	
 	/**
 	 * Method to return the JSONArray, to be used with getJsonValue() method for multiple value extraction after a single API call
@@ -189,16 +91,17 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 * @throws IOException
 	 */
 	public JSONArray restGetSoqlJsonArray(String soqlquery ) throws IOException
-	{
-		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+	{getAccessToken();
+		soqlquery = parseQuery(soqlquery);
+		String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -233,11 +136,16 @@ public  String getWOORecordID(String sWOJson) throws IOException
 
 	
 	/**
-	 * Author : Meghana Rao
 	 * 
-	 * This method will query other objects and will send the values which is requested by us
+	 * This method will query other objects and will send the values which is requested by us, this can be used for fetching the key value pair of any top first level object
+	 * For "records" object it will go one level within to extract the value from the records JasonArray
 	 * 
+	 * e.g
+	 * {"totalSize":1,"records":[{"SVMXC__Status__c":"Completed","SVMXC__ChecklistJSON__c":"{\"QB000033\":\"Answer2372018162849\"}}],"done":true}
+	 * To fetch "records" array of json object or "totalSize" int or "done" boolean
+	 *
 	 * @param soqlquery
+	 * @param getvalue
 	 * @return
 	 * @throws IOException
 	 */
@@ -245,15 +153,18 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	
 	public String restGetSoqlValue(String soqlquery , String getvalue) throws IOException
 	{
-		String sURL = GenericLib.getCongigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
+		getAccessToken();
+		soqlquery = parseQuery(soqlquery);
+		
+		String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -284,10 +195,18 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		if(getvalue == "totalSize")
 		{
 		String msgString = json.get(getvalue).toString();
-		System.out.println("msgString "+msgString);
+	 	System.out.println("Returned value for "+getvalue+" = "+msgString);
 		returnvalue= msgString;
 		
 		}
+		else if(getvalue == "done")
+		{
+		String msgString = json.get(getvalue).toString();
+	 	System.out.println("Returned value for "+getvalue+" = "+msgString);
+		returnvalue= msgString;
+		
+		}
+		//For "records" we first get the records array and then we extract the JSON key value pair from one level within
 		else
 		{
 		JSONArray msg = (JSONArray) json.get("records");
@@ -302,13 +221,12 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		}
 		
 	 /**
-	  * Get the value from any JsonArray returned
+	  * Get the value from any JsonArray returned for "records" array only
 	  * usage: 
-	  * JSONArray jsonArrayAcc = restServices.restCreate("SVMXC__Company__c?","{\"Name\": \""+accName+"\" }");
-	  *
-	  * getJsonValue( jsonArrayAcc, id)
-	  * getJsonValue( jsonArrayAcc, sfieldName2)
-	  * getJsonValue( jsonArrayAcc, sfieldName3)... etc
+	  *	JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Expenses'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
+	  *	
+	  * String sExpenseType = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
+	  * String sLineQty = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");... etc
 	  * 
 	  * @param jsonArray
 	  * @param sfieldName
@@ -318,10 +236,8 @@ public  String getWOORecordID(String sWOJson) throws IOException
 		 String fieldValueObtained=null;
 			Iterator iterator = jsonArray.iterator();
 			while (iterator.hasNext()) {
-		         JSONObject value = (JSONObject) iterator.next();
-		         System.out.println((String) value.get(sfieldName).toString());
-		         
-		         fieldValueObtained= (String) value.get(sfieldName).toString();
+		         JSONObject jsonObjectKey = (JSONObject) iterator.next();
+		         fieldValueObtained = (String) jsonObjectKey.get(sfieldName).toString();
 		     }
 		 	System.out.println("Returned value for "+sfieldName+" = "+fieldValueObtained);
 
@@ -345,9 +261,9 @@ public  String getWOORecordID(String sWOJson) throws IOException
 	 public  String restCreate(String sSoObjectName,String sWOJson) throws IOException
 	 {
 		 getAccessToken();
-	 	URL url = new URL(GenericLib.getCongigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName
-	 			+ "Username="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_USN")
-	 			+ "&Password="+GenericLib.getCongigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
+	 	URL url = new URL(GenericLib.getConfigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName
+	 			+ "Username="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN")
+	 			+ "&Password="+GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 	     httpsUrlCon.setDoOutput(true);
 	  	httpsUrlCon.setRequestMethod("POST");
@@ -387,22 +303,17 @@ public  String getWOORecordID(String sWOJson) throws IOException
 
 		return msg;
 	 }
+	 
+	 /**
+	  * Return a new query after adding \"+\" to spaces
+	  * @param query
+	  * @return
+	  */
+	 public String parseQuery(String query) {
+			query = query.replaceAll("\\s","+");
+			System.out.println("New query after adding \"+\" to spaces = "+query);
+			return query;
+		}
 
-//		/**
-//		 * 
-//		 * @param args
-//		 * @throws IOException
-//		 */
-//		public static void main(String[] args) throws IOException {
-//			RestServices appServices = new RestServices();
-//
-//			appServices.getAccessToken();
-//
-//			String sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-//
-//			String woNum = appServices.getWOName(appServices.getWOORecordID(sWOJsonData));
-//			System.out.println("WO NUMBER FETCHED " + woNum);
-//		
-//		}
-		
+
 }

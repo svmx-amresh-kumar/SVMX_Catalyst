@@ -14,7 +14,7 @@ import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 
-public class TasksPO {
+public class TasksPO{
 	
 	public TasksPO(AppiumDriver driver)
 	{

@@ -1,25 +1,24 @@
-/*
- *  @author lakshmibs
- */
 
 package com.ge.fsa.lib;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.CreateNewPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
+import com.ge.fsa.pageobjects.InventoryPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
 import com.ge.fsa.pageobjects.RecentItemsPO;
 import com.ge.fsa.pageobjects.TasksPO;
@@ -31,7 +30,6 @@ import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -54,41 +52,41 @@ public class BaseLib {
 	public RecentItemsPO recenItemsPO = null;
 	public CalendarPO calendarPO = null;
 	public TasksPO tasksPo = null;
-	
+	public InventoryPO inventoryPo = null;
 	
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
-	
+
 	@BeforeSuite
 	public void startServer()
 	{
 
 	}
-
 	@BeforeClass
 	public void setAPP() throws Exception
 	{
+
 		try { 
 			//Resetting to true always first
-			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+			GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 
-			sAppPath = GenericLib.sResources+"//"+GenericLib.getCongigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
+			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
-			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getCongigValue(GenericLib.sConfigFile, "UDID"));
+			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
 			capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET")));
+			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 			capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS,true);		
-			capabilities.setCapability("xcodeOrgId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
-			capabilities.setCapability("xcodeSigningId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
-			capabilities.setCapability("updatedWDABundleId", GenericLib.getCongigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
+			capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
+			capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
+			capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
 			capabilities.setCapability("startIWDP", true);
 			capabilities.setCapability("sendKeyStrategy", "grouped");
 			capabilities.setCapability("autoGrantPermissions", true);
@@ -102,12 +100,16 @@ public class BaseLib {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			
 			
-			
-			Thread.sleep(20000);
+			ExtentManager.getInstance(driver);
+			Thread.sleep(2000);
 			NXGReports.setWebDriver(driver);
 			NXGReports.addStep("App is launched successfully", LogAs.PASSED, null);
 			
 		} catch (Exception e) {
+			ExtentManager.createInstance(ExtentManager.sReportPath);
+			 ExtentManager.logger("BaseLib Failure");
+			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+			 ExtentManager.extent.flush();
 			NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		} 
@@ -128,13 +130,13 @@ public class BaseLib {
 		calendarPO = new CalendarPO(driver);
 		tasksPo = new TasksPO(driver);
 		checklistPo = new ChecklistPO(driver);
+		inventoryPo = new InventoryPO(driver);
 		
 
 	}   
 
-	
 	/**
-	 * Launch the app either by re-istalling (false) or by re-launching existing(true) app, by passing the sResetMode parameter as true or false
+	 * Launch the app either by re-installing (false) or by re-launching existing(true) app, by passing the sResetMode parameter as true or false
 	 * 
 	 * @param sResetMode
 	 * @throws Exception
@@ -145,12 +147,10 @@ public class BaseLib {
 //		System.out.println("App removed");
 //		driver.installApp(sAppPath);
 //		System.out.println("App installed");
-//
 
-		
 		//Installing fresh
-				GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set Construct mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
+				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
 		
 				
 				try {
@@ -160,8 +160,31 @@ public class BaseLib {
 					e.printStackTrace();
 				}
 	}
+	
+	@BeforeMethod
+	public void startReport(ITestResult result) {
+		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		 
+	}
+	
+	@AfterMethod
+	public void endReport(ITestResult result)
+	{
+		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
+		{
+			String temp= ExtentManager.getScreenshot();
 			
-
+			try {
+				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		 ExtentManager.extent.flush();
+			
+	}
+	
 	@AfterClass
 	public void tearDownDriver()
 	{
