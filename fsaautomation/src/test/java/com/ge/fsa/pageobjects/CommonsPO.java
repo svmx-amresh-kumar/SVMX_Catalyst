@@ -439,7 +439,7 @@ public class CommonsPO
 			String resultCommon=null;
 			Boolean result=false;
 			try {
-				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahResultCommon.txt");
+				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
