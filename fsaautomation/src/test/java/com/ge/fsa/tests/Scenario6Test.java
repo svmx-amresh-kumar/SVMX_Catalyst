@@ -8,7 +8,9 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.LoginHomePO;
@@ -118,15 +120,20 @@ public class Scenario6Test extends BaseLib {
 			workOrderPo.addProductParts(commonsPo, workOrderPo, sProductName1);
 			commonsPo.tap(workOrderPo.getElePartsIcn(sProductName1));
 			Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
-			NXGReports.addStep("Work Order Description Mapped is dispalyed successfully", LogAs.PASSED, null);		
+			//NXGReports.addStep("Work Order Description Mapped is dispalyed successfully", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
+
 			
 			//Save the workorder updates and validate
 			commonsPo.singleTap(workOrderPo.getEleDoneBtn().getLocation());
 			commonsPo.singleTap(workOrderPo.getEleSaveLnk().getLocation());
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
-			NXGReports.addStep("Work Order Saved successfully", LogAs.PASSED, null);
-	
-			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
+			//NXGReports.addStep("Work Order Saved successfully", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
+
+			
+			
+			//NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 //		} catch (Exception e) {
 //			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 //			throw e;

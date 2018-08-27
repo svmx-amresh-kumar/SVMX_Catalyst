@@ -10,9 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-
+import com.ge.fsa.lib.ExtentManager;
 import com.kirwa.nxgreport.*;
 import com.kirwa.nxgreport.logging.LogAs;
 import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
@@ -80,14 +80,18 @@ public class Scenario8Test extends BaseLib
 					// If the cloud button is not visible then throw an Error in the Report
 						else
 						{
-							NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							//NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "DOD of the Work Order didn't meet");
+
 							driver.quit();
 						}
 				}
 				// If the value "Records not displayed" is not visible then the WO is not Online.
 				else
 				{
-					NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					//NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "DOD of the Work Order didn't meet");
+
 					System.out.println("DOD of the Work Order didn't meet");
 					driver.quit();
 				}
@@ -145,18 +149,23 @@ public class Scenario8Test extends BaseLib
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
-				NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);
+				//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);
+				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1");
+
 				if(workOrderPo.getEleIBSerialNumber().size() == 1)
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
-					NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
+					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
+					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");
+
 				}
 		// Else print with a Failure because there are more than 1 IB under the Lookup
 				else
 				{
-					NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-					
+					//NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number");
+
 				}
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration

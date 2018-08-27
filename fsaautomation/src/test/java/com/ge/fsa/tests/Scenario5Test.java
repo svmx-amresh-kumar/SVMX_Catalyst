@@ -9,7 +9,9 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.RestServices;
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 
@@ -100,7 +102,8 @@ public class Scenario5Test extends BaseLib {
 			
 			//Validation of not qualifying Work Order
 			Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-			NXGReports.addStep("Error popup This is record does not meet is displayed successfully", LogAs.PASSED, null);		
+			//NXGReports.addStep("Error popup This is record does not meet is displayed successfully", LogAs.PASSED, null);	
+			ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
 			commonsPo.tap(workOrderPo.getEleOKBtn());
 			Thread.sleep(GenericLib.iLowSleep);
 		
@@ -110,12 +113,13 @@ public class Scenario5Test extends BaseLib {
 			
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
-			NXGReports.addStep("Issue found is displayed successfully", LogAs.PASSED, null);		
-			
+			//NXGReports.addStep("Issue found is displayed successfully", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
 			//Validation of qualifying workorder with Issue found text popup.
 			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());	
 			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
-			NXGReports.addStep("Error popup Issue found is displayed successfully", LogAs.PASSED, null);		
+			//NXGReports.addStep("Error popup Issue found is displayed successfully", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 			
 			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
 			Thread.sleep(GenericLib.iMedSleep);
@@ -132,9 +136,12 @@ public class Scenario5Test extends BaseLib {
 			
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
-			NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);		
+			//NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
+
+			
 		
-			NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
+			//NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
 //		} catch (Exception e) {
 //			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 //			throw e;
