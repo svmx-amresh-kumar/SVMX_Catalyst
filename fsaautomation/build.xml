@@ -7,8 +7,8 @@
 <project basedir="." default="testng-execution" name="fsaautomation">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.5"/>
-    <property name="source" value="1.5"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
     <path id="Maven Dependencies.libraryclasspath">
         <pathelement location="../../../Users/automation/.m2/repository/com/aventstack/extentreports/3.1.5/extentreports-3.1.5.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/freemarker/freemarker/2.3.23/freemarker-2.3.23.jar"/>
