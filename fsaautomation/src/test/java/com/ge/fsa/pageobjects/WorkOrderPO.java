@@ -575,8 +575,8 @@ public class WorkOrderPO{
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
 		
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 0,"0","0", "0"); //set end time
+		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -642,8 +642,8 @@ public class WorkOrderPO{
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		Thread.sleep(2000);
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
+		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
@@ -665,8 +665,8 @@ public class WorkOrderPO{
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-			commonsPo.setTime(getEleEndDateTimeLst(), 1,"9","00", "PM"); //set end time
+			commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+			commonsPo.setTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
 			
