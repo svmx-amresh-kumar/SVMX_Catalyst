@@ -46,7 +46,10 @@ public class Scenario8Test extends BaseLib
 		else 
 		{
 			System.out.println("FAILED");
-			return;
+			assertEquals(0, 1);
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+
 		}
 		
 		System.out.println("Scenario 8");
@@ -177,7 +180,9 @@ public class Scenario8Test extends BaseLib
 				else 
 				{
 					System.out.println("FAILED");
-					return;
+					assertEquals(0, 1);
+					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+
 				}
 	
 	}
