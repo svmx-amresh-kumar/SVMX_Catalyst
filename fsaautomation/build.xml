@@ -151,12 +151,15 @@
             <classpath refid="run.GenericLib.classpath"/>
         </java>
     </target>
-              	
+              	<!--Auto generate this file via eclipse export option and 
+              *** !!! Add the default target to point to the testng targetname  :: <project basedir="." default="testng-execution" name="fsaautomation">
+              	-->
               	<!-- Runs the file and generates Reportng report for TestNG-->
               		<taskdef name="testng" classname="org.testng.TestNGAntTask" classpathref="fsaautomation.classpath" />
-              		
+	<!-- Make sure all the dependencies are executed first so mention them as :: depends="cleanall,build,build-project" -->
               		<target name="testng-execution" depends="cleanall,build,build-project">
               			<mkdir dir="${testng-report-dir}" />
+              			<!--Make sure the classpathref is set properly -->
               			<testng outputdir="${testng-report-dir}" classpathref="fsaautomation.classpath" useDefaultListeners="true">
               				<xmlfileset dir="${basedir}" includes="testng.xml" />
               			</testng>
