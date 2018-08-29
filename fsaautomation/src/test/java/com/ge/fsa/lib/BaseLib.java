@@ -106,11 +106,11 @@ public class BaseLib {
 			NXGReports.addStep("App is launched successfully", LogAs.PASSED, null);
 			
 		} catch (Exception e) {
-			ExtentManager.createInstance(ExtentManager.sReportPath);
-			 ExtentManager.logger("BaseLib Failure");
+			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+			ExtentManager.logger("BaseLib Failure");
 			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 			 ExtentManager.extent.flush();
-			NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			//NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		} 
 		

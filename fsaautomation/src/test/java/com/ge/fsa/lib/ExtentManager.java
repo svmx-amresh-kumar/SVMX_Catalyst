@@ -52,7 +52,7 @@ public class ExtentManager {
 	 */
 	public static ExtentReports getInstance(AppiumDriver driver) throws IOException {
 		File file = new File(sReportPath);
-		file.mkdir();
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for reports : "+e);}
 		if (extent == null)
 			createInstance(sReportPath+sReportName);
 		localDriver = driver;
