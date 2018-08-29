@@ -151,6 +151,32 @@
             <classpath refid="run.GenericLib.classpath"/>
         </java>
     </target>
+	<!-- SAHI PRO INVOCATION PART -->
+	 <target name="start" >
+	 	<exec executable="/bin/sh" os="Mac OS X">
+	 	    <arg value="-c"/>
+	 	    <arg value="cd /auto/sahi_pro/userdata/bin; ./start_dashboard.sh"/>
+	 	</exec>
+	    </target>
+
+	    <target name="stopsahi" description="stop sahi server">
+	        <sahi stop="true" sahihost="localhost" sahiport="9999"/>
+	    </target>
+	
+	  <target name="startrun" description="start the server and run sahi tests">
+	        <parallel>
+	            <antcall target="start"/>
+	            <sequential>
+	                <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
+	                    <http url="http://localhost:9999/_s_/spr/blank.htm"/>
+	                </waitfor>
+	               
+	            </sequential>
+	        </parallel>
+	    </target>
+	<!-- SAHI PRO INVOCATION PART --> 
+
+
               	<!--Auto generate this file via eclipse export option and 
               *** !!! Add the default target to point to the testng targetname  :: <project basedir="." default="testng-execution" name="fsaautomation">
               	-->
@@ -164,4 +190,15 @@
               				<xmlfileset dir="${basedir}" includes="testng.xml" />
               			</testng>
               		</target>
+	
+	<!-- CLOSE SAHI PRO  -->
+
+	    <target name="stoprun">
+	        <sequential>
+	            <antcall target="stopsahi"/>
+	        </sequential>
+	    </target>
+	
+	<!-- CLOSE SAHI PRO  -->
+
 </project>
