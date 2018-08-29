@@ -152,7 +152,7 @@
         </java>
     </target>
 	<!-- SAHI PRO INVOCATION PART -->
-	 <target name="start" >
+	 <target name="startSahi" >
 	 	<exec executable="/bin/sh" os="Mac OS X">
 	 	    <arg value="-c"/>
 	 	    <arg value="cd /auto/sahi_pro/userdata/bin; ./start_dashboard.sh"/>
@@ -163,12 +163,6 @@
 	        <sahi stop="true" sahihost="localhost" sahiport="9999"/>
 	    </target>
 	
-	  <target name="startrun" description="start the server and run sahi tests">
-	        <parallel>
-	            <antcall target="start"/>
-	        
-	        </parallel>
-	    </target>
 	<!-- SAHI PRO INVOCATION PART --> 
 
 
@@ -185,6 +179,15 @@
               				<xmlfileset dir="${basedir}" includes="testng.xml" />
               			</testng>
               		</target>
+	
+	
+
+	  <target name="startrun" description="start the server and run sahi tests">
+	        <parallel>
+	            <antcall target="startSahi"/>
+	        	<antcall target="testng-execution"/>
+	        </parallel>
+	    </target>
 	
 	<!-- CLOSE SAHI PRO  -->
 
