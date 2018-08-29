@@ -4,7 +4,7 @@
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. -->
-<project basedir="." default="testng-execution" name="fsaautomation">
+<project basedir="." default="startrun" name="fsaautomation">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
@@ -172,7 +172,7 @@
               	<!-- Runs the file and generates Reportng report for TestNG-->
               		<taskdef name="testng" classname="org.testng.TestNGAntTask" classpathref="fsaautomation.classpath" />
 	<!-- Make sure all the dependencies are executed first so mention them as :: depends="cleanall,build,build-project" -->
-              		<target name="testng-execution" depends="cleanall,build,build-project,startrun">
+              		<target name="testng-execution" depends="cleanall,build,build-project">
               			<mkdir dir="${testng-report-dir}" />
               			<!--Make sure the classpathref is set properly -->
               			<testng outputdir="${testng-report-dir}" classpathref="fsaautomation.classpath" useDefaultListeners="true">
