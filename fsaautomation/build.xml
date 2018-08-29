@@ -181,7 +181,7 @@
               		</target>
 	
 	
-
+	<!-- START THE ACTUAL RUN HERE BY LAUNCHING SAHI PRO AND TESTNG , MENTION THE DEFAULTS as "startrun" in <project> tag -->
 	  <target name="startrun" description="start the server and run sahi tests">
 	        <parallel>
 	            <antcall target="startSahi"/>
