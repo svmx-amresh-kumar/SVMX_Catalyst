@@ -166,12 +166,7 @@
 	  <target name="startrun" description="start the server and run sahi tests">
 	        <parallel>
 	            <antcall target="start"/>
-	            <sequential>
-	                <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
-	                    <http url="http://localhost:9999/_s_/spr/blank.htm"/>
-	                </waitfor>
-	               
-	            </sequential>
+	        
 	        </parallel>
 	    </target>
 	<!-- SAHI PRO INVOCATION PART --> 
