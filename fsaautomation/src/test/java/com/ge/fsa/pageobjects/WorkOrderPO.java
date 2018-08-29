@@ -423,6 +423,13 @@ public class WorkOrderPO{
 		return eleBillingTypeLst;
 	}
 	
+	
+	private WebElement elePicklistValue;
+	public WebElement  getelePicklistValue(String PicklistValue)
+	{
+		return elePicklistValue = driver.findElement(By.xpath("//*[text()='"+PicklistValue+"']/../..//div[@class='x-input-body-el']/input)"));
+	}
+	
 	@FindBy(xpath="//div[contains(text(),'Issue found')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
@@ -528,7 +535,30 @@ public class WorkOrderPO{
 	{
 		return elePartLst;
 	}
-
+	
+	@FindBy(xpath="//*[contains(text(), 'Idle Time')]/../..//div[@class='x-input-body-el']/input")
+	
+	private WebElement eleIdleTimetxt;
+	public WebElement geteleIdleTimetxt()
+	{
+		return eleIdleTimetxt;
+	}
+	
+	@FindBy(xpath="//*[text()='Scheduled Date Time']/../..//div[@class='x-innerhtml']/../..//input")
+	private WebElement eleScheduledDateTimeTxt;
+	public WebElement getEleScheduledDateTimeTxt()
+	{
+		return eleScheduledDateTimeTxt;
+	}
+	
+	
+	@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+	private WebElement EleProformaInvoiceTxt;
+	public WebElement getEleProformaInvoiceTxt()
+	{
+		return EleProformaInvoiceTxt;
+	}
+	
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
