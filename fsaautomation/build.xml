@@ -186,17 +186,9 @@
 	        <parallel>
 	            <antcall target="startSahi"/>
 	        	<antcall target="testng-execution"/>
+	            <antcall target="stopsahi"/>
 	        </parallel>
 	    </target>
 	
-	<!-- CLOSE SAHI PRO  -->
-
-	    <target name="stoprun,testng-execution">
-	        <sequential>
-	            <antcall target="stopsahi"/>
-	        </sequential>
-	    </target>
-	
-	<!-- CLOSE SAHI PRO  -->
 
 </project>
