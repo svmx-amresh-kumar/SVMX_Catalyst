@@ -13,6 +13,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+
 
 public class GenericLib 
 {
@@ -131,11 +133,11 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.PASSED,null);
+			ExtentManager.logger.log(Status.PASS,"Sahi script for case "+sTestCaseID+" executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" failed",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi execution failure");
 			throw e;
 		}
 	}

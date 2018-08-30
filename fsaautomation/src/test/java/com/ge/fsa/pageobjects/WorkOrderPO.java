@@ -9,9 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -603,8 +603,7 @@ public class WorkOrderPO{
 	{
 		selectAction(commonsPo, "New Event");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
-		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
-		
+		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
 		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
 		commonsPo.setTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
@@ -620,16 +619,16 @@ public class WorkOrderPO{
 			
 		}
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 	{	
 		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
-		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
-		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -639,7 +638,7 @@ public class WorkOrderPO{
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	
 	// To add Parts
@@ -686,8 +685,8 @@ public class WorkOrderPO{
 		
 
 		//Verify to Manage WO lines
-		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");   
-		NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
+		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
 	
 	//To add Travel
@@ -709,7 +708,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 	}
 		
 		
@@ -729,7 +728,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines

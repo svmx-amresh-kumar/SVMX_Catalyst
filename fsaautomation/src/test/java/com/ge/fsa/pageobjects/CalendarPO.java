@@ -1,22 +1,10 @@
 
 package com.ge.fsa.pageobjects;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-
-import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.lib.RestServices;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 

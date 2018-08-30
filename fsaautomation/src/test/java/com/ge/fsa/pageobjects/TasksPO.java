@@ -9,8 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -90,7 +90,7 @@ public class TasksPO{
 		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("TaskDesc");
 		commonsPo.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
-		NXGReports.addStep("Tasks screen is displayed successfully", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Tasks screen is displayed successfully");
 		commonsPo.tap(getEleAddTasksBtn());
 		getEleDescriptionTxtArea().sendKeys(desc);
 		commonsPo.tap(getEleHighRadioBtn());
@@ -104,9 +104,9 @@ public class TasksPO{
 			}
 		}
 		Assert.assertEquals(count, 1);
-		NXGReports.addStep("Tasks added successfully", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Tasks added successfully");
 		Assert.assertTrue(getElePriorityIcon(desc).isDisplayed(),"High Priority Icon is not displayed");
-		NXGReports.addStep("High Priority Icon is displayed successfully", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"High Priority Icon is displayed successfully");
 		return desc;
 	}
 }
