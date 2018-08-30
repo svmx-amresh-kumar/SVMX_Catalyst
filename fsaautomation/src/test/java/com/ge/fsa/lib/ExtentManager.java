@@ -52,7 +52,7 @@ public class ExtentManager {
 	 */
 	public static ExtentReports getInstance(AppiumDriver driver) throws IOException {
 		File file = new File(sReportPath);
-		file.mkdir();
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for reports : "+e);}
 		if (extent == null)
 			createInstance(sReportPath+sReportName);
 		localDriver = driver;
@@ -97,14 +97,15 @@ public class ExtentManager {
 	 * @return
 	 */
 	public static String getScreenshot() {
-
+		File file = new File( sReportPath + "Screenshot/");
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for screenshots : "+e);}
 		TakesScreenshot ts = (TakesScreenshot) localDriver;
 
 		File src = ts.getScreenshotAs(OutputType.FILE);
+String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
+		String fullPath = sReportPath + actualScreenshotPath;
 
-		String path = System.getProperty("user.dir") + "/Screenshot/" + System.currentTimeMillis() + ".png";
-
-		File destination = new File(path);
+		File destination = new File(fullPath);
 
 		try {
 			FileUtils.copyFile(src, destination);
@@ -112,7 +113,7 @@ public class ExtentManager {
 			System.out.println("Capture Failed " + e.getMessage());
 		}
 
-		return path;
+		return actualScreenshotPath;
 	}
 
 }

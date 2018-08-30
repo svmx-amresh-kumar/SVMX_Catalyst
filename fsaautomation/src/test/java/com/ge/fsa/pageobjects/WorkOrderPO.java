@@ -9,9 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -423,6 +423,13 @@ public class WorkOrderPO{
 		return eleBillingTypeLst;
 	}
 	
+	
+	private WebElement elePicklistValue;
+	public WebElement  getelePicklistValue(String PicklistValue)
+	{
+		return elePicklistValue = driver.findElement(By.xpath("//*[text()='"+PicklistValue+"']/../..//div[@class='x-input-body-el']/input)"));
+	}
+	
 	@FindBy(xpath="//div[contains(text(),'Issue found')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
@@ -528,7 +535,30 @@ public class WorkOrderPO{
 	{
 		return elePartLst;
 	}
-
+	
+	@FindBy(xpath="//*[contains(text(), 'Idle Time')]/../..//div[@class='x-input-body-el']/input")
+	
+	private WebElement eleIdleTimetxt;
+	public WebElement geteleIdleTimetxt()
+	{
+		return eleIdleTimetxt;
+	}
+	
+	@FindBy(xpath="//*[text()='Scheduled Date Time']/../..//div[@class='x-innerhtml']/../..//input")
+	private WebElement eleScheduledDateTimeTxt;
+	public WebElement getEleScheduledDateTimeTxt()
+	{
+		return eleScheduledDateTimeTxt;
+	}
+	
+	
+	@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+	private WebElement EleProformaInvoiceTxt;
+	public WebElement getEleProformaInvoiceTxt()
+	{
+		return EleProformaInvoiceTxt;
+	}
+	
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -573,10 +603,9 @@ public class WorkOrderPO{
 	{
 		selectAction(commonsPo, "New Event");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
-		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
-		
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 0,"0","0", "0"); //set end time
+		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
+		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -590,16 +619,16 @@ public class WorkOrderPO{
 			
 		}
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 	{	
 		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
-		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
-		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -609,7 +638,7 @@ public class WorkOrderPO{
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	
 	// To add Parts
@@ -642,8 +671,8 @@ public class WorkOrderPO{
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		Thread.sleep(2000);
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
+		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
@@ -656,8 +685,8 @@ public class WorkOrderPO{
 		
 
 		//Verify to Manage WO lines
-		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");   
-		NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
+		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
 	
 	//To add Travel
@@ -665,8 +694,8 @@ public class WorkOrderPO{
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-			commonsPo.setTime(getEleEndDateTimeLst(), 1,"9","00", "PM"); //set end time
+			commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+			commonsPo.setTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
 			
@@ -679,7 +708,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 	}
 		
 		
@@ -699,7 +728,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines

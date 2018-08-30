@@ -24,10 +24,6 @@ import com.ge.fsa.pageobjects.RecentItemsPO;
 import com.ge.fsa.pageobjects.TasksPO;
 import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -35,10 +31,7 @@ import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseLib {
-	{
-		System.setProperty("KIRWA.reporter.config",	GenericLib.sResources+"//KIRWA.properties");
-
-	}
+	
 	public AppiumDriver driver = null;
 	public GenericLib genericLib = null;
 	public RestServices restServices = null;
@@ -102,15 +95,13 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			NXGReports.setWebDriver(driver);
-			NXGReports.addStep("App is launched successfully", LogAs.PASSED, null);
+			
 			
 		} catch (Exception e) {
-			ExtentManager.createInstance(ExtentManager.sReportPath);
-			 ExtentManager.logger("BaseLib Failure");
+			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+			ExtentManager.logger("BaseLib Failure");
 			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 			 ExtentManager.extent.flush();
-			NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		} 
 		

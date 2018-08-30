@@ -6,8 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -219,9 +219,9 @@ public class ChecklistPO{
 		workOrderPo.selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(4000);
 		Assert.assertTrue(geteleChecklistReporttxt().isDisplayed(), "Checklist Report is not displayed in OPDOC.");
-		NXGReports.addStep("Checklist Report OPDOC is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Checklist Report OPDOC is displayed successfully");
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"Work Order no is not displayed in OPDOC report");
-		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		System.out.println(sWorkOrderID);
 		
 	}	

@@ -14,9 +14,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.TapOptions;
@@ -198,7 +199,7 @@ public class CommonsPO
 			{	
 				try {
 					Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
-					NXGReports.addStep("Search is successfull", LogAs.PASSED, null);
+					ExtentManager.logger.log(Status.PASS,"Search is successfull");
 					//System.out.println("Search is displayed");
 					break;
 				}catch(Exception e) {swipeUp();}			
@@ -272,7 +273,7 @@ public class CommonsPO
 		}
 		
 	/**
-	 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
+	 * Set the 24 hrs time form the date picker wheels, passing 0 for sTimeHrs,sTimeMin will set the present date
 	 *
 	 * @param wElement
 	 * @param iDaysToScroll
@@ -281,16 +282,16 @@ public class CommonsPO
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 */
-		public void setTime( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
+		public void setTime24hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin) throws InterruptedException
 		{
 			wElement.click();
 			switchContext("Native");
 			datePicker(0,iDaysToScroll);
-			if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
+			if(sTimeHrs == "0" && sTimeMin == "0" ) {
 				getEleDonePickerWheelBtn().click();
 
 			}else {
-				timeSetter(1, sTimeHrs,sTimeMin,sTimeAMPM);
+				timeSetter(sTimeHrs,sTimeMin,"",true);
 				getEleDonePickerWheelBtn().click();
 			}
 			
@@ -299,6 +300,35 @@ public class CommonsPO
 			
 			
 		}
+		
+		/**
+		 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
+		 *
+		 * @param wElement
+		 * @param iDaysToScroll
+		 * @param sTimeHrs
+		 * @param sTimeMin
+		 * @param sTimeAMPM
+		 * @throws InterruptedException
+		 */
+			public void setTime12Hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
+			{
+				wElement.click();
+				switchContext("Native");
+				datePicker(0,iDaysToScroll);
+				if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
+					getEleDonePickerWheelBtn().click();
+
+				}else {
+					timeSetter(sTimeHrs,sTimeMin,sTimeAMPM,false);
+					getEleDonePickerWheelBtn().click();
+				}
+				
+				switchContext("Webview");
+				Thread.sleep(GenericLib.iLowSleep);
+				
+				
+			}
 		
 		@FindBy(xpath="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")	
 		private List<WebElement> eleDatePickerPopup;
@@ -326,14 +356,14 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the time, if the hrs, min, AMPM values, if 0 then it will be skipped
+		 * Set the time, for the hrs, min, AMPM values, for 24hrs set the is24hrs to true, if 0 value is passed then it will be skipped
 		 * 
-		 * @param iIndex
 		 * @param sTimeHrs
 		 * @param sTimeMin
 		 * @param sTimeAMPM
+		 * @param is24hrs
 		 */
-		public void timeSetter(int iIndex, String sTimeHrs,String sTimeMin,String sTimeAMPM )
+		public void timeSetter(String sTimeHrs,String sTimeMin,String sTimeAMPM,Boolean is24hrs )
 		{
 			if(sTimeHrs !="0") {
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
@@ -341,10 +371,11 @@ public class CommonsPO
 			if(sTimeMin !="0") {
 				getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			}
+			if(is24hrs == false) {
 			if(sTimeAMPM !="0") {
 				getEleDatePickerPopUp().get(3).sendKeys(sTimeAMPM);
 			}
-			
+			}
 			
 		}
 		
@@ -439,7 +470,7 @@ public class CommonsPO
 			String resultCommon=null;
 			Boolean result=false;
 			try {
-				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahResultCommon.txt");
+				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

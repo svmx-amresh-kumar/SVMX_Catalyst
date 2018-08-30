@@ -2,22 +2,15 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario7Test extends BaseLib{
 	String sTestCaseID= null;
@@ -93,18 +86,23 @@ public class Scenario7Test extends BaseLib{
 		System.out.println("validating dynamic response,checking if work order no is populated inside answer ");
 		sDynamicResponseTextAnswer = checklistPo.geteleChecklistAnswerTextArea(sDynamicResponseTextQuestion).getAttribute("value");
 		Assert.assertTrue(sDynamicResponseTextAnswer.equals(sWOName), "Textbox is not autopopulated with dynamic response, workorder no.");
-		NXGReports.addStep("checklist dynamic response Workorderno-textbox populated into checklist", LogAs.PASSED, null);
+		//NXGReports.addStep("checklist dynamic response Workorderno-textbox populated into checklist", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"checklist dynamic response Workorderno-textbox populated into checklist");
+		
 		
 		System.out.println("Validating Dynamic response, checking if orderstatus is populated based on workOrder status");
 		sChecklistPickListdynamicQuestionAns = checklistPo.geteleChecklistAnsPicklist(sChecklistPickListDynamicQuestion).getAttribute("value");
 		Assert.assertTrue(sChecklistPickListdynamicQuestionAns.equals(OrderStatusVal), "OrderStatus value is not populated correctly .");
-		NXGReports.addStep("checklist dynamic response orderstatus-picklist populated into checklist", LogAs.PASSED, null);
-		
+		//NXGReports.addStep("checklist dynamic response orderstatus-picklist populated into checklist", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"checklist dynamic response orderstatus-picklist populated into checklist");
+
 		
 		System.out.println("Validating default value entered to textbox");
 		String ans =checklistPo.geteleChecklistAnswerTextArea(sChecklistDefaultQuestion).getAttribute("value");
 		Assert.assertTrue(ans.equals(sChecklistDefaultAns), "Defualt value is not populated correctly");
-		NXGReports.addStep("Default Value in checklist Answer validated", LogAs.PASSED, null);
+		//NXGReports.addStep("Default Value in checklist Answer validated", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Default Value in checklist Answer validated");
+
 	//	checklistDefaultQuestion 
 		
 		//tapping next button
@@ -116,10 +114,14 @@ public class Scenario7Test extends BaseLib{
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
-		NXGReports.addStep("checklist required question validation passed", LogAs.PASSED, null);		
+		//NXGReports.addStep("checklist required question validation passed", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"checklist required question validation passed");
+
 		commonsPo.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
 		Assert.assertTrue(checklistPo.geteleissuefoundlbl().isDisplayed(),"Failed to display issue found for required question-checklist");
-		NXGReports.addStep("checklist required question validation issue display passed", LogAs.PASSED, null);
+		//NXGReports.addStep("checklist required question validation issue display passed", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"checklist required question validation issue display passed");
+
 		checklistPo.geteleChecklistrequiredTxt(sChecklistReQuestion).sendKeys("required answer");
 		
 		
@@ -145,10 +147,13 @@ public class Scenario7Test extends BaseLib{
 		 checklistPo.geteleChecklistAnswerOPDOCtbl();
 		 System.out.println( checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString());
 		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDynamicResponseTextQuestion), "Couldnt find the checklist question in OPDOC");	
-		 NXGReports.addStep("Found Dynamic REsponse Text question in OPDOC", LogAs.PASSED, null);
+		 //NXGReports.addStep("Found Dynamic REsponse Text question in OPDOC", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Found Dynamic REsponse Text question in OPDOC");
+
 		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sWOName), "Couldnt get the WorkOrder no populated through dynamic response");	 	
-		 NXGReports.addStep("WorkORder No populated through dynamic response displayed in OPDOC", LogAs.PASSED, null);
-		 
+		 //NXGReports.addStep("WorkORder No populated through dynamic response displayed in OPDOC", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
+
 		checklistPo.getEleopDoneLnk().click();
 		
 		commonsPo.tap(checklistPo.getEleopDoneLnk());
@@ -159,7 +164,9 @@ public class Scenario7Test extends BaseLib{
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);		
+		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
+
 		Thread.sleep(GenericLib.iLowSleep);
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
@@ -200,8 +207,9 @@ public class Scenario7Test extends BaseLib{
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
 			Assert.assertTrue(ChecklistQueryval.contains(sChecklistStatus),"checklist being updated is not synced to server");
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
-			NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
-			
+			//NXGReports.addStep("Checklist Completed status is displayed in Salesforce after sync", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Checklist Completed status is displayed in Salesforce after sync");
+
 			Assert.assertTrue(ChecklistAnsjson.contains(sDynamicResponseTextAnswer), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
 			Assert.assertTrue(sChecklistDefaultAns.contains(sChecklistDefaultAns), "default answer was not sycned to server in checklist answer");
 			
