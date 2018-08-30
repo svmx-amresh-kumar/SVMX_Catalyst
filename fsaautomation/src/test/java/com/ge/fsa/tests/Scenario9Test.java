@@ -2,9 +2,6 @@ package com.ge.fsa.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
