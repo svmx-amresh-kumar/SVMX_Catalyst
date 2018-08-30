@@ -19,7 +19,6 @@
         <pathelement location="../../../Users/automation/.m2/repository/org/apache/httpcomponents/httpmime/4.5.2/httpmime-4.5.2.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/jsoup/jsoup/1.9.2/jsoup-1.9.2.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar"/>
-        <pathelement location="resources/jars/NXGReporter_lite.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/seleniumhq/selenium/selenium-java/3.12.0/selenium-java-3.12.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/seleniumhq/selenium/selenium-api/3.12.0/selenium-api-3.12.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/3.12.0/selenium-chrome-driver-3.12.0.jar"/>
