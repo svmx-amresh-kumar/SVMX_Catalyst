@@ -13,9 +13,9 @@
            	<class name="com.ge.fsa.tests.Scenario3Test"/>
              <class name="com.ge.fsa.tests.Scenario4Test"/>
              <class name="com.ge.fsa.tests.Scenario5Test"/>
-             <class name="com.ge.fsa.tests.Scenario6Test"/>
+            <!--  <class name="com.ge.fsa.tests.Scenario6Test"/>-->
              <class name="com.ge.fsa.tests.Scenario7Test"/>
-             <class name="com.ge.fsa.tests.Scenario8Test"/>
+            <!--  <class name="com.ge.fsa.tests.Scenario8Test"/> -->
               <class name="com.ge.fsa.tests.Scenario9Test"/>
      
     </classes>
