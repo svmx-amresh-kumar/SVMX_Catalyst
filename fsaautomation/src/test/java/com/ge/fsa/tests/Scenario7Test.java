@@ -157,7 +157,7 @@ public class Scenario7Test extends BaseLib{
 		workOrderPo.getEleDoneLnk().click();
 		
 		commonsPo.tap(workOrderPo.getEleDoneLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
