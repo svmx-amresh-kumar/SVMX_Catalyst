@@ -633,8 +633,9 @@ public class WorkOrderPO{
 		commonsPo.tap(getEleDoneLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");

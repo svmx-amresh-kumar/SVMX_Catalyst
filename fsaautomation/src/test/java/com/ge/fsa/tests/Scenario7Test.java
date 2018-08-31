@@ -157,11 +157,12 @@ public class Scenario7Test extends BaseLib{
 		checklistPo.getEleopDoneLnk().click();
 		
 		commonsPo.tap(checklistPo.getEleopDoneLnk());
-		Thread.sleep(4000);
+		Thread.sleep(GenericLib.iLowSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(4000);
-	
+		Thread.sleep(GenericLib.iMedSleep);
+		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
