@@ -174,7 +174,7 @@
               		<target name="testng-execution" depends="cleanall,build,build-project">
               			<mkdir dir="${testng-report-dir}" />
               			<!--Make sure the classpathref is set properly -->
-              			<testng outputdir="${testng-report-dir}" classpathref="fsaautomation.classpath" useDefaultListeners="true">
+              			<testng classpathref="fsaautomation.classpath" useDefaultListeners="true">
               				<xmlfileset dir="${basedir}" includes="testng.xml" />
               			</testng>
               		</target>

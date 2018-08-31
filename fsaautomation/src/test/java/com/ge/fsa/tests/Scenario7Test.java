@@ -154,14 +154,15 @@ public class Scenario7Test extends BaseLib{
 		 //NXGReports.addStep("WorkORder No populated through dynamic response displayed in OPDOC", LogAs.PASSED, null);
 		ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
 
-		checklistPo.getEleopDoneLnk().click();
+		workOrderPo.getEleDoneLnk().click();
 		
-		commonsPo.tap(checklistPo.getEleopDoneLnk());
-		Thread.sleep(4000);
+		commonsPo.tap(workOrderPo.getEleDoneLnk());
+		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(4000);
-	
+		Thread.sleep(GenericLib.iMedSleep);
+		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	

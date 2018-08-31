@@ -1,6 +1,16 @@
 package com.ge.fsa.pageobjects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
@@ -13,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
+import bsh.ParseException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -631,10 +642,11 @@ public class WorkOrderPO{
 		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -830,9 +842,113 @@ public class WorkOrderPO{
 		}
 		
 		
-		// Edit the ChildLines and save them
+		// get Account from header
+		@FindBy(xpath="//*[text()='Account']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Accountvalue;
+		public WebElement getAccountvalue()
+		{
+			return Accountvalue;
+		}
 		
+		
+		@FindBy(xpath="//*[text()='Product']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Productvalue;
+		public WebElement getProductvalue()
+		{
+			return Productvalue;
+		}
+		
+		@FindBy(xpath="//*[text()='Component']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement componentvalue;
+		public WebElement getcomponentvalue()
+		{
+			return componentvalue;
+		}
+
+		@FindBy(xpath="//*[text()='Order Type']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ordertypevalue;
+		public WebElement getordertypevalue()
+		{
+			return ordertypevalue;
+		}
+
+		@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ScheduledDatevalue;
+		public WebElement getScheduledDatevalue()
+		{
+			return ScheduledDatevalue;
+		}
+
+		@FindBy(xpath="//*[text()='Scheduled Date Time']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ScheduledDatetimevalue;
+		public WebElement getScheduledDatetimevalue()
+		{
+			return ScheduledDatetimevalue;
+		}
+		
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
+		private WebElement partsontap;
+		public WebElement openpartsontap()
+		{
+			return partsontap;
+		}
+		
+		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement DateRequired;
+		public WebElement getDateRequired()
+		{
+			return DateRequired;
+		}
+		
+		
+		
+		
+		
+		private static final String DATE_FORMAT = "M/dd/yy hh:mm:ss a";
+
+	    public static String main(String dateStr ) throws java.text.ParseException {
+	    	
+	       LocalDateTime ldt = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
+
+	        ZoneId KolkataZoneId = ZoneId.of("Asia/Kolkata");
+	        System.out.println("TimeZone : " + KolkataZoneId);
+
+	        //LocalDateTime + ZoneId = ZonedDateTime
+	        ZonedDateTime asiaZonedDateTime = ldt.atZone(KolkataZoneId);
+	        System.out.println("Date (Singapore) : " + asiaZonedDateTime);
+	        
+	        
+	        ZoneId losAngeles = ZoneId.of("America/Los_Angeles");
+	        System.out.println("TimeZone : " + losAngeles);
+
+	        //LocalDateTime + ZoneId = ZonedDateTime
+	        ZonedDateTime losAngelesZonedDateTime = asiaZonedDateTime.withZoneSameInstant(losAngeles);
+	        System.out.println("Date (losAngeles) : " + losAngelesZonedDateTime);
+
+	       
+	        DateTimeFormatter format = DateTimeFormatter.ofPattern(DATE_FORMAT);
+	        System.out.println("\n---DateTimeFormatter---");
+	        
+	        String losAngelesformate=format.format(losAngelesZonedDateTime);
+			return losAngelesformate;
+	       
+			
+			
+			
+			
+
+	    }
+
 		
 }
+
+
+
+
+
+
+
+
+
 
 
