@@ -6,9 +6,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -107,7 +107,7 @@ public class ToolsPO
 		//Navigation to Tools screen
 		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
-		NXGReports.addStep("Tools screen is displayed successfully", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 		
 		getEleSyncDataNowLnk().click();
 		commonsPo.tap(getEleSyncDataNowLnk());	
@@ -117,7 +117,7 @@ public class ToolsPO
 		
 		//Verification of successful sync
 		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
-		NXGReports.addStep("Data Sync is successfull", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 	}
 	
 	//Config Sync
@@ -128,7 +128,7 @@ public class ToolsPO
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
-			NXGReports.addStep("Tools screen is displayed successfully", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 			
 			geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
@@ -160,7 +160,7 @@ public class ToolsPO
 			
 			//Verification of successful sync
 			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
-			NXGReports.addStep("Config Sync is successfull", LogAs.PASSED, null);
+			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 		}
 	
 	

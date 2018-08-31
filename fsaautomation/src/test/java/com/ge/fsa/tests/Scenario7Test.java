@@ -2,13 +2,8 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,10 +11,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario7Test extends BaseLib{
 	String sTestCaseID= null;
@@ -166,11 +157,12 @@ public class Scenario7Test extends BaseLib{
 		checklistPo.getEleopDoneLnk().click();
 		
 		commonsPo.tap(checklistPo.getEleopDoneLnk());
-		Thread.sleep(4000);
+		Thread.sleep(GenericLib.iLowSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(4000);
-	
+		Thread.sleep(GenericLib.iMedSleep);
+		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	

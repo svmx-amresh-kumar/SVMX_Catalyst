@@ -14,9 +14,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.TapOptions;
@@ -198,7 +199,7 @@ public class CommonsPO
 			{	
 				try {
 					Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
-					NXGReports.addStep("Search is successfull", LogAs.PASSED, null);
+					ExtentManager.logger.log(Status.PASS,"Search is successfull");
 					//System.out.println("Search is displayed");
 					break;
 				}catch(Exception e) {swipeUp();}			

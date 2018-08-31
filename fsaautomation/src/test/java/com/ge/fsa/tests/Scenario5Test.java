@@ -8,21 +8,10 @@ import java.io.IOException;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import com.ge.fsa.lib.RestServices;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 public class Scenario5Test extends BaseLib {
 //	GenericLib genericLib = null;
