@@ -50,7 +50,7 @@ public class RS_10554_mapping extends BaseLib {
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		
-	}
+	} 
 
 	@Test(enabled = true)
 	public void RS_10554_field_mapping() throws Exception {
