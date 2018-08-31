@@ -8,8 +8,8 @@
     </listeners>
   <test  name="Test">
     <classes>
-            <class name="com.ge.fsa.tests.Scenario2Test"/>
-          <class name="com.ge.fsa.tests.Scenario7Test"/>
+            <class name="com.ge.fsa.tests.Scenario7Test"/>
+          <class name="com.ge.fsa.tests.Scenario2Test"/>
            <!-- 	<class name="com.ge.fsa.tests.Scenario3Test"/>
              <class name="com.ge.fsa.tests.Scenario4Test"/>
              <class name="com.ge.fsa.tests.Scenario5Test"/>
