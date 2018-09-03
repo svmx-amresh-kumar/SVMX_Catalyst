@@ -54,8 +54,8 @@ public void Scenario1Test() throws Exception
 		
 		
 		// Creating Contact from API
-		sFirstName = "auto_first"+sRandomNumber;
-		sLastName = "auto_last"+sRandomNumber;
+		sFirstName = "auto_contact";
+		sLastName = sRandomNumber;
 		sContactName = sFirstName+ sLastName;
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\"}");
 		
