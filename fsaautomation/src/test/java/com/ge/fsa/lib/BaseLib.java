@@ -156,6 +156,7 @@ public class BaseLib {
 	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
+		lauchNewApp("true");
 		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
@@ -176,7 +177,7 @@ public class BaseLib {
 			}
 		}
 		 ExtentManager.extent.flush();
-			
+			driver.quit();
 	}
 	
 	@AfterClass
