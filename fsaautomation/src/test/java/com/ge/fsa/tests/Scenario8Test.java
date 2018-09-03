@@ -31,7 +31,7 @@ public class Scenario8Test extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/scenario8_scenariolevel_beforerun.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -165,7 +165,7 @@ public class Scenario8Test extends BaseLib
 				}
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
-				genericLib.executeSahiScript("appium/scenario8_scenariolevel_afterrun.sah", "sTestCaseID");
+				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 				if(commonsPo.verifySahiExecution()) {
 					
 					System.out.println("PASSED");
@@ -176,6 +176,8 @@ public class Scenario8Test extends BaseLib
 					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 					assertEquals(0, 1);
 				}
+				
+				toolsPo.configSync(commonsPo);
 	
 	}
 
