@@ -110,8 +110,11 @@ public class Scenario7Test extends BaseLib{
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
