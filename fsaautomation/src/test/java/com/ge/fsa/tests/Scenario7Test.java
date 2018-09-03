@@ -2,6 +2,7 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
 import org.testng.Assert;
@@ -126,8 +127,11 @@ public class Scenario7Test extends BaseLib{
 		
 		
 		//submitting of checklist
-		
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
 		
