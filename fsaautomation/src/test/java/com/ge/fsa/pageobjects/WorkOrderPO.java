@@ -654,7 +654,6 @@ public class WorkOrderPO{
 		commonsPo.tap(getEleDoneLnk());
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(GenericLib.iMedSleep);
 	
