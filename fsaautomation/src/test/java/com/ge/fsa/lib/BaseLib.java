@@ -167,7 +167,7 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
-			System.out.println(" X X COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
 
 			String temp= ExtentManager.getScreenshot();
 			
