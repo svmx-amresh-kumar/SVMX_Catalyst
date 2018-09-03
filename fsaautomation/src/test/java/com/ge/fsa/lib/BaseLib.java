@@ -156,6 +156,7 @@ public class BaseLib {
 	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
+		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
 	}
