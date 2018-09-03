@@ -35,8 +35,7 @@ public class Scenario1Test extends BaseLib
 	
 @Test
 public void Scenario1Test() throws Exception
-{		lauchNewApp("false");
-
+{		
 
 		System.out.println("Scenario 1");
 		String sRandomNumber = commonsPo.generaterandomnumber("");
