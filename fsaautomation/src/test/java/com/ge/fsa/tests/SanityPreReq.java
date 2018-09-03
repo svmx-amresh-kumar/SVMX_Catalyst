@@ -24,19 +24,19 @@ public class SanityPreReq extends BaseLib {
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
-			System.out.println("PASSED");
+			System.out.println("Sahi verification success");
 		}
 		else 
 		{
-			System.out.println("FAILED");
+			System.out.println("Sahi verification failure");
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
 		}
 		
 		//Resinstall the app
-		//lauchNewApp("false");
+		lauchNewApp("false");
 		// Syncing after the Pre-Requisite is done
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 	}
 
 
