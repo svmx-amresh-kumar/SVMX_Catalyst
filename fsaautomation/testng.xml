@@ -7,7 +7,7 @@
 	</listeners>
 	<test name="Test">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq.java" />
+			<class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.Scenario1Test" />
 			<class name="com.ge.fsa.tests.Scenario2Test" />
 			<class name="com.ge.fsa.tests.Scenario3Test" />
