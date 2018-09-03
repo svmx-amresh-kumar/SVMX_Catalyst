@@ -189,7 +189,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 		
-		driver.quit();
+		try{driver.quit();}catch(Exception e) {};
 	}
 
 }
