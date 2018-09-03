@@ -662,6 +662,18 @@ public class WorkOrderPO{
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
+	
+// To multi Select the Parts for the Work Order ChildLines
+	
+	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		for(int i=0;i<sProductName1.length ;i++) {
+		commonsPo.lookupSearch(sProductName1[i]);
+		}
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
 //To add product to parts
 	public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{

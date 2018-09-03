@@ -61,7 +61,7 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 	@Test(enabled = true)
 	public void SCN_RS10577() throws Exception {
 
-
+		System.out.println("SCN_RS10577_Checklist_SOU");
 
 		String time = driver.getDeviceTime();
 		System.out.println(time);

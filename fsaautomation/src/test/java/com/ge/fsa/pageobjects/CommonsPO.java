@@ -252,6 +252,7 @@ public class CommonsPO
 		{
 			
 			tap(getElesearchTap());
+			getElesearchTap().clear();
 			getElesearchTap().sendKeys(value);
 			tap(getElesearchButton());
 			tap(getElesearchListItem(value));
