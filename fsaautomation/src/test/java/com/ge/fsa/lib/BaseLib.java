@@ -167,6 +167,8 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
+			System.out.println(" X X COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+
 			String temp= ExtentManager.getScreenshot();
 			
 			try {
@@ -175,6 +177,9 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			System.out.println(" X X COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+
 		}
 		 ExtentManager.extent.flush();
 			driver.quit();
