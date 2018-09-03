@@ -23,9 +23,9 @@ public class Scenario1Test extends BaseLib
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
-	String sAccountName = "Account47201811263";
-	String sProductName = "Product9876789";
-	String sContactName = "ContactAutomation 234567";
+	String sAccountName = null;
+	String sProductName = null;
+	String sContactName = null;
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
@@ -33,7 +33,8 @@ public class Scenario1Test extends BaseLib
 	
 @Test
 public void Scenario1Test() throws Exception
-{
+{		lauchNewApp("false");
+
 
 		System.out.println("Scenario 1");
 
@@ -41,6 +42,19 @@ public void Scenario1Test() throws Exception
 		String sEventSubject = commonsPo.generaterandomnumber("EventName");
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		// Creating Account from API
+		sAccountName = commonsPo.generaterandomnumber("auto_");
+		restServices.restCreate("Account?","{\"Name\": \""+sAccountName+"\" }");
+		
+		// Creating Product from API
+		sProductName = commonsPo.generaterandomnumber("auto_");
+		restServices.restCreate("Product2?","{\"Name\": \""+sProductName+"\" }");
+		
+		
+		// Creating Contact from API
+		sContactName = commonsPo.generaterandomnumber("auto_");
+		restServices.restCreate("Contact?","{\"Name\": \""+sContactName+"\" }");
+		
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);
