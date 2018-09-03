@@ -44,7 +44,7 @@ public class Scenario8Test extends BaseLib
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
 		}
-		
+		lauchNewApp("true");
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
@@ -176,7 +176,7 @@ public class Scenario8Test extends BaseLib
 					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 					assertEquals(0, 1);
 				}
-				
+				lauchNewApp("true");
 				toolsPo.configSync(commonsPo);
 	
 	}

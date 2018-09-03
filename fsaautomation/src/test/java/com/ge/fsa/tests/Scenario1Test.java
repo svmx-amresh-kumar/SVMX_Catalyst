@@ -37,7 +37,7 @@ public class Scenario1Test extends BaseLib
 public void Scenario1Test() throws Exception
 {		
 
-		System.out.println("Scenario 1");
+
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
