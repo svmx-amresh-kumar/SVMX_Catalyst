@@ -58,6 +58,8 @@ public void Scenario1Test() throws Exception
 		sLastName = "auto_last"+sRandomNumber;
 		sContactName = sFirstName+ sLastName;
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\"}");
+		
+		// Need to sync the data
 		toolsPo.syncData(commonsPo);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
