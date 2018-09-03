@@ -40,6 +40,15 @@ public class WorkOrderPO{
 	int iWhileCnt =0;
 	int i=0;
 	
+	
+	
+	
+	private WebElement eleProductTapName;
+	public WebElement getEleProductTapName(String sProductName)
+	{
+		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleProductTapName;
+	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -285,6 +294,7 @@ public class WorkOrderPO{
 		
 		return eleremoveitem;
 	}
+
 
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")

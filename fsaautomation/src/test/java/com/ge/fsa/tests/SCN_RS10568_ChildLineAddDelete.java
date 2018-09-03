@@ -78,15 +78,23 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		
+		// Deleting the Line by clicking on Remove Button
+		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
+		commonsPo.tap(workOrderPo.getEleremoveitem());
+		commonsPo.tap(workOrderPo.getEleclickyesitem());
+
 		// Multi-Add of the Labor by clicking the +Add Button
 		String[] sProductNamesArray = {sProductName2,sProductName3};
-		
 		workOrderPo.addParts(commonsPo, workOrderPo,sProductNamesArray );
+		
 			
 		// Adding a new line by clicking on +New button
+		
+		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
 			
 		
 
+		
 		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
