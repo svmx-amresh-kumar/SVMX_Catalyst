@@ -45,7 +45,7 @@ public void Scenario1Test() throws Exception
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
-		restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
+		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
 		
 		// Creating Product from API
 		sProductName = "auto_product"+sRandomNumber;
@@ -55,8 +55,9 @@ public void Scenario1Test() throws Exception
 		// Creating Contact from API
 		sFirstName = "auto_contact";
 		sLastName = sRandomNumber;
-		sContactName = sFirstName+ sLastName;
-		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\"}");
+		sContactName = sFirstName+" "+sLastName;
+		System.out.println(sContactName);
+		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
 		// Need to sync the data
 		toolsPo.syncData(commonsPo);
