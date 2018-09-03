@@ -282,7 +282,7 @@ public class CommonsPO
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 */
-		public void setTime24hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin) throws InterruptedException
+		public void setDateTime24hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin) throws InterruptedException
 		{
 			wElement.click();
 			switchContext("Native");
@@ -311,7 +311,7 @@ public class CommonsPO
 		 * @param sTimeAMPM
 		 * @throws InterruptedException
 		 */
-			public void setTime12Hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
+			public void setDateTime12Hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
 			{
 				wElement.click();
 				switchContext("Native");
@@ -338,7 +338,7 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the specific date picker wheel by scrolling up or down based on +ve or -ve value
+		 * Set the specific date picker wheel by scrolling up or down based on +ve or -ve value to be used with setDateTime24hrs / setDateTime12hrs
 		 * 
 		 * @param iDateWheelIndex
 		 * @param scrollNum
@@ -356,7 +356,7 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the time, for the hrs, min, AMPM values, for 24hrs set the is24hrs to true, if 0 value is passed then it will be skipped
+		 * Set the time, for the hrs, min, AMPM values, for 24hrs set the is24hrs to true, if 0 value is passed then it will be skipped to be used with setDateTime24hrs / setDateTime12hrs
 		 * 
 		 * @param sTimeHrs
 		 * @param sTimeMin

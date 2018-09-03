@@ -195,6 +195,27 @@ public class ChecklistPO{
 		return eleActionsLnk;
 	}
 	
+	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today, Or')]")
+	private WebElement eleChecklistDVRtxt;
+	public WebElement geteleChecklistDVRtxt()
+	{
+		return eleChecklistDVRtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number Cannot be 10')]")
+	private WebElement eleChecklistDVRConfirmationtxt;
+	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon checklist-warning-submit x-layout-box-item x-layout-hbox-item x-stretched']//span[@class='x-button-label'][text()='Confirm']")
+	private WebElement eleDVRConfirmBtn;
+	public WebElement geteleDVRConfirmBtn()
+	{
+		return eleDVRConfirmBtn;
+	}
 	
 	//getting the entire row in checklistopdoc checklist,completed,status EntireTable.
 	@FindBy(xpath="//div//th[@class='theader'][contains(text(), 'Checklist')]/../../..//tbody")
