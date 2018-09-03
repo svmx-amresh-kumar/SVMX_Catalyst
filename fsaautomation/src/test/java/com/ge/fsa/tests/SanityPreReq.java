@@ -34,7 +34,9 @@ public class SanityPreReq extends BaseLib {
 		}
 		
 		//Resinstall the app
-		lauchNewApp("false");
+		//lauchNewApp("false");
+		// Syncing after the Pre-Requisite is done
+		toolsPo.configSync(commonsPo);
 	}
 
 
