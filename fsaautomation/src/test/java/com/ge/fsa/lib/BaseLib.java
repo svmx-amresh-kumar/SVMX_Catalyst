@@ -178,7 +178,7 @@ public class BaseLib {
 				e.printStackTrace();
 			}
 		}else {
-			System.out.println(" X X COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
 
 		}
 		 ExtentManager.extent.flush();
