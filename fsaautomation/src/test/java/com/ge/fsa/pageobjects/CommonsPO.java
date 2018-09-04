@@ -434,7 +434,7 @@ public class CommonsPO
 			String data = "";
 			data = new String(Files.readAllBytes(Paths.get(filePath)));
 
-			System.out.println("resultCommon.txt file read as = " + data);
+			System.out.println("sahiResultCommon.txt file read as = " + data);
 			return data;
 
 		}
@@ -459,7 +459,7 @@ public class CommonsPO
 			FileWriter writer = new FileWriter(file);
 			writer.write(data);
 			writer.close();
-			System.out.println("resultCommon.txt file Write as = " + data);
+			System.out.println("sahiResultCommon.txt file Write as = " + data);
 
 		}
 		 
@@ -468,16 +468,16 @@ public class CommonsPO
 		 * @return
 		 */
 		public Boolean verifySahiExecution() {
-			String resultCommon=null;
+			String sahiResultCommon=null;
 			Boolean result=false;
 			try {
-				 resultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
+				 sahiResultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			String[] arrValues = resultCommon.split(",");
+			String[] arrValues = sahiResultCommon.split(",");
 			int i = 0;
 			for (String arrValRead : arrValues) {
 				System.out.println("use  arrValues[" + i + "] = " + arrValRead);
@@ -486,12 +486,12 @@ public class CommonsPO
 
 			if (arrValues[0].toLowerCase().equals("true")) {
 
-				System.out.println("Its a Match , Read File = " + resultCommon);
+				System.out.println("Its a Match , Read File = " + sahiResultCommon);
 				// In case you want to stop even if the script passes
 				result = true;
 
 			} else {
-				System.out.println("Its Not a Match , Read File = " + resultCommon);
+				System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
 				result = false;
 			}
 			

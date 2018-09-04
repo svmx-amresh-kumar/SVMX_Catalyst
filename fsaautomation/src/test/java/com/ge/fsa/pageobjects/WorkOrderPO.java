@@ -654,11 +654,11 @@ public class WorkOrderPO{
 		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iHighSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");

@@ -2,6 +2,7 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
 import org.testng.Assert;
@@ -109,8 +110,11 @@ public class Scenario7Test extends BaseLib{
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
@@ -126,8 +130,11 @@ public class Scenario7Test extends BaseLib{
 		
 		
 		//submitting of checklist
-		
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
 		
@@ -159,9 +166,9 @@ public class Scenario7Test extends BaseLib{
 		commonsPo.tap(workOrderPo.getEleDoneLnk());
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
