@@ -29,7 +29,7 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 	@Test(enabled = true)
 	public void SCN_RS10568() throws Exception {
 		
-		System.out.println("SCN_RS710568_ChildLineAddDelete");
+		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// To create a Work Order for Editing 
