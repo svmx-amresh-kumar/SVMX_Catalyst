@@ -35,9 +35,15 @@ public class Scenario1Test extends BaseLib
 	
 @Test
 public void Scenario1Test() throws Exception
-{		
-
-
+{		String sworkOrderName = "WO-00001744";
+calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+	workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+	calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+	workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+	calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+	workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+	calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+	workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
@@ -68,18 +74,14 @@ public void Scenario1Test() throws Exception
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
-		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
+		String a_sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		// To create a new Event for the given Work Order
 		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 
 		// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-
+		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
