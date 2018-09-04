@@ -29,7 +29,7 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 	@Test(enabled = true)
 	public void SCN_RS10568() throws Exception {
 		
-		System.out.println("SCN_RS7375_ChildLineAddDelete");
+		System.out.println("SCN_RS710568_ChildLineAddDelete");
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// To create a Work Order for Editing 
@@ -77,23 +77,21 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 		workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		workOrderPo.selectAction(commonsPo,sProcessname);
-		
+		Thread.sleep(2000);
 		// Deleting the Line by clicking on Remove Button
 		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
 		commonsPo.tap(workOrderPo.getEleremoveitem());
+		Thread.sleep(2000);
 		commonsPo.tap(workOrderPo.getEleclickyesitem());
-
+		commonsPo.tap(workOrderPo.getEleclickOK());
+		Thread.sleep(2000);
 		// Multi-Add of the Labor by clicking the +Add Button
 		String[] sProductNamesArray = {sProductName2,sProductName3};
 		workOrderPo.addParts(commonsPo, workOrderPo,sProductNamesArray );
 		
-			
 		// Adding a new line by clicking on +New button
-		
 		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
-			
 		
-
 		
 		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
