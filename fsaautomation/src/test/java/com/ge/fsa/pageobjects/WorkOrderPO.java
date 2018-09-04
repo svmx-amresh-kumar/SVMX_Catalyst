@@ -92,6 +92,13 @@ public class WorkOrderPO{
 		return eleAddExpenseLnk;
 	}
 	
+	// Added by Harish.CS
+	@FindBy(xpath="//div[text()='Attached Images/Videos']/following::span[text()='Add']")
+	private WebElement eleAddAttachedImagesLnk;
+	public WebElement getEleAddAttachedImagesLnk()
+	{
+		return eleAddAttachedImagesLnk;
+	}
 	
 	@FindBy(xpath="//span[text()='Expense Type']/../..//input[@class='x-input-el']")
 	private WebElement eleAddExpenseType;
