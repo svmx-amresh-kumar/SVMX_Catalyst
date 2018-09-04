@@ -75,7 +75,11 @@ public void Scenario1Test() throws Exception
 		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 
 		// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
