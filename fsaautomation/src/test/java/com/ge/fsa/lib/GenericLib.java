@@ -13,10 +13,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.testng.Assert;
 
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
+import com.aventstack.extentreports.Status;
+
 
 public class GenericLib 
 {
@@ -39,7 +37,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To read the basic environment settings from dc_config.properties
 	 * data from config file
 	 */
-	public static String getCongigValue(String sFile, String sKey) {
+	public static String getConfigValue(String sFile, String sKey) {
 		Properties prop = new Properties();
 		String sValue = null;
 		try {
@@ -59,7 +57,7 @@ public class GenericLib
 	 * @author: LAKSHMI BS Description: To set the settings data in dc_config.properties
 	 * data from config file
 	 */
-	public static void setCongigValue(String sFile, String sKey, String sValue) {
+	public static void setConfigValue(String sFile, String sKey, String sValue) {
 		Properties prop = new Properties();
 		try {
 			FileInputStream fis = new FileInputStream(new File(sFile));
@@ -135,11 +133,11 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" executed successfully",  LogAs.PASSED,null);
+			ExtentManager.logger.log(Status.PASS,"Sahi script for case "+sTestCaseID+" executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			NXGReports.addStep("Sahi script for case "+sTestCaseID+" failed",  LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi execution failure");
 			throw e;
 		}
 	}

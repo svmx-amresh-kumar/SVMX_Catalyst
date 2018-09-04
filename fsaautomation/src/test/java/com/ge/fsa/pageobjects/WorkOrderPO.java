@@ -1,6 +1,16 @@
 package com.ge.fsa.pageobjects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
@@ -9,10 +19,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
+import bsh.ParseException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -29,6 +40,15 @@ public class WorkOrderPO{
 	int iWhileCnt =0;
 	int i=0;
 	
+	
+	
+	
+	private WebElement eleProductTapName;
+	public WebElement getEleProductTapName(String sProductName)
+	{
+		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleProductTapName;
+	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -282,6 +302,7 @@ public class WorkOrderPO{
 		return eleremoveitem;
 	}
 
+
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")
 	private WebElement eleclickyes;
@@ -290,7 +311,9 @@ public class WorkOrderPO{
 		
 		return eleclickyes;
 	}
+	
 
+	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleclickOK;
 	public  WebElement getEleclickOK()
@@ -430,6 +453,13 @@ public class WorkOrderPO{
 		return eleBillingTypeLst;
 	}
 	
+	
+	private WebElement elePicklistValue;
+	public WebElement  getelePicklistValue(String PicklistValue)
+	{
+		return elePicklistValue = driver.findElement(By.xpath("//*[text()='"+PicklistValue+"']/../..//div[@class='x-input-body-el']/input)"));
+	}
+	
 	@FindBy(xpath="//div[contains(text(),'Issue found')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
@@ -535,7 +565,30 @@ public class WorkOrderPO{
 	{
 		return elePartLst;
 	}
-
+	
+	@FindBy(xpath="//*[contains(text(), 'Idle Time')]/../..//div[@class='x-input-body-el']/input")
+	
+	private WebElement eleIdleTimetxt;
+	public WebElement geteleIdleTimetxt()
+	{
+		return eleIdleTimetxt;
+	}
+	
+	@FindBy(xpath="//*[text()='Scheduled Date Time']/../..//div[@class='x-innerhtml']/../..//input")
+	private WebElement eleScheduledDateTimeTxt;
+	public WebElement getEleScheduledDateTimeTxt()
+	{
+		return eleScheduledDateTimeTxt;
+	}
+	
+	
+	@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+	private WebElement EleProformaInvoiceTxt;
+	public WebElement getEleProformaInvoiceTxt()
+	{
+		return EleProformaInvoiceTxt;
+	}
+	
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -580,10 +633,9 @@ public class WorkOrderPO{
 	{
 		selectAction(commonsPo, "New Event");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
-		NXGReports.addStep("New Event screen is displayed successfully", LogAs.PASSED, null);		
-		
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(), 0,"0","0", "0"); //set end time
+		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -597,26 +649,27 @@ public class WorkOrderPO{
 			
 		}
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 	{	
 		selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
-		NXGReports.addStep("Work Order Service Report is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
-		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iLowSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		NXGReports.addStep("Creation of WO event is successfull and Work Order Screen is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 	}
 	
 	// To add Parts
@@ -625,6 +678,18 @@ public class WorkOrderPO{
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+	
+// To multi Select the Parts for the Work Order ChildLines
+	
+	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		for(int i=0;i<sProductName1.length ;i++) {
+		commonsPo.lookupSearch(sProductName1[i]);
+		}
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
@@ -649,8 +714,8 @@ public class WorkOrderPO{
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		Thread.sleep(2000);
-		commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-		commonsPo.setTime(getEleEndDateTimeLst(),  1,"9","00", "PM"); //set end time
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
@@ -663,8 +728,8 @@ public class WorkOrderPO{
 		
 
 		//Verify to Manage WO lines
-		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");   
-		NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
+		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
 	
 	//To add Travel
@@ -672,8 +737,8 @@ public class WorkOrderPO{
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime(getEleStartDateTimeLst(), 0,"0", "0", "0"); //set start time to Today
-			commonsPo.setTime(getEleEndDateTimeLst(), 1,"9","00", "PM"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
 			
@@ -686,7 +751,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 	}
 		
 		
@@ -706,7 +771,7 @@ public class WorkOrderPO{
 			
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			NXGReports.addStep("Labor parts are added and saved successfully. ", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines
@@ -808,9 +873,113 @@ public class WorkOrderPO{
 		}
 		
 		
-		// Edit the ChildLines and save them
+		// get Account from header
+		@FindBy(xpath="//*[text()='Account']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Accountvalue;
+		public WebElement getAccountvalue()
+		{
+			return Accountvalue;
+		}
 		
+		
+		@FindBy(xpath="//*[text()='Product']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Productvalue;
+		public WebElement getProductvalue()
+		{
+			return Productvalue;
+		}
+		
+		@FindBy(xpath="//*[text()='Component']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement componentvalue;
+		public WebElement getcomponentvalue()
+		{
+			return componentvalue;
+		}
+
+		@FindBy(xpath="//*[text()='Order Type']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ordertypevalue;
+		public WebElement getordertypevalue()
+		{
+			return ordertypevalue;
+		}
+
+		@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ScheduledDatevalue;
+		public WebElement getScheduledDatevalue()
+		{
+			return ScheduledDatevalue;
+		}
+
+		@FindBy(xpath="//*[text()='Scheduled Date Time']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement ScheduledDatetimevalue;
+		public WebElement getScheduledDatetimevalue()
+		{
+			return ScheduledDatetimevalue;
+		}
+		
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
+		private WebElement partsontap;
+		public WebElement openpartsontap()
+		{
+			return partsontap;
+		}
+		
+		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement DateRequired;
+		public WebElement getDateRequired()
+		{
+			return DateRequired;
+		}
+		
+		
+		
+		
+		
+		private static final String DATE_FORMAT = "M/dd/yy hh:mm:ss a";
+
+	    public static String main(String dateStr ) throws java.text.ParseException {
+	    	
+	       LocalDateTime ldt = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
+
+	        ZoneId KolkataZoneId = ZoneId.of("Asia/Kolkata");
+	        System.out.println("TimeZone : " + KolkataZoneId);
+
+	        //LocalDateTime + ZoneId = ZonedDateTime
+	        ZonedDateTime asiaZonedDateTime = ldt.atZone(KolkataZoneId);
+	        System.out.println("Date (Singapore) : " + asiaZonedDateTime);
+	        
+	        
+	        ZoneId losAngeles = ZoneId.of("America/Los_Angeles");
+	        System.out.println("TimeZone : " + losAngeles);
+
+	        //LocalDateTime + ZoneId = ZonedDateTime
+	        ZonedDateTime losAngelesZonedDateTime = asiaZonedDateTime.withZoneSameInstant(losAngeles);
+	        System.out.println("Date (losAngeles) : " + losAngelesZonedDateTime);
+
+	       
+	        DateTimeFormatter format = DateTimeFormatter.ofPattern(DATE_FORMAT);
+	        System.out.println("\n---DateTimeFormatter---");
+	        
+	        String losAngelesformate=format.format(losAngelesZonedDateTime);
+			return losAngelesformate;
+	       
+			
+			
+			
+			
+
+	    }
+
 		
 }
+
+
+
+
+
+
+
+
+
 
 

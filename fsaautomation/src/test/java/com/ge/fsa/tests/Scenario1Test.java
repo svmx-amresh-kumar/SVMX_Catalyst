@@ -1,5 +1,5 @@
 /*
- *  @author MeghanaRao
+*@author MeghanaRao
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
@@ -23,9 +23,11 @@ public class Scenario1Test extends BaseLib
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
-	String sAccountName = "Account47201811263";
-	String sProductName = "Product9876789";
-	String sContactName = "ContactAutomation 234567";
+	String sAccountName = null;
+	String sProductName = null;
+	String sFirstName = null;
+	String sLastName = null;
+	String sContactName = null;
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
@@ -33,14 +35,32 @@ public class Scenario1Test extends BaseLib
 	
 @Test
 public void Scenario1Test() throws Exception
-{
+{		
 
-		System.out.println("Scenario 1");
 
-		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
-		String sEventSubject = commonsPo.generaterandomnumber("EventName");
+		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sProformainVoice = "Proforma"+sRandomNumber;
+		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		// Creating Account from API
+		sAccountName = "auto_account"+sRandomNumber;
+		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
+		
+		// Creating Product from API
+		sProductName = "auto_product"+sRandomNumber;
+		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+		
+		
+		// Creating Contact from API
+		sFirstName = "auto_contact";
+		sLastName = sRandomNumber;
+		sContactName = sFirstName+" "+sLastName;
+		System.out.println(sContactName);
+		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
+		
+		// Need to sync the data
+		toolsPo.syncData(commonsPo);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);

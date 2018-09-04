@@ -24,10 +24,6 @@ import com.ge.fsa.pageobjects.RecentItemsPO;
 import com.ge.fsa.pageobjects.TasksPO;
 import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen;
-import com.kirwa.nxgreport.selenium.reports.CaptureScreen.ScreenshotOf;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -35,10 +31,7 @@ import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseLib {
-	{
-		System.setProperty("KIRWA.reporter.config",	GenericLib.sResources+"//KIRWA.properties");
-
-	}
+	
 	public AppiumDriver driver = null;
 	public GenericLib genericLib = null;
 	public RestServices restServices = null;
@@ -69,24 +62,23 @@ public class BaseLib {
 	{
 
 		try { 
-			//Resetting to true always first
-			GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+			
 
-			sAppPath = GenericLib.sResources+"//"+GenericLib.getCongigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
+			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getCongigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
-			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getCongigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getCongigValue(GenericLib.sConfigFile, "UDID"));
+			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
 			capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET")));
+			capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 			capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS,true);		
-			capabilities.setCapability("xcodeOrgId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
-			capabilities.setCapability("xcodeSigningId", GenericLib.getCongigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
-			capabilities.setCapability("updatedWDABundleId", GenericLib.getCongigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
+			capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
+			capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
+			capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
 			capabilities.setCapability("startIWDP", true);
 			capabilities.setCapability("sendKeyStrategy", "grouped");
 			capabilities.setCapability("autoGrantPermissions", true);
@@ -102,15 +94,13 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			NXGReports.setWebDriver(driver);
-			NXGReports.addStep("App is launched successfully", LogAs.PASSED, null);
+			
 			
 		} catch (Exception e) {
-			ExtentManager.createInstance(ExtentManager.sReportPath);
-			 ExtentManager.logger("BaseLib Failure");
+			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+			ExtentManager.logger("BaseLib Failure");
 			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 			 ExtentManager.extent.flush();
-			NXGReports.addStep("Failed to LAUNCH the App", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
 			throw e;
 		} 
 		
@@ -149,8 +139,8 @@ public class BaseLib {
 //		System.out.println("App installed");
 
 		//Installing fresh
-				GenericLib.setCongigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set App Start mode "+GenericLib.getCongigValue(GenericLib.sConfigFile, "NO_RESET"));
+				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
+				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
 		
 				
 				try {
@@ -159,10 +149,15 @@ public class BaseLib {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				//Resetting to true always first
+				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 	}
 	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
+		lauchNewApp("true");
+		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
 	}
@@ -172,6 +167,8 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+
 			String temp= ExtentManager.getScreenshot();
 			
 			try {
@@ -180,16 +177,20 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+
 		}
 		 ExtentManager.extent.flush();
-			
+			try{driver.quit();}catch(Exception e) {};
+
 	}
 	
 	@AfterClass
 	public void tearDownDriver()
 	{
 		
-		driver.quit();
+		try{driver.quit();}catch(Exception e) {};
 	}
 
 }

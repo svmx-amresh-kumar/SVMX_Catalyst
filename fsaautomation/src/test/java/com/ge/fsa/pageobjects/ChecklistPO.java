@@ -6,8 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -195,6 +195,27 @@ public class ChecklistPO{
 		return eleActionsLnk;
 	}
 	
+	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today, Or')]")
+	private WebElement eleChecklistDVRtxt;
+	public WebElement geteleChecklistDVRtxt()
+	{
+		return eleChecklistDVRtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number Cannot be 10')]")
+	private WebElement eleChecklistDVRConfirmationtxt;
+	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon checklist-warning-submit x-layout-box-item x-layout-hbox-item x-stretched']//span[@class='x-button-label'][text()='Confirm']")
+	private WebElement eleDVRConfirmBtn;
+	public WebElement geteleDVRConfirmBtn()
+	{
+		return eleDVRConfirmBtn;
+	}
 	
 	//getting the entire row in checklistopdoc checklist,completed,status EntireTable.
 	@FindBy(xpath="//div//th[@class='theader'][contains(text(), 'Checklist')]/../../..//tbody")
@@ -219,9 +240,9 @@ public class ChecklistPO{
 		workOrderPo.selectAction(commonsPo, sPrintReportSearch);
 		Thread.sleep(4000);
 		Assert.assertTrue(geteleChecklistReporttxt().isDisplayed(), "Checklist Report is not displayed in OPDOC.");
-		NXGReports.addStep("Checklist Report OPDOC is displayed successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Checklist Report OPDOC is displayed successfully");
 		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"Work Order no is not displayed in OPDOC report");
-		NXGReports.addStep("Work order updated details for the work order "+sWorkOrderID, LogAs.PASSED, null);	
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		System.out.println(sWorkOrderID);
 		
 	}	

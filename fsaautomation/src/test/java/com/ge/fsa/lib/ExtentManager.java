@@ -41,18 +41,20 @@ public class ExtentManager {
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/" + LocalDateTime.now().format(formatter)
-			+ "_report.html";
+    public static String sReportName = LocalDateTime.now().format(formatter)+ "_report.html";
+	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
 
 	/**
 	 * This will create return/get a instance of the ExtentReports and we pass the driver from baselib class here for screenshots
 	 * @param driver
 	 * @return
+	 * @throws IOException 
 	 */
-	public static ExtentReports getInstance(AppiumDriver driver) {
-
+	public static ExtentReports getInstance(AppiumDriver driver) throws IOException {
+		File file = new File(sReportPath);
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for reports : "+e);}
 		if (extent == null)
-			createInstance(sReportPath);
+			createInstance(sReportPath+sReportName);
 		localDriver = driver;
 		return extent;
 	}
@@ -95,14 +97,15 @@ public class ExtentManager {
 	 * @return
 	 */
 	public static String getScreenshot() {
-
+		File file = new File( sReportPath + "Screenshot/");
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for screenshots : "+e);}
 		TakesScreenshot ts = (TakesScreenshot) localDriver;
 
 		File src = ts.getScreenshotAs(OutputType.FILE);
+String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
+		String fullPath = sReportPath + actualScreenshotPath;
 
-		String path = System.getProperty("user.dir") + "/Screenshot/" + System.currentTimeMillis() + ".png";
-
-		File destination = new File(path);
+		File destination = new File(fullPath);
 
 		try {
 			FileUtils.copyFile(src, destination);
@@ -110,7 +113,7 @@ public class ExtentManager {
 			System.out.println("Capture Failed " + e.getMessage());
 		}
 
-		return path;
+		return actualScreenshotPath;
 	}
 
 }

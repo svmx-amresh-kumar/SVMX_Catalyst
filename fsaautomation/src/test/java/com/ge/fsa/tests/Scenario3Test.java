@@ -9,8 +9,6 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 public class Scenario3Test extends BaseLib {
 	

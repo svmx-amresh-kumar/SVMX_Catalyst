@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -81,12 +81,12 @@ public class LoginHomePO
 		try 
 		{
 			Assert.assertTrue(getEleSignInBtn().isDisplayed());
-			NXGReports.addStep("FSA app is successfully installed", LogAs.PASSED, null);		
+			ExtentManager.logger.log(Status.PASS,"FSA app is successfully installed");	
 			//SignIn to App
 			getEleSignInBtn().click();
 			Thread.sleep(10000);
-			getEleUserNameTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_USN"));
-			getElePasswordTxtFld().sendKeys(GenericLib.getCongigValue(GenericLib.sConfigFile, "TECH_PWD"));
+			getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
+			getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 			getEleLoginBtn().click();
 			try{getEleAllowBtn().click();}catch(Exception e) {}
 			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
@@ -103,7 +103,7 @@ public class LoginHomePO
 		wait = new WebDriverWait(driver, 40000);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-		NXGReports.addStep("Logged into FSA app successfully", LogAs.PASSED, null);		
+		ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");	
 		System.out.println("Already installed and logged in");		
 	}
 
