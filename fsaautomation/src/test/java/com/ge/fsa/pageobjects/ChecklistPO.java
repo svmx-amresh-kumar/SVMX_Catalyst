@@ -54,6 +54,15 @@ public class ChecklistPO{
     }
     
     
+    private WebElement eleSectionNextBtn;
+	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)
+	{
+		
+		eleSectionNextBtn = driver.findElement(By.xpath("(//span[text()='Next'])["+iChecklistSectionNo+"]"));
+		return eleSectionNextBtn;
+	}
+    
+    
   /* @FindBy(xpath= "//*[text()='Submit'][2]")
     private WebElement eleSubmitbutton;
     public WebElement eleSubmitbutton()
@@ -195,7 +204,7 @@ public class ChecklistPO{
 		return eleActionsLnk;
 	}
 	
-	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today, Or')]")
+	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today')]")
 	private WebElement eleChecklistDVRtxt;
 	public WebElement geteleChecklistDVRtxt()
 	{
@@ -207,6 +216,13 @@ public class ChecklistPO{
 	public WebElement geteleChecklistDVRConfirmationtxt()
 	{
 		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number cannot be greater than 100')]")
+	private WebElement eleChecklistDVRNoGreaterthan100txt;
+	public WebElement geteleChecklistDVRNoGreaterthan100txt()
+	{
+		return eleChecklistDVRNoGreaterthan100txt;
 	}
 	
 	
@@ -233,6 +249,20 @@ public class ChecklistPO{
     	return eleChecklistAnswerOPDOCtbl;
     }
     
+    private WebElement eleSectionNametxt;
+    public WebElement  geteleChecklistSectionNametab(String sSectionName)
+	{
+		return eleSectionNametxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sSectionName+"']"));
+	}
+    
+    
+    
+    @FindBy(xpath="//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']")
+	private WebElement eleChecklistHelpIcn;
+	public WebElement geteleChecklistHelpIcn()
+	{
+		return eleChecklistHelpIcn;
+	}
 	
 	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	

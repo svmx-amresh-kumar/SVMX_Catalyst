@@ -13,7 +13,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario7Test extends BaseLib{
+public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sTestCaseID= null;
 	String sCaseWOID = null;
 	String sExploreSearch = null;

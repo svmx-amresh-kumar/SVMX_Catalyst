@@ -11,7 +11,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario4Test extends BaseLib{
+public class Sanity4_PIQ extends BaseLib{
 	
 	@Test
 	public void scenario4Test() throws IOException, InterruptedException {
@@ -45,13 +45,10 @@ public class Scenario4Test extends BaseLib{
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");
-		//NXGReports.addStep("Account displayed on Tree View", LogAs.PASSED, null);
 		ExtentManager.logger.log(Status.PASS,"Account displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sLocName).isDisplayed(),"Location not displayed in Tree View");
-		//NXGReports.addStep("Location displayed on Tree View", LogAs.PASSED, null);
 		ExtentManager.logger.log(Status.PASS,"Location displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sIbName).isDisplayed(),"Installed Product not displayed in Tree View");
-		//NXGReports.addStep("Installed Product displayed on Tree View", LogAs.PASSED, null);
 		ExtentManager.logger.log(Status.PASS,"Installed Product displayed on Tree View");
 		
 		

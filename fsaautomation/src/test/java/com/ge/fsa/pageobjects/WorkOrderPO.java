@@ -92,6 +92,13 @@ public class WorkOrderPO{
 		return eleAddExpenseLnk;
 	}
 	
+	// Added by Harish.CS
+	@FindBy(xpath="//div[text()='Attached Images/Videos']/following::span[text()='Add']")
+	private WebElement eleAddAttachedImagesLnk;
+	public WebElement getEleAddAttachedImagesLnk()
+	{
+		return eleAddAttachedImagesLnk;
+	}
 	
 	@FindBy(xpath="//span[text()='Expense Type']/../..//input[@class='x-input-el']")
 	private WebElement eleAddExpenseType;
@@ -277,6 +284,15 @@ public class WorkOrderPO{
 		return eledeletepartChildline;
 	}
 	
+	private WebElement eleExpensestap;
+	public WebElement getEleExpensestap(String sExpensetype)
+	{
+
+		eleExpensestap = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sExpensetype+"']"));
+
+		return eleExpensestap;
+	}
+	
 	private WebElement eledeletelaborChildline;
 	public WebElement getEledeletelaborChildline(String childlinevalue)
 	{
@@ -305,8 +321,6 @@ public class WorkOrderPO{
 		return eleclickyes;
 	}
 	
-
-	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleclickOK;
 	public  WebElement getEleclickOK()
@@ -314,7 +328,14 @@ public class WorkOrderPO{
 		
 		return eleclickOK;
 	}
-	
+
+	@FindBy(xpath="	//span[@class='x-button-label'][text()='+New']")
+	private WebElement eleclickNew;
+	public  WebElement getEleclickNew()
+	{
+		
+		return eleclickNew;
+	}
 
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
@@ -342,6 +363,8 @@ public class WorkOrderPO{
 
 		return eleIBSerialNumber;
 	}
+	
+	
 	
 	
 	private WebElement eleIBId;
@@ -422,6 +445,15 @@ public class WorkOrderPO{
 	{
 		return eleProblemDescriptionlbl;
 	}
+	
+	
+	//verifying Billing Type in WorkOrder
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//div[@class='x-innerhtml']/span")
+		private WebElement eleBillingTypelbl;
+		public WebElement geteleBillingTypelbl()
+		{
+			return eleBillingTypelbl;
+		}
 
 	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;

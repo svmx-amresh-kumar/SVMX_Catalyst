@@ -9,7 +9,7 @@
   <test name="Test">
 		<classes>
 			
-			<class name="com.ge.fsa.tests.workBench" />
+			<class name="com.ge.fsa.tests.SCN_RS10568_ChildLineAddDelete" />
 		
 
 		</classes>
