@@ -5,7 +5,7 @@
 		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
 	</listeners>
-	<test name="Test">
+	<test name="Sanity">
 		<classes>
 			<class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.Sanity1_RS11179_Create_Debrief_EventCreation_OPDOC_Recent" />

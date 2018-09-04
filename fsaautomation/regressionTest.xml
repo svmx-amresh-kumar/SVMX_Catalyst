@@ -5,18 +5,12 @@
 		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
 	</listeners>
-	<test name="Test">
+	<test name="Regression">
 		<classes>
 			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
+			<class name="com.ge.fsa.tests.SCN_RS10568_ChildLineAddDelete" />
+			<class name="com.ge.fsa.tests.SCN_RS10577_Checklist_SOU.java" />
+			<class name="com.ge.fsa.tests.SCN_RS10578_Checklist_DVR.java" />
 
 		</classes>
 	</test> <!-- Test -->
