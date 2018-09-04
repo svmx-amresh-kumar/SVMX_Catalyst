@@ -113,6 +113,14 @@ public class CreateNewPO
 		return eleupdatethetextfield;
 	}
 	
+	//Added by Harish.CS
+	private WebElement eleItemNameTxt;
+	public WebElement getEleItemNameTxt(String sItemName)
+	{
+		eleItemNameTxt=driver.findElement(By.xpath("//div[@class='listitem-sfm-search-result-name'][text()='"+sItemName+"']"));
+		return eleItemNameTxt;
+	}
+	
 	
 	/**
 	 * Owner : Meghana Rao P
