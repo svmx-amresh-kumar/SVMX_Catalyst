@@ -4,6 +4,9 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -13,7 +16,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario5Test extends BaseLib {
+public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 //	GenericLib genericLib = null;
 //	RestServices restServices = null;
 //	LoginHomePO loginHomePo = null;
@@ -78,7 +81,19 @@ public class Scenario5Test extends BaseLib {
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
 		//try {
+		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
+		if(commonsPo.verifySahiExecution()) {
 			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			

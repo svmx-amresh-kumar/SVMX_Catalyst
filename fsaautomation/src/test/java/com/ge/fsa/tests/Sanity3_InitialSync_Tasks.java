@@ -10,7 +10,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 
-public class Scenario3Test extends BaseLib {
+public class Sanity3_InitialSync_Tasks extends BaseLib {
 	
 	@Test
 	public void scenario3Test() throws InterruptedException, IOException {

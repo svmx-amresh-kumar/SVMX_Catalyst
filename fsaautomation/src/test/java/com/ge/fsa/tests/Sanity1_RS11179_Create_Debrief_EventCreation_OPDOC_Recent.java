@@ -15,7 +15,7 @@ import com.ge.fsa.lib.ExtentManager;
 
 
 
-public class Scenario1Test extends BaseLib
+public class Sanity1_RS11179_Create_Debrief_EventCreation_OPDOC_Recent extends BaseLib
 {
 	
 	

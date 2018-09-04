@@ -12,7 +12,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 
 
-public class Scenario8Test extends BaseLib
+public class Sanity8_Lookup_DOD extends BaseLib
 {
 	
 	

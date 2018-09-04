@@ -284,6 +284,15 @@ public class WorkOrderPO{
 		return eledeletepartChildline;
 	}
 	
+	private WebElement eleExpensestap;
+	public WebElement getEleExpensestap(String sExpensetype)
+	{
+
+		eleExpensestap = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sExpensetype+"']"));
+
+		return eleExpensestap;
+	}
+	
 	private WebElement eledeletelaborChildline;
 	public WebElement getEledeletelaborChildline(String childlinevalue)
 	{
@@ -312,8 +321,6 @@ public class WorkOrderPO{
 		return eleclickyes;
 	}
 	
-
-	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleclickOK;
 	public  WebElement getEleclickOK()
@@ -321,7 +328,14 @@ public class WorkOrderPO{
 		
 		return eleclickOK;
 	}
-	
+
+	@FindBy(xpath="	//span[@class='x-button-label'][text()='+New']")
+	private WebElement eleclickNew;
+	public  WebElement getEleclickNew()
+	{
+		
+		return eleclickNew;
+	}
 
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
@@ -349,6 +363,8 @@ public class WorkOrderPO{
 
 		return eleIBSerialNumber;
 	}
+	
+	
 	
 	
 	private WebElement eleIBId;

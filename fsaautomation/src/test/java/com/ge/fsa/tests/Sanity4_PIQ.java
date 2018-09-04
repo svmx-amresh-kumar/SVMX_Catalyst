@@ -11,7 +11,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario4Test extends BaseLib{
+public class Sanity4_PIQ extends BaseLib{
 	
 	@Test
 	public void scenario4Test() throws IOException, InterruptedException {
