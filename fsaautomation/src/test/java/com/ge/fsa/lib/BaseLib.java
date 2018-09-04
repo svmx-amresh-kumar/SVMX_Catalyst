@@ -182,6 +182,8 @@ public class BaseLib {
 
 		}
 		 ExtentManager.extent.flush();
+			try{driver.quit();}catch(Exception e) {};
+
 	}
 	
 	@AfterClass
