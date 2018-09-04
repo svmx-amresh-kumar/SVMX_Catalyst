@@ -22,7 +22,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Sanity2_Explore_Checklist_Config_Sync_DataSync extends BaseLib {
+public class Sanity2_RS11180_Explore_Checklist_Config_Sync_DataSync extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
