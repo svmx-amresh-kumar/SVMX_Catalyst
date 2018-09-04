@@ -60,7 +60,7 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		toolsPo.syncData(commonsPo);
-		// Creating the Work Order
+		// Creating the Work Order - To create the Childlines
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(2000);
@@ -78,25 +78,58 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
-		// Deleting the Line by clicking on Remove Button
+		// Adding a new Line by clicking on +New button
 		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
-		commonsPo.tap(workOrderPo.getEleremoveitem());
+		commonsPo.tap(workOrderPo.getEleclickNew());
+		commonsPo.tap(workOrderPo.getEleclickOK());
+		commonsPo.tap(workOrderPo.getElePartLaborLkUp());
+		commonsPo.lookupSearch(sProductName2);
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
+		// Deleting the Line by clicking on Remove Button - Removing one Labor
+		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
 		Thread.sleep(2000);
+		commonsPo.tap(workOrderPo.getEleremoveitem());
 		commonsPo.tap(workOrderPo.getEleclickyesitem());
 		commonsPo.tap(workOrderPo.getEleclickOK());
 		Thread.sleep(2000);
-		// Multi-Add of the Labor by clicking the +Add Button
+		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
 		workOrderPo.addParts(commonsPo, workOrderPo,sProductNamesArray );
-		
-		// Adding a new line by clicking on +New button
-		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
-		
-		
-		workOrderPo.addTravel(commonsPo, workOrderPo, sProcessname);
+		Thread.sleep(1000);
+		// Adding the Expenses to the Work Order
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(3000);
+		// Adding the Another Expense by clicking on New Button
+		commonsPo.tap(workOrderPo.getEleExpensestap(sExpenseType));
+		commonsPo.tap(workOrderPo.getEleclickNew());
+		commonsPo.tap(workOrderPo.getEleclickOK());
+		commonsPo.tap(workOrderPo.getEleAddExpenseType());
+		commonsPo.pickerWheel(workOrderPo.getEleAddExpenseType(), sExpenseType);
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		Thread.sleep(10000);
+		// Saving all the Childlines of the Work Order
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(1000);
+		// Syncing this Data into the Server for the Work Order
+		toolsPo.syncData(commonsPo);
+		// Verifying the number of Child lines on the Server Side from API after the Sync
+	
+		String sSoqlQueryChildline = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildline, "totalSize");	
+		if(sChildlines.equals("5"))
+		{
+			ExtentManager.logger.log(Status.PASS,"The Childlines on the Work Order is "+sChildlines);
+
+
+		System.out.println("The Childlines on the Work Order "+sChildlines);
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"The Childlines on the Work Order isnt equal to 3");
+			System.out.println("The Childlines on the Work Order "+sChildlines);
+		}
 
 	}
 
