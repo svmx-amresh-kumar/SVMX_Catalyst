@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -90,7 +92,7 @@ public class BaseLib {
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
