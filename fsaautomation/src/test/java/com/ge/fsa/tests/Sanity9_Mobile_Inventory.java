@@ -7,7 +7,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario9Test extends BaseLib {
+public class Sanity9_Mobile_Inventory extends BaseLib {
 	
 	
 @Test

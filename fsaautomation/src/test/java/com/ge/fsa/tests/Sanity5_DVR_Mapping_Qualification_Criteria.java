@@ -16,7 +16,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario5Test extends BaseLib {
+public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 //	GenericLib genericLib = null;
 //	RestServices restServices = null;
 //	LoginHomePO loginHomePo = null;
