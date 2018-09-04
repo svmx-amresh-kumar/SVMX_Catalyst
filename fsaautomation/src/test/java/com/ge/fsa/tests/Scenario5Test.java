@@ -4,6 +4,9 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -78,7 +81,19 @@ public class Scenario5Test extends BaseLib {
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
 		//try {
+		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
+		if(commonsPo.verifySahiExecution()) {
 			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
