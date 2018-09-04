@@ -85,7 +85,7 @@ public class BaseLib {
 			capabilities.setCapability("locationServicesAuthorized", true);
 			capabilities.setCapability("locationServicesEnabled",true);
 			capabilities.setCapability("clearSystemFiles", true);
-			capabilities.setCapability("newCommandTimeout", 1000);
+			capabilities.setCapability("newCommandTimeout", 1000000);
 			
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
@@ -182,7 +182,6 @@ public class BaseLib {
 
 		}
 		 ExtentManager.extent.flush();
-			driver.quit();
 	}
 	
 	@AfterClass
