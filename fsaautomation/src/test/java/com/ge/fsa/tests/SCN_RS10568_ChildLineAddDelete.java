@@ -55,7 +55,6 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 		sFirstName = "auto_contact";
 		sLastName = sRandomNumber;
 		String sProformainVoice = "Proforma"+sRandomNumber;
-		String sEventSubject = "EventName"+sRandomNumber;
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
