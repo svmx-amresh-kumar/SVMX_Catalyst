@@ -11,6 +11,7 @@ import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
 import org.apache.http.client.utils.DateUtils;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -167,8 +168,11 @@ public class Scenario2Test extends BaseLib {
 		 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(checklistPo.eleChecklistSubmit());			
-		
+			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+
+			commonsPo.tap(checklistPo.eleChecklistSubmit());	
+			
+			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());

@@ -40,6 +40,15 @@ public class WorkOrderPO{
 	int iWhileCnt =0;
 	int i=0;
 	
+	
+	
+	
+	private WebElement eleProductTapName;
+	public WebElement getEleProductTapName(String sProductName)
+	{
+		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleProductTapName;
+	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -286,6 +295,7 @@ public class WorkOrderPO{
 		return eleremoveitem;
 	}
 
+
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")
 	private WebElement eleclickyes;
@@ -294,7 +304,9 @@ public class WorkOrderPO{
 		
 		return eleclickyes;
 	}
+	
 
+	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleclickOK;
 	public  WebElement getEleclickOK()
@@ -651,11 +663,11 @@ public class WorkOrderPO{
 		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iHighSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -668,6 +680,18 @@ public class WorkOrderPO{
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+	
+// To multi Select the Parts for the Work Order ChildLines
+	
+	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		for(int i=0;i<sProductName1.length ;i++) {
+		commonsPo.lookupSearch(sProductName1[i]);
+		}
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
