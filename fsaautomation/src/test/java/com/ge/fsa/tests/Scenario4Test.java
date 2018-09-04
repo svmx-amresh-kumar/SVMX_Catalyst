@@ -6,10 +6,10 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.kirwa.nxgreport.NXGReports;
-import com.kirwa.nxgreport.logging.LogAs;
 
 public class Scenario4Test extends BaseLib{
 	
@@ -45,11 +45,14 @@ public class Scenario4Test extends BaseLib{
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");
-		NXGReports.addStep("Account displayed on Tree View", LogAs.PASSED, null);
+//		NXGReports.addStep("Account displayed on Tree View", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Account displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sLocName).isDisplayed(),"Location not displayed in Tree View");
-		NXGReports.addStep("Location displayed on Tree View", LogAs.PASSED, null);
+//		NXGReports.addStep("Location displayed on Tree View", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Location displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sIbName).isDisplayed(),"Installed Product not displayed in Tree View");
-		NXGReports.addStep("Installed Product displayed on Tree View", LogAs.PASSED, null);
+//		NXGReports.addStep("Installed Product displayed on Tree View", LogAs.PASSED, null);
+		ExtentManager.logger.log(Status.PASS,"Installed Product displayed on Tree View");
 		
 		
 	}
