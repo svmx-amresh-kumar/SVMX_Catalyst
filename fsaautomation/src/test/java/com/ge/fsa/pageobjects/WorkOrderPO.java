@@ -410,6 +410,15 @@ public class WorkOrderPO{
 	{
 		return eleProblemDescriptionlbl;
 	}
+	
+	
+	//verifying Billing Type in WorkOrder
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//div[@class='x-innerhtml']/span")
+		private WebElement eleBillingTypelbl;
+		public WebElement geteleBillingTypelbl()
+		{
+			return eleBillingTypelbl;
+		}
 
 	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;

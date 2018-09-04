@@ -302,6 +302,35 @@ public class CommonsPO
 		}
 		
 		/**
+		 * Set the 24 hrs time form the date picker wheels, passing string for dateFormatToSelect , setting 0 for sYear,sTimeMin will set the present date
+		 *
+		 * @param wElement
+		 * @param dateFormatToSelect
+		 * @param sTimeHrs
+		 * @param sTimeMin
+		 * @param sTimeAMPM
+		 * @throws InterruptedException
+		 */
+			public void setDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
+			{
+				wElement.click();
+				switchContext("Native");
+				getEleDatePickerPopUp().get(0).sendKeys(dateFormatToSelect);
+				if(sDay == "0" && sYear == "0" ) {
+					getEleDonePickerWheelBtn().click();
+
+				}else {
+					timeSetter(sDay,sYear,"",true);
+					getEleDonePickerWheelBtn().click();
+				}
+				
+				switchContext("Webview");
+				Thread.sleep(GenericLib.iLowSleep);
+				
+				
+			}
+		
+		/**
 		 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 		 *
 		 * @param wElement
@@ -377,7 +406,10 @@ public class CommonsPO
 			}
 			}
 			
-		}
+		}				
+		
+		
+		
 		
 		/**
 		 * Wait for element until the element is displayed or time elapsed
