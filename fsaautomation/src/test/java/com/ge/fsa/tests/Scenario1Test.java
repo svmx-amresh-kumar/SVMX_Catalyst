@@ -35,7 +35,7 @@ public class Scenario1Test extends BaseLib
 	
 @Test
 public void Scenario1Test() throws Exception
-{		String sworkOrderName = "WO-00001744";
+{		loginHomePo.login(commonsPo, exploreSearchPo);String sworkOrderName = "WO-00001744";
 calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
 	workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
 	calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
