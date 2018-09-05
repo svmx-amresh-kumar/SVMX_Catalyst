@@ -614,6 +614,14 @@ public class WorkOrderPO{
 		return EleProformaInvoiceTxt;
 	}
 	
+	//Added By Harish.CS
+	@FindBy(xpath="(//span[text()='Component'])[2]")
+	private WebElement lblComponent;
+	public WebElement getLblComponent()
+	{
+		return lblComponent;
+	}
+	
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.GenericLib;
 
 public class Scenario10528Test extends BaseLib {
 	
@@ -34,7 +35,9 @@ public class Scenario10528Test extends BaseLib {
 //		System.out.println("New IB Id is "+sIbId1);
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-		toolsPo.syncData(commonsPo);
-		
+//		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "Create Estimates");
+//		workOrderPo.getLblComponent().click();
 	}
 }
