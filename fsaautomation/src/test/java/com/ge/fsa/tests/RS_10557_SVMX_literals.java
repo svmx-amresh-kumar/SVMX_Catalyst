@@ -110,7 +110,7 @@ String Location=null;
 			//navigate to sfm
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName);
 			//fill the values to to fields
-			commonsPo.setTime24hrs((workOrderPo.getEleScheduledDateTimeTxt()), 0,"0", "0");
+			commonsPo.setDateTime24hrs((workOrderPo.getEleScheduledDateTimeTxt()), 0,"0", "0");
 			Thread.sleep(2000);
 			commonsPo.tap(createNewPO.getEleClicksite());
 			commonsPo.lookupSearch(Location);
