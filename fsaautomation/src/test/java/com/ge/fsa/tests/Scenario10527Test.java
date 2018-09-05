@@ -12,20 +12,20 @@ public class Scenario10527Test extends BaseLib {
 	public void Scenario10527Test() throws IOException {
 		
 		// Create Account
-		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
-		System.out.println("Fer "+sAccId);
-		String sAccId1 = restServices.restCreate("Account?","{\"Name\": \"McLaren3\" }");
-		System.out.println("McLaren "+sAccId1);
-		String sAccId2 = restServices.restCreate("Account?","{\"Name\": \"Williams3\" }");
-		System.out.println("Williams "+sAccId2);
-		String sAccId3 = restServices.restCreate("Account?","{\"Name\": \"Renault3\" }");
-		System.out.println("Renault "+sAccId3);
-		String sAccId4 = restServices.restCreate("Account?","{\"Name\": \"Red Bull3\" }");
-		System.out.println("Red Bull "+sAccId4);
+//		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
+//		System.out.println("Fer "+sAccId);
+//		String sAccId1 = restServices.restCreate("Account?","{\"Name\": \"McLaren3\" }");
+//		System.out.println("McLaren "+sAccId1);
+//		String sAccId2 = restServices.restCreate("Account?","{\"Name\": \"Williams3\" }");
+//		System.out.println("Williams "+sAccId2);
+//		String sAccId3 = restServices.restCreate("Account?","{\"Name\": \"Renault3\" }");
+//		System.out.println("Renault "+sAccId3);
+//		String sAccId4 = restServices.restCreate("Account?","{\"Name\": \"Red Bull3\" }");
+//		System.out.println("Red Bull "+sAccId4);
 		
 		//Create Contact
-		String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Jody33\", \"LastName\": \"Scheckter22\", \"AccountId\": \""+sAccId+"\"}");
-		System.out.println("Jacke "+sConId);
+//		String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Jody33\", \"LastName\": \"Scheckter22\", \"AccountId\": \""+sAccId+"\"}");
+//		System.out.println("Jacke "+sConId);
 //		String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"John\", \"LastName\": \"Surtees\", \"AccountId\": \""+sAccId+"\"}");
 //		System.out.println(sConId1);
 //		String sConId2 = restServices.restCreate("Contact?","{\"FirstName\": \"Michael\", \"LastName\": \"Schumacher\", \"AccountId\": \""+sAccId+"\"}");
@@ -56,8 +56,9 @@ public class Scenario10527Test extends BaseLib {
 //		System.out.println(sConId14);
 //		String sConId15 = restServices.restCreate("Contact?","{\"FirstName\": \"David\",\"LastName\": \"Coulthard\"}");
 //		System.out.println(sConId15);
+		
 		//Create Work Order
-		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
-		System.out.println("Wo ID "+sWoID);
+//		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+//		System.out.println("Wo ID "+sWoID);
 	}
 }
