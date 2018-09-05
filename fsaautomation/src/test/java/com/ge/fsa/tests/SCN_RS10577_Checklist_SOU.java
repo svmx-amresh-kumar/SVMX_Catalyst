@@ -1,4 +1,10 @@
 package com.ge.fsa.tests;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
+import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
@@ -48,12 +54,18 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 			String sNoofTimesAssigned = null; String sNooftimesAssignedSOU = "2";
 			String sProformaInvoice = null; String sProformaInvoiceSOU="Source Object Updated";
 			
+	//For ServerSide Validations
+			String schecklistStatus = "Completed";
 			
 			
 	@Test(enabled = true)
 	public void SCN_RS10577() throws Exception {
-		
-		sScheduledDateSOU=driver.getDeviceTime().split(" ");;
+
+		System.out.println("SCN_RS10577_Checklist_SOU");
+
+		String time = driver.getDeviceTime();
+		System.out.println(time);
+		sScheduledDateSOU=driver.getDeviceTime().split(" ");
 		System.out.println(sScheduledDateSOU);
 		sTestCaseID = "SCN_Checklist_1_RS-10577_SOU";
 		sCaseWOID = "DATA_SCN_Checklist_1_RS-10577_SOU";
@@ -158,9 +170,8 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 			
 			 // Navigate to Field Service process
 		 	workOrderPo.selectAction(commonsPo, sEditProcessName);
-			//workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
-		 	System.out.println(workOrderPo.getEleBillingTypeLst());
-		 
+		 	
+		 	//Validating the Source Object Updates.
 		 	sBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
 		 	Assert.assertEquals(workOrderPo.getEleBillingTypeLst().getAttribute("value"), sBillingTypeSOU, "Picklist Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Picklist Sucessfull");
@@ -170,7 +181,7 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 		 	Assert.assertEquals(workOrderPo.geteleIdleTimetxt().getAttribute("value"), sIdleTimeSOU, "Number Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Number with value  Sucessfull");
 
-			sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
+			/*sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
 			System.out.println(sScheduledDateTime);
 		 	Assert.assertEquals(workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value"), sScheduledDateTimeSou, "DateTime Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for DateTime Sucessfull");
@@ -178,16 +189,100 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 	
 			sScheduledDate = workOrderPo.getEleScheduledDateLst().getAttribute("value");
 			System.out.println(sScheduledDate);
-			Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDate, "Date Source Object is not updated");
+			Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDateSOU, "Date Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");
-			
+			*/
 			
 			sProformaInvoice = workOrderPo.getEleProformaInvoiceTxt().getAttribute("value");
 			Assert.assertEquals(workOrderPo.getEleProformaInvoiceTxt().getAttribute("value"), sProformaInvoiceSOU, "Text Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Text with Value Sucessfull");
 			
 			
+			//validating in server after source object update and if prefilled values are syned to server
+			
+			String sChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
+			String sChecklistQueryval = restServices.restGetSoqlValue(sChecklistQuery, "SVMXC__Status__c");	
+			Assert.assertTrue(sChecklistQueryval.contains(schecklistStatus),"checklist completed is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"Checklist Completed status is displayed in Salesforce after sync");
 			
 			
+			String ChecklistAnsjson = restServices.restGetSoqlValue(sChecklistQuery, "SVMXC__ChecklistJSON__c");
+			Assert.assertTrue(ChecklistAnsjson.contains(sCityPrefill), "checklist text question answer is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist text question answer with prefill synced to server");
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(sIdleTimePrefill), "checklist number answer sycned to server in checklist answer");
+			ExtentManager.logger.log(Status.PASS,"checklist number answer sycned to server in checklist answer");
+			
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(sPicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
+			ExtentManager.logger.log(Status.PASS,"checklist picklist question answer synced to server");
+			
+			SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
+	        Date dTempDate1 = parser.parse(sScheduleddatePrefill);
+	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	        String sformattedDate = formatter.format(dTempDate1);
+			
+			Assert.assertTrue(ChecklistAnsjson.contains(sformattedDate), "checklist date answer was not sycned to server in checklist answer");
+			ExtentManager.logger.log(Status.PASS,"checklist date question answer synced to server");
+			
+			
+			SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm");
+		    dTempDate1 = parser1.parse(sScheduledDateTime);
+	        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("formatter1.format value   "+stempDate);
+	        dTempDate1 = formatter1.parse(stempDate);
+	        //adding 7 hours to set to UTC/GMT time.. this is from PST timezone as 
+        	Instant insDate =dTempDate1.toInstant().plus(7, ChronoUnit.HOURS);
+	        System.out.println("7 aded to instant"+insDate); 
+ 
+	        //formatter1.format(datetime1);
+	        //System.out.println("after format datetime1"+datetime1);
+	        String sformattedDatetime = formatter1.format(dTempDate1);
+	        dTempDate1 = Date.from(insDate);
+	         sformattedDatetime = formatter1.format((dTempDate1));  
+	        
+	        
+	        Assert.assertTrue(ChecklistAnsjson.contains(sformattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
+			ExtentManager.logger.log(Status.PASS,"checklist datetime question answer synced to server");
+			
+			String sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+			String sSoqlProforma = "Select+SVMXC__Proforma_Invoice__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+			String sSoqlNoOfTimes = "Select+SVMXC__NoOfTimesAssigned__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+			String sSoqlSchedulesDate = "Select+SVMXC__Scheduled_Date__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+			String sSoqlScheduledDateTime = "Select+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+
+			//String sSoqlqueryWO = "Select+Id+SVMXC__Billing_Type__c,+SVMXC__Proforma_Invoice__c,+SVMXC__NoOfTimesAssigned__c,+SVMXC__Scheduled_Date__c,+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+='\"+sWOName+\"'"; 
+			restServices.getAccessToken();
+			//String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryWO, "Id");	
+			String sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO,"SVMXC__Billing_Type__c");
+			String sProformaServer = restServices.restGetSoqlValue(sSoqlProforma,"SVMXC__Proforma_Invoice__c");
+			String sNoOftimesServer = restServices.restGetSoqlValue(sSoqlNoOfTimes,"SVMXC__NoOfTimesAssigned__c");
+			
+			String sNoOftimesServer1= sNoOftimesServer.substring(0, sNoOftimesServer.length() - 2);
+			
+			String sScheduledDateServer = restServices.restGetSoqlValue(sSoqlSchedulesDate,"SVMXC__Scheduled_Date__c");
+			String sScheduledDateTimeServer = restServices.restGetSoqlValue(sSoqlScheduledDateTime,"SVMXC__Scheduled_Date_Time__c");
+			
+			System.out.println(sScheduledDateServer);
+			System.out.println(sScheduledDateTimeServer);
+	        Assert.assertTrue(sBillTypeServer.equals(sBillingTypeSOU), "Picklist source object not syned to server");
+			ExtentManager.logger.log(Status.PASS,"Picklist Source object update has synced to server");
+			
+			Assert.assertTrue(sProformaServer.equals(sProformaInvoiceSOU), "Text source object not syned to server");
+			ExtentManager.logger.log(Status.PASS,"Text Source object update has synced to server");
+			
+			
+			System.out.println(sNoOftimesServer1);
+			Assert.assertTrue(sNoOftimesServer1.equals(sNooftimesAssignedSOU), "Number source object not syned to server");
+			ExtentManager.logger.log(Status.PASS,"Number Source object update has synced to server");
+			
+			
+			
+
+			//System.out.println(sAttachmentIDAfter);
+			
+	        
 	}
+	
 }

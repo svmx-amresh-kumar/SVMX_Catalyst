@@ -6,18 +6,11 @@
          
          <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
     </listeners>
-  <test  name="Test">
-    <classes>
-            <class name="com.ge.fsa.tests.Scenario8Test"/>
-          <!-- <class name="com.ge.fsa.tests.Scenario2Test"/>
-           	<class name="com.ge.fsa.tests.Scenario3Test"/>
-             <class name="com.ge.fsa.tests.Scenario4Test"/>
-             <class name="com.ge.fsa.tests.Scenario5Test"/>
-           <class name="com.ge.fsa.tests.Scenario6Test"/>
-             <class name="com.ge.fsa.tests.Scenario7Test"/>
-             <class name="com.ge.fsa.tests.Scenario8Test"/> 
-              <class name="com.ge.fsa.tests.Scenario9Test"/> -->
-     
-    </classes>
-  </test> <!-- Test -->
+<test name="Sanity1">
+		<classes>
+			<class name="com.ge.fsa.tests.SanityPreReq" />
+
+		</classes>
+	</test> <!-- Test -->
+	
 </suite> <!-- Suite -->

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+	<test name="Sanity">
+		<classes>
+			<class name="com.ge.fsa.tests.SanityPreReq" />
+			<class name="com.ge.fsa.tests.Sanity1_RS11179_Create_Debrief_EventCreation_OPDOC_Recent" />
+			<class name="com.ge.fsa.tests.Sanity2_RS11180_Explore_Checklist_Config_Sync_DataSync" />
+			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
+			<class name="com.ge.fsa.tests.Sanity3_InitialSync_Tasks" />
+			<class name="com.ge.fsa.tests.Sanity4_PIQ" />
+			<class name="com.ge.fsa.tests.Sanity5_DVR_Mapping_Qualification_Criteria" />
+			<class name="com.ge.fsa.tests.Sanity6_SourcetoTarget_Formula_Mapping_SOU"/>
+			<class name="com.ge.fsa.tests.Sanity8_Lookup_DOD" />
+			<class name="com.ge.fsa.tests.Sanity9_Mobile_Inventory" />
+
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -40,6 +40,15 @@ public class WorkOrderPO{
 	int iWhileCnt =0;
 	int i=0;
 	
+	
+	
+	
+	private WebElement eleProductTapName;
+	public WebElement getEleProductTapName(String sProductName)
+	{
+		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleProductTapName;
+	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -83,6 +92,13 @@ public class WorkOrderPO{
 		return eleAddExpenseLnk;
 	}
 	
+	// Added by Harish.CS
+	@FindBy(xpath="//div[text()='Attached Images/Videos']/following::span[text()='Add']")
+	private WebElement eleAddAttachedImagesLnk;
+	public WebElement getEleAddAttachedImagesLnk()
+	{
+		return eleAddAttachedImagesLnk;
+	}
 	
 	@FindBy(xpath="//span[text()='Expense Type']/../..//input[@class='x-input-el']")
 	private WebElement eleAddExpenseType;
@@ -277,6 +293,15 @@ public class WorkOrderPO{
 		return eledeletepartChildline;
 	}
 	
+	private WebElement eleExpensestap;
+	public WebElement getEleExpensestap(String sExpensetype)
+	{
+
+		eleExpensestap = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+sExpensetype+"']"));
+
+		return eleExpensestap;
+	}
+	
 	private WebElement eledeletelaborChildline;
 	public WebElement getEledeletelaborChildline(String childlinevalue)
 	{
@@ -295,6 +320,7 @@ public class WorkOrderPO{
 		return eleremoveitem;
 	}
 
+
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Yes']")
 	private WebElement eleclickyes;
@@ -303,7 +329,7 @@ public class WorkOrderPO{
 		
 		return eleclickyes;
 	}
-
+	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleclickOK;
 	public  WebElement getEleclickOK()
@@ -311,7 +337,14 @@ public class WorkOrderPO{
 		
 		return eleclickOK;
 	}
-	
+
+	@FindBy(xpath="	//span[@class='x-button-label'][text()='+New']")
+	private WebElement eleclickNew;
+	public  WebElement getEleclickNew()
+	{
+		
+		return eleclickNew;
+	}
 
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
@@ -339,6 +372,8 @@ public class WorkOrderPO{
 
 		return eleIBSerialNumber;
 	}
+	
+	
 	
 	
 	private WebElement eleIBId;
@@ -419,6 +454,15 @@ public class WorkOrderPO{
 	{
 		return eleProblemDescriptionlbl;
 	}
+	
+	
+	//verifying Billing Type in WorkOrder View
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//div[@class='x-innerhtml']")
+		private WebElement eleBillingTypelbl;
+		public WebElement geteleBillingTypelbl()
+		{
+			return eleBillingTypelbl;
+		}
 
 	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;
@@ -624,8 +668,8 @@ public class WorkOrderPO{
 		selectAction(commonsPo, "New Event");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-		commonsPo.setTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		//getEleDescriptionTxtFld().click();
 		//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -651,11 +695,11 @@ public class WorkOrderPO{
 		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		getEleDoneLnk().click();
 		commonsPo.tap(getEleDoneLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iMedSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 	
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -668,6 +712,18 @@ public class WorkOrderPO{
 	{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+	
+// To multi Select the Parts for the Work Order ChildLines
+	
+	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		for(int i=0;i<sProductName1.length ;i++) {
+		commonsPo.lookupSearch(sProductName1[i]);
+		}
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
@@ -692,8 +748,8 @@ public class WorkOrderPO{
 		commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
 		
 		Thread.sleep(2000);
-		commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-		commonsPo.setTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
 		
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
 //		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
@@ -715,8 +771,8 @@ public class WorkOrderPO{
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-			commonsPo.setTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
 //			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
 			

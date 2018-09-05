@@ -62,8 +62,7 @@ public class BaseLib {
 	{
 
 		try { 
-			//Resetting to true always first
-			GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+			
 
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
@@ -150,10 +149,15 @@ public class BaseLib {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				//Resetting to true always first
+				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 	}
 	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
+		lauchNewApp("true");
+		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
 	}
@@ -163,6 +167,8 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+
 			String temp= ExtentManager.getScreenshot();
 			
 			try {
@@ -171,16 +177,20 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+
 		}
 		 ExtentManager.extent.flush();
-			
+			try{driver.quit();}catch(Exception e) {};
+
 	}
 	
 	@AfterClass
 	public void tearDownDriver()
 	{
 		
-		driver.quit();
+		try{driver.quit();}catch(Exception e) {};
 	}
 
 }

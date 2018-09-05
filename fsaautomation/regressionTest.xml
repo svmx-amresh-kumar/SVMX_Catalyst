@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+	<test name="Regression">
+		<classes>
+			<class name="com.ge.fsa.tests.SanityPreReq" />
+			<class name="com.ge.fsa.tests.SCN_RS10568_ChildLineAddDelete" />
+			<class name="com.ge.fsa.tests.SCN_RS10577_Checklist_SOU.java" />
+			<class name="com.ge.fsa.tests.SCN_RS10578_Checklist_DVR.java" />
+
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

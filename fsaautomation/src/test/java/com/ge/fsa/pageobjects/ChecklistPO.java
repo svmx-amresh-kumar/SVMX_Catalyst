@@ -53,6 +53,23 @@ public class ChecklistPO{
     	return eleNextLnk;
     }
     
+    @FindBy(xpath="//span[text()='Submit']")
+    private WebElement eleSubmitLnk;
+    public WebElement geteleSubmitLnk()
+    {
+    	return eleSubmitLnk;
+    }
+    
+    
+    
+    private WebElement eleSectionNextBtn;
+	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)
+	{
+		
+		eleSectionNextBtn = driver.findElement(By.xpath("(//span[text()='Next'])["+iChecklistSectionNo+"]"));
+		return eleSectionNextBtn;
+	}
+    
     
   /* @FindBy(xpath= "//*[text()='Submit'][2]")
     private WebElement eleSubmitbutton;
@@ -195,6 +212,34 @@ public class ChecklistPO{
 		return eleActionsLnk;
 	}
 	
+	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today')]")
+	private WebElement eleChecklistDVRtxt;
+	public WebElement geteleChecklistDVRtxt()
+	{
+		return eleChecklistDVRtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number Cannot be 10')]")
+	private WebElement eleChecklistDVRConfirmationtxt;
+	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number cannot be greater than 100')]")
+	private WebElement eleChecklistDVRNoGreaterthan100txt;
+	public WebElement geteleChecklistDVRNoGreaterthan100txt()
+	{
+		return eleChecklistDVRNoGreaterthan100txt;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon checklist-warning-submit x-layout-box-item x-layout-hbox-item x-stretched']//span[@class='x-button-label'][text()='Confirm']")
+	private WebElement eleDVRConfirmBtn;
+	public WebElement geteleDVRConfirmBtn()
+	{
+		return eleDVRConfirmBtn;
+	}
 	
 	//getting the entire row in checklistopdoc checklist,completed,status EntireTable.
 	@FindBy(xpath="//div//th[@class='theader'][contains(text(), 'Checklist')]/../../..//tbody")
@@ -212,6 +257,20 @@ public class ChecklistPO{
     	return eleChecklistAnswerOPDOCtbl;
     }
     
+    private WebElement eleSectionNametxt;
+    public WebElement  geteleChecklistSectionNametab(String sSectionName)
+	{
+		return eleSectionNametxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sSectionName+"']"));
+	}
+    
+    
+    
+    @FindBy(xpath="//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']")
+	private WebElement eleChecklistHelpIcn;
+	public WebElement geteleChecklistHelpIcn()
+	{
+		return eleChecklistHelpIcn;
+	}
 	
 	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	

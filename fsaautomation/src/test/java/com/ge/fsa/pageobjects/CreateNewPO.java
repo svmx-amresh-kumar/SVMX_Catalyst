@@ -5,12 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.ge.fsa.lib.BaseLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class CreateNewPO extends BaseLib
+public class CreateNewPO
 {
 	public CreateNewPO(AppiumDriver driver)
 	{
@@ -152,6 +151,14 @@ public class CreateNewPO extends BaseLib
 	public WebElement getCreateNewInstalledProduct()
 	{
 		return eleCreateNewInstalledProduct;
+	}
+	
+	//Added by Harish.CS
+	private WebElement eleItemNameTxt;
+	public WebElement getEleItemNameTxt(String sItemName)
+	{
+		eleItemNameTxt=driver.findElement(By.xpath("//div[@class='listitem-sfm-search-result-name'][text()='"+sItemName+"']"));
+		return eleItemNameTxt;
 	}
 	
 	
