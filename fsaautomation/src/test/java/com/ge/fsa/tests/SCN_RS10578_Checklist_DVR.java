@@ -123,17 +123,22 @@ public class SCN_RS10578_Checklist_DVR extends BaseLib {
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	    
 	    
-	    checklistPo.geteleChecklistAnsDate(sDateq).click();
-		commonsPo.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateq), 3, "05", "05");
+	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
+	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2021");
+	    
+
+	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
+	    
+		// checklistPo.geteleChecklistAnsDate(sDateq).click();
+		// commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "1", "2018");
+		 Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
+		
 		Thread.sleep(GenericLib.iLowSleep);
 	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	    
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	    
-	    
-	    
-	    
-	    
 
 		/*// tapping next button
 		commonsPo.tap(checklistPo.geteleNext());
