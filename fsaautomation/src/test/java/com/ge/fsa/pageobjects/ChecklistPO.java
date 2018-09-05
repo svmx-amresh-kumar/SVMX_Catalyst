@@ -53,6 +53,14 @@ public class ChecklistPO{
     	return eleNextLnk;
     }
     
+    @FindBy(xpath="//span[text()='Submit']")
+    private WebElement eleSubmitLnk;
+    public WebElement geteleSubmitLnk()
+    {
+    	return eleSubmitLnk;
+    }
+    
+    
     
     private WebElement eleSectionNextBtn;
 	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)

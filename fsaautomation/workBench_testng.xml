@@ -6,13 +6,11 @@
          
          <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
     </listeners>
-  <test name="Test">
+<test name="Sanity1">
 		<classes>
-			
-			<class name="com.ge.fsa.tests.SCN_RS10568_ChildLineAddDelete" />
-		
+			<class name="com.ge.fsa.tests.SanityPreReq" />
 
 		</classes>
-
 	</test> <!-- Test -->
+	
 </suite> <!-- Suite -->

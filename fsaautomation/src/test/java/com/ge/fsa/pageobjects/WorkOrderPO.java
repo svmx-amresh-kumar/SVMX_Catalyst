@@ -447,8 +447,8 @@ public class WorkOrderPO{
 	}
 	
 	
-	//verifying Billing Type in WorkOrder
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//div[@class='x-innerhtml']/span")
+	//verifying Billing Type in WorkOrder View
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Billing Type']/../..//div[@class='x-innerhtml']")
 		private WebElement eleBillingTypelbl;
 		public WebElement geteleBillingTypelbl()
 		{
