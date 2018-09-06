@@ -700,6 +700,47 @@ public class WorkOrderPO{
 	}
 	
 	//close---------
+
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='2 Issues Found']")
+	private WebElement eleChildLine2IssuesFound;
+	public WebElement getEleChildLine2IssuesFound()
+	{
+		return eleChildLine2IssuesFound;
+	}
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='1 Issue Found']")
+	private WebElement eleChildLine1IssueFound;
+	public WebElement getEleChildLine1IssueFound()
+	{
+		return eleChildLine1IssueFound;
+	}
+	
+	
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Labor (0): You must add at least one line to save this record.']")
+	private WebElement eleNoLaborEntry;
+	public WebElement getEleNoLaborEntry()
+	{
+		return eleNoLaborEntry;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Parts (0): You have not created any lines. Do you still want to save?']")
+	private WebElement eleNoPartsEntry;
+	public WebElement getEleNoPartsEntry()
+	{
+		return eleNoPartsEntry;
+	}
+	
+	
+	@FindBy(xpath="//input[@class='x-input-el'][@type='checkbox']/../../div[@class='x-input-body-el']")
+	private WebElement elePartsIssueCheckbox;
+	public WebElement getElePartsIssueCheckbox()
+	{
+		return elePartsIssueCheckbox;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -834,7 +875,7 @@ public class WorkOrderPO{
 		//Add the price and quantity
 		commonsPo.tap(getEleUsePriceToggleBtn());
 		getEleLineQtyTxtFld().sendKeys("10");
-		getEleLinePerUnitTxtFld().sendKeys("1000");	
+		getEleLinePerUnitTxtFld().sendKeys("1000");
 		commonsPo.tap(getEleDoneBtn());
 		
 
@@ -939,6 +980,7 @@ public class WorkOrderPO{
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			Thread.sleep(1000);
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
@@ -971,6 +1013,9 @@ public class WorkOrderPO{
 			
 		}
 		
+
+	
+
 		
 		//Navigate to WorkOrder Screen without child search.
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
