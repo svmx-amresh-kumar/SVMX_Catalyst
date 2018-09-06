@@ -14,6 +14,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_RS10516_ZeroLines extends BaseLib {
@@ -22,11 +23,13 @@ public class SCN_RS10516_ZeroLines extends BaseLib {
 	String sFirstName = null;
 	String sLastName = null;
 	String sContactName = null;
-	
+	String sExploreSearch = null;
+	String sExploreChildSearchTxt = null;
 	@Test(enabled = true)
 	public void SCN_RS10516() throws Exception {
 		
 		System.out.println("SCN_RS10516_ZeroLines");
+		
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		System.out.println(LocalDate.now().plusDays(1L));
@@ -69,8 +72,9 @@ public class SCN_RS10516_ZeroLines extends BaseLib {
 		// Syncing the Data of the Work Order
 		toolsPo.syncData(commonsPo);
 		// Click on the Work Order
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-		String sProcessname = "";
+		Thread.sleep(10000);
+		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		String sProcessname = "SFM Process for RS-10516";// Need to pass this from the Excel sheet
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
 		

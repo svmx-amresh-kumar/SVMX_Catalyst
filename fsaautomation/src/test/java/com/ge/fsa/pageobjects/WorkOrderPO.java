@@ -853,6 +853,7 @@ public class WorkOrderPO{
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			Thread.sleep(1000);
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
