@@ -535,7 +535,6 @@ public class WorkOrderPO{
 	return eleOnTreeView;
 	
 	}
-	
 
 	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
 	private WebElement eleScheduledDateLst;
@@ -623,7 +622,7 @@ public class WorkOrderPO{
 		return EleProformaInvoiceTxt;
 	}
 	
-	//Added By Harish.CS
+	//Added By Harish.CS----
 	@FindBy(xpath="(//span[text()='Component'])[2]")
 	private WebElement lblComponent;
 	public WebElement getLblComponent()
@@ -631,6 +630,76 @@ public class WorkOrderPO{
 		return lblComponent;
 	}
 	
+	@FindBy(xpath="(//*[text()='Component']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtComponent;
+	public WebElement getTxtComponent()
+	{
+		return txtComponent;
+	}
+	
+	@FindBy(xpath="(//span[text()='City']/following::textarea)[1]")
+	private WebElement txtCity;
+	public WebElement getTxtCity()
+	{
+		return txtCity;
+	}
+	
+	@FindBy(xpath="(//*[text()='Contact']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtContact;
+	public WebElement getTxtContact()
+	{
+		return txtContact;
+	}
+	
+	@FindBy(xpath="(//span[text()='Country']/following::input)[1]")
+	private WebElement txtCountry;
+	public WebElement getTxtCountry()
+	{
+		return txtCountry;
+	}
+	
+	@FindBy(xpath="(//*[text()='Product']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtProduct;
+	public WebElement getTxtProduct()
+	{
+		return txtProduct;
+	}
+	
+	@FindBy(xpath="(//span[text()='Top-Level']/following::input)[1]")
+	private WebElement txtTopLevel;
+	public WebElement getTxtTopLevel()
+	{
+		return txtTopLevel;
+	}
+	
+	@FindBy(xpath="(//span[text()='Site']/following::input)[1]")
+	private WebElement txtSite;
+	public WebElement getTxtSite()
+	{
+		return txtSite;
+	}
+	
+	@FindBy(xpath="//span[text()='Zip']/following::textarea")
+	private WebElement txtZip;
+	public WebElement getTxtZip()
+	{
+		return txtZip;
+	}
+	
+	private WebElement lblChildPart;
+	public WebElement  getLblChildPart(String prodName)
+	{
+		return lblChildPart = driver.findElement(By.xpath("//div[text()='"+prodName+"']"));
+	}
+	
+	@FindBy(xpath="(//span[text()='Contact'])[3]")
+	private WebElement lblChildContact;
+	public WebElement getLblChildContact()
+	{
+		return lblChildContact;
+	}
+	
+	//close---------
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException

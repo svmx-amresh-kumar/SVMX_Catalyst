@@ -5,11 +5,12 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.GenericLib;
 
 public class Scenario10527Test extends BaseLib {
 	
 	@Test
-	public void Scenario10527Test() throws IOException {
+	public void Scenario10527Test() throws IOException, InterruptedException {
 		
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
@@ -60,5 +61,16 @@ public class Scenario10527Test extends BaseLib {
 		//Create Work Order
 //		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println("Wo ID "+sWoID);
+		String sProdName = "a1";
+		loginHomePo.login(commonsPo, exploreSearchPo);	
+//		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002068", "AutoReg10529");
+		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
+		workOrderPo.getLblChildPart(sProdName).click();
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.tap(workOrderPo.getLblChildContact());
+//		commonsPo.swipeUp();
 	}
 }
