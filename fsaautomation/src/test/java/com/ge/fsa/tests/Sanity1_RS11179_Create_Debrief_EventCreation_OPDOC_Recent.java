@@ -167,7 +167,7 @@ public void Scenario1Test() throws Exception
 		//NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Parts match", LogAs.PASSED, null);
 
 
-	}
+}
 	
 
 	

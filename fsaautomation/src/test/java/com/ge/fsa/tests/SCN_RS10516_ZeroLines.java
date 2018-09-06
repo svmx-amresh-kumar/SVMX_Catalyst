@@ -1,5 +1,7 @@
 package com.ge.fsa.tests;
 
+import static org.testng.Assert.assertEquals;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -75,13 +77,54 @@ public class SCN_RS10516_ZeroLines extends BaseLib {
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "SFM Process for RS-10516";// Need to pass this from the Excel sheet
+		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
 		
-		// Adding Parts - Warning message must be thrown
 		
-		// Adding Labor - An Error must be thrown
 		
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		if(workOrderPo.getEleChildLine2IssuesFound().isDisplayed())
+		{
+		
+			commonsPo.tap(workOrderPo.getEleChildLine2IssuesFound());
+			// Adding Labor - An Error must be thrown
+			assertEquals(workOrderPo.getEleNoLaborEntry().isDisplayed(), true);
+			// Adding Parts - Warning message must be thrown
+			assertEquals(workOrderPo.getEleNoPartsEntry().isDisplayed(), true);
+			// To verify if the Parts error is just a warning , Click on the Checkbox
+			Thread.sleep(1000);
+			workOrderPo.getElePartsIssueCheckbox().click();
+			Thread.sleep(3000);
+			commonsPo.tap(workOrderPo.getElePartsIssueCheckbox(),20,20);
+			// Tap anywhere on the UI 
+			commonsPo.tap(workOrderPo.getEleNoPartsEntry());
+			commonsPo.tap(workOrderPo.getEleClickSave());
+			// Now only 1 Issue must be shown on the UI
+			Thread.sleep(2000);
+			try {
+				workOrderPo.getEleChildLine1IssueFound().isDisplayed();
+			}
+			
+			catch(Exception e) {
+				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI");
+
+			}
+			//Assert.assertTrue(workOrderPo.getEleChildLine1IssueFound().isDisplayed(), "1 Issue Found Error message is not Popped");
+
+			commonsPo.tap(workOrderPo.getEleChildLine1IssueFound());
+			commonsPo.tap(workOrderPo.getEleNoLaborEntry());
+		
+			workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
+			commonsPo.tap(workOrderPo.getEleClickSave());
+			ExtentManager.logger.log(Status.PASS,"After Adding Labor No issues were Found");
+
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"2 Issues Found Error message is not Popped");
+		}
+
 		
 	}
 
