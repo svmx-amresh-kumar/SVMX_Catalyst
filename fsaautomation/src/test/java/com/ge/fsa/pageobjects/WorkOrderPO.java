@@ -209,6 +209,15 @@ public class WorkOrderPO{
 		return elePartLaborLkUp;
 	}
 	
+	@FindBy(xpath="//span[text()='To Location']/../../div[2]//input[@class='x-input-el']")
+	private WebElement elePartsLocation;
+	public WebElement getElePartsLocation()
+	{
+		return elePartsLocation;
+	}
+	
+	
+	
 	private WebElement eleProductNameTxt;
 	public WebElement getEleProductNameTxt(String sProductName)
 	{
@@ -614,6 +623,14 @@ public class WorkOrderPO{
 		return EleProformaInvoiceTxt;
 	}
 	
+	//Added By Harish.CS
+	@FindBy(xpath="(//span[text()='Component'])[2]")
+	private WebElement lblComponent;
+	public WebElement getLblComponent()
+	{
+		return lblComponent;
+	}
+	
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -949,6 +966,15 @@ public class WorkOrderPO{
 		{
 			return partsontap;
 		}
+
+		
+		@FindBy(xpath="(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
+		private WebElement Laborontap;
+		public WebElement openLaborontap()
+		{
+			return Laborontap;
+		}
+
 		
 		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement DateRequired;
@@ -958,45 +984,16 @@ public class WorkOrderPO{
 		}
 		
 		
+		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement StartDateandTime;
+		public WebElement getStartDateandTime()
+		{
+			return StartDateandTime;
+		}
 		
 		
-		
-		private static final String DATE_FORMAT = "M/dd/yy hh:mm:ss a";
-
-	    public static String main(String dateStr ) throws java.text.ParseException {
-	    	
-	       LocalDateTime ldt = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
-
-	        ZoneId KolkataZoneId = ZoneId.of("Asia/Kolkata");
-	        System.out.println("TimeZone : " + KolkataZoneId);
-
-	        //LocalDateTime + ZoneId = ZonedDateTime
-	        ZonedDateTime asiaZonedDateTime = ldt.atZone(KolkataZoneId);
-	        System.out.println("Date (Singapore) : " + asiaZonedDateTime);
-	        
-	        
-	        ZoneId losAngeles = ZoneId.of("America/Los_Angeles");
-	        System.out.println("TimeZone : " + losAngeles);
-
-	        //LocalDateTime + ZoneId = ZonedDateTime
-	        ZonedDateTime losAngelesZonedDateTime = asiaZonedDateTime.withZoneSameInstant(losAngeles);
-	        System.out.println("Date (losAngeles) : " + losAngelesZonedDateTime);
-
-	       
-	        DateTimeFormatter format = DateTimeFormatter.ofPattern(DATE_FORMAT);
-	        System.out.println("\n---DateTimeFormatter---");
-	        
-	        String losAngelesformate=format.format(losAngelesZonedDateTime);
-			return losAngelesformate;
-	       
-			
-			
-			
-			
-
-	    }
-
-		
+	    
+	   
 }
 
 

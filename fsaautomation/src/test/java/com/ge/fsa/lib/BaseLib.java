@@ -57,7 +57,7 @@ public class BaseLib {
 	{
 
 	}
-	@BeforeClass
+	//@BeforeClass
 	public void setAPP() throws Exception
 	{
 

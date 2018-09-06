@@ -60,7 +60,12 @@ public class ChecklistPO{
     	return eleSubmitLnk;
     }
     
-    
+    @FindBy(xpath="//*[text()='OK']")
+	private WebElement eleChecklistokPopUp;
+	public WebElement geteleChecklistokPopUp()
+	{
+		return eleChecklistokPopUp;
+	}
     
     private WebElement eleSectionNextBtn;
 	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)
