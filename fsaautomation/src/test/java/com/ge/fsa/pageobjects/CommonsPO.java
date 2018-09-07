@@ -374,11 +374,22 @@ public class CommonsPO
 		 * @param scrollNum
 		 */
 		public void datePicker(int iDateWheelIndex, int scrollNum)
-		{ 	int i=0;
+		{ 	
+			int i=0;
+			int newTempVal = scrollNum;
+			scrollNum = Math.abs(scrollNum);
 			for(i=0;i<scrollNum;i++)
 			{JavascriptExecutor js = (JavascriptExecutor) driver;
 		    Map<String, Object> params = new HashMap<>();
-		    params.put("order", "next");
+		    if(newTempVal<0) {
+		    System.out.println("Scrolling Down "+scrollNum);
+			   params.put("order", "previous");
+
+		    }else {
+		    	 System.out.println("Scrolling Up "+scrollNum);
+			    params.put("order", "next");
+
+		    }
 		    params.put("offset", 0.15);
 		    params.put("element", getEleDatePickerPopUp().get(iDateWheelIndex));
 		    js.executeScript("mobile: selectPickerWheelValue", params);	

@@ -1,16 +1,6 @@
 package com.ge.fsa.pageobjects;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
@@ -23,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-import bsh.ParseException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -535,7 +524,6 @@ public class WorkOrderPO{
 	return eleOnTreeView;
 	
 	}
-	
 
 	@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
 	private WebElement eleScheduledDateLst;
@@ -623,7 +611,7 @@ public class WorkOrderPO{
 		return EleProformaInvoiceTxt;
 	}
 	
-	//Added By Harish.CS
+	//Added By Harish.CS----
 	@FindBy(xpath="(//span[text()='Component'])[2]")
 	private WebElement lblComponent;
 	public WebElement getLblComponent()
@@ -631,6 +619,117 @@ public class WorkOrderPO{
 		return lblComponent;
 	}
 	
+	@FindBy(xpath="(//*[text()='Component']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtComponent;
+	public WebElement getTxtComponent()
+	{
+		return txtComponent;
+	}
+	
+	@FindBy(xpath="(//span[text()='City']/following::textarea)[1]")
+	private WebElement txtCity;
+	public WebElement getTxtCity()
+	{
+		return txtCity;
+	}
+	
+	@FindBy(xpath="(//*[text()='Contact']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtContact;
+	public WebElement getTxtContact()
+	{
+		return txtContact;
+	}
+	
+	@FindBy(xpath="(//span[text()='Country']/following::input)[1]")
+	private WebElement txtCountry;
+	public WebElement getTxtCountry()
+	{
+		return txtCountry;
+	}
+	
+	@FindBy(xpath="(//*[text()='Product']/../..//div[@class='x-innerhtml']/../..//input)[2]")
+	private WebElement txtProduct;
+	public WebElement getTxtProduct()
+	{
+		return txtProduct;
+	}
+	
+	@FindBy(xpath="(//span[text()='Top-Level']/following::input)[1]")
+	private WebElement txtTopLevel;
+	public WebElement getTxtTopLevel()
+	{
+		return txtTopLevel;
+	}
+	
+	@FindBy(xpath="(//span[text()='Site']/following::input)[1]")
+	private WebElement txtSite;
+	public WebElement getTxtSite()
+	{
+		return txtSite;
+	}
+	
+	@FindBy(xpath="//span[text()='Zip']/following::textarea")
+	private WebElement txtZip;
+	public WebElement getTxtZip()
+	{
+		return txtZip;
+	}
+	
+	private WebElement lblChildPart;
+	public WebElement  getLblChildPart(String prodName)
+	{
+		return lblChildPart = driver.findElement(By.xpath("//div[text()='"+prodName+"']"));
+	}
+	
+	@FindBy(xpath="(//span[text()='Contact'])[3]")
+	private WebElement lblChildContact;
+	public WebElement getLblChildContact()
+	{
+		return lblChildContact;
+	}
+	
+	//close---------
+
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='2 Issues Found']")
+	private WebElement eleChildLine2IssuesFound;
+	public WebElement getEleChildLine2IssuesFound()
+	{
+		return eleChildLine2IssuesFound;
+	}
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='1 Issue Found']")
+	private WebElement eleChildLine1IssueFound;
+	public WebElement getEleChildLine1IssueFound()
+	{
+		return eleChildLine1IssueFound;
+	}
+	
+	
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Labor (0): You must add at least one line to save this record.']")
+	private WebElement eleNoLaborEntry;
+	public WebElement getEleNoLaborEntry()
+	{
+		return eleNoLaborEntry;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Parts (0): You have not created any lines. Do you still want to save?']")
+	private WebElement eleNoPartsEntry;
+	public WebElement getEleNoPartsEntry()
+	{
+		return eleNoPartsEntry;
+	}
+	
+	
+	@FindBy(xpath="//input[@class='x-input-el'][@type='checkbox']/../../div[@class='x-input-body-el']")
+	private WebElement elePartsIssueCheckbox;
+	public WebElement getElePartsIssueCheckbox()
+	{
+		return elePartsIssueCheckbox;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -668,7 +767,7 @@ public class WorkOrderPO{
 		getEleActionsLnk().click();
 		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
-		commonsPo.tap(getEleActionsTxt(sActionsName));
+		commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
 		
 	}
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
@@ -765,7 +864,7 @@ public class WorkOrderPO{
 		//Add the price and quantity
 		commonsPo.tap(getEleUsePriceToggleBtn());
 		getEleLineQtyTxtFld().sendKeys("10");
-		getEleLinePerUnitTxtFld().sendKeys("1000");	
+		getEleLinePerUnitTxtFld().sendKeys("1000");
 		commonsPo.tap(getEleDoneBtn());
 		
 
@@ -870,6 +969,7 @@ public class WorkOrderPO{
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			Thread.sleep(1000);
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
@@ -902,6 +1002,9 @@ public class WorkOrderPO{
 			
 		}
 		
+
+	
+
 		
 		//Navigate to WorkOrder Screen without child search.
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
