@@ -1,16 +1,6 @@
 package com.ge.fsa.pageobjects;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
@@ -23,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-import bsh.ParseException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -778,7 +767,7 @@ public class WorkOrderPO{
 		getEleActionsLnk().click();
 		commonsPo.tap(getEleActionsLnk());	
 		commonsPo.getSearch(getEleActionsTxt(sActionsName));
-		commonsPo.tap(getEleActionsTxt(sActionsName));
+		commonsPo.tap(getEleActionsTxt(sActionsName,20,20));
 		
 	}
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
