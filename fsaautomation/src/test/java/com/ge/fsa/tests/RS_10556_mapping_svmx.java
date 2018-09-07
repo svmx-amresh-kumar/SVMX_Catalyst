@@ -21,7 +21,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
-public class RS_10557_SVMX_literals extends BaseLib {
+public class RS_10556_mapping_svmx extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;
@@ -58,23 +58,16 @@ String Location=null;
 	} 
 
 	@Test(enabled = true)
-	public void RS_10557_field_mapping() throws Exception {
+	public void RS_10556_mapping_svmx_literals() throws Exception {
 		
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
-		String sTestIB="RS-10557_mapping";
+		String sTestIB="RS-10556_mapping";
 		sTestIBID = sProformainVoice;
-		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
-	
 		
-		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"account\"}";
-		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
-		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-		//sProductName1="v1";
-		System.out.println(sAccountName);
+	/*	
+		
 		// Create product
 		sJsonData = "{\"Name\": \""+sTestIBID+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
@@ -90,49 +83,82 @@ String Location=null;
 		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
 		//sProductName1="v1";
 		System.out.println(Location);
-		
+		*/
 		//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
-		
+		String sworkordernumber=GenericLib.getExcelData(sTestIB, "WorkOrder Number");
 	
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
+			//toolsPo.configSync(commonsPo);
+			//Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
-			toolsPo.syncData(commonsPo);
+			//toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			createNewPO.createInstalledProduct(commonsPo,sAccountName, sproductname, sInstalledproductID);
+			calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
 			
-			Thread.sleep(5000);
-			//navigate to sfm
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName);
-			//fill the values to to fields
-			commonsPo.setDateTime24hrs((workOrderPo.getEleScheduledDateTimeTxt()), 0,"0", "0");
-			Thread.sleep(2000);
-			commonsPo.tap(createNewPO.getEleClicksite());
-			commonsPo.lookupSearch(Location);
-			Thread.sleep(2000);
+			workOrderPo.selectAction(commonsPo,sFieldServiceName);
 			
-			//commonsPo.tap(createNewPO.getEleClickComponent());
-			commonsPo.tap(createNewPO.getEleClickComponent());
-			commonsPo.lookupSearch(sInstalledproductID);
-			Thread.sleep(2000);
-			//add new line for parts
+			Thread.sleep(GenericLib.iMedSleep);
+			
+			
+			
+	
+		
+	
+			/*//add new line for parts
 			commonsPo.tap(workOrderPo.getElePartLnk());
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			
 			//Add new line for labor
 			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			*/
 			
-			//validating mapped values before save
+			//validating mapped values before save on workorder
+			
+			String fetchedOrderStatus =workOrderPo.geteleOrderStatusvaluelbl().getAttribute("value");
+			System.out.println(fetchedOrderStatus);
+			Assert.assertTrue(fetchedOrderStatus.equals(sAccountName), "Account value mapped is not displayed");
+			
+			String fetchedaccount =workOrderPo.getAccountvalue().getAttribute("value");
+			System.out.println(fetchedaccount);
+			Assert.assertTrue(fetchedaccount.equals(sAccountName), "Account value mapped is not displayed");
+			
+			
+			String fetchedproduct =workOrderPo.getProductvalue().getAttribute("value");
+			System.out.println(fetchedproduct);
+			Assert.assertTrue(fetchedproduct.equals(sproductname), "product value mapped is not displayed");
+			
+			String fetchedcomponent =workOrderPo.getcomponentvalue().getAttribute("value");
+			System.out.println(fetchedcomponent);
+			Assert.assertTrue(fetchedcomponent.equals(sIBname), "component value mapped is not displayed");
+			
+			
+			
+			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
+			System.out.println(fetchedScheduledDate);
+			Assert.assertTrue(fetchedScheduledDate.equals("29.08.18"), "ScheduledDate value mapped is not displayed");
+			
+			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
+			System.out.println(fetchedScheduledDatetime);
+		//	Assert.assertTrue(fetchedScheduledDatetime.equals(sformattedDatetime), "ScheduledDatetime value mapped is not displayed");
+			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			commonsPo.tap(workOrderPo.openpartsontap());
 			//Thread.sleep(GenericLib.iHighSleep);
 			String fetchedlocation =workOrderPo.getElePartsLocation().getAttribute("value");

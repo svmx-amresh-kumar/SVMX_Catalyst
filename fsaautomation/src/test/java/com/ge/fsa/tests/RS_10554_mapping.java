@@ -24,8 +24,8 @@ public class RS_10554_mapping extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;
-	//String sObjectIBID =null ;
-	String sObjectIBID = "a0N0t000001BA45EAG";
+	String sObjectIBID =null ;
+	//String sObjectIBID = "a0N0t000001BA45EAG";
    // String sIBname="Proforma30082018102823IB" ;
 	String sIBname=null ;
 	String sCaseSahiFile = null;
@@ -114,6 +114,9 @@ public class RS_10554_mapping extends BaseLib {
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
+			//config sync
+			toolsPo.configSync(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
 			toolsPo.syncData(commonsPo);
@@ -140,9 +143,6 @@ public class RS_10554_mapping extends BaseLib {
 			Assert.assertTrue(fetchedcomponent.equals(sIBname), "component value mapped is not displayed");
 			
 			
-			String fetchedordertype =workOrderPo.getordertypevalue().getAttribute("value");
-			System.out.println(fetchedordertype);
-			Assert.assertTrue(fetchedordertype.equals("Field Service"), "ordertype value mapped is not displayed");
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);

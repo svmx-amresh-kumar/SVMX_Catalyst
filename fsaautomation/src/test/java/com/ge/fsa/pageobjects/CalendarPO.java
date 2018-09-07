@@ -105,4 +105,13 @@ public class CalendarPO
 
 	}
 	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Month']")
+	private WebElement elecalendarMonthtap;
+	public WebElement getElecalendarMonthtap()
+	{
+		return elecalendarMonthtap;
+	}
+	
+	
 }
