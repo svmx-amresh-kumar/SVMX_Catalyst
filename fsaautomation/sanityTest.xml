@@ -8,8 +8,8 @@
 	<test name="Sanity">
 		<classes>
 			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Sanity1_RS11179_Create_Debrief_EventCreation_OPDOC_Recent" />
-			<class name="com.ge.fsa.tests.Sanity2_RS11180_Explore_Checklist_Config_Sync_DataSync" />
+			<class name="com.ge.fsa.tests.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" />
+			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.Sanity3_InitialSync_Tasks" />
 			<class name="com.ge.fsa.tests.Sanity4_PIQ" />
