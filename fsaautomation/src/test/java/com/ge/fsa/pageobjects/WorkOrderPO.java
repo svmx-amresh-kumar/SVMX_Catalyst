@@ -96,7 +96,11 @@ public class WorkOrderPO{
 		return eleAddExpenseType;
 	}
 	
-	
+	@FindBy(xpath="//div[contains(text(),'Full Name')]/following::div[contains(@id,'ext-gridrow-')]")
+	private List<WebElement> contactListInLkp;
+	public List<WebElement> getcontactListInLkp() {
+		return contactListInLkp;
+	}
 	
 	@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 	private WebElement eleManageWOLinesTxt;
@@ -619,6 +623,56 @@ public class WorkOrderPO{
 		return lblComponent;
 	}
 	
+	@FindBy(xpath="(//span[text()='Contact'])[2]")
+	private WebElement lblContact;
+	public WebElement getLblContact()
+	{
+		return lblContact;
+	}
+	
+	@FindBy(xpath="(//span[text()='Account'])[2]")
+	private WebElement lblAccount;
+	public WebElement getLblAccount()
+	{
+		return lblAccount;
+	}
+	
+	@FindBy(xpath="(//span[text()='Cancel'])[2]")
+	private WebElement lnkLookupCancel;
+	public WebElement getLnkLookupCancel()
+	{
+		return lnkLookupCancel;
+	}
+	
+	@FindBy(xpath="//span[text()='Filters']")
+	private WebElement lnkFilters;
+	public WebElement getLnkFilters()
+	{
+		return lnkFilters;
+	}
+	
+	@FindBy(xpath="//span[contains(text(),'Account:')]/following::input[@type='checkbox']")
+	private WebElement checkBoxAccount;
+	public WebElement getCheckBoxAccount()
+	{
+		return checkBoxAccount;
+	}
+	
+	@FindBy(xpath="//span[contains(text(),'Account:')]/following::input[@type='checkbox']/following::div[@class='x-mask-el']")
+	private WebElement checkBoxAccount01;
+	public WebElement getcheckBoxAccount01()
+	{
+		return checkBoxAccount01;
+	}
+	
+	@FindBy(xpath="//span[text()='Apply']")
+	private WebElement btnApply;
+	public WebElement getBtnApply()
+	{
+		return btnApply;
+	}
+	
+	
 	@FindBy(xpath="(//*[text()='Component']/../..//div[@class='x-innerhtml']/../..//input)[2]")
 	private WebElement txtComponent;
 	public WebElement getTxtComponent()
@@ -682,12 +736,18 @@ public class WorkOrderPO{
 	}
 	
 	@FindBy(xpath="(//span[text()='Contact'])[3]")
-	private WebElement lblChildContact;
-	public WebElement getLblChildContact()
+	private WebElement lblPartContact;
+	public WebElement getLblPartContact()
 	{
-		return lblChildContact;
+		return lblPartContact;
 	}
 	
+	@FindBy(xpath="(//span[text()='Account'])[3]")
+	private WebElement lblPartAccount;
+	public WebElement getLblPartAccount()
+	{
+		return lblPartAccount;
+	}
 	//close---------
 
 	

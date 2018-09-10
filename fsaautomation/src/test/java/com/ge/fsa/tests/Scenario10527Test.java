@@ -1,7 +1,10 @@
 package com.ge.fsa.tests;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
@@ -66,11 +69,57 @@ public class Scenario10527Test extends BaseLib {
 //		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002068", "AutoReg10529");
+		//******Validate 1st Case******
+		commonsPo.tap(workOrderPo.getLblContact());
+		List<WebElement> contactList = new ArrayList<WebElement>();
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		//******Validate 2nd Case******
+		commonsPo.tap(workOrderPo.getLblAccount());
+		commonsPo.lookupSearch("Acme");
+		commonsPo.tap(workOrderPo.getLblContact());
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		//******Validate 3rd Case******
+		commonsPo.tap(workOrderPo.getLnkFilters());
+		Thread.sleep(GenericLib.iLowSleep);
+//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
+		if(workOrderPo.getCheckBoxAccount().isSelected()) {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+		}
+		commonsPo.tap(workOrderPo.getBtnApply());
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		//******Validate 4th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(workOrderPo.getLblChildContact());
-//		commonsPo.swipeUp();
+		commonsPo.tap(workOrderPo.getLblPartContact());
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		//******Validate 5th Case******
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		commonsPo.tap(workOrderPo.getLblPartAccount());
+		commonsPo.lookupSearch("Acme");
+		commonsPo.tap(workOrderPo.getLblPartContact());
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		//******Validate 6th Case******
+		commonsPo.tap(workOrderPo.getLnkFilters());
+		System.out.println("Waiting");
+		Thread.sleep(GenericLib.iMedSleep);
+//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
+		if(workOrderPo.getCheckBoxAccount().isSelected()) {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+		}
+		commonsPo.tap(workOrderPo.getBtnApply());
+		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println(contactList.size());
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		
 	}
 }
