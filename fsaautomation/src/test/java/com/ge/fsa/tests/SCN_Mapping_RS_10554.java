@@ -23,7 +23,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_RS_10554_fiels_mapping extends BaseLib {
+public class SCN_Mapping_RS_10554 extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;
@@ -56,7 +56,7 @@ public class SCN_RS_10554_fiels_mapping extends BaseLib {
 	} 
 
 	@Test(enabled = true)
-	public void RS_10554_field_mapping() throws Exception {
+	public void RS_10554() throws Exception {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS-10554_mapping";

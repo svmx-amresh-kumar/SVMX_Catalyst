@@ -19,7 +19,7 @@ import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
-public class SCN_RS10516_ZeroLines extends BaseLib {
+public class SCN_ZeroLines_RS_10516 extends BaseLib {
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -28,7 +28,7 @@ public class SCN_RS10516_ZeroLines extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	@Test(enabled = true)
-	public void SCN_RS10516() throws Exception {
+	public void RS_10516() throws Exception {
 		
 		System.out.println("SCN_RS10516_ZeroLines");
 		

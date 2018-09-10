@@ -17,7 +17,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
-public class SCN_RS10578_Checklist_DVR extends BaseLib {
+public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sTestCaseID = null;
 	String sCaseWOID = null;
 	String sExploreSearch = null;
@@ -47,7 +47,7 @@ public class SCN_RS10578_Checklist_DVR extends BaseLib {
 	String schecklistStatus = "Completed";
 
 	@Test(enabled = true)
-	public void SCN_RS10578() throws Exception {
+	public void RS_10578() throws Exception {
 		
 		System.out.println("SCN_RS10578_Checklist_DVR");
 

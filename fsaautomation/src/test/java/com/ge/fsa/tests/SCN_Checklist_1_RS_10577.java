@@ -17,7 +17,7 @@ import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 
-public class SCN_RS10577_Checklist_SOU extends BaseLib{
+public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	String sTestCaseID= null;
 	String sCaseWOID = null;
 	String sExploreSearch = null;
@@ -62,7 +62,7 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 			
 			
 	@Test(enabled = true)
-	public void SCN_RS10577() throws Exception {
+	public void RS_10577() throws Exception {
 
 		System.out.println("SCN_RS10577_Checklist_SOU");
 

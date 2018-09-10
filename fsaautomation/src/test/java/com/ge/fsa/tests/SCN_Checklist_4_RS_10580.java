@@ -13,7 +13,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
-public class SCN_RS10580_Checklist_Sections extends BaseLib {
+public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sTestCaseID = null;
 	String sCaseWOID = null;
 	String sExploreSearch = null;
@@ -67,7 +67,7 @@ public class SCN_RS10580_Checklist_Sections extends BaseLib {
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
 
 	@Test(enabled = true)
-	public void SCN_RS10579() throws Exception {
+	public void RS_10580() throws Exception {
 		
 		System.out.println("SCN_RS10580_Checklist_Sections");
 

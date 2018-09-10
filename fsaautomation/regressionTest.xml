@@ -8,9 +8,15 @@
 	<test name="Regression">
 		<classes>
 			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.SCN_RS10568_ChildLineAddDelete" />
-			<class name="com.ge.fsa.tests.SCN_RS10577_Checklist_SOU.java" />
-			<class name="com.ge.fsa.tests.SCN_RS10578_Checklist_DVR.java" />
+			<class name="SCN_RS_10554_fiels_mapping" />
+			<class name="SCN_RS_10556_literals_mapping" />
+			<class name="SCN_RS_10557_child_mapping" />
+			<class name="SCN_RS10516_ZeroLines" />
+			<class name="SCN_RS10568_ChildLineAddDelete" />
+			<class name="SCN_RS10577_Checklist_SOU" />
+			<class name="SCN_RS10578_Checklist_DVR" />
+			<class name="SCN_RS10579_Checklist_Entry_Exit" />
+			<class name="SCN_RS10580_Checklist_Sections" />
 
 		</classes>
 	</test> <!-- Test -->

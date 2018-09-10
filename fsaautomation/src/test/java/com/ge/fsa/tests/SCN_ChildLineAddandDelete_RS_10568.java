@@ -14,7 +14,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
-public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
+public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -27,7 +27,7 @@ public class SCN_RS10568_ChildLineAddDelete extends BaseLib {
 	String slinepriceperunit = "1000";
 
 	@Test(enabled = true)
-	public void SCN_RS10568() throws Exception {
+	public void RS_10568() throws Exception {
 		
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		

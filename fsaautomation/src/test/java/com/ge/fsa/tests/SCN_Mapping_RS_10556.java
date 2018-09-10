@@ -26,7 +26,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
-public class SCN_RS_10556_literals_mapping extends BaseLib {
+public class SCN_Mapping_RS_10556 extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;
@@ -63,7 +63,7 @@ String Location=null;
 	} 
 
 	@Test(enabled = true)
-	public void RS_10556_mapping_svmx_literals() throws Exception {
+	public void RS_10556() throws Exception {
 		
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		

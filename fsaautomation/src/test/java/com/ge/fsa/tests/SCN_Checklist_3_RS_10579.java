@@ -1,5 +1,6 @@
 /*
  *  @author Vinod Tharavath
+ *  SCN_Checklist_3_RS-10579 Submit and sync Verify Checklist QC,DVR,SOU,ENTRY/EXIT and Help URL
  */
 package com.ge.fsa.tests;
 
@@ -12,7 +13,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
-public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
+public class SCN_Checklist_3_RS_10579 extends BaseLib {
 	String sTestCaseID = null;
 	String sCaseWOID = null;
 	String sExploreSearch = null;
@@ -55,7 +56,7 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
 
 	@Test(enabled = true)
-	public void SCN_RS10579() throws Exception {
+	public void RS_10579() throws Exception {
 		
 		System.out.println("SCN_RS10579_Checklist_Entry Exit with URL with basic source object update and DVR");
 

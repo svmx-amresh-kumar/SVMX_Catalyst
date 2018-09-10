@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 
-public class Scenario10529Test extends BaseLib {
+public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	
 	@Test
-	public void scenario10529Test(){
+	public void RS_10529(){
 		
 	// Create Location
 //	String sLocName = commonsPo.generaterandomnumber("Loc");

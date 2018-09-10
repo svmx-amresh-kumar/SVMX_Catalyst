@@ -10,10 +10,10 @@ import org.testng.annotations.Test;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario10527Test extends BaseLib {
+public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	
 	@Test
-	public void Scenario10527Test() throws IOException, InterruptedException {
+	public void RS_10527() throws IOException, InterruptedException {
 		
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");

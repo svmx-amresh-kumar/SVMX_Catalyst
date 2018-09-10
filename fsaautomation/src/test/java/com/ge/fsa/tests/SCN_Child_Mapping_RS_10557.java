@@ -24,7 +24,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
-public class SCN_RS_10557_child_mapping extends BaseLib {
+public class SCN_Child_Mapping_RS_10557 extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;
@@ -61,7 +61,7 @@ String Location=null;
 	} 
 
 	@Test(enabled = true)
-	public void RS_10557_field_mapping() throws Exception {
+	public void RS_10557() throws Exception {
 		
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
