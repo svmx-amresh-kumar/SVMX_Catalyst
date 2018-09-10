@@ -8,10 +8,18 @@ import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -27,6 +35,7 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class trial extends BaseLib {
 
+	private static final boolean True = false;
 	int iWhileCnt = 0;
 	String sTestIBID = null;
 	String sObjectIBID =null ;
@@ -57,10 +66,70 @@ public class trial extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
-	public void Trial() throws Exception {
+	
+	 private static final String DATE_FORMAT = "dd-M-yyyy'T'hh:mm:ss a";
+	  @Test
+	  public void datetest() throws ParseException {
+
+			
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+					int offset = TimeZone.getTimeZone("GMT").getRawOffset();
+					System.out.println("OFFSET IS = "+offset);
+
+					sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+					Date Datetest = sdf.parse("2018-09-01T4:48:04.000+4560");
+					System.out.println("DATE IS = "+Datetest);
+					
+					
+					
+					
+					SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+					dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+					//Local time zone   
+					SimpleDateFormat dateFormatLocal = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+					System.out.println("**********"+dateFormatLocal.toLocalizedPattern());
+
+					//Time in GMT
+					System.out.println(dateFormatLocal.parse( dateFormatGmt.format(new Date())) );
+	  }
+		 
+	
+	@Test(enabled = false)
+	 void Trial() throws Exception {
 		
-	String	 date="2018-09-01T16:37:04.000+0000";
+		final String DATE_FORMAT = "dd-M-yyyy hh:mm:ss a";
+
+
+		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+
+        String dateInString = "22-01-2015 10:15:55 AM";
+        Date date = formatter.parse(dateInString);
+        TimeZone tz = TimeZone.getDefault();
+
+        // From TimeZone Asia/Singapore
+        System.out.println("TimeZone : " + tz.getID() + " - " + tz.getDisplayName());
+        System.out.println("TimeZone : " + tz);
+        System.out.println("Date (Singapore) : " + formatter.format(date));
+
+        // To TimeZone America/New_York
+        SimpleDateFormat sdfAmerica = new SimpleDateFormat(DATE_FORMAT);
+        TimeZone tzInAmerica = TimeZone.getTimeZone("America/New_York");
+        sdfAmerica.setTimeZone(tzInAmerica);
+
+        String sDateInAmerica = sdfAmerica.format(date); // Convert to String first
+        Date dateInAmerica = formatter.parse(sDateInAmerica); // Create a new Date object
+
+        System.out.println("\nTimeZone : " + tzInAmerica.getID() + " - " + tzInAmerica.getDisplayName());
+        System.out.println("TimeZone : " + tzInAmerica);
+        System.out.println("Date (New York) (String) : " + sDateInAmerica);
+        System.out.println("Date (New York) (Object) : " + formatter.format(dateInAmerica));
+
+		
+		
+		
+	/*String	 date="2018-09-01T16:37:04.000+4560";
 		
 			  SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate1 = parser1.parse(date);
@@ -71,9 +140,9 @@ public class trial extends BaseLib {
 		        System.out.println("stempDate============   "+stempDate);
 		//WorkOrderPO.main(stempDate);
 		        
-		/*SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy HH:mm:ss", Locale.ENGLISH);
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy HH:mm:ss", Locale.ENGLISH);
 		System.out.println("formatter============   "+formatter);
-		String stempDate =  formatter.format(dTempDate1);  
+		 stempDate =  formatter.format(dTempDate1);  
 		System.out.println("stempDate============   "+stempDate);
 		String dateInString = stempDate;
 		Date date2 = formatter.parse(dateInString);

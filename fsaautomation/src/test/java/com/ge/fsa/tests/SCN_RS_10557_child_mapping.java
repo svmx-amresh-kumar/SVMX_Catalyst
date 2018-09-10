@@ -1,4 +1,7 @@
-
+/*
+*@author vinaya
+ *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/RS-10557"
+ */
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
@@ -21,7 +24,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
-public class RS_10557_SVMX_literals extends BaseLib {
+public class SCN_RS_10557_child_mapping extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;

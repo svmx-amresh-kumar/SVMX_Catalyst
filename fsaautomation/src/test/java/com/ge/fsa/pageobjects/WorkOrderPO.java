@@ -469,7 +469,7 @@ public class WorkOrderPO{
 		return eleOKBtn;
 	}
 	
-	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)")
 	private WebElement eleBillingTypeLst;
 	public WebElement getEleBillingTypeLst()
 	{
@@ -1026,6 +1026,34 @@ public class WorkOrderPO{
 			return Accountvalue;
 		}
 		
+		@FindBy(xpath="(//*[text()='Work Order Number'])[3]")
+		private WebElement WorkOrderNumber ;
+		public WebElement getWorkOrderNumber()
+		{
+			return WorkOrderNumber;
+		}
+		
+		@FindBy(xpath="//*[text()='Customer Down']")
+		private WebElement CustomerDown ;
+		public WebElement getCustomerDown()
+		{
+			return CustomerDown;
+		}
+		
+		
+		@FindBy(xpath="//*[text()='Is Billable']")
+		private WebElement IsBillable ;
+		public WebElement getIsBillable()
+		{
+			return IsBillable;
+		}
+		
+		@FindBy(xpath="//*[text()='Closed By']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement closedby ;
+		public WebElement getclosedby()
+		{
+			return closedby;
+		}	
 		
 		@FindBy(xpath="//*[text()='Product']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement Productvalue;
@@ -1048,6 +1076,52 @@ public class WorkOrderPO{
 			return ordertypevalue;
 		}
 
+		@FindBy(xpath="//*[text()='Email']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Email;
+		public WebElement getEmailvalue()
+		{
+			return Email;
+		}
+		
+		@FindBy(xpath="//*[text()='URL']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement URL;
+		public WebElement getURLvalue()
+		{
+			return URL;
+		}
+		
+		@FindBy(xpath="//*[text()='Number']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Number;
+		public WebElement getNumbervalue()
+		{
+			return Number;
+		}
+		
+		@FindBy(xpath="//*[text()='Phone']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Phone;
+		public WebElement getPhonevalue()
+		{
+			return Phone;
+		}
+
+		@FindBy(xpath="//*[text()='Currency']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement Currency;
+		public WebElement getCurrencyvalue()
+		{
+			return Currency;
+		}
+		
+		
+		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span)[2]")
+		private WebElement ProblemDescription;
+		public WebElement getProblemDescription()
+		{
+			return ProblemDescription;
+		}
+		
+		
+		//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span)[2]
+		
 		@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement ScheduledDatevalue;
 		public WebElement getScheduledDatevalue()
@@ -1094,7 +1168,27 @@ public class WorkOrderPO{
 		}
 		
 		
-	    
+		@FindBy(xpath="//*[text()='Record Type']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement RecordType;
+		public WebElement getRecordType()
+		{
+			return RecordType;
+		}
+		
+		@FindBy(xpath="//*[text()='Canceled By']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement CanceledBy;
+		public WebElement getCanceledBy()
+		{
+			return CanceledBy;
+		}
+		
+		@FindBy(xpath="//*[text()='Line Type']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement LineType;
+		public WebElement getLineType()
+		{
+			return LineType;
+		}
+		
 	   
 }
 

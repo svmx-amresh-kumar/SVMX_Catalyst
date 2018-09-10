@@ -87,7 +87,7 @@ public class BaseLib {
 			capabilities.setCapability("clearSystemFiles", true);
 			capabilities.setCapability("newCommandTimeout", 1000000);
 			
-			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			
