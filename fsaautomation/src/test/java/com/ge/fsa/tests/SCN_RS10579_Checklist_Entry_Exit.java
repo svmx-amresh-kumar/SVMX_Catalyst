@@ -1,3 +1,6 @@
+/*
+ *  @author Vinod Tharavath
+ */
 package com.ge.fsa.tests;
 
 import org.json.JSONArray;
@@ -67,8 +70,6 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
 		
-	
-		
 
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
 		
@@ -87,14 +88,14 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		System.out.println("WO no =" + sWOName2);
 			
 		
-		//Cancelled Work Order for Qualification Criteria check.
+		// Work Order for checklist entry Criteria check.
 		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"Low\"}");
 		System.out.println(sWORecordID);
 		String sWOName3 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName3);
 				
 		//sWOName1 = "WO-00001615";
-		//sWOName2 = "WO-00001615"
+		
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
@@ -119,10 +120,7 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");	    
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
-		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
-		
-		
-	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");				
 		//Thread.sleep(12000);
 		commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
@@ -140,7 +138,6 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).sendKeys(sSectionThreeq1Ans);
 		commonsPo.tap(checklistPo.geteleNext());	
 		Thread.sleep(GenericLib.iLowSleep);
-		//checklistPo.geteleChecklistSectionNametab(sSection1Name).click();
 		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		Thread.sleep(genericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
@@ -161,6 +158,8 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		String sTempVal = checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).getAttribute("value");
 		Assert.assertEquals(sTempVal, sSectionThreeq1Ans, "Section switch has caused data loss");
+		ExtentManager.logger.log(Status.PASS,"There is no data loss in switching sections");
+
 		//commonsPo.tap(checklistPo.geteleNext());
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
@@ -168,7 +167,7 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		commonsPo.tap(checklistPo.eleChecklistSubmit());			
 				
 
-		// tapping on the validation sucessfull checklist popup
+		// tapping on the validation successful checklist popup
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		
@@ -180,9 +179,16 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 		
 		String Temp  = workOrderPo.geteleProblemDescriptionlbl().getText();
 		System.out.println("gettext value"+Temp );	
+		Assert.assertEquals(Temp, sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
+		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for Problem Description");
+
 		
 		String Temp1  = workOrderPo.geteleBillingTypelbl().getText();
-		System.out.println("gettext value"+Temp1);
+		System.out.println("gettext value"+Temp1);	
+		Assert.assertEquals(Temp1, sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
+		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for billing type in Work Order");
+
+		
 	
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -205,13 +211,8 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 			}
 			
 			Thread.sleep(GenericLib.iLowSleep);
-	
-	
-		//checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).sendKeys(sSectionThreeq1Ans);
-		//Assert.assertFalse(checklistPo.geteleChecklistSectionNametab("Section Two").isEnabled(), "Exit Criteria Validation Failed");	 	
 
-		
-	//Validating Work not satisfying checklist entry criteria		
+			//Validating Work not satisfying checklist entry criteria		
 			
 			//Navigating back to work Orders
 			commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
@@ -221,11 +222,11 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 			workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 			
 			// Navigate to Field Service process
-						workOrderPo.selectAction(commonsPo, sFieldServiceName);
-						Thread.sleep(GenericLib.iLowSleep);
-						// Navigating to the checklist
-						commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
-						Thread.sleep(GenericLib.iLowSleep);
+			workOrderPo.selectAction(commonsPo, sFieldServiceName);
+			Thread.sleep(GenericLib.iLowSleep);
+			// Navigating to the checklist
+			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			Thread.sleep(GenericLib.iLowSleep);
 
 						
 						
@@ -262,11 +263,11 @@ public class SCN_RS10579_Checklist_Entry_Exit extends BaseLib {
 			
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			Assert.assertTrue(ChecklistAnsjson.contains(sSectionThreeq1Ans), "checklist section three  question answer is not synced to server");
-			ExtentManager.logger.log(Status.PASS,"checklist section three text question answer is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist section three text question answer is  synced to server");
 			
 			String ChecklistAnsjson1 = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			Assert.assertTrue(ChecklistAnsjson1.contains(sNumberSectionJumpAns), "checklist section three  question answer is not synced to server");
-			ExtentManager.logger.log(Status.PASS,"checklist section three text question answer is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist section Number question answer is  synced to server");
 			
 			String sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName1+"'"; 
 			String sSoqlqueryWOProb = "Select+SVMXC__Problem_Description__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName1+"'"; 

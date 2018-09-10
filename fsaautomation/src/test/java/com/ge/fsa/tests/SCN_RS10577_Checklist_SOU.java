@@ -1,3 +1,6 @@
+/*
+ *  @author Vinod Tharavath
+ */
 package com.ge.fsa.tests;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -181,7 +184,7 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 		 	Assert.assertEquals(workOrderPo.geteleIdleTimetxt().getAttribute("value"), sIdleTimeSOU, "Number Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Number with value  Sucessfull");
 
-			/*sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
+			sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
 			System.out.println(sScheduledDateTime);
 		 	Assert.assertEquals(workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value"), sScheduledDateTimeSou, "DateTime Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for DateTime Sucessfull");
@@ -191,7 +194,7 @@ public class SCN_RS10577_Checklist_SOU extends BaseLib{
 			System.out.println(sScheduledDate);
 			Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDateSOU, "Date Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");
-			*/
+			
 			
 			sProformaInvoice = workOrderPo.getEleProformaInvoiceTxt().getAttribute("value");
 			Assert.assertEquals(workOrderPo.getEleProformaInvoiceTxt().getAttribute("value"), sProformaInvoiceSOU, "Text Source Object is not updated");
