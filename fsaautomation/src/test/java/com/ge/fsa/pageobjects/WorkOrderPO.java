@@ -543,6 +543,16 @@ public class WorkOrderPO{
 		return eleScheduledDateTxt;
 	}
 	
+	
+	
+	//Changed to contains text in order to accomodate mandatory order status* values 	
+	@FindBy(xpath="(//*[contains(text(), 'Order Status')]/../..//div[@class='x-input-body-el']/input)[2]")
+	private WebElement eleOrderStatusEditMandatoryValue;
+	public WebElement geteleOrderStatusEditMandatoryValue()
+	{
+		return eleOrderStatusEditMandatoryValue;
+	}
+			
 	@FindBy(xpath="//*[text()='Order Status']/../..//div[@class='x-input-body-el']/input")
 	private WebElement eleOrderStatusCaseLst;
 	public WebElement getEleOrderStatusCaseLst()
@@ -1249,7 +1259,28 @@ public class WorkOrderPO{
 			return LineType;
 		}
 		
-	   
+		
+		@FindBy(xpath="//*[text()='No Of Times Assigned']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement NoOfTimesAssigned;
+		public WebElement GetEleNoOfTimesAssigned_Edit_Input()
+		{
+			return NoOfTimesAssigned;
+		}
+		
+		@FindBy(xpath="//span[@class='x-button-icon x-shown icon-chevron-left svmx-back-button']")
+		private WebElement eleBacktoWorkOrderlnk;
+		public WebElement geteleBacktoWorkOrderlnk()
+		{
+			return eleBacktoWorkOrderlnk;
+		}
+		
+		//index is provided as we are editing a double layer page which contains two accounts.
+		@FindBy(xpath="(//div[. = 'Account']//input[@class = 'x-input-el'])[2]")
+		private WebElement eleAccount_Edit_Input;
+		public WebElement getEleAccount_Edit_Input()
+		{
+			return eleAccount_Edit_Input;
+		}
 }
 
 
