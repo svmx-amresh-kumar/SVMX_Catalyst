@@ -6,12 +6,13 @@
  *  ====Sahi Script for Process Creations SourcetoTarget and Edit process.
  *  === MAKE SURE URL,Phone,Email - custom fields are created in the ORG before running.
  *  === DateTime and date field literals need to be completed.
- *  ===Child level SOurce Object updates
+ * 
  */
 
 package com.ge.fsa.tests;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -37,7 +38,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String sOrderStatusVal =null;
 	String sEditProcessName = null;
-	
+	String sProductName = null;
 	
 	String sObjectApi = null;
 	String sJsonData=null;
@@ -104,6 +105,46 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWorkOrderID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 	
+		
+		// Creating Product from API
+				sProductName = "AUTO_RS10544";
+				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+				String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
+				System.out.println(sProductId);
+				
+		//Getting record type usage Usage/Consumption for work detail
+		String sUsageLine = "Usage/Consumption";
+		String sRecordTypeId = restServices.restGetSoqlValue("SELECT+Id+from+RecordType+Where+Name+=\'" + sUsageLine + "\'", "Id");
+
+		
+	//Creating and associating a work detail to the work Order	
+	String sworkDetail = restServices.restCreate("SVMXC__Service_Order_Line__c?","{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Parts\",\"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\",\"RecordTypeId\":\""+sRecordTypeId+"\",\"SVMXC__Actual_Quantity2__c\":\"11\",\"SVMXC__Product__c\":\""+sProductId+"\"}");//,,
+	System.out.println("work Detail");
+	System.out.println(sworkDetail);
+	
+	//Creating a servicemax event and assigning the work order to it.
+	
+	/*String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+	String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
+	restServices.getAccessToken();
+	String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
+	String sEventName = "AUTO_10544Event";
+	String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");
+*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
 	//	sWOName = "WO-00002177";
 
 							
@@ -160,12 +201,35 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 		Assert.assertEquals(workOrderPo.getEmailvalue().getAttribute("value").toString(),sEmailSOU,"Email source update failed");
 		ExtentManager.logger.log(Status.PASS,"Email  Source Object Update Header sucessful in Client");
+		
+		// TO ALTER AFTER DATE AND DATETIME vALUES ARE FIXEd.
 
+		String sScheduledDateHeader = workOrderPo.getScheduledDatevalue().getAttribute("value").toString();
+		System.out.println("Scheduled Date Header"+sScheduledDateHeader);		
+		String sScheduledDateTimeHeader = workOrderPo.getScheduledDatetimevalue().getAttribute("value").toString();
+		System.out.println("Scheduled Date Header"+sScheduledDateTimeHeader);
 
+		commonsPo.tap(workOrderPo.openpartsontap1());
+		Thread.sleep(genericLib.iLowSleep);
+		Assert.assertEquals(workOrderPo.getelePart_Edit_Input().getAttribute("value").toString(),sProductName,"Part is not source object updated");
+		ExtentManager.logger.log(Status.PASS,"Part Child  Lookup Source Object Update Header sucessful in Client");
+
+		Assert.assertEquals(workOrderPo.getElePart_BillingInformation_Edit_Input().getText(), "Long Text area Source Object Updated","Long Text are is not source object updated");
+		ExtentManager.logger.log(Status.PASS,"Child Text area Billing information  Source Object Update Header sucessful in Client");
 		
 
-			
-	        
+		Assert.assertEquals(workOrderPo.getElePart_BillableQty_Edit_Input().getAttribute("value").toString(), "2","Child number soulce object updated failed");
+		ExtentManager.logger.log(Status.PASS,"Child NumberDataType Source Object Update Header sucessful in Client");
+
+		
+		//DATE AND DATETIME VALIDATIONS NEED TO ALERTED AFTER final confirmation.
+		
+		String sDateRec =  workOrderPo.getElePart_DateReceived_Edit_Input().getAttribute("value").toString();
+	    System.out.println("DateReceived   "+sDateRec);    
+	    
+	    String sStartDateTime =  workOrderPo.getElePart_StartDateTime_Edit_Input().getAttribute("value").toString();
+	    System.out.println("StartDateTime   "+sStartDateTime);    
+	    
 	}
 	
 }

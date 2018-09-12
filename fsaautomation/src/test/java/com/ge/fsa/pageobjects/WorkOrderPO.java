@@ -1281,6 +1281,64 @@ public class WorkOrderPO{
 		{
 			return eleAccount_Edit_Input;
 		}
+		
+		//Retreiving Part value in Edit of part
+		@FindBy(xpath="//*[text()='Part']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement elePart_Edit_Input;
+		public WebElement getelePart_Edit_Input()
+		{
+			return elePart_Edit_Input;
+		}
+		
+		@FindBy(xpath="//*[text()='Billing Information']/../..//div[@class='x-innerhtml']/../..//span")
+		private WebElement elePart_BillingInformationEdit_Input;
+		public WebElement getElePart_BillingInformation_Edit_Input()
+		{
+			return elePart_BillingInformationEdit_Input;
+		}
+		
+		@FindBy(xpath="//*[text()='Received City']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement elePart_Received_City_Edit_Input;
+		public WebElement getelePart_Received_City_Edit_Input()
+		{
+			return elePart_Received_City_Edit_Input;
+		}
+		
+		@FindBy(xpath="//*[text()='Billable Qty']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement elePart_BillableQty_Edit_Input;
+		public WebElement getElePart_BillableQty_Edit_Input()
+		{
+			return elePart_BillableQty_Edit_Input;
+		}
+		
+		@FindBy(xpath="//*[text()='Date Received']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement elePart_DateReceived_Edit_Input;
+		public WebElement getElePart_DateReceived_Edit_Input()
+		{
+			return elePart_DateReceived_Edit_Input;
+		}
+		
+		
+		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement elePart_StartDateTime_Edit_Input;
+		public WebElement getElePart_StartDateTime_Edit_Input()
+		{
+			return elePart_StartDateTime_Edit_Input;
+		}
+		
+		
+		//VT: Need to update the xpath as index is not a viable solution-- for now proceeding
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[3]")
+		private WebElement partsontap1;
+		public WebElement openpartsontap1()
+		{
+			return partsontap1;
+		}
+		
+		
+		
+		
+		
 }
 
 
