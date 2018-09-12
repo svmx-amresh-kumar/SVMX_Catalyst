@@ -945,6 +945,7 @@ public class WorkOrderPO{
 		commonsPo.tap(getElePartLaborLkUp2());
 		commonsPo.lookupSearch(sProductName1);
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		commonsPo.tap(getEleDoneBtn());
 
 	}
 	
