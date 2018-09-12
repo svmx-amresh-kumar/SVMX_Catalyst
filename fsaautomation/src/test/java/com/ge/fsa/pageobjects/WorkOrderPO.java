@@ -202,6 +202,14 @@ public class WorkOrderPO{
 		return elePartLaborLkUp;
 	}
 	
+	
+			@FindBy(xpath="(//span[text()='Part']/../../div[2]//input[@class='x-input-el'])[2]")
+			private WebElement elePartLaborLkUp2;
+			public WebElement getElePartLaborLkUp2()
+			{
+				return elePartLaborLkUp2;
+			}
+	
 	@FindBy(xpath="//span[text()='To Location']/../../div[2]//input[@class='x-input-el']")
 	private WebElement elePartsLocation;
 	public WebElement getElePartsLocation()
@@ -378,6 +386,34 @@ public class WorkOrderPO{
 		return eleIBId;
 	}
 	
+	
+	
+	@FindBy(xpath="//span[@class='x-button-icon x-shown x-fa fa-list']")
+	private WebElement eleLinkedSFM;
+	public  WebElement getEleLinkedSFM()
+		{
+				
+			return eleLinkedSFM;
+		}
+	
+	
+	private WebElement eleSFMfromLinkedSFM;
+	public WebElement getEleSFMfromLinkedSFM(String sSFMName)
+	{
+
+		eleSFMfromLinkedSFM = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sSFMName+"']"));
+
+		return eleSFMfromLinkedSFM;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
+	private WebElement eleDiscardChanges;
+	public  WebElement getEleDiscardChanges()
+		{
+				
+			return eleDiscardChanges;
+		}
 
 	@FindBy(xpath="(//div[. = 'Product']//input[@class = 'x-input-el'])[2]")
 	private WebElement eleProductLookup;
@@ -661,6 +697,14 @@ public class WorkOrderPO{
 		return lnkFilters;
 	}
 	
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Add']")
+	private WebElement eleAddPSLines;
+	public WebElement getEleAddPSLines()
+	{
+		return eleAddPSLines;
+	}
+	
 	@FindBy(xpath="//span[contains(text(),'Account:')]/following::input[@type='checkbox']")
 	private WebElement checkBoxAccount;
 	public WebElement getCheckBoxAccount()
@@ -893,6 +937,26 @@ public class WorkOrderPO{
 
 	}
 	
+	// Add parts for Manage Work Details
+	
+	public void addPartsManageWD(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		commonsPo.tap(getElePartLaborLkUp2());
+		commonsPo.lookupSearch(sProductName1);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+
+	}
+	
+	// To add PS Lines to the Work Order
+	public void addPSLines(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
+	{
+		commonsPo.tap(workOrderPo.getEleAddPSLines());
+		commonsPo.lookupSearch(sSerialNumber);
+		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		
+	}
+	
 // To multi Select the Parts for the Work Order ChildLines
 	
 	public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
@@ -900,7 +964,7 @@ public class WorkOrderPO{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		for(int i=0;i<sProductName1.length ;i++) {
 		commonsPo.lookupSearch(sProductName1[i]);
-		}
+		} 
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
 	}
