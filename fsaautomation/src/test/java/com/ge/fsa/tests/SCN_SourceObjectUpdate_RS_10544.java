@@ -38,8 +38,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String sOrderStatusVal =null;
 	String sEditProcessName = null;
-	String sProductName = null;
-	
+	String sProductName = null;	
 	String sObjectApi = null;
 	String sJsonData=null;
 	String sObjectAccID=null;
@@ -61,6 +60,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			String sURLSOU = "www.servicemax.com";
 			String sPhoneSOU = "9886098860";
 			String sEmailSOU = "automation@qa.com";
+			Boolean bBooleanSOU = true;
 			
 	//For ServerSide Validations
 			String schecklistStatus = "Completed";
@@ -107,10 +107,10 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	
 		
 		// Creating Product from API
-				sProductName = "AUTO_RS10544";
-				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
-				String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
-				System.out.println(sProductId);
+		sProductName = "AUTO_RS10544";
+		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
+		System.out.println(sProductId);
 				
 		//Getting record type usage Usage/Consumption for work detail
 		String sUsageLine = "Usage/Consumption";
@@ -124,27 +124,13 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	
 	//Creating a servicemax event and assigning the work order to it.
 	
-	/*String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+/*	String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
 	String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 	restServices.getAccessToken();
 	String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 	String sEventName = "AUTO_10544Event";
-	String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");
-*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
+	String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");*/
+			
 	//	sWOName = "WO-00002177";
 
 							
@@ -178,7 +164,9 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		commonsPo.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-	 
+		
+		ExtentManager.logger.log(Status.PASS,"Data Sync sucessfull after Source object Update process invoking");
+
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
 		
 		Assert.assertEquals(workOrderPo.getEleBillingTypeCaseLst().getAttribute("value").toString(), sBillingTypeSOU, "Picklist source object update failed billing type not set to warranty");
@@ -193,6 +181,8 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		Assert.assertEquals(workOrderPo.getAccountvalue().getAttribute("value"), sAccountName, "Lookup Source Object update failed.Account is not being displayed");
 		ExtentManager.logger.log(Status.PASS,"Look Up Source Object Update Header sucessful in Client");
 		
+		
+		
 		Assert.assertEquals(workOrderPo.getURLvalue().getAttribute("value").toString(),sURLSOU,"URL source update failed");
 		ExtentManager.logger.log(Status.PASS,"URL Source Object Update Header sucessful in Client");		
 		
@@ -202,15 +192,22 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		Assert.assertEquals(workOrderPo.getEmailvalue().getAttribute("value").toString(),sEmailSOU,"Email source update failed");
 		ExtentManager.logger.log(Status.PASS,"Email  Source Object Update Header sucessful in Client");
 		
+		
+		Assert.assertTrue(workOrderPo.getEleIsEntitlementPerformed().isEnabled(), "Boolean  Source Object Update Header fail in Client");
+		//Assert.assertEquals(workOrderPo.getEleIsEntitlementPerformed().isEnabled(), bBooleanSOU, "Boolean  Source Object Update Header sucessful in Client");
+		ExtentManager.logger.log(Status.PASS,"Boolean  Source Object Update Header sucessful in Client");
+		
+		
+		
 		// TO ALTER AFTER DATE AND DATETIME vALUES ARE FIXEd.
-
 		String sScheduledDateHeader = workOrderPo.getScheduledDatevalue().getAttribute("value").toString();
 		System.out.println("Scheduled Date Header"+sScheduledDateHeader);		
 		String sScheduledDateTimeHeader = workOrderPo.getScheduledDatetimevalue().getAttribute("value").toString();
 		System.out.println("Scheduled Date Header"+sScheduledDateTimeHeader);
-
+		
 		commonsPo.tap(workOrderPo.openpartsontap1());
 		Thread.sleep(genericLib.iLowSleep);
+		
 		Assert.assertEquals(workOrderPo.getelePart_Edit_Input().getAttribute("value").toString(),sProductName,"Part is not source object updated");
 		ExtentManager.logger.log(Status.PASS,"Part Child  Lookup Source Object Update Header sucessful in Client");
 
@@ -222,13 +219,63 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Child NumberDataType Source Object Update Header sucessful in Client");
 
 		
-		//DATE AND DATETIME VALIDATIONS NEED TO ALERTED AFTER final confirmation.
-		
+		//DATE AND DATETIME VALIDATIONS NEED TO ALERTED AFTER final confirmation.		
 		String sDateRec =  workOrderPo.getElePart_DateReceived_Edit_Input().getAttribute("value").toString();
-	    System.out.println("DateReceived   "+sDateRec);    
-	    
+	    System.out.println("DateReceived   "+sDateRec);    	    
 	    String sStartDateTime =  workOrderPo.getElePart_StartDateTime_Edit_Input().getAttribute("value").toString();
 	    System.out.println("StartDateTime   "+sStartDateTime);    
+	    
+	    commonsPo.tap(workOrderPo.getEleDoneBtn());
+	    commonsPo.tap(workOrderPo.getEleClickSave());
+	    Thread.sleep(genericLib.iMedSleep);
+		//commonsPo.tap(workOrderPo.geteleBacktoWorkOrderlnk());
+
+		toolsPo.syncData(commonsPo);
+
+		restServices.getAccessToken();
+		
+		String sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlNoOfTimes = "Select+SVMXC__NoOfTimesAssigned__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlSchedulesDate = "Select+SVMXC__Scheduled_Date__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlScheduledDateTime = "Select+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlEmail = "Select+Email__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlURL = "Select+URL__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlPhone = "Select+Phone__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+		String sSoqlProbDesc = "Select+SVMXC__Problem_Description__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
+
+	 
+		
+		String sURLServer = restServices.restGetSoqlValue(sSoqlURL,"URL__c");
+		Assert.assertEquals(sURLServer, sURLSOU, " Server URL source object update failed  not set in Server");
+		ExtentManager.logger.log(Status.PASS,"Server URL Source Object Update  Header sucessful in Server");
+
+		String sEmailServer = restServices.restGetSoqlValue(sSoqlEmail,"Email__c");
+		Assert.assertEquals(sEmailServer, sEmailSOU, " Server Email source object update failed not set in Server");
+		ExtentManager.logger.log(Status.PASS,"Server eEmail Source Object Update  Header sucessful in Server");
+		
+		String sPhoneserver = restServices.restGetSoqlValue(sSoqlPhone,"Phone__c");
+		Assert.assertEquals(sPhoneserver, sPhoneSOU, " Server Phone  source object update failed not set in Server");
+		ExtentManager.logger.log(Status.PASS,"Server Phone Source Object Update  Header sucessful in Server");
+
+		
+		String sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO,"SVMXC__Billing_Type__c");
+		Assert.assertEquals(sBillTypeServer, sBillingTypeSOU, " Server Picklist source object update failed billing type not set to warranty in Server");
+		ExtentManager.logger.log(Status.PASS,"Server Picklist Source Object Update  Header sucessful in Server");
+
+		
+		String sProbDescServer = restServices.restGetSoqlValue(sSoqlProbDesc,"SVMXC__Problem_Description__c");
+		Assert.assertEquals(sProbDescServer, sProblemDescriptionSOU, " Server Problem Desc source object update failed billing type not set to warranty in Server");
+		ExtentManager.logger.log(Status.PASS,"Server Problem Desc Source Object Update  Header sucessful in Server");
+
+		
+		String sNoOftimesServer = restServices.restGetSoqlValue(sSoqlNoOfTimes,"SVMXC__NoOfTimesAssigned__c");
+		String sNoOftimesServer1= sNoOftimesServer.substring(0, sNoOftimesServer.length() - 2);
+		Assert.assertEquals(sNoOftimesServer1, sNoOftimesServer1, " Server Number source object update failed billing type not set to warranty in Server");
+		ExtentManager.logger.log(Status.PASS,"Server Number Source Object Update  Header sucessful in Server");
+												
+	//	String sScheduledDateServer = restServices.restGetSoqlValue(sSoqlSchedulesDate,"SVMXC__Scheduled_Date__c");
+	//	String sScheduledDateTimeServer = restServices.restGetSoqlValue(sSoqlScheduledDateTime,"SVMXC__Scheduled_Date_Time__c");
+	    
 	    
 	}
 	

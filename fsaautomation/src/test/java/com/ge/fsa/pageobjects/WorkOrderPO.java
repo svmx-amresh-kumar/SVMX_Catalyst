@@ -1400,7 +1400,12 @@ public class WorkOrderPO{
 			return partsontap1;
 		}
 		
-		
+		@FindBy(xpath="//*[text()='Is Entitlement Performed']")
+		private WebElement EleIsEntitlementPerformed ;
+		public WebElement getEleIsEntitlementPerformed()
+		{
+			return EleIsEntitlementPerformed;
+		}
 		
 		
 		
