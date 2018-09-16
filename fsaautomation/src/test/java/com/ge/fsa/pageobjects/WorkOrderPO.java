@@ -973,7 +973,7 @@ public class WorkOrderPO{
 	public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 	{
 		commonsPo.longPress(workOrderPo.getEleCasePartIcn());
-		commonsPo.singleTap(workOrderPo.getElePartLst().getLocation());
+		commonsPo.tap(workOrderPo.getElePartLst());
 		commonsPo.lookupSearch(sProductName1);
 		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 
