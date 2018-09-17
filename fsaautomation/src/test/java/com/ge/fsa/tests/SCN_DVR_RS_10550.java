@@ -14,7 +14,6 @@ package com.ge.fsa.tests;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -250,6 +249,11 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
 		
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		
+		//Validation of qualifying workorder with Issue found text error.
+		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Work Order Saved successfully is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
+		
 		Thread.sleep(genericLib.iLowSleep);
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -290,6 +294,9 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 			ExtentManager.logger.log(Status.PASS,"Parts DVR message is not longer displayed after adding more than 2 line qty");
 		}
 		
+		//Validation of qualifying workorder with Issue found text error.
+		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
 	}
 	
 	
