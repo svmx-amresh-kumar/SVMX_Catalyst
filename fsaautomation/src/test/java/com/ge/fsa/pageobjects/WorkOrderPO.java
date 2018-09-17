@@ -406,7 +406,16 @@ public class WorkOrderPO{
 		return eleSFMfromLinkedSFM;
 	}
 	
+
 	
+
+	private WebElement eleSFMfromLinkedSFM2;
+	public WebElement getEleSFMfromLinkedSFM2(String sSFMName)
+		{
+
+			eleSFMfromLinkedSFM2 = driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='Manage Work Details for Products Serviced'])[2]"));
+			return eleSFMfromLinkedSFM2;
+			}
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
 	private WebElement eleDiscardChanges;
 	public  WebElement getEleDiscardChanges()
@@ -944,7 +953,8 @@ public class WorkOrderPO{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(getElePartLaborLkUp2());
 		commonsPo.lookupSearch(sProductName1);
-		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		//commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		//Thread.sleep(1000);
 		commonsPo.tap(getEleDoneBtn());
 
 	}
