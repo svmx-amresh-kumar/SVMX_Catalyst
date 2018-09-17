@@ -523,7 +523,7 @@ public class WorkOrderPO{
 		return elePicklistValue = driver.findElement(By.xpath("//*[text()='"+PicklistValue+"']/../..//div[@class='x-input-body-el']/input)"));
 	}
 	
-	@FindBy(xpath="//div[contains(text(),'Issue found')]")
+	@FindBy(xpath="//div[contains(text(),'Issue')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
@@ -1405,6 +1405,90 @@ public class WorkOrderPO{
 		public WebElement getEleIsEntitlementPerformed()
 		{
 			return EleIsEntitlementPerformed;
+		}
+		
+		@FindBy(xpath="//*[text()='Update']")
+		private WebElement EleUpdateLnk ;
+		public WebElement getEleUpdateLnk()
+		{
+			return EleUpdateLnk;
+		}
+		
+		@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		private WebElement eleProblemDesc_Edit_WorkOrder;
+		public WebElement geteleProblemDesc_Edit_WorkOrder()
+		{
+			return eleProblemDesc_Edit_WorkOrder;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Description')][@class = 'x-innerhtml']/../../../../../../..//textarea")
+		private WebElement eleProblemDesc_Edit_WorkOrderPopup;
+		public WebElement geteleProblemDesc_Edit_WorkOrderPopup()
+		{
+			return eleProblemDesc_Edit_WorkOrderPopup;
+		}
+		
+		
+		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleBillingType_Edit_Lst;
+		public WebElement geteleBillingType_Edit_Lst()
+		{
+			return eleBillingType_Edit_Lst;
+		}
+		
+		
+		@FindBy(xpath="(//span[@class='tools-sync-button-label-largemodern'][text()='Work Order'])[1]")
+		private WebElement eleWorkOrderLeftPane_View;
+		public WebElement geteleWorkOrderLeftPane_View()
+		{
+			return eleWorkOrderLeftPane_View;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Auto_Date1')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleAutoDate1_Edit_Input;
+		public WebElement getEleAutoDate1_Edit_Input()
+		{
+			return eleAutoDate1_Edit_Input;
+		}
+		
+		
+		@FindBy(xpath="//*[contains(text(),'Auto_Date2')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleAutoDate2_Edit_Input;
+		public WebElement getEleAutoDate2_Edit_Input()
+		{
+			return eleAutoDate2_Edit_Input;
+		}
+		
+		
+		//NOT WORKING NEED TO EDIT.
+		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
+		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
+		private WebElement eleIsEntitlementPerformed_Edit_Switch;
+		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		{
+			return eleIsEntitlementPerformed_Edit_Switch;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Is Entitlement Performed has to be true.']/../..//div[@class='x-body-el']")
+		private WebElement eleIsEntitlementPerformedConfirmation;
+		public WebElement getEleIsEntitlementPerformedConfirmation()
+		{
+			return eleIsEntitlementPerformedConfirmation;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Line Price Per Unit')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleLinePricePerUnit_Parts_Edit_Input;
+		public WebElement getEleLinePricePerUnit_Parts_Edit_Input()
+		{
+			return eleLinePricePerUnit_Parts_Edit_Input;
+		}
+		
+		@FindBy(xpath="//span[contains(text(),'Line Price is Less than 2000')]/../..//div[@class='x-body-el']")
+		private WebElement eleLinePriceLessthanConfirmation;
+		public WebElement getEleLinePriceLessthanConfirmation()
+		{
+			return eleLinePriceLessthanConfirmation;
 		}
 		
 		
