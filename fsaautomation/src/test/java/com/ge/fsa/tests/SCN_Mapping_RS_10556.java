@@ -32,28 +32,46 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 	String sTestIBID = null;
 	String sObjectIBID =null ;
 	
-	String sIBname=null ;
-	String sCaseSahiFile = null;
+	//String sIBname=null ;
+	//String sCaseSahiFile = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sObjectAccID = null;
-	String sSqlAccQuery=null;
-	String sObjectProID=null;
-	String sObjectApi = null;
-	String sJsonData = null;
+//	String sSqlAccQuery=null;
+	//String sObjectProID=null;
+	//String sObjectApi = null;
+	//String sJsonData = null;
 	//String sAccountName = "Proforma04092018185618account";
-	String sAccountName =null;
+	//String sAccountName =null;
 	String sFieldServiceName = null;
 	//String sproductname = "Proforma04092018185618product";
-	String sproductname =null;
+	//String sproductname =null;
 	//String sInstalledproductID="RS_10557_InstalledProduct_Auto";
-	String sSqlQuery = null;
+	//String sSqlQuery = null;
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
-	String sIBLastModifiedBy=null;
-	String sObjectlocationID=null;
-String Location=null;
-	
+	//String sObjectlocationID=null;
+//String Location=null;
+String SFMBillingtype="Empowerment";
+String SFMcontact="C10556_ Auto";
+boolean SFMCustomerDown=true;
+String SFMEmail="testsample@gmail.com";
+String SFMNumber="11";
+String SFMPhone="9902819683";
+String SFMURL="www.motogp.com";
+String SFMCurrency="46";
+String SFMclosedby="Auto Tech";
+String SFMSite="L10556_Auto";
+String SFMScheduledDate="";
+String SFMScheduledDatetime="";
+String SFMProduct="P10556_Auto";
+String SFMLineQty="17";
+String SFMLinePerUnit="46";
+String SFMWorkdiscription="Verifying Value Map for New Child Record (text)";
+String SFMRecordType="Usage/Consumption";
+String SFMlinetype="Parts";
+String SFMdaterequired="";
+boolean SFMIsBillable=true;
 	WebElement productname=null;
 	
 	
@@ -106,10 +124,13 @@ String Location=null;
 			//toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sworkordernumber, sFieldServiceName);
+
+			
+			/*calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
 			
 			workOrderPo.selectAction(commonsPo,sFieldServiceName);
-			
+			*/
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//to get orderstatus nd ordertype from workorder
@@ -125,46 +146,47 @@ String Location=null;
 			
 			String fetchBillingType =workOrderPo.getEleBillingTypeLst().getAttribute("value");
 			System.out.println(fetchBillingType);
-			Assert.assertTrue(fetchBillingType.equals("Empowerment"), "BillingType value mapped is not displayed");
+			Assert.assertTrue(fetchBillingType.equals(SFMBillingtype), "BillingType value mapped is not displayed");
 			
 			String fetchedContact =workOrderPo.getTxtContact().getAttribute("value");
 			System.out.println(fetchedContact);
-			Assert.assertTrue(fetchedContact.equals("C10556 manual"), "contact value mapped is not displayed");
+			Assert.assertTrue(fetchedContact.equals(SFMcontact), "contact value mapped is not displayed");
 			
 			boolean fetchCustomerDown =workOrderPo.getCustomerDown().isEnabled();
 			System.out.println(fetchCustomerDown);
-			Assert.assertEquals(fetchCustomerDown,true, "CustomerDown value mapped is not displayed");
+			Assert.assertEquals(fetchCustomerDown,SFMCustomerDown, "CustomerDown value mapped is not displayed");
 			
 			String fetchProblemDescription =workOrderPo.getProblemDescription().getText();
-			Assert.assertTrue(fetchProblemDescription.equals("Empowerment"), "ProblemDescription value mapped is not displayed");
+			System.out.println(fetchProblemDescription);
+			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype), "ProblemDescription value mapped is not displayed");
 			
 			String fetchEmail =workOrderPo.getEmailvalue().getAttribute("value");
-			Assert.assertTrue(fetchEmail.equals("testsample@gmail.com"), "Email value mapped is not displayed");
+			Assert.assertTrue(fetchEmail.equals(SFMEmail), "Email value mapped is not displayed");
 			
 			String fetchURL =workOrderPo.getURLvalue().getAttribute("value");
-			Assert.assertTrue(fetchURL.equals("www.motogp.com"), "URL value mapped is not displayed");
+			Assert.assertTrue(fetchURL.equals(SFMURL), "URL value mapped is not displayed");
 			
 			String fetchNumber =workOrderPo.getNumbervalue().getAttribute("value");
 			System.out.println(fetchNumber);
-			Assert.assertTrue(fetchNumber.equals("11"), "URL value mapped is not displayed");
+			Assert.assertTrue(fetchNumber.equals(SFMNumber), "number value mapped is not displayed");
 			
 			String fetchPhone =workOrderPo.getPhonevalue().getAttribute("value");
-			Assert.assertTrue(fetchPhone.equals("9902819683"), "Phone value mapped is not displayed");
+			Assert.assertTrue(fetchPhone.equals(SFMPhone), "Phone value mapped is not displayed");
 			
 			String fetchCurrency =workOrderPo.getCurrencyvalue().getAttribute("value");
-			Assert.assertTrue(fetchCurrency.equals("46"), "Currency value mapped is not displayed");
+			Assert.assertTrue(fetchCurrency.equals(SFMCurrency), "Currency value mapped is not displayed");
 			
 			
 			String fetchclosedby =workOrderPo.getclosedby().getAttribute("value");
-			Assert.assertTrue(fetchclosedby.equals("Auto Tech"), "closedby value mapped is not displayed");
+			Assert.assertTrue(fetchclosedby.equals(SFMclosedby), "closedby value mapped is not displayed");
 			
 			String fetchSite =workOrderPo.getTxtSite().getAttribute("value");
-			Assert.assertTrue(fetchSite.equals("L10556_manual"), "fetchSite value mapped is not displayed");
+			Assert.assertTrue(fetchSite.equals(SFMSite), "fetchSite value mapped is not displayed");
 			
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);
-			Assert.assertTrue(fetchedScheduledDate.equals("09.09.18"), "ScheduledDate value mapped is not displayed");
+			//Assert.assertTrue(fetchedScheduledDate.equals("09.09.18"), "ScheduledDate value mapped is not displayed");
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
@@ -173,7 +195,7 @@ String Location=null;
 			
 			//add new line for parts
 			
-			String sProductName="P10556_manual";
+			String sProductName="P10556_Auto";
 			
 			workOrderPo.addParts(commonsPo, workOrderPo,sProductName);
 			commonsPo.tap(workOrderPo.openpartsontap());
@@ -181,47 +203,47 @@ String Location=null;
 			//Verifying mapping before save
 			String fetchedlocation =workOrderPo.getElePartsLocation().getAttribute("value");
 			System.out.println(fetchedlocation);
-			Assert.assertTrue(fetchedlocation.equals("L10556_manual"), "location value mapped is not displayed");
+			Assert.assertTrue(fetchedlocation.equals(SFMSite), "location value mapped is not displayed");
 			
 			String fetchedpart =workOrderPo.getElePartLaborLkUp().getAttribute("value");
 			System.out.println(fetchedpart);
-			Assert.assertTrue(fetchedpart.equals("P10556_manual"), "part value mapped is not displayed");
+			Assert.assertTrue(fetchedpart.equals(SFMProduct), "part value mapped is not displayed");
 			
 			String fetchlineqty =workOrderPo.getEleLineQtyTxtFld().getAttribute("value");
 			System.out.println(fetchlineqty);
-			Assert.assertTrue(fetchlineqty.equals("17"), "lineqty value mapped is not displayed");
+			Assert.assertTrue(fetchlineqty.equals(SFMLineQty), "lineqty value mapped is not displayed");
 			
 			String fetchlinepriceperunit =workOrderPo.getEleLinePerUnitTxtFld().getAttribute("value");
 			System.out.println(fetchlinepriceperunit);
-			Assert.assertTrue(fetchlinepriceperunit.equals("46"), "LinePerUnit value mapped is not displayed");
+			Assert.assertTrue(fetchlinepriceperunit.equals(SFMLinePerUnit), "LinePerUnit value mapped is not displayed");
 			
 			String fetchworkdescription =workOrderPo.getEleWODesMappedTxt().getText();
 			System.out.println(fetchworkdescription);
-			Assert.assertTrue(fetchworkdescription.equals("Verifying Value Map for New Child Record (text)"), "workdescription value mapped is not displayed");
+			Assert.assertTrue(fetchworkdescription.equals(SFMWorkdiscription), "workdescription value mapped is not displayed");
 			
 			String fetchRecordType =workOrderPo.getRecordType().getAttribute("value");
 			System.out.println(fetchRecordType);
-			Assert.assertTrue(fetchRecordType.equals("Usage/Consumption"), "RecordType value mapped is not displayed");
+			Assert.assertTrue(fetchRecordType.equals(SFMRecordType), "RecordType value mapped is not displayed");
 			
 			String fetchlinetype =workOrderPo.getLineType().getAttribute("value");
 			System.out.println(fetchlinetype);
-			Assert.assertTrue(fetchlinetype.equals("Parts"), "linetype value mapped is not displayed");
+			Assert.assertTrue(fetchlinetype.equals(SFMlinetype), "linetype value mapped is not displayed");
 			
 			String fetchdaterequired =workOrderPo.getDateRequired().getAttribute("value");
 			System.out.println(fetchdaterequired);
-			Assert.assertTrue(fetchdaterequired.equals("09.09.18"), "DateRequired value mapped is not displayed");
+		//	Assert.assertTrue(fetchdaterequired.equals("09.09.18"), "DateRequired value mapped is not displayed");
 			
 			String fetchedstartdateandtime =workOrderPo.getStartDateandTime().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
-			Assert.assertTrue(fetchedstartdateandtime.equals("08.09.18 00:00"), "startdateandtime required value mapped is not displayed");
+		//	Assert.assertTrue(fetchedstartdateandtime.equals("08.09.18 00:00"), "startdateandtime required value mapped is not displayed");
 			
 			String fetchclosedbyinpart =workOrderPo.getclosedby().getAttribute("value");
 			System.out.println(fetchclosedbyinpart);
-			Assert.assertTrue(fetchclosedbyinpart.equals("Auto Tech"), "closedby required value mapped is not displayed");
+			Assert.assertTrue(fetchclosedbyinpart.equals(SFMclosedby), "closedby required value mapped is not displayed");
 			
 			String fetchcancledby =workOrderPo.getCanceledBy().getAttribute("value");
 			System.out.println(fetchcancledby);
-			Assert.assertTrue(fetchcancledby.equals("Auto Tech"), "CanceledBy required value mapped is not displayed");
+			Assert.assertTrue(fetchcancledby.equals(SFMclosedby), "CanceledBy required value mapped is not displayed");
 			
 			boolean fetchisBillable =workOrderPo.getIsBillable().isEnabled();
 			System.out.println(fetchisBillable);

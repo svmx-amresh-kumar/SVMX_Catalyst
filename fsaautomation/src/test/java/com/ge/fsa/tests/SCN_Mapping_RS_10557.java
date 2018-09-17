@@ -24,7 +24,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
-public class SCN_Child_Mapping_RS_10557 extends BaseLib {
+public class SCN_Mapping_RS_10557 extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sTestIBID = null;

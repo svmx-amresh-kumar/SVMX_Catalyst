@@ -47,7 +47,7 @@ public class CreateNewPO
 		return eleCreateNewWorkOrder;
 	}
 	
-	@FindBy(xpath="//div[text()='Create New Installed Product_Automation']")
+	@FindBy(xpath="//div[text()='Create New Installed Product Automation sahi']")
 	private WebElement eleCreateIB;
 	public WebElement getEleCreateNewIB()
 	{
