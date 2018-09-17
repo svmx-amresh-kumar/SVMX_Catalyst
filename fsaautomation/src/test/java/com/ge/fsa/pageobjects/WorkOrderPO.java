@@ -473,7 +473,7 @@ public class WorkOrderPO{
 		return eleOKBtn;
 	}
 	
-	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)")
+	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
 	private WebElement eleBillingTypeLst;
 	public WebElement getEleBillingTypeLst()
 	{
@@ -1020,7 +1020,10 @@ public class WorkOrderPO{
 
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			selectAction(commonsPo, sFieldServiceName);		
+			if(sFieldServiceName!=null)
+			{
+			selectAction(commonsPo, sFieldServiceName);	
+			}
 			
 		}
 		
@@ -1249,8 +1252,51 @@ public class WorkOrderPO{
 			return LineType;
 		}
 		
-	   
+		@FindBy(xpath="//*[contains(text(), 'Product History (')]")
+		private WebElement ProductHistory ;
+		public WebElement getProductHistory()
+		{
+			return ProductHistory;
+		}
+		
+		@FindBy(xpath="//*[contains(text(), 'Account History (')]")
+		private WebElement AccountHistory ;
+		public WebElement getAccountHistory()
+		{
+			return AccountHistory;
+		}
+		
+
+		@FindBy(xpath="(//*[contains(text(), 'Product History (')]//..//..//..//..//..//div[text()='Work Order Number']//..//..//..//..//..//..//div[@class='x-inner-el sfmdelivery-history-grid-cell-inner'])[2]")
+		private WebElement EleProHisWO ;
+		public WebElement getProHisWO()
+		{
+			return EleProHisWO;
+		}
+
+		@FindBy(xpath="(//*[contains(text(), 'Account History (')]//..//..//..//..//..//div[text()='Work Order Number']//..//..//..//..//..//..//div[@class='x-inner-el sfmdelivery-history-grid-cell-inner'])[2]")
+		private WebElement EleAccHisWO ;
+		public WebElement getAccHisWO()
+		{
+			return EleAccHisWO;
+		}
+
+		@FindBy(xpath="(//*[contains(text(), 'Product History (')]//..//..//..//..//..//div[text()='Work Order Number']//..//..//..//..//..//..//div[@class='x-inner-el sfmdelivery-history-grid-cell-inner'])[5]")
+		private WebElement EleProHisWO1 ;
+		public WebElement getProHisWO1()
+		{
+			return EleProHisWO1;
+		}
+
+		@FindBy(xpath="(//*[contains(text(), 'Account History (')]//..//..//..//..//..//div[text()='Work Order Number']//..//..//..//..//..//..//div[@class='x-inner-el sfmdelivery-history-grid-cell-inner'])[5]")
+		private WebElement EleAccHisWO1 ;
+		public WebElement getAccHisWO1()
+		{
+			return EleAccHisWO1;
+		}
+		
 }
+
 
 
 

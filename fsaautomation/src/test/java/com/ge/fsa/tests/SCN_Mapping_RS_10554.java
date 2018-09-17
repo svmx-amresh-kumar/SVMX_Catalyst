@@ -219,7 +219,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		        System.out.println("formateed dateTime"+sformattedDatetime1);
 		       
 			
-		//	assertTrue(sIBLastModifiedBy.contains(sScheduledDatetime));
+		
 			assertEquals(sformattedDatetime, sformattedDatetime1);
 				
 	
