@@ -17,7 +17,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario6Test extends BaseLib {
+public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 //	GenericLib genericLib = null;
 //	RestServices restServices = null;
 //	LoginHomePO loginHomePo = null;
