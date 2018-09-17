@@ -1,5 +1,6 @@
 /*
  *  @author Vinod Tharavath
+ *  SCN_Checklist_1_RS-10577 Verify Source Object Update in Checklists
  */
 package com.ge.fsa.tests;
 import java.text.SimpleDateFormat;
@@ -190,10 +191,10 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for DateTime Sucessfull");
 		
 	
-			sScheduledDate = workOrderPo.getEleScheduledDateLst().getAttribute("value");
+			/*sScheduledDate = workOrderPo.getEleScheduledDateLst().getAttribute("value");
 			System.out.println(sScheduledDate);
 			Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDateSOU, "Date Source Object is not updated");
-			ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");
+			ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");*/
 			
 			
 			sProformaInvoice = workOrderPo.getEleProformaInvoiceTxt().getAttribute("value");

@@ -1,5 +1,6 @@
 /*
  *  @author Vinod Tharavath
+ *  SCN_Checklist_2_RS-10578 Verify DataValidation on Checklists
  */
 package com.ge.fsa.tests;
 
@@ -121,13 +122,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		
 		commonsPo.tap(checklistPo.geteleDVRConfirmBtn());
 	    //checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
-		commonsPo.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), 3, "05", "05");
+		commonsPo.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), -3, "05", "05");
 		Thread.sleep(GenericLib.iLowSleep);
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	    
 	    
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2021");
+	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
 	    
 
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
@@ -143,7 +144,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 
-		/*// tapping next button
+		// tapping next button
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
@@ -174,7 +175,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 
 		// Navigate to Field Service process
 		workOrderPo.selectAction(commonsPo, sEditProcessName);
-*/
+
 	}
 
 }
