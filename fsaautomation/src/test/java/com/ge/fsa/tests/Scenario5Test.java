@@ -4,11 +4,7 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
-
 import java.io.IOException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
@@ -16,14 +12,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class Scenario5Test extends BaseLib {
-//	GenericLib genericLib = null;
-//	RestServices restServices = null;
-//	LoginHomePO loginHomePo = null;
-//	ExploreSearchPO exploreSearchPo = null;
-//	WorkOrderPO workOrderPo = null;
-//	CommonsPO commonsPo = null;
-//	ToolsPO toolsPo = null;
+public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -46,14 +35,9 @@ public class Scenario5Test extends BaseLib {
 	String sWOSqlQuery = null;
 
 	@BeforeMethod
-	public void initializeObject() throws IOException { 
-//		genericLib = new GenericLib();
-//		restServices = new RestServices();
-//		loginHomePo = new LoginHomePO(driver);
-//		exploreSearchPo = new ExploreSearchPO(driver);
-//		workOrderPo = new WorkOrderPO(driver);	
-//		toolsPo = new ToolsPO(driver);
-//		commonsPo = new CommonsPO(driver);
+	public void initializeObject() throws Exception { 
+
+		
 		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
 		
@@ -80,9 +64,11 @@ public class Scenario5Test extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		
 		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
@@ -100,7 +86,7 @@ public class Scenario5Test extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
 			commonsPo.tap(workOrderPo.getEleOKBtn());
 			Thread.sleep(GenericLib.iLowSleep);
-		
+			
 			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
@@ -111,6 +97,8 @@ public class Scenario5Test extends BaseLib {
 			
 			
 			commonsPo.tap(workOrderPo.getEleClickSave());
+			Thread.sleep(GenericLib.iLowSleep);
+			
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
@@ -136,13 +124,5 @@ public class Scenario5Test extends BaseLib {
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
-
-			
-
 	}
-	
-	
-	
-	
-
 }
