@@ -509,7 +509,7 @@ public class WorkOrderPO{
 		return eleOKBtn;
 	}
 	
-	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)")
+	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
 	private WebElement eleBillingTypeLst;
 	public WebElement getEleBillingTypeLst()
 	{
