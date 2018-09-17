@@ -4,11 +4,7 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
-
 import java.io.IOException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
@@ -17,13 +13,6 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
-//	GenericLib genericLib = null;
-//	RestServices restServices = null;
-//	LoginHomePO loginHomePo = null;
-//	ExploreSearchPO exploreSearchPo = null;
-//	WorkOrderPO workOrderPo = null;
-//	CommonsPO commonsPo = null;
-//	ToolsPO toolsPo = null;
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -46,14 +35,9 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	String sWOSqlQuery = null;
 
 	@BeforeMethod
-	public void initializeObject() throws IOException { 
-//		genericLib = new GenericLib();
-//		restServices = new RestServices();
-//		loginHomePo = new LoginHomePO(driver);
-//		exploreSearchPo = new ExploreSearchPO(driver);
-//		workOrderPo = new WorkOrderPO(driver);	
-//		toolsPo = new ToolsPO(driver);
-//		commonsPo = new CommonsPO(driver);
+	public void initializeObject() throws Exception { 
+
+		
 		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
 		
@@ -80,24 +64,17 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
-		//try {
+		
 		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
-			//Data Sync for WO's created
+			toolsPo.configSync(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
+			
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
@@ -106,23 +83,29 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 			
 			//Validation of not qualifying Work Order
 			Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-			//NXGReports.addStep("Error popup This is record does not meet is displayed successfully", LogAs.PASSED, null);	
 			ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
 			commonsPo.tap(workOrderPo.getEleOKBtn());
 			Thread.sleep(GenericLib.iLowSleep);
-		
+			
+			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
+			Thread.sleep(GenericLib.iLowSleep);
+			
+			
 			commonsPo.tap(workOrderPo.getEleClickSave());
+			Thread.sleep(GenericLib.iLowSleep);
 			
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
-			//NXGReports.addStep("Issue found is displayed successfully", LogAs.PASSED, null);		
 			ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
+			
 			//Validation of qualifying workorder with Issue found text popup.
 			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());	
 			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
-			//NXGReports.addStep("Error popup Issue found is displayed successfully", LogAs.PASSED, null);		
 			ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 			
 			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
@@ -134,27 +117,12 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 			workOrderPo.selectAction(commonsPo, sFieldServiceName);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			//Selecting Billing Type to loan to make sure sfm is working fine.
-			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
+			//Selecting Billing Type to contract to make sure sfm is working fine.
+			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), "Contract");
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
 			
 			//Validation of qualifying workorder with Issue found text error.
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
-			//NXGReports.addStep("Saved successfully text is displayed successfully", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
-
-			
-		
-			//NXGReports.addStep("Testcase " + sTestCaseID + " PASSED", LogAs.PASSED, null);
-//		} catch (Exception e) {
-//			NXGReports.addStep("Testcase " + sTestCaseID + " FAILED", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-//			throw e;
-//		}
-
 	}
-	
-	
-	
-	
-
 }
