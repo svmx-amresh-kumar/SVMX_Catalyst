@@ -18,13 +18,6 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
-//	GenericLib genericLib = null;
-//	RestServices restServices = null;
-//	LoginHomePO loginHomePo = null;
-//	ExploreSearchPO exploreSearchPo = null;
-//	WorkOrderPO workOrderPo = null;
-//	CommonsPO commonsPo = null;
-//	ToolsPO toolsPo = null;
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -50,14 +43,8 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
-//		genericLib = new GenericLib();
-//		restServices = new RestServices();
-//		loginHomePo = new LoginHomePO(driver);
-//		exploreSearchPo = new ExploreSearchPO(driver);
-//		workOrderPo = new WorkOrderPO(driver);	
-//		toolsPo = new ToolsPO(driver);
-//		commonsPo = new CommonsPO(driver);
-//		restServices.getAccessToken();
+
+		restServices.getAccessToken();
 	//	sDeviceDate = driver.getDeviceTime().split(" ");
 		
 	}
@@ -78,7 +65,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
-		//sCaseID="00001001";
+		//sCaseID="00001147";
 		
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
@@ -86,9 +73,9 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
-		//genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
-		//Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-		//ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 				
 		
 		
@@ -101,8 +88,8 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 			
 			//Data Sync for WO's created
 			toolsPo.syncData(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
-			
+			Thread.sleep(GenericLib.iMedSleep); 
+			sFieldServiceName="lscenario6";
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
 			
