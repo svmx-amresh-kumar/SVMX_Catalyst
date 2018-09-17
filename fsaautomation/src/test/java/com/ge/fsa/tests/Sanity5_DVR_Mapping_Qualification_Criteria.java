@@ -35,8 +35,9 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	String sWOSqlQuery = null;
 
 	@BeforeMethod
-	public void initializeObject() throws IOException { 
+	public void initializeObject() throws Exception { 
 
+		
 		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
 		
@@ -63,9 +64,11 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		
 		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
