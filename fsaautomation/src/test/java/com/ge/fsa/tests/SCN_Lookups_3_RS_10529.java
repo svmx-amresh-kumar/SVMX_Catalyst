@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
@@ -15,24 +16,30 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	@Test
 	public void RS_10529() throws InterruptedException, IOException{
 		
-	// Create Location
-//	String sLocName = commonsPo.generaterandomnumber("Loc");
-//	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"SVMXC__Account__c\": \"Acc29082018095005\", \"Name\": \""+sLocName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
-//	System.out.println("Loc Id IS "+sLocId);
-				
-	// Create Installed Product
-//	String sIbName = commonsPo.generaterandomnumber("IB");
-//	String sIbNum = commonsPo.generaterandomnumber("IBNum");
-//	String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum+"\",\"SVMXC__Country__c\": \"India\", \"SVMXC__Site__c\": \""+sLocId+"\" }");
-//    System.out.println("IB id is "+sIbId);
-		
-		String sProductName = "RSRegProduct03";
+		// Create Location with Country
+		String sLocName = "HCSLocation";
+		restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"India\"}");
+		// Create Location without Country
+		String sLocName01 = "HarryLocation";
+		restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName01+"\"}");
+		// Create Product with Description
+		String sProductName = "HCSProduct";
         restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
-        String sProductName01 = "RSRegProduct04";
+        // Create Product without Description
+        String sProductName01 = "HarryProduct";
         restServices.restCreate("Product2?","{\"Name\":\""+sProductName01+"\",\"Description\":\"Hello World\" }");
+        // Create Contact with Account and Last Name
+        String sAccName = commonsPo.generaterandomnumber("AutoAcc");
+		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
+     	String sLastName = "HCSContact";
+     	restServices.restCreate("Contact?","{\"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccId+"\"}");
+//     	// Create Contact without Account and with Last Name
+     	String sLastName01 = "HarryContact";
+     	restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLastName01+"\"}");
+     	
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo); // To get the work Order and Products
-//		toolsPo.configSync(commonsPo); // To get the SFM Wizard
+		// toolsPo.configSync(commonsPo); // To get the SFM Wizard
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "Auto_Reg_10529");
 		commonsPo.tap(workOrderPo.getElePartLnk());
@@ -40,10 +47,54 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.getElesearchTap().clear();
 		commonsPo.getElesearchTap().sendKeys(sProductName);
 		commonsPo.tap(commonsPo.getElesearchButton());
-		String sProductOptn = workOrderPo.getLblProductLookupOptns().getText();
+		String sProductOptn = workOrderPo.getLblLookupOptns().getText();
 		System.out.println(sProductOptn);
 		assertEquals(sProductOptn, sProductName); // Covers Step 1 & 2
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		commonsPo.longPress(workOrderPo.getProblemDescription());
+		Thread.sleep(genericLib.iLowSleep);
+		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
+		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello World");
+	//	workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
+		commonsPo.tap(workOrderPo.getEleUpdateLnk()); 
+		Thread.sleep(genericLib.iLowSleep);
+		commonsPo.tap(workOrderPo.getElePartLnk());
+		commonsPo.tap(commonsPo.getElesearchTap());
+		commonsPo.getElesearchTap().clear();
+		commonsPo.getElesearchTap().sendKeys(sProductName01);
+		commonsPo.tap(commonsPo.getElesearchButton());
+		String sProductOptn01 = workOrderPo.getLblLookupOptns().getText();
+		System.out.println(sProductOptn01);
+		assertEquals(sProductOptn01, sProductName01); //Covers Step 3
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		commonsPo.tap(workOrderPo.getlblSite()); 
+		commonsPo.tap(commonsPo.getElesearchTap()); 
+		commonsPo.getElesearchTap().clear(); 
+		commonsPo.getElesearchTap().sendKeys(sLocName01); 
+		commonsPo.tap(commonsPo.getElesearchButton()); 
+		String sLocationOptn01 = workOrderPo.getLblLookupOptns().getText(); 
+		System.out.println(sLocationOptn01); 
+		assertEquals(sLocationOptn01, sLocName01); //Covers Step 4
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		Thread.sleep(genericLib.iLowSleep);
+		commonsPo.pickerWheel(workOrderPo.geteleCountry_Edit_Lst(), "India");
+		commonsPo.tap(workOrderPo.getlblSite()); 
+		commonsPo.tap(commonsPo.getElesearchTap()); 
+		commonsPo.getElesearchTap().clear(); 
+		commonsPo.getElesearchTap().sendKeys(sLocName); 
+		commonsPo.tap(commonsPo.getElesearchButton()); 
+		String sLocationOptn02 = workOrderPo.getLblLookupOptns().getText(); 
+		System.out.println(sLocationOptn02); 
+		assertEquals(sLocationOptn02, sLocName); //Covers Step 5
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		commonsPo.tap(workOrderPo.getLblContact()); 
+		commonsPo.tap(commonsPo.getElesearchTap()); 
+		commonsPo.getElesearchTap().clear(); 
+		commonsPo.getElesearchTap().sendKeys(sLastName01); 
+		commonsPo.tap(commonsPo.getElesearchButton());
+		String sLastNameOptn01 = workOrderPo.getLblLookupOptns().getText(); 
+		System.out.println(sLastNameOptn01); 
+		assertEquals(sLastNameOptn01, sLastName01); //Covers Step 7
 	}
 
 }

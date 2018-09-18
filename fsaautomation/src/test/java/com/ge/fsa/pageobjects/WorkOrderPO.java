@@ -785,6 +785,13 @@ public class WorkOrderPO{
 		return txtSite;
 	}
 	
+	@FindBy(xpath="//span[text()='Site']")
+	private WebElement lblSite;
+	public WebElement getlblSite()
+	{
+		return lblSite;
+	}
+	
 	@FindBy(xpath="//span[text()='Zip']/following::textarea")
 	private WebElement txtZip;
 	public WebElement getTxtZip()
@@ -813,10 +820,17 @@ public class WorkOrderPO{
 	}
 	
 	@FindBy(xpath="(//div[@class='x-inner-el'])[1]")
-	private WebElement lblProductLookupOptns;
-	public WebElement getLblProductLookupOptns()
+	private WebElement lblLookupOptns;
+	public WebElement getLblLookupOptns()
 	{
-		return lblProductLookupOptns;
+		return lblLookupOptns;
+	}
+	
+	@FindBy(xpath="//*[text()='Country']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleCountry_Edit_Lst;
+	public WebElement geteleCountry_Edit_Lst()
+	{
+		return eleCountry_Edit_Lst;
 	}
 	//close---------
 
