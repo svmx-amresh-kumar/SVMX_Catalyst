@@ -48,6 +48,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	String sDate1DVR = "Auto_Date1 cannot be greater than Auto_Date2";
 	String sScheduledDateTimeDVR="Scheduled_DateTime cannot be Today";
 	String sScheduledDateDVR = "Scheduled Date cannot be Today or Yesterday or Tommorow";
+								
 	String sPartsLineQtyDVR = "Parts: Line Qty has to be more than 2 and WD cannot be Null";
 	String sPartsLinePriceDVR="Parts: Line Price is Less than 2000";
 	String sBillingDVR="Billing Type cannot be Loan";
@@ -77,7 +78,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		//sWOName="WO-00002400";
 		
 		//Account Creation
-		/*sObjectApi = "Account?";
+		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sAccountNameToCreate+"\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
@@ -87,16 +88,18 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 		// Creating Product from API
 				sProductName = "RS10550Product";
-				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");*/
+				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
 				
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);		
-
+		//Config sync for the process to come in FSA.
+		//toolsPo.configSync(commonsPo);
+		Thread.sleep(genericLib.iLowSleep);
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		//toolsPo.configSync(commonsPo);			
+					
 
 		//Navigation to WO	
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);				
@@ -185,18 +188,6 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		commonsPo.tap(workOrderPo.getEleAccount_Edit_Input());
 		commonsPo.lookupSearch(sAccountName);
 		
-		//Setting boolean
-		
-		commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Edit_Switch());
-		workOrderPo.getEleIsEntitlementPerformed().click();
-		System.out.println("tried click");
-		
-		commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Edit_Switch());
-		System.out.println("tried commons.tap");
-		
-		commonsPo.longPress(workOrderPo.geteleIsEntitlementPerformed_Edit_Switch());
-		System.out.println("tried long press");
-		
 		//setting ScehduledDatetime to other than today		
 		commonsPo.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(), 2, "5", "5");
 		//commonsPo.setDateYear(workOrderPo.getEleScheduledDateTimeTxt(),"February", "3", "2019");
@@ -284,7 +275,9 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		System.out.println("tapped 20");
 		commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
-		
+		//Validation of qualifying workorder with Issue found text error.
+		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
 		try {
 			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
 			ExtentManager.logger.log(Status.FAIL,"Parts DVR messge is still being displayed");
@@ -294,9 +287,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 			ExtentManager.logger.log(Status.PASS,"Parts DVR message is not longer displayed after adding more than 2 line qty");
 		}
 		
-		//Validation of qualifying workorder with Issue found text error.
-		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
+		
 	}
 	
 	
