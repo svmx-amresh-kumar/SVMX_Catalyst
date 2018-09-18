@@ -71,14 +71,14 @@ public class trial extends BaseLib {
 	  @Test
 	  public void datetest() throws ParseException {
 
-			
+			String TimeZONE = "GMT-7:00";
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-					int offset = TimeZone.getTimeZone("GMT").getRawOffset();
+					int offset = TimeZone.getTimeZone(TimeZONE).getRawOffset();
 					System.out.println("OFFSET IS = "+offset);
 
-					sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-					Date Datetest = sdf.parse("2018-09-01T4:48:04.000+4560");
+					sdf.setTimeZone(TimeZone.getTimeZone(TimeZONE));
+					Date Datetest = sdf.parse("2018-09-11T06:00:04.000+4560");
 					System.out.println("DATE IS = "+Datetest);
 					
 					
