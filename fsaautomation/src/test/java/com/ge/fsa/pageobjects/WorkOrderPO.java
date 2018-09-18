@@ -748,6 +748,13 @@ public class WorkOrderPO{
 	{
 		return lblPartAccount;
 	}
+	
+	@FindBy(xpath="(//div[@class='x-inner-el'])[1]")
+	private WebElement lblProductLookupOptns;
+	public WebElement getLblProductLookupOptns()
+	{
+		return lblProductLookupOptns;
+	}
 	//close---------
 
 	
