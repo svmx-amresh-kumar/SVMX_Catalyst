@@ -82,7 +82,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
 		// Adding a new Line by clicking on +New button
-		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		commonsPo.tap(workOrderPo.getEleclickNew());
 		commonsPo.tap(workOrderPo.getEleclickOK());
 		commonsPo.tap(workOrderPo.getElePartLaborLkUp());
@@ -90,7 +90,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
-		commonsPo.tap(workOrderPo.getEleProductTapName(sProductName));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		Thread.sleep(2000);
 		commonsPo.tap(workOrderPo.getEleremoveitem());
 		commonsPo.tap(workOrderPo.getEleclickyesitem());

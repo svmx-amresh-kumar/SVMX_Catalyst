@@ -32,11 +32,11 @@ public class WorkOrderPO{
 	
 	
 	
-	private WebElement eleProductTapName;
-	public WebElement getEleProductTapName(String sProductName)
+	private WebElement eleChildLineTapName;
+	public WebElement getEleChildLineTapName(String sProductName)
 	{
-		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
-		return eleProductTapName;
+		eleChildLineTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleChildLineTapName;
 	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
@@ -1064,6 +1064,18 @@ public class WorkOrderPO{
 		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
+	// Adding Labor for Customized Date entries into Labor
+	public void addLaborCustomizedDate(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sActivityType, String sStartDate, String sEndDate, String sprocessname) throws InterruptedException
+	{	//Adding labor parts name
+		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+		//Selecting Activity Type
+		commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+		Thread.sleep(2000);
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0, sStartDate, "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  0,sEndDate,"00"); //set end time
+		commonsPo.tap(getEleDoneBtn());
+	
+	}
 	
 	//To add Travel
 		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
@@ -1103,8 +1115,8 @@ public class WorkOrderPO{
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines
-			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
+			//Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
+			//ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines
