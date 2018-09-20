@@ -67,6 +67,13 @@ public class WorkOrderPO{
 	}
 	
 	
+	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])[2]")
+		private WebElement eleBillingTypeValue;
+		public WebElement getEleBillingTypeValue()
+		{
+				return eleBillingTypeValue;
+		}
+	
 	@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 	private WebElement eleAddTravelLnk;
 	public WebElement getEleAddTravelLnk()
@@ -284,6 +291,14 @@ public class WorkOrderPO{
 		return eleYesBtn;
 	}
 	
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Get Price']")
+	private WebElement eleGetPrice;
+	public WebElement geteleGetPrice()
+	{
+		return eleGetPrice;
+	}
+	
 	
 	private WebElement eledeletepartChildline;
 	public WebElement getEledeletepartchildline(String childlinevalue)
@@ -346,7 +361,7 @@ public class WorkOrderPO{
 		
 		return eleclickNew;
 	}
-
+	//x-gridcell x-gridcell-gridcell-sfmdelivery-details
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
 	{
@@ -874,6 +889,15 @@ public class WorkOrderPO{
 	{
 		return elePartsIssueCheckbox;
 	}
+	
+	// Fields on the ChildLines and to get there values
+	
+	private WebElement elechildlinefields;
+	public WebElement  getelechildlinefields(String sfieldName)
+	{
+		elechildlinefields = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+sfieldName+"']//..//..//input[@class='x-input-el']"));
+		return elechildlinefields;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -979,6 +1003,8 @@ public class WorkOrderPO{
 		commonsPo.tap(getEleDoneBtn());
 
 	}
+	
+
 	
 	// To add PS Lines to the Work Order
 	public void addPSLines(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
@@ -1185,6 +1211,7 @@ public class WorkOrderPO{
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
 		}
+		
 		
 		
 		// get Account from header
