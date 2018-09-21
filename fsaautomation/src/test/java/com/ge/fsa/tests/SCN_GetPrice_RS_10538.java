@@ -287,6 +287,29 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		// Verifying after sync the system
+		toolsPo.syncData(commonsPo);
+		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		restServices.getAccessToken();
+		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
+		if(sChildlines.equals("4"))
+		{
+			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlines);
+
+		//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+
+		System.out.println("The Childlines After Sync is "+sChildlines);
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlines);
+
+			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			System.out.println("The Childlines After Sync is "+sChildlines);
+		}
+		
 	}
 
 
