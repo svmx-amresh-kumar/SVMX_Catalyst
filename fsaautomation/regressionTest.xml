@@ -7,16 +7,11 @@
 	</listeners>
 	<test name="Regression">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name=SCN_Mapping_RS_10554 />
-			<class name="SCN_Mapping_RS_10556" />
-			<class name="SCN_Child_Mapping_RS_10557" />
-			<class name="SCN_RS10516_ZeroLines" />
-			<class name="SCN_RS10568_ChildLineAddDelete" />
-			<class name="SCN_RS10577_Checklist_SOU" />
-			<class name="SCN_RS10578_Checklist_DVR" />
-			<class name="SCN_RS10579_Checklist_Entry_Exit" />
-			<class name="SCN_RS10580_Checklist_Sections" />
+			<class name="SCN_GetPrice_RS_10538"/>
+			<class name="SCN_LinkedSFMProcess_RS_10553"/>
+			<class name="SCN_ZeroLines_RS_10516"/>
+			<class name="SCN_ChildLineAddandDelete_RS_10568"/>
+			
 
 		</classes>
 	</test> <!-- Test -->
