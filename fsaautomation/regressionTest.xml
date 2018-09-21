@@ -7,10 +7,10 @@
 	</listeners>
 	<test name="Regression">
 		<classes>
-			<class name="SCN_GetPrice_RS_10538"/>
-			<class name="SCN_LinkedSFMProcess_RS_10553"/>
-			<class name="SCN_ZeroLines_RS_10516"/>
-			<class name="SCN_ChildLineAddandDelete_RS_10568"/>
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538"/>
+			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553"/>
+			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516"/>
+			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568"/>
 			
 
 		</classes>
