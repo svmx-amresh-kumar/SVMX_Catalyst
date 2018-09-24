@@ -32,11 +32,11 @@ public class WorkOrderPO{
 	
 	
 	
-	private WebElement eleProductTapName;
-	public WebElement getEleProductTapName(String sProductName)
+	private WebElement eleChildLineTapName;
+	public WebElement getEleChildLineTapName(String sProductName)
 	{
-		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
-		return eleProductTapName;
+		eleChildLineTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleChildLineTapName;
 	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
@@ -74,6 +74,13 @@ public class WorkOrderPO{
 		return elePartLnk;
 	}
 	
+	
+	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])[2]")
+		private WebElement eleBillingTypeValue;
+		public WebElement getEleBillingTypeValue()
+		{
+				return eleBillingTypeValue;
+		}
 	
 	@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 	private WebElement eleAddTravelLnk;
@@ -292,6 +299,14 @@ public class WorkOrderPO{
 		return eleYesBtn;
 	}
 	
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Get Price']")
+	private WebElement eleGetPrice;
+	public WebElement geteleGetPrice()
+	{
+		return eleGetPrice;
+	}
+	
 	
 	private WebElement eledeletepartChildline;
 	public WebElement getEledeletepartchildline(String childlinevalue)
@@ -354,7 +369,7 @@ public class WorkOrderPO{
 		
 		return eleclickNew;
 	}
-
+	//x-gridcell x-gridcell-gridcell-sfmdelivery-details
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
 	{
@@ -903,6 +918,15 @@ public class WorkOrderPO{
 	{
 		return elePartsIssueCheckbox;
 	}
+	
+	// Fields on the ChildLines and to get there values
+	
+	private WebElement elechildlinefields;
+	public WebElement  getelechildlinefields(String sfieldName)
+	{
+		elechildlinefields = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+sfieldName+"']//..//..//input[@class='x-input-el']"));
+		return elechildlinefields;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -1020,6 +1044,8 @@ public class WorkOrderPO{
 
 	}
 	
+
+	
 	// To add PS Lines to the Work Order
 	public void addPSLines(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
 	{
@@ -1078,6 +1104,18 @@ public class WorkOrderPO{
 		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
+	// Adding Labor for Customized Date entries into Labor
+	public void addLaborCustomizedDate(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sActivityType, String sStartDate, String sEndDate, String sprocessname) throws InterruptedException
+	{	//Adding labor parts name
+		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+		//Selecting Activity Type
+		commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+		Thread.sleep(2000);
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0, sStartDate, "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  0,sEndDate,"00"); //set end time
+		commonsPo.tap(getEleDoneBtn());
+	
+	}
 	
 	//To add Travel
 		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
@@ -1117,8 +1155,8 @@ public class WorkOrderPO{
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines
-			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
+			//Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
+			//ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines
@@ -1242,6 +1280,7 @@ public class WorkOrderPO{
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			
 		}
+		
 		
 		
 		// get Account from header
