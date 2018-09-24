@@ -52,6 +52,14 @@ public class WorkOrderPO{
 		return eleActionsTxt;
 	}
 	
+	// Added by Harish.CS
+	private WebElement eleActionsTxtWithIcon;
+	public WebElement getEleActionsTxtWithIcon(String sActionsName)
+	{
+		eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
+		return eleActionsTxtWithIcon;
+	}
+	
 	@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
 	private WebElement eleAddLaborLnk;
 	public WebElement getEleAddLaborLnk()
@@ -832,6 +840,27 @@ public class WorkOrderPO{
 	{
 		return eleCountry_Edit_Lst;
 	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
+	private WebElement eleLblStateName;
+	public WebElement getEleLblStateName()
+	{
+		return eleLblStateName;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblCountryName;
+	public WebElement getEleLblCountryName()
+	{
+		return eleLblCountryName;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Completed Date Time']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblCompletedDateTime;
+	public WebElement getEleLblCompletedDateTime()
+	{
+		return eleLblCompletedDateTime;
+	}
 	//close---------
 
 	
@@ -914,6 +943,17 @@ public class WorkOrderPO{
 		commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
 		
 	}
+	
+	public void selectActionWithIcon(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+	{
+		Thread.sleep(1000);
+		getEleActionsLnk().click();
+		commonsPo.tap(getEleActionsLnk());	
+		commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
+		commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
+		
+	}
+	
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
 	{
 		selectAction(commonsPo, "New Event");
@@ -1116,6 +1156,7 @@ public class WorkOrderPO{
 		}
 		
 		
+		
 		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
@@ -1129,6 +1170,22 @@ public class WorkOrderPO{
 			if(sFieldServiceName!=null)
 			{
 			selectAction(commonsPo, sFieldServiceName);	
+			}
+			
+		}
+		
+		public void navigateToWOSFMWithIcon(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			if(sFieldServiceName!=null)
+			{
+			selectActionWithIcon(commonsPo, sFieldServiceName);	
 			}
 			
 		}
