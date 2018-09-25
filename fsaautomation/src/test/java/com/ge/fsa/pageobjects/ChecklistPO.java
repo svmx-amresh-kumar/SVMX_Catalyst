@@ -120,7 +120,7 @@ public class ChecklistPO{
 		return eleChecklistAnsPicklist = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
 	}
 	
-	
+	//Can be used for multipicklist as well
 	private WebElement eleChecklistAnsNumber;
 	public WebElement  geteleChecklistAnsNumber(String checklistNumberQuestion)
 	{
@@ -261,6 +261,9 @@ public class ChecklistPO{
     {
     	return eleChecklistAnswerOPDOCtbl;
     }
+    
+
+    
     
     private WebElement eleSectionNametxt;
     public WebElement  geteleChecklistSectionNametab(String sSectionName)

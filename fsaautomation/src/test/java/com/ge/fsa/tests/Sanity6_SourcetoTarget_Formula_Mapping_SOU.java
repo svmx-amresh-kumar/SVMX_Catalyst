@@ -76,8 +76,6 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-				
-		
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);

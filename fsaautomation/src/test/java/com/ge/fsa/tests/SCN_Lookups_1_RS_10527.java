@@ -27,7 +27,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		String sAccId4 = restServices.restCreate("Account?","{\"Name\": \"Red Bull3\" }");
 //		System.out.println("Red Bull "+sAccId4);
 		
-		//Create Contact
+		// Create Contact
 //		String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Jody33\", \"LastName\": \"Scheckter22\", \"AccountId\": \""+sAccId+"\"}");
 //		System.out.println("Jacke "+sConId);
 //		String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"John\", \"LastName\": \"Surtees\", \"AccountId\": \""+sAccId+"\"}");

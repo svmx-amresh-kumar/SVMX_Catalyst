@@ -32,11 +32,11 @@ public class WorkOrderPO{
 	
 	
 	
-	private WebElement eleProductTapName;
-	public WebElement getEleProductTapName(String sProductName)
+	private WebElement eleChildLineTapName;
+	public WebElement getEleChildLineTapName(String sProductName)
 	{
-		eleProductTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
-		return eleProductTapName;
+		eleChildLineTapName=driver.findElement(By.xpath("//div[text()='"+sProductName+"']"));
+		return eleChildLineTapName;
 	}
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
@@ -50,6 +50,14 @@ public class WorkOrderPO{
 	{
 		eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
 		return eleActionsTxt;
+	}
+	
+	// Added by Harish.CS
+	private WebElement eleActionsTxtWithIcon;
+	public WebElement getEleActionsTxtWithIcon(String sActionsName)
+	{
+		eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
+		return eleActionsTxtWithIcon;
 	}
 	
 	@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
@@ -66,6 +74,13 @@ public class WorkOrderPO{
 		return elePartLnk;
 	}
 	
+	
+	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])[2]")
+		private WebElement eleBillingTypeValue;
+		public WebElement getEleBillingTypeValue()
+		{
+				return eleBillingTypeValue;
+		}
 	
 	@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 	private WebElement eleAddTravelLnk;
@@ -284,6 +299,14 @@ public class WorkOrderPO{
 		return eleYesBtn;
 	}
 	
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Get Price']")
+	private WebElement eleGetPrice;
+	public WebElement geteleGetPrice()
+	{
+		return eleGetPrice;
+	}
+	
 	
 	private WebElement eledeletepartChildline;
 	public WebElement getEledeletepartchildline(String childlinevalue)
@@ -346,7 +369,7 @@ public class WorkOrderPO{
 		
 		return eleclickNew;
 	}
-
+	//x-gridcell x-gridcell-gridcell-sfmdelivery-details
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
 	{
@@ -406,7 +429,16 @@ public class WorkOrderPO{
 		return eleSFMfromLinkedSFM;
 	}
 	
+
 	
+
+	private WebElement eleSFMfromLinkedSFM2;
+	public WebElement getEleSFMfromLinkedSFM2(String sSFMName)
+		{
+
+			eleSFMfromLinkedSFM2 = driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='Manage Work Details for Products Serviced'])[2]"));
+			return eleSFMfromLinkedSFM2;
+			}
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
 	private WebElement eleDiscardChanges;
 	public  WebElement getEleDiscardChanges()
@@ -523,7 +555,7 @@ public class WorkOrderPO{
 		return elePicklistValue = driver.findElement(By.xpath("//*[text()='"+PicklistValue+"']/../..//div[@class='x-input-body-el']/input)"));
 	}
 	
-	@FindBy(xpath="//div[contains(text(),'Issue found')]")
+	@FindBy(xpath="//div[contains(text(),'Issue')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
@@ -776,6 +808,13 @@ public class WorkOrderPO{
 		return txtSite;
 	}
 	
+	@FindBy(xpath="//span[text()='Site']")
+	private WebElement lblSite;
+	public WebElement getlblSite()
+	{
+		return lblSite;
+	}
+	
 	@FindBy(xpath="//span[text()='Zip']/following::textarea")
 	private WebElement txtZip;
 	public WebElement getTxtZip()
@@ -801,6 +840,41 @@ public class WorkOrderPO{
 	public WebElement getLblPartAccount()
 	{
 		return lblPartAccount;
+	}
+	
+	@FindBy(xpath="(//div[@class='x-inner-el'])[1]")
+	private WebElement lblLookupOptns;
+	public WebElement getLblLookupOptns()
+	{
+		return lblLookupOptns;
+	}
+	
+	@FindBy(xpath="//*[text()='Country']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleCountry_Edit_Lst;
+	public WebElement geteleCountry_Edit_Lst()
+	{
+		return eleCountry_Edit_Lst;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
+	private WebElement eleLblStateName;
+	public WebElement getEleLblStateName()
+	{
+		return eleLblStateName;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblCountryName;
+	public WebElement getEleLblCountryName()
+	{
+		return eleLblCountryName;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Completed Date Time']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblCompletedDateTime;
+	public WebElement getEleLblCompletedDateTime()
+	{
+		return eleLblCompletedDateTime;
 	}
 	//close---------
 
@@ -844,6 +918,15 @@ public class WorkOrderPO{
 	{
 		return elePartsIssueCheckbox;
 	}
+	
+	// Fields on the ChildLines and to get there values
+	
+	private WebElement elechildlinefields;
+	public WebElement  getelechildlinefields(String sfieldName)
+	{
+		elechildlinefields = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+sfieldName+"']//..//..//input[@class='x-input-el']"));
+		return elechildlinefields;
+	}
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -884,6 +967,17 @@ public class WorkOrderPO{
 		commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
 		
 	}
+	
+	public void selectActionWithIcon(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+	{
+		Thread.sleep(1000);
+		getEleActionsLnk().click();
+		commonsPo.tap(getEleActionsLnk());	
+		commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
+		commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
+		
+	}
+	
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
 	{
 		selectAction(commonsPo, "New Event");
@@ -944,10 +1038,13 @@ public class WorkOrderPO{
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(getElePartLaborLkUp2());
 		commonsPo.lookupSearch(sProductName1);
-		commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		//commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+		//Thread.sleep(1000);
 		commonsPo.tap(getEleDoneBtn());
 
 	}
+	
+
 	
 	// To add PS Lines to the Work Order
 	public void addPSLines(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
@@ -1007,6 +1104,18 @@ public class WorkOrderPO{
 		Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 		ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 	}
+	// Adding Labor for Customized Date entries into Labor
+	public void addLaborCustomizedDate(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sActivityType, String sStartDate, String sEndDate, String sprocessname) throws InterruptedException
+	{	//Adding labor parts name
+		commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+		//Selecting Activity Type
+		commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+		Thread.sleep(2000);
+		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0, sStartDate, "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  0,sEndDate,"00"); //set end time
+		commonsPo.tap(getEleDoneBtn());
+	
+	}
 	
 	//To add Travel
 		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
@@ -1046,8 +1155,8 @@ public class WorkOrderPO{
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines
-			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
+			//Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
+			//ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 
 		// Delete the Childlines
@@ -1085,6 +1194,7 @@ public class WorkOrderPO{
 		}
 		
 		
+		
 		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
@@ -1098,6 +1208,22 @@ public class WorkOrderPO{
 			if(sFieldServiceName!=null)
 			{
 			selectAction(commonsPo, sFieldServiceName);	
+			}
+			
+		}
+		
+		public void navigateToWOSFMWithIcon(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+		{
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+
+			// Select the Work Order
+			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			if(sFieldServiceName!=null)
+			{
+			selectActionWithIcon(commonsPo, sFieldServiceName);	
 			}
 			
 		}
@@ -1156,6 +1282,7 @@ public class WorkOrderPO{
 		}
 		
 		
+		
 		// get Account from header
 		@FindBy(xpath="//*[text()='Account']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement Accountvalue;
@@ -1171,7 +1298,7 @@ public class WorkOrderPO{
 			return WorkOrderNumber;
 		}
 		
-		@FindBy(xpath="//*[text()='Customer Down']")
+		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{
@@ -1455,7 +1582,133 @@ public class WorkOrderPO{
 			return EleIsEntitlementPerformed;
 		}
 		
+		@FindBy(xpath="//*[text()='Update']")
+		private WebElement EleUpdateLnk ;
+		public WebElement getEleUpdateLnk()
+		{
+			return EleUpdateLnk;
+		}
 		
+		@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		private WebElement eleProblemDesc_Edit_WorkOrder;
+		public WebElement geteleProblemDesc_Edit_WorkOrder()
+		{
+			return eleProblemDesc_Edit_WorkOrder;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Description')][@class = 'x-innerhtml']/../../../../../../..//textarea")
+		private WebElement eleProblemDesc_Edit_WorkOrderPopup;
+		public WebElement geteleProblemDesc_Edit_WorkOrderPopup()
+		{
+			return eleProblemDesc_Edit_WorkOrderPopup;
+		}
+		
+		
+		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleBillingType_Edit_Lst;
+		public WebElement geteleBillingType_Edit_Lst()
+		{
+			return eleBillingType_Edit_Lst;
+		}
+		
+		
+		@FindBy(xpath="(//span[@class='tools-sync-button-label-largemodern'][text()='Work Order'])[1]")
+		private WebElement eleWorkOrderLeftPane_View;
+		public WebElement geteleWorkOrderLeftPane_View()
+		{
+			return eleWorkOrderLeftPane_View;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Auto_Date1')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleAutoDate1_Edit_Input;
+		public WebElement getEleAutoDate1_Edit_Input()
+		{
+			return eleAutoDate1_Edit_Input;
+		}
+		
+		
+		@FindBy(xpath="//*[contains(text(),'Auto_Date2')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleAutoDate2_Edit_Input;
+		public WebElement getEleAutoDate2_Edit_Input()
+		{
+			return eleAutoDate2_Edit_Input;
+		}
+<<<<<<< HEAD
+=======
+		
+		
+		//NOT WORKING NEED TO EDIT.
+		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
+		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
+		private WebElement eleIsEntitlementPerformed_Edit_Switch;
+		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		{
+			return eleIsEntitlementPerformed_Edit_Switch;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Is Entitlement Performed has to be true.']/../..//div[@class='x-body-el']")
+		private WebElement eleIsEntitlementPerformedConfirmation;
+		public WebElement getEleIsEntitlementPerformedConfirmation()
+		{
+			return eleIsEntitlementPerformedConfirmation;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Line Price Per Unit')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleLinePricePerUnit_Parts_Edit_Input;
+		public WebElement getEleLinePricePerUnit_Parts_Edit_Input()
+		{
+			return eleLinePricePerUnit_Parts_Edit_Input;
+		}
+		
+		@FindBy(xpath="//span[contains(text(),'Line Price is Less than 2000')]/../..//div[@class='x-body-el']")
+		private WebElement eleLinePriceLessthanConfirmation;
+		public WebElement getEleLinePriceLessthanConfirmation()
+		{
+			return eleLinePriceLessthanConfirmation;
+		}
+		
+>>>>>>> 38bb2520fea8861fe33d2275435d9470551d73a9
+		
+		
+		//NOT WORKING NEED TO EDIT.
+		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
+		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
+		private WebElement eleIsEntitlementPerformed_Edit_Switch;
+		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		{
+			return eleIsEntitlementPerformed_Edit_Switch;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Is Entitlement Performed has to be true.']/../..//div[@class='x-body-el']")
+		private WebElement eleIsEntitlementPerformedConfirmation;
+		public WebElement getEleIsEntitlementPerformedConfirmation()
+		{
+			return eleIsEntitlementPerformedConfirmation;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'Line Price Per Unit')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleLinePricePerUnit_Parts_Edit_Input;
+		public WebElement getEleLinePricePerUnit_Parts_Edit_Input()
+		{
+			return eleLinePricePerUnit_Parts_Edit_Input;
+		}
+		
+		@FindBy(xpath="//span[contains(text(),'Line Price is Less than 2000')]/../..//div[@class='x-body-el']")
+		private WebElement eleLinePriceLessthanConfirmation;
+		public WebElement getEleLinePriceLessthanConfirmation()
+		{
+			return eleLinePriceLessthanConfirmation;
+		}
+		
+		@FindBy(xpath="//*[text()='Auto_TextBox_c']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement eleAuto_TextBox_c;
+		public WebElement geteleAuto_TextBox_c()
+		{
+			return eleAuto_TextBox_c;
+		}
+			
 		
 
 }

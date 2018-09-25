@@ -62,6 +62,37 @@ public class RecentItemsPO
 	}
 	
 	
+	@FindBy(xpath="(//*[contains(text(), 'Work Order (')]//..//..//..//..//..//..//div[text()='Record name']//..//..//..//..//..//..//div[@class='x-inner-el'])[1]")
+	private WebElement eleworkorderrecentused;
+	public WebElement getEleworkorderrecentused()
+	{
+		return eleworkorderrecentused;
+	}
+	
+	private WebElement eleRecentitemsName;
+	public WebElement geteleChecklistName(String RecentitemsName)
+	{
+		eleRecentitemsName = driver.findElement(By.xpath("(//*[contains(text(), '"+RecentitemsName+"')]//..//..//..//..//..//..//div[text()='Record name']//..//..//..//..//..//..//div[@class='x-inner-el'])[1]"));
+		return eleRecentitemsName;
+	}
+	
+	
+	private WebElement eletaponobject;
+	public WebElement gettaponobject(String objectRecentitemsName)
+	{
+		eletaponobject = driver.findElement(By.xpath("//*[contains(text(), '"+objectRecentitemsName+"')]"));
+		return eletaponobject;
+	}
+	
+	
+	
+	@FindBy(xpath="//div[text() ='There are no items created, viewed, edited recently.']")
+	private WebElement elecheckrecentitemisempty;
+	public WebElement getelecheckrecentitemisempty()
+	{
+		return elecheckrecentitemisempty;
+	}
+	
 	
 	/**
 	 * Owner: Meghana Rao

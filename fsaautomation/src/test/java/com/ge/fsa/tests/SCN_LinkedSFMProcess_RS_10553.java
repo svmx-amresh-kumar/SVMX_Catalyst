@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
@@ -101,7 +102,9 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		if(workOrderPo.getEleeleIBId(sIBName).isDisplayed()== true)
 		{
 			ExtentManager.logger.log(Status.PASS,"The PS Lines are Added ");
-			commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
+			commonsPo.tap(workOrderPo.getEleLinkedSFM());
+			commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM2("Manage Work Details for Products Serviced"));
+			Thread.sleep(1000);
 			commonsPo.tap(workOrderPo.getEleOKBtn());
 			try
 			{
@@ -120,15 +123,57 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		}
 		
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
-		workOrderPo.selectAction(commonsPo,sProcessname);
-		workOrderPo.addPSLines(commonsPo, workOrderPo,sIBName);
-		commonsPo.tap(workOrderPo.getEleLinkedSFM());
-		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
-		commonsPo.tap(workOrderPo.getEleOKBtn());
 		workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName);
 		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(1000);
+		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Sync the Data and verify in the Server end if both the data are present
-		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM(sProcessname));
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(10000);
+		// Verify the Queries
+
+		restServices.getAccessToken();
+		String sSoqlquerychildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sChildlines = restServices.restGetSoqlValue(sSoqlquerychildlines, "totalSize");	
+		if(sChildlines.equals("2"))
+			{
+			ExtentManager.logger.log(Status.PASS,"The Childlines Number is "+sChildlines);
+			
+			String sSoqlquerychildlineps = "Select+RecordType.Name+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+			JSONArray sChildlinesarray = restServices.restGetSoqlJsonArray(sSoqlquerychildlineps);
+			System.out.println(sChildlinesarray.length());
+			try
+	        {
+			for(int i=0;i<sChildlinesarray.length();i++)
+			{
+	            String value = sChildlinesarray.getJSONObject(i).getJSONObject("RecordType").getString("Name");
+	           
+				if(value.equals("Products Serviced"))
+				{
+					ExtentManager.logger.log(Status.PASS,"Products Serviced is added to WO ");
+					System.out.println(value);
+				}
+				if(value.equals("Usage/Consumption"))
+				{
+					ExtentManager.logger.log(Status.PASS,"Work Detail is added to WO");
+					System.out.println(value);
+				}
+			}
+	            
+			}
+			catch(Exception e)
+            {
+            	ExtentManager.logger.log(Status.FAIL,"Work Detail is Not added to WO and not Synced");
+            }
+			
+			}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"The Childlines Number  is "+sChildlines);
+		}
+		
+		
+	
 		
 	}
 
