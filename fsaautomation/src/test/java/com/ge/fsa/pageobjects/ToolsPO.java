@@ -1,8 +1,10 @@
 package com.ge.fsa.pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -13,7 +15,7 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ToolsPO
+public class ToolsPO  
 {
 	public ToolsPO(AppiumDriver driver)
 	{
@@ -43,6 +45,14 @@ public class ToolsPO
 		return eleSyncConfigNowLnk;
 	}	
 	
+	
+	@FindBy(xpath="//span[text() ='Reset Application'][@class='x-button-label']")
+	private WebElement eleResetAppLnk;
+	public WebElement geteleResetAppLnkk()
+	{
+		return eleResetAppLnk;
+	}	
+	
 	@FindBy(xpath="//*[text()='Start Sync']")
 	private WebElement eleStartSyncBtn;
 	public WebElement getEleStartSyncBtn()
@@ -68,6 +78,13 @@ public class ToolsPO
 	public WebElement getEleOkBtn()
 	{
 		return eleOkBtn;
+	}
+	
+	@FindBy(xpath="//*[text()='Yes']")
+	private WebElement eleYesBtn;
+	public WebElement getEleYesBtn()
+	{
+		return eleYesBtn;
 	}
 	
 	@FindBy(xpath = "//*[text()='Config Sync in Progress']")
@@ -163,5 +180,34 @@ public class ToolsPO
 			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 		}
 	
+		
+		//reset app
+		
+		public void Resetapp(CommonsPO commonsPo,ExploreSearchPO exploreSearchPo) throws InterruptedException
+		{
+			GenericLib.lWaitTime=5*60*1000;
+			commonsPo.tap(getEleToolsIcn());	
+			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
+			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
+			
+			
+			
+			geteleResetAppLnkk().click();
+			commonsPo.longPress(geteleResetAppLnkk());	
+			getEleYesBtn().click();
+			commonsPo.longPress(getEleYesBtn());
+			System.out.println("begining Reset App");
+			
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			
+		wait = new WebDriverWait(driver, 40000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Rest app successfully");	
+		System.out.println("Rest app successfully");		
+	
+			
+			
+		}
 	
 }

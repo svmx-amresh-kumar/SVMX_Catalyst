@@ -373,8 +373,8 @@ public class WorkOrderPO{
 	private WebElement eleclickparts;
 	public WebElement getEleclickparts(String partsname)
 	{
-
-		eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
+		//eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
+		eleclickparts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+partsname+"']"));
 
 		return eleclickparts;
 	}
@@ -876,6 +876,20 @@ public class WorkOrderPO{
 	{
 		return eleLblCompletedDateTime;
 	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested City']/following::div[@class='sfm-delivery-textField-value']")
+	private WebElement eleLblRequestedCity;
+	public WebElement getEleLblRequestedCity()
+	{
+		return eleLblRequestedCity;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblRequestedCountry;
+	public WebElement getEleLblRequestedCountry()
+	{
+		return eleLblRequestedCountry;
+	}
 	//close---------
 
 	
@@ -1298,7 +1312,7 @@ public class WorkOrderPO{
 			return WorkOrderNumber;
 		}
 		
-		@FindBy(xpath="//*[text()='Customer Down']")
+		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{
@@ -1633,38 +1647,7 @@ public class WorkOrderPO{
 		{
 			return eleAutoDate2_Edit_Input;
 		}
-		
-		
-		//NOT WORKING NEED TO EDIT.
-		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
-		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
-		private WebElement eleIsEntitlementPerformed_Edit_Switch;
-		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
-		{
-			return eleIsEntitlementPerformed_Edit_Switch;
-		}
-		
-		
-		@FindBy(xpath="//span[text()='Is Entitlement Performed has to be true.']/../..//div[@class='x-body-el']")
-		private WebElement eleIsEntitlementPerformedConfirmation;
-		public WebElement getEleIsEntitlementPerformedConfirmation()
-		{
-			return eleIsEntitlementPerformedConfirmation;
-		}
-		
-		@FindBy(xpath="//*[contains(text(),'Line Price Per Unit')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleLinePricePerUnit_Parts_Edit_Input;
-		public WebElement getEleLinePricePerUnit_Parts_Edit_Input()
-		{
-			return eleLinePricePerUnit_Parts_Edit_Input;
-		}
-		
-		@FindBy(xpath="//span[contains(text(),'Line Price is Less than 2000')]/../..//div[@class='x-body-el']")
-		private WebElement eleLinePriceLessthanConfirmation;
-		public WebElement getEleLinePriceLessthanConfirmation()
-		{
-			return eleLinePriceLessthanConfirmation;
-		}
+
 		
 		@FindBy(xpath="//span[text()='Attached Documents']")
 		private WebElement eleAttachedDocumentLeftPane;
