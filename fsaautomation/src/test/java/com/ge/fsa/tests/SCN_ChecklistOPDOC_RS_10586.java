@@ -64,7 +64,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 	
 	@Test(enabled = true)
-	public void scenario2_checklist() throws Exception {
+	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
 		
 		sTestCaseID = "SCN_ChecklistOPDOC_2_RS-10586";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_2_RS-10586";
@@ -100,7 +100,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			restServices.getAccessToken();
 			String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 			String sEventName = "AUTO_10586Event";
-			String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
+			String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?","{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
 		
 		//sWOName="WO-00002612";
 		//Static Questions and Answers
