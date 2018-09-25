@@ -1666,8 +1666,20 @@ public class WorkOrderPO{
 			return eleLinePriceLessthanConfirmation;
 		}
 		
+		@FindBy(xpath="//span[text()='Attached Documents']")
+		private WebElement eleAttachedDocumentLeftPane;
+		public WebElement geteleAttachedDocumentLeftPane()
+		{
+			return eleAttachedDocumentLeftPane;
+		}
 		
 		
+		
+		  private WebElement eleAttachedDocument;
+		    public WebElement  getEleAttachedDocument(String sAttachedDocumentName)
+			{
+				return eleAttachedDocument = driver.findElement(By.xpath("//div[text()='"+sAttachedDocumentName+"']/../.."));
+			}
 
 }
 
