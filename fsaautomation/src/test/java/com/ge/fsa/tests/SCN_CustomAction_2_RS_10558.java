@@ -18,7 +18,6 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10558_Action");
 		Thread.sleep(GenericLib.iHighSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
-
 		Set contextNames = driver.getContextHandles();
 		driver.context(contextNames.toArray()[2].toString());
 		String url = driver.getCurrentUrl();
