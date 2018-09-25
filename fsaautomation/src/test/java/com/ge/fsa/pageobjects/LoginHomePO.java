@@ -73,7 +73,12 @@ public class LoginHomePO
 	}
 	
 	
-	
+	@FindBy(xpath="(//span[text()='Login'])[1]")
+	private WebElement eleMotoGpLogin;
+	public WebElement geteleMotoGpLogin()
+	{
+		return eleMotoGpLogin;
+	}
 	
 
 	

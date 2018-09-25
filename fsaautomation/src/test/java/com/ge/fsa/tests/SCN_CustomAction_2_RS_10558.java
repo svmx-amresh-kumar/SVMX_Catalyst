@@ -1,5 +1,8 @@
 package com.ge.fsa.tests;
 
+import java.util.Set;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
@@ -15,13 +18,16 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10558_Action");
 		Thread.sleep(GenericLib.iHighSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
-		for (Object contextName : driver.getContextHandles()) {
-	        System.out.println("Context Name -> " + contextName);
-//	        if (contextName.toString().toUpperCase().contains("WEBVIEW")){
-//	            driver.context(contextName.toString());
-//	            System.out.println("Switched to WebView Context");
-//	        }
-	    }
+
+		Set contextNames = driver.getContextHandles();
+		driver.context(contextNames.toArray()[2].toString());
+		String url = driver.getCurrentUrl();
+        System.out.println(url);
+        Assert.assertTrue(url.contains("motogp")&&url.contains("WO-00002005"));
+//        Thread.sleep(GenericLib.iMedSleep);
+//        loginHomePo.geteleMotoGpLogin().click();
+//        Thread.sleep(GenericLib.iMedSleep);
+		
 	}
 	
 
