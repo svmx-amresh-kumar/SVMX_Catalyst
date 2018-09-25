@@ -1633,11 +1633,8 @@ public class WorkOrderPO{
 		{
 			return eleAutoDate2_Edit_Input;
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 38bb2520fea8861fe33d2275435d9470551d73a9
+		
+		
 		
 		
 		//NOT WORKING NEED TO EDIT.
@@ -1670,43 +1667,7 @@ public class WorkOrderPO{
 		{
 			return eleLinePriceLessthanConfirmation;
 		}
-		
-<<<<<<< HEAD
->>>>>>> 38bb2520fea8861fe33d2275435d9470551d73a9
-		
-		
-		//NOT WORKING NEED TO EDIT.
-		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
-		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
-		private WebElement eleIsEntitlementPerformed_Edit_Switch;
-		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
-		{
-			return eleIsEntitlementPerformed_Edit_Switch;
-		}
-		
-		
-		@FindBy(xpath="//span[text()='Is Entitlement Performed has to be true.']/../..//div[@class='x-body-el']")
-		private WebElement eleIsEntitlementPerformedConfirmation;
-		public WebElement getEleIsEntitlementPerformedConfirmation()
-		{
-			return eleIsEntitlementPerformedConfirmation;
-		}
-		
-		@FindBy(xpath="//*[contains(text(),'Line Price Per Unit')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleLinePricePerUnit_Parts_Edit_Input;
-		public WebElement getEleLinePricePerUnit_Parts_Edit_Input()
-		{
-			return eleLinePricePerUnit_Parts_Edit_Input;
-		}
-		
-		@FindBy(xpath="//span[contains(text(),'Line Price is Less than 2000')]/../..//div[@class='x-body-el']")
-		private WebElement eleLinePriceLessthanConfirmation;
-		public WebElement getEleLinePriceLessthanConfirmation()
-		{
-			return eleLinePriceLessthanConfirmation;
-		}
-=======
->>>>>>> 38bb2520fea8861fe33d2275435d9470551d73a9
+
 		
 		@FindBy(xpath="//*[text()='Auto_TextBox_c']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement eleAuto_TextBox_c;
