@@ -374,8 +374,8 @@ public class WorkOrderPO{
 	public WebElement getEleclickparts(String partsname)
 	{
 
-		eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
-
+			//eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
+		eleclickparts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+partsname+"']"));
 		return eleclickparts;
 	}
 	
@@ -876,6 +876,20 @@ public class WorkOrderPO{
 	{
 		return eleLblCompletedDateTime;
 	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested City']/following::div[@class='sfm-delivery-textField-value']")
+	private WebElement eleLblRequestedCity;
+	public WebElement getEleLblRequestedCity()
+	{
+		return eleLblRequestedCity;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblRequestedCountry;
+	public WebElement getEleLblRequestedCountry()
+	{
+		return eleLblRequestedCountry;
+	}
 	//close---------
 
 	
@@ -1298,7 +1312,7 @@ public class WorkOrderPO{
 			return WorkOrderNumber;
 		}
 		
-		@FindBy(xpath="//*[text()='Customer Down']")
+		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{
@@ -1635,6 +1649,25 @@ public class WorkOrderPO{
 		}
 		
 		
+		
+		@FindBy(xpath="//span[text()='Attached Documents']")
+		private WebElement eleAttachedDocumentLeftPane;
+		public WebElement geteleAttachedDocumentLeftPane()
+		{
+			return eleAttachedDocumentLeftPane;
+		}
+		
+		
+		
+		  private WebElement eleAttachedDocument;
+		    public WebElement  getEleAttachedDocument(String sAttachedDocumentName)
+			{
+				return eleAttachedDocument = driver.findElement(By.xpath("//div[text()='"+sAttachedDocumentName+"']/../.."));
+			}
+
+
+		
+		
 		//NOT WORKING NEED TO EDIT.
 		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
 		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
@@ -1665,8 +1698,15 @@ public class WorkOrderPO{
 		{
 			return eleLinePriceLessthanConfirmation;
 		}
+
 		
-		
+		@FindBy(xpath="//*[text()='Auto_TextBox_c']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement eleAuto_TextBox_c;
+		public WebElement geteleAuto_TextBox_c()
+		{
+			return eleAuto_TextBox_c;
+		}
+			
 		
 
 }
