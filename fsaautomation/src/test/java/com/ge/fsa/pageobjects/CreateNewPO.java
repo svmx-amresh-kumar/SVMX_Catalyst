@@ -46,6 +46,13 @@ public class CreateNewPO
 	{
 		return eleCreateNewWorkOrder;
 	}
+	@FindBy(xpath="//div[text()='Create New Custom object']")
+	private WebElement eleCreateNewcustomrecord;
+	public WebElement getEleCreateNewcustomrecord()
+	{
+		return eleCreateNewcustomrecord;
+	}
+	
 	
 	@FindBy(xpath="//div[text()='Create New Installed Product Automation sahi']")
 	private WebElement eleCreateIB;
