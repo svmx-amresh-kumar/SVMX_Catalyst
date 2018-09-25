@@ -29,50 +29,51 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
  * @author meghanarao
  *
  */
-public class SCN_GetPrice_RS_10538 extends BaseLib {
-	String sTestCaseID= "Scenario_10538";
+public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
+	String sTestCaseID= "Scenario_10539";
 	String sAccountName = null;
-	String sProductName = null;
-	String sFirstName = null;
-	String sLastName = null;
+	String sProductName1 = null;
+	String sProductName2 = null;
+	String sworkOrderName = null;
+	String sSCONName = null;
 	String sContactName = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sIBName = null;
-	String sPLinePricePerUnit = "10000";
-	String sPCoveredPercent = "30";
-	String sPBillingQty = "1.000";
-	String sPBillableLinePrice = "7000.000";
 
 	@Test(enabled = true)
-	public void RS_10538() throws Exception {
+	public void RS_10539() throws Exception {
 	
-		System.out.println("SCN_GetPrice_RS_10538");
+		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+//		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
+//		
+		//loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-		toolsPo.configSync(commonsPo);
-		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+//		toolsPo.configSync(commonsPo);
+//		// Do a Data sync
+//		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
-		String sTestDataValue = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue, "Work Order Number");
-		String sProductName = GenericLib.getExcelData(sTestDataValue, "Product Name ");
-		System.out.println(sworkOrderName);
+		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
+		sworkOrderName = GenericLib.getExcelData(sTestDataValue,"Work Order Number");
+		sProductName1 = GenericLib.getExcelData(sTestDataValue,"Product1 Name");
+		System.out.println(sProductName1);
+		sProductName2 = GenericLib.getExcelData(sTestDataValue,"Product2 Name");
+		System.out.println(sProductName2);
+		sSCONName = GenericLib.getExcelData(sTestDataValue,"ServiceContract Name");
+		System.out.println(sSCONName);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
 		Thread.sleep(2000);
@@ -82,25 +83,24 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	/**
 	 * PARTS - Verification of Fields
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
+		workOrderPo.addParts(commonsPo, workOrderPo, sProductName1);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
-		Assert.assertEquals("Warranty", sBillingTypeValue);
+		Assert.assertEquals("Contract", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName1));
 		
 		// Verify Each field value after the Get Price
-		String sLinePricePerUnit = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
-		String sCoveredPercent = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
-		String sBillableQty = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
-		String sBillableLinePrice = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		String sLinePricePerUnit1 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
+		String sBillableQty1 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice1 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
 		
 		// Verifying The Line Price Per Unit Value
-		if(sLinePricePerUnit.equals(sPLinePricePerUnit))
+		if(sLinePricePerUnit1.equals("1000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
 		}
@@ -108,17 +108,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
 		}
-		// Covered Percent Value verification
-		if(sCoveredPercent.equals(sPCoveredPercent))
-		{
-			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected");
-		}
-		else
-		{
-			ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected");
-		}
 		// Billable Quantity Value verification
-		if(sBillableQty.equals(sPBillingQty))
+		if(sBillableQty1.equals("1.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
 		}
@@ -127,7 +118,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice.equals(sPBillableLinePrice))
+		if(sBillableLinePrice1.equals("1000.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
@@ -136,6 +127,59 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
+		
+	// Second Parts verification
+		workOrderPo.addParts(commonsPo, workOrderPo, sProductName2);
+		// Clicking on Get Price button for Parts
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		// Tap on the Product and verify the field values after the Get Price of Parts
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName2));
+		
+		// Verify Each field value after the Get Price
+		String sLinePricePerUnit2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
+		String sBillableQty2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice2 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		String sDiscountpercent = workOrderPo.getelechildlinefields("Discount %").getAttribute("value");
+		
+		
+		// Verifying The Line Price Per Unit Value
+		if(sLinePricePerUnit2.equals("3000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
+		}
+		// Billable Quantity Value verification
+		if(sBillableQty2.equals("1.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+		}
+		// Billable Line Price Value verification
+		if(sBillableLinePrice2.equals("2550.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+		}
+		if(sDiscountpercent.equals("15"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Discount Percent is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Discount Percent is not as Expected");
+		}
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
@@ -151,7 +195,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		String sdatehours = df.format(localTime);
 
 
-		int sEndDateint = Integer.parseInt(sdatehours) + 4;
+		int sEndDateint = Integer.parseInt(sdatehours) + 2;
 		String sEndDate = Integer.toString(sEndDateint);
 		
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","0",sEndDate,sProcessname);
@@ -163,7 +207,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		String sBillableQty_labor = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
-		if(sLinePricePUnit_labor.equals("1000"))
+		if(sLinePricePUnit_labor.equals("500"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
 		}
@@ -171,17 +215,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
 		}
-		// Covered Percent Value verification
-		if(sCoveredPercent_labor.equals("20"))
-		{
-			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected");
-		}
-		else
-		{
-			ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected");
-		}
 		// Billable Quantity Value verification
-		if(sBillableQty_labor.equals("4.000"))
+		if(sBillableQty_labor.equals("2.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
 		}
@@ -190,7 +225,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_labor.equals("3200.000"))
+		if(sBillableLinePrice_labor.equals("1000.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
@@ -209,22 +244,13 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		String sBillableQty_labor2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor2 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
-		if(sLinePricePUnit_labor2.equals("2000"))
+		if(sLinePricePUnit_labor2.equals("600"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
 		}
 		else
 		{
 			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
-		}
-		// Covered Percent Value verification
-		if(sCoveredPercent_labor2.equals("20"))
-		{
-			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected");
-		}
-		else
-		{
-			ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor2.equals("1"))
@@ -236,7 +262,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_labor2.equals("1600.000"))
+		if(sBillableLinePrice_labor2.equals("600.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
@@ -251,26 +277,17 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	/**
 	 * EXPENSE - VERIFICATION OF THE FIELDS
 	 */
-		workOrderPo.addExpense(commonsPo, workOrderPo,"Food - Dinner",sProcessname,"5","100");
+		workOrderPo.addExpense(commonsPo, workOrderPo,"Food - Breakfast",sProcessname,"4","");
 		//Verifying the fields of Expenses
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
-		String sCoveredPercent_labor3 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
 		String sBillableQty_labor3 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor3 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
-		// Covered Percent Value verification
-		if(sCoveredPercent_labor3.equals("10"))
-		{
-			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected");
-		}
-		else
-		{
-			ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected");
-		}
+
 		// Billable Quantity Value verification
-		if(sBillableQty_labor3.equals("5.000"))
+		if(sBillableQty_labor3.equals("4.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
 		}
@@ -279,7 +296,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_labor3.equals("450.000"))
+		if(sBillableLinePrice_labor3.equals("50.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
@@ -287,6 +304,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
+		
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system

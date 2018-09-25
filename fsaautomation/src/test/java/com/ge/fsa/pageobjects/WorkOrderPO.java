@@ -75,7 +75,7 @@ public class WorkOrderPO{
 	}
 	
 	
-	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])[2]")
+	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])")
 		private WebElement eleBillingTypeValue;
 		public WebElement getEleBillingTypeValue()
 		{
