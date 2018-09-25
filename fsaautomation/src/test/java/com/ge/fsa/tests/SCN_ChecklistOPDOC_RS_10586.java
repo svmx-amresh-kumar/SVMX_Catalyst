@@ -11,6 +11,7 @@ package com.ge.fsa.tests;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,7 +64,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 	
 	@Test(enabled = true)
-	public void scenario2_checklist() throws Exception {
+	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
 		
 		sTestCaseID = "SCN_ChecklistOPDOC_2_RS-10586";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_2_RS-10586";
@@ -90,8 +91,18 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		System.out.println(sWORecordID);
 		String sWOName= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
-		System.out.println("WO no =" + sWOName);	
-		//sWOName="WO-00002451";
+		System.out.println("WO no =" + sWOName);
+		
+		//Creating a servicemax event and assigning the work order to it.
+		
+		String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+			String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
+			restServices.getAccessToken();
+			String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
+			String sEventName = "AUTO_10586Event";
+			String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?","{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
+		
+		//sWOName="WO-00002612";
 		//Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";
@@ -103,6 +114,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sMultiPicklistStaticAns = "MultiOne;MultiTwo";
 		String sNumberStaticQ = "Number Static Question";
 		String sNumberStaticAns = "10.00";
+		String sNumbeStaticAnsOP = "10";
 		String sPicklistStaticQ = "Picklist Static Question";
 		String sPicklistStaticAns ="PicklOne";
 		String sRadioButtonStaticQ = "RadioButton Static Question";
@@ -116,6 +128,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sDateTimeDynamicAns="1/1/18 00:00";
 		String sNumberDynamicQ="Dynamic Number from No Of Times Assigned";
 		String sNumberDynamicAns="10";
+	
 		String sPicklistDynamicQ = "Dynamic Picklist From Billing Type";
 		String sPicklistDynamicAns="Contract";
 		String sTextDynamicq="Dynamic Text From Proforma Invoice";
@@ -162,8 +175,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			String sPicklistStaticAnsApp = checklistPo.geteleChecklistAnsPicklist(sPicklistStaticQ).getAttribute("value");
 			Assert.assertTrue(sPicklistStaticAnsApp.equals(sPicklistStaticAns),"Static response with picklist failed");
 			ExtentManager.logger.log(Status.PASS, "Static response with picklist datatype Passed");
-			
-			
+		
 
 			String sTextStaticAnsApp=checklistPo.geteleChecklistAnswerTextArea(sTextStaticQ).getAttribute("value");
 			System.out.println("sTextStaticAnsApp"+sTextStaticAnsApp);
@@ -171,11 +183,11 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Static response with text datatype Passed");
 
 			
-			//DYNAMIC RESPONSE VALIDATIONS	
+			//DYNAMIC RESPONSE VALIDATIONS	in Checklist
 			
 			
 			String sNumberDynamicAnsApp = checklistPo.geteleChecklistAnsNumber(sNumberDynamicQ).getAttribute("value");
-			Assert.assertTrue(sNumberStaticAnsApp.equals(sNumberStaticAns), "Dynamic response with Number datatype failed");
+			Assert.assertTrue(sNumberDynamicAnsApp.equals(sNumberDynamicAns), "Dynamic response with Number datatype failed");
 			ExtentManager.logger.log(Status.PASS,"dynamic response with Number datatype Passed");
 	
 			/*String sDateDynamicAnsApp  = checklistPo.geteleChecklistAnsDate(sDateDynamicQ).getAttribute("value");
@@ -189,8 +201,8 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Dynamic response with DateTime datatype Passed");*/
 			
 			String sPicklistDynamicAnsApp = checklistPo.geteleChecklistAnsPicklist(sPicklistDynamicQ).getAttribute("value");
-			Assert.assertTrue(sPicklistDynamicAnsApp.equals(sPicklistDynamicAns),"Static response with picklist failed");
-			ExtentManager.logger.log(Status.PASS, "Static response with picklist datatype Passed");
+			Assert.assertTrue(sPicklistDynamicAnsApp.equals(sPicklistDynamicAns),"Dynamic response with picklist failed");
+			ExtentManager.logger.log(Status.PASS, "Dynamic response with picklist datatype Passed");
 		/*	
 			String sRadioButtonStaticAnsApp = checklistPo.geteleChecklistAnsradio(sRadioButtonStaticQ).getAttribute("type");
 			Assert.assertTrue(sRadioButtonStaticAnsApp.equals(sRadioButtonStaticAns),"Static response with picklist failed");
@@ -199,8 +211,8 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 			String sTextDynamicAnsApp=checklistPo.geteleChecklistAnswerTextArea(sTextDynamicq).getAttribute("value");
 			System.out.println("sTextDynamicAnsApp"+sTextDynamicAnsApp);
-			Assert.assertTrue(sTextDynamicAnsApp.equals(sTextDynamicAns),"Static response with picklist failed");
-			ExtentManager.logger.log(Status.PASS, "Static response with text datatype Passed");
+			Assert.assertTrue(sTextDynamicAnsApp.equals(sTextDynamicAns),"Dynamic response with txt area failed");
+			ExtentManager.logger.log(Status.PASS, "Dynamic response with textarea datatype Passed");
 			
 	
 		    // tapping the next button in checklist
@@ -245,18 +257,76 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			//validating if it picks the checklist Question and answer.
 			 checklistPo.geteleChecklistAnswerOPDOCtbl();
 			 System.out.println( checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString());
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicq), "Couldnt find the checklist question in OPDOC");	
-			 ExtentManager.logger.log(Status.PASS,"Found Dynamic REsponse Text question in OPDOC");
-
-			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sCheckboxStaticQ), "Couldnt find the checklist question in OPDOC");	
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sCheckboxStaticAns), "Couldnt find the checklist question in OPDOC");	
-
 			 
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt get the WorkOrder no populated through dynamic response");	 	
-			ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sCheckboxStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Checkbox StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sCheckboxStaticAns), "Couldnt find the checklist Answer in OPDOC");	
+			 ExtentManager.logger.log(Status.PASS,"Checkbox StaticAnswer Validation passed");
+		 			
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date Static Answer Validation passed");
 
-			workOrderPo.getEleDoneLnk().click();
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"DateTime Static Answer Validation passed");	 
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"MultiPicklist StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"MultiPicklist Static Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Number StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumbeStaticAnsOP), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Number Static Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Picklist StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Picklist Static Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Radio StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Radiobutton Static Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticQ), "Couldnt find the checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Text StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Text Static Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date Dynamic Question Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date Dynamic Response Answer Validation passed");
+
+			/* Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Date StaticQuestion Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"DateTime Dynamic Response Answer Validation passed");*/
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Number Dynamic Question Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Number Dynamic Response Answer Validation passed");
+			 		 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Picklist Dynamic Question Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Picklist Dynamic Response Answer Validation passed");
+			 
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicq), "Couldnt find the Dynamic checklist question in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Text Dynamic Question Validation passed");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Text Dynamic Response Answer Validation passed");
+			 	 			 
+			 workOrderPo.getEleDoneLnk().click();
 			
 			commonsPo.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
@@ -275,8 +345,32 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			// System.out.println(ans);
 			
 			 toolsPo.syncData(commonsPo);
+			 Thread.sleep(genericLib.iLowSleep);
+			 commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			 commonsPo.tap(workOrderPo.geteleAttachedDocumentLeftPane());
+			 commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),20,20);
+			// commonsPo.longPress(workOrderPo.getEleAttachedDocument(sChecklistOpDocName));
+			// workOrderPo.getEleAttachedDocument(sChecklistOpDocName).click();
+			// commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),5,5);
+			 Thread.sleep(genericLib.iLowSleep);
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt get the WorkOrder no populated through dynamic response");	 	
+			 ExtentManager.logger.log(Status.PASS,"After Sync Dynamic Text response validated sucessfully");
+			 
+			 
+			 
+			 //Validation in Server if OPDOC is synced sucessfully.
+	
+				Thread.sleep(GenericLib.iHighSleep);
+				Thread.sleep(GenericLib.iHighSleep);
 			
-			
+				System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
+				String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
+				String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
+				Assert.assertTrue(ChecklistQueryval.contains(sChecklistStatus),"checklist being updated is not synced to server");
+				String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
+				ExtentManager.logger.log(Status.PASS,"Checklist Completed status is displayed in Salesforce after sync");
+
+				Assert.assertTrue(ChecklistAnsjson.contains(sTextDynamicAns), "dynamicrepsonse workorder no was not sycned to server in checklist answer");
 			
 	}
 }

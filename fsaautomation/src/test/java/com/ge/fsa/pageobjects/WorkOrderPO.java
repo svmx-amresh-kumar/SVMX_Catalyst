@@ -374,8 +374,8 @@ public class WorkOrderPO{
 	public WebElement getEleclickparts(String partsname)
 	{
 
-		eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
-
+			//eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
+		eleclickparts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+partsname+"']"));
 		return eleclickparts;
 	}
 	
@@ -875,6 +875,20 @@ public class WorkOrderPO{
 	public WebElement getEleLblCompletedDateTime()
 	{
 		return eleLblCompletedDateTime;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested City']/following::div[@class='sfm-delivery-textField-value']")
+	private WebElement eleLblRequestedCity;
+	public WebElement getEleLblRequestedCity()
+	{
+		return eleLblRequestedCity;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+	private WebElement eleLblRequestedCountry;
+	public WebElement getEleLblRequestedCountry()
+	{
+		return eleLblRequestedCountry;
 	}
 	//close---------
 
@@ -1635,6 +1649,23 @@ public class WorkOrderPO{
 		}
 		
 		
+		
+		@FindBy(xpath="//span[text()='Attached Documents']")
+		private WebElement eleAttachedDocumentLeftPane;
+		public WebElement geteleAttachedDocumentLeftPane()
+		{
+			return eleAttachedDocumentLeftPane;
+		}
+		
+		
+		
+		  private WebElement eleAttachedDocument;
+		    public WebElement  getEleAttachedDocument(String sAttachedDocumentName)
+			{
+				return eleAttachedDocument = driver.findElement(By.xpath("//div[text()='"+sAttachedDocumentName+"']/../.."));
+			}
+
+
 		
 		
 		//NOT WORKING NEED TO EDIT.
