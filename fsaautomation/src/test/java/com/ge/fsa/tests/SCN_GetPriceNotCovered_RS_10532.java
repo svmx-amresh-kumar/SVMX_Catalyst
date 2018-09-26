@@ -50,12 +50,15 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 //		// Do a Data sync
 		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
-		String sTestDataValue = "SCN_GetPrice_RS_10538";
-		sAccountName = GenericLib.getExcelData(sTestDataValue,"Account Name");
-		sProductName = GenericLib.getExcelData(sTestDataValue,"Product Name");
+		String sTestDataValue1 = "SCN_GetPriceNotCovered_RS_10538";
+		sAccountName = GenericLib.getExcelData(sTestDataValue1,"Account Name");
+		sProductName = GenericLib.getExcelData(sTestDataValue1,"Product Name");
 		System.out.println(sProductName);
-		sIBName = GenericLib.getExcelData(sTestDataValue,"Installed Product Name");
+		sIBName = GenericLib.getExcelData(sTestDataValue1,"Installed Product Name");
 		System.out.println(sIBName);	
+		
+		String sTestDataValue2 = "SCN_GetPriceNotCovered_RS_10532";
+		String sWorkOrderName = GenericLib.getExcelData(sTestDataValue2,"Work Order Number");
 		
 		// To fetch the Account ID from the Name
 		String sSoqlAccount = "SELECT+Id+from+Account+Where+Name+=\'"+sAccountName+"\'";
@@ -72,12 +75,8 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sSoqlIB = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sIBName+"\'";
 		restServices.getAccessToken();
 		String sIBID = restServices.restGetSoqlValue(sSoqlIB,"Id");
+		
+		
 				
-		// To create a Work Order from the API
-		String sWorkorderID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Company__c\": \""+sAccountID+"\", \"SVMXC__Component__c\": \""+sIBID+"\", \"SVMXC__Priority__c\": \"High\"}");
-		System.out.println("Work Order Id"+sWorkorderID);
-		String sSoqlWO = "SELECT+Name+from+SVMXC__Service_Order__c+Where+Id+=\'"+sWorkorderID+"\'";
-		restServices.getAccessToken();
-		String sWorkOrderName = restServices.restGetSoqlValue(sSoqlWO,"Name");
 	}
 }
