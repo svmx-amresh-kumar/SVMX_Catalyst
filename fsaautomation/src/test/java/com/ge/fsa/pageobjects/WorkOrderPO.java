@@ -96,6 +96,14 @@ public class WorkOrderPO{
 		return eleAddExpenseLnk;
 	}
 	
+	
+	private WebElement eleTraveltap;
+	public WebElement geteleTraveltap(String sEndTime)
+	{
+		eleTraveltap=driver.findElement(By.xpath("//div[@class='x-panel-title-text'][text()='Travel (1)']/..//..//..//..//div[@class='x-inner-el'][contains(text(),'"+sEndTime+"')]"));
+		return eleTraveltap;
+	}
+	
 	// Added by Harish.CS
 	@FindBy(xpath="//div[text()='Attached Images/Videos']/following::span[text()='Add']")
 	private WebElement eleAddAttachedImagesLnk;
@@ -1146,6 +1154,19 @@ public class WorkOrderPO{
 			
 			getEleLineQtyTxtFld().sendKeys("10");
 			getEleLinePerUnitTxtFld().sendKeys("1000");	
+			commonsPo.tap(getEleDoneBtn());
+			
+			//Verify to Manage WO lines
+			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
+			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
+	}
+		
+		public void addTravelwithTime(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname, String sStartTime , String sEndTime) throws InterruptedException
+		{	//Adding labor parts name
+			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
+		
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,sEndTime,"00"); //set end time			
 			commonsPo.tap(getEleDoneBtn());
 			
 			//Verify to Manage WO lines

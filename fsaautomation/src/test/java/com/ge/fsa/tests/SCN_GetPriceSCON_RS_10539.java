@@ -45,7 +45,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	public void RS_10539() throws Exception {
 	
 		System.out.println("SCN_GetPriceSCON_RS_10539");
-		// To run the Sahi Script before the Execution of Appium
+		// To run the Sahi Script before the Execution of Appium - 10539
 //		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
 //		if(commonsPo.verifySahiExecution()) {
 //			
@@ -60,11 +60,11 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 //			assertEquals(0, 1);
 //		}
 //		
-		//loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 //		toolsPo.configSync(commonsPo);
 //		// Do a Data sync
-//		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,"Work Order Number");
@@ -278,7 +278,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	 * EXPENSE - VERIFICATION OF THE FIELDS
 	 */
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Food - Breakfast",sProcessname,"4","");
-		//Verifying the fields of Expenses
+		//Verifying the fields of Expenses - 1
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
@@ -305,7 +305,117 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
 		
+		// Expenses - 2
+		workOrderPo.addExpense(commonsPo, workOrderPo,"Gas",sProcessname,"4","");
+		//Verifying the fields of Expenses - 2
 		
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
+		String sBillableQty_laborGas = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice_laborGas = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		
+
+		// Billable Quantity Value verification
+		if(sBillableQty_laborGas.equals("4.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+		}
+		// Billable Line Price Value verification
+		if(sBillableLinePrice_laborGas.equals("320.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+		}
+		
+		// Expenses - 3
+		
+		workOrderPo.addExpense(commonsPo, workOrderPo,"Airfare",sProcessname,"4","500");
+		//Verifying the fields of Expenses - 3
+		
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
+		String sBillableQty_Airfare = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice_Airfare = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		
+
+		// Billable Quantity Value verification
+		if(sBillableQty_Airfare.equals("4.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+		}
+		// Billable Line Price Value verification
+		if(sBillableLinePrice_Airfare.equals("1800.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+		}
+		
+		/**
+		 * TRAVEL - VERIFICATION OF THE FIELDS
+		 */
+		Date localTime1 = new Date();
+		DateFormat df1 = new SimpleDateFormat("HH");
+		 
+		// Tell the DateFormat that I want to show the date in the IST timezone
+		df1.setTimeZone(TimeZone.getTimeZone("GMT"));
+		String sdatehours1 = df1.format(localTime1);
+
+
+		int sEndDateint1 = Integer.parseInt(sdatehours1) + 4;
+		String sEndDate1 = Integer.toString(sEndDateint1);
+		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "0", sEndDate1);
+		
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1));
+		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
+		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		
+		// Line Price Per Unit
+		if(sLinePricePerUnit_travel.equals("150.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+		}
+		// Billable Quantity Value verification
+		if(sBillableQty_Airfare.equals("3.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+		}
+		// Billable Line Price Value verification
+		if(sBillableLinePrice_Airfare.equals("450.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+		}
+		
+		/**
+		 * END OF TRAVEL VERIFICATION
+		 */
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
@@ -313,11 +423,11 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
-		if(sChildlines.equals("4"))
+		if(sChildlines.equals("6"))
 		{
 			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlines);
 
-		//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+		
 
 		System.out.println("The Childlines After Sync is "+sChildlines);
 		}
@@ -325,11 +435,10 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlines);
 
-			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			
 			System.out.println("The Childlines After Sync is "+sChildlines);
 		}
 		
 	}
-
 
 }
