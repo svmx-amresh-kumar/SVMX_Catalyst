@@ -1615,10 +1615,9 @@ public class WorkOrderPO{
 		public WebElement geteleProblemDesc_Edit_WorkOrderPopup()
 		{
 			return eleProblemDesc_Edit_WorkOrderPopup;
-		}
-		
-		
-		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		}	
+	
+		@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-unsized x-textinput x-input x-component x-has-width x-widthed']/div[@class='x-input-body-el']/input")
 		private WebElement eleBillingType_Edit_Lst;
 		public WebElement geteleBillingType_Edit_Lst()
 		{
