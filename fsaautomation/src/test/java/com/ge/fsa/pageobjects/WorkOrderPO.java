@@ -1165,13 +1165,9 @@ public class WorkOrderPO{
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,sEndTime,"00"); //set end time			
 			commonsPo.tap(getEleDoneBtn());
-			
-			//Verify to Manage WO lines
-			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
-			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 	}
 		
 		

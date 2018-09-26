@@ -304,13 +304,13 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		// Expenses - 2
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Gas",sProcessname,"4","");
 		//Verifying the fields of Expenses - 2
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Gas"));
 		String sBillableQty_laborGas = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_laborGas = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
@@ -335,12 +335,12 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		}
 		
 		// Expenses - 3
-		
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Airfare",sProcessname,"4","500");
 		//Verifying the fields of Expenses - 3
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Breakfast"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Airfare"));
 		String sBillableQty_Airfare = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_Airfare = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
@@ -367,6 +367,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		/**
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		Date localTime1 = new Date();
 		DateFormat df1 = new SimpleDateFormat("HH");
 		 
@@ -384,7 +385,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
-		
+		System.out.println(sLinePricePerUnit_travel);
 		// Line Price Per Unit
 		if(sLinePricePerUnit_travel.equals("150.000"))
 		{
