@@ -44,13 +44,26 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 	public void RS_10532() throws Exception {
 	
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
+		genericLib.executeSahiScript("appium/Scenario_10532.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-//		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 //		// Do a Data sync
 		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
-		String sTestDataValue1 = "SCN_GetPriceNotCovered_RS_10538";
+		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		sAccountName = GenericLib.getExcelData(sTestDataValue1,"Account Name");
 		sProductName = GenericLib.getExcelData(sTestDataValue1,"Product Name");
 		System.out.println(sProductName);
@@ -58,7 +71,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		System.out.println(sIBName);	
 		
 		String sTestDataValue2 = "SCN_GetPriceNotCovered_RS_10532";
-		String sWorkOrderName = GenericLib.getExcelData(sTestDataValue2,"Work Order Number");
+		String sworkOrderName = GenericLib.getExcelData(sTestDataValue2,"Work Order Number");
 		
 		// To fetch the Account ID from the Name
 		String sSoqlAccount = "SELECT+Id+from+Account+Where+Name+=\'"+sAccountName+"\'";
@@ -75,6 +88,15 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sSoqlIB = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sIBName+"\'";
 		restServices.getAccessToken();
 		String sIBID = restServices.restGetSoqlValue(sSoqlIB,"Id");
+		
+		// To navigate to the Work Order
+		
+		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		String sProcessname = "Record T&M";// Standard SFM Process
+		Thread.sleep(2000);
+		workOrderPo.selectAction(commonsPo,sProcessname);
+		
+		
 		
 		
 				
