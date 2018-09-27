@@ -98,15 +98,15 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		/**
 		 * PARTS - Verification of Fields
 		 */
-			workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
-			// To verify if Billing Type = Warranty
-			String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
-			Assert.assertEquals("", sBillingTypeValue);
-			System.out.println(sBillingTypeValue);
-			// Clicking on Get Price button for Parts
-			commonsPo.tap(workOrderPo.geteleGetPrice());
-			// Tap on the Product and verify the field values after the Get Price of Parts
-			commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
+		// To verify if Billing Type = Warranty
+		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
+		Assert.assertEquals("", sBillingTypeValue);
+		System.out.println(sBillingTypeValue);
+		// Clicking on Get Price button for Parts
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		// Tap on the Product and verify the field values after the Get Price of Parts
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
 
 				
 	}
