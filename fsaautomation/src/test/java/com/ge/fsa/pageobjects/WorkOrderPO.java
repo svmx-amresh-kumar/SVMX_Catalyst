@@ -178,7 +178,7 @@ public class WorkOrderPO{
 		return eleWOServiceReportTxt;
 	}*/
 	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='New Event']")
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Create New Event For Work Order]")
 	private WebElement eleNewEventTxt;
 	public WebElement getEleNewEventTxt()
 	{
