@@ -45,7 +45,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	String sPBillableLinePrice = "7000.000";
 
 	@Test(enabled = true)
-	public void RS_10553() throws Exception {
+	public void RS_10538() throws Exception {
 	
 		System.out.println("SCN_GetPrice_RS_10538");
 		// To run the Sahi Script before the Execution of Appium

@@ -94,7 +94,9 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			
+			File file = new File(System.getProperty("user.dir")+"/../Executable");
+			try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
+
 			
 		} catch (Exception e) {
 			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);

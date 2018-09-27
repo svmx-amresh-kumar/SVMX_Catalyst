@@ -75,7 +75,7 @@ public class WorkOrderPO{
 	}
 	
 	
-	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])[2]")
+	@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Billing Type']//..//..//input[@class='x-input-el'])")
 		private WebElement eleBillingTypeValue;
 		public WebElement getEleBillingTypeValue()
 		{
@@ -94,6 +94,14 @@ public class WorkOrderPO{
 	public WebElement getEleAddExpenseLnk()
 	{
 		return eleAddExpenseLnk;
+	}
+	
+	
+	private WebElement eleTraveltap;
+	public WebElement geteleTraveltap(String sEndTime)
+	{
+		eleTraveltap=driver.findElement(By.xpath("//div[@class='x-panel-title-text'][text()='Travel (1)']/..//..//..//..//div[@class='x-inner-el'][contains(text(),'"+sEndTime+"')]"));
+		return eleTraveltap;
 	}
 	
 	// Added by Harish.CS
@@ -1153,6 +1161,15 @@ public class WorkOrderPO{
 			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 	}
 		
+		public void addTravelwithTime(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname, String sStartTime , String sEndTime) throws InterruptedException
+		{	//Adding labor parts name
+			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
+		
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,sEndTime,"00"); //set end time			
+			commonsPo.tap(getEleDoneBtn());
+	}
+		
 		
 	// To add Expense
 		
@@ -1615,10 +1632,9 @@ public class WorkOrderPO{
 		public WebElement geteleProblemDesc_Edit_WorkOrderPopup()
 		{
 			return eleProblemDesc_Edit_WorkOrderPopup;
-		}
-		
-		
-		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		}	
+	
+		@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-unsized x-textinput x-input x-component x-has-width x-widthed']/div[@class='x-input-body-el']/input")
 		private WebElement eleBillingType_Edit_Lst;
 		public WebElement geteleBillingType_Edit_Lst()
 		{
