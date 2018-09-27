@@ -100,6 +100,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sCoveredPercent = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		System.out.println(sBillableLinePrice);
 		
 		
 		// Verifying The Line Price Per Unit Value
@@ -130,7 +131,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice.equals("10000"))
+		if(sBillableLinePrice.equals("10000.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
@@ -155,6 +156,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sCoveredPercent2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty2= workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice2 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		System.out.println(sBillableLinePrice2);
 		
 		
 		// Verifying The Line Price Per Unit Value
@@ -185,7 +187,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice2.equals("3000"))
+		if(sBillableLinePrice2.equals("3000.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
