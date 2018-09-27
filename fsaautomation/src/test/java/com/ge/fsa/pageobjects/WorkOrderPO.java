@@ -1002,7 +1002,7 @@ public class WorkOrderPO{
 	
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
 	{
-		selectAction(commonsPo, "New Event");
+		selectAction(commonsPo, "Create New Event From Work Order");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
 		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
