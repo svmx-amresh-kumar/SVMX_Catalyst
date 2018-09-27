@@ -43,6 +43,7 @@ public void Scenario1Test() throws Exception
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		toolsPo.configSync(commonsPo);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
