@@ -90,15 +90,24 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sIBID = restServices.restGetSoqlValue(sSoqlIB,"Id");
 		
 		// To navigate to the Work Order
-		
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		
-		
-		
-		
+		/**
+		 * PARTS - Verification of Fields
+		 */
+			workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
+			// To verify if Billing Type = Warranty
+			String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
+			Assert.assertEquals("", sBillingTypeValue);
+			System.out.println(sBillingTypeValue);
+			// Clicking on Get Price button for Parts
+			commonsPo.tap(workOrderPo.geteleGetPrice());
+			// Tap on the Product and verify the field values after the Get Price of Parts
+			commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
+
 				
 	}
 }
