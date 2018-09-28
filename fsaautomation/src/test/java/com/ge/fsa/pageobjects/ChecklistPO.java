@@ -66,6 +66,13 @@ public class ChecklistPO{
 	{
 		return eleChecklistokPopUp;
 	}
+	
+	 @FindBy(xpath="//span[text()='Save']")
+	    private WebElement eleSavePopUp;
+	    public WebElement geteleSavePopUp()
+	    {
+	    	return eleSavePopUp;
+	    }
     
     private WebElement eleSectionNextBtn;
 	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)
@@ -280,6 +287,13 @@ public class ChecklistPO{
 		return eleChecklistHelpIcn;
 	}
 	
+	private WebElement eleChecklistStatuslbl;
+    public WebElement  getEleChecklistStatusLbl(String sChecklistNames)
+	{
+		return eleChecklistStatuslbl = driver.findElement(By.xpath("//div[@class='checklist-lineup-list-item-name'][text()='"+sChecklistNames+"']/following-sibling::div[@class='checklist-lineup-list-item-statuslabel']"));
+		
+	}
+	
 	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	
 	
@@ -307,7 +321,6 @@ public class ChecklistPO{
 			commonsPo.tap(geteleBacktoChecklistslnk());
 			commonsPo.tap(geteleBacktoWorkOrderlnk());
 		}
-		
 		
 		
 		
