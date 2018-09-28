@@ -197,14 +197,14 @@ public class WorkOrderPO{
 	{
 		return eleDescriptionTxtFld;
 	}
-	@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+	@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
 	private WebElement eleStartDateTimeLst;
 	public WebElement getEleStartDateTimeLst()
 	{
 		return eleStartDateTimeLst;
 	}
 	
-	@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+	@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
 	private WebElement eleEndDateTimeLst;
 	public WebElement getEleEndDateTimeLst()
 	{
