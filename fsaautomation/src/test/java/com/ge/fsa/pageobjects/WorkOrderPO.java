@@ -949,6 +949,61 @@ public class WorkOrderPO{
 		elechildlinefields = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+sfieldName+"']//..//..//input[@class='x-input-el']"));
 		return elechildlinefields;
 	}
+	//lks
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off']")
+		private WebElement eleAutoOffSwitchBtn;
+		public WebElement getEleAutoOffSwitchBtn()
+		{
+			return eleAutoOffSwitchBtn;
+		}
+		//lks
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleAutoOnSwitchBtn;
+		public WebElement getEleAutoOnSwitchBtn()
+		{
+			return eleAutoOnSwitchBtn;
+		}
+		
+		//lks
+		@FindBy(xpath="//div[@class='x-component x-msgbox-text x-layout-box-item x-layout-vbox-item x-stretched']/div")
+		private WebElement eleCountryItalyTxt;
+		public WebElement getEleCountryItalyTxt()
+		{
+			return eleCountryItalyTxt;
+		}
+		
+		//lks
+		@FindBy(xpath="//span[@class='x-button-icon x-shown icon-save']")
+		private WebElement eleQuickSaveIcn;
+		public WebElement getEleQuickSaveIcn()
+		{
+			return eleQuickSaveIcn;
+		}
+		//lks
+		@FindBy(xpath="//div[@class='svmx-editor-link'][text()='Edit']")
+		private WebElement eleAutoText_10540TxtFld;
+		public WebElement getEleAutoText_10540TxtFld()
+		{
+			return eleAutoText_10540TxtFld;
+		}
+		//lks
+		@FindBy(xpath="//input[@type='number']")
+		private WebElement eleNumber_10540TxtFld;
+		public WebElement getEleNumber_10540TxtFld()
+		{
+			return eleNumber_10540TxtFld;
+		}
+		
+		
+		//lks
+		@FindBy(xpath="//span[@class='x-button-label'][text()='Update']")
+		private WebElement eleUpdateBtn;
+		public WebElement getEleUpdateBtn()
+		{
+			return eleUpdateBtn;
+		}
+
+
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
