@@ -723,6 +723,13 @@ public class WorkOrderPO{
 		return lblAccount;
 	}
 	
+	@FindBy(xpath="(//span[text()='Product'])[2]")
+	private WebElement lblProduct;
+	public WebElement getLblProduct()
+	{
+		return lblProduct;
+	}
+	
 	@FindBy(xpath="(//span[text()='Cancel'])[2]")
 	private WebElement lnkLookupCancel;
 	public WebElement getLnkLookupCancel()
