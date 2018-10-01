@@ -153,7 +153,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
-			Assert.assertTrue(fetchedScheduledDatetime.equals(sformattedDatetime), "ScheduledDatetime value mapped is not displayed");
+			Assert.assertEquals(stempDate,fetchedScheduledDatetime, "ScheduledDatetime value mapped is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
 			commonsPo.tap(workOrderPo.openpartsontap());

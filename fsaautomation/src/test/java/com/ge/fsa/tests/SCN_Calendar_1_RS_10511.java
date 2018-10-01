@@ -26,7 +26,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
+public class SCN_Calendar_1_RS_10511 extends BaseLib {
 
 	int iWhileCnt = 0;
 	
@@ -46,7 +46,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	String sIBLastModifiedBy=null;
-	//String techname="a240t000000GglLAAS";
+	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -54,7 +54,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	} 
 
 	@Test(enabled = true)
-	public void RS_10525_2months_event() throws Exception {
+	public void RS_10511() throws Exception {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
@@ -66,7 +66,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
 		String sworkOrderName = GenericLib.getExcelData(sTestIB, "WorkOrder Number");
-		String TechName = GenericLib.getExcelData(sTestIB, "TechName");
+	
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
@@ -84,13 +84,20 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		
 			//create WO and Account
 			sObjectApi = "Account?";
-			sJsonData = "{\"Name\": \"Two_months_event_Account\"}";
+			sJsonData = "{\"Name\": \"ACCOUNT123\"}";
 			sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 			sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 			sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 			//sProductName1="v1";
 			System.out.println(sAccountName);
 			
+			sObjectApi = "Account?";
+			sJsonData = "{\"Name\": \"UPDATED_ACCOUNT\"}";
+			restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectAccID);
+			
+			
+			
+			/*
 			sObjectApi = "SVMXC__Service_Order__c?";
 			sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\",\"SVMXC__Order_Status__c\":\"Open\"}";
 			String sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
@@ -122,7 +129,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	     
 	     sObjectApi = "SVMXC__SVMX_Event__c?";
 			//sJsonData = "{\"SVMXC__StartDateTime__c\": \""+starttimezero+"\"}";	
-			sJsonData = "{\"Name\": \"Two_months_event\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+TechName+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
+			sJsonData = "{\"Name\": \"Two_months_event\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+techname+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
 
 
 		//	sJsonData = "{\"Name\":\"OneDayEvent\",\"SVMXC__Service_Order__c\":\""+sWOName+"\",\"SVMXC__StartDateTime__c\":\""+starttimezero+"\",\"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\":\""+sObjectAWOID+"\"}";	
@@ -134,7 +141,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		
 			toolsPo.syncData(commonsPo);
 		
-		//String sWOName="WO-00002608";  String sObjectAWOID ="a2D0t000002Me4tEAC";
+	//	String sWOName="WO-00002608";  String sObjectAWOID ="a2D0t000002Me4tEAC";
 			String sSoqlStartDateTime = "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
 		 String sSoqlQueryStartDateTime = restServices.restGetSoqlValue(sSoqlStartDateTime, "SVMXC__StartDateTime__c");
 			System.out.println(sSoqlQueryStartDateTime);
@@ -176,7 +183,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
 			
 			Thread.sleep(3000);
-			calendarPO.geteletaponmonthdayindex(convertedendday).getLocation();
+			
 			commonsPo.tap(calendarPO.geteletaponmonthdayindex(convertedendday));
 			//commonsPo.tap(calendarPO.geteletaponmonthdayindex());
 			
@@ -196,7 +203,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Two months event verification is successful");
 			
 			
-			
+			*/
 			
 	
 	}

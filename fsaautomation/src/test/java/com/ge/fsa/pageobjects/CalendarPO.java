@@ -103,7 +103,7 @@ public class CalendarPO
 	
 	public void validateeventlocation(String workordername,String startcalDate,String endcalDate,int hrs) throws Exception 
 	{
-	
+		Thread.sleep(3000);
 		startcalDate=startcalDate+":00";
 		endcalDate=endcalDate+":00"; 
 		
@@ -154,12 +154,23 @@ public class CalendarPO
 		}
 	
 	}
+	//tap on particular day in rhe month view
 	private WebElement eletaponmonthday;
 	public WebElement geteletaponmonthday(String datetotap)
 	{
 		eletaponmonthday = driver.findElement(By.xpath("//span[contains(@datetime, '"+datetotap+"')]"));
 		return eletaponmonthday;
 	}
+	
+	
+	private WebElement eletaponmonthdayindex;
+	public WebElement geteletaponmonthdayindex(String datetotap)
+	{
+		eletaponmonthdayindex = driver.findElement(By.xpath("(//span[contains(@datetime, '"+datetotap+"')])[2]"));
+		return eletaponmonthdayindex;
+	}
+	
+	
 	
 	@FindBy(xpath="(//div[@class ='x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon sfmevent-nav-next x-haslabel x-layout-box-item x-layout-hbox-item x-stretched'])[3]")
 	private WebElement elenavigatetonextmonthcalender;
@@ -231,5 +242,29 @@ public class CalendarPO
 	        System.out.println("Converted to date "+stempDate); 
 		return stempDate;
 	}
+	
+	
+	public void VerifyWOInCalender(CommonsPO commonsPo, String workordername) throws Exception 
+	{
+	
+		Thread.sleep(3000);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
+		
+	
+		if(getEleworkordernumonCalendarWeek(workordername) != null){
+			System.out.println("Found WO " + workordername);
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + workordername);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
+
+	}
+	
+	
 	
 }
