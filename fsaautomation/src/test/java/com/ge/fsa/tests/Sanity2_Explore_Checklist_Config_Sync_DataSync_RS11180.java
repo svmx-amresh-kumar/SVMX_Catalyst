@@ -170,10 +170,11 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 
 		 	
 			// submitting the checklist
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(GenericLib.iHighSleep);
 			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
+			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 

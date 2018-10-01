@@ -134,13 +134,13 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());
-				commonsPo.lookupSearch(sProductAName);
+				commonsPo.lookupSearch(sProductNameA);
 		// Coming to the Childlines and Verifying on the IB Serial Number
 				commonsPo.tap(workOrderPo.getElePartLnk());
-				commonsPo.lookupSearch(sProductAName);
+				commonsPo.lookupSearch(sProductNameA);
 				commonsPo.tap(workOrderPo.getEleAddselectedbutton());
 		// Tapping on the Parts added and checking the IB Serial Number
-				commonsPo.tap(workOrderPo.getEleTaponParts(sProductAName));
+				commonsPo.tap(workOrderPo.getEleTaponParts(sProductNameA));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.

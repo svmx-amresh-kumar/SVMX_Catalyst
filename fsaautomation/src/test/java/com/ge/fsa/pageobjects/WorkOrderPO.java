@@ -178,7 +178,7 @@ public class WorkOrderPO{
 		return eleWOServiceReportTxt;
 	}*/
 	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='New Event']")
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Create New Event From Work Order']")
 	private WebElement eleNewEventTxt;
 	public WebElement getEleNewEventTxt()
 	{
@@ -197,14 +197,14 @@ public class WorkOrderPO{
 	{
 		return eleDescriptionTxtFld;
 	}
-	@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+	@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
 	private WebElement eleStartDateTimeLst;
 	public WebElement getEleStartDateTimeLst()
 	{
 		return eleStartDateTimeLst;
 	}
 	
-	@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+	@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
 	private WebElement eleEndDateTimeLst;
 	public WebElement getEleEndDateTimeLst()
 	{
@@ -956,6 +956,61 @@ public class WorkOrderPO{
 		elechildlinefields = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+sfieldName+"']//..//..//input[@class='x-input-el']"));
 		return elechildlinefields;
 	}
+	//lks
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off']")
+		private WebElement eleAutoOffSwitchBtn;
+		public WebElement getEleAutoOffSwitchBtn()
+		{
+			return eleAutoOffSwitchBtn;
+		}
+		//lks
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleAutoOnSwitchBtn;
+		public WebElement getEleAutoOnSwitchBtn()
+		{
+			return eleAutoOnSwitchBtn;
+		}
+		
+		//lks
+		@FindBy(xpath="//div[@class='x-component x-msgbox-text x-layout-box-item x-layout-vbox-item x-stretched']/div")
+		private WebElement eleCountryItalyTxt;
+		public WebElement getEleCountryItalyTxt()
+		{
+			return eleCountryItalyTxt;
+		}
+		
+		//lks
+		@FindBy(xpath="//span[@class='x-button-icon x-shown icon-save']")
+		private WebElement eleQuickSaveIcn;
+		public WebElement getEleQuickSaveIcn()
+		{
+			return eleQuickSaveIcn;
+		}
+		//lks
+		@FindBy(xpath="//div[@class='svmx-editor-link'][text()='Edit']")
+		private WebElement eleAutoText_10540TxtFld;
+		public WebElement getEleAutoText_10540TxtFld()
+		{
+			return eleAutoText_10540TxtFld;
+		}
+		//lks
+		@FindBy(xpath="//input[@type='number']")
+		private WebElement eleNumber_10540TxtFld;
+		public WebElement getEleNumber_10540TxtFld()
+		{
+			return eleNumber_10540TxtFld;
+		}
+		
+		
+		//lks
+		@FindBy(xpath="//span[@class='x-button-label'][text()='Update']")
+		private WebElement eleUpdateBtn;
+		public WebElement getEleUpdateBtn()
+		{
+			return eleUpdateBtn;
+		}
+
+
 	/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -1009,7 +1064,7 @@ public class WorkOrderPO{
 	
 	public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
 	{
-		selectAction(commonsPo, "New Event");
+		selectAction(commonsPo, "Create New Event From Work Order");
 		Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
 		commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
