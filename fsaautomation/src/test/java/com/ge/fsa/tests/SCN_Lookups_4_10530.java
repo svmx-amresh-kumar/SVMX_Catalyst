@@ -12,9 +12,9 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 //		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10530_lkp_proc1");
-		Thread.sleep(GenericLib.iHighSleep);
-		
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10530_lkp_proc1");
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.tap(workOrderPo.getLblProduct());
 	}
 
 }
