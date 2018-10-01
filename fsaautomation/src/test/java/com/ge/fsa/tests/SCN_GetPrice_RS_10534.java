@@ -30,7 +30,7 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
  *
  */
 public class SCN_GetPrice_RS_10534 extends BaseLib {
-	String sTestCaseID= "Scenario_10538";
+	String sTestCaseID= "Scenario_10534";
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -47,42 +47,79 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10534() throws Exception {
 	
-		System.out.println("SCN_GetPrice_RS_10534");
-		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		
+//		System.out.println("SCN_GetPrice_RS_10534");
+//		// To run the Sahi Script before the Execution of Appium
+//		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
+//		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
-		String sTestDataValue = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue, "Work Order Number");
-		String sProductName = GenericLib.getExcelData(sTestDataValue, "Product Name ");
+		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
+		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
+		String sworkOrderName = GenericLib.getExcelData(sTestDataValue1, "Work Order Number");
+		String sProductName = GenericLib.getExcelData(sTestDataValue2, "Product Name ");
 		System.out.println(sworkOrderName);
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "Record T&M";// Standard SFM Process
-		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+	
+	/** 
+	 * To enter the DOD of the Work Order	
+	 */
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sworkOrderName);
+		// If the value "Records not Displayed" is Visible then the Work Order is Online.
+			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
+				{				
+				 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
+				 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+				 // If the Cloud button is Visible then need to Tap on it
+					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
+						{
+						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
+						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName),10,10);
+					
+						}
+					// If the cloud button is not visible then throw an Error in the Report
+						else
+						{
+							//NXGReports.addStep("Testcase " + sTestCaseID + "DOD of the Work Order didn't meet", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "DOD of the Work Order didn't meet");
+
+							driver.quit();
+						}
+				}
+				// If the value "Records not displayed" is not visible then the WO is not Online.
+				else
+				{
+					//NXGReports.addStep("Testcase " + sTestCaseID + "Work Order is not Online - DOD not available", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "DOD of the Work Order didn't meet");
+
+					System.out.println("DOD of the Work Order didn't meet");
+					driver.quit();
+				}
+				
 		
 		
 	/**
 	 * PARTS - Verification of Fields
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
+			String sProcessname = "Record T&M";// Standard SFM Process
+			Thread.sleep(2000);
+			workOrderPo.selectAction(commonsPo,sProcessname);
+			workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Warranty", sBillingTypeValue);
