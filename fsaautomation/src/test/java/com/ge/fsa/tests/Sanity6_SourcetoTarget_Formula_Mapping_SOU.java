@@ -42,18 +42,12 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	String sSerialNumber = null;
 
 
-	private void preRequiste() throws IOException { 
+	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
 		sSerialNumber = commonsPo.generaterandomnumber("SAN6_");
 		
 		//	sDeviceDate = driver.getDeviceTime().split(" ");
-		/*sObjectApi = "Product2?";
-		sJsonData = "{\"Name\": \""+sTestCaseID+"\", \"IsActive\": \"true\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
-		sProductName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		sProductName1="v1";*/
 
 		sJsonData = "{\"Name\": \""+sSerialNumber+"\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
@@ -68,8 +62,10 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001147";
-
-
+		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+		
 	}
 
 	@Test(enabled = true)
@@ -87,9 +83,6 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
 		
-		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
