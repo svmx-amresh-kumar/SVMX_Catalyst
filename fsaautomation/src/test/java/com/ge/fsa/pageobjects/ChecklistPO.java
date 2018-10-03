@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -36,14 +37,16 @@ public class ChecklistPO{
 	{
 		return eleChecklistSubmit;
 	}
-	
-	@FindBy(xpath="//a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']")
 
-	private WebElement eleStartNewLnk;
-	public WebElement geteleStartNew()
-	{
-		return eleStartNewLnk;
-	}
+	
+	 private WebElement eleStartNewLnk;
+		public WebElement getEleStartNewLnk(String sCheckListName )
+		{
+			
+			eleStartNewLnk = driver.findElement(By.xpath("//div[@class='checklist-lineup-list-item-description'][text()='"+sCheckListName+"']/following-sibling::a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']"));
+			return eleStartNewLnk;
+		}
+	
 	
 	
     @FindBy(xpath="//span[text()='Next']")
@@ -321,9 +324,19 @@ public class ChecklistPO{
 			commonsPo.tap(geteleBacktoChecklistslnk());
 			commonsPo.tap(geteleBacktoWorkOrderlnk());
 		}
+	
+	
 		
 		
 		
+	}
+	
+	
+	public void Allowlocationbutton() throws InterruptedException
+	{
+		Thread.sleep(GenericLib.iHighSleep);
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		Thread.sleep(GenericLib.iLowSleep);
 		
 	}
 	
