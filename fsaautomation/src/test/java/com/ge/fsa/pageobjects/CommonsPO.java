@@ -540,6 +540,18 @@ public class CommonsPO
 			
 			return result;
 		}
+		
+		/**
+		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
+		 * @throws InterruptedException 
+		 */
+		public void clickAllowPopUp() throws InterruptedException {
+		Thread.sleep(GenericLib.iLowSleep);
+		switchContext("Native");
+		driver.findElementByAccessibilityId("Allow").click();
+		switchContext("Webview");
+		}
+
 }
 	
 

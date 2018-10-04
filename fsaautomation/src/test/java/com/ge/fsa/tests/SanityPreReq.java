@@ -17,7 +17,7 @@ public class SanityPreReq extends BaseLib {
 	String sTestCaseID = "SanityPreReq";
 	
 	@Test
-	public void scenario3Test() throws Exception {
+	public void SanityPreReq() throws Exception {
 
 		
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
