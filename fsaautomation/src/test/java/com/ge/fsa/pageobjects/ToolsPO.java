@@ -166,7 +166,7 @@ public class ToolsPO
 			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
 			//commonsPo.waitforElement(element, lTime);
 			
-			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 8000)) {
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 30000)) {
 				System.out.println("Sync Completed Sucessfully-tools po");
 
 			}else {
