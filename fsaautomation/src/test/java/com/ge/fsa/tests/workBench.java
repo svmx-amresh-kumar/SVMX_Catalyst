@@ -3,17 +3,37 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+
+import java.util.List;
+import java.util.Set;
+
 import org.json.JSONArray;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
 
-
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import org.openqa.selenium.Point;
 
 public class workBench extends BaseLib
 {
@@ -32,23 +52,204 @@ public class workBench extends BaseLib
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
 
+//	@FindBy(xpath="//XCUIElementTypeOther[@type='XCUIElementTypeOther']")	
+//	private List<WebElement> picPic;
+//	public  List<WebElement> getPicPic()
+//	{
+//		return picPic;
+//	}
 	
 @Test
-public void Scenario1Test() throws Exception
+public void workBench() throws Exception
 {		
 
 
-	loginHomePo.login(commonsPo, exploreSearchPo);String sworkOrderName = "WO-00001744";
-	calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+	loginHomePo.login(commonsPo, exploreSearchPo);
+	//String sworkOrderName = "WO-00001744";
+	Thread.sleep(30000);
+	//commonsPo.switchContext("Webview");
+	System.out.println("ererererererererer");
+//driver.findElement(By.xpath("(//span[contains(text(),'Choose from Library')])[3]")).click();;
+Thread.sleep(16000);
+//try {
+//commonsPo.tap(driver.findElement(By.xpath("//*[contains(@label,'Photo, Portrait, September 05, 23:05')]")));
+//}
+//catch(Exception e) {
+//	commonsPo.tap(driver.findElement(By.xpath("//*[contains(@label,'Photo')]")));
+//
+//}
+////XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']
+//List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeOther[@type='XCUIElementTypeOther']"));
+
+	//commonsPo.switchContext("Webview");
+
+	//List<IOSElement> picPic1 = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeApplication[@name=\"ServiceMax\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]"));
+	//List<IOSElement> picPic1 = (List<IOSElement>) driver.findElements(By.xpath("//*[@type='XCUIElementTypeOther'][contains(@label,'Photo')]"));
+
+	
+	
+//	
+//	Point point =  picPic1.get(1).getLocation();
+//	System.out.println("Points are as = "+point.getX()+":"+point.getY());
+//	TouchAction touchAction2 = new TouchAction(driver);;	
+//	//commonsPo.switchContext("Native");
+//	int x = point.getX() + 44;
+//	int y = point.getY() + 191;
+//	touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+//	Thread.sleep(6000);
+//
+//	//commonsPo.switchContext("Webview");
+//	touchAction2.press(new PointOption().withCoordinates(x,y)).perform().release();
+//
+//	commonsPo.tap(picPic1.get(1), 53,180);
+//	picPic1.get(1).sendKeys("0");
+//	
+//	
+////List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeApplication[@name=\"ServiceMax\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]"));
+////System.out.println("picpic = "+picPic.size()+"----"+picPic);
+////
+////commonsPo.tap(picPic.get(0), 53,180);
+////picPic.get(0).sendKeys("Photo, Portrait, September 05, 23:05");
+////picPic.get(0).sendKeys("22");
+////
+////picPic.get(1).click();
+////
+////picPic.get(2).click();
+////
+////picPic.get(3).click();
+////
+////
+////picPic.get(1).sendKeys("22");
+////picPic.get(2).sendKeys("22");
+////picPic.get(3).sendKeys("22");
+
+
+//    Thread.sleep(GenericLib.iMedSleep);
+//    loginHomePo.geteleMotoGpLogin().click();
+//    Thread.sleep(GenericLib.iMedSleep);
+
+
+
+try {
+	Thread.sleep(6000);
+	System.out.println("Context count " + driver.getContextHandles().size());
+//
+//	Set contextNames = driver.getContextHandles();
+//	driver.context(contextNames.toArray()[1].toString());
+//	commonsPo.switchContext("Native");
+//	//List<IOSElement> picPic1 = (List<IOSElement>)driver.findElements(By.xpath("//*[contains(.,'Photo')]"));
+//	List<IOSElement> picPic1 = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeApplication[@name=\"ServiceMax\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]"));
+//	System.out.println("picpic4 = "+picPic1.size()+"----"+picPic1);
+//	System.out.println("catch4 00000000000000000000000");
+//	
+	
+//	Set<String> contextNames = driver.getContextHandles();
+//	for (String contextName : contextNames) {
+//	 if (contextName.contains("NATIVE"))
+//	 driver.context(contextName);
+//	}
+//	commonsPo.switchContext("Native");
+//	TouchAction touchAction2 = new TouchAction(driver);
+//	//Locating & clicking on the element
+//	Point point = driver.findElementByAccessibilityId("PhotosGridView").findElement(By.xpath("//*[contains(@label,'Photo')]")).getLocation();
+//	int x = point.getX() + 2;
+//	int y = point.getY() + 5;
+//	commonsPo.switchContext("Webview");
+//	touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+	
+	
+	commonsPo.switchContext("Native");
+	List<WebElement> mel = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
+for(int i =0;i<mel.size();i++) {
+	try {
+		
+		System.out.println("Click  picpic = "+i+"----"+mel.get(i).getText());
+		mel.get(i).click();
+		
+		TouchAction touchAction2 = new TouchAction(driver);
+		touchAction2.tap(new TapOptions().withElement(new ElementOption().element(mel.get(i)))).perform().release();
+//		Point point = mel.get(i).getLocation();
+//		int x = point.getX() + 12;
+//		int y = point.getY() + 15;
+//		//commonsPo.switchContext("Webview");
+//		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+
+		
+	
+	}catch(Exception e) {
+		System.out.println("In catch ##### "+e);
 
 	}
+
+
+}
+
+//	List<IOSElement> picPic1 = (List<IOSElement>)driver.findElements(By.xpath("//*[contains(.,'Photo')]"));
+//	System.out.println("picPic1 = "+picPic1.size()+"----"+picPic1);
+//	System.out.println("picPic1 00000000000000000000000");
+	
+	//picPic1.get(0).sendKeys("Photo, Landscape, 17. August, 06:23");
+
+	
+//	for(int i =0;i<picPic1.size();i++) {
+//		try {
+//			
+//		System.out.println("Click  picpic = "+i+"----"+picPic1.get(i));
+//		picPic1.get(i).click();
+//		}catch(Exception e) {
+//			System.out.println("In catch ##### "+e);
+//
+//		}
+//
+//
+//	}
+//	
+//	
+//
+//	
+//	for(int i =0;i<picPic1.size();i++) {
+//		try {
+//		System.out.println("TAP  picpic = "+i+"----"+picPic1.get(i));
+//		//commonsPo.tap(picPic1.get(i),53,180);	
+//		
+//		Point point =  picPic1.get(i).getLocation();
+//		System.out.println("Points are as = "+point.getX()+":"+point.getY());
+//		System.out.println("remote address after native "+driver.getRemoteAddress());
+//
+//		commonsPo.switchContext("Webview");
+//		System.out.println("remote address after webview "+driver.getRemoteAddress());
+//		TouchAction touchAction2 = new TouchAction(driver);;	
+//		int x = point.getX() + 44;
+//		int y = point.getY() + 191;
+//		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+//		Thread.sleep(6000);
+//		
+//		}catch(Exception e) {
+//			System.out.println("In catch ##### "+e);
+//
+//		}
+//
+//
+//	}
+
+}catch(Exception e){
+	System.out.println("In catch ouuter "+e );
+
+}
+
+commonsPo.switchContext("Native");
+
+
+//List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeOther[@name='RemoteViewBridge']"));
+//List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeApplication[@name='ServiceMax']/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther"));
+
+//List<WebElement> pp = commonsPo.getPicPic();
+//System.out.println("picpic = "+picPic.size()+"----"+picPic);
+//	System.out.println("00000000000000000000000");
+//	Thread.sleep(30000);
+//
+//
+}
 	
 
 	
