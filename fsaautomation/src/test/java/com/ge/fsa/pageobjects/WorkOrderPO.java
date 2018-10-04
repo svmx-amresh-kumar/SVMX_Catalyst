@@ -198,6 +198,12 @@
 			return eleDescriptionTxtFld;
 		}
 		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTimeLst1;
+		public WebElement getEleStartDateTimeLst1()
+		{
+			return eleStartDateTimeLst1;
+		}
+		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleStartDateTimeLst;
 		public WebElement getEleStartDateTimeLst()
 		{
@@ -205,6 +211,12 @@
 		}
 	
 		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTimeLst1;
+		public WebElement getEleEndDateTimeLst1()
+		{
+			return eleEndDateTimeLst1;
+		}
+		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeLst;
 		public WebElement getEleEndDateTimeLst()
 		{
@@ -1092,8 +1104,8 @@
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,"0","0"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"0", "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"0","0"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
