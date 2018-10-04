@@ -23,12 +23,12 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
-
 /**
  * 
  * @author meghanarao
  *
  */
+
 public class SCN_GetPrice_RS_10534 extends BaseLib {
 	String sTestCaseID= "Scenario_10534";
 	String sAccountName = null;
@@ -47,27 +47,27 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10534() throws Exception {
 	
-//		System.out.println("SCN_GetPrice_RS_10534");
-//		// To run the Sahi Script before the Execution of Appium
-//		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		System.out.println("SCN_GetPrice_RS_10534");
+		// To run the Sahi Script before the Execution of Appium
+		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 //		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
@@ -112,12 +112,25 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 				}
 				
 		
+			
+		/**
+		 * PARTS - Verification of Fields
+		 */				String sProcessname = "Record T&M";
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		try
+		{
+			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			exploreSearchPo.selectWorkOrder(commonsPo,sworkOrderName);
+		}
+		catch(Exception e)
+		{
+			exploreSearchPo.selectWorkOrder(commonsPo,sworkOrderName);
+			
+		}
 		
-	/**
-	 * PARTS - Verification of Fields
-	 */
-			String sProcessname = "Record T&M";// Standard SFM Process
-			Thread.sleep(2000);
+				Thread.sleep(2000);
 			workOrderPo.selectAction(commonsPo,sProcessname);
 			workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
 		// To verify if Billing Type = Warranty
