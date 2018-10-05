@@ -106,6 +106,10 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
+			
+			
+			//Thread.sleep(15000);
+			
 
 			//System.out.println("Going to Enter checklist");
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
@@ -172,11 +176,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-
+			commonsPo.switchContext("WEBVIEW");
+			Thread.sleep(genericLib.iLowSleep);
+			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+			commonsPo.switchContext("WEBVIEW");
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
