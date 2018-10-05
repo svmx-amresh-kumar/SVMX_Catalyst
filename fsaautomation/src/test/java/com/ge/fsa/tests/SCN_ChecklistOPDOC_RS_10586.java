@@ -3,7 +3,7 @@
  *  
  *  PENDING SAHI SCRIPTS
  *  Checklist Process to be created and ChecklistOPDoc Process to be created.
- *  Checkbox, radiobox Validation in Appium
+ * 
  *  Date and Datetime Solutions
  *  
  */
@@ -175,13 +175,25 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			Assert.assertTrue(sTextStaticAnsApp.equals(sTextStaticAns),"Static response with picklist failed");
 			ExtentManager.logger.log(Status.PASS, "Static response with text datatype Passed");
 			
-			/*	
-			String sRadioButtonStaticAnsApp = checklistPo.geteleChecklistAnsradio(sRadioButtonStaticQ).getAttribute("type");
-			Assert.assertTrue(sRadioButtonStaticAnsApp.equals(sRadioButtonStaticAns),"Static response with picklist failed");
-			System.out.println("sRadioButtonStaticAnsApp type"+sRadioButtonStaticAnsApp);
-			ExtentManager.logger.log(Status.PASS, "Static response with radio datatype Passed");*/
+			//Checkbox datatype validation
+			String val = checklistPo.geteleChecklistCheckboxValue("CheckBoxOne").getAttribute("checked");
+			Assert.assertTrue(val.equals("true"),"Static response with Checkbox failed");
+			ExtentManager.logger.log(Status.PASS, "checkbox Static response with checkbox datatype Passed");
+
 			
-			//DYNAMIC RESPONSE VALIDATIONS	in Checklist
+			//Radio Button validation
+			String valv = checklistPo.geteleChecklistRadioButtonValue("RadioOne").getAttribute("checked");
+			System.out.println("radioOne"+valv);
+			Assert.assertTrue(valv.equals("true"),"Static response with Radio failed");
+			ExtentManager.logger.log(Status.PASS, "RadioButton Static response with checkbox datatype Passed");
+
+			
+			//String sRadioButtonStaticAnsApp = checklistPo.geteleChecklistAnsradio(sRadioButtonStaticQ).getAttribute("type");
+			//Assert.assertTrue(sRadioButtonStaticAnsApp.equals(sRadioButtonStaticAns),"Static response with picklist failed");
+			//System.out.println("sRadioButtonStaticAnsApp type"+sRadioButtonStaticAnsApp);
+			//ExtentManager.logger.log(Status.PASS, "Static response with radio datatype Passed");
+			
+			//-----------------DYNAMIC RESPONSE VALIDATIONS	in Checklist--------------
 			
 			String sNumberDynamicAnsApp = checklistPo.geteleChecklistAnsNumber(sNumberDynamicQ).getAttribute("value");
 			Assert.assertTrue(sNumberDynamicAnsApp.equals(sNumberDynamicAns), "Dynamic response with Number datatype failed");
@@ -211,11 +223,16 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iLowSleep);
-			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+			try {
+				checklistPo.Allowlocationbutton();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			
-			try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
@@ -327,7 +344,6 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-			//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
 			ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
 			Thread.sleep(GenericLib.iLowSleep);
@@ -366,7 +382,10 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 				Assert.assertTrue(ChecklistAnsjson.contains(sPicklistDynamicAns), "dynamicrepsonse Picklist ans was not sycned to server in checklist answer");
 				Assert.assertTrue(ChecklistAnsjson.contains(sTextStaticAns), "static response text ans was not sycned to server in checklist answer");
 				Assert.assertTrue(ChecklistAnsjson.contains(sNumbeStaticAnsOP), "static number ans was not sycned to server in checklist answer");
+				Assert.assertTrue(ChecklistAnsjson.contains(sPicklistStaticAns), "static picklist ans was not sycned to server in checklist answer");
 
+				
+				
 	}
 }
 

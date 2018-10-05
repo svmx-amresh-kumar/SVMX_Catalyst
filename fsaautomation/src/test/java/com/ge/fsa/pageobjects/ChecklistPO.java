@@ -153,6 +153,22 @@ public class ChecklistPO{
 		return eleChecklistAnsradio = driver.findElement(By.xpath("//div[text()='"+checklistRadioQuestion+"'][@class='x-innerhtml']/../..//span"));
 	}
 	
+	
+	//$x("//span[@class='x-label-text-el'][text()='CheckBoxOne']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input")
+	private WebElement eleChecklistCheckboxValue;
+	public WebElement  geteleChecklistCheckboxValue(String checklistCheckbox)
+	{
+		return eleChecklistCheckboxValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistCheckbox+"']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input"));
+	}
+	
+	
+	//"//span[@class='x-label-text-el'][text()='RadioOne']/../..//input")
+	private WebElement eleChecklistRadioButtonValue;
+	public WebElement  geteleChecklistRadioButtonValue(String checklistRadiobutton)
+	{
+		return eleChecklistRadioButtonValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistRadiobutton+"']/../..//input"));
+	}
+	
 	private WebElement eleChecklistrequiredTxt;
 	public WebElement  geteleChecklistrequiredTxt(String ChecklistTextQuestion)
 	{
@@ -246,6 +262,13 @@ public class ChecklistPO{
 	public WebElement geteleChecklistDVRNoGreaterthan100txt()
 	{
 		return eleChecklistDVRNoGreaterthan100txt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Advanced DVR value should be more than 200')]")
+	private WebElement eleChecklistAdvanceDVR;
+	public WebElement geteleChecklistAdvanceDVR()
+	{
+		return eleChecklistAdvanceDVR;
 	}
 	
 	

@@ -35,14 +35,17 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	
 	String sDateq = "Date DVR";
 	String sDateTimeq = "DateTime DVR";
-	String sConfirmationDVRq = "Confirmation DVR number cannot be 10";
-	
-	
+	String sConfirmationDVRq = "Confirmation DVR number cannot be 10";	
 	
 	String sDateAns = null;
 	String sDateTimeAns = null;
 	String sConfirmationDVRAns = "10";
 
+	
+	String sAdvancedDVRq="Advanced Expression DVR";
+	String sAdvanceDVRAns = "20";
+	String sAdvancedDVRValidAns = "300";
+			
 
 	// For ServerSide Validations
 	String schecklistStatus = "Completed";
@@ -93,6 +96,12 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("10");
+		commonsPo.tap(checklistPo.geteleNext());
+		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed");
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("300");
+		
 		checklistPo.geteleChecklistAnsDate(sDateq).click();
 	    commonsPo.switchContext("Native");
 	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
@@ -110,11 +119,12 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    System.out.println("direct sdatetime"+sDateTimeAns);	
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
+		
+		
 		checklistPo.geteleChecklistAnsNumber(sConfirmationDVRq).sendKeys(sConfirmationDVRAns);
 		// tapping next button
-				commonsPo.tap(checklistPo.geteleNext());
-				
-	 
+		commonsPo.tap(checklistPo.geteleNext());
+		
 		Assert.assertTrue(checklistPo.geteleChecklistDVRConfirmationtxt().isDisplayed(), "DataValidation rule failed for number confirmation");	 	
 		Assert.assertTrue(checklistPo.geteleDVRConfirmBtn().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
@@ -125,25 +135,22 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		commonsPo.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), -3, "05", "05");
 		Thread.sleep(GenericLib.iLowSleep);
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	    
-	    
+	  
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
-	    
+	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
+		commonsPo.tap(checklistPo.geteleNext());
 
-	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
-		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
-	    
+	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date");	 	
+		ExtentManager.logger.log(Status.PASS,"8th June DVR passed date");
+	    commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
+
 		// checklistPo.geteleChecklistAnsDate(sDateq).click();
 		// commonsPo.setDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "1", "2018");
-		 Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
-		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
+		// Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
+		//ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
 		
 		Thread.sleep(GenericLib.iLowSleep);
-	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	    
-	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-
+	  
 		// tapping next button
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
