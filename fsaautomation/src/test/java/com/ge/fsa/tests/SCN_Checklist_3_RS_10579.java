@@ -4,6 +4,8 @@
  */
 package com.ge.fsa.tests;
 
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -94,7 +96,17 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		System.out.println(sWORecordID);
 		String sWOName3 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName3);
-				
+			
+	// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
+		
+		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
+		System.out.println(sWORecordID);
+		String sWOName4= restServices
+				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
+		System.out.println("WO no =" + sWOName4);
+		
+		
 		//sWOName1 = "WO-00001615";
 		
 		// Pre Login to app
@@ -150,7 +162,6 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		// NEED TO WRITE CODE TO SWITCH TO SAFARI AND VALIDATE.
 		//String url = driver.getCurrentUrl();
 		//System.out.println(url);		
-		//driver.runAppInBackground(Duration.ofSeconds(30));
 	
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(2));
@@ -194,7 +205,6 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-
 		//-------------Validating work order not satisfying Qualification Criteria---------------- 
 		// Navigation to WO
 			workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2);
@@ -228,10 +238,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			// Navigating to the checklist
 			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
-
-						
-						
-						
+							
 			try {
 				
 				checklistPo.geteleChecklistSectionNametab(sSection1Name).click();
@@ -250,9 +257,36 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			//Navigating back to work Orders
 			commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
 			
+			
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(genericLib.iMedSleep);
-			
+
+			commonsPo.tap(calendarPO.getEleCalendarClick());
+			Thread.sleep(GenericLib.iLowSleep);
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName4);
+			workOrderPo.selectAction(commonsPo, sFieldServiceName);
+
+			// Navigating to the checklist
+			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+			//Thread.sleep(genericLib.iLowSleep);
+			//hecklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(snumberwithoutjump);
+			//commonsPo.tap(checklistPo.geteleNext());	
+			commonsPo.tap(checklistPo.geteleSectionNextBtn(1));
+		
+			commonsPo.tap(checklistPo.geteleChecklistHelpIcn());
+			Thread.sleep(genericLib.iLowSleep);
+			System.out.println("Context count " + driver.getContextHandles().size());
+			Set contextNames = driver.getContextHandles();
+			System.out.println(driver.getContext());
+			driver.context(contextNames.toArray()[2].toString());
+			String url = driver.getCurrentUrl();
+	        System.out.println(url);
+
+			Assert.assertEquals(url, "https://www.google.com/", "Help url validated sucessfully");
+			ExtentManager.logger.log(Status.PASS,"Help URL validated sucessfully");
+	
 			//------------------SERVER SIDE VALIDATIONS
 			
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
@@ -281,6 +315,9 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			String sProblemDescServer = restServices.restGetSoqlValue(sSoqlqueryWOProb,"SVMXC__Problem_Description__c");
 			Assert.assertTrue(sProblemDescServer.equals(sProblemDescriptionSOUServer), "Problem Description source object not syned to server");
 			ExtentManager.logger.log(Status.PASS,"Problem Description Source object update has synced to server");
+			
+			
+			
 			
 			
 	}
