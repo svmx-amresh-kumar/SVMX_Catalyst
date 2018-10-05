@@ -10,13 +10,18 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.KeysRelatedAction;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -162,18 +167,51 @@ try {
 	List<WebElement> mel = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
 for(int i =0;i<mel.size();i++) {
 	try {
+		WebElement elem =  mel.get(i);
+		System.out.println("  picpic = "+i+"----"+elem.getText()+" remotewebele = "+((RemoteWebElement) elem).getId());
+	//	elem.getLocation();
+		//System.out.println("Click  picpic = "+i+"----"+elem.getLocation());
+		//elem.click();
 		
-		System.out.println("Click  picpic = "+i+"----"+mel.get(i).getText());
-		mel.get(i).click();
+		//((RemoteWebElement) elem).click();
 		
-		TouchAction touchAction2 = new TouchAction(driver);
-		touchAction2.tap(new TapOptions().withElement(new ElementOption().element(mel.get(i)))).perform().release();
-//		Point point = mel.get(i).getLocation();
-//		int x = point.getX() + 12;
-//		int y = point.getY() + 15;
-//		//commonsPo.switchContext("Webview");
-//		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+		
+		//WebElement element = driver.findElement('...');
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		HashMap<String, Object> params = new HashMap<>();
+//		params.put("x", elem.getLocation().getX()+10);
+//		params.put("y", elem.getLocation().getY()+10);
+//		params.put("element", elem);
+//		js.executeScript("mobile: tap", params);
+		
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		HashMap<String, String> scrollObject = new HashMap<String, String>();
+//		scrollObject.put("direction", "down");
+//		scrollObject.put("element", ((RemoteWebElement) elem).getId());
+//		js.executeScript("mobile: scroll", scrollObject);
+//		
+		WebElement pgv = driver.findElement(By.xpath("//*[contains(@label,'Moments')]"));
+		Point pointPhotoGrid = pgv.getLocation();
+		int pgx = pointPhotoGrid.getX() + 2;
+		int pgy = pointPhotoGrid.getY() + 5;
+		System.out.println("Moments  picpic = "+i+"----"+pointPhotoGrid);
+		System.out.println("Tapping  picpic crazy move= "+i+"----"+(pgx)+","+pgy);
 
+		TouchAction touchAction2 = new TouchAction(driver);
+		
+		touchAction2.tap(new PointOption().withCoordinates(pgx, pgy)).perform();
+		//touchAction2.tap(new TapOptions().withElement(new ElementOption().element(elem).withCoordinates(pgx, pgy))).perform().release();
+		
+		Point point = elem.getLocation();
+		int x = point.getX();
+		int y = point.getY();	
+		System.out.println("Tapping  picpic ori = "+i+"----"+(pgx-30)+","+y);
+		
+		touchAction2.tap(new PointOption().withCoordinates(pgx-30, y+10)).perform();
+
+		
+		System.out.println("Tapping  picpic ori = "+elem.getSize());
+		//elem.click();
 		
 	
 	}catch(Exception e) {

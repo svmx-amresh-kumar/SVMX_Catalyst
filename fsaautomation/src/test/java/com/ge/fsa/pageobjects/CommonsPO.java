@@ -549,7 +549,9 @@ public class CommonsPO
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 		driver.findElementByAccessibilityId("Allow").click();
+		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
+		Thread.sleep(GenericLib.iLowSleep);
 		}
 
 }
