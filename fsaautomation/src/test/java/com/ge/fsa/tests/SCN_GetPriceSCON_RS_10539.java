@@ -103,29 +103,29 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit1.equals("1000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty1.equals("1.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice1.equals("1000.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
@@ -147,37 +147,37 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit2.equals("3000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part ");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty2.equals("1.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice2.equals("2550.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}
 		if(sDiscountpercent.equals("15"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Discount Percent is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Discount Percent is as Expected - Part");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Discount Percent is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Discount Percent is not as Expected - Part");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
@@ -208,29 +208,29 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		if(sLinePricePUnit_labor.equals("500"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected- Labor");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor.equals("2.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Labor");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor.equals("1000.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Labor");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
@@ -245,29 +245,29 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		if(sLinePricePUnit_labor2.equals("600"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected- Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected- Labor");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor2.equals("1"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Labor");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor2.equals("600.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Labor");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Labor");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 	/**
@@ -288,20 +288,20 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Billable Quantity Value verification
 		if(sBillableQty_labor3.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Expense");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor3.equals("50.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		// Expenses - 2
@@ -317,20 +317,20 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Billable Quantity Value verification
 		if(sBillableQty_laborGas.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Expense");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_laborGas.equals("320.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
 		
 		// Expenses - 3
@@ -347,20 +347,20 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Billable Quantity Value verification
 		if(sBillableQty_Airfare.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Expense");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_Airfare.equals("1800.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Expense");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
 		
 		/**
@@ -389,29 +389,29 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Line Price Per Unit
 		if(sLinePricePerUnit_travel.equals("150.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Travel");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Travel");
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_travel.equals("3.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected- Travel");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected- Travel");
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_travel.equals("450.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected- Travel");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Travel");
 		}
 		
 		/**
@@ -424,7 +424,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
-		if(sChildlines.equals("6"))
+		if(sChildlines.equals("8"))
 		{
 			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlines);
 
