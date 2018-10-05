@@ -1232,6 +1232,10 @@
 			//Selecting Activity Type
 			commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
 			Thread.sleep(2000);
+			if(Integer.parseInt(sEndDate)< 10)
+			{
+				sEndDate = "0"+sEndDate;
+			}	
 			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0, sStartDate, "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  0,sEndDate,"00"); //set end time
 			commonsPo.tap(getEleDoneBtn());
@@ -1263,7 +1267,10 @@
 		public void addTravelwithTime(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname, String sStartTime , String sEndTime) throws InterruptedException
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
-	
+			if(Integer.parseInt(sEndTime)< 10)
+			{
+				sEndTime = "0"+sEndTime;
+			}
 			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,sEndTime,"00"); //set end time			
 			commonsPo.tap(getEleDoneBtn());

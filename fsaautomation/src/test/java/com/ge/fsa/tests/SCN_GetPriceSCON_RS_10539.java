@@ -46,25 +46,26 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+//		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
 //		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-		toolsPo.configSync(commonsPo);
+
+		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,"Work Order Number");
@@ -193,8 +194,6 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Tell the DateFormat that I want to show the date in the IST timezone
 		df.setTimeZone(TimeZone.getTimeZone("GMT"));
 		String sdatehours = df.format(localTime);
-
-
 		int sEndDateint = Integer.parseInt(sdatehours) + 2;
 		String sEndDate = Integer.toString(sEndDateint);
 		
@@ -378,6 +377,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 
 		int sEndDateint1 = Integer.parseInt(sdatehours1) + 4;
 		String sEndDate1 = Integer.toString(sEndDateint1);
+
 		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "0", sEndDate1);
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
