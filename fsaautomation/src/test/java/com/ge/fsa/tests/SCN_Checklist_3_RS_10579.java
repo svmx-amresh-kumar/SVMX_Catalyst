@@ -157,12 +157,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(snumberwithoutjump);
 		commonsPo.tap(checklistPo.geteleNext());	
 		checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
-		//commonsPo.tap(checklistPo.geteleChecklistHelpIcn());
-		
-		// NEED TO WRITE CODE TO SWITCH TO SAFARI AND VALIDATE.
-		//String url = driver.getCurrentUrl();
-		//System.out.println(url);		
-	
+
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(2));
 		System.out.println("CHECK NOW----------------");
@@ -187,8 +182,6 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		//Navigating back to work Orders
 		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		
-		
-		
 		String Temp  = workOrderPo.geteleProblemDescriptionlbl().getText();
 		System.out.println("gettext value"+Temp );	
 		Assert.assertEquals(Temp, sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
@@ -200,8 +193,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		Assert.assertEquals(Temp1, sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for billing type in Work Order");
 
-		
-	
+
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -315,10 +307,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			String sProblemDescServer = restServices.restGetSoqlValue(sSoqlqueryWOProb,"SVMXC__Problem_Description__c");
 			Assert.assertTrue(sProblemDescServer.equals(sProblemDescriptionSOUServer), "Problem Description source object not syned to server");
 			ExtentManager.logger.log(Status.PASS,"Problem Description Source object update has synced to server");
-			
-			
-			
-			
+		
 			
 	}
 
