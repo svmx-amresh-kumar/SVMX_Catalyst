@@ -184,7 +184,7 @@
 		{
 			return eleNewEventTxt;
 		}
-		@FindBy(xpath="//*[contains(text(),'Subject')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'Subject')][@class = 'x-label-text-el']/../..//textarea")
 		private WebElement eleSubjectTxtFld;
 		public WebElement getEleSubjectTxtFld()
 		{

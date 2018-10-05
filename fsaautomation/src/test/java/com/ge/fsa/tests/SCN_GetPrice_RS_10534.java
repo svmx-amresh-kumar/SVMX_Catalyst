@@ -49,25 +49,25 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 	
 		System.out.println("SCN_GetPrice_RS_10534");
 		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		
+//		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
+//		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
