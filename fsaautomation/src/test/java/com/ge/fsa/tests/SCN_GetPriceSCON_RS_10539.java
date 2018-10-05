@@ -396,7 +396,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Quantity Value verification
-		if(sBillableQty_Airfare.equals("3.000"))
+		if(sBillableQty_travel.equals("3.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
 		}
@@ -405,7 +405,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_Airfare.equals("450.000"))
+		if(sBillableLinePrice_travel.equals("450.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
 		}
