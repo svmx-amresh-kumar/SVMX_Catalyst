@@ -8,7 +8,9 @@
     </listeners>
 <test name="Sanity1">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
+			<class name="com.ge.fsa.tests.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" />
+			<class name="com.ge.fsa.tests.Sanity8_Lookup_DOD" />
+			
 
 		</classes>
 	</test> <!-- Test -->
