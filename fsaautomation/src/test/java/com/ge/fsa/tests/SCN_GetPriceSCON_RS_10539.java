@@ -63,9 +63,9 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,"Work Order Number");
