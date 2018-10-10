@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -207,17 +208,35 @@ public class CommonsPO
 			}
 		}
 		
-		//To switch context between Native and Webview
-		public void switchContext(String sContext)
-		{
-			iterator = driver.getContextHandles().iterator();
-			while(iterator.hasNext()){
-				sNativeApp = iterator.next();
-				sWebView = iterator.next();
+		/**
+		 * To switch context between Native and Webview, defaults to Webview always
+		 * @param sContext
+		 */
+		public void switchContext(String sContext) {
+			//			iterator = driver.getContextHandles().iterator();
+			//			while(iterator.hasNext()){
+			//				sNativeApp = iterator.next();
+			//				sWebView = iterator.next();
+			//			}
+			//			if(sContext.equalsIgnoreCase("Native"))
+			//			{driver.context(sNativeApp);}
+			//			else {driver.context(sWebView);}
+			//			
+
+			Set contextNames = driver.getContextHandles();
+			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
+			// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
+			// global variable to access across
+			System.out.println("Setting Context = " + contextNames);
+
+			sNativeApp = contextNames.toArray()[0].toString();
+			sWebView = contextNames.toArray()[1].toString();
+
+			if (sContext.equalsIgnoreCase("Native")) {
+				driver.context(sNativeApp);
+			} else {
+				driver.context(sWebView);
 			}
-			if(sContext.equalsIgnoreCase("Native"))
-			{driver.context(sNativeApp);}
-			else {driver.context(sWebView);}
 		}
 		
 		//To set the value in PickerWheel native app

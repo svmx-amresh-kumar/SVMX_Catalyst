@@ -6,7 +6,6 @@
 package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
-
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
 import org.testng.Assert;
@@ -111,7 +110,12 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		
-		checklistPo.Allowlocationbutton();
+		try {
+			checklistPo.Allowlocationbutton();
+			//commonsPo.clickAllowPopUp();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
 				
 		// tapping on the validation successful checklist popup
@@ -127,7 +131,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		Thread.sleep(genericLib.iHighSleep);
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		checklistPo.Allowlocationbutton();
+		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 					
 		// tapping on the validation successful checklist popup
@@ -142,7 +146,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
-		checklistPo.Allowlocationbutton();
+		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
@@ -161,7 +165,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
-		checklistPo.Allowlocationbutton();
+		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
@@ -176,7 +180,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		Thread.sleep(genericLib.iHighSleep);
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		checklistPo.Allowlocationbutton();
+		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
@@ -191,7 +195,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
-		checklistPo.Allowlocationbutton();
+		//checklistPo.Allowlocationbutton();
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
@@ -225,7 +229,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				commonsPo.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
-				checklistPo.Allowlocationbutton();
+				//checklistPo.Allowlocationbutton();
 				Thread.sleep(GenericLib.iLowSleep);
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
@@ -240,7 +244,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				commonsPo.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
-				checklistPo.Allowlocationbutton();
+				//checklistPo.Allowlocationbutton();
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
 				commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
@@ -315,9 +319,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				 {
 					// TODO: handle exception
 				}
-
-				 
-				 
+			 
 			 workOrderPo.getEleDoneLnk().click();
 					
 			commonsPo.tap(workOrderPo.getEleDoneLnk());

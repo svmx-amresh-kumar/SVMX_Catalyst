@@ -1,13 +1,19 @@
 /*
  *  @author Vinod Tharavath
  *  SCN_Checklist_1_RS-10577 Verify Source Object Update in Checklists
+ *  
+ *  Pending-Date validation in Appium
+ *  Pending -Sahi scricpt for edit process
+ *  Pending- Sahi script for checklist sou
+ *  
+ *  Validates number,text,date,datetime and picklist source object update
+ *   with pre-filled questions in fsa and server through api
  */
 package com.ge.fsa.tests;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,7 +21,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+
 
 
 public class SCN_Checklist_1_RS_10577 extends BaseLib{
@@ -89,11 +95,8 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
 		
-		
-		
 		//sWOName = "WO-00001266";
-
-							
+						
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);		
 		
@@ -124,7 +127,6 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		sNumberAns = checklistPo.geteleChecklistAnsNumber(sNumberq).getAttribute("value");
 		Assert.assertTrue(sNumberAns.equals(sIdleTimePrefill), "Number question not Prefilled.");
 		ExtentManager.logger.log(Status.PASS,"Number question prefilled sucessfully");
-
 		
 		sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");
 		Assert.assertTrue(sDateAns.equals(sScheduleddatePrefill), "Date question not Prefilled.");
@@ -134,9 +136,6 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		System.out.println(sDatetimeAns);
 		Assert.assertTrue(sDatetimeAns.equals(sScheduledDateTimePrefill), "DateTime question not Prefilled.");
 		ExtentManager.logger.log(Status.PASS,"DateTime question prefilled sucessfully");
-		
-		
-		
 		
 		//tapping next button
 		commonsPo.tap(checklistPo.geteleNext());
@@ -152,51 +151,49 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
-		
 		//Navigating back to work Orders
 		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
-		
 		
 		//Navigation back to Work Order
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
 		ExtentManager.logger.log(Status.PASS,"Back to Work Order after submitting checklist passed");
 
-		Thread.sleep(GenericLib.iLowSleep);
-		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
-		// System.out.println(ans);
-		
+		Thread.sleep(GenericLib.iLowSleep);		
 		 toolsPo.syncData(commonsPo);
 		
 		 Thread.sleep(GenericLib.iMedSleep);
 		 commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		 
-			
-			 // Navigate to Field Service process
-		 	workOrderPo.selectAction(commonsPo, sEditProcessName);
+		
+		// Navigate to Field Service process
+		 workOrderPo.selectAction(commonsPo, sEditProcessName);
 		 	
-		 	//Validating the Source Object Updates.
+		 //------------------Validating the Source Object Updates------------------
+		 	
+		 	//1.Picklist
 		 	sBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
 		 	Assert.assertEquals(workOrderPo.getEleBillingTypeLst().getAttribute("value"), sBillingTypeSOU, "Picklist Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Picklist Sucessfull");
 			
+			//2.Number 
 			sIdleTime = workOrderPo.geteleIdleTimetxt().getAttribute("value");
 			System.out.println(sIdleTime);
 		 	Assert.assertEquals(workOrderPo.geteleIdleTimetxt().getAttribute("value"), sIdleTimeSOU, "Number Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Number with value  Sucessfull");
 
+			//3.DateTime
 			sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
 			System.out.println(sScheduledDateTime);
 		 	Assert.assertEquals(workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value"), sScheduledDateTimeSou, "DateTime Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for DateTime Sucessfull");
 		
-	
+			//4.Date
 			/*sScheduledDate = workOrderPo.getEleScheduledDateLst().getAttribute("value");
 			System.out.println(sScheduledDate);
 			Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDateSOU, "Date Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");*/
 			
-			
+			//5. Text
 			sProformaInvoice = workOrderPo.getEleProformaInvoiceTxt().getAttribute("value");
 			Assert.assertEquals(workOrderPo.getEleProformaInvoiceTxt().getAttribute("value"), sProformaInvoiceSOU, "Text Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Text with Value Sucessfull");
@@ -275,8 +272,6 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			
 			Assert.assertTrue(sProformaServer.equals(sProformaInvoiceSOU), "Text source object not syned to server");
 			ExtentManager.logger.log(Status.PASS,"Text Source object update has synced to server");
-			
-			
 			System.out.println(sNoOftimesServer1);
 			Assert.assertTrue(sNoOftimesServer1.equals(sNooftimesAssignedSOU), "Number source object not syned to server");
 			ExtentManager.logger.log(Status.PASS,"Number Source object update has synced to server");
