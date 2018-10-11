@@ -45,6 +45,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	String sIBLastModifiedBy=null;
 	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
+	String sSheetName =null;
+	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		
@@ -52,6 +54,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 
 	@Test(enabled = true)
 	public void RS_10513() throws Exception {
+		sSheetName ="RS_10513";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
 		String sTest="RS_10513_Calender_3";
@@ -59,12 +62,12 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTest, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTest, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTest, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTest,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTest,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTest,sSheetName, "ProcessName");
 		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTest, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTest, "WO_SVMX_2");
+		String sWO_SVMX_1 = GenericLib.getExcelData(sTest,sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = GenericLib.getExcelData(sTest,sSheetName, "WO_SVMX_2");
 		
 		
 		
