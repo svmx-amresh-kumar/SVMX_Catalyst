@@ -1104,8 +1104,8 @@
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"02","0"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"00", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"02","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);

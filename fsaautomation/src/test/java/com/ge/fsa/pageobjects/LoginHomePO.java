@@ -114,6 +114,33 @@ public class LoginHomePO
 	}
 
 	}
+	
+	
+	public void login_tech2(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) {
+		try 
+		{
+			
+			
+			//SignIn to App
+			getEleSignInBtn().click();
+			Thread.sleep(10000);
+			getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN_1"));
+			getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD_1"));
+			getEleLoginBtn().click();
+			Thread.sleep(GenericLib.iLowSleep);
+			try{getEleAllowBtn().click();}catch(Exception e) {}
+			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+
+			
+		}catch(Exception e)
+		{		
+		wait = new WebDriverWait(driver, 40000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");			
+	}
+
+	}
 	/*
 	//Customised touch Tap
 	public void tap(Point point) throws InterruptedException
