@@ -33,7 +33,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	String sIssueTxt = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
-
+	String sSheetName =null;
 
 	private void preRequiste() throws Exception { 
 
@@ -61,13 +61,14 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
+		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";
 
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
-		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
+		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
 		preRequiste();
 
 		

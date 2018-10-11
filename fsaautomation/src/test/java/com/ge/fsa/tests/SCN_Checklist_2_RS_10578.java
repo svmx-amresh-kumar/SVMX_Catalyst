@@ -49,10 +49,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 
 	// For ServerSide Validations
 	String schecklistStatus = "Completed";
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10578() throws Exception {
-		
+		sSheetName ="RS_10578";
 		System.out.println("SCN_RS10578_Checklist_DVR");
 
 		String time = driver.getDeviceTime();
@@ -62,11 +63,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		sCaseWOID = "DATA_SCN_Checklist_2_RS-10578_DVR";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",

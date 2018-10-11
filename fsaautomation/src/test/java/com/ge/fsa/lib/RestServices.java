@@ -6,14 +6,23 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 import com.ge.fsa.lib.GenericLib;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.net.ssl.HttpsURLConnection;
 
 public class RestServices 
@@ -270,6 +279,7 @@ public class RestServices
 	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
 	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
 	 	
+	 	
 	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
 	     os.write(sWOJson.getBytes());
@@ -334,9 +344,6 @@ public class RestServices
 			httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 			
 			
-			
-			String returnvalue = null;
-			
 			BufferedReader bufferedReader = null;
 			StringBuilder stringBuilder = new StringBuilder();
 			String line;
@@ -361,31 +368,31 @@ public class RestServices
 	 
 		}
 	 
-	 public  void restUpdaterecord(String sSoObjectName,String sWOJson,String RecordId ) throws IOException
+	
+	
+	 
+	 public  void restUpdaterecord(String sSoObjectName,String sWOJson,String RecordId) throws IOException
 	 {
 		 getAccessToken();
+		 String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
+			URL url = new URL(sURL);
+			System.out.println(sURL);
+	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+	     httpsUrlCon.setDoOutput(true);
+	     httpsUrlCon.setDoInput(true);
+	  	
+	  	//httpsUrlCon.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+	  	httpsUrlCon.setRequestMethod("POST");
+	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
+	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+	 	httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "ADMIN_PWD"));
 	 	
-	 	String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName+"/"+RecordId;
-		URL url = new URL(sURL);
-		System.out.println(sURL);
-		
-	
-		 	
-		     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
-		     httpsUrlCon.setDoOutput(true);
-		  	httpsUrlCon.setRequestMethod("POST");
-		  	httpsUrlCon.setRequestProperty("X-HTTP-Method-Override", "PATCH");
-		  	// This is used as Alias to pass the Record ID for Update
-		 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
-		 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	 	
-		 	
-		 	System.out.println("httpsUrlCon = "+httpsUrlCon);
+	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
 	     os.write(sWOJson.getBytes());
 	     os.flush();
-		
-	
+	 	
 	     BufferedReader bufferedReader = null;
 	     StringBuilder stringBuilder = new StringBuilder();
 	     String line;
@@ -405,8 +412,5 @@ public class RestServices
 	                  }
 	            }
 	     }
-	     System.out.println("Update is Successfull");
-
 	 }
-	 
 }

@@ -12,6 +12,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -30,6 +32,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
 
 
 public class CommonsPO
@@ -191,8 +197,21 @@ public class CommonsPO
 			touchAction = new TouchAction(driver);
 			touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 		}
-		
 
+		
+		public void Enablepencilicon(WebElement  wElement)
+		{	int offset = 30;
+			Point point =  wElement.getLocation();
+			int x = point.getX();
+			int y = point.getY();
+			
+			int xOff = x+100;
+			//int yOff = y-100;
+			touchAction = new TouchAction(driver);
+			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 0)).release().perform();
+		}
+		
+		
 		//To search the element scrolling
 		public void getSearch(WebElement wElement)
 		{

@@ -43,7 +43,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	WebElement productname=null;
-	
+	String sSheetName =null;
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -52,7 +52,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 
 	@Test(enabled = true)
 	public void Recent_Items_RS_10565() throws Exception {
-		
+		sSheetName ="RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
@@ -61,10 +61,10 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ViewProcessNameCustom");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB, "CreateNewCustomrecord");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ViewProcessNameCustom");
+		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB,sSheetName, "CreateNewCustomrecord");
 		//String WOname1=GenericLib.getExcelData(sTestIB, "WorkOrder");
 		
 		String sRandomNumber = commonsPo.generaterandomnumber("");

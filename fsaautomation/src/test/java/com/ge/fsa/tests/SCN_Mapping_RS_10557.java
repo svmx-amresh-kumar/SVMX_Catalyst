@@ -53,7 +53,7 @@ public class SCN_Mapping_RS_10557 extends BaseLib {
 String Location=null;
 	
 	WebElement productname=null;
-	
+	String sSheetName =null;
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -62,7 +62,7 @@ String Location=null;
 
 	@Test(enabled = true)
 	public void RS_10557() throws Exception {
-		
+		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
@@ -95,9 +95,9 @@ String Location=null;
 		System.out.println(Location);
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
 		
 	
 		

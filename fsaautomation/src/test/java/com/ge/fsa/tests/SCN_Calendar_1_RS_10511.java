@@ -18,6 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 
@@ -32,8 +33,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
-	String sObjectAccID = null;
-	String sSqlAccQuery=null;
+	String sSqlEventQuery = null;
+	String sSqlWOQuery=null;
 	String sObjectProID=null;
 	String sObjectApi = null;
 	String sJsonData = null;
@@ -48,6 +49,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	String sIBLastModifiedBy=null;
 	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
+	String sSheetName =null;
+	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		
@@ -55,157 +58,147 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 
 	@Test(enabled = true)
 	public void RS_10511() throws Exception {
+		sSheetName ="RS_10511";
 		sDeviceDate = driver.getDeviceTime().split(" ");
-		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
-		String sTestIB="RS_10525_Calender_6";
-		String sTestIBID = sProformainVoice;
+	
+		String sTestIB="RS_10511_Calender_1";
+		
 	
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
-		String sworkOrderName = GenericLib.getExcelData(sTestIB, "WorkOrder Number");
-	
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
+		
+		String sWO_SFDC_1 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_3 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_3");		
+		String sWO_SVMX_1 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_2");
+		String sWO_SVMX_3 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_3");
+		String sTechname1= GenericLib.getExcelData(sTestIB,sSheetName, "TechName1");
+		String sTechname2 = GenericLib.getExcelData(sTestIB,sSheetName, "TechName2");
+		
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
-		
-			
-		//config sync
-			//toolsPo.configSync(commonsPo);
+	
+			//config sync
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			//toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		
-			//create WO and Account
-			sObjectApi = "Account?";
-			sJsonData = "{\"Name\": \"ACCOUNT123\"}";
-			sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
-			sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
-			sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-			//sProductName1="v1";
-			System.out.println(sAccountName);
-			
-			sObjectApi = "Account?";
-			sJsonData = "{\"Name\": \"UPDATED_ACCOUNT\"}";
-			restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectAccID);
-			
-			
-			
-			/*
-			sObjectApi = "SVMXC__Service_Order__c?";
-			sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\",\"SVMXC__Order_Status__c\":\"Open\"}";
-			String sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
-			sSqlAccQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectAWOID+"\'";				
-			String sWOName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-			//sProductName1="v1";
-			System.out.println(sWOName);
-			
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			Calendar now = Calendar.getInstance();
-			 now.set(Calendar.MONTH, 8);
-	        now.set(Calendar.HOUR, 0);
-	        now.set(Calendar.MINUTE, 0);
-	        now.set(Calendar.SECOND, 0);
-	        System.out.println(sdf.format(now.getTime()));
-	     String  starttimezero=  sdf.format(now.getTime());
-	     System.out.println(starttimezero);
-		
-	     
-	     Calendar now1 = Calendar.getInstance();
-	     now1.set(Calendar.MONTH, 10);
-	        now1.set(Calendar.HOUR, 0);
-	        now1.set(Calendar.MINUTE, 0);
-	        now1.set(Calendar.SECOND, 0);
-	        String  endtimezero=sdf.format(now1.getTime());
-	     System.out.println(endtimezero);
-	    
-	     
-	     sObjectApi = "SVMXC__SVMX_Event__c?";
-			//sJsonData = "{\"SVMXC__StartDateTime__c\": \""+starttimezero+"\"}";	
-			sJsonData = "{\"Name\": \"Two_months_event\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+techname+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
-
-
-		//	sJsonData = "{\"Name\":\"OneDayEvent\",\"SVMXC__Service_Order__c\":\""+sWOName+"\",\"SVMXC__StartDateTime__c\":\""+starttimezero+"\",\"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\":\""+sObjectAWOID+"\"}";	
-			String sObjecteventID=restServices.restCreate(sObjectApi,sJsonData);
-			sSqlAccQuery ="SELECT+name+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sObjecteventID+"\'";				
-			String seventName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-			//sProductName1="v1";
-			System.out.println(seventName);
-		
-			toolsPo.syncData(commonsPo);
-		
-	//	String sWOName="WO-00002608";  String sObjectAWOID ="a2D0t000002Me4tEAC";
-			String sSoqlStartDateTime = "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
-		 String sSoqlQueryStartDateTime = restServices.restGetSoqlValue(sSoqlStartDateTime, "SVMXC__StartDateTime__c");
-			System.out.println(sSoqlQueryStartDateTime);
-			
-			 String sSoqlEndDateTime = "SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
-			 String sSoqlQueryEndDateTime = restServices.restGetSoqlValue(sSoqlEndDateTime, "SVMXC__EndDateTime__c");
-			System.out.println(sSoqlQueryEndDateTime);
-		
-		
-			//verifing event is present 
+		//verify WO event is present or not
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getElecalendarmonthtap());
+			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			String convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
-			System.out.println(convertedstartday);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_3);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_3);
+			ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
+			
+			
+////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			//delete one SFDC and one SVMX event
+			sObjectApi = "SVMXC__SVMX_Event__c?";
+			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SFDC_Event1\'";				
+			String sEventIdSFDC_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+			System.out.println(sEventIdSFDC_1);
+			
+			sObjectApi = "SVMXC__SVMX_Event__c?";
+			sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event1\'";				
+			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
+			System.out.println(sEventIdSVMX_1);
+			
+			sObjectApi = "SVMXC__SVMX_Event__c";
+			restServices.restDeleterecord(sObjectApi,sEventIdSFDC_1);
+			restServices.restDeleterecord(sObjectApi,sEventIdSVMX_1);
+			
+			toolsPo.syncData(commonsPo);
+			
+			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 300);
-			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
-				System.out.println("Found WO in day View " + sWOName);
-				}
-					
-			else
-			{
-				System.out.println("Did not Find WO " + sWOName);
-				throw new Exception("WorkOrder not found on the Calendar");	
-			
-			}
-			
-			//verifing end event
-			String convertedendday =calendarPO.convertdatetimetoday(sSoqlQueryEndDateTime);
-			System.out.println(convertedendday);
+			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getElecalendarmonthtap());
-			Thread.sleep(3000);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
+			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Assigning from one tech1 to tech2
+				//SFDC event
+			sObjectApi = "SVMXC__Service_Order__c";
+			String sSqlWOID ="SELECT+id+from+SVMXC__Service_Order__c+Where+name+=\'"+sWO_SFDC_2+"\'";					
+			String sWOIdSFDC_2 =restServices.restGetSoqlValue(sSqlWOID,"Id"); 
+			System.out.println(sWOIdSFDC_2);
+			//updating WO
+			String sWOJson="{\"SVMXC__Group_Member__c\":\""+sTechname2+"\"}";
+			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSFDC_2 );
+
+			sObjectApi = "SVMXC__SVMX_Event__c";
+			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SFDC_Event2\'";				
+			String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+			System.out.println(sEventIdSFDC_2);
+			//updating event
+			 sWOJson="{\"SVMXC__Technician__c\":\""+sTechname2+"\"}";
+			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSFDC_2 );
 			
-			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
-			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
 			
-			Thread.sleep(3000);
 			
-			commonsPo.tap(calendarPO.geteletaponmonthdayindex(convertedendday));
-			//commonsPo.tap(calendarPO.geteletaponmonthdayindex());
+			//SVMX event
+			sObjectApi = "SVMXC__Service_Order__c";
+			 sSqlWOID ="SELECT+id+from+SVMXC__Service_Order__c+Where+name+=\'"+sWO_SVMX_2+"\'";					
+			 String sWOIdSVMX_2 = restServices.restGetSoqlValue(sSqlWOID,"Id"); 
+			System.out.println(sWOIdSVMX_2);
+			//updating WO
+			 sWOJson="{\"SVMXC__Group_Member__c\":\""+sTechname2+"\"}";
+			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSVMX_2 );
+
+			sObjectApi = "SVMXC__SVMX_Event__c";
+			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";				
+			String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+			System.out.println(sEventIdSVMX_2);
+			//updating event
+			 sWOJson="{\"SVMXC__Technician__c\":\""+sTechname2+"\"}";
+			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_2 );
 			
-			Thread.sleep(3000);
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 300);
-			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
-				System.out.println("Found WO in day View " + sWOName);
-				}
-					
-			else
-			{
-				System.out.println("Did not Find WO " + sWOName);
-				throw new Exception("WorkOrder not found on the Calendar");	
-			
-			}
+			toolsPo.syncData(commonsPo);
 		
-			ExtentManager.logger.log(Status.PASS,"Two months event verification is successful");
+			commonsPo.tap(calendarPO.getEleCalendarClick());
+			Thread.sleep(3000);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			
+			commonsPo.tap(toolsPo.getEleToolsIcn());
+			commonsPo.tap(toolsPo.geteleSignOutBtn());
+			commonsPo.tap(toolsPo.getelepopSignOutBtn());
+			Thread.sleep(5000);
 			
-			*/
+			//Login to tech2
+			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
+			Thread.sleep(3000);
+			commonsPo.tap(calendarPO.getEleCalendarClick());
+			Thread.sleep(3000);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			
-	
+			//Signout from Tech 2
+			commonsPo.tap(toolsPo.getEleToolsIcn());
+			commonsPo.tap(toolsPo.geteleSignOutBtn());
+			commonsPo.tap(toolsPo.getelepopSignOutBtn());
+			Thread.sleep(3000);
+			
+			ExtentManager.logger.log(Status.PASS,"Event Re-Assigned to tech2 is successful");
+			
+	///////////////////////////////////////////////////////////////////////////////////////////////////		
+		
 	}
 	
 

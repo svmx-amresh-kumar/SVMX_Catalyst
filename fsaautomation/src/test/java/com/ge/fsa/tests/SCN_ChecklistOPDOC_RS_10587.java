@@ -55,25 +55,26 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 	// For ServerSide Validations
 	String schecklistStatus = "Completed";	
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10587() throws Exception {
-		
+		sSheetName ="RS_10587";
 		System.out.println("RS 10587 first version, last version and all version validation");
 		
 		sTestCaseID = "SCN_ChecklistOPDOC_3_RS-10587";
 		//sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistNameAllVersions = GenericLib.getExcelData(sTestCaseID, "ChecklistName_AllVersions");
-		sChecklistNameFirstVersion = GenericLib.getExcelData(sTestCaseID, "ChecklistName_FirstVersion");
-		sChecklistNameLastVersion = GenericLib.getExcelData(sTestCaseID, "ChecklistName_LastVersion");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistNameAllVersions = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_AllVersions");
+		sChecklistNameFirstVersion = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_FirstVersion");
+		sChecklistNameLastVersion = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_LastVersion");
 
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
-		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 
 		// Rest to Create Workorder - Work Order -
 		

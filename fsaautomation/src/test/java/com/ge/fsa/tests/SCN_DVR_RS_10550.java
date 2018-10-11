@@ -54,20 +54,21 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	String sBillingDVR="Billing Type cannot be Loan";
 	String sBillingTypeDVR = "Loan";
 	String SBillingType = "Warranty";
+	String sSheetName =null;
 	
 	@Test(enabled = true)
 	public void RS_10550() throws Exception {
-		
+		sSheetName ="RS_10550";
 		sTestCaseID = "SCN_DVR_RS_10550";
 		sCaseWOID = "Data_SCN_DVR_RS_10550";
 		String sAccountNameToCreate = "Auto_10550_Account";
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 			
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();

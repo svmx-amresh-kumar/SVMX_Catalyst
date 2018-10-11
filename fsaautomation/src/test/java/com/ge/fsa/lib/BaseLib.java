@@ -186,7 +186,7 @@ public class BaseLib {
 
 		}
 		 ExtentManager.extent.flush();
-			try{driver.quit();}catch(Exception e) {};
+			//try{driver.quit();}catch(Exception e) {};
 
 	}
 	
@@ -194,7 +194,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 		
-		try{driver.quit();}catch(Exception e) {};
+		//try{driver.quit();}catch(Exception e) {};
 	}
 
 }

@@ -64,11 +64,11 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			
 	//For ServerSide Validations
 			String schecklistStatus = "Completed";
-			
+			String sSheetName =null;
 			
 	@Test(enabled = true)
 	public void RS_10544() throws Exception {
-
+		sSheetName ="RS_10544";
 		System.out.println("SCN_SourceObject_UPDATE_RS10544");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("Account");
@@ -84,11 +84,11 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 			
 		
 		//Account Creation

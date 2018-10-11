@@ -43,10 +43,11 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	String sPCoveredPercent = "30";
 	String sPBillingQty = "1.000";
 	String sPBillableLinePrice = "7000.000";
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10538() throws Exception {
-	
+		sSheetName ="RS_10538";
 		System.out.println("SCN_GetPrice_RS_10538");
 		// To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
@@ -70,8 +71,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue, "Work Order Number");
-		String sProductName = GenericLib.getExcelData(sTestDataValue, "Product Name ");
+		String sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Work Order Number");
+		String sProductName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Product Name ");
 		System.out.println(sworkOrderName);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
