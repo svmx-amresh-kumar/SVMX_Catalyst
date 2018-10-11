@@ -49,26 +49,26 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		sSheetName ="RS_10537";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-//		genericLib.executeSahiScript("appium/Scenario_10537.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		genericLib.executeSahiScript("appium/Scenario_10537.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sProductName10539 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product2 Name");
@@ -222,14 +222,14 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}
 		
-		
-		
 		// Verifying after sync the system
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsPo.tap(workOrderPo.getEleClickSave());
 		toolsPo.syncData(commonsPo);
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
-		if(sChildlines.equals("8"))
+		if(sChildlines.equals("2"))
 		{
 			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlines);
 
