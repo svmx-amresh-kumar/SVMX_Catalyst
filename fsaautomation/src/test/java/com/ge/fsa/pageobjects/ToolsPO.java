@@ -108,6 +108,20 @@ public class ToolsPO
 		return eleCancelConfigSyncBtn;
 	}
 	
+	@FindBy(xpath="//*[text()='Sign Out']")
+	private WebElement eleSignOutBtn;
+	public WebElement geteleSignOutBtn()
+	{
+		return eleSignOutBtn;
+	}
+	
+	@FindBy(xpath="(//*[text()='Sign Out'])[2]")
+	private WebElement elepopSignOutBtn;
+	public WebElement getelepopSignOutBtn()
+	{
+		return elepopSignOutBtn;
+	}
+	
 	
 	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-start x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner']//div[@class='x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description x-layout-box-item x-layout-vbox-item x-stretched'][2]//div[@class='x-innerhtml'][1]")
 	private WebElement eleConfigSyncStatusTxt;
@@ -166,7 +180,7 @@ public class ToolsPO
 			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
 			//commonsPo.waitforElement(element, lTime);
 			
-			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 8000)) {
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", GenericLib.lWaitTime)) {
 				System.out.println("Sync Completed Sucessfully-tools po");
 
 			}else {
@@ -210,4 +224,33 @@ public class ToolsPO
 			
 		}
 	
+		@FindBy(xpath="//div[@class='x-unsized x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description label-tools-sync-conflict-details x-layout-auto-item']//div[@class='x-innerhtml']")
+		private WebElement elesyncconflicterror;
+		public WebElement getelesyncconflicterror()
+		{
+			return elesyncconflicterror;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Resolve']")
+		private WebElement eleResolve;
+		public WebElement geteleResolve()
+		{
+			return eleResolve;
+		}
+		
+		@FindBy(xpath="//span[text()='Remove record permanently']")
+		private WebElement eleResolveissue;
+		public WebElement geteleResolveissue()
+		{
+			return eleResolveissue;
+		}
+		@FindBy(xpath="//span[text()='Apply']")
+		private WebElement eleApply;
+		public WebElement geteleApply()
+		{
+			return eleApply;
+		}
+		
+		
 }

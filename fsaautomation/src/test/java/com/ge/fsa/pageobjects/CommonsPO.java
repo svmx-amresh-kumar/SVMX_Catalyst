@@ -6,11 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -29,6 +32,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
 
 
 public class CommonsPO
@@ -190,8 +197,21 @@ public class CommonsPO
 			touchAction = new TouchAction(driver);
 			touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 		}
-		
 
+		
+		public void Enablepencilicon(WebElement  wElement)
+		{	int offset = 30;
+			Point point =  wElement.getLocation();
+			int x = point.getX();
+			int y = point.getY();
+			
+			int xOff = x+100;
+			//int yOff = y-100;
+			touchAction = new TouchAction(driver);
+			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 0)).release().perform();
+		}
+		
+		
 		//To search the element scrolling
 		public void getSearch(WebElement wElement)
 		{
@@ -207,17 +227,35 @@ public class CommonsPO
 			}
 		}
 		
-		//To switch context between Native and Webview
-		public void switchContext(String sContext)
-		{
-			iterator = driver.getContextHandles().iterator();
-			while(iterator.hasNext()){
-				sNativeApp = iterator.next();
-				sWebView = iterator.next();
+		/**
+		 * To switch context between Native and Webview, defaults to Webview always
+		 * @param sContext
+		 */
+		public void switchContext(String sContext) {
+			//			iterator = driver.getContextHandles().iterator();
+			//			while(iterator.hasNext()){
+			//				sNativeApp = iterator.next();
+			//				sWebView = iterator.next();
+			//			}
+			//			if(sContext.equalsIgnoreCase("Native"))
+			//			{driver.context(sNativeApp);}
+			//			else {driver.context(sWebView);}
+			//			
+
+			Set contextNames = driver.getContextHandles();
+			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
+			// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
+			// global variable to access across
+			System.out.println("Setting Context = " + contextNames);
+
+			sNativeApp = contextNames.toArray()[0].toString();
+			sWebView = contextNames.toArray()[1].toString();
+
+			if (sContext.equalsIgnoreCase("Native")) {
+				driver.context(sNativeApp);
+			} else {
+				driver.context(sWebView);
 			}
-			if(sContext.equalsIgnoreCase("Native"))
-			{driver.context(sNativeApp);}
-			else {driver.context(sWebView);}
 		}
 		
 		//To set the value in PickerWheel native app
@@ -540,6 +578,20 @@ public class CommonsPO
 			
 			return result;
 		}
+		
+		/**
+		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
+		 * @throws InterruptedException 
+		 */
+		public void clickAllowPopUp() throws InterruptedException {
+		Thread.sleep(GenericLib.iLowSleep);
+		switchContext("Native");
+		driver.findElementByAccessibilityId("Allow").click();
+		Thread.sleep(GenericLib.iLowSleep);
+		switchContext("Webview");
+		Thread.sleep(GenericLib.iLowSleep);
+		}
+
 }
 	
 

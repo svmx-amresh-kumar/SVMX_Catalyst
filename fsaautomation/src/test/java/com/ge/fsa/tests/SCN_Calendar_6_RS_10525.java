@@ -163,8 +163,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	     System.out.println(endtimezero);
 	     
 	     
-	     sObjectApi = "SVMXC__SVMX_Event__c?";
-			//sJsonData = "{\"SVMXC__StartDateTime__c\": \""+starttimezero+"\"}";	
+	     sObjectApi = "SVMXC__SVMX_Event__c?";	
 			sJsonData = "{\"Name\": \"OneDayEvent\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+TechName+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
 
 		

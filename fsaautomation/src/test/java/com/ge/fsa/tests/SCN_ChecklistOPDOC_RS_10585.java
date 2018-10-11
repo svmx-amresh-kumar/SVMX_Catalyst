@@ -55,8 +55,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10585() throws Exception {
 		
-		System.out.println("RS 10585 In progress checklists with section skip and OPDOC");
-		
+		System.out.println("RS 10585 In progress checklists with section skip and OPDOC");		
 		sTestCaseID = "SCN_ChecklistOPDOC_1_RS-10585";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
@@ -67,7 +66,6 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
 		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
 		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
-
 		// Rest to Create Workorder - Work Order -
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -142,10 +140,27 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-		commonsPo.tap(checklistPo.eleChecklistSubmit());		
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 		
+	
+		try {
+			//commonsPo.clickAllowPopUp();
+			checklistPo.Allowlocationbutton();
+		} catch (Exception e) {
+			ExtentManager.logger.log(Status.INFO, "Could not find the allow button popup");
+		}
+		
+		Thread.sleep(GenericLib.iHighSleep);
+
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		commonsPo.tap(checklistPo.eleChecklistSubmit());		
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		try {
+			//commonsPo.clickAllowPopUp();
+			checklistPo.Allowlocationbutton();
+
+		} catch (Exception e) {
+			ExtentManager.logger.log(Status.INFO, "Could not find the allow button popup");
+		}
 					
 		// tapping on the validation successful checklist popup
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());

@@ -62,7 +62,10 @@ public class BaseLib {
 	{
 
 		try { 
-			
+			File file = new File(System.getProperty("user.dir")+"/../Executable");
+			try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
+			File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
+			try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
@@ -94,8 +97,7 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			File file = new File(System.getProperty("user.dir")+"/../Executable");
-			try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
+
 
 			
 		} catch (Exception e) {

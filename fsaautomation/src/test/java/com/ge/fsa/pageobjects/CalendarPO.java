@@ -70,7 +70,23 @@ public class CalendarPO
 		return elecalendarWeektap;
 	}
 	
+	
+	private WebElement elegetsubject;
+	public WebElement getelegetsubject(String WOname)
+	{
+		elegetsubject = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border']"));
 
+		return elegetsubject;
+	}
+
+	
+	@FindBy(xpath="//*[text()='+New']")
+	private WebElement eleNewClick;
+	public WebElement geteleNewClick()
+	{
+		return eleNewClick;
+	}
+	
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Day']")
 	private WebElement elecalendarDaytap;
@@ -85,6 +101,16 @@ public class CalendarPO
 	{
 		return elecalendarmonthtap;
 	}
+	
+	//String sWorkOrdernumber/////////////////////////////////
+	private WebElement elepenciliconcal;
+	public WebElement getelepenciliconcal(String WOname)
+	{
+		elepenciliconcal = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]/..//..//div[@class='sfmevent-icon-edit sfmevent-icon-edit-hidden']"));
+
+		return elepenciliconcal;
+	}
+	
 	
 	
 	@FindBy(xpath="(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00002486')]/../div[contains(@class,'sfmevent-account')])[1]/../../../../../div[contains(@class,'event-bar')]")
@@ -248,6 +274,7 @@ public class CalendarPO
 	{
 	
 		Thread.sleep(3000);
+		try {
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
 		
 	
@@ -262,9 +289,85 @@ public class CalendarPO
 			throw new Exception("WorkOrder not found on the Calendar");	
 		
 	}
-
+	
+	}
+	
+	catch(Exception e){
+		System.out.println(e);
+		System.out.println("Did not Find WO " + workordername);
+		
+		
+	}
+		
+		
+	}
+	
+	//create event from calender
+	@FindBy(xpath="//*[text()='Subject']/../..//span[@class='x-label-text-el']/../..//textarea")
+	private WebElement elesubjectcal;
+	public WebElement getelesubjectcal()
+	{
+		return elesubjectcal;
+	}
+	
+	@FindBy(xpath="//*[text()='Start Date Time']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleStartDateTimecal;
+	public WebElement geteleStartDateTimecal()
+	{
+		return eleStartDateTimecal;
+	}
+	@FindBy(xpath="//*[text()='End Date Time']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleEndDateTimecal;
+	public WebElement geteleEndDateTimecal()
+	{
+		return eleEndDateTimecal;
+	}
+	
+	@FindBy(xpath="//*[text()='End Date and Time']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleEndDateTime;
+	public WebElement geteleEndDateTime()
+	{
+		return eleEndDateTime;
 	}
 	
 	
+	@FindBy(xpath="//*[text()='Start Date and Time']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleStartDateTime;
+	public WebElement geteleStartDateTime()
+	{
+		return eleStartDateTime;
+	}
 	
+	
+	public String convertedformate( String Datetime) throws Exception 
+	{
+		SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		 Date  dTempDate1 = parser1.parse(Datetime);
+		 SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yy HH:mm");
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("Converted to date "+stempDate); 
+		return stempDate;
+	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']")
+	private WebElement elesubjectSFDCtap;
+	public WebElement getelesubjectSFDCtap()
+	{
+		return elesubjectSFDCtap;
+	}
+
+	@FindBy(xpath="//div[@class='x-body-el x-widthed x-heighted']//div[@class='x-input-body-el']//textarea")
+	private WebElement elesubjectSFDCtextarea;
+	public WebElement getelesubjectSFDCtextarea()
+	{
+		return elesubjectSFDCtextarea;
+	}
+
+	@FindBy(xpath="//*[text()='Update']")
+	private WebElement eleclickupdate;
+	public WebElement geteleclickupdate()
+	{
+		return eleclickupdate;
+	}
+
 }
