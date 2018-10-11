@@ -38,7 +38,7 @@ public class SCN_RS_10552 extends BaseLib {
 	String sOrderStatus = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
-	
+	String sSheetName =null;
 	
 	//@BeforeMethod
 	public void initializeObject() throws Exception { 
@@ -62,14 +62,15 @@ public class SCN_RS_10552 extends BaseLib {
 
 	@Test(enabled = true)
 	public void SCN_RS_10552() throws Exception {
+		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
-		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
-		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
+		sOrderStatus = GenericLib.getExcelData(sTestCaseID,sSheetName, "OrderStatus");
+		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
 		
 		restServices = new RestServices();
 		genericLib = new GenericLib();

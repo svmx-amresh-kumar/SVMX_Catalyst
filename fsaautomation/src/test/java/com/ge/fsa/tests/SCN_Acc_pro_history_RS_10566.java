@@ -39,7 +39,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	WebElement productname=null;
-	
+	String sSheetName =null;
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -48,7 +48,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 
 	@Test(enabled = true)
 	public void Acc_pro_history_RS_10566() throws Exception {
-		
+		sSheetName ="RS_10566";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
@@ -88,10 +88,10 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ViewProcessNameAccPro");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ViewProcessNameAccPro");
+		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB,sSheetName, "EditProcessName");
 		
 		
 			//Pre Login to app

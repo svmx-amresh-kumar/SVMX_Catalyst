@@ -40,7 +40,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	String sSerialNumber = null;
-
+	String sSheetName =null;
 
 	private void preRequiste() throws Exception { 
 
@@ -70,15 +70,16 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
 	@Test(enabled = true)
 	public void scenario6Test() throws Exception {
+		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
-		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
-		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName , "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "IssueText");
+		sOrderStatus = GenericLib.getExcelData(sTestCaseID,sSheetName , "OrderStatus");
+		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";

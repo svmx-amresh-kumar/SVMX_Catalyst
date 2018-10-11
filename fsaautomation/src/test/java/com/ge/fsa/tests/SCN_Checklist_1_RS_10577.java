@@ -36,7 +36,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String sOrderStatusVal =null;
 	String sEditProcessName = null;
-	
+	String sSheetName =null;
 	
 	//checklist q's set--
 			String sTextq = "Which City you are from?";
@@ -70,6 +70,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			
 	@Test(enabled = true)
 	public void RS_10577() throws Exception {
+		sSheetName ="RS_10577";
 
 		System.out.println("SCN_RS10577_Checklist_SOU");
 
@@ -82,11 +83,11 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 																 
 	
 		//Rest to Create Workorder

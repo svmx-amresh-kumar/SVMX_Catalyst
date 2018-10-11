@@ -43,10 +43,11 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 	String sPCoveredPercent = "30";
 	String sPBillingQty = "1.000";
 	String sPBillableLinePrice = "7000.000";
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10534() throws Exception {
-	
+		sSheetName ="RS_10534";
 		System.out.println("SCN_GetPrice_RS_10534");
 		// To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
@@ -71,9 +72,9 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue1, "Work Order Number");
-		String sworkOrderName2 = GenericLib.getExcelData(sTestDataValue1, "Work Order Number2");
-		String sProductName = GenericLib.getExcelData(sTestDataValue2, "Product Name ");
+		String sworkOrderName = GenericLib.getExcelData(sTestDataValue1,sSheetName, "Work Order Number");
+		String sworkOrderName2 = GenericLib.getExcelData(sTestDataValue1,sSheetName, "Work Order Number2");
+		String sProductName = GenericLib.getExcelData(sTestDataValue2,sSheetName, "Product Name ");
 		System.out.println(sworkOrderName2);
 	
 	/** 

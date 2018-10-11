@@ -38,6 +38,7 @@ public class SCN_RS_10548 extends BaseLib {
 	String sWOSqlQuery = null;
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
+	String sSheetName =null;
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -48,6 +49,7 @@ public class SCN_RS_10548 extends BaseLib {
 
 	@Test(enabled = true)
 	public void scenario6Test() throws Exception {
+		sSheetName ="sSheetName =null;";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SCN_RS_10552";
 		sWOObejctApi="SVMXC__Service_Order__c?";
@@ -58,12 +60,12 @@ public class SCN_RS_10548 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 						
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
-		sOrderStatus = GenericLib.getExcelData(sTestCaseID, "OrderStatus");
-		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
+		sOrderStatus = GenericLib.getExcelData(sTestCaseID,sSheetName, "OrderStatus");
+		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
 		
 		genericLib.executeSahiScript("appium/RS_6967_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");

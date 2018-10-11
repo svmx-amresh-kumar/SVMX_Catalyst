@@ -40,10 +40,11 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sIBName = null;
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10539() throws Exception {
-	
+		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
 		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
@@ -68,12 +69,12 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
-		sworkOrderName = GenericLib.getExcelData(sTestDataValue,"Work Order Number");
-		sProductName1 = GenericLib.getExcelData(sTestDataValue,"Product1 Name");
+		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName,"Work Order Number");
+		sProductName1 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product1 Name");
 		System.out.println(sProductName1);
-		sProductName2 = GenericLib.getExcelData(sTestDataValue,"Product2 Name");
+		sProductName2 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product2 Name");
 		System.out.println(sProductName2);
-		sSCONName = GenericLib.getExcelData(sTestDataValue,"ServiceContract Name");
+		sSCONName = GenericLib.getExcelData(sTestDataValue,sSheetName,"ServiceContract Name");
 		System.out.println(sSCONName);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process

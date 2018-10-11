@@ -56,7 +56,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	String sChecklistOpDocName = null;
 	Date dtempDate2;
 	Date dTempDate1;
-	
+	String sSheetName =null;
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
@@ -66,19 +66,19 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	
 	@Test(enabled = true)
 	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
-		
+		sSheetName ="RS_10586";
 		sTestCaseID = "SCN_ChecklistOPDOC_2_RS-10586";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_2_RS-10586";
 		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");	
-		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");	
+		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 		
 		//Creation of Work Order
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",

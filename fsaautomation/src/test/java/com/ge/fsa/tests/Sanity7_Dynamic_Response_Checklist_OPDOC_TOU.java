@@ -28,20 +28,22 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sChecklistOpDocName = null;
 	String sExploreChildSearchTxt = null;
 	String OrderStatusVal =null;
-	
+	String sSheetName =null;
+
 	
 	@Test(enabled = true)
 	public void scenario7() throws Exception {
+		sSheetName ="Scenario7_Checklist";
 		sTestCaseID = "Scenario7_Checklist";
 		sCaseWOID = "Data_Scenario7_Checklist";
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sChecklistOpDocName =GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sChecklistOpDocName =GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 	
 		
 		

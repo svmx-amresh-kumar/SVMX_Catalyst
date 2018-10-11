@@ -35,6 +35,7 @@ public class SCN_RS_10540 extends BaseLib {
 	//String sTestIBID = null;
 	String sObjectProID = null;
 	String sProductName = null;
+	String sSheetName =null;
 	
 	private void preRequiste() throws Exception { 
 		
@@ -85,11 +86,11 @@ public class SCN_RS_10540 extends BaseLib {
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
-		
+		sSheetName ="RS_10540";
 		sTestCaseID = "RS_10540";
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app

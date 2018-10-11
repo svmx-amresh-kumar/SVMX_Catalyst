@@ -44,6 +44,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	String sIBLastModifiedBy=null;
 	
 	WebElement productname=null;
+	String sSheetName =null;
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		
@@ -51,6 +52,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 
 	@Test(enabled = true)
 	public void RS_10525() throws Exception {
+		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
@@ -58,11 +60,11 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
-		String sworkOrderName = GenericLib.getExcelData(sTestIB, "WorkOrder Number");
-		String TechName = GenericLib.getExcelData(sTestIB, "TechName");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
+		String sworkOrderName = GenericLib.getExcelData(sTestIB,sSheetName, "WorkOrder Number");
+		String TechName = GenericLib.getExcelData(sTestIB,sSheetName, "TechName");
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);

@@ -41,10 +41,11 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sIBName = null;
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10537() throws Exception {
-	
+		sSheetName ="RS_10537";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
 		genericLib.executeSahiScript("appium/Scenario_10537.sah", "sTestCaseID");
@@ -69,20 +70,20 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
-		sProductName10539 = GenericLib.getExcelData(sTestDataValue,"Product2 Name");
+		sProductName10539 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product2 Name");
 		System.out.println(sProductName10539);
 		// get Product from the RS-10538
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		sProductName10538 = GenericLib.getExcelData(sTestDataValue2,"Product Name ");
+		sProductName10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName,"Product Name ");
 		System.out.println(sProductName10538);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = GenericLib.getExcelData(sTestDataValue2,"Installed Product Name");
+		sInstalledProduct10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		
 		// get Work Order from the RS-10537
 		String sTestDataValue3 = "SCN_GetPrice_RS_10537";
-		sworkOrderName = GenericLib.getExcelData(sTestDataValue3,"Work Order Number");
+		sworkOrderName = GenericLib.getExcelData(sTestDataValue3,sSheetName,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		

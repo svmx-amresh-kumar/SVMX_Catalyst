@@ -66,10 +66,11 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	//SOU ans
 	String sBillingTpeSOUServer ="Paid";
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10580() throws Exception {
-		
+		sSheetName ="RS_10580";
 		System.out.println("SCN_RS10580_Checklist_Sections");
 
 		
@@ -77,11 +78,11 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		sCaseWOID = "Data_SCN_Checklist_4_RS-10580_Sections";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 		
 
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria

@@ -51,21 +51,22 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	// For ServerSide Validations
 	String schecklistStatusInProgress = "In Process";
 	String schecklistStatus = "Completed";	
-
+	String sSheetName =null;
+	
 	@Test(enabled = true)
 	public void RS_10585() throws Exception {
-		
+		sSheetName ="RS_10585";
 		System.out.println("RS 10585 In progress checklists with section skip and OPDOC");		
 		sTestCaseID = "SCN_ChecklistOPDOC_1_RS-10585";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, "EditProcessName");
-		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID, "ChecklistOpDocName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 		// Rest to Create Workorder - Work Order -
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",

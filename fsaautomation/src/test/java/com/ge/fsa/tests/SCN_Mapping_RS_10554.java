@@ -48,6 +48,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	String sIBLastModifiedBy=null;
+	String sSheetName =null;
 	
 	WebElement productname=null;
 	@BeforeMethod
@@ -57,6 +58,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 
 	@Test(enabled = true)
 	public void RS_10554() throws Exception {
+		sSheetName ="RS_10554";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS-10554_mapping";
@@ -109,9 +111,9 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
 		
 	
 		

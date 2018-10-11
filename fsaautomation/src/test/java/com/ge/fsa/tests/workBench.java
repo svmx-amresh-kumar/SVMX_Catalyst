@@ -10,6 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import io.appium.java_client.AppiumDriver;
@@ -194,24 +196,43 @@ for(int i =0;i<mel.size();i++) {
 		Point pointPhotoGrid = pgv.getLocation();
 		int pgx = pointPhotoGrid.getX() + 2;
 		int pgy = pointPhotoGrid.getY() + 5;
-		System.out.println("Moments  picpic = "+i+"----"+pointPhotoGrid);
-		System.out.println("Tapping  picpic crazy move= "+i+"----"+(pgx)+","+pgy);
+		System.out.println("Moments  pgv = "+i+"----"+pointPhotoGrid);
+		//System.out.println("Tapping  pgv crazy move= "+i+"----"+(pgx)+","+pgy);
 
+		
+
+		//WebElement picElem = driver.findElement(By.xpath("//*[contains(@label,'"+elem.getText()+"')]"));
+				//WebElement picElem = driver.findElementByName(elem.getText());
+		IOSElement picElem = (IOSElement) driver.findElementByName(elem.getText());
+
+				picElem.getSize();
+				System.out.println("Getting size picElem ori = "+picElem.getSize());
+				System.out.println("Getting size picElem ori Location = "+picElem.getLocation()+"picElem.getClass() = "+picElem.getClass()+"  tag = "+picElem.getTagName()+" rect ="+picElem.getRect());
+				try {
+
+				picElem.click();
+				System.out.println("Tried Click success");
+
+				}catch(Exception e) {
+					System.out.println("In Click Catch ##### "+e);
+
+				}
+				//commonsPo.switchContext("Webview");
+
+				
 		TouchAction touchAction2 = new TouchAction(driver);
 		
-		touchAction2.tap(new PointOption().withCoordinates(pgx, pgy)).perform();
+		//touchAction2.tap(new PointOption().withCoordinates(pgx, pgy)).perform();
 		//touchAction2.tap(new TapOptions().withElement(new ElementOption().element(elem).withCoordinates(pgx, pgy))).perform().release();
 		
-		Point point = elem.getLocation();
+		Point point = picElem.getLocation();
 		int x = point.getX();
 		int y = point.getY();	
-		System.out.println("Tapping  picpic ori = "+i+"----"+(pgx-30)+","+y);
+		System.out.println("Tapping  picElem ori = "+i+"----"+ x +","+ (y));
 		
-		touchAction2.tap(new PointOption().withCoordinates(pgx-30, y+10)).perform();
+		//touchAction2.tap(new PointOption().withCoordinates(388, y+300)).perform();
+		touchAction2.longPress(new PointOption().withCoordinates(x, y)).perform();
 
-		
-		System.out.println("Tapping  picpic ori = "+elem.getSize());
-		//elem.click();
 		
 	
 	}catch(Exception e) {

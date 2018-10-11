@@ -39,11 +39,11 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sProductName2 = null;
-
+	String sSheetName =null;
 
 	@Test(enabled = true)
 	public void RS_10532() throws Exception {
-	
+		sSheetName ="RS_10532";
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
 		genericLib.executeSahiScript("appium/Scenario_10532.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
@@ -66,16 +66,16 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName = GenericLib.getExcelData(sTestDataValue1,"Product Name ");
+		sProductName = GenericLib.getExcelData(sTestDataValue1,sSheetName,"Product Name ");
 		System.out.println(sProductName);
 		
-		sProductName2 = GenericLib.getExcelData(sTestDataValue3,"Product2 Name");
+		sProductName2 = GenericLib.getExcelData(sTestDataValue3,sSheetName,"Product2 Name");
 		System.out.println(sProductName2);
-		sIBName = GenericLib.getExcelData(sTestDataValue1,"Installed Product Name");
+		sIBName = GenericLib.getExcelData(sTestDataValue1,sSheetName,"Installed Product Name");
 		System.out.println(sIBName);	
 		
 		String sTestDataValue2 = "SCN_GetPriceNotCovered_RS_10532";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue2,"Work Order Number");
+		String sworkOrderName = GenericLib.getExcelData(sTestDataValue2,sSheetName,"Work Order Number");
 	
 		// To navigate to the Work Order
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	

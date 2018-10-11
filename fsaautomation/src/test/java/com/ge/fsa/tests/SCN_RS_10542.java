@@ -33,7 +33,8 @@ public class SCN_RS_10542 extends BaseLib {
 	String sIssueTxt = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
-
+	String sSheetName =null;
+	
 	@BeforeMethod
 	public void initializeObject() throws Exception { 
 
@@ -57,13 +58,14 @@ public class SCN_RS_10542 extends BaseLib {
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
+		sSheetName ="RS_10542";
 		sTestCaseID = "SANITY5";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID, "IssueText");
-		sBillingType = GenericLib.getExcelData(sTestCaseID, "BillingType");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
+		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
 		
 		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");

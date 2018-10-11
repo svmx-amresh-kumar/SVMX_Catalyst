@@ -73,7 +73,7 @@ String SFMlinetype="Parts";
 String SFMdaterequired="";
 boolean SFMIsBillable=true;
 	WebElement productname=null;
-	
+	String sSheetName =null;
 	
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
@@ -82,7 +82,7 @@ boolean SFMIsBillable=true;
 
 	@Test(enabled = true)
 	public void RS_10556() throws Exception {
-		
+		sSheetName ="RS_10556";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
@@ -108,10 +108,10 @@ boolean SFMIsBillable=true;
 		System.out.println(Location);
 		*/
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB, "ProcessName");
-		String sworkordernumber=GenericLib.getExcelData(sTestIB, "WorkOrder Number");
+		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
+		String sworkordernumber=GenericLib.getExcelData(sTestIB,sSheetName, "WorkOrder Number");
 	
 		
 			//Pre Login to app
