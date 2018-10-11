@@ -14,6 +14,7 @@ import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -47,26 +48,26 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 	
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10537.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+//		genericLib.executeSahiScript("appium/Scenario_10537.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sProductName10539 = GenericLib.getExcelData(sTestDataValue,"Product2 Name");
@@ -166,7 +167,61 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName10538);
-		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM(sProcessname));
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(1000);
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(2000);
+		workOrderPo.selectAction(commonsPo,sProcessname);
+		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10538+"'])[2]"))));
+		
+		// To verify the values of the Next Addition of PArts
+		
+		String sLinePricePerUnit2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
+		String sBillableQty2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
+		String sBillableLinePrice2 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
+		String sDiscount2 = workOrderPo.getelechildlinefields("Discount %").getAttribute("value");
+		
+		
+		// Verifying The Line Price Per Unit Value
+		if(sLinePricePerUnit2.equals("10000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
+		}
+		
+		// Verifying the Discount 
+		if(sDiscount2.equals("30"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Discount % is as Expected - Part");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
+		}
+		// Billable Quantity Value verification
+		if(sBillableQty2.equals("1.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
+		}
+		// Billable Line Price Value verification
+		if(sBillableLinePrice2.equals("7000.000"))
+		{
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
+		}
+		
+		
 		
 		// Verifying after sync the system
 		toolsPo.syncData(commonsPo);
