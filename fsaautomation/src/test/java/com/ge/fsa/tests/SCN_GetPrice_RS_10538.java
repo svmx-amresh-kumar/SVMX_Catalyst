@@ -66,7 +66,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
