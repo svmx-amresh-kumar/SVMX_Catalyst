@@ -12,10 +12,10 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_RS_10541 extends BaseLib {
+public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	
 	int iWhileCnt = 0;
-	String sTestCaseID = null;
+	String sTestID = null;
 	String sCaseWOID = null;
 	String sCaseSahiFile = null;
 	String sExploreSearch = null;
@@ -33,8 +33,7 @@ public class SCN_RS_10541 extends BaseLib {
 	String sIssueTxt = null;
 	String sBillingType = null;
 	String sWOSqlQuery = null;
-	String sSheetName =null;
-	
+
 	@BeforeMethod
 	public void initializeObject() throws Exception { 
 
@@ -54,22 +53,22 @@ public class SCN_RS_10541 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
+		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi verification failure");
+		
+		
 	}
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
-		sSheetName ="10541";
-		sTestCaseID = "SANITY5";
+		sTestID = "RS_10541";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
-		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
-		
-		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		sIssueTxt = GenericLib.getExcelData(sTestID,sTestID, "IssueText");
+		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
