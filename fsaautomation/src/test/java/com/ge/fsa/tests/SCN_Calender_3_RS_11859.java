@@ -80,7 +80,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			
 			//Data Sync for WO's created
-			//toolsPo.syncData(commonsPo);
+		//	toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -92,9 +92,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			
-			ExtentManager.logger.log(Status.PASS,"Two events are displayed in calendar");
+			ExtentManager.logger.log(Status.PASS,"Two SFDC events are displayed in calendar");
 			
-			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");*/
+			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			//Create SVMX event from Create New Option
 			commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -110,10 +110,11 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);*/
 			
-			sObjectApi = "SVMXC__SVMX_Event__c";
-			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";				
+			sObjectApi = "Event";
+			restServices.getAccessToken();
+			sSqlEventQuery ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";				
 			String sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSFDC);
 			Assert.assertNotNull(sEventIdSFDC, "Record not found");;
@@ -123,8 +124,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		//	On server/DC, edit one of the events created
 			
-			sObjectApi = "SVMXC__SVMX_Event__c";
-			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A11859_SFDC_Event2\'";				
+			sObjectApi = "Event";
+			sSqlEventQuery ="SELECT+id+from+Event+Where+name+=\'A11859_SFDC_Event1\'";				
 			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSVMX_1);
 			
@@ -137,7 +138,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	       // now1.set(Calendar.HOUR_OF_DAY, 14);
 	     System.out.println(endtimezero);
 			
-			String sWOJson="{\"SVMXC__EndDateTime__c\":\""+endtimezero+"\"}";
+			String sWOJson="{\"EndDateTime\":\""+endtimezero+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
 				
 				toolsPo.syncData(commonsPo);
@@ -150,7 +151,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			calendarPO.geteleWOendpoint("09:00").getLocation();
 			Thread.sleep(3000);
 			System.out.println("Before Pencil icon enable");
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_2));
+			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
 			Thread.sleep(3000);
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
@@ -171,11 +172,11 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		Thread.sleep(3000);
 		calendarPO.geteleWOendpoint("09:00").getLocation();
 		Thread.sleep(3000);
-		commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_2));
+		commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
 		Thread.sleep(3000);
 	
 		System.out.println("tap on pencil icon");
-		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_2),20,20);
+		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 		
 		commonsPo.tap(calendarPO.geteleEndDateTime());
 		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
@@ -190,9 +191,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
        toolsPo.syncData(commonsPo);
         
     
-      sObjectApi = "SVMXC__SVMX_Event__c";
-		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
-		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
+      sObjectApi = "Event";
+		sSqlEventQuery ="SELECT+EndDateTime+from+Event+Where+id+=\'"+sEventIdSVMX_1+"\'";				
+		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"EndDateTime"); 
 		System.out.println(sEventenddatetimeserver);
 		
 		 stempDate = calendarPO.convertedformate(sEventenddatetimeserver);
@@ -226,7 +227,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		commonsPo.tap(toolsPo.geteleResolveissue());
 		commonsPo.tap(toolsPo.geteleApply());
-		commonsPo.tap(toolsPo.getEleOkBtn());
+		commonsPo.tap(toolsPo.getEleOkBtn());	
 		toolsPo.syncData(commonsPo);
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 	}

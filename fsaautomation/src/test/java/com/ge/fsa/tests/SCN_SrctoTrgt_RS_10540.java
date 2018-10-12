@@ -4,20 +4,17 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_RS_10540 extends BaseLib {
+public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sTestCaseID = null;
+	String sTestID = null;
 	String sCaseWOID = null;
 	String sCaseSahiFile = null;
 	String sExploreSearch = null;
@@ -35,7 +32,6 @@ public class SCN_RS_10540 extends BaseLib {
 	//String sTestIBID = null;
 	String sObjectProID = null;
 	String sProductName = null;
-	String sSheetName =null;
 	
 	private void preRequiste() throws Exception { 
 		
@@ -77,7 +73,7 @@ public class SCN_RS_10540 extends BaseLib {
 		
 
 		/*
-		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
+		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 		 */
@@ -86,11 +82,11 @@ public class SCN_RS_10540 extends BaseLib {
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
-		sSheetName ="RS_10540";
-		sTestCaseID = "RS_10540";
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		
+		sTestID = "RS_10540";
+		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app
