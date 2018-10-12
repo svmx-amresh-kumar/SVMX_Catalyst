@@ -8,6 +8,7 @@
     </listeners>
 <test name="Sanity1">
 		<classes>
+		<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538"/>
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
 			
