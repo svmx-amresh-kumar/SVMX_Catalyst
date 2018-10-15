@@ -104,17 +104,16 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Calendar now = Calendar.getInstance();
-			 now.set(Calendar.MONTH, 8);
-	        now.set(Calendar.HOUR, 0);
+	
+			now.set(Calendar.HOUR, 0);
 	        now.set(Calendar.MINUTE, 0);
 	        now.set(Calendar.SECOND, 0);
-	        System.out.println(sdf.format(now.getTime()));
 	     String  starttimezero=  sdf.format(now.getTime());
 	     System.out.println(starttimezero);
 		
 	     
 	     Calendar now1 = Calendar.getInstance();
-	     now1.set(Calendar.MONTH, 10);
+	     now1.set(Calendar.MONTH, 11);
 	        now1.set(Calendar.HOUR, 0);
 	        now1.set(Calendar.MINUTE, 0);
 	        now1.set(Calendar.SECOND, 0);

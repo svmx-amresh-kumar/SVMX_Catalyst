@@ -75,7 +75,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
@@ -101,9 +101,9 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteleNewClick());
 			
-			calendarPO.getelesubjectcal().sendKeys("Create Event from calender New button");
-			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTime(), 0,"10", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"11","00");
+			calendarPO.getelesubjectcal().sendKeys("SVMX Event from calender New button");
+			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			
 			toolsPo.syncData(commonsPo);
@@ -203,13 +203,13 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		commonsPo.tap(calendarPO.geteleNewClick());
 		
 		calendarPO.getelesubjectcal().sendKeys("Event for 14 days");
-		commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
-		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 16,"10","00");
+		commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 16,"10","00");
 		//get the values to start and end date to validate
-		String startDateTimevalidate=calendarPO.geteleStartDateTimecal().getAttribute("value");
+		String startDateTimevalidate=calendarPO.geteleStartDateTimesvmx().getAttribute("value");
 		System.out.println(startDateTimevalidate);
 		
-		 EndDateTimevalidate=calendarPO.geteleEndDateTimecal().getAttribute("value");
+		 EndDateTimevalidate=calendarPO.geteleEndDateTimesvmx().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
 		
 		commonsPo.tap(workOrderPo.getEleClickSave());

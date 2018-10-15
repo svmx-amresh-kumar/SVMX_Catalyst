@@ -76,7 +76,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_2");
 		String sWO_SVMX_3 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_3");
-		String sTechname1= GenericLib.getExcelData(sTestIB,sSheetName, "TechName1");
+		String sSalesforceuser= GenericLib.getExcelData(sTestIB,sSheetName, "Salesforceuser");
 		String sTechname2 = GenericLib.getExcelData(sTestIB,sSheetName, "TechName2");
 		
 		
@@ -104,12 +104,12 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_3);
 			ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
-			
+			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 			
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			//delete one SFDC and one SVMX event
-			sObjectApi = "SVMXC__SVMX_Event__c?";
-			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SFDC_Event1\'";				
+			sObjectApi = "Event?";
+			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event1\'";				
 			String sEventIdSFDC_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSFDC_1);
 			
@@ -118,8 +118,9 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
 			System.out.println(sEventIdSVMX_1);
 			
-			sObjectApi = "SVMXC__SVMX_Event__c";
+			sObjectApi = "Event";
 			restServices.restDeleterecord(sObjectApi,sEventIdSFDC_1);
+			sObjectApi = "SVMXC__SVMX_Event__c";
 			restServices.restDeleterecord(sObjectApi,sEventIdSVMX_1);
 			
 			toolsPo.syncData(commonsPo);
@@ -131,6 +132,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
 			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
+			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Assigning from one tech1 to tech2
 				//SFDC event
@@ -142,12 +144,12 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			String sWOJson="{\"SVMXC__Group_Member__c\":\""+sTechname2+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSFDC_2 );
 
-			sObjectApi = "SVMXC__SVMX_Event__c";
-			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SFDC_Event2\'";				
+			sObjectApi = "Event";
+			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
 			String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSFDC_2);
 			//updating event
-			 sWOJson="{\"SVMXC__Technician__c\":\""+sTechname2+"\"}";
+			 sWOJson="{\"OwnerId\":\""+sSalesforceuser+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSFDC_2 );
 			
 			
@@ -196,7 +198,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			Thread.sleep(3000);
 			
 			ExtentManager.logger.log(Status.PASS,"Event Re-Assigned to tech2 is successful");
-			
+			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	///////////////////////////////////////////////////////////////////////////////////////////////////		
 		
 	}

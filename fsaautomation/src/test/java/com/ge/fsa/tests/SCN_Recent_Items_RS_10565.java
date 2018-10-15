@@ -74,11 +74,11 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
 			//config sync
-			//toolsPo.configSync(commonsPo);
-			//Thread.sleep(GenericLib.iMedSleep);
+			toolsPo.configSync(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
 			toolsPo.Resetapp(commonsPo,exploreSearchPo);
 			//datasync
-		//	toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 	
 			//crete a wo
