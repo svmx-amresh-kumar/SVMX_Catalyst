@@ -71,7 +71,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 			
 		//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created

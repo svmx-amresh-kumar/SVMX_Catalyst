@@ -75,12 +75,12 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
 			//Data Sync for WO's created
-		//	toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
