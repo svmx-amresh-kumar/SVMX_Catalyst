@@ -8,7 +8,7 @@
     </listeners>
 <test name="Sanity1">
 		<classes>
-<<<<<<< HEAD
+
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />
 			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
@@ -17,12 +17,7 @@
 			<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
 			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_10513" />
 			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_11859" />
-=======
-		<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538"/>
-			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
-			
->>>>>>> 3d70dc6dd64b39f7482b66e2cb29a8ab5eeae3de
+
 			
 
 		</classes>
