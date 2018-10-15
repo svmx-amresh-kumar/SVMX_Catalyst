@@ -95,7 +95,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		//converting to GMT to PST
 			    SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate1 = parser1.parse(sIBLastModifiedBy);
-		        SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yy HH:mm");
+		        SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yy HH:mm");
 		        String stempDate =  formatter1.format(dTempDate1);
 		        System.out.println("formatter1.format value   "+stempDate);
 		        dTempDate1 = formatter1.parse(stempDate);
@@ -120,7 +120,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -151,7 +151,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);
-			Assert.assertTrue(fetchedScheduledDate.equals("29.08.18"), "ScheduledDate value mapped is not displayed");
+			Assert.assertTrue(fetchedScheduledDate.equals("8/29/18"), "ScheduledDate value mapped is not displayed");
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
@@ -167,7 +167,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetcheddaterequired =workOrderPo.getDateRequired().getAttribute("value");
 			System.out.println(fetcheddaterequired);
-			Assert.assertTrue(fetcheddaterequired.equals("29.08.18"), "date required value mapped is not displayed");
+			Assert.assertTrue(fetcheddaterequired.equals("8/29/18"), "date required value mapped is not displayed");
 			
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
@@ -207,7 +207,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 			 SimpleDateFormat parser2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate2 = parser2.parse(sScheduledDatetime);
-		        SimpleDateFormat formatter2 = new SimpleDateFormat("dd.MM.yy HH:mm");
+		        SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd/yy HH:mm");
 		        String stempDate1 =  formatter2.format(dTempDate2);
 		        System.out.println("formatter1.format value   "+stempDate1);
 		        dTempDate1 = formatter2.parse(stempDate1);
