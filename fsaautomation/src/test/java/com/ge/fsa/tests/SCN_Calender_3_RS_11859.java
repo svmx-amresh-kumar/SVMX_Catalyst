@@ -84,7 +84,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		/*//verify WO event is present or not
+		//verify WO event is present or not
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -110,7 +110,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			
-			toolsPo.syncData(commonsPo);*/
+			toolsPo.syncData(commonsPo);
 			
 			sObjectApi = "Event";
 			restServices.getAccessToken();
@@ -125,7 +125,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		//	On server/DC, edit one of the events created
 			
 			sObjectApi = "Event";
-			sSqlEventQuery ="SELECT+id+from+Event+Where+name+=\'A11859_SFDC_Event1\'";				
+			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event1\'";				
 			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSVMX_1);
 			
@@ -155,7 +155,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			Thread.sleep(3000);
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
-			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_2),20,20);
+			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
@@ -217,8 +217,13 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		
-		toolsPo.syncData(commonsPo);
 		commonsPo.tap(toolsPo.getEleToolsIcn());
+		toolsPo.getEleSyncDataNowLnk().click();
+		commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
+		toolsPo.getEleStartSyncBtn().click();
+		commonsPo.longPress(toolsPo.getEleStartSyncBtn());
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+		
 		commonsPo.tap(toolsPo.geteleResolve());
 		String errormsg=toolsPo.getelesyncconflicterror().getText();
 		System.out.println(errormsg);

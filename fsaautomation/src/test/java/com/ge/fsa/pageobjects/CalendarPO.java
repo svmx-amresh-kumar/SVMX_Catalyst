@@ -192,7 +192,7 @@ public class CalendarPO
 	private WebElement eletaponmonthdayindex;
 	public WebElement geteletaponmonthdayindex(String datetotap)
 	{
-		eletaponmonthdayindex = driver.findElement(By.xpath("(//span[contains(@datetime, '"+datetotap+"')])[2]"));
+		eletaponmonthdayindex = driver.findElement(By.xpath("(//span[contains(@datetime, '"+datetotap+"')])"));
 		return eletaponmonthdayindex;
 	}
 	
@@ -370,4 +370,18 @@ public class CalendarPO
 		return eleclickupdate;
 	}
 
+	
+	@FindBy(xpath="//*[text()='StartDateTime']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleStartDateTimesvmx;
+	public WebElement geteleStartDateTimesvmx()
+	{
+		return eleStartDateTimesvmx;
+	}
+	
+	@FindBy(xpath="//*[text()='EndDateTime']/../..//span[@class='x-label-text-el']/../..//input")
+	private WebElement eleEndDateTimesvmx;
+	public WebElement geteleEndDateTimesvmx()
+	{
+		return eleEndDateTimesvmx;
+	}
 }
