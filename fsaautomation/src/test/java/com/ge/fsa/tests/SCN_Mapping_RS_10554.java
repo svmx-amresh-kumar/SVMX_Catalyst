@@ -120,7 +120,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
