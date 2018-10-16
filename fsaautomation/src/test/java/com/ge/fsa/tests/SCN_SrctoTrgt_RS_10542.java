@@ -21,12 +21,6 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sFieldServiceName = null;
-	String sProductName1 = null;
-	String sProductName2 = null;
-	String sActivityType = null;
-	String sPrintReportSearch = null;
-	String sIssueTxt = null;
-	String sBillingType = null;
 	
 	String sIBName1 = null;
 	String sIBName2 = null;
@@ -44,7 +38,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	@BeforeMethod
 	public void initializeObject() throws Exception { 
 
-		restServices.getAccessToken();/*
+		restServices.getAccessToken();
 		sSerialNumber = commonsPo.generaterandomnumber("IB_10541_");
 		
 		sObjectApi = "Account?";
@@ -62,7 +56,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		//Creation of dynamic IB1
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sSerialNumber+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sSerialNumber+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
+		sJsonData = "{\"Name\": \""+sSerialNumber+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sSerialNumber+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
@@ -75,10 +69,10 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		System.out.println(sIBName2);*/
+		System.out.println(sIBName2);
 		
-		sIBName1 ="IB_10540_16102018145445";
-		sIBName2 = "IB_10540_16102018145450";
+		//sIBName1 ="IB_10540_16102018145445";
+		//sIBName2 = "IB_10540_16102018145450";
 				
 		
 		
@@ -91,69 +85,57 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 
 	@Test(enabled = true)
 	public void toTest() throws Exception {
-		sTestID = "RS_10542";
-		
+		sTestID = "RS_10542";	
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID,sTestID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID, sTestID,"ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestID,sTestID, "IssueText");
-		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		
+		//Pre Login to app
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		//Navigation to SFM
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
+
+		//Validation of not qualifying Work Order
+		Assert.assertTrue(workOrderPo.getEleCountryItalyTxt().isDisplayed(), "Error popup is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
+		
+		commonsPo.tap(workOrderPo.getEleOKBtn());
+		Thread.sleep(GenericLib.iLowSleep);
+
+		//Navigation to SFM
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
+		Thread.sleep(GenericLib.iLowSleep);
+		
+		//Validation of auto update process
+		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals("IB_10541_16102018154812account"), "Account is not displayed.");
+		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
+		
+		//Validation of auto update process
+		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Subject is not displayed");
+		
+			
+		commonsPo.tap(workOrderPo.getEleClickSave());
+		Thread.sleep(GenericLib.iLowSleep);
+
+		//Validation of auto update process
+		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
+		ExtentManager.logger.log(Status.PASS,"Update process is successful");
 		
 		
-			//Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
-			/*
-			toolsPo.configSync(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10541__c+= \'"+sIBName2+"\')");
+		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
+
 			
-			toolsPo.syncData(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);*/
-			
-			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
-			
-			//Validation of not qualifying Work Order
-			Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-			ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
-			commonsPo.tap(workOrderPo.getEleOKBtn());
-			Thread.sleep(GenericLib.iLowSleep);
-			
-			
-			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
-			Thread.sleep(GenericLib.iLowSleep);
-			
-			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
-			Thread.sleep(GenericLib.iLowSleep);
-			
-			
-			commonsPo.tap(workOrderPo.getEleClickSave());
-			Thread.sleep(GenericLib.iLowSleep);
-			
-			//Validation of qualifying workorder with Issue found text error.
-			Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
-			ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
-			
-			//Validation of qualifying workorder with Issue found text popup.
-			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());	
-			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
-			ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
-			
-			commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
-			Thread.sleep(GenericLib.iMedSleep);
-			commonsPo.tap(workOrderPo.getEleCancelLnk());
-			commonsPo.tap(workOrderPo.getEleDiscardBtn());
-			
-			//Navigation to WO
-			workOrderPo.selectAction(commonsPo, sFieldServiceName);
-			Thread.sleep(GenericLib.iMedSleep);
-			
-			//Selecting Billing Type to contract to make sure sfm is working fine.
-			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), "Contract");
-			commonsPo.tap(workOrderPo.getEleSaveLnk());
-			
-			//Validation of qualifying workorder with Issue found text error.
-			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
-			ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 	}
 }
