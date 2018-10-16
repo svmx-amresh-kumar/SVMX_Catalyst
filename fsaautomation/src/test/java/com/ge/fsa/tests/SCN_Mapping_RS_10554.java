@@ -175,7 +175,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
 			
 			toolsPo.syncData(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
+			//Thread.sleep(GenericLib.iMedSleep);
 			
 			// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sObjectIBID+"\'";
