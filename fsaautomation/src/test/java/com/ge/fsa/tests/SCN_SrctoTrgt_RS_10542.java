@@ -114,7 +114,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals("IB_10541_16102018154812account"), "Account is not displayed.");
+		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
 		//Validation of auto update process
