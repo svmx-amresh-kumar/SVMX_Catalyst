@@ -69,8 +69,8 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		System.out.println(sIBName2);
 		
-		//sIBName1 ="IB_10541_16102018154812";
-		//sIBName2 = "IB_10541_16102018154816";
+		//sIBName1 ="IB_10542_16102018172046";
+		//sIBName2 = "IB_10542_16102018172051";
 					
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
@@ -100,7 +100,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
-		Assert.assertTrue(workOrderPo.getElePopupTxt().isDisplayed(), "Error popup is not displayed");
+		Assert.assertTrue(workOrderPo.getElePopupTxt().getText().equals("Country should be Italy"), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());
