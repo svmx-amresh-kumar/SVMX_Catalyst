@@ -100,7 +100,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
-		Assert.assertTrue(workOrderPo.getEleCountryItalyTxt().isDisplayed(), "Error popup is not displayed");
+		Assert.assertTrue(workOrderPo.getElePopupTxt().isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());

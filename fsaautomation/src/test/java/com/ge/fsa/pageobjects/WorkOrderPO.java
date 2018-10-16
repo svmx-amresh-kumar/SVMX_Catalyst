@@ -985,10 +985,10 @@
 	
 	
 		@FindBy(xpath="//div[@class='x-component x-msgbox-text x-layout-box-item x-layout-vbox-item x-stretched']/div")
-		private WebElement eleCountryItalyTxt;
-		public WebElement getEleCountryItalyTxt()
+		private WebElement elePopupTxt;
+		public WebElement getElePopupTxt()
 		{
-			return eleCountryItalyTxt;
+			return elePopupTxt;
 		}
 	
 	
