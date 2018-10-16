@@ -1046,7 +1046,7 @@
 			return eleSearchBtn;
 		}
 	
-		@FindBy(xpath="//span[text()='Account ID']/../..//input")
+		@FindBy(xpath="//span[contains(text(),'Account')]/../..//input")
 		private WebElement eleIBAccountIDTxt;
 		public WebElement getEleIBAccountIDTxt()
 		{

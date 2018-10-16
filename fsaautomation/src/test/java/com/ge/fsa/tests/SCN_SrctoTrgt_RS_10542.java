@@ -71,16 +71,14 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		System.out.println(sIBName2);
 		
-		//sIBName1 ="IB_10540_16102018145445";
-		//sIBName2 = "IB_10540_16102018145450";
-				
+		//sIBName1 ="IB_10542_16102018145445";
+		//sIBName2 = "IB_10542_16102018173248";
+		//sAccountName="IB_10542_16102018173243account";		
 		
-		
-		/*
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi verification failure");
-		*/
+		
 	}
 
 	@Test(enabled = true)
@@ -118,11 +116,17 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
 		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleIBComponentTxt().getText().equals(sIBName2), "Component is not displayed");
+		Assert.assertTrue(workOrderPo.getEleIBComponentTxt().getAttribute("value").equals(sIBName2), "Component is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Component is  displayed");
 		
-		commonsPo.tap(workOrderPo.getEleIBScheduledTxtFld());
+		//Set the schedule Date for future date by 2 days
+		workOrderPo.getEleIBScheduledTxtFld().click();
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.setDatePicker(1, 2);
+		commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		
+		//Save the case created by IB
+		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
