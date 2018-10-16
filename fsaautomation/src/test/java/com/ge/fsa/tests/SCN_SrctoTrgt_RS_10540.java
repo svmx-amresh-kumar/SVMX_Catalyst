@@ -29,7 +29,6 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 	String sSerialNumber = null;
 	String sSqlQuery = null;
 	String sAccountName = null;
-	//String sTestIBID = null;
 	String sObjectProID = null;
 	String sProductName = null;
 	
@@ -51,7 +50,7 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		/*
+		
 		//Creation of dynamic IB1
 		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sSerialNumber+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sSerialNumber+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
@@ -66,17 +65,17 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		System.out.println(sIBName2);*/
+		System.out.println(sIBName2);
 
-		sIBName1 ="IB_10540_27092018155351";
-		sIBName2 = "IB_10540_27092018155358";
+		//sIBName1 ="IB_10540_27092018155351";
+		//sIBName2 = "IB_10540_27092018155358";
 		
 
-		/*
-		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestCaseID);
+		
+		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-		 */
+		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi verification failure");
+		
 		
 	}
 
@@ -91,13 +90,13 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		/*
+		
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-	*/
+	
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 
@@ -112,15 +111,6 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		//Update the auto custome object process
-		//commonsPo.tap(workOrderPo.getEleAutoText_10540TxtFld());	
-		//workOrderPo.getEleAutoText_10540TxtFld().sendKeys(sSerialNumber);
-		//commonsPo.tap(workOrderPo.getEleUpdateBtn());	
-		
-		sSerialNumber = commonsPo.generaterandomnumber("");
-		
-		workOrderPo.getEleNumber_10540TxtFld().sendKeys(sSerialNumber);
-		
 		
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -133,8 +123,8 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
-		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
+		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
+		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
 
 	}
 }

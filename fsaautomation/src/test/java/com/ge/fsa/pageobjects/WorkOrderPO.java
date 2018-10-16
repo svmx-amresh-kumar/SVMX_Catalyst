@@ -1046,7 +1046,19 @@
 			return eleSearchBtn;
 		}
 	
+		@FindBy(xpath="//span[text()='Account ID']/../..//input")
+		private WebElement eleIBAccountIDTxt;
+		public WebElement getEleIBAccountIDTxt()
+		{
+			return eleIBAccountIDTxt;
+		}
 	
+		@FindBy(xpath="//div[text()='Edit']/../span")
+		private WebElement eleIBSubjectTxt;
+		public WebElement getEleIBSubjectTxt()
+		{
+			return eleIBSubjectTxt;
+		}
 	
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo

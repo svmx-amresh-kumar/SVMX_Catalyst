@@ -20,11 +20,6 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	String sCaseSahiFile = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
-	String sWorkOrderID = null;
-	String sWOObejctApi = null;
-	String sWOJsonData = null;
-	String sWOName1 = null;
-	String sWOName2 = null;
 	String sFieldServiceName = null;
 	String sProductName1 = null;
 	String sProductName2 = null;
@@ -32,31 +27,66 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	String sPrintReportSearch = null;
 	String sIssueTxt = null;
 	String sBillingType = null;
-	String sWOSqlQuery = null;
+	
+	String sIBName1 = null;
+	String sIBName2 = null;
+	String sIBRecord = null;
+	String sObjectApi = null;
+	String sJsonData = null;
+	String sObjectAccID = null;
+	String sSerialNumber = null;
+	String sSqlQuery = null;
+	String sAccountName = null;
+	//String sTestIBID = null;
+	String sObjectProID = null;
+	String sProductName = null;
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { 
 
+		restServices.getAccessToken();/*
+		sSerialNumber = commonsPo.generaterandomnumber("IB_10541_");
 		
-		restServices.getAccessToken();
-		sWOObejctApi="SVMXC__Service_Order__c?";
+		sObjectApi = "Account?";
+		sJsonData = "{\"Name\": \""+sSerialNumber+""+"account\"}";
+		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
+		sAccountName =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+
+
+		// Create product
+		sJsonData = "{\"Name\": \""+sSerialNumber+""+"product\", \"IsActive\": \"true\"}";
+		sObjectApi = "Product2?";
+		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
+		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		//Creation of dynamic Work Order1
-		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Canceled\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000456"; 
+		//Creation of dynamic IB1
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sSerialNumber+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sSerialNumber+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
+		sObjectApi = "SVMXC__Installed_Product__c?";
+		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
+		sIBName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		System.out.println(sIBName1);
+
+		//Creation of dynamic IB2
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonsPo.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonsPo.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
+		sObjectApi = "SVMXC__Installed_Product__c?";
+		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
+		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		System.out.println(sIBName2);*/
 		
-		//Creation of dynamic Work Order2
-		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
+		sIBName1 ="IB_10540_16102018145445";
+		sIBName2 = "IB_10540_16102018145450";
+				
 		
+		
+		/*
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi verification failure");
-		
+		*/
 	}
 
 	@Test(enabled = true)
@@ -72,15 +102,15 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
-			
+			/*
 			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			toolsPo.syncData(commonsPo);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.iMedSleep);*/
 			
 			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 			
 			//Validation of not qualifying Work Order
 			Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
@@ -90,7 +120,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 			
 			
 			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
