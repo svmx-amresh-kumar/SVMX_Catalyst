@@ -116,7 +116,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Subject is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Subject is  displayed");
 		
 			
 		commonsPo.tap(workOrderPo.getEleClickSave());

@@ -118,10 +118,11 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
 		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Subject is not displayed");
+		Assert.assertTrue(workOrderPo.getEleIBComponentTxt().getText().equals(sIBName2), "Component is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Component is  displayed");
 		
-			
+		commonsPo.tap(workOrderPo.getEleIBScheduledTxtFld());
+		
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 

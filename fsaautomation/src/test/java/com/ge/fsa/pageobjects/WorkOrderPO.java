@@ -1067,6 +1067,13 @@
 		{
 			return eleIBComponentTxt;
 		}
+		
+		@FindBy(xpath="//span[text()='Scheduled Date']/../..//input")
+		private WebElement eleIBScheduledTxtFld;
+		public WebElement getEleIBScheduledTxtFld()
+		{
+			return eleIBScheduledTxtFld;
+		}
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
