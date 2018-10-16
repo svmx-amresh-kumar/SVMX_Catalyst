@@ -80,7 +80,7 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 	}
 
 	@Test(enabled = true)
-	public void toTest() throws Exception {
+	public void SCN_SrctoTrgt_RS_10540() throws Exception {
 		
 		sTestID = "RS_10540";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
