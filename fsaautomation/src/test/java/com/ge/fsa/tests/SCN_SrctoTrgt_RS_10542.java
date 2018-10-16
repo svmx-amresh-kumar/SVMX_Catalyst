@@ -77,7 +77,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi verification failure");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
