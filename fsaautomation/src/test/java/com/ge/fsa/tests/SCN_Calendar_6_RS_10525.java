@@ -6,6 +6,8 @@ package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -54,17 +56,32 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	public void RS_10525() throws Exception {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
-		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
-		String sTestIB="RS_10525_Calender_6";
-		String sTestIBID = sProformainVoice;
-	
+		String sTestCaseID="RS_10525_Calender_6";
+		
+	//sahi
+		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah", "sTestCaseID");
+  		if(commonsPo.verifySahiExecution()) {
+  			
+  			System.out.println("PASSED");
+  		}
+  		else 
+  		{
+  			System.out.println("FAILED");
+  			
+
+  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+  			assertEquals(0, 1);
+  		}
+  		lauchNewApp("true");
+  		System.out.println("RS_10525");
+		
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
-		String sworkOrderName = GenericLib.getExcelData(sTestIB,sSheetName, "WorkOrder Number");
-		String TechName = GenericLib.getExcelData(sTestIB,sSheetName, "TechName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
+		String TechName = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName");
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);

@@ -6,6 +6,8 @@ package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,17 +59,32 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		sSheetName ="RS_10513";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
-		String sTest="RS_10513_Calender_3";
+		String sTestCaseID="RS_10513_Calender_3";
 		
-	
+		//sahi
+				genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", "sTestCaseID");
+		  		if(commonsPo.verifySahiExecution()) {
+		  			
+		  			System.out.println("PASSED");
+		  		}
+		  		else 
+		  		{
+		  			System.out.println("FAILED");
+		  			
+
+		  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		  			assertEquals(0, 1);
+		  		}
+		  		lauchNewApp("true");
+		  		System.out.println("RS-10513");
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTest,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTest,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTest,sSheetName, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTest,sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTest,sSheetName, "WO_SVMX_2");
+		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
 		
 		
 		

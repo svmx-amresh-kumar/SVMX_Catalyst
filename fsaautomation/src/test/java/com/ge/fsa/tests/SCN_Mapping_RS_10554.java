@@ -60,9 +60,8 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
 		sDeviceDate = driver.getDeviceTime().split(" ");
-		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestCaseID="RS-10554_mapping";
-		sTestCaseID = sProformainVoice;
+	
 		
 		//create Account
 		sObjectApi = "Account?";
@@ -107,13 +106,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		        dTempDate1 = Date.from(insDate);
 		        sformattedDatetime = formatter1.format((dTempDate1));  
 		        System.out.println("formateed dateTime"+sformattedDatetime);
-		        
 
-	
-	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
 		//call sahi
 		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
@@ -132,6 +125,10 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		lauchNewApp("true");
 		System.out.println("RS_10554");
 		
+		//read from file
+				sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
 		
 			//Pre Login to app

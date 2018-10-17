@@ -57,7 +57,23 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
 		String sTestCaseID="RS_10565_Recent_Items";
-		sTestCaseIDID = sProformainVoice;
+		
+		//sahi
+  		genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
+  		if(commonsPo.verifySahiExecution()) {
+  			
+  			System.out.println("PASSED");
+  		}
+  		else 
+  		{
+  			System.out.println("FAILED");
+  			
+
+  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+  			assertEquals(0, 1);
+  		}
+  		lauchNewApp("true");
+  		System.out.println("RS_10565");
 		
 		
 		//read from file
@@ -70,26 +86,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 	    sProformainVoice = sRandomNumber;
 		
-	  //sahi
-	  		genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
-	  		if(commonsPo.verifySahiExecution()) {
-	  			
-	  			System.out.println("PASSED");
-	  		}
-	  		else 
-	  		{
-	  			System.out.println("FAILED");
-	  			
-
-	  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-	  			assertEquals(0, 1);
-	  		}
-	  		lauchNewApp("true");
-	  		System.out.println("RS_10565");
-	  		
-	    
-	    
-	    
+	 
 	    
 		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);

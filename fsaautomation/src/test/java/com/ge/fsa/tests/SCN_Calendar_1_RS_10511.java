@@ -6,6 +6,8 @@ package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -61,23 +63,38 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		sSheetName ="RS_10511";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
-		String sTestIB="RS_10511_Calender_1";
+		String sTestCaseID="RS_10511_Calender_1";
 		
-	
+		//sahi
+  		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah", "sTestCaseID");
+  		if(commonsPo.verifySahiExecution()) {
+  			
+  			System.out.println("PASSED");
+  		}
+  		else 
+  		{
+  			System.out.println("FAILED");
+  			
+
+  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+  			assertEquals(0, 1);
+  		}
+  		lauchNewApp("true");
+  		System.out.println("RS_10511");
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
-		String sWO_SFDC_1 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_1");
-		String sWO_SFDC_2 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_2");
-		String sWO_SFDC_3 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SFDC_3");		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_2");
-		String sWO_SVMX_3 = GenericLib.getExcelData(sTestIB,sSheetName, "WO_SVMX_3");
-		String sSalesforceuser= GenericLib.getExcelData(sTestIB,sSheetName, "Salesforceuser");
-		String sTechname2 = GenericLib.getExcelData(sTestIB,sSheetName, "TechName2");
+		String sWO_SFDC_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_3");		
+		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
+		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
+		String sSalesforceuser= GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
+		String sTechname2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
 		
 		
 			//Pre Login to app
