@@ -31,7 +31,7 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
  *
  */
 public class SCN_GetPrice_RS_10536 extends BaseLib {
-	String sTestCaseID= "Scenario_10539";
+	String sTestCaseID= "Scenario_10536";
 	String sAccountName = null;
 	String sProductName10538 = null;
 	String sProductName10539 = null;
@@ -51,7 +51,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		sSheetName1 ="RS_10539";
 		sSheetName2 = "RS_10538";
 		sSheetName3 = "RS_10536";
-		System.out.println("SCN_GetPriceSCON_RS_10539");
+		System.out.println("SCN_GetPriceSCON_RS_10536");
 		// To run the Sahi Script before the Execution of Appium - 10539
 		genericLib.executeSahiScript("appium/Scenario_10536.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
