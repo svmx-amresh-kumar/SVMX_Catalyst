@@ -128,14 +128,14 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleLinkedSFM());
 		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
-		workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName10539);
+		//workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName10539);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
+		//commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
 		
 		// To verify the values of the Next Addition of PArts
 		
