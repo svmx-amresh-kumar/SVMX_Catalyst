@@ -253,13 +253,16 @@ public class CommonsPO
 
 			if (sContext.equalsIgnoreCase("Native")) {
 				driver.context(sNativeApp);
+				System.out.println("Setting Context = "+sNativeApp);
 			} else {
 				driver.context(sWebView);
+				System.out.println("Setting Context = "+sWebView);
+
 			}
 		}
 		
-		//To set the value in PickerWheel native app
-		public void pickerWheel( WebElement wElement, String sValue) throws InterruptedException
+		//To set the value in PicsetPickerWheelValue(ive app
+		public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 		{
 			wElement.click();
 			Thread.sleep(2000);
@@ -325,7 +328,7 @@ public class CommonsPO
 		{
 			wElement.click();
 			switchContext("Native");
-			datePicker(0,iDaysToScroll);
+			setDatePicker(0,iDaysToScroll);
 			if(sTimeHrs == "0" && sTimeMin == "0" ) {
 				getEleDonePickerWheelBtn().click();
 
@@ -341,7 +344,7 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the 24 hrs time form the date picker wheels, passing string for dateFormatToSelect , setting 0 for sYear,sTimeMin will set the present date
+		 * Set the specific dateFormatToSelect (e.g "Mon Oct 15") , followed by day and year form the date picker wheels, passing string for setting 0 for sYear,sTimeMin will set the present date
 		 *
 		 * @param wElement
 		 * @param dateFormatToSelect
@@ -350,7 +353,7 @@ public class CommonsPO
 		 * @param sTimeAMPM
 		 * @throws InterruptedException
 		 */
-			public void setDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
+			public void setSpecificDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
 			{
 				wElement.click();
 				switchContext("Native");
@@ -370,7 +373,7 @@ public class CommonsPO
 			}
 		
 		/**
-		 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
+		 * Set the time form the date picker wheels	in 12hrs format, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 		 *
 		 * @param wElement
 		 * @param iDaysToScroll
@@ -383,7 +386,7 @@ public class CommonsPO
 			{
 				wElement.click();
 				switchContext("Native");
-				datePicker(0,iDaysToScroll);
+				setDatePicker(0,iDaysToScroll);
 				if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
 					getEleDonePickerWheelBtn().click();
 
@@ -406,12 +409,12 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the specific date picker wheel by scrolling up or down based on +ve or -ve value to be used with setDateTime24hrs / setDateTime12hrs
+		 * Set the specific date picker wheel (Day/month/year) by scrolling up or down based on +ve or -ve value to be used with setDateTime24hrs / setDateTime12hrs
 		 * 
-		 * @param iDateWheelIndex
+		 * @param iWheelIndex
 		 * @param scrollNum
 		 */
-		public void datePicker(int iDateWheelIndex, int scrollNum)
+		public void setDatePicker(int iWheelIndex, int scrollNum)
 		{ 	
 			int i=0;
 			int newTempVal = scrollNum;
@@ -429,7 +432,7 @@ public class CommonsPO
 
 		    }
 		    params.put("offset", 0.15);
-		    params.put("element", getEleDatePickerPopUp().get(iDateWheelIndex));
+		    params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 		    js.executeScript("mobile: selectPickerWheelValue", params);	
 			}
 		}
@@ -591,7 +594,18 @@ public class CommonsPO
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 		}
-
+//		public void setDatePicker(int iIndex, int scrollNum)
+//		{ 	switchContext("Native");
+//			int i=0;
+//			for(i=0;i<scrollNum;i++)
+//			{JavascriptExecutor js = (JavascriptExecutor) driver;
+//		    Map<String, Object> params = new HashMap<>();
+//		    params.put("order", "next");
+//		    params.put("offset", 0.15);
+//		    params.put("element", (getEleDatePickerPopUp().get(iIndex)));
+//		    js.executeScript("mobile: selectPickerWheelValue", params);	
+//			}
+//		}
 }
 	
 

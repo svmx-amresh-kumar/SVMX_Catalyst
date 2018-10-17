@@ -84,8 +84,8 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			//crete a wo
 			commonsPo.tap(createNewPO.getEleCreateNew());
 			commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
-			commonsPo.pickerWheel(createNewPO.getEleClickPriorityPicklist(), "High");
-			commonsPo.pickerWheel(createNewPO.getEleClickBillingTypePicklist(), "Loan");
+			commonsPo.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "High");
+			commonsPo.setPickerWheelValue(createNewPO.getEleClickBillingTypePicklist(), "Loan");
 			createNewPO.getEleproformainvoicevalue().click();
 			commonsPo.tap(createNewPO.getEleproformainvoicevalue());
 			createNewPO.getEleproformainvoicetextarea().sendKeys(sProformainVoice);

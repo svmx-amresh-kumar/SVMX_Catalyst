@@ -122,7 +122,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			checklistPo.geteleChecklistAnsNumber(snumberQuestion).sendKeys(snumberAns);;
 			
 			//System.out.println("Selecting Picklist Question Answer");
-			commonsPo.pickerWheel(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
+			commonsPo.setPickerWheelValue(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
 			
 			//System.out.println("Setting  Date Question Answer");
 			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();

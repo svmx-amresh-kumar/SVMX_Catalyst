@@ -985,10 +985,10 @@
 	
 	
 		@FindBy(xpath="//div[@class='x-component x-msgbox-text x-layout-box-item x-layout-vbox-item x-stretched']/div")
-		private WebElement eleCountryItalyTxt;
-		public WebElement getEleCountryItalyTxt()
+		private WebElement elePopupTxt;
+		public WebElement getElePopupTxt()
 		{
-			return eleCountryItalyTxt;
+			return elePopupTxt;
 		}
 	
 	
@@ -1046,8 +1046,34 @@
 			return eleSearchBtn;
 		}
 	
+		@FindBy(xpath="//span[contains(text(),'Account')]/../..//input")
+		private WebElement eleIBAccountIDTxt;
+		public WebElement getEleIBAccountIDTxt()
+		{
+			return eleIBAccountIDTxt;
+		}
 	
-	
+		@FindBy(xpath="//div[text()='Edit']/../span")
+		private WebElement eleIBSubjectTxt;
+		public WebElement getEleIBSubjectTxt()
+		{
+			return eleIBSubjectTxt;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Component']/../..//input")
+		private WebElement eleIBComponentTxt;
+		public WebElement getEleIBComponentTxt()
+		{
+			return eleIBComponentTxt;
+		}
+		
+		@FindBy(xpath="//span[text()='Scheduled Date']/../..//input")
+		private WebElement eleIBScheduledTxtFld;
+		public WebElement getEleIBScheduledTxtFld()
+		{
+			return eleIBScheduledTxtFld;
+		}
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -1205,7 +1231,7 @@
 			//commonsPo.tap(getEleProductNameTxt(sProductName1));
 	
 			//Selecting Activity Type
-			commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
+			commonsPo.setPickerWheelValue( getEleActivityTypeLst(), sActivityType);	
 	
 			Thread.sleep(2000);
 			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
@@ -1230,7 +1256,7 @@
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 			//Selecting Activity Type
-			commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+			commonsPo.setPickerWheelValue(getEleActivityTypeLst(), sActivityType);	
 			Thread.sleep(2000);
 			if(Integer.parseInt(sEndDate)< 10)
 			{
@@ -1283,7 +1309,7 @@
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
 			commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.pickerWheel(getEleAddExpenseType(), expenseType);
+			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());

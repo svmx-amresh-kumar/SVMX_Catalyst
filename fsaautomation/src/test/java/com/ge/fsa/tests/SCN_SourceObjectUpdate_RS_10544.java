@@ -149,7 +149,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		//Set the order status
 		
 		System.out.println("Waiting to set order status");
-		commonsPo.pickerWheel(workOrderPo.geteleOrderStatusEditMandatoryValue(), sOrderStatus);
+		commonsPo.setPickerWheelValue(workOrderPo.geteleOrderStatusEditMandatoryValue(), sOrderStatus);
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//SEtting Account

@@ -106,11 +106,11 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the order status
-		commonsPo.pickerWheel(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
+		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the billing type
-		commonsPo.pickerWheel(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
+		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 	
 		try {

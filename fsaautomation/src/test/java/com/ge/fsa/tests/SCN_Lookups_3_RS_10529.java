@@ -77,7 +77,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		assertEquals(sLocationOptn01, sLocName01); //Covers Step 4
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		Thread.sleep(genericLib.iLowSleep);
-		commonsPo.pickerWheel(workOrderPo.geteleCountry_Edit_Lst(), "India");
+		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "India");
 		commonsPo.tap(workOrderPo.getlblSite()); 
 		commonsPo.tap(commonsPo.getElesearchTap()); 
 		commonsPo.getElesearchTap().clear(); 

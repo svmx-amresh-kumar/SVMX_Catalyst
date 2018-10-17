@@ -197,8 +197,8 @@ public class CreateNewPO
 		commonsPo.lookupSearch(ProdutName);
 		
 		// Selecting the Priority Low
-		commonsPo.pickerWheel(getEleClickPriorityPicklist(), priority);
-		commonsPo.pickerWheel(getEleClickBillingTypePicklist(), billingType);
+		commonsPo.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
+		commonsPo.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
 		getEleproformainvoicevalue().click();
 		commonsPo.tap(getEleproformainvoicevalue());
 		getEleproformainvoicetextarea().sendKeys(proformaInvoice);
