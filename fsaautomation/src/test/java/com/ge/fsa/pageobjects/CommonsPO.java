@@ -591,7 +591,18 @@ public class CommonsPO
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 		}
-
+		public void setDatePicker(int iIndex, int scrollNum)
+		{ 	switchContext("Native");
+			int i=0;
+			for(i=0;i<scrollNum;i++)
+			{JavascriptExecutor js = (JavascriptExecutor) driver;
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("order", "next");
+		    params.put("offset", 0.15);
+		    params.put("element", (getEleDatePickerPopUp().get(iIndex)));
+		    js.executeScript("mobile: selectPickerWheelValue", params);	
+			}
+		}
 }
 	
 
