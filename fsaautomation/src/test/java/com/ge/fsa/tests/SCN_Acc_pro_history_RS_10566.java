@@ -12,13 +12,16 @@ import static org.testng.Assert.assertTrue;
 import java.io.IOException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
+
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sTestIBID = null;
+	String sTestCaseIDID = null;
 	String sObjectIBID =null ;
 	
 	
@@ -52,21 +55,21 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
-		String sTestIB="RS_10566_Acc_Pro_History";
-		sTestIBID = sProformainVoice;
+		String sTestCaseID="RS_10566_Acc_Pro_History";
+		sTestCaseIDID = sProformainVoice;
 		
 		//create Account
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"Account\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseIDID+""+"Account\"}";
 		sObjectApi = "Account?";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		
 		
 		// Create product
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"product\", \"IsActive\": \"true\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseIDID+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
          //create IB
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sTestIBID+""+"IB\", \"SVMXC__Serial_Lot_Number__c\": \""+sTestIBID+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\"}";
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sTestCaseIDID+""+"IB\", \"SVMXC__Serial_Lot_Number__c\": \""+sTestCaseIDID+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sObjectIBID=restServices.restCreate(sObjectApi,sJsonData);
 		
@@ -88,10 +91,29 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ViewProcessNameAccPro");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ViewProcessNameAccPro");
+		String sFieldServiceName2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		
+		//sahi
+  		genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah", "sTestCaseID");
+  		if(commonsPo.verifySahiExecution()) {
+  			
+  			System.out.println("PASSED");
+  		}
+  		else 
+  		{
+  			System.out.println("FAILED");
+  			
+
+  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+  			assertEquals(0, 1);
+  		}
+  		lauchNewApp("true");
+  		System.out.println("RS_10566");
+  		
+		
 		
 		
 			//Pre Login to app

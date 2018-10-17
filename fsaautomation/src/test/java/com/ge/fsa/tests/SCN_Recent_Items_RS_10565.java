@@ -22,7 +22,7 @@ import com.ge.fsa.lib.GenericLib;
 public class SCN_Recent_Items_RS_10565 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sTestIBID = null;
+	String sTestCaseIDID = null;
 	String sObjectIBID =null ;
 	
 	
@@ -56,20 +56,41 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
-		String sTestIB="RS_10565_Recent_Items";
-		sTestIBID = sProformainVoice;
+		String sTestCaseID="RS_10565_Recent_Items";
+		sTestCaseIDID = sProformainVoice;
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ViewProcessNameCustom");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestIB,sSheetName, "CreateNewCustomrecord");
-		//String WOname1=GenericLib.getExcelData(sTestIB, "WorkOrder");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ViewProcessNameCustom");
+		String sFieldServiceName2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "CreateNewCustomrecord");
+		//String WOname1=GenericLib.getExcelData(sTestCaseID, "WorkOrder");
 		
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 	    sProformainVoice = sRandomNumber;
 		
+	  //sahi
+	  		genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
+	  		if(commonsPo.verifySahiExecution()) {
+	  			
+	  			System.out.println("PASSED");
+	  		}
+	  		else 
+	  		{
+	  			System.out.println("FAILED");
+	  			
+
+	  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+	  			assertEquals(0, 1);
+	  		}
+	  		lauchNewApp("true");
+	  		System.out.println("RS_10565");
+	  		
+	    
+	    
+	    
+	    
 		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
