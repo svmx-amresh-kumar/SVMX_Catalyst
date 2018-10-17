@@ -26,7 +26,7 @@ import com.ge.fsa.lib.GenericLib;
 public class SCN_Mapping_RS_10554 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sTestIBID = null;
+	String sTestCaseID = null;
 	String sObjectIBID =null ;
 	//String sObjectIBID = "a0N0t000001BA45EAG";
    // String sIBname="Proforma30082018102823IB" ;
@@ -61,19 +61,19 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		sSheetName ="RS_10554";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
-		String sTestIB="RS-10554_mapping";
-		sTestIBID = sProformainVoice;
+		String sTestCaseID="RS-10554_mapping";
+		sTestCaseID = sProformainVoice;
 		
 		//create Account
 		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"account\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseID+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 		//sProductName1="v1";
 		System.out.println(sAccountName);
 		// Create product
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"product\", \"IsActive\": \"true\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseID+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
@@ -81,7 +81,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		System.out.println(sproductname);
 		//create IB
 		
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sTestIBID+""+"IB\", \"SVMXC__Serial_Lot_Number__c\": \""+sTestIBID+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Date_Installed__c\": \"2018-08-29\"}";
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sTestCaseID+""+"IB\", \"SVMXC__Serial_Lot_Number__c\": \""+sTestCaseID+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Date_Installed__c\": \"2018-08-29\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sObjectIBID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sObjectIBID+"\'";				
@@ -111,11 +111,28 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
-	
+		//call sahi
+		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
+		lauchNewApp("true");
+		System.out.println("RS_10554");
+		
+		
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
