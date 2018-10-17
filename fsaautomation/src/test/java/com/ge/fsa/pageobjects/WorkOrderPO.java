@@ -1231,7 +1231,7 @@
 			//commonsPo.tap(getEleProductNameTxt(sProductName1));
 	
 			//Selecting Activity Type
-			commonsPo.pickerWheel( getEleActivityTypeLst(), sActivityType);	
+			commonsPo.setPickerWheelValue( getEleActivityTypeLst(), sActivityType);	
 	
 			Thread.sleep(2000);
 			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
@@ -1256,7 +1256,7 @@
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
 			//Selecting Activity Type
-			commonsPo.pickerWheel(getEleActivityTypeLst(), sActivityType);	
+			commonsPo.setPickerWheelValue(getEleActivityTypeLst(), sActivityType);	
 			Thread.sleep(2000);
 			if(Integer.parseInt(sEndDate)< 10)
 			{
@@ -1309,7 +1309,7 @@
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
 			commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.pickerWheel(getEleAddExpenseType(), expenseType);
+			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());

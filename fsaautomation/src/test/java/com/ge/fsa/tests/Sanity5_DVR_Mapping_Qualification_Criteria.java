@@ -95,7 +95,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), sBillingType);
+		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
 
@@ -121,7 +121,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonsPo.pickerWheel(workOrderPo.getEleBillingTypeLst(), "Contract");
+		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), "Contract");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 
 		//Validation of qualifying workorder with Issue found text error.

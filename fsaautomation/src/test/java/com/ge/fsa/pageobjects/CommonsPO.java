@@ -261,8 +261,8 @@ public class CommonsPO
 			}
 		}
 		
-		//To set the value in PickerWheel native app
-		public void pickerWheel( WebElement wElement, String sValue) throws InterruptedException
+		//To set the value in PicsetPickerWheelValue(ive app
+		public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 		{
 			wElement.click();
 			Thread.sleep(2000);

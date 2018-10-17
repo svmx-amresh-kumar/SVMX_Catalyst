@@ -114,7 +114,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 		//Setting up Data for DVR billing type picklist
 		Thread.sleep(genericLib.iLowSleep);
-		commonsPo.pickerWheel(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
+		commonsPo.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
 		
 		//Setting up Auto_date1 greater than Auto_date2		
 	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2019");
@@ -214,7 +214,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");
 		
 		//Setting up billing Type
-		commonsPo.pickerWheel(workOrderPo.geteleBillingType_Edit_Lst(), "Contract");		
+		commonsPo.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), "Contract");		
 		
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 		commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
