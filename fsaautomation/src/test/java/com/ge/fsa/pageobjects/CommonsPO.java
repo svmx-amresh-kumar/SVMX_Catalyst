@@ -344,7 +344,7 @@ public class CommonsPO
 		}
 		
 		/**
-		 * Set the 24 hrs time form the date picker wheels, passing string for dateFormatToSelect , setting 0 for sYear,sTimeMin will set the present date
+		 * Set the specific dateFormatToSelect (e.g "Mon Oct 15") , followed by day and year form the date picker wheels, passing string for setting 0 for sYear,sTimeMin will set the present date
 		 *
 		 * @param wElement
 		 * @param dateFormatToSelect
@@ -353,7 +353,7 @@ public class CommonsPO
 		 * @param sTimeAMPM
 		 * @throws InterruptedException
 		 */
-			public void setDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
+			public void setSpecificDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
 			{
 				wElement.click();
 				switchContext("Native");
@@ -373,7 +373,7 @@ public class CommonsPO
 			}
 		
 		/**
-		 * Set the time form the date picker wheels	, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
+		 * Set the time form the date picker wheels	in 12hrs format, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 		 *
 		 * @param wElement
 		 * @param iDaysToScroll
