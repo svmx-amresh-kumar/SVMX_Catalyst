@@ -8,7 +8,7 @@
     </listeners>
 <test name="Sanity1">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
+		
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />
 			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
