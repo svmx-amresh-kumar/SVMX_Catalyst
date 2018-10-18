@@ -27,7 +27,7 @@ import com.ge.fsa.pageobjects.CreateNewPO;
 public class SCN_Mapping_RS_10557 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sTestCaseIDID = null;
+
 	String sObjectIBID =null ;
 	
 	String sIBname=null ;
@@ -89,14 +89,14 @@ String Location=null;
 		
 		
 		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sTestCaseIDID+""+"account\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseID+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 		//sProductName1="v1";
 		System.out.println(sAccountName);
 		// Create product
-		sJsonData = "{\"Name\": \""+sTestCaseIDID+""+"product\", \"IsActive\": \"true\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseID+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
@@ -104,7 +104,7 @@ String Location=null;
 		System.out.println(sproductname);
 		//create location
 		sObjectApi = "SVMXC__Site__c?";
-		sJsonData = "{\"Name\": \""+sTestCaseIDID+""+"Location\", \"SVMXC__Street__c\": \"#4566\", \"SVMXC__Country__c\": \"India\", \"SVMXC__Zip__c\": \"560008\"}";
+		sJsonData = "{\"Name\": \""+sTestCaseID+""+"Location\", \"SVMXC__Street__c\": \"#4566\", \"SVMXC__Country__c\": \"India\", \"SVMXC__Zip__c\": \"560008\"}";
 		sObjectlocationID=restServices.restCreate(sObjectApi,sJsonData);
 		String sSqllocQuery = "SELECT+name+from+SVMXC__Site__c+Where+id+=\'"+sObjectlocationID+"\'";				
 		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
