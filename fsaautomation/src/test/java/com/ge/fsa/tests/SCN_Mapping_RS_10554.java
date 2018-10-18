@@ -75,7 +75,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
 		}
-		lauchNewApp("false");
+		lauchNewApp("true");
 		System.out.println("RS_10554");
 		
 		
