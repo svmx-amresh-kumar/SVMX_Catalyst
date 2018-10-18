@@ -54,19 +54,19 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		sSheetName3 = "RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10531");
 		// To run the Sahi Script before the Execution of Appium - 10531
-		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-	}
+//		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//	}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
@@ -75,7 +75,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// Do a Data sync
 		//toolsPo.syncData(commonsPo);
 		// get Product from the RS-10531
-		String sTestDataValue = "SCN_GetPriceSCON_RS_10531";
+		String sTestDataValue = "SCN_GetPrice_RS_10531";
 		sProductName10531 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");
 		System.out.println(sProductName10531);
 		// To get the Work Order Name
@@ -97,7 +97,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		System.out.println(sProductName10538);
 		
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "Record T&M";// Standard SFM Process
+		String sProcessname = "EditWoAutoTimesstamp";// Standard SFM Process
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		
@@ -145,7 +145,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
-		if(sBillableQty1.equals("1"))
+		if(sBillableQty1.equals("1.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
@@ -154,7 +154,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice1.equals("750"))
+		if(sBillableLinePrice1.equals("750.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
@@ -162,6 +162,8 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}		
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+//		commonsPo.tap(workOrderPo.getEleClickSave());
 		/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
@@ -190,18 +192,19 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
-		
+		Thread.sleep(1000);
 		// To Re-verify the Values with the Work Order not Covered 
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		String sProcessname2 = "EditWoAutoTimesstamp";
+		workOrderPo.selectAction(commonsPo,sProcessname2);
 		ExtentManager.logger.log(Status.PASS,"Work Order is Entitled with Not Covered ");
 //		
 		
 	/**
 	 * PARTS - Verification of Fields - After Work Order being Not Covered
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName10538);
+
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue2 = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Loan", sBillingTypeValue2);
@@ -238,7 +241,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
-		if(sBillableQty2.equals("1"))
+		if(sBillableQty2.equals("1.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
@@ -247,7 +250,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice2.equals("750"))
+		if(sBillableLinePrice2.equals("750.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
@@ -264,9 +267,9 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// To verify Linked SFM from the PS Lines
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname2 = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
+		String sProcessname21 = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname2);
+		workOrderPo.selectAction(commonsPo,sProcessname21);
 		commonsPo.tap(workOrderPo.getEleLinkedSFM());
 		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
@@ -335,7 +338,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname2);
+		workOrderPo.selectAction(commonsPo,sProcessname21);
 		commonsPo.tap(workOrderPo.getEleLinkedSFM());
 		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
