@@ -54,26 +54,26 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		sSheetName3 = "RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10531");
 		// To run the Sahi Script before the Execution of Appium - 10531
-//		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//	}
+		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+	}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// get Product from the RS-10531
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10531";
 		sProductName10531 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");
@@ -106,7 +106,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 	/**
 	 * PARTS - Verification of Fields
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName10538);
+		workOrderPo.addParts(commonsPo, workOrderPo, sProductName10531);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Loan", sBillingTypeValue);
@@ -162,11 +162,11 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}		
-	/**
+		/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
 
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		//commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 		// ==========================================================================================================
 		// To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
@@ -184,7 +184,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			assertEquals(0, 1);
 		}
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		
 		// Have a config Sync
 
 		//toolsPo.configSync(commonsPo);
@@ -196,7 +196,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		ExtentManager.logger.log(Status.PASS,"Work Order is Entitled with Not Covered ");
-		
+//		
 		
 	/**
 	 * PARTS - Verification of Fields - After Work Order being Not Covered
@@ -275,7 +275,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+	//	workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
 		
@@ -344,7 +344,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		//workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName210539+"'])[2]"))));
 		
