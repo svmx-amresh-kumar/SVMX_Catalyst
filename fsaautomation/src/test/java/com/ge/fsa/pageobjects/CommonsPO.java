@@ -415,7 +415,7 @@ public class CommonsPO
 		 * @param scrollNum
 		 */
 		public void setDatePicker(int iWheelIndex, int scrollNum)
-		{ 	
+		{ 	switchContext("Native");
 			int i=0;
 			int newTempVal = scrollNum;
 			scrollNum = Math.abs(scrollNum);

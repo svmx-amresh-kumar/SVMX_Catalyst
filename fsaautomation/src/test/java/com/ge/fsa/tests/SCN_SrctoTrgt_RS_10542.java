@@ -21,7 +21,6 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sFieldServiceName = null;
-	
 	String sIBName1 = null;
 	String sIBName2 = null;
 	String sIBRecord = null;
@@ -31,13 +30,12 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	String sSerialNumber = null;
 	String sSqlQuery = null;
 	String sAccountName = null;
-	//String sTestIBID = null;
 	String sObjectProID = null;
 	String sProductName = null;
 
-	@BeforeMethod
-	public void initializeObject() throws Exception { 
-
+	
+	private void preRequiste() throws Exception { 
+		
 		restServices.getAccessToken();
 		sSerialNumber = commonsPo.generaterandomnumber("IB_10542_");
 		
@@ -71,9 +69,9 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		System.out.println(sIBName2);
 		
-		//sIBName1 ="IB_10542_16102018145445";
-		//sIBName2 = "IB_10542_16102018173248";
-		//sAccountName="IB_10542_16102018173243account";		
+		//sIBName1 ="IB_10542_22102018151352";
+		//sIBName2 = "IB_10542_22102018151302";
+		//sAccountName="IB_10542_22102018151257account";		
 		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
@@ -87,6 +85,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		preRequiste();
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);

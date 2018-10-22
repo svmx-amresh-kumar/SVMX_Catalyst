@@ -33,19 +33,19 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	String sObjectProID = null;
 	String sProductName = null;
 
-	@BeforeMethod
-	public void initializeObject() throws Exception { 
-
+	
+	private void preRequiste() throws Exception { 
+		
 		restServices.getAccessToken();
 		sSerialNumber = commonsPo.generaterandomnumber("IB_10541_");
 		
+		//Create a Account
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-
-
+		
 		// Create product
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
@@ -70,11 +70,12 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		System.out.println(sIBName2);
 		
 		//sIBName1 ="IB_10542_16102018172046";
-		//sIBName2 = "IB_10542_16102018172051";
+		//sIBName2 = "IB_10541_22102018144716";
 			
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		
 		}
 
 	@Test(enabled = true)
@@ -84,13 +85,16 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		preRequiste();
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
+		//Config Sync
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
+		//Data Sync
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
@@ -112,6 +116,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
+		System.out.println(workOrderPo.getEleIBSubjectTxt().getText());
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Subject is  displayed");
