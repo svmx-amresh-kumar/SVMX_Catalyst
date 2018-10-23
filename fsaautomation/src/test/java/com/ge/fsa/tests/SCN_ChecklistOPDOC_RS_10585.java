@@ -1,6 +1,5 @@
 /*
  *  @author Vinod Tharavath
- *  Sahi Scripts are pending creation of Checklists and checklist OPDOC
  *   
  *   */
 package com.ge.fsa.tests;
