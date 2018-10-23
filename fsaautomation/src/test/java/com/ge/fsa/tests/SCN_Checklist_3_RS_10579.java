@@ -277,7 +277,10 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			String url = driver.getCurrentUrl();
 	        System.out.println(url);
 
-			Assert.assertEquals(url, "https://www.google.com/", "Help url validated sucessfully");
+	        
+	        
+	        
+			Assert.assertEquals(url, "https://www.ge.com/", "Help url validated sucessfully");
 			ExtentManager.logger.log(Status.PASS,"Help URL validated sucessfully");
 	
 			//------------------SERVER SIDE VALIDATIONS
