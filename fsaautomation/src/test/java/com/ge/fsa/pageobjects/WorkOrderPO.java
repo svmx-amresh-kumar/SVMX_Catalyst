@@ -1095,6 +1095,23 @@
 		{
 			return eleIBScheduledTxtFld;
 		}
+
+
+		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTimeTxtFld;
+		public WebElement getEleStartDateTimeTxtFld()
+		{
+			return eleStartDateTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTimeTxtFld;
+		public WebElement getEleEndDateTimeTxtFld()
+		{
+			return eleEndDateTimeTxtFld;
+		}
+		
+
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
