@@ -17,7 +17,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	public void RS_10559() throws InterruptedException {
 		String sWebServiceState = "Nottingham Shire";
 		String sWebServiceCountry = "United Kingdom";
-		DateFormat dateFormat = new SimpleDateFormat("M/dd/yy");
+		DateFormat dateFormat = new SimpleDateFormat("M/d/yy");
 		Date date = new Date();
 		String sCurrentDate = dateFormat.format(date);
 //		System.out.println(sCurrentDate);
