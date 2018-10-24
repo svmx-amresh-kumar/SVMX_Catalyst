@@ -315,6 +315,12 @@ public class CommonsPO
 		
 	/**
 	 * Set the 24 hrs time form the date picker wheels, passing 0 for sTimeHrs,sTimeMin will set the present date
+	 * 
+	 *for specific values:
+	 *setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(), 1, “02”,”30”)
+	 *
+	 *for only moving day and leaving default hrs and min :
+	 *setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
 	 *
 	 * @param wElement
 	 * @param iDaysToScroll
@@ -345,6 +351,11 @@ public class CommonsPO
 		/**
 		 * Set the specific dateFormatToSelect (e.g "Mon Oct 15") , followed by day and year form the date picker wheels, passing string for setting 0 for sYear,sTimeMin will set the present date
 		 *
+		 *for specific values:
+		 *setSpecificDateYear( workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”2022”) 
+		 *
+		 *for only moving day and leaving default day and year :
+		 *setSpecificDateYear( workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”) 
 		 * @param wElement
 		 * @param dateFormatToSelect
 		 * @param sTimeHrs
