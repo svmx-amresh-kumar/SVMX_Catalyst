@@ -130,6 +130,29 @@ public class ToolsPO
 		return eleConfigSyncStatusTxt;
 	}
 	
+	
+	@FindBy(xpath="//div[@class='x-panel-title-text'][text()='Configuration sync is due']")
+	private WebElement eleConfigSyncDue;
+	public WebElement geteleConfigSyncDue()
+	{
+		return eleConfigSyncDue;
+	}
+	
+	@FindBy(xpath="//span[@class='svmx-conflict-badge']")
+	private WebElement eleConflictBadge;
+	public WebElement geeteleConflictBadge()
+	{
+		return eleConflictBadge;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='tools-sync-button-label-largemodern'][text()='Config Sync']/../span[@class='x-badge']")
+	private WebElement eleConfigSyncAlertBadge;
+	public WebElement geteleConfigSyncAlertBadge()
+	{
+		return eleConfigSyncAlertBadge;
+	}
+	
 	//To sync the data
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
