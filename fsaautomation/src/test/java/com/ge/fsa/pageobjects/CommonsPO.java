@@ -325,7 +325,6 @@ public class CommonsPO
 			getElesearchTap().sendKeys(value);
 			tap(getElesearchButton());
 			tap(getElesearchListItem(value));
-
 			
 		}
 		/*
@@ -632,6 +631,14 @@ public class CommonsPO
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
+		}
+		
+		public void lookupSearchOnly(String value)throws InterruptedException
+		{
+			tap(getElesearchTap());
+			getElesearchTap().clear();
+			getElesearchTap().sendKeys(value);
+			tap(getElesearchButton());
 		}
 //		public void setDatePicker(int iIndex, int scrollNum)
 //		{ 	switchContext("Native");

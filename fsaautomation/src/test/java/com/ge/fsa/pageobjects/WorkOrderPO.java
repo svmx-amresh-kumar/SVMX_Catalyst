@@ -662,6 +662,13 @@
 	
 			return elePartsIcn;
 		}
+		
+		private WebElement eleProds;
+		public WebElement getEleProds(String sProd)
+		{
+			eleProds = driver.findElement(By.xpath("//div[text()='"+sProd+"']"));
+			return eleProds;
+		}
 	
 		@FindBy(xpath="//span[text()='Description']/../..//div[@class='x-input-body-el']/input")
 		private WebElement eleDescriptionTxt;
@@ -741,6 +748,13 @@
 		{
 			return lblProduct;
 		}
+		
+		@FindBy(xpath="//span[text()='Part']")
+		private WebElement lblPart;
+		public WebElement getLblPart()
+		{
+			return lblPart;
+		}
 	
 		@FindBy(xpath="(//span[text()='Cancel'])[2]")
 		private WebElement lnkLookupCancel;
@@ -769,6 +783,13 @@
 		public WebElement getCheckBoxAccount()
 		{
 			return checkBoxAccount;
+		}
+		
+		@FindBy(xpath="//span[text()='USERTRUNK']/following::input[@type='checkbox']/following::div[@class='x-mask-el']")
+		private WebElement checkBoxUserTrunk;
+		public WebElement getCheckBoxUserTrunk()
+		{
+			return checkBoxUserTrunk;
 		}
 	
 		@FindBy(xpath="//span[contains(text(),'Account:')]/following::input[@type='checkbox']/following::div[@class='x-mask-el']")
@@ -1074,6 +1095,23 @@
 		{
 			return eleIBScheduledTxtFld;
 		}
+
+
+		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTimeTxtFld;
+		public WebElement getEleStartDateTimeTxtFld()
+		{
+			return eleStartDateTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTimeTxtFld;
+		public WebElement getEleEndDateTimeTxtFld()
+		{
+			return eleEndDateTimeTxtFld;
+		}
+		
+
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
