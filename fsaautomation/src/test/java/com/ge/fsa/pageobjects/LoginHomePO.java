@@ -1,8 +1,10 @@
 package com.ge.fsa.pageobjects;
 
 
+import java.time.Duration;
 import java.util.Iterator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,11 +13,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -80,38 +88,105 @@ public class LoginHomePO
 		return eleMotoGpLogin;
 	}
 	
-
-	
-	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) {
-		try 
-		{
-			Assert.assertTrue(getEleSignInBtn().isDisplayed());
-			ExtentManager.logger.log(Status.PASS,"FSA app is successfully installed");	
-			//SignIn to App
-			getEleSignInBtn().click();
-			Thread.sleep(10000);
-			getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
-			getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
-			getEleLoginBtn().click();
-			Thread.sleep(GenericLib.iLowSleep);
-			try{getEleAllowBtn().click();}catch(Exception e) {}
-			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
-			/*while(true)
-			{
-				try{
-					if(getEleExploreIcn().isDisplayed()|| (lElapsedTime==20*60*1000))
-					{ System.out.println("Logged is successful");break;}
-				}catch(Exception ex) {}
-			}*/
-			
-		}catch(Exception e)
-		{		
-		wait = new WebDriverWait(driver, 40000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-		ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");	
-		System.out.println("Already installed and logged in");		
+	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/menu_host")
+	private WebElement eleMenuIcn;
+	public WebElement getEleMenuIcn() 
+	{
+		return eleMenuIcn;
 	}
+	
+	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/radio_sandbox")
+	private WebElement eleSandBxRdBtn;
+	public WebElement getEleSandBxRdBtn() 
+	{
+		return eleSandBxRdBtn;
+	}
+	
+	
+	
+	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) throws InterruptedException {
+
+		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME")) {
+		case "android":
+			
+
+			try {
+				commonsPO.switchContext("Native");
+
+				getEleSignInBtn().click();
+				getEleMenuIcn().click();
+				getEleSandBxRdBtn().click();
+				try {
+					touchAction = new TouchAction(driver);
+					touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
+
+				} catch (Exception e) {
+					System.out.println("Touch not present " + e);
+
+				}
+
+				Thread.sleep(10000);
+				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
+				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleLoginBtn().click();
+				Thread.sleep(GenericLib.iHighSleep);
+				try {
+					getEleAllowBtn().click();
+				} catch (Exception e) {
+					System.out.println("Allow not present " + e);
+				}
+				try {
+					getEleAllowBtn().click();
+				} catch (Exception e) {
+					System.out.println("Allow not present " + e);
+
+				}
+				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+			} catch (Exception e) {
+				System.out.println("Already logged in exception " + e);
+
+				commonsPO.switchContext("Webview");
+
+				wait = new WebDriverWait(driver, 4000);
+				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				System.out.println("Already installed and logged in");
+			}
+			break;
+
+		default:
+			try {
+				Assert.assertTrue(getEleSignInBtn().isDisplayed());
+				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
+				// SignIn to App
+				getEleSignInBtn().click();
+				Thread.sleep(10000);
+				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
+				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleLoginBtn().click();
+				Thread.sleep(GenericLib.iLowSleep);
+				try {
+					getEleAllowBtn().click();
+				} catch (Exception e) {
+				}
+				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+				/*
+				 * while(true) { try{ if(getEleExploreIcn().isDisplayed()||
+				 * (lElapsedTime==20*60*1000)) {
+				 * System.out.println("Logged is successful");break;} }catch(Exception ex) {} }
+				 */
+
+			} catch (Exception e) {
+				wait = new WebDriverWait(driver, 4000);
+				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				System.out.println("Already installed and logged in");
+			}
+
+			break;
+		}
 
 	}
 	
@@ -141,103 +216,6 @@ public class LoginHomePO
 	}
 
 	}
-	/*
-	//Customised touch Tap
-	public void tap(Point point) throws InterruptedException
-	{
-		touchAction = new TouchAction(driver);
-		touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	
-	//Customised touch Tap
-	public void fingerTap(Point point, int iTapCount) throws InterruptedException
-	{
-		touchAction = new TouchAction(driver);
-		touchAction.moveTo(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).tap(new TapOptions().withTapsCount(iTapCount)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	
-	//Customised touch LongPress
-	public void longPress(Point point) throws InterruptedException
-	{
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	
-	//Customised touch Doubletap
-	public void doubleTap(WebElement element) throws InterruptedException
-	{
-		touchAction = new TouchAction(driver);
-		touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)element)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	
-	//Customised touch Press
-	public void press(Point point) throws InterruptedException
-	{
-		touchAction = new TouchAction(driver);
-		touchAction.press(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	
-	public void swipeUp()
-	{	
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
-	}
-	
-	//To search the element scrolling
-	public void getSearch(WebElement wElement)
-	{
-		while(iWhileCnt<=7) 
-		{	
-			try {
-				Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
-				NXGReports.addStep("Search is successfull", LogAs.PASSED, null);
-				//System.out.println("Search is displayed");
-				break;
-			}catch(Exception e) {swipeUp();}			
-			iWhileCnt++;
-		}
-	}
-	
-	//To switch context between Native and Webview
-	public void switchContext(String sContext)
-	{
-		iterator = driver.getContextHandles().iterator();
-		while(iterator.hasNext()){
-			sNativeApp = iterator.next();
-			sWebView = iterator.next();
-		}
-		if(sContext.equalsIgnoreCase("Native"))
-		{driver.context(sNativeApp);}
-		else {driver.context(sWebView);}
-	}
-	
-	//To set the value in PickerWheel native app
-	public void pickerWheel(WebElement element, String sValue) throws InterruptedException
-	{
-		element.click();
-		switchContext("Native");
-		getElePickerWheelPopUp().sendKeys(sValue);		
-		tap(getEleDonePickerWheelBtn().getLocation());
-		switchContext("WebView");
-	}
 	
 	
-	//Wait for element until the element is displayed or time elapsed
-	public void waitforElement(WebElement element, long lTime)
-	{ lElapsedTime=0L;
-		while(true)
-		{
-			try{
-				if(element.isDisplayed()|| (lElapsedTime==lTime))
-				{ break;}
-			}catch(Exception ex) {}
-		}
-		
-		
-	}*/
 }
