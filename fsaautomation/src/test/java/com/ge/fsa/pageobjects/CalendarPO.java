@@ -126,6 +126,27 @@ public class CalendarPO
 		eleWOendpoint = driver.findElement(By.xpath("(//span[@class ='hour'][contains(text(), '"+hour+"')])[2]"));
 		return eleWOendpoint;
 	}
+	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Calendar']")
+	private WebElement eleCalendarIcn;
+	public WebElement getEleCalendarIcn()
+	{
+		return eleCalendarIcn;
+	}
+	
+	
+	private WebElement eleWOEventTitleTxt;
+	public WebElement getEleWOEventTitleTxt(String sWOName)
+	{
+		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-title'][text()='"+sWOName+"']"));
+		return eleWOEventTitleTxt;
+	}
+	
+	private WebElement eleWOEventSubjectTxt;
+	public WebElement getEleWOEventSubjectTxt(String sWOSubject)
+	{
+		eleWOEventSubjectTxt = driver.findElement(By.xpath("//div[@class='sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration'][text()='"+sWOSubject+"']"));
+		return eleWOEventSubjectTxt;
+	}
 	
 	public void validateeventlocation(String workordername,String startcalDate,String endcalDate,int hrs) throws Exception 
 	{
