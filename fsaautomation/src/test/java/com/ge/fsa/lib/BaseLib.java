@@ -3,6 +3,7 @@ package com.ge.fsa.lib;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -26,6 +27,7 @@ import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -51,6 +53,7 @@ public class BaseLib {
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
+	public String sOSName = null;
 
 	@BeforeSuite
 	public void startServer()
@@ -64,7 +67,54 @@ public class BaseLib {
 		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
 		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
+		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+		
+		System.out.println("OS Name = "+sOSName.toLowerCase());
+		switch (sOSName) {
+		case "android":
+			try { 
+				   sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
+				   capabilities = new DesiredCapabilities();
+				   capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
+				   capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
+				   capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.0");
+				   capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "33000d4828f8a297");
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				   capabilities.setCapability("noReset", true);
+				   //capabilities.setCapability("nativeWebTap", true);
+				   capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
+				   capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
+					capabilities.setCapability("autoGrantPermissions", true);
+					capabilities.setCapability("locationServicesAuthorized", true);
+					capabilities.setCapability("locationServicesEnabled",true);
+					capabilities.setCapability("clearSystemFiles", true);
+					capabilities.setCapability("newCommandTimeout", 1000000);
+					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
+					capabilities.setCapability("sendKeyStrategy", "grouped");
+					capabilities.setCapability("unicodeKeyboard", true);
+					capabilities.setCapability("resetKeyboard", true);
 
+				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
+				   driver.manage().timeouts().implicitlyWait(4000, TimeUnit.SECONDS);
+					
+					
+					ExtentManager.getInstance(driver);
+					Thread.sleep(2000);
+
+
+				
+					
+			} catch (Exception e) {
+				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+				ExtentManager.logger("BaseLib Failure");
+				 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+				 ExtentManager.extent.flush();
+				throw e;
+			} 
+			break;
+
+		default:
+		
 		try { 
 		
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
@@ -108,8 +158,9 @@ public class BaseLib {
 			throw e;
 		} 
 		
+		break;
 		
-	
+	}
 		
 		genericLib=new GenericLib();
 		restServices = new RestServices();
@@ -172,8 +223,9 @@ public class BaseLib {
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
 			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
-
-			String temp= ExtentManager.getScreenshot();
+				Set contextNames = driver.getContextHandles();
+				driver.context(contextNames.toArray()[0].toString());
+				String temp= ExtentManager.getScreenshot();
 			
 			try {
 				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
