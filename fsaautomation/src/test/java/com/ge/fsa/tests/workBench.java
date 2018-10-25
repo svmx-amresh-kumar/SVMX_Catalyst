@@ -67,6 +67,23 @@ public class workBench extends BaseLib
 //	}
 	
 @Test
+
+public void workBenchAnd() throws Exception
+{		
+	String sTaskName = "";
+	//lauchNewApp("false");
+	//sTaskName = tasksPo.addTask(commonsPo);
+toolsPo.syncData(commonsPo);
+//Fetching the task name and checking if the task is present on the server.
+String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+sTaskName+"\'";
+
+String sTaskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");
+Assert.assertTrue(sTaskcount.equals("1"));
+ExtentManager.logger.log(Status.PASS,"Tasks updated successfully");
+
+}
+
+
 public void workBench() throws Exception
 {		
 

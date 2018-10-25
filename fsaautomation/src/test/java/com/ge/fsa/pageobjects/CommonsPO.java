@@ -19,6 +19,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
@@ -54,6 +55,8 @@ public class CommonsPO
 	int yOffset = 18;
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
+	public BaseLib baseLib = new BaseLib();		
+
 	@FindBy(className="XCUIElementTypePickerWheel")	
 	private WebElement elePickerWheelPopUp;
 	public  WebElement getElePickerWheelPopUp()
@@ -106,12 +109,12 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-
+		try {
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		Point point =  wElement.getLocation();
-		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName());
+		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		for (int i = 0; i < 10; i++) {
 			if (point.getX() == 0 || point.getY() == 0) {
@@ -126,17 +129,42 @@ public class CommonsPO
 			}
 
 		}
+		
+		
+		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
+			//For Android
+			switchContext("Native");
+			touchAction = new TouchAction(driver);
+			if (xNewOffset != null) {
+				System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+xNewOffset, point.getY()*2+yNewOffset)).perform();
 
-		touchAction = new TouchAction(driver);
-		if (xNewOffset != null) {
-			System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
-			touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
+			} else {
+				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+5, point.getY()*2+5)).perform();
 
-		} else {
-			touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			}
+			switchContext("Webview");
 
+		}else {
+			//For IOS
+			touchAction = new TouchAction(driver);
+			if (xNewOffset != null) {
+				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
+				touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
+
+			} else {
+				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+
+			}
 		}
+
+		
 		Thread.sleep(GenericLib.iLowSleep);
+		}catch(Exception e) {
+			System.out.println("TAP Exception : "+e);
+		}
+		//switchContext("Webview");
+
 	}
 	//Customised touch Tap
 			public void singleTap(Point point) throws InterruptedException
@@ -246,7 +274,7 @@ public class CommonsPO
 			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 			// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 			// global variable to access across
-			System.out.println("Setting Context = " + contextNames);
+			System.out.println("Available Contexts = " + contextNames);
 
 			sNativeApp = contextNames.toArray()[0].toString();
 			sWebView = contextNames.toArray()[1].toString();
