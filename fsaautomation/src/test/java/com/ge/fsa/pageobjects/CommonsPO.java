@@ -109,7 +109,7 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		try {
+		//try {
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
@@ -140,7 +140,8 @@ public class CommonsPO
 				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+xNewOffset, point.getY()*2+yNewOffset)).perform();
 
 			} else {
-				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+5, point.getY()*2+5)).perform();
+				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
+				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+xOffset, point.getY()*2+yOffset)).perform();
 
 			}
 			switchContext("Webview");
@@ -153,6 +154,8 @@ public class CommonsPO
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
 
 			} else {
+				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
+
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
@@ -160,9 +163,9 @@ public class CommonsPO
 
 		
 		Thread.sleep(GenericLib.iLowSleep);
-		}catch(Exception e) {
-			System.out.println("TAP Exception : "+e);
-		}
+//		}catch(Exception e) {
+//			System.out.println("TAP Exception : "+e);
+//		}
 		//switchContext("Webview");
 
 	}
