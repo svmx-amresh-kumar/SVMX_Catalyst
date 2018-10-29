@@ -68,7 +68,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 //		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002068", "AutoReg10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "AutoReg10529");
 		//******Validate 1st Case******
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();

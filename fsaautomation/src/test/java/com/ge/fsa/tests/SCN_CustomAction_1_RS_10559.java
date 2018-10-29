@@ -24,7 +24,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10559_Action");
+		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "10559_Action");
 //		Thread.sleep(GenericLib.iLowSleep);
 		// Validating Step 1
 		Assert.assertTrue(workOrderPo.getEleLblStateName().getText().equals(sWebServiceState));
@@ -39,7 +39,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
-			workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10559_Action_Child");
+			workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "10559_Action_Child");
 			Thread.sleep(GenericLib.iHighSleep);
 //			System.out.println("Wait Completed");
 //			workOrderPo.getEleclickparts("Prod03082018171757").click();

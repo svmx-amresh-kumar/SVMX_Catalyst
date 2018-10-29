@@ -38,9 +38,9 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 //		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "AutoReg10528");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "AutoReg10528");
 		commonsPo.tap(workOrderPo.getLblComponent());
-		commonsPo.lookupSearch("IB0888");
+		commonsPo.lookupSearch("IB10528");
 		
 		String city = workOrderPo.getTxtCity().getAttribute("value");
 		System.out.println("pre-filled city name: "+city);

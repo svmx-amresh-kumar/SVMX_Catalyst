@@ -41,7 +41,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		toolsPo.syncData(commonsPo); // To get the work Order and Products
 		// toolsPo.configSync(commonsPo); // To get the SFM Wizard
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "Auto_Reg_10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "Auto_Reg_10529");
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(commonsPo.getElesearchTap());
 		commonsPo.getElesearchTap().clear();
