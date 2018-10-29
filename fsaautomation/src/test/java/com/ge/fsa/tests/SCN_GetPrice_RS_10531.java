@@ -73,9 +73,9 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// get Product from the RS-10531
-		String sTestDataValue = "SCN_GetPriceSCON_RS_10531";
+		String sTestDataValue = "SCN_GetPrice_RS_10531";
 		sProductName10531 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");
 		System.out.println(sProductName10531);
 		// To get the Work Order Name
@@ -95,12 +95,12 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// get Product from the RS-10538
 		sProductName10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
-		
+//		
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "Record T&M";// Standard SFM Process
+		String sProcessname = "EditWoAutoTimesstamp";// Standard SFM Process
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
-		
+	
 		
 		
 	/**
@@ -145,7 +145,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
-		if(sBillableQty1.equals("1"))
+		if(sBillableQty1.equals("1.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
@@ -153,8 +153,8 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
-		// Billable Line Price Value verification
-		if(sBillableLinePrice1.equals("750"))
+		 //Billable Line Price Value verification
+		if(sBillableLinePrice1.equals("750.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
@@ -162,6 +162,8 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
 		}		
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsPo.tap(workOrderPo.getEleClickSave());
 		/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
@@ -169,7 +171,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 		// ==========================================================================================================
-		// To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
+		 //To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
 		genericLib.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
@@ -190,18 +192,21 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
-		
+		Thread.sleep(1000);
 		// To Re-verify the Values with the Work Order not Covered 
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
+		//workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		String sProcessname2 = "EditWoAutoTimesstamp";
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		workOrderPo.selectAction(commonsPo,sProcessname2);
+		
 		ExtentManager.logger.log(Status.PASS,"Work Order is Entitled with Not Covered ");
 //		
 		
 	/**
 	 * PARTS - Verification of Fields - After Work Order being Not Covered
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName10538);
+
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue2 = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Loan", sBillingTypeValue2);
@@ -209,7 +214,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// Clicking on Get Price button for Parts
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10531));
+		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10531+"'])[2]"))));
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -238,7 +243,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
 		}
 		// Billable Quantity Value verification
-		if(sBillableQty2.equals("1"))
+		if(sBillableQty2.equals("1.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
 		}
@@ -247,7 +252,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice2.equals("750"))
+		if(sBillableLinePrice2.equals("750.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
 		}
@@ -264,9 +269,9 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// To verify Linked SFM from the PS Lines
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname2 = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
+		String sProcessname21 = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname2);
+		workOrderPo.selectAction(commonsPo,sProcessname21);
 		commonsPo.tap(workOrderPo.getEleLinkedSFM());
 		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
@@ -274,10 +279,11 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
-		Thread.sleep(2000);
-	//	workOrderPo.selectAction(commonsPo,sProcessname);
+		Thread.sleep(3000);
+		
+		workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
+		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10538+"'])[2]"))));
 		
 		// Verify Each field value after the Get Price for PS Lines of IB10538
 		String sLinePricePerUnit3 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -335,17 +341,20 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname2);
-		commonsPo.tap(workOrderPo.getEleLinkedSFM());
-		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
+		workOrderPo.selectAction(commonsPo,sProcessname21);
+		
+		commonsPo.tap((driver.findElement(By.xpath("(//span[@class='x-button-icon x-shown x-fa fa-list'])[2]"))));
+		
+		commonsPo.tap((driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='Manage Work Details for Products Serviced'])[2]"))));
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName210539);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(2000);
-		//workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		Thread.sleep(2000);
 		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName210539+"'])[2]"))));
 		
 		// To verify the values of the Next Addition of PArts

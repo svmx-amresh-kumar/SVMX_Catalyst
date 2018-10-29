@@ -1,6 +1,9 @@
 /*
  *  @author Vinod Tharavath
  *  SCN_Checklist_2_RS-10578 Verify DataValidation on Checklists
+ *  
+ *  
+ *  Date related stuff will be covered once timezone is sorted.
  */
 package com.ge.fsa.tests;
 

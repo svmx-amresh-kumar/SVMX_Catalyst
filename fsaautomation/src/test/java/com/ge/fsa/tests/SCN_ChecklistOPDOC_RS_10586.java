@@ -1,10 +1,8 @@
 /*
  *  @author Vinod Tharavath
  *  
- *  PENDING SAHI SCRIPTS
- *  Checklist Process to be created and ChecklistOPDoc Process to be created.
- * 
- *  Date and Datetime Solutions
+ *
+ *  Date and Datetime Solutions is not worked on as of now. Will consume once Timezone is completed.
  *  
  */
 package com.ge.fsa.tests;
