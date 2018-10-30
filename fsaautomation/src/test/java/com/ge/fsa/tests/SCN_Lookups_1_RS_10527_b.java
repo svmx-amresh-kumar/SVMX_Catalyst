@@ -10,10 +10,10 @@ import org.testng.annotations.Test;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_Lookups_1_RS_10527 extends BaseLib {
+public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	
 	@Test
-	public void RS_10527() throws IOException, InterruptedException {
+	public void RS_10527_b() throws IOException, InterruptedException {
 		
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
@@ -65,27 +65,36 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println("Wo ID "+sWoID);
 		String sProdName = "a1";
+		List<WebElement> contactList = new ArrayList<WebElement>();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 //		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "AutoReg10529");
-		//******Validate 1st Case******
-		commonsPo.tap(workOrderPo.getLblContact());
-		List<WebElement> contactList = new ArrayList<WebElement>();
+		//******Validate 4th Case******
+		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
+		workOrderPo.getLblChildPart(sProdName).click();
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		//******Validate 2nd Case******
-		commonsPo.tap(workOrderPo.getLblAccount());
+		//******Validate 5th Case******
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		commonsPo.tap(workOrderPo.getLblPartAccount());
 		commonsPo.lookupSearch("Acme");
-		commonsPo.tap(workOrderPo.getLblContact());
+		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts with Account Acme "+contactList.size());
-		//******Validate 3rd Case******
+		//******Validate 6th Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
-		Thread.sleep(GenericLib.iLowSleep);
+		System.out.println("Waiting");
+		Thread.sleep(GenericLib.iMedSleep);
+//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
+			workOrderPo.getcheckBoxAccount01().click();
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+//			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
