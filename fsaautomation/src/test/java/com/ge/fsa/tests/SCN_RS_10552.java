@@ -94,10 +94,6 @@ public class SCN_RS_10552 extends BaseLib {
 			
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		
-		
-		
-		
-			}
+		}
 
 }
