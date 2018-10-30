@@ -73,52 +73,23 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
+		System.out.println("Contacts without Account "+contactList.size());
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 2nd Case******
 		commonsPo.tap(workOrderPo.getLblAccount());
 		commonsPo.lookupSearch("Acme");
 		commonsPo.tap(workOrderPo.getLblContact());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
+		System.out.println("Contacts with Account Acme "+contactList.size());
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
-//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
-		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		//******Validate 4th Case******
-		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
-		workOrderPo.getLblChildPart(sProdName).click();
-		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(workOrderPo.getLblPartContact());
-		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
-		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		//******Validate 5th Case******
-		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
-		commonsPo.tap(workOrderPo.getLblPartAccount());
-		commonsPo.lookupSearch("Acme");
-		commonsPo.tap(workOrderPo.getLblPartContact());
-		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
-		//******Validate 6th Case******
-		commonsPo.tap(workOrderPo.getLnkFilters());
-		System.out.println("Waiting");
-		Thread.sleep(GenericLib.iMedSleep);
-//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
-		if(workOrderPo.getCheckBoxAccount().isSelected()) {
-			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
-		}
-		commonsPo.tap(workOrderPo.getBtnApply());
-		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println(contactList.size());
+		System.out.println("All Accounts "+contactList.size());
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		
 	}

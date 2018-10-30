@@ -511,39 +511,33 @@ public class CommonsPO
 		 * @param sExpectedValue
 		 * @param lTime
 		 * @return
+		 * @throws InterruptedException 
 		 */
-		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime)
+		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime) throws InterruptedException
 		{ 	
 		
-			String op = null;
-			String sd=null;
+			String sSuccessString = null;
 			lElapsedTime=0L;
 			while(true)
 			{
 				waitforElement(wElement, GenericLib.lWaitTime);
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				op = wElement.getText();
-				sd=sExpectedValue;
-				try{
-					if(!op.equals(sd) && (lElapsedTime==lTime))
+				Thread.sleep(5000);
+				sSuccessString = wElement.getText();
+					//If not displayed success and timer is up then we return false
+					if(!sSuccessString.equals(sExpectedValue) && (lElapsedTime==lTime))
 					{ 
 						return false;
-						}
-				}catch(Exception ex) {
-					return false;
-				}
+					}
+				
+				
 				lElapsedTime++;
 				
-				if(op.equals(sd)) {
+				if(sSuccessString.equals(sExpectedValue)) {
 					return true;
 				}
 			
 			}
+			
 			
 		
 			
@@ -630,8 +624,11 @@ public class CommonsPO
 		public void clickAllowPopUp() throws InterruptedException {
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
+try{	
+			driver.findElementByAccessibilityId("Always Allow").click();
+		}catch(Exception e){	
 		driver.findElementByAccessibilityId("Allow").click();
-		Thread.sleep(GenericLib.iLowSleep);
+		}		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 		}
