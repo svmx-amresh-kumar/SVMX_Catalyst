@@ -624,8 +624,11 @@ public class CommonsPO
 		public void clickAllowPopUp() throws InterruptedException {
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
+try{	
+			driver.findElementByAccessibilityId("Always Allow").click();
+		}catch(Exception e){	
 		driver.findElementByAccessibilityId("Allow").click();
-		Thread.sleep(GenericLib.iLowSleep);
+		}		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 		}
