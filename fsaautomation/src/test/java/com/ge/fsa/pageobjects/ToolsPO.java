@@ -177,7 +177,7 @@ public class ToolsPO
 	//Config Sync
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=15*60*1000;
+			GenericLib.lWaitTime=25*60*1000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
