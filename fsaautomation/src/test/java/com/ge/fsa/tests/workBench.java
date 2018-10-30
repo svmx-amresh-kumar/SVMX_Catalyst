@@ -71,7 +71,7 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {		
 	String sTaskName = "";
-	//lauchNewApp("true");
+	lauchNewApp("true");
 	loginHomePo.login(commonsPo, exploreSearchPo);
 
 	//sTaskName = tasksPo.addTask(commonsPo);
@@ -82,6 +82,49 @@ toolsPo.configSync(commonsPo);
 toolsPo.configSync(commonsPo);
 
 toolsPo.configSync(commonsPo);
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+
+toolsPo.configSync(commonsPo);
+
+toolsPo.configSync(commonsPo);
+
+toolsPo.configSync(commonsPo);
+
+toolsPo.configSync(commonsPo);
+
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
+genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
 
 toolsPo.configSync(commonsPo);
 
