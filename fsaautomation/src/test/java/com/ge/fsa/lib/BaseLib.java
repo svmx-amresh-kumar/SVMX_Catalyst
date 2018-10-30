@@ -77,8 +77,8 @@ public class BaseLib {
 				   capabilities = new DesiredCapabilities();
 				   capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				   capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-				   capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.0");
-				   capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "33000d4828f8a297");
+					capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
+					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 				   capabilities.setCapability("noReset", true);
 				   //capabilities.setCapability("nativeWebTap", true);
@@ -88,11 +88,12 @@ public class BaseLib {
 					capabilities.setCapability("locationServicesAuthorized", true);
 					capabilities.setCapability("locationServicesEnabled",true);
 					capabilities.setCapability("clearSystemFiles", true);
-					capabilities.setCapability("newCommandTimeout", 1000000);
+					capabilities.setCapability("newCommandTimeout", 10000);
 					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
-					capabilities.setCapability("sendKeyStrategy", "grouped");
+					capabilities.setCapability("automationName", "uiautomator2");
 					capabilities.setCapability("unicodeKeyboard", true);
 					capabilities.setCapability("resetKeyboard", true);
+					capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
 				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 				   driver.manage().timeouts().implicitlyWait(4000, TimeUnit.SECONDS);
@@ -238,7 +239,7 @@ public class BaseLib {
 
 		}
 		 ExtentManager.extent.flush();
-			try{driver.quit();}catch(Exception e) {};
+			//try{driver.quit();}catch(Exception e) {};
 
 	}
 	
@@ -246,7 +247,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 		
-		try{driver.quit();}catch(Exception e) {};
+		//try{driver.quit();}catch(Exception e) {};
 	}
 
 }

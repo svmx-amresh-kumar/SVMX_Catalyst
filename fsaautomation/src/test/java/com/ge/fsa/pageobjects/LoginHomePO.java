@@ -106,15 +106,17 @@ public class LoginHomePO
 	
 	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 
-		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME")) {
+		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase()) {
 		case "android":
 			
 
 			try {
-				commonsPO.switchContext("Native");
 
 				getEleSignInBtn().click();
+				commonsPO.switchContext("Native");
 				getEleMenuIcn().click();
+				Thread.sleep(3000);
+
 				getEleSandBxRdBtn().click();
 				try {
 					touchAction = new TouchAction(driver);
@@ -126,6 +128,8 @@ public class LoginHomePO
 				}
 
 				Thread.sleep(10000);
+				commonsPO.switchContext("Webview");
+
 				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
 				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 				getEleLoginBtn().click();
@@ -135,13 +139,9 @@ public class LoginHomePO
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
-				try {
-					getEleAllowBtn().click();
-				} catch (Exception e) {
-					System.out.println("Allow not present " + e);
-
-				}
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+				wait = new WebDriverWait(driver, 4000);
+				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
 			} catch (Exception e) {
 				System.out.println("Already logged in exception " + e);
 
@@ -153,7 +153,7 @@ public class LoginHomePO
 				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
 				System.out.println("Already installed and logged in");
 			}
-			break;
+			
 
 		default:
 			try {
@@ -185,7 +185,7 @@ public class LoginHomePO
 				System.out.println("Already installed and logged in");
 			}
 
-			break;
+		
 		}
 
 	}
