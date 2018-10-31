@@ -77,10 +77,10 @@ public class BaseLib {
 				   capabilities = new DesiredCapabilities();
 				   capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				   capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-				   capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7.0");
-				   capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "33000d4828f8a297");
+					capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_PLATFORM_VERSION"));
+					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-				   capabilities.setCapability("noReset", true);
+				   capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				   //capabilities.setCapability("nativeWebTap", true);
 				   capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
 				   capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
@@ -88,14 +88,15 @@ public class BaseLib {
 					capabilities.setCapability("locationServicesAuthorized", true);
 					capabilities.setCapability("locationServicesEnabled",true);
 					capabilities.setCapability("clearSystemFiles", true);
-					capabilities.setCapability("newCommandTimeout", 1000000);
+					capabilities.setCapability("newCommandTimeout", 10000);
 					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
-					capabilities.setCapability("sendKeyStrategy", "grouped");
+					capabilities.setCapability("automationName", "uiautomator2");
 					capabilities.setCapability("unicodeKeyboard", true);
 					capabilities.setCapability("resetKeyboard", true);
+					capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
 				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-				   driver.manage().timeouts().implicitlyWait(4000, TimeUnit.SECONDS);
+				   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 					
 					
 					ExtentManager.getInstance(driver);
@@ -121,8 +122,8 @@ public class BaseLib {
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_PLATFORM_VERSION"));
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_DEVICE_NAME"));
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
@@ -207,6 +208,7 @@ public class BaseLib {
 				
 				//Resetting to true always first
 				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+				System.out.println("Driver Initialized ** "+driver.toString()+"** ");
 	}
 	
 	@BeforeMethod

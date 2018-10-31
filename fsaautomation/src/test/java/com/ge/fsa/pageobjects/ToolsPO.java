@@ -162,11 +162,11 @@ public class ToolsPO
 		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-		
-		getEleSyncDataNowLnk().click();
+		commonsPo.tap(getEleSyncDataNowLnk());
+		//getEleSyncDataNowLnk().click();
 		commonsPo.tap(getEleSyncDataNowLnk());	
 		getEleStartSyncBtn().click();
-		commonsPo.longPress(getEleStartSyncBtn());
+		commonsPo.tap(getEleStartSyncBtn());
 		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
 		//Verification of successful sync
@@ -177,26 +177,25 @@ public class ToolsPO
 	//Config Sync
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=15*60*1000;
+			GenericLib.lWaitTime=25*60*1000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-			
-			geteleSyncConfigNowLnk().click();
+
+			//geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			getEleOkBtn().click();
-			commonsPo.longPress(getEleOkBtn());
+			commonsPo.tap(getEleOkBtn());
 			//cancelling sync in order to reset the config sync status.
 			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
-			commonsPo.longPress(eleCancelConfigSyncBtn);
+			commonsPo.tap(eleCancelConfigSyncBtn);
+			Thread.sleep(3000);
 			
-			
-			geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			getEleOkBtn().click();
-			commonsPo.longPress(getEleOkBtn());
+			commonsPo.tap(getEleOkBtn());
 			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
 			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
 			System.out.println("begining config sync");

@@ -1166,7 +1166,7 @@
 		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(1000);
-			getEleActionsLnk().click();
+			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));
 			commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
@@ -1176,7 +1176,7 @@
 		public void selectActionWithIcon(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(1000);
-			getEleActionsLnk().click();
+			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
 			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
@@ -1274,7 +1274,7 @@
 		//To add product to parts
 		public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 		{
-			commonsPo.longPress(workOrderPo.getEleCasePartIcn());
+			commonsPo.tap(workOrderPo.getEleCasePartIcn());
 			commonsPo.tap(workOrderPo.getElePartLst());
 			commonsPo.lookupSearch(sProductName1);
 			commonsPo.tap(workOrderPo.getEleAddselectedbutton());
@@ -1421,7 +1421,7 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
@@ -1435,8 +1435,8 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
@@ -1451,8 +1451,8 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
@@ -1470,8 +1470,8 @@
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			Thread.sleep(1000);
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
@@ -1491,8 +1491,8 @@
 	
 			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
 			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.longPress(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 			exploreSearchPO.getEleExploreSearchTxtFld().click();
 			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 			exploreSearchPO.getEleExploreSearchTxtFld().clear();
@@ -1509,7 +1509,7 @@
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
