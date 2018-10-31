@@ -1,6 +1,6 @@
 /*
-*@author MeghanaRao
- *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
+*@author vinaya
+ *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-124"
  */
 package com.ge.fsa.tests;
 import org.testng.annotations.Test;
@@ -83,6 +83,8 @@ public void RS_10526() throws Exception
 		System.out.println(sEventsuject);
 		
 		assertEquals(sEventsuject, "Create Event from WO in Client");
+		
+		ExtentManager.logger.log(Status.PASS,"Test case passed successfully");
 }
 	
 

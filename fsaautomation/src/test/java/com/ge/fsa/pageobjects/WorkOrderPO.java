@@ -1926,8 +1926,19 @@
 		{
 			return eleAuto_TextBox_c;
 		}
+		@FindBy(xpath="//span[text()='Cancel']")
+		private WebElement elecancelbutton;
+		public WebElement getelecancelbutton()
+		{
+			return elecancelbutton;
+		}
 	
-	
+		@FindBy(xpath="//span[text()='Discard Changes']")
+		private WebElement eleDiscardChangesbutton;
+		public WebElement geteleDiscardChangesbutton()
+		{
+			return eleDiscardChangesbutton;
+		}
 	
 	}
 	
