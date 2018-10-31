@@ -111,21 +111,20 @@ public class LoginHomePO
 			
 
 			try {
+				//commonsPO.switchContext("Webview");
 
+				Assert.assertTrue(getEleSignInBtn().isDisplayed());
 				getEleSignInBtn().click();
 				commonsPO.switchContext("Native");
 				getEleMenuIcn().click();
 				Thread.sleep(3000);
 
 				getEleSandBxRdBtn().click();
-				try {
+				
 					touchAction = new TouchAction(driver);
 					touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
 
-				} catch (Exception e) {
-					System.out.println("Touch not present " + e);
-
-				}
+			
 
 				Thread.sleep(10000);
 				commonsPO.switchContext("Webview");
@@ -139,11 +138,11 @@ public class LoginHomePO
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
-				wait = new WebDriverWait(driver, 4000);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+		
+				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
 			} catch (Exception e) {
-				System.out.println("Already logged in exception " + e);
+				System.out.println("Already logged in exception ");
+				Thread.sleep(10000);
 
 				commonsPO.switchContext("Webview");
 
@@ -153,7 +152,7 @@ public class LoginHomePO
 				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
 				System.out.println("Already installed and logged in");
 			}
-			
+			break;
 
 		default:
 			try {
@@ -184,7 +183,7 @@ public class LoginHomePO
 				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
 				System.out.println("Already installed and logged in");
 			}
-
+			break;
 		
 		}
 

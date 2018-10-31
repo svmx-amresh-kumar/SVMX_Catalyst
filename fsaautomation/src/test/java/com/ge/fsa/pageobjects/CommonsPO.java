@@ -132,16 +132,16 @@ public class CommonsPO
 		
 		
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
-			//For Android
+			//For Android add *2 if real device
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
 				System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+xNewOffset, point.getY()*2+yNewOffset)).perform();
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
 			} else {
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()*2+xOffset, point.getY()*2+yOffset)).perform();
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 
 			}
 			switchContext("Webview");
@@ -190,9 +190,21 @@ public class CommonsPO
 		public void longPress(WebElement  wElement) throws InterruptedException
 		{Point point =  wElement.getLocation();
 		System.out.println("x "+point.getX()+" y "+point.getY());
+		
+		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
+			//For Android add *2 if real device
+			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 			Thread.sleep(GenericLib.iLowSleep);
+			switchContext("Webview");
+
+		}else{
+			//For IOS
+			touchAction = new TouchAction(driver);
+			touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			Thread.sleep(GenericLib.iLowSleep);
+		}
 		}
 		
 		//Customised touch Doubletap
@@ -249,7 +261,8 @@ public class CommonsPO
 			while(iWhileCnt<=7) 
 			{	
 				try {
-					Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
+					//Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
+					
 					ExtentManager.logger.log(Status.PASS,"Search is successfull");
 					//System.out.println("Search is displayed");
 					break;
