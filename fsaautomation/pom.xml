@@ -66,11 +66,17 @@
     <groupId>com.aventstack</groupId>
     <artifactId>extentreports</artifactId>
     <version>3.1.5</version>
-</dependency>
+    <exclusions>
+    	<exclusion>
+    		<groupId>com.google.code.gson</groupId>
+    		<artifactId>gson</artifactId>
+    	</exclusion>
+    </exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.12.0</version>
+			<version>3.14.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -102,7 +108,13 @@
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
-			<version>6.0.0</version>
+			<version>6.1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>

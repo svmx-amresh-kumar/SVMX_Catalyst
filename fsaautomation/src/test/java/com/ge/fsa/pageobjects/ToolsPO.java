@@ -1,8 +1,10 @@
 package com.ge.fsa.pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -13,7 +15,7 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
-public class ToolsPO
+public class ToolsPO  
 {
 	public ToolsPO(AppiumDriver driver)
 	{
@@ -43,6 +45,14 @@ public class ToolsPO
 		return eleSyncConfigNowLnk;
 	}	
 	
+	
+	@FindBy(xpath="//span[text() ='Reset Application'][@class='x-button-label']")
+	private WebElement eleResetAppLnk;
+	public WebElement geteleResetAppLnkk()
+	{
+		return eleResetAppLnk;
+	}	
+	
 	@FindBy(xpath="//*[text()='Start Sync']")
 	private WebElement eleStartSyncBtn;
 	public WebElement getEleStartSyncBtn()
@@ -70,6 +80,13 @@ public class ToolsPO
 		return eleOkBtn;
 	}
 	
+	@FindBy(xpath="//*[text()='Yes']")
+	private WebElement eleYesBtn;
+	public WebElement getEleYesBtn()
+	{
+		return eleYesBtn;
+	}
+	
 	@FindBy(xpath = "//*[text()='Config Sync in Progress']")
 	private WebElement eleConfigSyncinProgressTxt;
 	public WebElement geteleConfigSyncinProgressTxt()
@@ -91,12 +108,49 @@ public class ToolsPO
 		return eleCancelConfigSyncBtn;
 	}
 	
+	@FindBy(xpath="//*[text()='Sign Out']")
+	private WebElement eleSignOutBtn;
+	public WebElement geteleSignOutBtn()
+	{
+		return eleSignOutBtn;
+	}
+	
+	@FindBy(xpath="(//*[text()='Sign Out'])[2]")
+	private WebElement elepopSignOutBtn;
+	public WebElement getelepopSignOutBtn()
+	{
+		return elepopSignOutBtn;
+	}
+	
 	
 	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-start x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner']//div[@class='x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description x-layout-box-item x-layout-vbox-item x-stretched'][2]//div[@class='x-innerhtml'][1]")
 	private WebElement eleConfigSyncStatusTxt;
 	public WebElement geteleConfigSyncStatusTxt()
 	{
 		return eleConfigSyncStatusTxt;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-panel-title-text'][text()='Configuration sync is due']")
+	private WebElement eleConfigSyncDue;
+	public WebElement geteleConfigSyncDue()
+	{
+		return eleConfigSyncDue;
+	}
+	
+	@FindBy(xpath="//span[@class='svmx-conflict-badge']")
+	private WebElement eleConflictBadge;
+	public WebElement geeteleConflictBadge()
+	{
+		return eleConflictBadge;
+	}
+	
+	
+	@FindBy(xpath="//span[@class='tools-sync-button-label-largemodern'][text()='Config Sync']/../span[@class='x-badge']")
+	private WebElement eleConfigSyncAlertBadge;
+	public WebElement geteleConfigSyncAlertBadge()
+	{
+		return eleConfigSyncAlertBadge;
 	}
 	
 	//To sync the data
@@ -108,11 +162,11 @@ public class ToolsPO
 		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-		
-		getEleSyncDataNowLnk().click();
+		commonsPo.tap(getEleSyncDataNowLnk());
+		//getEleSyncDataNowLnk().click();
 		commonsPo.tap(getEleSyncDataNowLnk());	
 		getEleStartSyncBtn().click();
-		commonsPo.longPress(getEleStartSyncBtn());
+		commonsPo.tap(getEleStartSyncBtn());
 		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
 		//Verification of successful sync
@@ -123,33 +177,32 @@ public class ToolsPO
 	//Config Sync
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=5*60*1000;
+			GenericLib.lWaitTime=25*60*1000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-			
-			geteleSyncConfigNowLnk().click();
+
+			//geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			getEleOkBtn().click();
-			commonsPo.longPress(getEleOkBtn());
+			commonsPo.tap(getEleOkBtn());
 			//cancelling sync in order to reset the config sync status.
 			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
-			commonsPo.longPress(eleCancelConfigSyncBtn);
+			commonsPo.tap(eleCancelConfigSyncBtn);
+			Thread.sleep(3000);
 			
-			
-			geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			getEleOkBtn().click();
-			commonsPo.longPress(getEleOkBtn());
+			commonsPo.tap(getEleOkBtn());
 			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
 			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
 			System.out.println("begining config sync");
 			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
 			//commonsPo.waitforElement(element, lTime);
 			
-			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 8000)) {
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", GenericLib.lWaitTime)) {
 				System.out.println("Sync Completed Sucessfully-tools po");
 
 			}else {
@@ -163,5 +216,63 @@ public class ToolsPO
 			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 		}
 	
+		
+		//reset app
+		
+		public void Resetapp(CommonsPO commonsPo,ExploreSearchPO exploreSearchPo) throws InterruptedException
+		{
+			GenericLib.lWaitTime=5*60*1000;
+			commonsPo.tap(getEleToolsIcn());	
+			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
+			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
+			
+			
+			
+			geteleResetAppLnkk().click();
+			commonsPo.longPress(geteleResetAppLnkk());	
+			getEleYesBtn().click();
+			commonsPo.longPress(getEleYesBtn());
+			System.out.println("begining Reset App");
+			
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			
+		wait = new WebDriverWait(driver, 40000);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Rest app successfully");	
+		System.out.println("Rest app successfully");		
 	
+			
+			
+		}
+	
+		@FindBy(xpath="//div[@class='x-unsized x-component x-label x-label-svmx-default x-component-svmx-default label-tools-card-description label-tools-sync-conflict-details x-layout-auto-item']//div[@class='x-innerhtml']")
+		private WebElement elesyncconflicterror;
+		public WebElement getelesyncconflicterror()
+		{
+			return elesyncconflicterror;
+		}
+		
+		
+		@FindBy(xpath="//span[text()='Resolve']")
+		private WebElement eleResolve;
+		public WebElement geteleResolve()
+		{
+			return eleResolve;
+		}
+		
+		@FindBy(xpath="//span[text()='Remove record permanently']")
+		private WebElement eleResolveissue;
+		public WebElement geteleResolveissue()
+		{
+			return eleResolveissue;
+		}
+		@FindBy(xpath="//span[text()='Apply']")
+		private WebElement eleApply;
+		public WebElement geteleApply()
+		{
+			return eleApply;
+		}
+		
+		
 }

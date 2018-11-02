@@ -3,6 +3,7 @@ package com.ge.fsa.lib;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -26,6 +27,7 @@ import com.ge.fsa.pageobjects.ToolsPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -51,25 +53,77 @@ public class BaseLib {
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
+	public String sOSName = null;
 
 	@BeforeSuite
 	public void startServer()
 	{
 
 	}
-	@BeforeClass
+	//@BeforeClass
 	public void setAPP() throws Exception
 	{
+		File file = new File(System.getProperty("user.dir")+"/../Executable");
+		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
+		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
+		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
+		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+		
+		System.out.println("OS Name = "+sOSName.toLowerCase());
+		switch (sOSName) {
+		case "android":
+			try { 
+				   sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
+				   capabilities = new DesiredCapabilities();
+				   capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
+				   capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
+					capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_PLATFORM_VERSION"));
+					capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				   capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
+				   //capabilities.setCapability("nativeWebTap", true);
+				   capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
+				   capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
+					capabilities.setCapability("autoGrantPermissions", true);
+					capabilities.setCapability("locationServicesAuthorized", true);
+					capabilities.setCapability("locationServicesEnabled",true);
+					capabilities.setCapability("clearSystemFiles", true);
+					capabilities.setCapability("newCommandTimeout", 10000);
+					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
+					capabilities.setCapability("automationName", "uiautomator2");
+					capabilities.setCapability("unicodeKeyboard", true);
+					capabilities.setCapability("resetKeyboard", true);
+					capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
+				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
+				   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+					
+					
+					ExtentManager.getInstance(driver);
+					Thread.sleep(2000);
+
+
+				
+					
+			} catch (Exception e) {
+				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+				ExtentManager.logger("BaseLib Failure");
+				 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+				 ExtentManager.extent.flush();
+				throw e;
+			} 
+			break;
+
+		default:
+		
 		try { 
-			
-
+		
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
 			capabilities = new DesiredCapabilities();
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_VERSION"));
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_NAME"));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_PLATFORM_VERSION"));
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_DEVICE_NAME"));
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 			capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 			capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
@@ -94,7 +148,8 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			
+
+
 			
 		} catch (Exception e) {
 			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
@@ -104,8 +159,9 @@ public class BaseLib {
 			throw e;
 		} 
 		
+		break;
 		
-	
+	}
 		
 		genericLib=new GenericLib();
 		restServices = new RestServices();
@@ -152,10 +208,13 @@ public class BaseLib {
 				
 				//Resetting to true always first
 				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+				System.out.println("Driver Initialized ** "+driver.toString()+"** ");
 	}
 	
 	@BeforeMethod
 	public void startReport(ITestResult result) {
+		lauchNewApp("true");
+		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
 	}
@@ -165,7 +224,10 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
-			String temp= ExtentManager.getScreenshot();
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+				Set contextNames = driver.getContextHandles();
+				driver.context(contextNames.toArray()[0].toString());
+				String temp= ExtentManager.getScreenshot();
 			
 			try {
 				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
@@ -173,16 +235,20 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+
 		}
 		 ExtentManager.extent.flush();
-			
+			try{driver.quit();}catch(Exception e) {};
+
 	}
 	
 	@AfterClass
 	public void tearDownDriver()
 	{
 		
-		driver.quit();
+		try{driver.quit();}catch(Exception e) {};
 	}
 
 }

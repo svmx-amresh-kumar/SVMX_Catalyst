@@ -79,13 +79,13 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To read test data from excel sheet
 	 */
-	public static String getExcelData(String sTestCaseID, String sKey) {
+	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) {
 		String sData = null;
 		try {
 
 			FileInputStream fis = new FileInputStream(sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
-			Sheet sht = wb.getSheet("TestData");
+			Sheet sht = wb.getSheet(sSheetName);
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
 			for (int i = 1; i <= iRowNum; i++) {

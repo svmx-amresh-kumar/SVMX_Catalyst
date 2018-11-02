@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -36,14 +37,16 @@ public class ChecklistPO{
 	{
 		return eleChecklistSubmit;
 	}
-	
-	@FindBy(xpath="//a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']")
 
-	private WebElement eleStartNewLnk;
-	public WebElement geteleStartNew()
-	{
-		return eleStartNewLnk;
-	}
+	
+	 private WebElement eleStartNewLnk;
+		public WebElement getEleStartNewLnk(String sCheckListName )
+		{
+			
+			eleStartNewLnk = driver.findElement(By.xpath("//div[@class='checklist-lineup-list-item-description'][text()='"+sCheckListName+"']/following-sibling::a[@class='checklist-lineup-list-item-actionlable'][text()='Start New']"));
+			return eleStartNewLnk;
+		}
+	
 	
 	
     @FindBy(xpath="//span[text()='Next']")
@@ -52,6 +55,35 @@ public class ChecklistPO{
     {
     	return eleNextLnk;
     }
+    
+    @FindBy(xpath="//span[text()='Submit']")
+    private WebElement eleSubmitLnk;
+    public WebElement geteleSubmitLnk()
+    {
+    	return eleSubmitLnk;
+    }
+    
+    @FindBy(xpath="//*[text()='OK']")
+	private WebElement eleChecklistokPopUp;
+	public WebElement geteleChecklistokPopUp()
+	{
+		return eleChecklistokPopUp;
+	}
+	
+	 @FindBy(xpath="//span[text()='Save']")
+	    private WebElement eleSavePopUp;
+	    public WebElement geteleSavePopUp()
+	    {
+	    	return eleSavePopUp;
+	    }
+    
+    private WebElement eleSectionNextBtn;
+	public WebElement geteleSectionNextBtn(int iChecklistSectionNo)
+	{
+		
+		eleSectionNextBtn = driver.findElement(By.xpath("(//span[text()='Next'])["+iChecklistSectionNo+"]"));
+		return eleSectionNextBtn;
+	}
     
     
   /* @FindBy(xpath= "//*[text()='Submit'][2]")
@@ -98,7 +130,7 @@ public class ChecklistPO{
 		return eleChecklistAnsPicklist = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//input"));
 	}
 	
-	
+	//Can be used for multipicklist as well
 	private WebElement eleChecklistAnsNumber;
 	public WebElement  geteleChecklistAnsNumber(String checklistNumberQuestion)
 	{
@@ -119,6 +151,22 @@ public class ChecklistPO{
 		
 		
 		return eleChecklistAnsradio = driver.findElement(By.xpath("//div[text()='"+checklistRadioQuestion+"'][@class='x-innerhtml']/../..//span"));
+	}
+	
+	
+	//$x("//span[@class='x-label-text-el'][text()='CheckBoxOne']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input")
+	private WebElement eleChecklistCheckboxValue;
+	public WebElement  geteleChecklistCheckboxValue(String checklistCheckbox)
+	{
+		return eleChecklistCheckboxValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistCheckbox+"']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input"));
+	}
+	
+	
+	//"//span[@class='x-label-text-el'][text()='RadioOne']/../..//input")
+	private WebElement eleChecklistRadioButtonValue;
+	public WebElement  geteleChecklistRadioButtonValue(String checklistRadiobutton)
+	{
+		return eleChecklistRadioButtonValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistRadiobutton+"']/../..//input"));
 	}
 	
 	private WebElement eleChecklistrequiredTxt;
@@ -195,6 +243,41 @@ public class ChecklistPO{
 		return eleActionsLnk;
 	}
 	
+	@FindBy(xpath="//div[contains(text(), 'Date Should not be Today')]")
+	private WebElement eleChecklistDVRtxt;
+	public WebElement geteleChecklistDVRtxt()
+	{
+		return eleChecklistDVRtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number Cannot be 10')]")
+	private WebElement eleChecklistDVRConfirmationtxt;
+	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Number cannot be greater than 100')]")
+	private WebElement eleChecklistDVRNoGreaterthan100txt;
+	public WebElement geteleChecklistDVRNoGreaterthan100txt()
+	{
+		return eleChecklistDVRNoGreaterthan100txt;
+	}
+	
+	@FindBy(xpath="//div[contains(text(), 'Advanced DVR value should be more than 200')]")
+	private WebElement eleChecklistAdvanceDVR;
+	public WebElement geteleChecklistAdvanceDVR()
+	{
+		return eleChecklistAdvanceDVR;
+	}
+	
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon checklist-warning-submit x-layout-box-item x-layout-hbox-item x-stretched']//span[@class='x-button-label'][text()='Confirm']")
+	private WebElement eleDVRConfirmBtn;
+	public WebElement geteleDVRConfirmBtn()
+	{
+		return eleDVRConfirmBtn;
+	}
 	
 	//getting the entire row in checklistopdoc checklist,completed,status EntireTable.
 	@FindBy(xpath="//div//th[@class='theader'][contains(text(), 'Checklist')]/../../..//tbody")
@@ -212,6 +295,30 @@ public class ChecklistPO{
     	return eleChecklistAnswerOPDOCtbl;
     }
     
+
+    
+    
+    private WebElement eleSectionNametxt;
+    public WebElement  geteleChecklistSectionNametab(String sSectionName)
+	{
+		return eleSectionNametxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sSectionName+"']"));
+	}
+    
+    
+    
+    @FindBy(xpath="//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']")
+	private WebElement eleChecklistHelpIcn;
+	public WebElement geteleChecklistHelpIcn()
+	{
+		return eleChecklistHelpIcn;
+	}
+	
+	private WebElement eleChecklistStatuslbl;
+    public WebElement  getEleChecklistStatusLbl(String sChecklistNames)
+	{
+		return eleChecklistStatuslbl = driver.findElement(By.xpath("//div[@class='checklist-lineup-list-item-name'][text()='"+sChecklistNames+"']/following-sibling::div[@class='checklist-lineup-list-item-statuslabel']"));
+		
+	}
 	
 	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	
@@ -240,10 +347,19 @@ public class ChecklistPO{
 			commonsPo.tap(geteleBacktoChecklistslnk());
 			commonsPo.tap(geteleBacktoWorkOrderlnk());
 		}
+	
+	
 		
 		
 		
-		
+	}
+	
+	
+	public void Allowlocationbutton() throws InterruptedException
+	{
+		Thread.sleep(GenericLib.iHighSleep);
+		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		Thread.sleep(GenericLib.iLowSleep);
 		
 	}
 	

@@ -101,4 +101,12 @@ public class ExploreSearchPO
 		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
 		Thread.sleep(GenericLib.iLowSleep);
 	}
+	
+	
+	
+	
 }
+
+
+
+
