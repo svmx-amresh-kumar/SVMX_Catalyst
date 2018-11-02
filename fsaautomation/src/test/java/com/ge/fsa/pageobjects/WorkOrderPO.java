@@ -1926,6 +1926,13 @@
 		{
 			return eleAuto_TextBox_c;
 		}
+		
+		@FindBy(xpath="//*[. = 'Record Type']//input")
+		private WebElement eleRecordTypeLst;
+		public WebElement getEleeleRecordTypeLst()
+		{
+			return eleRecordTypeLst;
+		}
 	
 	
 	
