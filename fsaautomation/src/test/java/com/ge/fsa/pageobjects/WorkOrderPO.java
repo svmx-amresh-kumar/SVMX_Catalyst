@@ -1101,7 +1101,6 @@
 			return eleIBSubjectTxt;
 		}
 		
-		
 		@FindBy(xpath="//span[text()='Component']/../..//input")
 		private WebElement eleIBComponentTxt;
 		public WebElement getEleIBComponentTxt()
@@ -1926,6 +1925,13 @@
 		{
 			return eleAuto_TextBox_c;
 		}
+		
+		@FindBy(xpath="//*[. = 'Record Type']//input")
+		private WebElement eleRecordTypeLst;
+		public WebElement getEleeleRecordTypeLst()
+		{
+			return eleRecordTypeLst;
+		}
 		@FindBy(xpath="//span[text()='Cancel']")
 		private WebElement elecancelbutton;
 		public WebElement getelecancelbutton()
@@ -1941,6 +1947,7 @@
 		}
 	
 	}
+	
 	
 	
 	

@@ -24,6 +24,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -515,6 +516,47 @@ public class CommonsPO
 			
 		}				
 		
+		/**
+		 * To get all the values from the picklist and verify with the given set of values in the UI
+		 * @return 
+		 * @throws InterruptedException 
+		 * @param  sActualValues = Values sent to verify the picklist fields on the UI.
+		 */
+		public String[] getAllPicklistValues(CommonsPO commonsPo, WorkOrderPO workOrderPO, String[] sActualValues) throws InterruptedException
+		{
+			String[] sVals = new String[sActualValues.length];
+			String sPrevVal = "";
+			String sCurrVal = "";
+			commonsPo.switchContext("Native");
+			for(int i=0;i<=sActualValues.length;i++) {
+			IOSElement PFS = (IOSElement) driver.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
+			sCurrVal = PFS.getText();
+			Thread.sleep(10000);
+			try {
+				System.out.println("-----------"+PFS);
+
+				System.out.println("sCurrVal -----------"+sCurrVal);
+				
+			}
+			catch(Exception e)
+			{
+				System.out.println("The picklist Values couldn't be fetched"+e);
+			}
+		
+				sPrevVal = sCurrVal;
+				sVals[i] = sPrevVal;
+				
+				try{commonsPo.scrollPickerWheel(i, 1);}catch(Exception e) {break;}
+			
+			}
+			for (String string : sVals) {
+				System.out.println("Array read = "+string);
+
+			}
+			
+			return sVals;
+
+		}
 		
 		
 		
@@ -665,6 +707,29 @@ try{
 //		    js.executeScript("mobile: selectPickerWheelValue", params);	
 //			}
 //		}
+		
+		public void scrollPickerWheel(int iWheelIndex, int scrollNum)
+		{ 	switchContext("Native");
+			int i=0;
+			int newTempVal = scrollNum;
+			scrollNum = Math.abs(scrollNum);
+			for(i=0;i<scrollNum;i++)
+			{JavascriptExecutor js = (JavascriptExecutor) driver;
+		    Map<String, Object> params = new HashMap<>();
+		    if(newTempVal<0) {
+		    System.out.println("Scrolling Down "+scrollNum);
+			   params.put("order", "previous");
+
+		    }else {
+		    	 System.out.println("Scrolling Up "+scrollNum);
+			    params.put("order", "next");
+
+		    }
+		    params.put("offset", 0.15);
+		    params.put("element", getElePickerWheelPopUp());
+		    js.executeScript("mobile: selectPickerWheelValue", params);	
+			}
+		}
 }
 	
 
