@@ -168,7 +168,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 
 		    //System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
-		    commonsPo.longPress(checklistPo.geteleChecklistAnsradio(sradioQuestion));
+		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
 		    
 		    
@@ -189,13 +189,13 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			commonsPo.switchContext("WEBVIEW");
 
 			// tapping on the validation sucessfull checklist popup
-			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 
 			
 			// Tapping on Show Completed Checklists
 			//System.out.println("going to tap on show completedchecklists");
-			commonsPo.longPress(checklistPo.geteleShowCompletedChecklist());
+			commonsPo.tap(checklistPo.geteleShowCompletedChecklist());
 			//System.out.println("tapped on completed checklist");
 			//System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));

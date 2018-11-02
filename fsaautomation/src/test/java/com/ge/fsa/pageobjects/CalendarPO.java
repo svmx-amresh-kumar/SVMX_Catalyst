@@ -87,6 +87,13 @@ public class CalendarPO
 		return eleNewClick;
 	}
 	
+	@FindBy(xpath="//span[text()='+New']//..//..//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default x-haslabel x-layout-box-item x-layout-hbox-item x-stretched']")
+	private WebElement eleNewClickdisabled;
+	public WebElement geteleNewdisabled()
+	{
+		return eleNewClickdisabled;
+	}
+	
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Day']")
 	private WebElement elecalendarDaytap;
@@ -405,4 +412,19 @@ public class CalendarPO
 	{
 		return eleEndDateTimesvmx;
 	}
+	
+	@FindBy(xpath="//span[text()='Create New Event']")
+	private WebElement validatecreatenew;
+	public WebElement getvalidatecreatenew()
+	{
+		return validatecreatenew;
+	}
+	
+	@FindBy(xpath="//div[text()='Unable to create event since there is no technician associated.']")
+	private WebElement validationmsgonsave;
+	public WebElement getvalidationmsgonsave()
+	{
+		return validationmsgonsave;
+	}
+	
 }

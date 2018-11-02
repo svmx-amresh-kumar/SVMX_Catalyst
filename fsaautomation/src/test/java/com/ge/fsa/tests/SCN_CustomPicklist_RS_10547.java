@@ -125,18 +125,9 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //==============================================================================================================					
 			// To save the Work Order and verify the Values after the Edit Work Order is Selected
 					commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-					String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
+					String sProcessname2 = "RS_10547_311020181533";// Standard SFM Process
 					Thread.sleep(2000);
-					workOrderPo.selectAction(commonsPo,sProcessname2);
-					
-					
-
-					
-			
-				
-					
-					
-					
+					workOrderPo.selectAction(commonsPo,sProcessname2);				
 		}
 	}
 

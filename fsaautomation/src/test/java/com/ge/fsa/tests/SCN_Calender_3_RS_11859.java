@@ -113,7 +113,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-			//Create SVMX event from Create New Option
+			//Create SFDC event from Create New Option
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteleNewClick());
