@@ -68,8 +68,9 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
-		String[] sContollingPicklist_WO_001 = {"--None--","CP-011", "CP-022"};
+		String[] sContollingPicklist_WO_001 = {"--None--","CP-011", "CP-012"};
 		String[] sDependentPicklist_CP_001 = {"--None--","DP-0111"};
+		String[] sControllingPicklist2 = {"--None--","CP-011"};
 		
 // ==========================================================================================================================================
 		// To click the Record Type button and choosing the values
@@ -101,15 +102,15 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 				driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
 //==============================================================================================
 			
-				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_001);
-				for(int i=0;i<sDependentPicklist_CP_001.length;i++) {
-					if(sExpectedValues2[i].equals(sDependentPicklist_CP_001[i]))
+				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sControllingPicklist2);
+				for(int i=0;i<sControllingPicklist2.length;i++) {
+					if(sExpectedValues2[i].equals(sControllingPicklist2[i]))
 							{
-						ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Dependent Picklist Values match");
+						ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Controlling Picklist Values match");
 							}
 					else
 					{
-						ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "The Dependent Picklist Values don't match");
+						ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "The Controlling Picklist Values don't match");
 					}
 						
 //=======================================================================================================
@@ -161,8 +162,12 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 				}
 			}
 			
-		// To do a Data Sync and verify in the Server
-			toolsPo.syncData(commonsPo);
+			Thread.sleep(10000);
+			commonsPo.switchContext("Native");
+			commonsPo.getElePickerWheelPopUp().sendKeys("DP-0112");	
+			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.switchContext("WebView");
+			commonsPo.tap(workOrderPo.getEleClickSave());
 					
 					
 		}
