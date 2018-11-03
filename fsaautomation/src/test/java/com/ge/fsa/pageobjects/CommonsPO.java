@@ -553,8 +553,8 @@ public class CommonsPO
 				System.out.println("Array read = "+string);
 
 			}
-			
-			return sVals;
+			commonsPo.switchContext("WebView");
+			return sVals;	
 
 		}
 		

@@ -1468,8 +1468,8 @@
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			Thread.sleep(1000);
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order

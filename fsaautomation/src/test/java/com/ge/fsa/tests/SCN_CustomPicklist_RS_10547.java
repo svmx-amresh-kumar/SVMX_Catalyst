@@ -57,14 +57,13 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
 		// Create Installed Product
-//		sIBName = commonsPo.generaterandomnumber("IB");
-//		sIbSerialNum = commonsPo.generaterandomnumber("IBNum");
-//		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sIBName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbSerialNum+"\",\"SVMXC__Country__c\": \"India\"}");
-//		System.out.println("IB id is "+sIbId);
-	
-		sIBName = "IB02112018115449";
+		sIBName = commonsPo.generaterandomnumber("IB");
+		sIbSerialNum = commonsPo.generaterandomnumber("IBNum");
+		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sIBName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbSerialNum+"\",\"SVMXC__Country__c\": \"India\"}");
+		System.out.println("IB id is "+sIbId);
+		Thread.sleep(1000);
 		// To sync the Data
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Installed Products", sIBName);	
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
@@ -95,6 +94,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //==============================================================================================
 		// To click on the Controlling picklist value to the Dependent Picklist value
 				Thread.sleep(10000);
+				commonsPo.switchContext("Native");
 				commonsPo.getElePickerWheelPopUp().sendKeys("CP-011");	
 				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 				commonsPo.switchContext("WebView");
@@ -115,20 +115,58 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //=======================================================================================================
 			// To select the Dependent Picklist value
 					Thread.sleep(10000);
+					commonsPo.switchContext("Native");
 					commonsPo.getElePickerWheelPopUp().sendKeys("DP-0111");	
 					commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 					commonsPo.switchContext("WebView");
-					
-			
 					commonsPo.tap(workOrderPo.getEleClickSave());
 					toolsPo.syncData(commonsPo);
 //==============================================================================================================					
-			// To save the Work Order and verify the Values after the Edit Work Order is Selected
-					commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-					String sProcessname2 = "RS_10547_311020181533";// Standard SFM Process
-					Thread.sleep(2000);
-					workOrderPo.selectAction(commonsPo,sProcessname2);				
+					
+// To update the Work Order Order status
+					
+					String sObjectApi = "SVMXC__Service_Order__c";
+					String sSqlWOID ="SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sIbId+"\'";					
+					String sWOId =restServices.restGetSoqlValue(sSqlWOID,"Id"); 
+					System.out.println(sWOId);
+					String sWOJson="{\"SVMXC__Order_Status__c\":\"Open\"}";
+					restServices.restUpdaterecord(sObjectApi,sWOJson,sWOId);
+					toolsPo.syncData(commonsPo);
+//===============================================================================================================
+		// To Edit the Work Order value and to verify in the Data Sync
+					// To save the Work Order and verify the Values after the Edit Work Order is Selected
+			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			String sProcessname2 = "RS_10547_311020181533";// Standard SFM Process
+			Thread.sleep(2000);
+			workOrderPo.selectAction(commonsPo,sProcessname2);	
+			driver.findElement(By.xpath("//*[. = 'controlling picklist']//input")).click();
+			commonsPo.switchContext("Native");
+			commonsPo.getElePickerWheelPopUp().sendKeys("CP-012");	
+			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.switchContext("WebView");
+			
+//======================================================================================================
+		// To verify the values at the Dependent Picklist
+			String[] sDependentPicklist_CP_012 = {"--None--","DP-0112"};
+			driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
+			String[] sExpectedValues3 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_012);
+			for(int i1=0;i1<sDependentPicklist_CP_012.length;i1++) {
+				if(sExpectedValues3[i1].equals(sDependentPicklist_CP_001[i1]))
+						{
+					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Dependent Picklist Values match");
+						}
+				else
+				{
+					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "The Dependent Picklist Values don't match");
+				}
+			}
+			
+		// To do a Data Sync and verify in the Server
+			toolsPo.syncData(commonsPo);
+					
+					
 		}
 	}
+
 
 }
