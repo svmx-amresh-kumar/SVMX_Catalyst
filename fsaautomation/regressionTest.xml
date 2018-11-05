@@ -15,7 +15,6 @@
 	
 	<test name="Mapping">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
 
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />	
