@@ -142,7 +142,9 @@ public class CommonsPO
 
 			} else {
 				System.out.println("Scrolling to the Offsets");
-				while(!wElement.isDisplayed()) {
+				
+				int counter =0;
+				while(isDisplayedCust(wElement) != true || counter == 20) {
 					switchContext("Native");
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				HashMap<String, String> scrollObject = new HashMap<String, String>();
@@ -150,6 +152,7 @@ public class CommonsPO
 				js.executeScript("mobile: scroll", scrollObject);				//Getting the New Location
 				switchContext("Webview");
 				point =  wElement.getLocation();
+				counter++;
 				}
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
 				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
@@ -705,19 +708,12 @@ try{
 			getElesearchTap().sendKeys(value);
 			tap(getElesearchButton());
 		}
-//		public void setDatePicker(int iIndex, int scrollNum)
-//		{ 	switchContext("Native");
-//			int i=0;
-//			for(i=0;i<scrollNum;i++)
-//			{JavascriptExecutor js = (JavascriptExecutor) driver;
-//		    Map<String, Object> params = new HashMap<>();
-//		    params.put("order", "next");
-//		    params.put("offset", 0.15);
-//		    params.put("element", (getEleDatePickerPopUp().get(iIndex)));
-//		    js.executeScript("mobile: selectPickerWheelValue", params);	
-//			}
-//		}
-		
+
+		/**
+		 * General Function to simply scroll any picker wheel based on -ve or +ve index and number times to scroll, see getAllPicklistValues() method for usage example
+		 * @param iWheelIndex
+		 * @param scrollNum
+		 */
 		public void scrollPickerWheel(int iWheelIndex, int scrollNum)
 		{ 	switchContext("Native");
 			int i=0;
@@ -739,6 +735,27 @@ try{
 		    params.put("element", getElePickerWheelPopUp());
 		    js.executeScript("mobile: selectPickerWheelValue", params);	
 			}
+		}
+		
+		/**
+		 * Custom function to return the boolean value for isDiplayed
+		 * @param wElement
+		 * @return
+		 */
+		public boolean isDisplayedCust(WebElement wElement) {
+			boolean isDis = false;
+			try{wElement.isDisplayed();
+			if(wElement.isDisplayed()) {
+				return true;
+			}else{
+				return false;
+
+			}
+			}catch(Exception e) {
+			
+				return false;
+			}
+
 		}
 }
 	
