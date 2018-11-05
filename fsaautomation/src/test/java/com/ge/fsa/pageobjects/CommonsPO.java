@@ -144,16 +144,21 @@ public class CommonsPO
 				System.out.println("Scrolling to the Offsets");
 				
 				int counter =0;
-				while(isDisplayedCust(wElement) != true || counter == 20) {
-					switchContext("Native");
+				while(isDisplayedCust(wElement) != true ) {
+					switchContext("Webview");
 				JavascriptExecutor js = (JavascriptExecutor) driver;
-				HashMap<String, String> scrollObject = new HashMap<String, String>();
-				scrollObject.put("direction", "down");
-				js.executeScript("mobile: scroll", scrollObject);				//Getting the New Location
+				HashMap<String, String> swipeParam = new HashMap<String, String>();
+				swipeParam.put("direction", "up");
+				js.executeScript("mobile: scroll", swipeParam);				//Getting the New Location
 				switchContext("Webview");
 				point =  wElement.getLocation();
 				counter++;
+				if(counter == 20) {
+					break;
 				}
+				}
+				switchContext("Native");
+
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
 				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 
@@ -746,13 +751,15 @@ try{
 			boolean isDis = false;
 			try{wElement.isDisplayed();
 			if(wElement.isDisplayed()) {
+				System.out.println("Element Is displayed returning true");
 				return true;
 			}else{
+				System.out.println("Element Not displayed returning false");
 				return false;
 
 			}
 			}catch(Exception e) {
-			
+				System.out.println("Element Not displayed returning false");
 				return false;
 			}
 
