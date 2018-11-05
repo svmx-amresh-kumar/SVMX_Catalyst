@@ -141,6 +141,16 @@ public class CommonsPO
 				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
 			} else {
+				System.out.println("Scrolling to the Offsets");
+				while(!wElement.isDisplayed()) {
+					switchContext("Native");
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				HashMap<String, String> scrollObject = new HashMap<String, String>();
+				scrollObject.put("direction", "down");
+				js.executeScript("mobile: scroll", scrollObject);				//Getting the New Location
+				switchContext("Webview");
+				point =  wElement.getLocation();
+				}
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
 				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 
