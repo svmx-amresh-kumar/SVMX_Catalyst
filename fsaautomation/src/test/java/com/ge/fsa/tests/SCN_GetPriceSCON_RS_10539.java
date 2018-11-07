@@ -67,6 +67,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName,"Work Order Number");
