@@ -122,7 +122,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		System.out.println("sDelWo = "+sSqlWOQuery1);
 		sObjectApi = "SVMXC__Service_Order__c";
 		restServices.restDeleterecord(sObjectApi,sDelWo);
-		System.out.println("Deleted"+sSqlWOQuery1);
+		System.out.println("Deleted"+sDelWo);
 		
 	}
 	
@@ -135,9 +135,9 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		System.out.println("sSqlWOQuery1 = "+sSqlWOQuery1);
 		sDelWo =restServices.restGetSoqlValue(sSqlWOQuery1,"Id"); 
 		System.out.println("sDelWo = "+sSqlWOQuery1);
-		sObjectApi = "SVMXC__Service_Order__c";
+		sObjectApi = "SVMXC__SVMX_Event__c";
 		restServices.restDeleterecord(sObjectApi,sDelWo);
-		System.out.println("Deleted"+sSqlWOQuery1);
+		System.out.println("Deleted"+sDelWo);
 		
 	}
 	
@@ -194,7 +194,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		// Perform Config Sync
-	//	toolsPo.configSync(commonsPo);		
+		//toolsPo.configSync(commonsPo);		
 		Thread.sleep(GenericLib.iMedSleep);
 		// Need to sync the data
 		toolsPo.syncData(commonsPo);
@@ -224,7 +224,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		Thread.sleep(GenericLib.iHighSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		toolsPo.syncData(commonsPo);
-
+		Thread.sleep(GenericLib.iHighSleep);
 //------------------Script to read a work Order and create an Event for it.----------------		
 		
 		//Navigation to SFM
@@ -258,6 +258,8 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 				
 				commonsPo.tap(calendarPO.getEleCalendarIcn());
 				Thread.sleep(GenericLib.iLowSleep);
+				toolsPo.syncData(commonsPo);
+
 				//----------------------------Deleting the work Order,event and sync back
 				DeletionOfWorkOrder();
 				ExtentManager.logger.log(Status.PASS,"Work Order Deleted Sucessfully");
@@ -269,16 +271,15 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 				Thread.sleep(GenericLib.iMedSleep);
 			
 				syncwithConflict();
-				try {
 					//workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 					commonsPo.tap(calendarPO.getEleCalendarClick());
 					Thread.sleep(3000);
 					calendarPO.VerifyWOInCalender(commonsPo,sworkOrderName);
-				} catch (Exception e) {
-					// TODO: handle exception
 					ExtentManager.logger.log(Status.PASS,"WorkOrder not found as deleted from server.");
 
-				}
+					//ExtentManager.logger.log(Status.PASS,"Event is no longer displayed in calendar");
+
+			
 	}
 
 }
