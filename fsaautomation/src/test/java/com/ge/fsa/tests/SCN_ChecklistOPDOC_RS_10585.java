@@ -92,7 +92,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sSection1Q2).sendKeys(sNumberSectionJumpAns);
@@ -134,7 +134,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));		
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));		
 		checklistPo.geteleChecklistAnswerTextArea(sSection3q1).sendKeys("ok");
 
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));
@@ -151,6 +151,9 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		
 		Thread.sleep(GenericLib.iHighSleep);
 
+		
+		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
@@ -163,7 +166,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		}
 					
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 	
 		//Navigating back to work Orders
