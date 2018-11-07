@@ -199,7 +199,8 @@ public class CreateNewPO
 		// Selecting the Priority Low
 		commonsPo.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
 		commonsPo.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
-		getEleproformainvoicevalue().click();
+		//getEleproformainvoicevalue().click();
+		//commonsPo.tap(getEleproformainvoicevalue());
 		commonsPo.tap(getEleproformainvoicevalue());
 		getEleproformainvoicetextarea().sendKeys(proformaInvoice);
 		commonsPo.tap(getEleupdatethetextfield());
