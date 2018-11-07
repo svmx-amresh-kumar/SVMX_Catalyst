@@ -111,7 +111,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
@@ -173,11 +173,12 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	    
 	    
 	    //All sections
+	    try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());			
 		
 
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"Checklist Submitted");

@@ -112,7 +112,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 		
 		// Navigating to the checklist
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 			
 		//System.out.println("validating pre filled text question is showing up");
@@ -141,15 +141,16 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(checklistPo.eleChecklistSubmit());
+	//	commonsPo.tap(checklistPo.eleChecklistSubmit());
 		
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 				
 		//submitting of checklist
-		
+		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		
 		//Navigating back to work Orders
 		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());

@@ -142,7 +142,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			Thread.sleep(GenericLib.iMedSleep);
 
 			//System.out.println("Going to Enter checklist");
-			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			String sNumberStaticAnsApp = checklistPo.geteleChecklistAnsNumber(sNumberStaticQ).getAttribute("value");
@@ -227,20 +227,19 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 				// TODO: handle exception
 			}
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			// tapping on the validation sucessfull checklist popup
-			commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 			
 			// Tapping on Show Completed Checklists
 			//System.out.println("going to tap on show completedchecklists");
-			commonsPo.longPress(checklistPo.geteleShowCompletedChecklist());
+			commonsPo.tap(checklistPo.geteleShowCompletedChecklist());
 			//System.out.println("tapped on completed checklist");
-			//System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			Thread.sleep(genericLib.iLowSleep);
 			//System.out.println("tapped on completed checklist");
@@ -355,7 +354,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 Thread.sleep(genericLib.iLowSleep);
 			 commonsPo.tap(workOrderPo.geteleAttachedDocumentLeftPane());
 			 commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),20,20);
-			// commonsPo.longPress(workOrderPo.getEleAttachedDocument(sChecklistOpDocName));
+			// commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName));
 			// workOrderPo.getEleAttachedDocument(sChecklistOpDocName).click();
 			// commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),5,5);
 			 Thread.sleep(genericLib.iLowSleep);

@@ -172,6 +172,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
+		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());			
 				
 
