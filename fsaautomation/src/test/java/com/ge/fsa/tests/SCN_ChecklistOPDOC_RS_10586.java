@@ -221,13 +221,10 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iLowSleep);
-			try {
-				checklistPo.Allowlocationbutton();
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+			commonsPo.clickAllowPopUp();
+			commonsPo.switchContext("WebView");
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
@@ -330,14 +327,15 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Text Dynamic Response Answer Validation passed");
 			 	 			 
-			 workOrderPo.getEleDoneLnk().click();
+			// workOrderPo.getEleDoneLnk().click();
 			
 			commonsPo.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -348,7 +346,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			// System.out.println(ans);
 			
 			 toolsPo.syncData(commonsPo);
-			 Thread.sleep(genericLib.iLowSleep);
+			 Thread.sleep(GenericLib.iLowSleep);
 			 
 			/* commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			 Thread.sleep(genericLib.iLowSleep);
@@ -366,7 +364,8 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	
 				Thread.sleep(GenericLib.iHighSleep);
 				Thread.sleep(GenericLib.iHighSleep);
-			
+				Thread.sleep(GenericLib.i30SecSleep);
+
 				System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 				String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 				String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	

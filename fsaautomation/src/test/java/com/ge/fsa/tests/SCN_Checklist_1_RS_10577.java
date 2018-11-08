@@ -147,9 +147,9 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 				
 		//submitting of checklist
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		
 		//Navigating back to work Orders

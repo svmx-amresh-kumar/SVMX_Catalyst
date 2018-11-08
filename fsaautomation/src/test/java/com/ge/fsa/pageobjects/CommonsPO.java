@@ -313,15 +313,20 @@ public class CommonsPO
 
 			sNativeApp = contextNames.toArray()[0].toString();
 			sWebView = contextNames.toArray()[1].toString();
+			try {
+				if (sContext.equalsIgnoreCase("Native")) {
+					driver.context(sNativeApp);
+					System.out.println("Setting Context = "+sNativeApp);
+				} else {
+					driver.context(sWebView);
+					System.out.println("Setting Context = "+sWebView);
 
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = "+sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = "+sWebView);
-
+				}
+			} catch (Exception e) {
+				// TODO: handle exceptions
+				System.out.println("Could not find switch the context");
 			}
+			
 		}
 		
 		//To set the value in PicsetPickerWheelValue(ive app
@@ -695,15 +700,22 @@ public class CommonsPO
 		 * @throws InterruptedException 
 		 */
 		public void clickAllowPopUp() throws InterruptedException {
+			try {
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 try{	
 			driver.findElementByAccessibilityId("Always Allow").click();
 		}catch(Exception e){	
 		driver.findElementByAccessibilityId("Allow").click();
-		}		Thread.sleep(GenericLib.iLowSleep);
+		}		
+		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
+			}
+			catch(Exception e)
+			{
+				
+			}
 		}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException

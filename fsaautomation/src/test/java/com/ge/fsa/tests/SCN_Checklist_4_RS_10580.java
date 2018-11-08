@@ -72,8 +72,6 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	public void RS_10580() throws Exception {
 		sSheetName ="RS_10580";
 		System.out.println("SCN_RS10580_Checklist_Sections");
-
-		
 		sTestCaseID = "SCN_Checklist_4_RS-10580_Sections";
 		sCaseWOID = "Data_SCN_Checklist_4_RS-10580_Sections";
 
@@ -122,7 +120,9 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberSectionJumpAns);
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
+		//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
 		ExtentManager.logger.log(Status.PASS,"Exit Criteria for section passed");
@@ -173,7 +173,8 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	    
 	    
 	    //All sections
-	    try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+	    commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());			
 		
 

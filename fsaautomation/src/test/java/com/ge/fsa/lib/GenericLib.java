@@ -25,6 +25,7 @@ public class GenericLib
 	public static String sConfigFile =  sResources+"//config.properties";
 	public static String sTestDataFile = sResources + "//TestData.xlsx";
 	public static int iVHighSleep = 60000;
+	public static int i30SecSleep = 30000;
 	public static int iHighSleep = 8000;
 	public static int iMedSleep = 5000;
 	public static int iLowSleep = 2000;
