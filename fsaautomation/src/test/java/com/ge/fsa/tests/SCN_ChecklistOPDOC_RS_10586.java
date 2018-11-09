@@ -334,6 +334,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 			Thread.sleep(GenericLib.i30SecSleep);
 			
