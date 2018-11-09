@@ -70,7 +70,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 
 		toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
