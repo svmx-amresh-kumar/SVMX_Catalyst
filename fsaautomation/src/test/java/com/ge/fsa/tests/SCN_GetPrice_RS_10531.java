@@ -74,6 +74,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10531
 		String sTestDataValue = "SCN_GetPrice_RS_10531";
 		sProductName10531 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");

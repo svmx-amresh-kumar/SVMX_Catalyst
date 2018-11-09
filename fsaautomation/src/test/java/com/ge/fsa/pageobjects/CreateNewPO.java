@@ -114,6 +114,7 @@ public class CreateNewPO
 		return eleClickPriorityPicklist;
 	}
 	
+	
 	// Xpath for Billing Type
 	
 	@FindBy(xpath="//span[text()='Billing Type']/../..//div[@class='x-body-el x-widthed']//input[@class='x-input-el']")
@@ -131,7 +132,14 @@ public class CreateNewPO
 		return eleproformainvoicevalue;
 	}
 	
-	@FindBy(xpath="//div[@class='x-dock-body']//div[@class='x-body x-widthed x-heighted']//div[@class='x-textareainput x-textinput x-input x-component x-sized x-widthed x-heighted']//textarea[@class='x-input-el']")
+//	@FindBy(xpath="//div[@class='x-dock-body']//div[@class='x-body x-widthed x-heighted']//div[@class='x-textareainput x-textinput x-input x-component x-sized x-widthed x-heighted']//textarea[@class='x-input-el']")
+//	private WebElement eleproformainvoicetextarea;
+//	public WebElement getEleproformainvoicetextarea()
+//	{
+//		return eleproformainvoicetextarea;
+//	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Proforma Invoice']/../..//input[@class='x-input-el']")
 	private WebElement eleproformainvoicetextarea;
 	public WebElement getEleproformainvoicetextarea()
 	{
@@ -199,10 +207,11 @@ public class CreateNewPO
 		// Selecting the Priority Low
 		commonsPo.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
 		commonsPo.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
-		getEleproformainvoicevalue().click();
-		commonsPo.tap(getEleproformainvoicevalue());
+		//getEleproformainvoicevalue().click();
+		//commonsPo.tap(getEleproformainvoicevalue());
+		//commonsPo.tap(getEleproformainvoicevalue());
 		getEleproformainvoicetextarea().sendKeys(proformaInvoice);
-		commonsPo.tap(getEleupdatethetextfield());
+		//commonsPo.tap(getEleupdatethetextfield());
 		Thread.sleep(1000);
 		commonsPo.tap(getEleSaveWorkOrdert());
 		

@@ -172,6 +172,8 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());			
 				
 
@@ -208,7 +210,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			// Navigating to the checklist
 			
 			try {
-				commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+				commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 			} catch (Exception e) {
 				// TODO: handle exception
 				ExtentManager.logger.log(Status.PASS,"Qualification criteria not met checklist not displayed");

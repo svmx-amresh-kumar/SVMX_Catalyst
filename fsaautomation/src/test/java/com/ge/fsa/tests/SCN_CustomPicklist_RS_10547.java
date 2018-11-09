@@ -64,6 +64,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		Thread.sleep(1000);
 		// To sync the Data
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Installed Products", sIBName);	
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
@@ -99,12 +100,14 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 				commonsPo.getElePickerWheelPopUp().sendKeys("CP-011");	
 				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 				commonsPo.switchContext("WebView");
+				Thread.sleep(genericLib.iMedSleep);
+				
 				driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
 //==============================================================================================
 			
-				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sControllingPicklist2);
-				for(int i=0;i<sControllingPicklist2.length;i++) {
-					if(sExpectedValues2[i].equals(sControllingPicklist2[i]))
+				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_001);
+				for(int i=0;i<sDependentPicklist_CP_001.length;i++) {
+					if(sExpectedValues2[i].equals(sDependentPicklist_CP_001[i]))
 							{
 						ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Controlling Picklist Values match");
 							}
@@ -120,6 +123,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					commonsPo.getElePickerWheelPopUp().sendKeys("DP-0111");	
 					commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 					commonsPo.switchContext("WebView");
+					Thread.sleep(2000);
 					commonsPo.tap(workOrderPo.getEleClickSave());
 					toolsPo.syncData(commonsPo);
 //==============================================================================================================					
@@ -141,10 +145,14 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			Thread.sleep(2000);
 			workOrderPo.selectAction(commonsPo,sProcessname2);	
 			driver.findElement(By.xpath("//*[. = 'controlling picklist']//input")).click();
+			Thread.sleep(2000);
 			commonsPo.switchContext("Native");
 			commonsPo.getElePickerWheelPopUp().sendKeys("CP-012");	
 			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 			commonsPo.switchContext("WebView");
+			Thread.sleep(2000);
+			
+			
 			
 //======================================================================================================
 		// To verify the values at the Dependent Picklist
@@ -152,7 +160,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
 			String[] sExpectedValues3 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_012);
 			for(int i1=0;i1<sDependentPicklist_CP_012.length;i1++) {
-				if(sExpectedValues3[i1].equals(sDependentPicklist_CP_001[i1]))
+				if(sExpectedValues3[i1].equals(sDependentPicklist_CP_012[i1]))
 						{
 					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Dependent Picklist Values match");
 						}
@@ -168,8 +176,9 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 			commonsPo.switchContext("WebView");
 			commonsPo.tap(workOrderPo.getEleClickSave());
-					
-					
+			Thread.sleep(10000);
+			toolsPo.syncData(commonsPo);
+
 		}
 	}
 
