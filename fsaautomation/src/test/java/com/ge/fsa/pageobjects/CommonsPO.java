@@ -110,7 +110,7 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		//try {
+		switchContext("Webview");
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
@@ -137,30 +137,56 @@ public class CommonsPO
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
-				System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
+				int counter =0;
+				while(counter < 5 ) {
+
+					switchContext("Native");
+					try {
+						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+
+						System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().withCoordinates(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						switchContext("Webview");
+
+						point = wElement.getLocation();
+					}
+
+					counter++;
+				}
 			} else {
-				System.out.println("Scrolling to the Offsets");
 				
 				int counter =0;
-				while(isDisplayedCust(wElement) != true ) {
-				switchContext("Webview");
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				HashMap<String, String> swipeParam = new HashMap<String, String>();
-				swipeParam.put("direction", "up");
-				js.executeScript("mobile: scroll", swipeParam);				//Getting the New Location
-				switchContext("Webview");
-				point =  wElement.getLocation();
-				counter++;
-				if(counter == 20) {
-					break;
-				}
-				}
-				switchContext("Native");
+				while(counter < 5 ) {
 
-				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+					switchContext("Native");
+					try {
+						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+						touchAction
+								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+								.perform();
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().withCoordinates(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						switchContext("Webview");
+
+						point = wElement.getLocation();
+					}
+
+					counter++;
+				}
 
 			}
 			switchContext("Webview");
@@ -180,12 +206,6 @@ public class CommonsPO
 			}
 		}
 
-		
-		Thread.sleep(GenericLib.iLowSleep);
-//		}catch(Exception e) {
-//			System.out.println("TAP Exception : "+e);
-//		}
-		//switchContext("Webview");
 
 	}
 	//Customised touch Tap
@@ -762,7 +782,7 @@ try{
 		public boolean isDisplayedCust(WebElement wElement) {
 			boolean isDis = false;
 			switchContext("Webview");
-			try{wElement.isDisplayed();
+			try{				System.out.println("Element Is displayed ===== "+wElement.isDisplayed());
 			if(wElement.isDisplayed()) {
 				System.out.println("Element Is displayed returning true");
 				return true;
