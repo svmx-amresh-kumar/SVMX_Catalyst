@@ -145,7 +145,7 @@ public class CommonsPO
 				
 				int counter =0;
 				while(isDisplayedCust(wElement) != true ) {
-					switchContext("Webview");
+				switchContext("Webview");
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				HashMap<String, String> swipeParam = new HashMap<String, String>();
 				swipeParam.put("direction", "up");
@@ -749,6 +749,7 @@ try{
 		 */
 		public boolean isDisplayedCust(WebElement wElement) {
 			boolean isDis = false;
+			switchContext("Webview");
 			try{wElement.isDisplayed();
 			if(wElement.isDisplayed()) {
 				System.out.println("Element Is displayed returning true");
