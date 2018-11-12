@@ -225,8 +225,10 @@ public class BaseLib {
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
 			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
-				Set contextNames = driver.getContextHandles();
+			if(sOSName.toLowerCase().equals("android")) {	
+			Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
+			}
 				String temp= ExtentManager.getScreenshot();
 			
 			try {
