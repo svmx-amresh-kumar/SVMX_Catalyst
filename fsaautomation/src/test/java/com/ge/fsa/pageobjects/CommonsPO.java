@@ -153,7 +153,7 @@ public class CommonsPO
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
-						touchAction.press(new PointOption().withCoordinates(300, 300))
+						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
 						switchContext("Webview");
 
@@ -178,7 +178,7 @@ public class CommonsPO
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
-						touchAction.press(new PointOption().withCoordinates(300, 300))
+						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
 						switchContext("Webview");
 
