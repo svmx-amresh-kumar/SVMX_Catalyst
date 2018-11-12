@@ -290,7 +290,7 @@ public class CommonsPO
 			int xOff = x+100;
 			//int yOff = y-100;
 			touchAction = new TouchAction(driver);
-			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 0)).release().perform();
+			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
 		}
 		
 		
