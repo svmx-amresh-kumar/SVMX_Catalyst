@@ -1131,6 +1131,35 @@
 		}
 		
 
+		@FindBy(xpath="//div[@class='x-label-el sfmsearch-include-online-label']/../div[@class = 'x-body-el']/div/div[5]")
+		private WebElement eleIncludeOnlineRdBtn;
+		public WebElement getEleIncludeOnlineRdBtn()
+		{
+			return eleIncludeOnlineRdBtn;
+		}
+		
+		@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
+		private WebElement eleCloudIcn;
+		public WebElement getEleCloudIcn()
+		{
+			return eleCloudIcn;
+		}
+		
+		@FindBy(xpath="//div[text()='No records to display.']")
+		private WebElement eleNoRecordsTxt;
+		public WebElement getEleNoRecordsTxt()
+		{
+			return eleNoRecordsTxt;
+		}
+		
+		@FindBy(xpath="//*[text()='Case Reason']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleCaseReasonLst;
+		public WebElement getEleCaseReasonLst()
+		{
+			return eleCaseReasonLst;
+		}
+		
+
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -1468,8 +1497,8 @@
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			Thread.sleep(1000);
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order

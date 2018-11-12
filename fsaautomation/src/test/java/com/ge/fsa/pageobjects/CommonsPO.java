@@ -110,7 +110,7 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		//try {
+		switchContext("Webview");
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
@@ -137,12 +137,56 @@ public class CommonsPO
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
-				System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
+				int counter =0;
+				while(counter < 5 ) {
+
+					switchContext("Native");
+					try {
+						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+
+						System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().withCoordinates(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						switchContext("Webview");
+
+						point = wElement.getLocation();
+					}
+
+					counter++;
+				}
 			} else {
-				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+				
+				int counter =0;
+				while(counter < 5 ) {
+
+					switchContext("Native");
+					try {
+						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+						touchAction
+								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+								.perform();
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().withCoordinates(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						switchContext("Webview");
+
+						point = wElement.getLocation();
+					}
+
+					counter++;
+				}
 
 			}
 			switchContext("Webview");
@@ -162,12 +206,6 @@ public class CommonsPO
 			}
 		}
 
-		
-		Thread.sleep(GenericLib.iLowSleep);
-//		}catch(Exception e) {
-//			System.out.println("TAP Exception : "+e);
-//		}
-		//switchContext("Webview");
 
 	}
 	//Customised touch Tap
@@ -295,15 +333,20 @@ public class CommonsPO
 
 			sNativeApp = contextNames.toArray()[0].toString();
 			sWebView = contextNames.toArray()[1].toString();
+			try {
+				if (sContext.equalsIgnoreCase("Native")) {
+					driver.context(sNativeApp);
+					System.out.println("Setting Context = "+sNativeApp);
+				} else {
+					driver.context(sWebView);
+					System.out.println("Setting Context = "+sWebView);
 
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = "+sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = "+sWebView);
-
+				}
+			} catch (Exception e) {
+				// TODO: handle exceptions
+				System.out.println("Could not find switch the context");
 			}
+			
 		}
 		
 		//To set the value in PicsetPickerWheelValue(ive app
@@ -553,8 +596,8 @@ public class CommonsPO
 				System.out.println("Array read = "+string);
 
 			}
-			
-			return sVals;
+			commonsPo.switchContext("WebView");
+			return sVals;	
 
 		}
 		
@@ -677,15 +720,22 @@ public class CommonsPO
 		 * @throws InterruptedException 
 		 */
 		public void clickAllowPopUp() throws InterruptedException {
+			try {
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 try{	
 			driver.findElementByAccessibilityId("Always Allow").click();
 		}catch(Exception e){	
 		driver.findElementByAccessibilityId("Allow").click();
-		}		Thread.sleep(GenericLib.iLowSleep);
+		}		
+		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
+			}
+			catch(Exception e)
+			{
+				
+			}
 		}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException
@@ -695,19 +745,12 @@ try{
 			getElesearchTap().sendKeys(value);
 			tap(getElesearchButton());
 		}
-//		public void setDatePicker(int iIndex, int scrollNum)
-//		{ 	switchContext("Native");
-//			int i=0;
-//			for(i=0;i<scrollNum;i++)
-//			{JavascriptExecutor js = (JavascriptExecutor) driver;
-//		    Map<String, Object> params = new HashMap<>();
-//		    params.put("order", "next");
-//		    params.put("offset", 0.15);
-//		    params.put("element", (getEleDatePickerPopUp().get(iIndex)));
-//		    js.executeScript("mobile: selectPickerWheelValue", params);	
-//			}
-//		}
-		
+
+		/**
+		 * General Function to simply scroll any picker wheel based on -ve or +ve index and number times to scroll, see getAllPicklistValues() method for usage example
+		 * @param iWheelIndex
+		 * @param scrollNum
+		 */
 		public void scrollPickerWheel(int iWheelIndex, int scrollNum)
 		{ 	switchContext("Native");
 			int i=0;
@@ -729,6 +772,30 @@ try{
 		    params.put("element", getElePickerWheelPopUp());
 		    js.executeScript("mobile: selectPickerWheelValue", params);	
 			}
+		}
+		
+		/**
+		 * Custom function to return the boolean value for isDiplayed
+		 * @param wElement
+		 * @return
+		 */
+		public boolean isDisplayedCust(WebElement wElement) {
+			boolean isDis = false;
+			switchContext("Webview");
+			try{				System.out.println("Element Is displayed ===== "+wElement.isDisplayed());
+			if(wElement.isDisplayed()) {
+				System.out.println("Element Is displayed returning true");
+				return true;
+			}else{
+				System.out.println("Element Not displayed returning false");
+				return false;
+
+			}
+			}catch(Exception e) {
+				System.out.println("Element Not displayed returning false");
+				return false;
+			}
+
 		}
 }
 	

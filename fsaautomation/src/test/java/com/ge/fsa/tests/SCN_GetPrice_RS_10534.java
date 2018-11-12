@@ -71,6 +71,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";

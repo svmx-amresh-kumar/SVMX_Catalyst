@@ -91,7 +91,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue3,sSheetName3,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
-		
+		Thread.sleep(genericLib.iMedSleep);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
 		Thread.sleep(2000);

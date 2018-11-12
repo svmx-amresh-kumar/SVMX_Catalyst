@@ -5,13 +5,187 @@
 		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
 	</listeners>
-	<test name="Regression">
+	
+	<test name="PreReq">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538"/>
-			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539"/>
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534"/>
-			
+			<class name="com.ge.fsa.tests.SanityPreReq" />
 
 		</classes>
 	</test> <!-- Test -->
+	
+	<test name="Mapping">
+		<classes>
+
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />	
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10556" />	
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="Calendar">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_6_RS_10525" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
+			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_11859" />
+			<class name="com.ge.fsa.tests.SCN_Calander_7_RS_10526" />
+			<class name="com.ge.fsa.tests.SCN_Calender_4_RS_10514" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="Checklist">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
+			<class name="com.ge.fsa.tests.SCN_Checklist_2_RS_10578" />
+			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />
+			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
+			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10585" />
+			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10586" />
+			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
+		</classes>
+
+
+	</test> <!-- Test -->
+	
+
+	<test name="GetPrice">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
+			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="SourceToTarget">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10540" />
+			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10541" />
+			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10542" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="Lookup">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_Lookups_1_RS_10527_b" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_1_RS_10527" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_2_RS_10528" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_3_RS_10529" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_4_10530" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="CustomActions">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_CustomAction_1_RS_10559" />
+			<class name="com.ge.fsa.tests.SCN_CustomAction_2_RS_10558" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="PickList">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" />
+		</classes>
+	</test> <!-- Test -->
+	
+		<test name="Dvr">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="ConfigSync">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_ConfigSync_Alert_RS_10561" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="DataSync">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_ScheduledDataSync_RS_10569" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="CreatenewRecord">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_CreateNewRecord_RS_10570" />
+		</classes>
+	</test> <!-- Test -->
+	
+		<test name="ChildLine">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
+		</classes>
+	</test> <!-- Test -->
+	
+	
+	<test name="ProductHistory">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_Acc_pro_history_RS_10566" />
+		</classes>
+	</test> <!-- Test -->
+	
+	
+	<test name="RecentItems">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
+		</classes>
+	</test> <!-- Test -->
+	
+		<test name="SefDispatch">
+		<classes>		
+			<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
+		</classes>
+	</test> <!-- Test -->
+	
+	
+<test name="LinkedSfm">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="ZeroLines">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="SourceObjectUpdate">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
+		</classes>
+	</test> <!-- Test -->
+	
+	
+	<test name="Formula">
+		<classes>
+			
+		</classes>
+	</test> <!-- Test -->
+	
+		<test name="Explore">
+		<classes>
+			
+		</classes>
+	</test> <!-- Test -->
+	
+	
+		<test name="OpDoc">
+		<classes>
+			
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="MobileConfiguration">
+		<classes>
+		
+		</classes>
+	</test> <!-- Test -->
+	
+	
 </suite> <!-- Suite -->

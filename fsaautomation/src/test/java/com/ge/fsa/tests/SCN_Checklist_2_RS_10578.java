@@ -97,7 +97,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("10");
@@ -165,9 +165,10 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
-
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 
 		// Navigating back to work Orders
 		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());

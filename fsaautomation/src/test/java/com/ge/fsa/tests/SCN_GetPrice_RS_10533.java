@@ -51,19 +51,19 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
 		// To run the Sahi Script before the Execution of Appium - 10539
-//		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
@@ -71,6 +71,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Work Order Number");

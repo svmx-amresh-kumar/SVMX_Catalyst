@@ -143,7 +143,7 @@ public class BaseLib {
 			
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 			
 			
 			ExtentManager.getInstance(driver);
