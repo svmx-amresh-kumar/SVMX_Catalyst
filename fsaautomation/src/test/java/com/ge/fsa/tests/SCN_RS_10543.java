@@ -166,6 +166,8 @@ public class SCN_RS_10543 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
+		
+		
 		/*
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
 		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
@@ -173,7 +175,17 @@ public class SCN_RS_10543 extends BaseLib {
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
 		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
 		*/
+		
+		//Cleanup code to reset download criteria to All Records
+		postCleanup();
 	
 	}
 
+	
+	private void postCleanup() throws Exception { 
+		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+
+	}
 }
