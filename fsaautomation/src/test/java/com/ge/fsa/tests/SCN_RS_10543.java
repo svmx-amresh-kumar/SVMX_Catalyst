@@ -2,21 +2,12 @@
  *  @author lakshmibs
  */
 package com.ge.fsa.tests;
-
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
-
-import java.io.IOException;
-import java.util.Arrays;
-
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_RS_10543 extends BaseLib {
 	
@@ -26,8 +17,7 @@ public class SCN_RS_10543 extends BaseLib {
 	String sExploreChildSearchTxt = null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	String sObjectID = null;
-	
+	String sObjectID = null;	
 	String sFieldServiceName = null;
 	String sSerialNumber = null;
 	String sSqlQuery = null;
@@ -48,15 +38,7 @@ public class SCN_RS_10543 extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
-		/*
-		//Creation of dynamic product for 
-		sJsonData = "{\"Name\": \""+sSerialNumber+"\", \"IsActive\": \"true\"}";
-		sObjectApi = "Product2?";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
-		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		//sProductName = "";
-		*/
+		
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Test RS_10543 Validation\", \"Priority\": \"High\", \"Description\": \"Description of RS_10543 \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
@@ -66,8 +48,6 @@ public class SCN_RS_10543 extends BaseLib {
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		
-		
 	}
 
 	@Test(enabled = true)
@@ -79,11 +59,12 @@ public class SCN_RS_10543 extends BaseLib {
 		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
 		
 		preRequiste();
-		//sCaseID="00001197";
+		//sWOName="WO-00004442";
+		//sCaseID="00001211";
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-			
+		
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -92,25 +73,25 @@ public class SCN_RS_10543 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
-			
 		//Navigation to SFM
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-	
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
+		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		commonsPo.longPress(workOrderPo.getEleIncludeOnlineRdBtn());
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleCloudIcn().isDisplayed(), "Cloud Icon is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Cloud Icon  is successfully displayed");
@@ -119,16 +100,18 @@ public class SCN_RS_10543 extends BaseLib {
 		Thread.sleep(GenericLib.iHighSleep);
 		commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWOName),10,10);
 		
-		Thread.sleep(1000);
+		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());	
+		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonsPo.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
 		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), "Contract");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
-
+		Thread.sleep(GenericLib.iMedSleep);
+		
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
@@ -136,17 +119,21 @@ public class SCN_RS_10543 extends BaseLib {
 		//Steps for Case search
 		sExploreChildSearchTxt="Cases";
 		sFieldServiceName="Add/Edit Case Lines";
+		
 		//Navigation to SFM
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+		Thread.sleep(GenericLib.iMedSleep);
+		//commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-	
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
+		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID);
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
@@ -172,14 +159,12 @@ public class SCN_RS_10543 extends BaseLib {
 		commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "Existing problem");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 
-		
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		
 		
 		/*
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
