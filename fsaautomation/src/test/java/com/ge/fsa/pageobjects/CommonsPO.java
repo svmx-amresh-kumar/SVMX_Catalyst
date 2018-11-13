@@ -356,7 +356,8 @@ public class CommonsPO
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
-			tap(getEleDonePickerWheelBtn());
+			getEleDonePickerWheelBtn().click();
+		//	tap(getEleDonePickerWheelBtn());
 			switchContext("WebView");
 		}
 		

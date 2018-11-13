@@ -1449,6 +1449,7 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
@@ -1463,6 +1464,7 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
@@ -1480,6 +1482,7 @@
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
