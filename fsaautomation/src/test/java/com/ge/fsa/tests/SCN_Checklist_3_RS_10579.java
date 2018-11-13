@@ -129,7 +129,8 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsDate(sDateq).click();
 	    commonsPo.switchContext("Native");
-	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	    commonsPo.getEleDonePickerWheelBtn().click();
 	    commonsPo.switchContext("WebView");
 	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");	    
 	    System.out.println("direct sdatetime"+sDateAns);	    
@@ -184,21 +185,14 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		
 		//Navigating back to work Orders
 		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
-		
-		String Temp  = workOrderPo.geteleProblemDescriptionlbl().getText();
-		System.out.println("gettext value"+Temp );	
-		Assert.assertEquals(Temp, sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
+		Thread.sleep(GenericLib.iMedSleep);		
+		Assert.assertEquals(workOrderPo.geteleProblemDescriptionlbl().getText(), sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for Problem Description");
 
-		
-		String Temp1  = workOrderPo.geteleBillingTypelbl().getText();
-		System.out.println("gettext value"+Temp1);	
-		Assert.assertEquals(Temp1, sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
+		Assert.assertEquals(workOrderPo.geteleBillingTypelbl().getText(), sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for billing type in Work Order");
-
-
 		commonsPo.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		//-------------Validating work order not satisfying Qualification Criteria---------------- 
 		// Navigation to WO
