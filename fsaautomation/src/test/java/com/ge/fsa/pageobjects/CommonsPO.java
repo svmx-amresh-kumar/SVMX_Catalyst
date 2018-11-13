@@ -65,7 +65,7 @@ public class CommonsPO
 		return elePickerWheelPopUp;
 	}
 	
-	@FindBy(name="Done")
+	@FindBy(xpath="//*[@name='Done']")
 	private WebElement eleDonePickerWheelBtn;
 	public WebElement getEleDonePickerWheelBtn()
 	{
