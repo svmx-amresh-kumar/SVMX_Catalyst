@@ -1496,9 +1496,10 @@
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			Thread.sleep(1000);
+			Thread.sleep(GenericLib.iMedSleep);
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
