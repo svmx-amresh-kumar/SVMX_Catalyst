@@ -146,7 +146,7 @@ public class CommonsPO
 						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
 								+ point.getX() + "---" + point.getY());
 
-						System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+						System.out.println("Android Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
 						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 
 						break;
