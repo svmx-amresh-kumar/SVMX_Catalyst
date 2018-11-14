@@ -78,8 +78,9 @@ public class ExploreSearchPO
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
-		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
-		 return eleExploreChildSearchTxt;
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(.,'"+sExploreChildSearchTxt+"')]"));
+		System.out.println("Value : "+eleExploreChildSearchTxt+" :: "+"//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(.,'"+sExploreChildSearchTxt+"')]"); 
+		return eleExploreChildSearchTxt;
 	}
 	
 
