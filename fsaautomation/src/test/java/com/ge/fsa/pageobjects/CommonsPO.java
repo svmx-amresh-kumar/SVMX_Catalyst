@@ -123,8 +123,8 @@ public class CommonsPO
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
-				Thread.sleep(2000);
-				try{point =  wElement.getLocation();}catch(Exception e) {}
+				Thread.sleep(1000);
+				point =  wElement.getLocation();
 				System.out.println("New fetch \n" + 
 						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
