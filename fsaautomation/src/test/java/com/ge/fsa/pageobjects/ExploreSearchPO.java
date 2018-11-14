@@ -96,8 +96,8 @@ public class ExploreSearchPO
 		
 		commonsPo.tap(getEleExploreSearchTxtFld());
 		//getEleExploreSearchTxtFld().click();
-		try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
-		getEleExploreSearchTxtFld().clear();
+		try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+		//getEleExploreSearchTxtFld().clear();
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(getEleExploreSearchBtn());
 		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
