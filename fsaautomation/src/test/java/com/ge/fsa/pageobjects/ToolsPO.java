@@ -186,7 +186,7 @@ public class ToolsPO
 
 			//geteleSyncConfigNowLnk().click();
 			commonsPo.tap(geteleSyncConfigNowLnk());	
-			getEleOkBtn().click();
+			//getEleOkBtn().click();
 			commonsPo.tap(getEleOkBtn());
 			//cancelling sync in order to reset the config sync status.
 			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
@@ -194,7 +194,7 @@ public class ToolsPO
 			Thread.sleep(3000);
 			
 			commonsPo.tap(geteleSyncConfigNowLnk());	
-			getEleOkBtn().click();
+			//getEleOkBtn().click();
 			commonsPo.tap(getEleOkBtn());
 			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
 			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
