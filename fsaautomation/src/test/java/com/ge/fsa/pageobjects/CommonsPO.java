@@ -161,7 +161,8 @@ public class CommonsPO
 					}
 
 					counter++;
-				}
+				}switchContext("Webview");
+
 			} else {
 				
 				int counter =0;
@@ -314,16 +315,7 @@ public class CommonsPO
 		 * To switch context between Native and Webview, defaults to Webview always
 		 * @param sContext
 		 */
-		public void switchContext(String sContext) {
-			//			iterator = driver.getContextHandles().iterator();
-			//			while(iterator.hasNext()){
-			//				sNativeApp = iterator.next();
-			//				sWebView = iterator.next();
-			//			}
-			//			if(sContext.equalsIgnoreCase("Native"))
-			//			{driver.context(sNativeApp);}
-			//			else {driver.context(sWebView);}
-			//			
+		public void switchContext(String sContext) {		
 
 			Set contextNames = driver.getContextHandles();
 			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
@@ -720,24 +712,21 @@ public class CommonsPO
 		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
 		 * @throws InterruptedException 
 		 */
-		public void clickAllowPopUp() throws InterruptedException {
-			try {
+	public void clickAllowPopUp() throws InterruptedException {
+
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
-try{	
+		try {
 			driver.findElementByAccessibilityId("Always Allow").click();
-		}catch(Exception e){	
-		driver.findElementByAccessibilityId("Allow").click();
-		}		
+		} catch (Exception e) {
+			driver.findElementByAccessibilityId("Allow").click();
+			switchContext("Webview");
+		}
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
-			}
-			catch(Exception e)
-			{
-				
-			}
-		}
+
+	}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException
 		{

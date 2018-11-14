@@ -184,14 +184,12 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 			Thread.sleep(genericLib.iLowSleep);
 			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
