@@ -75,76 +75,9 @@ public void workBenchAnd() throws Exception
 	loginHomePo.login(commonsPo, exploreSearchPo);
 
 	//sTaskName = tasksPo.addTask(commonsPo);
-toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
-toolsPo.configSync(commonsPo);
-
+//toolsPo.syncData(commonsPo);
 toolsPo.configSync(commonsPo);
 
-toolsPo.configSync(commonsPo);
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-
-//Fetching the task name and checking if the task is present on the server.
-String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+sTaskName+"\'";
-
-String sTaskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");
-Assert.assertTrue(sTaskcount.equals("1"));
-ExtentManager.logger.log(Status.PASS,"Tasks updated successfully");
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
 
 }
 

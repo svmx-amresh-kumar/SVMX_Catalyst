@@ -141,30 +141,11 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		
-	
-		try {
-			//commonsPo.clickAllowPopUp();
-			checklistPo.Allowlocationbutton();
-		} catch (Exception e) {
-			ExtentManager.logger.log(Status.INFO, "Could not find the allow button popup");
-		}
 		
-		Thread.sleep(GenericLib.iHighSleep);
-
-		
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-		
-	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-		try {
-			//commonsPo.clickAllowPopUp();
-			checklistPo.Allowlocationbutton();
-
-		} catch (Exception e) {
-			ExtentManager.logger.log(Status.INFO, "Could not find the allow button popup");
-		}
-					
 		// tapping on the validation successful checklist popup
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
@@ -213,28 +194,27 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertFalse(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
 		ExtentManager.logger.log(Status.PASS,"Section two question two is not displayed in the OPDOC as it is a skipped section");
 
-		workOrderPo.getEleDoneLnk().click();
+		//workOrderPo.getEleDoneLnk().click();
 		commonsPo.tap(workOrderPo.getEleDoneLnk());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
 		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-		Thread.sleep(GenericLib.iLowSleep);
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(genericLib.iMedSleep);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		// Verifying if checklistopdoc is synced to server
 	  	System.out.println("Validating if OPDOC attachment is syned to server.");
-	  	Thread.sleep(GenericLib.iMedSleep);
+	  	Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.iMedSleep);
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		restServices.getAccessToken();

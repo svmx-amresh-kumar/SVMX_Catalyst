@@ -36,7 +36,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 
 	// checklist q's set--
 	
-	String sDateq = "Date DVR";
+	String sDateq = "Date DVRVS";
 	String sDateTimeq = "DateTime DVR";
 	String sConfirmationDVRq = "Confirmation DVR number cannot be 10";	
 	
@@ -108,7 +108,10 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		
 		checklistPo.geteleChecklistAnsDate(sDateq).click();
 	    commonsPo.switchContext("Native");
-	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	    System.out.println("SEt to native view now will click done");
+	    Thread.sleep(GenericLib.iLowSleep);
+	    commonsPo.getEleDonePickerWheelBtn().click();
+	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn2());
 	    commonsPo.switchContext("WebView");
 	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");	    
 	    System.out.println("direct sdatetime"+sDateAns);	    
@@ -117,7 +120,8 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    
 	    checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
 	    commonsPo.switchContext("Native");
-	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	    commonsPo.getEleDonePickerWheelBtn().click();
 	    commonsPo.switchContext("WebView");
 	    sDateTimeAns = checklistPo.geteleChecklistAnsDate(sDateTimeq).getAttribute("value");	    
 	    System.out.println("direct sdatetime"+sDateTimeAns);	
@@ -165,9 +169,9 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 
 		// Navigating back to work Orders

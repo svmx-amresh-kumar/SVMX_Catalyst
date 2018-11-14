@@ -106,7 +106,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //==============================================================================================
 			
 				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_001);
-				for(int i=0;i<sDependentPicklist_CP_001.length;i++) {
+				for(int i=0;i<sDependentPicklist_CP_001.length-1;i++) {
 					if(sExpectedValues2[i].equals(sDependentPicklist_CP_001[i]))
 							{
 						ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Controlling Picklist Values match");

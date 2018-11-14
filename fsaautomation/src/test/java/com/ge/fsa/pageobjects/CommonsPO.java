@@ -65,7 +65,7 @@ public class CommonsPO
 		return elePickerWheelPopUp;
 	}
 	
-	@FindBy(name="Done")
+	@FindBy(xpath="//*[@name='Done']")
 	private WebElement eleDonePickerWheelBtn;
 	public WebElement getEleDonePickerWheelBtn()
 	{
@@ -110,12 +110,12 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		//try {
+		Thread.sleep(2000);
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		Point point =  wElement.getLocation();
-		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+		System.out.println("Acting element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		for (int i = 0; i < 10; i++) {
 			if (point.getX() == 0 || point.getY() == 0) {
@@ -137,33 +137,59 @@ public class CommonsPO
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
-				System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+
+				int counter =0;
+				while(counter < 5 ) {
+
+					switchContext("Native");
+					try {
+						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+
+						System.out.println("Android Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+						switchContext("Webview");
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().point(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						
+					}
+					switchContext("Webview");
+					point = wElement.getLocation();
+					counter++;
+				}switchContext("Webview");
 
 			} else {
-				System.out.println("Scrolling to the Offsets");
 				
 				int counter =0;
-				while(isDisplayedCust(wElement) != true ) {
-					switchContext("Webview");
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				HashMap<String, String> swipeParam = new HashMap<String, String>();
-				swipeParam.put("direction", "up");
-				js.executeScript("mobile: scroll", swipeParam);				//Getting the New Location
-				switchContext("Webview");
-				point =  wElement.getLocation();
-				counter++;
-				if(counter == 20) {
-					break;
-				}
-				}
-				switchContext("Native");
+				while(counter < 5 ) {
 
-				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+					switchContext("Native");
+					try {
+						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+						touchAction
+								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+								.perform();
+						switchContext("Webview");
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().point(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+					
+					}
+					switchContext("Webview");
+					point = wElement.getLocation();
+					counter++;
+				}switchContext("Webview");
 
 			}
-			switchContext("Webview");
+			
 
 		}else {
 			//For IOS
@@ -174,18 +200,11 @@ public class CommonsPO
 
 			} else {
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
 		}
 
-		
-		Thread.sleep(GenericLib.iLowSleep);
-//		}catch(Exception e) {
-//			System.out.println("TAP Exception : "+e);
-//		}
-		//switchContext("Webview");
 
 	}
 	//Customised touch Tap
@@ -270,7 +289,7 @@ public class CommonsPO
 			int xOff = x+100;
 			//int yOff = y-100;
 			touchAction = new TouchAction(driver);
-			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 0)).release().perform();
+			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
 		}
 		
 		
@@ -294,16 +313,7 @@ public class CommonsPO
 		 * To switch context between Native and Webview, defaults to Webview always
 		 * @param sContext
 		 */
-		public void switchContext(String sContext) {
-			//			iterator = driver.getContextHandles().iterator();
-			//			while(iterator.hasNext()){
-			//				sNativeApp = iterator.next();
-			//				sWebView = iterator.next();
-			//			}
-			//			if(sContext.equalsIgnoreCase("Native"))
-			//			{driver.context(sNativeApp);}
-			//			else {driver.context(sWebView);}
-			//			
+		public void switchContext(String sContext) {		
 
 			Set contextNames = driver.getContextHandles();
 			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
@@ -313,15 +323,20 @@ public class CommonsPO
 
 			sNativeApp = contextNames.toArray()[0].toString();
 			sWebView = contextNames.toArray()[1].toString();
+			try {
+				if (sContext.equalsIgnoreCase("Native")) {
+					driver.context(sNativeApp);
+					System.out.println("Setting Context = "+sNativeApp);
+				} else {
+					driver.context(sWebView);
+					System.out.println("Setting Context = "+sWebView);
 
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = "+sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = "+sWebView);
-
+				}
+			} catch (Exception e) {
+				// TODO: handle exceptions
+				System.out.println("Could not find switch the context");
 			}
+			
 		}
 		
 		//To set the value in PicsetPickerWheelValue(ive app
@@ -331,7 +346,8 @@ public class CommonsPO
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
-			tap(getEleDonePickerWheelBtn());
+			getEleDonePickerWheelBtn().click();
+		//	tap(getEleDonePickerWheelBtn());
 			switchContext("WebView");
 		}
 		
@@ -694,17 +710,21 @@ public class CommonsPO
 		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
 		 * @throws InterruptedException 
 		 */
-		public void clickAllowPopUp() throws InterruptedException {
+	public void clickAllowPopUp() throws InterruptedException {
+
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
-try{	
+		try {
 			driver.findElementByAccessibilityId("Always Allow").click();
-		}catch(Exception e){	
-		driver.findElementByAccessibilityId("Allow").click();
-		}		Thread.sleep(GenericLib.iLowSleep);
+		} catch (Exception e) {
+			driver.findElementByAccessibilityId("Allow").click();
+			switchContext("Webview");
+		}
+		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
-		}
+
+	}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException
 		{
@@ -749,7 +769,8 @@ try{
 		 */
 		public boolean isDisplayedCust(WebElement wElement) {
 			boolean isDis = false;
-			try{wElement.isDisplayed();
+			switchContext("Webview");
+			try{				System.out.println("Element Is displayed ===== "+wElement.isDisplayed());
 			if(wElement.isDisplayed()) {
 				System.out.println("Element Is displayed returning true");
 				return true;

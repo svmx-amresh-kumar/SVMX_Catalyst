@@ -68,7 +68,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(genericLib.iMedSleep);

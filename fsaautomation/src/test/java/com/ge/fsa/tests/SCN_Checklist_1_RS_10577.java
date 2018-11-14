@@ -36,13 +36,14 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	String sOrderStatusVal =null;
 	String sEditProcessName = null;
 	String sSheetName =null;
+	String sNoOfTimesAssigned = null;
 	
 	//checklist q's set--
-			String sTextq = "Which City you are from?";
-			String sPicklistq = "What is the Order Status?";
-			String sNumberq = "What is the IdleTime?";
-			String sDateq = "What is the Scheduled Date?";
-			String sDatetimeq = "What is the ScheduledDatetime?";
+			String sTextq = "AUTO_Which City you are from?";
+			String sPicklistq = "AUTO_What is the Order Status?";
+			String sNumberq = "AUTO_What is the IdleTime?";
+			String sDateq = "AUTO_What is the Scheduled Date?";
+			String sDatetimeq = "AUTO_What is the ScheduledDatetime?";
 			String sTextAns = null;	String sPicklistAns = null;String sNumberAns; String sDateAns=null;String sDatetimeAns=null;				
 			
 	//Checklist PreFill Values
@@ -72,7 +73,6 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		sSheetName ="RS_10577";
 
 		System.out.println("SCN_RS10577_Checklist_SOU");
-
 		String time = driver.getDeviceTime();
 		System.out.println(time);
 		sScheduledDateSOU=driver.getDeviceTime().split(" ");
@@ -147,9 +147,9 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 				
 		//submitting of checklist
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		
 		//Navigating back to work Orders
@@ -177,9 +177,12 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Picklist Sucessfull");
 			
 			//2.Number 
-			sIdleTime = workOrderPo.geteleIdleTimetxt().getAttribute("value");
-			System.out.println(sIdleTime);
-		 	Assert.assertEquals(workOrderPo.geteleIdleTimetxt().getAttribute("value"), sIdleTimeSOU, "Number Source Object is not updated");
+			
+			sNoOfTimesAssigned = workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value");
+			
+			//sIdleTime = workOrderPo.geteleIdleTimetxt().getAttribute("value");
+			System.out.println(sNoOfTimesAssigned);
+		 	Assert.assertEquals(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value"), sNooftimesAssignedSOU, "Number Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Number with value  Sucessfull");
 
 			/*//3.DateTime

@@ -110,9 +110,12 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		Thread.sleep(genericLib.iHighSleep);
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
+		System.out.println("completed allow triess..now will go to submit");
+		
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+	//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		// tapping on the validation successful checklist popup
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");	
@@ -141,8 +144,11 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		//checklistPo.Allowlocationbutton();
-		commonsPo.tap(checklistPo.eleChecklistSubmit());		
+		commonsPo.tap(checklistPo.eleChecklistSubmit());
+		Thread.sleep(genericLib.iHighSleep);
 		// tapping on the validation successful checklist popup
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
@@ -208,7 +214,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				commonsPo.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
-				checklistPo.Allowlocationbutton();
+				//checklistPo.Allowlocationbutton();
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
 				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
@@ -315,14 +321,14 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 					// TODO: handle exception
 				}
 			 
-			 workOrderPo.getEleDoneLnk().click();
+			// workOrderPo.getEleDoneLnk().click();
 					
 			commonsPo.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 					
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -330,9 +336,10 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 			Thread.sleep(GenericLib.iLowSleep);			
 			toolsPo.syncData(commonsPo);
-		   Thread.sleep(genericLib.iHighSleep);
-		   Thread.sleep(genericLib.iHighSleep);
-		   Thread.sleep(genericLib.iHighSleep);
+			   Thread.sleep(GenericLib.iHighSleep);
+		   Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
+
 		// Verifying the Work details and the service report
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();

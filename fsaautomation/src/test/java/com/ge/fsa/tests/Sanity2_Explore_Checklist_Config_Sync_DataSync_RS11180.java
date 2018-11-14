@@ -59,7 +59,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
-		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
+		//sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
@@ -130,7 +130,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			//System.out.println("Setting  Date Question Answer");
 			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
 			commonsPo.switchContext("Native");
-		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.getEleDonePickerWheelBtn().click();
 		    commonsPo.switchContext("WebView");
 		    sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
 		    System.out.println("dateANS is "+sdateAns);
@@ -139,12 +140,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
-		      
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    //System.out.println("Setting dateTime Question Answer");
 		    checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
 		    commonsPo.switchContext("Native");
-		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.getEleDonePickerWheelBtn().click();
 		    commonsPo.switchContext("WebView");
 		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");	    
 		    System.out.println("direct sdatetime"+sdateTimeAns);	    
@@ -165,12 +168,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 
 		    //System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
 		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-		    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.geteleNext());
@@ -179,14 +184,12 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 			Thread.sleep(genericLib.iLowSleep);
 			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
