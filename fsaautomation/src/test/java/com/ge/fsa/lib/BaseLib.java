@@ -54,10 +54,13 @@ public class BaseLib {
 	public String sAppPath = null;
 	File app = null;
 	public String sOSName = null;
-
+	public String runMachine = null;
+	
 	@BeforeSuite
 	public void startServer()
 	{
+		//On setting RUN_MACHINE to "build" this config.properties file will be IGNORED and the config_build.properties file will be used to get data
+ runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
 	}
 	//@BeforeClass
@@ -67,9 +70,17 @@ public class BaseLib {
 		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
 		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
+		
+
+		
+		
 		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
 		
 		System.out.println("OS Name = "+sOSName.toLowerCase());
+		System.out.println("Running On Machine : "+runMachine);
+		if(runMachine.equals("build")) {
+			GenericLib.sConfigFile = System.getProperty("user.dir")+"//resources"+"//config_build.properties";
+		}
 		switch (sOSName) {
 		case "android":
 			try { 
@@ -107,7 +118,7 @@ public class BaseLib {
 					
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure");
+				ExtentManager.logger("BaseLib Failure "+"Running On Machine :"+runMachine);
 				 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				 ExtentManager.extent.flush();
 				throw e;
@@ -153,7 +164,7 @@ public class BaseLib {
 			
 		} catch (Exception e) {
 			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-			ExtentManager.logger("BaseLib Failure");
+			ExtentManager.logger("BaseLib Failure"+"Running On Machine :"+runMachine);
 			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 			 ExtentManager.extent.flush();
 			throw e;
@@ -196,7 +207,7 @@ public class BaseLib {
 
 		//Installing fresh
 				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
+				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")+" Running On Machine :"+runMachine);
 		
 				
 				try {
