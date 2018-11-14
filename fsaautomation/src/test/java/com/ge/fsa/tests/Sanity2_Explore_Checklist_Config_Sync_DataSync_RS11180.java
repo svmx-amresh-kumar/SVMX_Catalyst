@@ -140,7 +140,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
-		      
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    //System.out.println("Setting dateTime Question Answer");
 		    checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
