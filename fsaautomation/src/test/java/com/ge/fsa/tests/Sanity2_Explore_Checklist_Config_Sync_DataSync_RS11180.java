@@ -167,12 +167,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 
 		    //System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
 		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-		    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.geteleNext());
