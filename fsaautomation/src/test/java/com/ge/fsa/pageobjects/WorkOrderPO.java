@@ -1463,7 +1463,7 @@
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
@@ -1480,7 +1480,7 @@
 		public void navigateToWOSFMWithIcon(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
@@ -1522,7 +1522,7 @@
 		public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 	
 			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
-			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+			//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 			exploreSearchPO.getEleExploreSearchTxtFld().click();
