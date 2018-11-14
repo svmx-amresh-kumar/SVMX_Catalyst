@@ -113,16 +113,19 @@ public class CommonsPO
 		Thread.sleep(2000);
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-
-		Point point =  wElement.getLocation();
-		System.out.println("Acting element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
-
-		for (int i = 0; i < 10; i++) {
+		Point point = new Point(0, 0);
+		
+		
+		
+		for (int i = 0; i < 30; i++) {
+			try {
+			point =  wElement.getLocation();}
+			catch(Exception e) {}
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
 				Thread.sleep(2000);
-				point =  wElement.getLocation();
+				try{point =  wElement.getLocation();}catch(Exception e) {}
 				System.out.println("New fetch \n" + 
 						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
@@ -130,8 +133,9 @@ public class CommonsPO
 			}
 
 		}
-		
-		
+		System.out.println("Acting on element (ง•̀_•́)ง : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+
+		//Switch the tap based on ANDROID or WINDOWS
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
 			//For Android add *2 if real device
 			switchContext("Native");
