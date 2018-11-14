@@ -43,10 +43,11 @@ public class SCN_RS_10543 extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
-						
+			
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		
 	}
 
 	@Test(enabled = true)
@@ -186,7 +187,6 @@ public class SCN_RS_10543 extends BaseLib {
 				postCleanup();toolsPo.syncData(commonsPo);
 				Thread.sleep(GenericLib.iMedSleep);
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up is successful");
-
 			}
 		}
 	}
