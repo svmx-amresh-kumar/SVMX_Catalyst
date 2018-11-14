@@ -26,7 +26,6 @@ public class SCN_RS_10543 extends BaseLib {
 	String sProductName = null;
 	String sBillingType = null;
 	
-	
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
@@ -57,7 +56,7 @@ public class SCN_RS_10543 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
 		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
-		
+		try {
 		preRequiste();
 		//sWOName="WO-00004442";
 		//sCaseID="00001211";
@@ -123,8 +122,6 @@ public class SCN_RS_10543 extends BaseLib {
 		//Navigation to SFM
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		Thread.sleep(GenericLib.iMedSleep);
-		//commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
@@ -166,8 +163,6 @@ public class SCN_RS_10543 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		
-		
 		/*
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
 		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
@@ -175,10 +170,25 @@ public class SCN_RS_10543 extends BaseLib {
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
 		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
 		*/
-		
-		//Cleanup code to reset download criteria to All Records
-		postCleanup();
-	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
+
+		}
+		finally
+		{	try {
+				postCleanup();toolsPo.syncData(commonsPo);
+				Thread.sleep(GenericLib.iMedSleep);
+				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up  is successful");
+
+			}catch(Exception e) {
+				postCleanup();toolsPo.syncData(commonsPo);
+				Thread.sleep(GenericLib.iMedSleep);
+				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up is successful");
+
+			}
+		}
 	}
 
 	
