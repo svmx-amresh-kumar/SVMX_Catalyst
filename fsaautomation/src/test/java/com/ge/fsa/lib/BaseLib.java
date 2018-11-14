@@ -59,8 +59,7 @@ public class BaseLib {
 	@BeforeSuite
 	public void startServer()
 	{
-		//On setting RUN_MACHINE to "build" this config.properties file will be IGNORED and the config_build.properties file will be used to get data
- runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+
 
 	}
 	//@BeforeClass
@@ -72,7 +71,8 @@ public class BaseLib {
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 		
 
-		
+		//On setting RUN_MACHINE to "build" this config.properties file will be IGNORED and the config_build.properties file will be used to get data
+		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 		
 		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
 		
@@ -119,8 +119,8 @@ public class BaseLib {
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
 				ExtentManager.logger("BaseLib Failure "+"Running On Machine :"+runMachine);
-				 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-				 ExtentManager.extent.flush();
+				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+				ExtentManager.extent.flush();
 				throw e;
 			} 
 			break;
@@ -165,8 +165,8 @@ public class BaseLib {
 		} catch (Exception e) {
 			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
 			ExtentManager.logger("BaseLib Failure"+"Running On Machine :"+runMachine);
-			 ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-			 ExtentManager.extent.flush();
+			ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+			ExtentManager.extent.flush();
 			throw e;
 		} 
 		
@@ -226,7 +226,7 @@ public class BaseLib {
 	public void startReport(ITestResult result) {
 		lauchNewApp("true");
 		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
-		 ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		 
 	}
 	
