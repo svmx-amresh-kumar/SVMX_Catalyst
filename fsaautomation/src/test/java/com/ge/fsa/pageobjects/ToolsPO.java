@@ -204,13 +204,10 @@ public class ToolsPO
 			
 			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", GenericLib.lWaitTime)) {
 				System.out.println("Sync Completed Sucessfully-tools po");
-
 			}else {
 				System.out.println("Sync Failed");
-
 			}
 																	
-			
 			//Verification of successful sync
 			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
 			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
