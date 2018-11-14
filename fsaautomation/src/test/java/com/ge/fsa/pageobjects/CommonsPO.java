@@ -117,7 +117,7 @@ public class CommonsPO
 		
 		
 		
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 10; i++) {
 			try {
 			point =  wElement.getLocation();}
 			catch(Exception e) {}
@@ -133,7 +133,7 @@ public class CommonsPO
 			}
 
 		}
-		System.out.println("Acting on element (ง•̀_•́)ง : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		//Switch the tap based on ANDROID or WINDOWS
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
