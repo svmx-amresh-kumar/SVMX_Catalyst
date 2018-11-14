@@ -110,12 +110,12 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		//switchContext("Webview");
+		Thread.sleep(2000);
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		Point point =  wElement.getLocation();
-		System.out.println("Tapping element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+		System.out.println("Acting element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		for (int i = 0; i < 10; i++) {
 			if (point.getX() == 0 || point.getY() == 0) {
@@ -143,7 +143,7 @@ public class CommonsPO
 
 					switchContext("Native");
 					try {
-						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
 								+ point.getX() + "---" + point.getY());
 
 						System.out.println("Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
@@ -169,7 +169,7 @@ public class CommonsPO
 
 					switchContext("Native");
 					try {
-						System.out.println("Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
 								+ point.getX() + "---" + point.getY());
 						touchAction
 								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
