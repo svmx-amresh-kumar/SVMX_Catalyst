@@ -94,8 +94,10 @@ public class ExploreSearchPO
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{
-		getEleExploreSearchTxtFld().click();
-		try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		
+		commonsPo.tap(getEleExploreSearchTxtFld());
+		//getEleExploreSearchTxtFld().click();
+		try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		getEleExploreSearchTxtFld().clear();
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(getEleExploreSearchBtn());

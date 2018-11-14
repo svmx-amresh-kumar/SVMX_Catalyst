@@ -161,6 +161,11 @@ public class ChecklistPO{
 		return eleChecklistCheckboxValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistCheckbox+"']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input"));
 	}
 	
+	private WebElement eleChecklistAttach;
+	public WebElement geteleChecklistAttach(String checklistq)
+	{
+		return eleChecklistAttach = driver.findElement(By.xpath("//div[text()='"+checklistq+"']/../..//div[@class='x-component x-label x-stretched x-widthed sfm-checklist-attach-label x-layout-box-item x-layout-hbox-item x-flexed']/div"));
+	}
 	
 	//"//span[@class='x-label-text-el'][text()='RadioOne']/../..//input")
 	private WebElement eleChecklistRadioButtonValue;
