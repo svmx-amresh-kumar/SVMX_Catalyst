@@ -108,7 +108,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
-			Thread.sleep(15000);
+			Thread.sleep(2000);
 			
 
 			//System.out.println("Going to Enter checklist");
