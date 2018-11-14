@@ -148,18 +148,17 @@ public class CommonsPO
 
 						System.out.println("Android Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
 						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
-
+						switchContext("Webview");
 						break;
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
 						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
-						switchContext("Webview");
-
-						point = wElement.getLocation();
+						
 					}
-
+					switchContext("Webview");
+					point = wElement.getLocation();
 					counter++;
 				}switchContext("Webview");
 
@@ -175,22 +174,22 @@ public class CommonsPO
 						touchAction
 								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
 								.perform();
+						switchContext("Webview");
 						break;
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
 						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
-						switchContext("Webview");
-
-						point = wElement.getLocation();
+					
 					}
-
+					switchContext("Webview");
+					point = wElement.getLocation();
 					counter++;
-				}
+				}switchContext("Webview");
 
 			}
-			switchContext("Webview");
+			
 
 		}else {
 			//For IOS
@@ -201,7 +200,6 @@ public class CommonsPO
 
 			} else {
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
