@@ -124,7 +124,9 @@ public class CommonsPO
 				System.out.println("waiting... for element \n" + 
 						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
 				Thread.sleep(1000);
-				point =  wElement.getLocation();
+				try {
+					point =  wElement.getLocation();}
+					catch(Exception e) {}
 				System.out.println("New fetch \n" + 
 						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
 			} else {
