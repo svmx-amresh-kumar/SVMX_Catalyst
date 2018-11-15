@@ -717,9 +717,12 @@ public class CommonsPO
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 		try {
-			driver.findElementByName("Always Allow").click();
+			//driver.findElementByName("Always Allow").click();
+			driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 		} catch (Exception e) {
-			driver.findElementByName("Allow").click();
+			//driver.findElementByName("Allow").click();
+			driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
+
 		}
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
