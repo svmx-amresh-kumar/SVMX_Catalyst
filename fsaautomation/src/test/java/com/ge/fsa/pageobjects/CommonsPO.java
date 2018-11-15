@@ -209,7 +209,7 @@ public class CommonsPO
 		}
 		catch(Exception e) {
 			System.out.println("Tap Exception : " + e);
-			ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + e);
+			ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
 		}finally {
 		try {wElement.click(); return;}catch(Exception e) {}
 		}

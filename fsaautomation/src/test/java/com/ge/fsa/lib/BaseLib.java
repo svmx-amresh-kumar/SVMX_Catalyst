@@ -99,7 +99,7 @@ public class BaseLib {
 					capabilities.setCapability("locationServicesAuthorized", true);
 					capabilities.setCapability("locationServicesEnabled",true);
 					capabilities.setCapability("clearSystemFiles", true);
-					capabilities.setCapability("newCommandTimeout", 60);
+					capabilities.setCapability("newCommandTimeout", 5000);
 					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
 					capabilities.setCapability("automationName", "uiautomator2");
 					capabilities.setCapability("unicodeKeyboard", true);
@@ -151,7 +151,7 @@ public class BaseLib {
 			capabilities.setCapability("locationServicesAuthorized", true);
 			capabilities.setCapability("locationServicesEnabled",true);
 			capabilities.setCapability("clearSystemFiles", true);
-			capabilities.setCapability("newCommandTimeout", 60);
+			capabilities.setCapability("newCommandTimeout", 5000);
 			capabilities.setCapability("autoAcceptAlerts", true);
 
 			
