@@ -78,7 +78,7 @@ public class ExploreSearchPO
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
-		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(.,'"+sExploreChildSearchTxt+"')]"));
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
 		return eleExploreChildSearchTxt;
 	}
 	
@@ -97,7 +97,7 @@ public class ExploreSearchPO
 		commonsPo.tap(getEleExploreSearchTxtFld());
 		//getEleExploreSearchTxtFld().click();
 		try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
-		//getEleExploreSearchTxtFld().clear();
+		getEleExploreSearchTxtFld().clear();
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(getEleExploreSearchBtn());
 		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
