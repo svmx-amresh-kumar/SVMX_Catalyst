@@ -78,7 +78,7 @@ public class RestServices
         }
         JSONObject json = new JSONObject(stringBuilder.toString());
 		sAccessToken = (String) json.get("access_token");
-		System.out.println("AccessToken: "+sAccessToken);
+		System.out.println("AccessToken : "+sAccessToken);
 		httpsUrlCon.disconnect();
 		
 	}

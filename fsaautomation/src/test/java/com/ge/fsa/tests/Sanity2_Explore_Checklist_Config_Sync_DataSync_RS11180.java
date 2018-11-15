@@ -74,7 +74,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
+		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
 		
 		
@@ -108,7 +108,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
-			Thread.sleep(15000);
+			Thread.sleep(2000);
 			
 
 			//System.out.println("Going to Enter checklist");
@@ -140,7 +140,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
-		      
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    //System.out.println("Setting dateTime Question Answer");
 		    checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
@@ -167,12 +168,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 
 		    //System.out.println("Setting Radio button  Question Answer");
 		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
 		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-		    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+
 		    
 		    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.geteleNext());
@@ -181,14 +184,12 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 			Thread.sleep(genericLib.iLowSleep);
 			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
 
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
