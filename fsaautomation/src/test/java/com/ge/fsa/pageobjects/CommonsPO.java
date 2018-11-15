@@ -116,12 +116,12 @@ public class CommonsPO
 		
 		Point point = new Point(0, 0);
 		
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			
 			try {point =  wElement.getLocation();}catch(Exception e) {}
 			
 			if (point.getX() == 0 || point.getY() == 0) {
-				System.out.println("waiting... for element ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+				System.out.println("waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
 				Thread.sleep(1000);
 				
 			} else {
@@ -194,7 +194,6 @@ public class CommonsPO
 
 		}else {
 			//For IOS
-			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
 				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
@@ -205,9 +204,9 @@ public class CommonsPO
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
-			switchContext("Webview");
+			
 		}
-		switchContext("Webview");
+		
 
 	}
 	//Customised touch Tap
