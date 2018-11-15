@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -109,18 +110,18 @@ public class CommonsPO
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
+	public void tap(WebElement  wElement, int... optionalOffsetPointsxy){
 		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-		
+		try {
 		Point point = new Point(0, 0);
 		for (int i = 0; i < 3; i++) {
 			
 			try {point =  wElement.getLocation();}catch(Exception e) {}
 			
 			if (point.getX() == 0 || point.getY() == 0) {
-				System.out.println("waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+				System.out.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
 				Thread.sleep(1000);
 				
 			} else {
@@ -205,7 +206,13 @@ public class CommonsPO
 			}
 			
 		}
+		}
+		catch(Exception e) {
+			System.out.println("Tap Exception : " + e);
+			ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + e);
+		}finally {
 		try {wElement.click(); return;}catch(Exception e) {}
+		}
 
 	}
 	//Customised touch Tap
