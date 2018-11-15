@@ -720,10 +720,9 @@ public class CommonsPO
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 		try {
-			driver.findElementByAccessibilityId("Always Allow").click();
+			driver.findElementByName("Always Allow").click();
 		} catch (Exception e) {
-			driver.findElementByAccessibilityId("Allow").click();
-			switchContext("Webview");
+			driver.findElementByName("Allow").click();
 		}
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
