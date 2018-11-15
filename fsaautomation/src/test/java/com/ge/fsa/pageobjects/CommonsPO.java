@@ -110,28 +110,29 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		Thread.sleep(2000);
+		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-
-		Point point =  wElement.getLocation();
-		System.out.println("Acting element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
-
-		for (int i = 0; i < 10; i++) {
+		
+		Point point = new Point(0, 0);
+		
+		for (int i = 0; i < 5; i++) {
+			
+			try {point =  wElement.getLocation();}catch(Exception e) {}
+			
 			if (point.getX() == 0 || point.getY() == 0) {
-				System.out.println("waiting... for element \n" + 
-						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
-				Thread.sleep(2000);
-				point =  wElement.getLocation();
-				System.out.println("New fetch \n" + 
-						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
+				System.out.println("waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+				Thread.sleep(1000);
+				
 			} else {
+				System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 				break;
 			}
 
 		}
-		
-		
+		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+
+		//Switch the tap based on ANDROID or WINDOWS
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
 			//For Android add *2 if real device
 			switchContext("Native");
@@ -148,20 +149,20 @@ public class CommonsPO
 
 						System.out.println("Android Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
 						touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
-
+						switchContext("Webview");
 						break;
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
 						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
-						switchContext("Webview");
-
-						point = wElement.getLocation();
+						
 					}
-
+					switchContext("Webview");
+					point = wElement.getLocation();
 					counter++;
-				}
+				}switchContext("Webview");
+
 			} else {
 				
 				int counter =0;
@@ -174,22 +175,22 @@ public class CommonsPO
 						touchAction
 								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
 								.perform();
+						switchContext("Webview");
 						break;
 					} catch (Exception e) {
 						System.out.println("Scrolling the page");
 						switchContext("Native");
 						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
-						switchContext("Webview");
-
-						point = wElement.getLocation();
+					
 					}
-
+					switchContext("Webview");
+					point = wElement.getLocation();
 					counter++;
-				}
+				}switchContext("Webview");
 
 			}
-			switchContext("Webview");
+			
 
 		}else {
 			//For IOS
@@ -200,12 +201,12 @@ public class CommonsPO
 
 			} else {
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
+			
 		}
-
+		
 
 	}
 	//Customised touch Tap
@@ -314,16 +315,7 @@ public class CommonsPO
 		 * To switch context between Native and Webview, defaults to Webview always
 		 * @param sContext
 		 */
-		public void switchContext(String sContext) {
-			//			iterator = driver.getContextHandles().iterator();
-			//			while(iterator.hasNext()){
-			//				sNativeApp = iterator.next();
-			//				sWebView = iterator.next();
-			//			}
-			//			if(sContext.equalsIgnoreCase("Native"))
-			//			{driver.context(sNativeApp);}
-			//			else {driver.context(sWebView);}
-			//			
+		public void switchContext(String sContext) {		
 
 			Set contextNames = driver.getContextHandles();
 			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
@@ -720,24 +712,20 @@ public class CommonsPO
 		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
 		 * @throws InterruptedException 
 		 */
-		public void clickAllowPopUp() throws InterruptedException {
-			try {
+	public void clickAllowPopUp() throws InterruptedException {
+
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
-try{	
-			driver.findElementByAccessibilityId("Always Allow").click();
-		}catch(Exception e){	
-		driver.findElementByAccessibilityId("Allow").click();
-		}		
+		try {
+			driver.findElementByName("Always Allow").click();
+		} catch (Exception e) {
+			driver.findElementByName("Allow").click();
+		}
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
-			}
-			catch(Exception e)
-			{
-				
-			}
-		}
+
+	}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException
 		{

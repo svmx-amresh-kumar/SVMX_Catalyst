@@ -1464,9 +1464,9 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.iLowSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
