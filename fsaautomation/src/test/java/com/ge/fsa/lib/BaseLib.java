@@ -108,7 +108,7 @@ public class BaseLib {
 					capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
 				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-				   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				   driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 					
 					
 					ExtentManager.getInstance(driver);
@@ -157,7 +157,7 @@ public class BaseLib {
 			
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
-			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			
 			
 			ExtentManager.getInstance(driver);

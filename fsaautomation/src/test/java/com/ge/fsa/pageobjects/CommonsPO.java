@@ -115,8 +115,7 @@ public class CommonsPO
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 		
 		Point point = new Point(0, 0);
-		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			
 			try {point =  wElement.getLocation();}catch(Exception e) {}
 			
@@ -206,7 +205,7 @@ public class CommonsPO
 			}
 			
 		}
-		
+		try {wElement.click(); return;}catch(Exception e) {}
 
 	}
 	//Customised touch Tap
