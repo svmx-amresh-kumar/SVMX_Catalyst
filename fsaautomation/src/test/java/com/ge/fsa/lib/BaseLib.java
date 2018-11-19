@@ -99,15 +99,16 @@ public class BaseLib {
 					capabilities.setCapability("locationServicesAuthorized", true);
 					capabilities.setCapability("locationServicesEnabled",true);
 					capabilities.setCapability("clearSystemFiles", true);
-					capabilities.setCapability("newCommandTimeout", 10000);
+					capabilities.setCapability("newCommandTimeout", 5000);
 					capabilities.setCapability("setWebContentsDebuggingEnabled", true);
 					capabilities.setCapability("automationName", "uiautomator2");
 					capabilities.setCapability("unicodeKeyboard", true);
 					capabilities.setCapability("resetKeyboard", true);
+					capabilities.setCapability("autoAcceptAlerts", true);
 					capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
 				   driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-				   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				   driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 					
 					
 					ExtentManager.getInstance(driver);
@@ -150,11 +151,13 @@ public class BaseLib {
 			capabilities.setCapability("locationServicesAuthorized", true);
 			capabilities.setCapability("locationServicesEnabled",true);
 			capabilities.setCapability("clearSystemFiles", true);
-			capabilities.setCapability("newCommandTimeout", 1000000);
+			capabilities.setCapability("newCommandTimeout", 5000);
+			capabilities.setCapability("autoAcceptAlerts", true);
+
 			
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 			
-			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			
 			
 			ExtentManager.getInstance(driver);

@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -109,29 +110,29 @@ public class CommonsPO
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException {
-		Thread.sleep(2000);
+	public void tap(WebElement  wElement, int... optionalOffsetPointsxy){
+		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-
-		Point point =  wElement.getLocation();
-		System.out.println("Acting element " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
-
-		for (int i = 0; i < 10; i++) {
+		try {
+		Point point = new Point(0, 0);
+		for (int i = 0; i < 3; i++) {
+			
+			try {point =  wElement.getLocation();}catch(Exception e) {}
+			
 			if (point.getX() == 0 || point.getY() == 0) {
-				System.out.println("waiting... for element \n" + 
-						"¯\\_(ツ)_/¯" + point.getX() + "---" + point.getY());
-				Thread.sleep(2000);
-				point =  wElement.getLocation();
-				System.out.println("New fetch \n" + 
-						"ヽ(´▽`)/" + point.getX() + "---" + point.getY());
+				System.out.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+				Thread.sleep(1000);
+				
 			} else {
+				System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 				break;
 			}
 
 		}
-		
-		
+		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+
+		//Switch the tap based on ANDROID or WINDOWS
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
 			//For Android add *2 if real device
 			switchContext("Native");
@@ -203,8 +204,15 @@ public class CommonsPO
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
+			
 		}
-
+		}
+		catch(Exception e) {
+			System.out.println("Tap Exception : " + e);
+			ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
+		}finally {
+		try {wElement.click(); return;}catch(Exception e) {}
+		}
 
 	}
 	//Customised touch Tap
@@ -289,7 +297,9 @@ public class CommonsPO
 			int xOff = x+100;
 			//int yOff = y-100;
 			touchAction = new TouchAction(driver);
-			touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
+			//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(0, 0)).release().perform();
+
+		touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
 		}
 		
 		
@@ -715,10 +725,12 @@ public class CommonsPO
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
 		try {
-			driver.findElementByAccessibilityId("Always Allow").click();
+			//driver.findElementByName("Always Allow").click();
+			driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 		} catch (Exception e) {
-			driver.findElementByAccessibilityId("Allow").click();
-			switchContext("Webview");
+			//driver.findElementByName("Allow").click();
+			driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
+
 		}
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Webview");

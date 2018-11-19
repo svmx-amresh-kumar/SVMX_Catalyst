@@ -74,7 +74,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
+		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
 		
 		
@@ -108,7 +108,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
-			Thread.sleep(15000);
+			Thread.sleep(2000);
 			
 
 			//System.out.println("Going to Enter checklist");

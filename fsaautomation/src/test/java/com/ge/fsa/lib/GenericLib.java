@@ -123,7 +123,9 @@ public class GenericLib
 	
 	
 	public void executeSahiScript(String sSahiScript, String sTestCaseID ) throws Exception
-	{	//Create Shell script to execute Sahi file
+	{	
+		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
+		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
 		File file = new File(GenericLib.sShellFile);
 		Runtime.getRuntime().exec("chmod u+x " +file);
