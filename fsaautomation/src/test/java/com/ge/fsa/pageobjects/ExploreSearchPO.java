@@ -62,7 +62,8 @@ public class ExploreSearchPO
 		return eleExploreSearchBtn;
 	}
 	
-	@FindBy(xpath="//span[text()='Reset filter']")
+	@FindBy(xpath="//div[@class='x-component x-button x-button-button-sfmsearch-search x-component-button-sfmsearch-search x-button-no-icon x-stretched sfmsearch-search-button x-haslabel x-layout-box-item x-layout-hbox-item']//span[@class='x-button-label'][text()='Reset filter']")
+	//@FindBy(xpath="//span[text()='Reset filter']")
 	private WebElement eleResetFilerBtn;
 	public WebElement getEleResetFilerBtn()
 	{
@@ -92,12 +93,16 @@ public class ExploreSearchPO
 	
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
-	{
-		
+	{		
 		commonsPo.tap(getEleExploreSearchTxtFld());
+		//getEleExploreSearchTxtFld().click();;
 		//getEleExploreSearchTxtFld().click();
-		try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+			//getEleExploreSearchTxtFld().click();
+	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+		commonsPo.tap(getEleExploreSearchTxtFld());
+		System.out.println("VT printing WORK ORDER NO:"+sWOName);
 		getEleExploreSearchTxtFld().clear();
+		
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(getEleExploreSearchBtn());
 		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));

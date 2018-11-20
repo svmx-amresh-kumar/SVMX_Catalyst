@@ -13,6 +13,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -26,6 +27,7 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -50,6 +52,7 @@ public class CommonsPO
 	}
 	AppiumDriver driver = null;
 	TouchAction touchAction = null;	
+	IOSTouchAction iosTouchAction = null;
 	Iterator<String> iterator =null;
 	public static String sNativeApp = null;
 	public static String sWebView = null;		
@@ -57,6 +60,7 @@ public class CommonsPO
 	int yOffset = 18;
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
+	Point point = null;
 	public BaseLib baseLib = new BaseLib();		
 
 	@FindBy(className="XCUIElementTypePickerWheel")	
@@ -110,7 +114,7 @@ public class CommonsPO
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement  wElement, int... optionalOffsetPointsxy){
+	/*public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
 		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
@@ -133,6 +137,7 @@ public class CommonsPO
 		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		//Switch the tap based on ANDROID or WINDOWS
+		try {
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
 			//For Android add *2 if real device
 			switchContext("Native");
@@ -191,8 +196,8 @@ public class CommonsPO
 
 			}
 			
-
-		}else {
+		}
+		}catch(Exception e) {
 			//For IOS
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
@@ -209,18 +214,53 @@ public class CommonsPO
 		}
 		catch(Exception e) {
 			System.out.println("Tap Exception : " + e);
-			ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
-		}finally {
-		try {wElement.click(); return;}catch(Exception e) {}
-		}
-
+		ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
+	}finally {
+	try {wElement.click(); return;}catch(Exception e) {}
 	}
-	//Customised touch Tap
+
+	}*/
+	
+	
+	
 			public void singleTap(Point point) throws InterruptedException
 			{
 				touchAction = new TouchAction(driver);
 				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 				Thread.sleep(GenericLib.iLowSleep);
+			}
+			
+			//Customised touch tap version 2.0
+			public void tap(WebElement element) throws InterruptedException
+			{
+				
+				waitforElement(element, GenericLib.i30SecSleep);
+				point = element.getLocation();
+						iosTouchAction = new IOSTouchAction(driver);
+					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			
+				
+				/*
+				touchAction = new TouchAction(driver);
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			
+				*/Thread.sleep(GenericLib.iLowSleep);
+			}
+			
+			public void tap(WebElement element, int...iOffset) throws InterruptedException
+			{
+				
+				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
+				waitforElement(element, GenericLib.i30SecSleep);
+				point = element.getLocation();
+				iosTouchAction = new IOSTouchAction(driver);
+				iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
+				
+				/*
+				touchAction = new TouchAction(driver);
+				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+			
+				*/Thread.sleep(GenericLib.iLowSleep);
 			}
 			
 		
@@ -254,11 +294,17 @@ public class CommonsPO
 		}
 		
 		//Customised touch Doubletap
-		public void doubleTap(WebElement  wElement) throws InterruptedException
+		public void doubleTap(WebElement  element) throws InterruptedException
 		{
+			waitforElement(element, GenericLib.i30SecSleep);
+			
+			point = element.getLocation();
 			touchAction = new TouchAction(driver);
-			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) wElement)).perform();
+			
+			//touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) element)).perform();
+			touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)element)).perform(); 
 			Thread.sleep(GenericLib.iLowSleep);
+				
 		}
 		
 		//Customised touch Press
@@ -304,19 +350,20 @@ public class CommonsPO
 		
 		
 		//To search the element scrolling
-		public void getSearch(WebElement wElement)
+		public void getSearch(WebElement wElement) throws InterruptedException
 		{
 			while(iWhileCnt<=7) 
 			{	
 				try {
-					//Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
-					
+					waitforElement(wElement, GenericLib.i30SecSleep);
+					Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
 					ExtentManager.logger.log(Status.PASS,"Search is successfull");
-					//System.out.println("Search is displayed");
+					System.out.println("Search is displayed");
 					break;
 				}catch(Exception e) {swipeUp();}			
 				iWhileCnt++;
 			}
+			Thread.sleep(5000);
 		}
 		
 		/**
@@ -369,7 +416,8 @@ public class CommonsPO
 			{
 				try{
 					if(wElement.isDisplayed()|| (lElapsedTime==lTime))
-					{ break;}
+					{ //System.out.println("*****Element is found *********");
+						break;}
 				}catch(Exception ex) {}
 				lElapsedTime++;
 			}
@@ -723,19 +771,18 @@ public class CommonsPO
 	public void clickAllowPopUp() throws InterruptedException {
 
 		Thread.sleep(GenericLib.iLowSleep);
-		switchContext("Native");
+		switchContext("Native");		
 		try {
-			//driver.findElementByName("Always Allow").click();
 			driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 		} catch (Exception e) {
-			//driver.findElementByName("Allow").click();
 			driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
-
 		}
-		Thread.sleep(GenericLib.iLowSleep);
-		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
 
+		finally {
+			Thread.sleep(GenericLib.iLowSleep);
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+		}
 	}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException

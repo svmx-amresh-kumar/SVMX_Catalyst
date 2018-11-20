@@ -2,7 +2,8 @@
 	
 	import java.util.List;
 	import org.openqa.selenium.By;
-	import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.Rotatable;
 	import org.openqa.selenium.ScreenOrientation;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.support.FindBy;
@@ -55,7 +56,7 @@
 		private WebElement eleActionsTxt;
 		public WebElement getEleActionsTxt(String sActionsName)
 		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
+			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
 			return eleActionsTxt;
 		}
 	
@@ -63,7 +64,7 @@
 		private WebElement eleActionsTxtWithIcon;
 		public WebElement getEleActionsTxtWithIcon(String sActionsName)
 		{
-			eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
+			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
 			return eleActionsTxtWithIcon;
 		}
 	
@@ -1196,8 +1197,44 @@
 			Thread.sleep(1000);
 			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
-			commonsPo.getSearch(getEleActionsTxt(sActionsName));
-			commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
+			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
+			Thread.sleep(5000);
+			commonsPo.switchContext("Webview");			
+			iWhileCnt =0;
+			while(iWhileCnt<=3) 
+			{	
+				try {
+					commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
+					Assert.assertTrue(getEleActionsTxt(sActionsName).isDisplayed(),"Failed to scroll to search");
+					ExtentManager.logger.log(Status.PASS,"Element is displayed");
+					commonsPo.tap(getEleActionsTxt(sActionsName));
+					
+					Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
+					System.out.println("Counter "+iWhileCnt);
+					
+					break;
+				}catch(Exception e) {}		
+				
+				iWhileCnt++;
+			}
+			//commonsPo.tap(getEleActionsTxt(sActionsName));
+		
+			
+			/*
+			try {
+				System.out.println("2 Try");
+				commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
+				
+				commonsPo.tap(getEleActionsTxt(sActionsName),10,10);
+				
+				
+				System.out.println("Testing ________________");
+				}catch(Exception e)
+				{
+					System.out.println("Caught and moved");
+					throw e;
+				}*/
+			
 	
 		}
 	
@@ -1207,8 +1244,11 @@
 			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
-			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
-	
+			try {
+			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName));
+			}catch(Exception e)
+			{commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
+			}
 		}
 	
 		public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
@@ -1222,16 +1262,16 @@
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
 			commonsPo.tap(getEleSaveLnk());
-			try {
+			/*try {
 				if(getEleYesBtn() != null){
 					commonsPo.tap(getEleYesBtn());	
 				}
 			}
 			catch(Exception e){
 	
-			}
-			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
+			}*/
+		//	Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
+		//	ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 		}
 		public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 		{	
@@ -1328,7 +1368,9 @@
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
+			commonsPo.tap(getEleLineQtyTxtFld());
 			getEleLineQtyTxtFld().sendKeys("10");
+			commonsPo.tap(getEleLinePerUnitTxtFld());
 			getEleLinePerUnitTxtFld().sendKeys("1000");
 			commonsPo.tap(getEleDoneBtn());
 	
@@ -1462,17 +1504,23 @@
 		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
+			try {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			Thread.sleep(GenericLib.iLowSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), GenericLib.iMedSleep);			
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			if(sFieldServiceName!=null)
 			{
 				selectAction(commonsPo, sFieldServiceName);	
+			}
+			}catch(Exception e)
+			{
+				throw e;
 			}
 	
 		}
@@ -1501,7 +1549,7 @@
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			Thread.sleep(GenericLib.iMedSleep);
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	

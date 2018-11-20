@@ -162,10 +162,8 @@ public class ToolsPO
 		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
+		
 		commonsPo.tap(getEleSyncDataNowLnk());
-		//getEleSyncDataNowLnk().click();
-		commonsPo.tap(getEleSyncDataNowLnk());	
-		getEleStartSyncBtn().click();
 		commonsPo.tap(getEleStartSyncBtn());
 		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
