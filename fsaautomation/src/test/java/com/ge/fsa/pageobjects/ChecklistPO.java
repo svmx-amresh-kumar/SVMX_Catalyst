@@ -1,6 +1,8 @@
 package com.ge.fsa.pageobjects;
 
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,6 +13,8 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.ios.IOSTouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class ChecklistPO{
 	
@@ -195,21 +199,26 @@ public class ChecklistPO{
 	}
 	
 	
-	@FindBy(xpath="//span[text()='< Work Order']")
+	//@FindBy(xpath="//span[text()='< Work Order']")
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label'][contains(text(),'Work Order')]")
+	
 	private WebElement eleBacktoWorkOrderlnk;
 	public WebElement geteleBacktoWorkOrderlnk()
 	{
 		return eleBacktoWorkOrderlnk;
 	}
 	
-	@FindBy(xpath="//span[text()='< Back']")
+	//@FindBy(xpath="//span[contains(text(),'Back')]")
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label']")
 	private WebElement eleBacklnk;
 	public WebElement geteleBacklnk()
 	{
 		return eleBacklnk;
 	}
+	//@FindBy(xpath="//span[text()='<Checklists')]")
 	
-	@FindBy(xpath="//span[text()='< Checklists']")
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label'][contains(text(),'Checklists')]")
 	private WebElement eleBacktoChecklistslnk;
 	public WebElement geteleBacktoChecklistslnk()
 	{
@@ -344,16 +353,35 @@ public class ChecklistPO{
 		
 		
 		try {
-			commonsPo.tap(geteleBacktoChecklistslnk());
-			commonsPo.tap(geteleBacktoWorkOrderlnk());
-			
-		} catch (Exception e) {
+			System.out.println("Try block for back");
 			commonsPo.tap(geteleBacklnk());
-			commonsPo.tap(geteleBacktoChecklistslnk());
-			commonsPo.tap(geteleBacktoWorkOrderlnk());
-		}
+            commonsPo.tap(geteleBacktoChecklistslnk());
+            commonsPo.tap(geteleBacktoWorkOrderlnk());
+            
+           
+      } catch (Exception e) {
+			System.out.println("Catch block for back");
+            
+            
+            commonsPo.tap(geteleBacktoChecklistslnk());
+            commonsPo.tap(geteleBacktoWorkOrderlnk());
+      }
+
 	
 	
+		
+		/*Point point = geteleBacklnk().getLocation();
+		try {
+			System.out.println("***** USing Single Tap in TRY BLock*******");
+		commonsPo.singleTap(geteleBacklnk());
+		commonsPo.singleTap(geteleBacktoChecklistslnk());
+		
+		
+		commonsPo.singleTap(geteleBacktoWorkOrderlnk());
+		System.out.println("***** USing Single Tap in TRY BLock*******");
+		
+		}*/
+		
 		
 		
 		

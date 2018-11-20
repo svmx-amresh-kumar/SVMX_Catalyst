@@ -252,9 +252,10 @@ public class CommonsPO
 				
 				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
 				waitforElement(element, GenericLib.i30SecSleep);
-				point = element.getLocation();
-				iosTouchAction = new IOSTouchAction(driver);
-				iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
+				//point = element.getLocation();
+				IOSTouchAction touchAction= new IOSTouchAction(driver);
+				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
+				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
 				
 				/*
 				touchAction = new TouchAction(driver);

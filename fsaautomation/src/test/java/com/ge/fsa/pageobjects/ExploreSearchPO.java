@@ -100,7 +100,6 @@ public class ExploreSearchPO
 			//getEleExploreSearchTxtFld().click();
 	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
 		commonsPo.tap(getEleExploreSearchTxtFld());
-		System.out.println("VT printing WORK ORDER NO:"+sWOName);
 		getEleExploreSearchTxtFld().clear();
 		
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
