@@ -177,7 +177,9 @@ public class CommonsPO
 			} 
 		}else {
 			//For IOS
+			waitforElement(wElement, GenericLib.i30SecSleep);
 			touchAction = new IOSTouchAction(driver);
+			
 			if (xNewOffset != null) {
 				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
 				touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
