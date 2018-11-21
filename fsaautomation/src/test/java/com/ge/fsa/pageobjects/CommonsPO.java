@@ -115,14 +115,15 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
-		
+		try {wElement.click(); }catch(Exception e) {}
+
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 		try {
 		Point point = new Point(0, 0);
 		for (int i = 0; i < 3; i++) {
 			
-			try {point =  wElement.getLocation();}catch(Exception e) {}
+			point =  wElement.getLocation();
 			
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
@@ -187,8 +188,6 @@ public class CommonsPO
 		catch(Exception e) {
 			System.out.println("Tap Exception : " + e);
 		ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
-	}finally {
-	try {wElement.click(); return;}catch(Exception e) {}
 	}
 
 	}
