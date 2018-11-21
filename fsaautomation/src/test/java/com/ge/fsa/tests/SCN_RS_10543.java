@@ -25,6 +25,7 @@ public class SCN_RS_10543 extends BaseLib {
 	String sCaseID = null;
 	String sProductName = null;
 	String sBillingType = null;
+	Boolean bExecutionFlag = false;
 	
 	private void preRequiste() throws Exception { 
 
@@ -171,22 +172,26 @@ public class SCN_RS_10543 extends BaseLib {
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
 		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
 		*/
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up  is successful");
+
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			bExecutionFlag = true;
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
-
+			throw e;
 		}
 		finally
 		{	try {
 				postCleanup();toolsPo.syncData(commonsPo);
 				Thread.sleep(GenericLib.iMedSleep);
-				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up  is successful");
+				if(bExecutionFlag) {
+				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi clean up  is successful");}
 
 			}catch(Exception e) {
 				postCleanup();toolsPo.syncData(commonsPo);
 				Thread.sleep(GenericLib.iMedSleep);
-				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up is successful");
+				if(bExecutionFlag) {
+				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi clean up is successful");}
 			}
 		}
 	}
