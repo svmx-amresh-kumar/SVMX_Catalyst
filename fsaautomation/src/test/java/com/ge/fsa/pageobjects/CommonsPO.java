@@ -168,7 +168,8 @@ public class CommonsPO
 					counter++;
 				}switchContext("Webview");
 
-			} else {
+			} 
+		}else {
 				
 				int counter =0;
 				while(counter < 5 ) {
@@ -196,7 +197,7 @@ public class CommonsPO
 
 			}
 			
-		}
+		
 	
 			//For IOS
 			touchAction = new TouchAction(driver);
