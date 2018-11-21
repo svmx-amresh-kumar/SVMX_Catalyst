@@ -114,7 +114,7 @@ public class CommonsPO
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	/*public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
+	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
 		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
@@ -137,7 +137,7 @@ public class CommonsPO
 		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		//Switch the tap based on ANDROID or WINDOWS
-		try {
+		
 		if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
 			//For Android add *2 if real device
 			switchContext("Native");
@@ -197,7 +197,7 @@ public class CommonsPO
 			}
 			
 		}
-		}catch(Exception e) {
+	
 			//For IOS
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
@@ -211,7 +211,6 @@ public class CommonsPO
 			}
 			
 		}
-		}
 		catch(Exception e) {
 			System.out.println("Tap Exception : " + e);
 		ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
@@ -219,7 +218,7 @@ public class CommonsPO
 	try {wElement.click(); return;}catch(Exception e) {}
 	}
 
-	}*/
+	}
 	
 	
 	
@@ -247,22 +246,22 @@ public class CommonsPO
 				*/Thread.sleep(GenericLib.iLowSleep);
 			}
 			
-			public void tap(WebElement element, int...iOffset) throws InterruptedException
-			{
-				
-				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
-				waitforElement(element, GenericLib.i30SecSleep);
-				//point = element.getLocation();
-				IOSTouchAction touchAction= new IOSTouchAction(driver);
-				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
-				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
-				
-				/*
-				touchAction = new TouchAction(driver);
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-			
-				*/Thread.sleep(GenericLib.iLowSleep);
-			}
+//			public void tap(WebElement element, int...iOffset) throws InterruptedException
+//			{
+//				
+//				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
+//				waitforElement(element, GenericLib.i30SecSleep);
+//				//point = element.getLocation();
+//				IOSTouchAction touchAction= new IOSTouchAction(driver);
+//				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
+//				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
+//				
+//				/*
+//				touchAction = new TouchAction(driver);
+//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+//			
+//				*/Thread.sleep(GenericLib.iLowSleep);
+//			}
 			
 		
 		//Customised touch Tap
