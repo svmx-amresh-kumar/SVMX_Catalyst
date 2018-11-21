@@ -187,8 +187,8 @@ public class ToolsPO
 			//getEleOkBtn().click();
 			commonsPo.tap(getEleOkBtn());
 			//cancelling sync in order to reset the config sync status.
-			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
-			commonsPo.tap(eleCancelConfigSyncBtn);
+			commonsPo.waitforElement(eleCancelConfigSyncBtn, 3000);
+			commonsPo.tap(eleCancelConfigSyncBtn,20,20);
 			Thread.sleep(3000);
 			
 			commonsPo.tap(geteleSyncConfigNowLnk());	

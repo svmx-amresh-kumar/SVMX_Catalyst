@@ -120,15 +120,15 @@ public class CommonsPO
 		Boolean tapPassed = false;
 		Exception tapExp = null;
 		
-		try {wElement.click(); clickPassed = true; }catch(Exception e) { clickPassed = false; tapExp = e;}
+		try {wElement.click(); clickPassed = true;System.out.println("click passed"); }catch(Exception e) { System.out.println("click failed");clickPassed = false; tapExp = e;}
 
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 		try {
-		Point point = new Point(0, 0);
-		for (int i = 0; i < 10; i++) {
+		
+		for (int i = 0; i < 3; i++) {
 			
-			point =  wElement.getLocation();
+			try{point =  wElement.getLocation();}catch(Exception e) {}
 			
 			if (point.getX() == 0 || point.getY() == 0) {
 				System.out.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
@@ -140,7 +140,6 @@ public class CommonsPO
 			}
 
 		}
-		System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 		//Switch the tap based on ANDROID or WINDOWS
 		
@@ -180,26 +179,32 @@ public class CommonsPO
 			waitforElement(wElement, GenericLib.i30SecSleep);
 			point =  wElement.getLocation();
 			IOSTouchAction iosTouchAction = new IOSTouchAction(driver);
-			
+			System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 			if (xNewOffset != null) {
-				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
-				iosTouchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
+				int x = point.getX()+xNewOffset;
+				int y = point.getY()+yNewOffset;
+				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+x + "---" + y);
+				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 
 			} else {
-				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				iosTouchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+				int x = point.getX()+xOffset;
+				int y = point.getY()+yOffset;
+				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+x + "---" + y);
+				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 
 			}
 			
 		}
+		System.out.println("tap passed");
 		tapPassed = true;
 		}
 		catch(Exception e) {
 			tapExp = e;
 			tapPassed = false;
-		
+			System.out.println("tap failed");
+
 	}
-		
+		Thread.sleep(3000);
 		if( clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 			ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + tapExp);

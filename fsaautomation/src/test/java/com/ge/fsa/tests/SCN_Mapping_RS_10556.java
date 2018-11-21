@@ -83,11 +83,9 @@ boolean SFMIsBillable=true;
 	@Test(enabled = true)
 	public void RS_10556() throws Exception {
 		sSheetName ="RS_10556";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		String sTestCaseID="RS-10556_mapping";
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
-		String sTestIB="RS-10556_mapping";
-		sTestIBID = sProformainVoice;
 		
 	/*	
 		
@@ -107,30 +105,48 @@ boolean SFMIsBillable=true;
 		//sProductName1="v1";
 		System.out.println(Location);
 		*/
+		
+		/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
+		lauchNewApp("true");
+		System.out.println("RS_10556");*/
+		
+		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
-		String sworkordernumber=GenericLib.getExcelData(sTestIB,sSheetName, "WorkOrder Number");
+		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+		String sworkordernumber=GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
 	
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			//Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
-			//toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sworkordernumber, sFieldServiceName);
 
 			
-			/*calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
+			calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
 			
 			workOrderPo.selectAction(commonsPo,sFieldServiceName);
-			*/
+			
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//to get orderstatus nd ordertype from workorder

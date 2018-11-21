@@ -62,7 +62,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sTestCaseID="RS-10554_mapping";
 	//sahi
-		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
+		/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -76,7 +76,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			assertEquals(0, 1);
 		}
 		lauchNewApp("true");
-		System.out.println("RS_10554");
+		System.out.println("RS_10554");*/
 		
 		
 		//create Account
@@ -167,7 +167,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);
-			Assert.assertTrue(fetchedScheduledDate.equals("8/29/18"), "ScheduledDate value mapped is not displayed");
+			assertEquals(fetchedScheduledDate.equals("8/29/2018"), "ScheduledDate value mapped is not displayed");
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
@@ -183,7 +183,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetcheddaterequired =workOrderPo.getDateRequired().getAttribute("value");
 			System.out.println(fetcheddaterequired);
-			Assert.assertTrue(fetcheddaterequired.equals("8/29/18"), "date required value mapped is not displayed");
+			assertEquals(fetcheddaterequired.equals("8/29/2018"), "date required value mapped is not displayed");
 			
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
@@ -253,9 +253,16 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			assertEquals("2018-08-29", srequesteddateDate);
 			ExtentManager.logger.log(Status.PASS,"Installed product to workorder field mapping is successfull");
 			
+		//Deleting data created
 			
-		
-		
+			
+		//Account
+			restServices.restGetSoqlValue(sObjectAccID,"Id"); 
+			restServices.restGetSoqlValue(sObjectProID,"Id"); 
+			restServices.restGetSoqlValue(sObjectIBID,"Id"); 
+			
+			
+			
 	
 	
 	}

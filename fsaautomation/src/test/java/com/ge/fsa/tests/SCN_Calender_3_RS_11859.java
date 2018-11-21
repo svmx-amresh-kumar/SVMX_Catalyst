@@ -120,8 +120,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 			
-			calendarPO.getelesubjectSFDCtextarea().sendKeys("Create SFDC event from new button");
-			commonsPo.tap(calendarPO.geteleclickupdate());
+			calendarPO.getelesubjectcal().sendKeys("Create SFDC event from new button");
+			//commonsPo.tap(calendarPO.geteleclickupdate());
 			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
 			
@@ -197,14 +197,23 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		commonsPo.tap(calendarPO.geteleEndDateTime());
 		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
-	
+		
 		String EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
         
 		Thread.sleep(3000);
+
+	try {commonsPo.tap(workOrderPo.getEleSaveLnk());
+	}
+	catch (Exception e) {
+		commonsPo.tap(workOrderPo.getEleSaveLnk());
+	}
+	
         commonsPo.tap(workOrderPo.getEleSaveLnk());
+       // commonsPo.tap(workOrderPo.getEleSaveLnk());
+        System.out.println("#####################");
         commonsPo.tap(workOrderPo.getEleYesBtn());
-      
+        Thread.sleep(3000);
        toolsPo.syncData(commonsPo);
         
     
