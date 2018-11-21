@@ -41,6 +41,7 @@ import java.nio.file.Paths;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
+import static org.testng.Assert.assertTrue;
 
 
 public class CommonsPO
@@ -176,10 +177,10 @@ public class CommonsPO
 			} 
 		}else {
 			//For IOS
-			waitforElement(wElement, GenericLib.i30SecSleep);
+			waitforElement(wElement, 3);
 			point =  wElement.getLocation();
-			IOSTouchAction iosTouchAction = new IOSTouchAction(driver);
-			System.out.println("Acting on element : " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+			TouchAction iosTouchAction = new TouchAction(driver);
+			System.out.println("Acting on element : "+ wElement.toString()+" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 			if (xNewOffset != null) {
 				int x = point.getX()+xNewOffset;
 				int y = point.getY()+yNewOffset;
@@ -207,7 +208,8 @@ public class CommonsPO
 		Thread.sleep(3000);
 		if( clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
-			ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + tapExp);
+			
+			Assert.assertTrue(1<2, ""+ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + tapExp));
 		}
 
 	}
@@ -347,7 +349,7 @@ public class CommonsPO
 			while(iWhileCnt<=7) 
 			{	
 				try {
-					waitforElement(wElement, GenericLib.i30SecSleep);
+					waitforElement(wElement, GenericLib.iLowSleep);
 					Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
 					ExtentManager.logger.log(Status.PASS,"Search is successfull");
 					System.out.println("Search is displayed");
@@ -403,15 +405,18 @@ public class CommonsPO
 		
 		//Wait for element until the element is displayed or time elapsed
 		public void waitforElement(WebElement wElement, long lTime)
-		{ lElapsedTime=0L;
-			while(true)
+		{ long lElapsedTime = 0;
+		System.out.println("Time to Wait : "+lTime);
+
+			while(lElapsedTime!=lTime)
 			{
 				try{
-					if(wElement.isDisplayed()|| (lElapsedTime==lTime))
+					if(wElement.isDisplayed())
 					{ //System.out.println("*****Element is found *********");
 						break;}
 				}catch(Exception ex) {}
 				lElapsedTime++;
+				System.out.println("Time Elapsed : "+lElapsedTime);
 			}
 			
 			

@@ -331,7 +331,7 @@ public class CalendarPO
 	}
 	
 	//create event from calender
-	@FindBy(xpath="//*[text()='Subject']/../..//span[@class='x-label-text-el']/../..//textarea")
+	@FindBy(xpath="//*[text()='Subject']/../..//span[@class='x-label-text-el']/../..//input")
 	private WebElement elesubjectcal;
 	public WebElement getelesubjectcal()
 	{
@@ -371,7 +371,7 @@ public class CalendarPO
 	{
 		SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		 Date  dTempDate1 = parser1.parse(Datetime);
-		 SimpleDateFormat formatter1 = new SimpleDateFormat("dd.MM.yy HH:mm");
+		 SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	        String stempDate =  formatter1.format(dTempDate1);
 	        System.out.println("Converted to date "+stempDate); 
 		return stempDate;
@@ -383,8 +383,8 @@ public class CalendarPO
 	{
 		return elesubjectSFDCtap;
 	}
-
-	@FindBy(xpath="//div[@class='x-body-el x-widthed x-heighted']//div[@class='x-input-body-el']//textarea")
+///////////////////////////////changes
+	@FindBy(xpath="//div[@class='x-body-el x-widthed x-heighted']//div[@class='x-input-body-el']//input")
 	private WebElement elesubjectSFDCtextarea;
 	public WebElement getelesubjectSFDCtextarea()
 	{
@@ -427,4 +427,19 @@ public class CalendarPO
 		return validationmsgonsave;
 	}
 	
+
+	private WebElement elegetday;
+	public WebElement getelegetday(String WOname)
+	{
+		//elegetday = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border']"));
+		elegetday = driver.findElement(By.xpath("(//div[contains(text(),'Day 1')]/..//div[contains(text(),'"+WOname+"')])"));
+
+		return elegetday;
+	}
+
+
+
 }
+
+
+
