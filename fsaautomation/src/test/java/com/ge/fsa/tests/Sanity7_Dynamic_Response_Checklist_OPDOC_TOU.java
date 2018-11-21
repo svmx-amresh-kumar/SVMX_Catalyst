@@ -86,7 +86,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
 		
 		// Navigating to the checklist
-		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName),20,20);
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		//commonsPo.longPress();
 		Thread.sleep(GenericLib.iLowSleep);
 			
@@ -113,10 +113,10 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		//Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
@@ -131,10 +131,10 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		
 		
 		//submitting of checklist
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
+	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
@@ -161,8 +161,9 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
 
 	//	workOrderPo.getEleDoneLnk().click();
-		
-		commonsPo.tap(workOrderPo.getEleDoneLnk(),20,20);
+		//commonsPo.tap(workOrderPo.getEleDoneLnk(),20,20);
+
+		commonsPo.tap(workOrderPo.getEleDoneLnk());
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);
@@ -179,6 +180,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().toString().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
 		
 		 toolsPo.syncData(commonsPo);
+		 Thread.sleep(GenericLib.i30SecSleep);
 		 
 		// Verifying if checklistopdoc is synced to server
 		  	System.out.println("Validating if OPDOC attachment is syned to server.");
@@ -203,8 +205,6 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 			System.out.println(targetobjectupdateOL);
 			Assert.assertTrue(sTargetObjectUpdateValue.equals(targetobjectupdateOL), "Target Object Value is not updated to server");
 			ExtentManager.logger.log(Status.PASS,"Target Object Update Value is updated to server");
-
-			
 			//Validate if checklist is updated to server
 			Thread.sleep(GenericLib.iHighSleep);
 			Thread.sleep(GenericLib.iHighSleep);		
