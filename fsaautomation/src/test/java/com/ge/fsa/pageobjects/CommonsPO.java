@@ -179,15 +179,15 @@ public class CommonsPO
 			//For IOS
 			waitforElement(wElement, GenericLib.i30SecSleep);
 			point =  wElement.getLocation();
-			IOSTouchAction touchAction = new IOSTouchAction(driver);
+			IOSTouchAction iosTouchAction = new IOSTouchAction(driver);
 			
 			if (xNewOffset != null) {
 				System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
+				iosTouchAction.tap(new PointOption().withCoordinates(point.getX() + xNewOffset, point.getY() + yNewOffset)).perform();
 
 			} else {
 				System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+point.getX() + "---" + point.getY());
-				touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+				iosTouchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 
 			}
 			
