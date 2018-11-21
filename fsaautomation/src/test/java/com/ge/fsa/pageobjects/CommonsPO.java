@@ -115,7 +115,12 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
-		try {wElement.click(); }catch(Exception e) {}
+		//Since in IOS now has clicks and taps alternatively
+		Boolean clickPassed = false;
+		Boolean tapPassed = false;
+		Exception tapExp = null;
+		
+		try {wElement.click(); clickPassed = true; }catch(Exception e) { clickPassed = false; }
 
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
@@ -184,11 +189,18 @@ public class CommonsPO
 			}
 			
 		}
+		
 		}
 		catch(Exception e) {
-			System.out.println("Tap Exception : " + e);
-		ExtentManager.logger.log(Status.INFO,"Tap Exception : " + e.getLocalizedMessage());
+			tapExp = e;
+			clickPassed = false;
+		
 	}
+		
+		if( clickPassed == false && tapPassed == false) {
+			System.out.println("Tap Exception : " + tapExp);
+			ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + tapExp);
+		}
 
 	}
 	
