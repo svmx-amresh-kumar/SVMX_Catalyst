@@ -102,11 +102,11 @@ public class SCN_RS_10548 extends BaseLib {
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		/*
+		
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-			*/
+			
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
@@ -116,9 +116,9 @@ public class SCN_RS_10548 extends BaseLib {
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		//commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
+		//Validation of WO with invalid country
+		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("USA");
@@ -128,7 +128,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
-		//------------------------------------
+		//Validation of WO with invalid account
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
@@ -140,7 +140,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
-		//-------------------------------
+		//Validation of WO with invalid wo number
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
@@ -152,7 +152,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
-		//-------------------------------
+		//Validation of WO in search
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
@@ -164,9 +164,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order1 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
 		
-		
-		//-------------------------------
-		
+		//Validation of WO with valid country
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
@@ -187,8 +185,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order5 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
 		
-		//-------------------------------
-		
+		//Validation of WO with valid country
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
@@ -200,7 +197,7 @@ public class SCN_RS_10548 extends BaseLib {
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName4).isDisplayed(), "Work Order4 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
 		
-		//-------------------------------	
+		//Validation of WO with valid account number
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
