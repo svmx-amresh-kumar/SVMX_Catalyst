@@ -192,7 +192,7 @@ public class CommonsPO
 			}
 			
 		}
-		
+		tapPassed = true;
 		}
 		catch(Exception e) {
 			tapExp = e;
