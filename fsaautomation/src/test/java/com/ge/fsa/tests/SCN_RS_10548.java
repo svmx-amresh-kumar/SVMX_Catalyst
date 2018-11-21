@@ -83,11 +83,11 @@ public class SCN_RS_10548 extends BaseLib {
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
 		
 		
-		/*
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		*/
+		
 	}
 
 	@Test(enabled = true)
