@@ -178,6 +178,7 @@ public class CommonsPO
 		}else {
 			//For IOS
 			waitforElement(wElement, GenericLib.i30SecSleep);
+			point =  wElement.getLocation();
 			touchAction = new IOSTouchAction(driver);
 			
 			if (xNewOffset != null) {
