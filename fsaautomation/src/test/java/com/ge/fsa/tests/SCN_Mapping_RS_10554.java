@@ -136,11 +136,11 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			toolsPo.syncData(commonsPo);
+		//	toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Navigation to SFM
@@ -167,7 +167,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);
-			assertEquals(fetchedScheduledDate.equals("8/29/2018"), "ScheduledDate value mapped is not displayed");
+			assertEquals(fetchedScheduledDate,"8/29/2018", "ScheduledDate value mapped is not displayed");
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
@@ -183,7 +183,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetcheddaterequired =workOrderPo.getDateRequired().getAttribute("value");
 			System.out.println(fetcheddaterequired);
-			assertEquals(fetcheddaterequired.equals("8/29/2018"), "date required value mapped is not displayed");
+			assertEquals(fetcheddaterequired,"8/29/2018", "date required value mapped is not displayed");
 			
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");

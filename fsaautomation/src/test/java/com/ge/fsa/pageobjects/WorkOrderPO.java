@@ -1508,9 +1508,10 @@ import org.openqa.selenium.Rotatable;
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), GenericLib.iMedSleep);			
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+			Thread.sleep(3000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);

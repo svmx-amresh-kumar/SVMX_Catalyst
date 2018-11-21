@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -180,7 +181,9 @@ public class CommonsPO
 			waitforElement(wElement, 3);
 			point =  wElement.getLocation();
 			TouchAction iosTouchAction = new TouchAction(driver);
-			System.out.println("Acting on element : "+ wElement.toString()+" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+
+			System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 			if (xNewOffset != null) {
 				int x = point.getX()+xNewOffset;
 				int y = point.getY()+yNewOffset;
