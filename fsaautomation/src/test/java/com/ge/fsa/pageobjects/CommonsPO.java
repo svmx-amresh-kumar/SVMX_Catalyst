@@ -203,21 +203,21 @@ public class CommonsPO
 			}
 			
 			//Customised touch tap version 2.0
-			public void tap(WebElement element) throws InterruptedException
-			{
-				
-				waitforElement(element, GenericLib.i30SecSleep);
-				point = element.getLocation();
-						iosTouchAction = new IOSTouchAction(driver);
-					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-			
-				
-				/*
-				touchAction = new TouchAction(driver);
-				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-			
-				*/Thread.sleep(GenericLib.iLowSleep);
-			}
+//			public void tap(WebElement element) throws InterruptedException
+//			{
+//				
+//				waitforElement(element, GenericLib.i30SecSleep);
+//				point = element.getLocation();
+//						iosTouchAction = new IOSTouchAction(driver);
+//					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+//			
+//				
+//				/*
+//				touchAction = new TouchAction(driver);
+//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+//			
+//				*/Thread.sleep(GenericLib.iLowSleep);
+//			}
 			
 //			public void tap(WebElement element, int...iOffset) throws InterruptedException
 //			{
