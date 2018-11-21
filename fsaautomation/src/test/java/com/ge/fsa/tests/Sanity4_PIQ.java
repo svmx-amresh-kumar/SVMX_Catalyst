@@ -3,6 +3,8 @@ package com.ge.fsa.tests;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -50,7 +52,11 @@ public class Sanity4_PIQ extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Location displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sIbName).isDisplayed(),"Installed Product not displayed in Tree View");
 		ExtentManager.logger.log(Status.PASS,"Installed Product displayed on Tree View");
-		
+		Thread.sleep(GenericLib.iHighSleep);
+		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iHighSleep);
+		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 	}
 
