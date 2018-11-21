@@ -195,30 +195,30 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
-		//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-		//    commonsPo.switchContext("WebView");
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		   commonsPo.switchContext("WebView");
 		    //System.out.println("Setting Radio button  Question Answer");
 	        
 	        
 		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		  //  commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-		//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-		//    commonsPo.switchContext("WebView");
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		   commonsPo.switchContext("WebView");
 	    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.geteleNext());
 
 		 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
-		//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 			Thread.sleep(GenericLib.iLowSleep);
 			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
-		//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+			commonsPo.switchContext("WebView");
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
