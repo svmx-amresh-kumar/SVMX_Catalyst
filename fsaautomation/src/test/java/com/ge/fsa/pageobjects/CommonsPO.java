@@ -120,7 +120,7 @@ public class CommonsPO
 		Boolean tapPassed = false;
 		Exception tapExp = null;
 		
-		try {wElement.click(); clickPassed = true; }catch(Exception e) { clickPassed = false; }
+		try {wElement.click(); clickPassed = true; }catch(Exception e) { clickPassed = false; tapExp = e;}
 
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
@@ -193,7 +193,7 @@ public class CommonsPO
 		}
 		catch(Exception e) {
 			tapExp = e;
-			clickPassed = false;
+			tapPassed = false;
 		
 	}
 		
