@@ -170,35 +170,6 @@ public class CommonsPO
 
 			} 
 		}else {
-				
-				int counter =0;
-				while(counter < 5 ) {
-
-					switchContext("Native");
-					try {
-						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
-								+ point.getX() + "---" + point.getY());
-						touchAction
-								.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
-								.perform();
-						switchContext("Webview");
-						break;
-					} catch (Exception e) {
-						System.out.println("Scrolling the page");
-						switchContext("Native");
-						touchAction.press(new PointOption().point(300, 300))
-						.moveTo(new PointOption().point(300, 500)).release().perform();
-					
-					}
-					switchContext("Webview");
-					point = wElement.getLocation();
-					counter++;
-				}switchContext("Webview");
-
-			}
-			
-		
-	
 			//For IOS
 			touchAction = new TouchAction(driver);
 			if (xNewOffset != null) {
@@ -211,6 +182,7 @@ public class CommonsPO
 
 			}
 			
+		}
 		}
 		catch(Exception e) {
 			System.out.println("Tap Exception : " + e);
