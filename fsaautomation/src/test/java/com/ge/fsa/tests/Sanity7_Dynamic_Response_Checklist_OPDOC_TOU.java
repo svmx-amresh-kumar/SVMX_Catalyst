@@ -177,7 +177,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
-		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().toString().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
+		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
 		
 		 toolsPo.syncData(commonsPo);
 		 Thread.sleep(GenericLib.i30SecSleep);

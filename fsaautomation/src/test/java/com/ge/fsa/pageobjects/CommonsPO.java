@@ -11,6 +11,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -768,21 +769,26 @@ public class CommonsPO
 		 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
 		 * @throws InterruptedException 
 		 */
-	public void clickAllowPopUp() throws InterruptedException {
+	public void clickAllowPopUp() throws InterruptedException  {
 
 		Thread.sleep(GenericLib.iLowSleep);
-		switchContext("Native");		
+		switchContext("Native");
 		try {
+		try {
+			System.out.println("Attempting to Click on Always Allow Pop up");
 			driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
+			System.out.println("Sucessfully Clicked on Always Allow Pop up");
+
 		} catch (Exception e) {
+			System.out.println("Attempting to Click on Allow Pop up");
 			driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
 		}
-
+		
+		}catch(Exception e) {System.out.println("  ***** Suppresed exception as popups not displayed");}
 		finally {
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
-		}
+			Thread.sleep(GenericLib.iLowSleep);}
 	}
 		
 		public void lookupSearchOnly(String value)throws InterruptedException

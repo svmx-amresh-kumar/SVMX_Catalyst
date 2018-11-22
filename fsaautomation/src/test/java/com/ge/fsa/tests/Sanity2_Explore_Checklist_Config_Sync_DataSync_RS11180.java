@@ -281,7 +281,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			Assert.assertTrue(ChecklistAnsjson.contains(stextAns), "checklist text question answer is not synced to server");
-			ExtentManager.logger.log(Status.PASS,"checklist text question answer is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist text question answer is synced to server");
 
 			Assert.assertTrue(ChecklistAnsjson.contains(snumberAns), "checklist number answer sycned to server in checklist answer");
 			ExtentManager.logger.log(Status.PASS,"checklist number answer sycned to server in checklist answer");
