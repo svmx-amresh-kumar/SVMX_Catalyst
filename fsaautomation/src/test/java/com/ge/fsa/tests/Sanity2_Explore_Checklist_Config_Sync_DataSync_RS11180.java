@@ -232,7 +232,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			//System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			//System.out.println("tapped on completed checklist");
-			
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			
 			
