@@ -204,7 +204,6 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		//NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);	
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
 		Thread.sleep(GenericLib.i30SecSleep);

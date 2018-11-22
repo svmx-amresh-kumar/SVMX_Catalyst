@@ -100,9 +100,9 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";
 		String sDateStaticQ = "Date Static Question";
-		String sDateStaticAns = "1/1/18";
+		String sDateStaticAns = "1/1/2018";
 		String sDateTimeStaticQ = "Datetime Static question";
-		String sDateTimeStaticAns = "1/1/18 00:00";
+		String sDateTimeStaticAns = "1/1/2018 00:00";
 		String sMultiPicklistStaticQ = "MultiPicklist Static Question";
 		String sMultiPicklistStaticAns = "MultiOne;MultiTwo";
 		String sNumberStaticQ = "Number Static Question";
@@ -116,9 +116,9 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sTextStaticAns = "Static Answer";
 		
 		String sDateDynamicQ= "Dynamic Date From Scheduled Date";
-		String sDateDynamicAns ="1/1/18";		
+		String sDateDynamicAns ="1/1/2018";		
 		String sDateTimeDynamicQ="Dynamic DateTime from ScheduledDateTime";
-		String sDateTimeDynamicAns="1/1/18 00:00";
+		String sDateTimeDynamicAns="1/1/2018 00:00";
 		String sNumberDynamicQ="Dynamic Number from No Of Times Assigned";
 		String sNumberDynamicAns="10";
 	
@@ -267,44 +267,44 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sCheckboxStaticAns), "Couldnt find the checklist Answer in OPDOC");	
 			 ExtentManager.logger.log(Status.PASS,"Checkbox StaticAnswer Validation passed");
 		 			
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticQ), "Couldnt find the date checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Date StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateStaticAns), "Couldnt find the date checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Date Static Answer Validation passed");
 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeStaticQ), "Couldnt find the dattimechecklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Date StaticQuestion Validation passed");
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeStaticAns), "Couldnt find the checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"DateTime Static Answer Validation passed");	 
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticQ), "Couldnt find the multipicklist checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"MultiPicklist StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sMultiPicklistStaticAns), "Couldnt find the multipicklist checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"MultiPicklist Static Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberStaticQ), "Couldnt find the number checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Number StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumbeStaticAnsOP), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumbeStaticAnsOP), "Couldnt find the number checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Number Static Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticQ), "Couldnt find the picklist checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Picklist StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistStaticAns), "Couldnt find the picklist checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Picklist Static Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticQ), "Couldnt find the radio checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Radio StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sRadioButtonStaticAns), "Couldnt find the radio checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Radiobutton Static Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticQ), "Couldnt find the checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticQ), "Couldnt find the text checklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Text StaticQuestion Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticAns), "Couldnt find the checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextStaticAns), "Couldnt find the text checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Text Static Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicQ), "Couldnt find the Dynamic checklist date question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Date Dynamic Question Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateDynamicAns), "Couldnt find the Dynamic checklist dateAnswer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Date Dynamic Response Answer Validation passed");
 
 			/* Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
@@ -312,19 +312,19 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sDateTimeDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"DateTime Dynamic Response Answer Validation passed");*/
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicQ), "Couldnt find the Dynamic checklist number question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Number Dynamic Question Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberDynamicAns), "Couldnt find the Dynamic checklist number Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Number Dynamic Response Answer Validation passed");
 			 		 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicQ), "Couldnt find the Dynamic checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicQ), "Couldnt find the Dynamic checklist picklist question in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Picklist Dynamic Question Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sPicklistDynamicAns), "Couldnt find the Dynamic checklist picklist Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Picklist Dynamic Response Answer Validation passed");
 			 
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicq), "Couldnt find the Dynamic checklist question in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicq), "Couldnt find the Dynamic checklist text uestion in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Text Dynamic Question Validation passed");
-			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt find the Dynamic checklist Answer in OPDOC");
+			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt find the Dynamic checklist text Answer in OPDOC");
 			 ExtentManager.logger.log(Status.PASS,"Text Dynamic Response Answer Validation passed");
 			 	 			 
 			// workOrderPo.getEleDoneLnk().click();

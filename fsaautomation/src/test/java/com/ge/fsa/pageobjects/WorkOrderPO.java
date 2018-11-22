@@ -734,7 +734,7 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 	
-		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement EleProformaInvoiceTxt;
 		public WebElement getEleProformaInvoiceTxt()
 		{

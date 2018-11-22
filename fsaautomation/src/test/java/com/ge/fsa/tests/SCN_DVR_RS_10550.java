@@ -289,7 +289,8 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		System.out.println("tapped 20");
 		commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
-
+		commonsPo.waitforElement(workOrderPo.getEleSavedSuccessTxt(), 3);
+		Thread.sleep(GenericLib.iMedSleep);
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
