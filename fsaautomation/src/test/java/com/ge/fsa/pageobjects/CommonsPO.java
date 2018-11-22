@@ -118,6 +118,7 @@ public class CommonsPO
 	 * @throws InterruptedException
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
+		Thread.sleep(3000);
 		//Since in IOS now has clicks and taps alternatively
 		Boolean clickPassed = false;
 		Boolean tapPassed = false;
@@ -209,7 +210,7 @@ public class CommonsPO
 			System.out.println("tap failed");
 
 	}
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		if( clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 			
