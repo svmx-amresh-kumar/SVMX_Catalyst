@@ -53,7 +53,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			String sIdleTime = null;String sIdleTimeSOU= "30";
 			String sScheduledDate = null;
 			String[] sScheduledDateSOU=null; 
-			String sScheduledDateTime = null;String sScheduledDateTimeSou ="8/28/18 02:42";				
+			String sScheduledDateTime = null;String sScheduledDateTimeSou ="8/28/2018 02:42";				
 			String sNoofTimesAssigned = null; String sNooftimesAssignedSOU = "2";
 			String sProformaInvoice = null; String sProblemDescriptionSOU="Source Object Updated";
 			String sAccountSOU=null;
