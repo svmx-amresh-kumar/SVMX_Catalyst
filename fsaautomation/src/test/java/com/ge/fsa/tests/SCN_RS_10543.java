@@ -44,7 +44,7 @@ public class SCN_RS_10543 extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
-			
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -60,8 +60,8 @@ public class SCN_RS_10543 extends BaseLib {
 		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
 		try {
 		preRequiste();
-		//sWOName="WO-00004442";
-		//sCaseID="00001211";
+		//sWOName="WO-00005212";
+		//sCaseID="00001242";
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -82,6 +82,7 @@ public class SCN_RS_10543 extends BaseLib {
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
@@ -111,7 +112,6 @@ public class SCN_RS_10543 extends BaseLib {
 		//Selecting Billing Type to contract to make sure sfm is working fine.
 		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), "Contract");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
