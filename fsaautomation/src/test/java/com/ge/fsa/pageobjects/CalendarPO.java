@@ -249,8 +249,6 @@ public class CalendarPO
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
-		
-	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
 			System.out.println("Found WO " + workordername);
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));

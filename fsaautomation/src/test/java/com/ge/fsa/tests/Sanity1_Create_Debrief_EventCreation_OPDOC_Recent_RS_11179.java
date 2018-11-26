@@ -41,9 +41,9 @@ public void Scenario1Test() throws Exception
 	String sTestDataValue = "SCN_RS_11179";
 	sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Service Report Name");
 	System.out.println(sPrintReportSearch);
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-
+//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+//
+//
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
@@ -78,12 +78,33 @@ public void Scenario1Test() throws Exception
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 
+		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+		
+//		// To create a new Event for the given Work Order
+		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
+		
 		// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(3000);
+
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(3000);
+		// This is to Tap the Date value near the Event to get it's location.
+		calendarPO.geteleWOendpoint("03:00").getLocation();
+		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 300);
+		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName) != null){
+			System.out.println("Found WO " + sworkOrderName);
+			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName));
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + sworkOrderName);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
