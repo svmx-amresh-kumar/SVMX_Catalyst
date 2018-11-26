@@ -38,11 +38,11 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 @Test
 public void Scenario1Test() throws Exception
 {		
-
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 	String sTestDataValue = "SCN_RS_11179";
-	System.out.println(sPrintReportSearch);
 	sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Service Report Name");
+	System.out.println(sPrintReportSearch);
+	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
