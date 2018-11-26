@@ -31,20 +31,19 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		lauchNewApp("true");
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
@@ -119,18 +118,18 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			try
-			{
-				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-			}
-			catch(Exception e)
-			{
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-				
-			}
+//			try
+//			{
+//				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+//				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+//				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+//			}
+//			catch(Exception e)
+//			{
+//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+//				
+//			}
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());

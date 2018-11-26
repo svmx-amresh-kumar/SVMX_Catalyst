@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
 
 
 
@@ -22,7 +23,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
+	String sActivityType=null;String sPrintReportSearch= null;
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -31,6 +32,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
+	String sSheetName1 = "RS_11179";
 
 	
 @Test
@@ -38,7 +40,9 @@ public void Scenario1Test() throws Exception
 {		
 
 	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
+	String sTestDataValue = "SCN_RS_11179";
+	System.out.println(sPrintReportSearch);
+	sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Service Report Name");
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
