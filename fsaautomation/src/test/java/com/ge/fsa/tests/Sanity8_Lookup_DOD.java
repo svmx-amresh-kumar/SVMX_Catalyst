@@ -5,6 +5,7 @@
 package com.ge.fsa.tests;
 import static org.testng.Assert.assertEquals;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -32,18 +33,8 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
@@ -166,16 +157,12 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
 				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-				if(commonsPo.verifySahiExecution()) {
-					
-					System.out.println("PASSED");
+				try{Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");}
+				catch(Exception e){genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 				}
-				else 
-				{
-					System.out.println("FAILED");
-					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-					assertEquals(0, 1);
-				}
+
 				
 				toolsPo.configSync(commonsPo);
 	

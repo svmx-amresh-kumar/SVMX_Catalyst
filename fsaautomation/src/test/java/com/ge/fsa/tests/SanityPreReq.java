@@ -22,17 +22,8 @@ public class SanityPreReq extends BaseLib {
 		
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("Sahi verification success");
-//		}
-//		else 
-//		{
-//			System.out.println("Sahi verification failure");
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
 		
 		//Resinstall the app
 		lauchNewApp("false");

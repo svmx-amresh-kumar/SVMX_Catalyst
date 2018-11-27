@@ -3,6 +3,7 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -42,14 +43,15 @@ public void Scenario1Test() throws Exception
 	String sTestDataValue = "SCN_RS_11179";
 	sSheetName ="RS_11179";
 	
-//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+	Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
