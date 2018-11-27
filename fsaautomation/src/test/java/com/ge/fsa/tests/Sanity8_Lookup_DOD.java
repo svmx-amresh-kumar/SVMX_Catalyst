@@ -31,19 +31,19 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
@@ -175,7 +175,6 @@ public class Sanity8_Lookup_DOD extends BaseLib
 					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 					assertEquals(0, 1);
 				}
-				lauchNewApp("true");
 				toolsPo.configSync(commonsPo);
 	
 	}
