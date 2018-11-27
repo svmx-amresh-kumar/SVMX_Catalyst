@@ -78,15 +78,27 @@ public void workBenchAnd() throws Exception
 //toolsPo.syncData(commonsPo);
 //toolsPo.configSync(commonsPo);
 	Thread.sleep(3000);
-	
-	WebElement element1 = driver.findElement(By.xpath("//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00005270')]"));
-	commonsPo.tap(element1, 60,60);	
-	Thread.sleep(3000);
 
-	WebElement element = driver.findElement(By.xpath("//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00005270')]/../div[contains(@class,'sfmevent-account')]"));
-	commonsPo.tap(element,5,5);	
+	WebElement element1 = driver.findElement(By.xpath("//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00005270')]"));
+	//commonsPo.tap(element1, 60,60);	
+	Thread.sleep(3000);
+	
+	if(element1.isDisplayed()){
+		System.out.println("Found WO " + element1);
+		commonsPo.tap(element1,12,60);
+		
+		}
+			
+	else
+	{
+		System.out.println("Did not Find WO " + element1);
+		throw new Exception("WorkOrder not found on the Calendar");	
+	
+}
+	
+
 	//((JavascriptExecutor) this.driver).executeScript("return arguments[0].click();", element);
-	Thread.sleep(13000);
+	Thread.sleep(6000);
 
 
 

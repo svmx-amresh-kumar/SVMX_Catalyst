@@ -125,7 +125,7 @@ String SFMIsBillable="true";
 			//workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sworkordernumber, sFieldServiceName);
 
 			
-			calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
+			calendarPO.openWoFromCalendar(commonsPo, sworkordernumber);
 			Thread.sleep(GenericLib.iMedSleep);
 			workOrderPo.selectAction(commonsPo,sFieldServiceName);
 			

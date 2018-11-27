@@ -180,8 +180,8 @@ public class CommonsPO
 			} 
 		}else {
 			//For IOS
-			waitforElement(wElement, 3);
-			point =  wElement.getLocation();
+//			waitforElement(wElement, 3);
+//			point =  wElement.getLocation();
 			TouchAction iosTouchAction = new TouchAction(driver);
 			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
 

@@ -215,7 +215,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 		commonsPo.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 			// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+		calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
 		ExtentManager.logger.log(Status.PASS,"Validated event from Calendar");
 
 		System.out.println("Sucessfully validated Create Event from WorkOrder after creating workOrder from FSA App");

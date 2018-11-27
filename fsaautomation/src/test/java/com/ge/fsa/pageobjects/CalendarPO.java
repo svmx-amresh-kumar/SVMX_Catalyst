@@ -241,17 +241,19 @@ public class CalendarPO
 	 * @param workordername - Passing the Work Order number
 	 * @throws Exception - Throwing Required Exception
 	 */
-	public void openWofromCalendar(CommonsPO commonsPo, String workordername) throws Exception 
+	public void openWoFromCalendar(CommonsPO commonsPo, String workordername) throws Exception 
 	{
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
 
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(3000);
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
-		if(getEleworkordernumonCalendarWeek(workordername) != null){
+		geteleWOendpoint("03:00").getLocation();
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
+		getEleworkordernumonCalendarWeek(workordername).getLocation();
+		if(getEleworkordernumonCalendarWeek(workordername).isDisplayed()){
 			System.out.println("Found WO " + workordername);
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername));
+			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
 			
 			}
 				
