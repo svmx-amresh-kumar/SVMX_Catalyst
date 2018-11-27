@@ -94,10 +94,11 @@ public void Scenario1Test() throws Exception
 		Thread.sleep(3000);
 		// This is to Tap the Date value near the Event to get it's location.
 		calendarPO.geteleWOendpoint("03:00").getLocation();
-		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 300);
+		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
+		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
 		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName) != null){
 			System.out.println("Found WO " + sworkOrderName);
-			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName));
+			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),60,60);
 			
 			}
 				

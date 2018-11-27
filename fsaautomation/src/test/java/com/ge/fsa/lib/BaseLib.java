@@ -210,7 +210,7 @@ public class BaseLib {
 
 		//Installing fresh
 				GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")+" Running On Machine :"+runMachine);
+				System.out.println("Set App Start mode "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
 		
 				
 				try {

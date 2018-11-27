@@ -210,7 +210,7 @@ public class CommonsPO
 			System.out.println("tap failed");
 
 	}
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		if( clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 			

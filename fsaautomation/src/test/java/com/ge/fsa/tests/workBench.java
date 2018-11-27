@@ -71,12 +71,23 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {		
 	String sTaskName = "";
-	lauchNewApp("true");
+	//lauchNewApp("true");
 	loginHomePo.login(commonsPo, exploreSearchPo);
 
 	//sTaskName = tasksPo.addTask(commonsPo);
 //toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
+//toolsPo.configSync(commonsPo);
+	Thread.sleep(3000);
+	
+	WebElement element1 = driver.findElement(By.xpath("//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00005270')]"));
+	commonsPo.tap(element1, 60,60);	
+	Thread.sleep(3000);
+
+	WebElement element = driver.findElement(By.xpath("//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'WO-00005270')]/../div[contains(@class,'sfmevent-account')]"));
+	commonsPo.tap(element,5,5);	
+	//((JavascriptExecutor) this.driver).executeScript("return arguments[0].click();", element);
+	Thread.sleep(13000);
+
 
 
 }
