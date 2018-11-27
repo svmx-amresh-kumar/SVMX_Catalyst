@@ -44,7 +44,6 @@ public class Sanity8_Lookup_DOD extends BaseLib
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
 		}
-		lauchNewApp("true");
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
@@ -119,18 +118,18 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			try
-			{
-				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-			}
-			catch(Exception e)
-			{
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-				
-			}
+//			try
+//			{
+//				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+//				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+//				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+//			}
+//			catch(Exception e)
+//			{
+//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+//				
+//			}
 				workOrderPo.selectAction(commonsPo,sProcessname);
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());
@@ -142,6 +141,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductNameA));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
+				commonsPo.tap(workOrderPo.getEleClickSave());
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
@@ -176,7 +176,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 					assertEquals(0, 1);
 				}
-				lauchNewApp("true");
+				
 				toolsPo.configSync(commonsPo);
 	
 	}

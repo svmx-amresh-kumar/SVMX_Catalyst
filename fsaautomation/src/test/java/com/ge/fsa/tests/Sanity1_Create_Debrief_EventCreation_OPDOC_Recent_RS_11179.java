@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
 
 
 
@@ -22,7 +23,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
+	String sActivityType=null;
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -31,14 +32,17 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
+	String sSheetName = null;
+	String sPrintReportSearch = null;
 
 	
 @Test
 public void Scenario1Test() throws Exception
 {		
-
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
+	String sTestDataValue = "SCN_RS_11179";
+	sSheetName ="RS_11179";
+	
+//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
@@ -74,12 +78,33 @@ public void Scenario1Test() throws Exception
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 
+		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+		
+//		// To create a new Event for the given Work Order
+		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
+		
 		// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(3000);
+
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(3000);
+		// This is to Tap the Date value near the Event to get it's location.
+		calendarPO.geteleWOendpoint("03:00").getLocation();
+		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 300);
+		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName) != null){
+			System.out.println("Found WO " + sworkOrderName);
+			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName));
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + sworkOrderName);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
@@ -91,8 +116,23 @@ public void Scenario1Test() throws Exception
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
+		
+		
 		// Creating the Service Report.
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		//sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName,"Service Report Name");
+	 	sPrintReportSearch = "Work Order Service Report";
+		workOrderPo.validateServiceReport(commonsPo,sPrintReportSearch, sworkOrderName);
+		Thread.sleep(10000);
+//		try
+//		{
+//			commonsPo.tap(workOrderPo.getEleTapUI());
+//		
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Actions button is not clicked unwantedly");
+//		}
+//		
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -117,8 +157,10 @@ public void Scenario1Test() throws Exception
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
+		Thread.sleep(genericLib.i30SecSleep);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(5000);
+		Thread.sleep(genericLib.i30SecSleep);
+		toolsPo.syncData(commonsPo);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();

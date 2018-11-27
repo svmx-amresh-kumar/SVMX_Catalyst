@@ -82,8 +82,6 @@ public class SCN_RS_10548 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
 		
-		
-		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -94,11 +92,9 @@ public class SCN_RS_10548 extends BaseLib {
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
+		
 		try {
 		preRequiste();
-		//sWOName="WO-00004442";
-		//sCaseID="00001211";
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -110,7 +106,6 @@ public class SCN_RS_10548 extends BaseLib {
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
-		
 		
 		//Navigation to SFM
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -211,7 +206,6 @@ public class SCN_RS_10548 extends BaseLib {
 	
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName3).isDisplayed(), "Work Order3 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
-	
 	
 		/*
 		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");

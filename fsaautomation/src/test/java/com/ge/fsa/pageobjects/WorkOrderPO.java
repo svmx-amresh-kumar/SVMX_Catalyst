@@ -506,7 +506,18 @@ import org.openqa.selenium.Rotatable;
 	
 			return eleClickSave;
 		}
+		
+		// Tap on the UI
+		
+		
+		
+		@FindBy(xpath="//div[@class='x-mask']")
+		private WebElement eleTapUI;
+		public  WebElement getEleTapUI()
+		{
 	
+			return eleTapUI;
+		}
 		// Add selected button
 	
 		@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
@@ -734,7 +745,7 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 	
-		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement EleProformaInvoiceTxt;
 		public WebElement getEleProformaInvoiceTxt()
 		{
@@ -1209,7 +1220,7 @@ import org.openqa.selenium.Rotatable;
 					ExtentManager.logger.log(Status.PASS,"Element is displayed");
 					commonsPo.tap(getEleActionsTxt(sActionsName));
 					
-					Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
+					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
 					System.out.println("Counter "+iWhileCnt);
 					
 					break;
@@ -1256,8 +1267,8 @@ import org.openqa.selenium.Rotatable;
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"00", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"02","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"04", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"05","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -1281,14 +1292,15 @@ import org.openqa.selenium.Rotatable;
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 			Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
+			
+			Thread.sleep(GenericLib.iHighSleep);
+			//commonsPo.tap(getEleDoneLnk());
 			getEleDoneLnk().click();
-			commonsPo.tap(getEleDoneLnk());
-			//Thread.sleep(GenericLib.iHighSleep);
-			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			//Thread.sleep(GenericLib.iHighSleep);
-			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			//Thread.sleep(GenericLib.iHighSleep);
 	
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			Thread.sleep(GenericLib.iHighSleep);
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(GenericLib.iHighSleep);
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
