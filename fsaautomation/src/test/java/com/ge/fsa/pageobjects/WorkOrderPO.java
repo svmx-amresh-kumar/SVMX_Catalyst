@@ -506,7 +506,18 @@ import org.openqa.selenium.Rotatable;
 	
 			return eleClickSave;
 		}
+		
+		// Tap on the UI
+		
+		
+		
+		@FindBy(xpath="//div[@class='x-mask']")
+		private WebElement eleTapUI;
+		public  WebElement getEleTapUI()
+		{
 	
+			return eleTapUI;
+		}
 		// Add selected button
 	
 		@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
