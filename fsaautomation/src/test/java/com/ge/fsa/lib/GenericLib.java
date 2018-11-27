@@ -80,11 +80,12 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To read test data from excel sheet
 	 */
-	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) {
+	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) throws IOException {
 		String sData = null;
+		FileInputStream fis = new FileInputStream(sTestDataFile);
+		
 		try {
 
-			FileInputStream fis = new FileInputStream(sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
 			Sheet sht = wb.getSheet(sSheetName);
 			int iRowNum = sht.getLastRowNum();
@@ -104,9 +105,12 @@ public class GenericLib
 					break;
 				}
 			}
+			wb.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		fis.close();
 		return sData;
 	}
 	
@@ -148,13 +152,15 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To write test data from excel sheet
 	 */
-	public static void setExcelData(String sTestCaseID, String sKey, String sValue) {
+	public static void setExcelData(String sTestCaseID, String sKey, String sValue) throws IOException {
 		String sData = null;
+		FileInputStream fis = null;
+		FileOutputStream fos =null;
 		try {
 
-			FileInputStream fis = new FileInputStream(sTestDataFile);
+			fis = new FileInputStream(sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
-			Sheet sht = wb.getSheet("TestData");
+			Sheet sht = wb.getSheet("sTestCaseID");
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
 			for (int i = 1; i <= iRowNum; i++) {
@@ -171,20 +177,23 @@ public class GenericLib
 					break;
 				}
 			}
-			FileOutputStream fos = new FileOutputStream(sTestDataFile);
+			fos = new FileOutputStream(sTestDataFile);
 			wb.write(fos);
+			
+			wb.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
+		fos.close();
 		
 	}
 	
 	public static void main(String[] args) throws IOException {
 		GenericLib gen = new GenericLib();
-		gen.createShellFile("backOffice/appium_verifyWorkDetails.sah");
-		System.out.println("Passed");
+		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
+		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
 	}
 	
 }
