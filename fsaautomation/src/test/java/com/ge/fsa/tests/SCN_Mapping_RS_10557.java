@@ -17,6 +17,7 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
@@ -209,4 +210,12 @@ String Location=null;
 	
 	}
 
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+					restServices.restDeleterecord("Account",sObjectAccID); 
+					restServices.restDeleterecord("Product2",sObjectProID); 
+					restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); 
+	}
+	
 }

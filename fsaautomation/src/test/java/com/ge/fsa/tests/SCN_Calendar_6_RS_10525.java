@@ -88,7 +88,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 			
 		//config sync
-			toolsPo.configSync(commonsPo);
+		//	toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -123,6 +123,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			calendarPO.VerifyWOInCalender(commonsPo,sworkOrderName);
+			calendarPO.geteleWOendpoint("09:00").getLocation();
 			calendarPO.validateeventlocation(sworkOrderName,StartDateTimehr,EndDateTimehr,diff);
 			
 			//verifing event is present at the rite location in Week view

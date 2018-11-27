@@ -108,14 +108,14 @@ public class ToolsPO
 		return eleCancelConfigSyncBtn;
 	}
 	
-	@FindBy(xpath="//*[text()='Sign Out']")
+	@FindBy(xpath="//*[text()='Sign Out']//..//span[@class='x-button-label']")
 	private WebElement eleSignOutBtn;
 	public WebElement geteleSignOutBtn()
 	{
 		return eleSignOutBtn;
 	}
 	
-	@FindBy(xpath="(//*[text()='Sign Out'])[2]")
+	@FindBy(xpath="//*[text()='Sign Out']//..//span[@class='x-button-icon x-font-icon x-hidden']//..//span[@class='x-button-label']")
 	private WebElement elepopSignOutBtn;
 	public WebElement getelepopSignOutBtn()
 	{

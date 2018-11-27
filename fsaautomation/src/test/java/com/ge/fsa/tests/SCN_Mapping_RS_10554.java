@@ -17,6 +17,7 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
@@ -136,11 +137,11 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-		//	toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Navigation to SFM
@@ -191,7 +192,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
 			
 			toolsPo.syncData(commonsPo);
-			//Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			
 			// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sObjectIBID+"\'";
@@ -253,18 +254,17 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			assertEquals("2018-08-29", srequesteddateDate);
 			ExtentManager.logger.log(Status.PASS,"Installed product to workorder field mapping is successfull");
 			
-		//Deleting data created
-			
-			
-		//Account
-			restServices.restGetSoqlValue(sObjectAccID,"Id"); 
-			restServices.restGetSoqlValue(sObjectProID,"Id"); 
-			restServices.restGetSoqlValue(sObjectIBID,"Id"); 
-			
-			
-			
-	
 	
 	}
 
+	
+	
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+					restServices.restDeleterecord("Account",sObjectAccID); 
+					restServices.restDeleterecord("Product2",sObjectProID); 
+					restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID); 
+	}
+	
 }

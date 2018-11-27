@@ -76,7 +76,7 @@ public class CreateNewPO
 		return eleClickContactfield;
 	}
 	
-	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(), 'Installed Product ID')]/../../div[@class='x-body-el x-widthed']//textarea")
+	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(), 'Installed Product ID')]/../../div[@class='x-body-el x-widthed']//input")
 	private WebElement eleClickInstalledProductID;
 	public WebElement getClickInstalledProductID()
 	{

@@ -1194,7 +1194,7 @@ import org.openqa.selenium.Rotatable;
 		 */
 		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		

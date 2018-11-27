@@ -195,11 +195,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			
+		loginHomePo.login(commonsPo, exploreSearchPo);
 			commonsPo.tap(toolsPo.getEleToolsIcn());
 			commonsPo.tap(toolsPo.geteleSignOutBtn());
 			commonsPo.tap(toolsPo.getelepopSignOutBtn());
-			Thread.sleep(5000);
+			Thread.sleep(10000);
+			System.out.println("Sign out successfully");
 			
+			//lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			Thread.sleep(3000);

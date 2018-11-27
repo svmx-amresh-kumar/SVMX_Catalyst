@@ -54,7 +54,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 //String Location=null;
 String SFMBillingtype="Empowerment";
 String SFMcontact="C10556_ Auto";
-boolean SFMCustomerDown=true;
+String SFMCustomerDown="true";
 String SFMEmail="testsample@gmail.com";
 String SFMNumber="11";
 String SFMPhone="9902819683";
@@ -62,16 +62,16 @@ String SFMURL="www.motogp.com";
 String SFMCurrency="46";
 String SFMclosedby="Auto Tech";
 String SFMSite="L10556_Auto";
-String SFMScheduledDate="";
-String SFMScheduledDatetime="";
+String SFMScheduledDate="11/26/2018";
+String SFMScheduledDatetime="11/27/2018 00:00";
 String SFMProduct="P10556_Auto";
 String SFMLineQty="17";
 String SFMLinePerUnit="46";
 String SFMWorkdiscription="Verifying Value Map for New Child Record (text)";
 String SFMRecordType="Usage/Consumption";
 String SFMlinetype="Parts";
-String SFMdaterequired="";
-boolean SFMIsBillable=true;
+String SFMdaterequired="2018-11-27";
+String SFMIsBillable="true";
 	WebElement productname=null;
 	String sSheetName =null;
 	
@@ -86,27 +86,9 @@ boolean SFMIsBillable=true;
 		String sTestCaseID="RS-10556_mapping";
 		
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
+	
 		
-	/*	
-		
-		// Create product
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"product\", \"IsActive\": \"true\"}";
-		sObjectApi = "Product2?";
-		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
-		sproductname  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		System.out.println(sproductname);
-		//create location
-		sObjectApi = "SVMXC__Site__c?";
-		sJsonData = "{\"Name\": \""+sTestIBID+""+"Location\", \"SVMXC__Street__c\": \"#4566\", \"SVMXC__Country__c\": \"India\", \"SVMXC__Zip__c\": \"560008\"}";
-		sObjectlocationID=restServices.restCreate(sObjectApi,sJsonData);
-		String sSqllocQuery = "SELECT+name+from+SVMXC__Site__c+Where+id+=\'"+sObjectlocationID+"\'";				
-		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
-		//sProductName1="v1";
-		System.out.println(Location);
-		*/
-		
-		/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -120,7 +102,7 @@ boolean SFMIsBillable=true;
 			assertEquals(0, 1);
 		}
 		lauchNewApp("true");
-		System.out.println("RS_10556");*/
+		System.out.println("RS_10556");
 		
 		
 		//read from file
@@ -134,27 +116,27 @@ boolean SFMIsBillable=true;
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
 			toolsPo.configSync(commonsPo);
-			//Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sworkordernumber, sFieldServiceName);
+			//workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sworkordernumber, sFieldServiceName);
 
 			
 			calendarPO.openWofromCalendar(commonsPo, sworkordernumber);
-			
+			Thread.sleep(GenericLib.iMedSleep);
 			workOrderPo.selectAction(commonsPo,sFieldServiceName);
 			
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//to get orderstatus nd ordertype from workorder
-			/* JSONArray sJsonArrayWO1 = restServices.restGetSoqlJsonArray("Select+SVMXC__Order_Status__c,+SVMXC__Order_Type__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"+sworkordernumber+"\'");
+			 JSONArray sJsonArrayWO1 = restServices.restGetSoqlJsonArray("Select+SVMXC__Order_Status__c,+SVMXC__Order_Type__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"+sworkordernumber+"\'");
 				//String sordertype = restServices.getJsonValue(sJsonArrayWO1, "SVMXC__Order_Type__c");
 				String sorderstatus = restServices.getJsonValue(sJsonArrayWO1, "SVMXC__Order_Status__c");
 				
-				System.out.println(":):):):):):):)");
+				System.out.println(":):):):):):):):):):):):):):):):):):):):):):):):):):):):):):):):):):):)");
 			 //Validating before save
 			String fetchedOrderStatus =workOrderPo.getEleOrderStatusCaseLst().getAttribute("value");
 			System.out.println(fetchedOrderStatus);
@@ -167,13 +149,13 @@ boolean SFMIsBillable=true;
 			String fetchedContact =workOrderPo.getTxtContact().getAttribute("value");
 			System.out.println(fetchedContact);
 			Assert.assertTrue(fetchedContact.equals(SFMcontact), "contact value mapped is not displayed");
-			*/
+				
 			String fetchCustomerDown =workOrderPo.getCustomerDown().getText().toString();
 			System.out.println(fetchCustomerDown);
 			//Assert.assertEquals(fetchCustomerDown,SFMCustomerDown, "CustomerDown value mapped is not displayed");
-			
-		Thread.sleep(GenericLib.iVHighSleep);
-			/*String fetchProblemDescription =workOrderPo.getProblemDescription().getText();
+		
+		Thread.sleep(GenericLib.iMedSleep);
+			String fetchProblemDescription =workOrderPo.getProblemDescription().getText();
 			System.out.println(fetchProblemDescription);
 			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype), "ProblemDescription value mapped is not displayed");
 			
@@ -203,11 +185,11 @@ boolean SFMIsBillable=true;
 			
 			String fetchedScheduledDate =workOrderPo.getScheduledDatevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDate);
-			//Assert.assertTrue(fetchedScheduledDate.equals("09.09.18"), "ScheduledDate value mapped is not displayed");
+			Assert.assertTrue(fetchedScheduledDate.equals(SFMScheduledDate), "ScheduledDate value mapped is not displayed");
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
-		//	Assert.assertTrue(fetchedScheduledDatetime.equals(sformattedDatetime), "ScheduledDatetime value mapped is not displayed");
+			Assert.assertTrue(fetchedScheduledDatetime.equals(SFMScheduledDatetime), "ScheduledDatetime value mapped is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
 			//add new line for parts
@@ -248,11 +230,11 @@ boolean SFMIsBillable=true;
 			
 			String fetchdaterequired =workOrderPo.getDateRequired().getAttribute("value");
 			System.out.println(fetchdaterequired);
-		//	Assert.assertTrue(fetchdaterequired.equals("09.09.18"), "DateRequired value mapped is not displayed");
+			Assert.assertTrue(fetchdaterequired.equals("11/27/2018"), "DateRequired value mapped is not displayed");
 			
 			String fetchedstartdateandtime =workOrderPo.getStartDateandTime().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
-		//	Assert.assertTrue(fetchedstartdateandtime.equals("08.09.18 00:00"), "startdateandtime required value mapped is not displayed");
+			Assert.assertTrue(fetchedstartdateandtime.equals("11/26/2018 00:00"), "startdateandtime required value mapped is not displayed");
 			
 			String fetchclosedbyinpart =workOrderPo.getclosedby().getAttribute("value");
 			System.out.println(fetchclosedbyinpart);
@@ -267,11 +249,122 @@ boolean SFMIsBillable=true;
 			Assert.assertEquals(fetchisBillable,true, "Billable value mapped is not displayed");
 			
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
-			commonsPo.tap(workOrderPo.getEleDoneBtn());*/
+			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			
-		
-
+			commonsPo.tap(workOrderPo.getEleSaveLnk());
+			
+			//datasync
+				toolsPo.syncData(commonsPo);
+				Thread.sleep(GenericLib.iMedSleep);
+				
+				
+			//collecting data from server
+				
+				System.out.println(":):):):):):):)Server:):):):):):):):):)Server:):):):):):):):):):):):):):):):):):):)");
+				JSONArray sJsonArrayWO = restServices.restGetSoqlJsonArray("Select+SVMXC__Order_Status__c,+SVMXC__Billing_Type__c,+SVMXC__Contact__c,+SVMXC__Customer_Down__c,+SVMXC__Scheduled_Date_Time__c,+SVMXC__Scheduled_Date__c,SVMXC__Problem_Description__c,Email__c,URL__c,Number__c,Phone__c,Currency__c,SVMXC__Site__c,SVMXC__Closed_By__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"+sworkordernumber+"\'");
+				
+				String orderstatus = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Order_Status__c");
+				assertEquals("Open", orderstatus);
+				System.out.println(orderstatus);
+				
+				String billingtype = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Billing_Type__c");
+				assertEquals(SFMBillingtype, billingtype);
+				
+				String contactid = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Contact__c");
+				String contactQuery = "SELECT+Name+from+Contact+where+id=\'"+contactid+"\'";
+				String soqlcontactName  =restServices.restGetSoqlValue(contactQuery,"Name");
+				assertEquals(SFMcontact, soqlcontactName);
+				
+				 String customerdown = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Customer_Down__c");
+				assertEquals("true",customerdown);
+				
+				String scheddatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
+				System.out.println(scheddatetime);
+				//assertEquals(SFMScheduledDatetime, scheddatetime);
+				
+				String scheddate = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date__c");
+				//assertEquals(SFMScheduledDate, scheddate);
+				
+				String ProblemDescription = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Problem_Description__c");
+				assertEquals(SFMBillingtype, ProblemDescription);
+				
+				String Email = restServices.getJsonValue(sJsonArrayWO, "Email__c");
+				assertEquals(SFMEmail, Email);
+				
+				String URL = restServices.getJsonValue(sJsonArrayWO, "URL__c");
+				assertEquals(SFMURL, URL);
+				
+				String Number = restServices.getJsonValue(sJsonArrayWO, "Number__c");
+				assertEquals("11.0", Number);
+				
+				String Phone = restServices.getJsonValue(sJsonArrayWO, "Phone__c");
+				assertEquals(SFMPhone, Phone);
+				
+				String Currency = restServices.getJsonValue(sJsonArrayWO, "Currency__c");
+				assertEquals("46.0", Currency);
+				
+				String siteid = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Site__c");
+				String siteQuery = "SELECT+Name+from+SVMXC__Site__c+where+id=\'"+siteid+"\'";
+				String siteName  =restServices.restGetSoqlValue(siteQuery,"Name");
+				assertEquals(SFMSite, siteName);
+				
+				String closedby = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Closed_By__c");
+				String userQuery = "SELECT+Name+from+User+where+id=\'"+closedby+"\'";
+				String userName  =restServices.restGetSoqlValue(userQuery,"Name");
+				assertEquals(SFMclosedby, userName);
+				System.out.println(":):):):):):):)Client:):):):):):):):):)Client:):):):):):):):):):):):):):):):):):):)");
 	
+				//////////////////////////
+			
+				
+				JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Product__c,+SVMXC__Actual_Quantity2__c,SVMXC__Actual_Price2__c,SVMXC__Work_Description__c,SVMXC__Is_Billable__c,RecordType.name,SVMXC__Line_Type__c,SVMXC__Date_Requested__c,SVMXC__Start_Date_and_Time__c,SVMXC__Requested_Location__c,SVMXC__Closed_By__c,SVMXC__Canceled_By__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkordernumber+"\')");
+				
+				String spartid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Product__c");
+				String partQuery = "SELECT+Name+from+Product2+where+id=\'"+spartid+"\'";
+				String soqlpartName  =restServices.restGetSoqlValue(partQuery,"Name"); 
+				assertEquals(SFMProduct, soqlpartName);
+	
+
+				String lineqty = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Actual_Quantity2__c");
+				assertEquals("17.0", lineqty);
+				
+				String linepriceperunit = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Actual_Price2__c");
+				assertEquals("46.0", linepriceperunit);
+
+				String Work_Description = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Work_Description__c");
+				assertEquals(SFMWorkdiscription, Work_Description);
+
+				String Is_Billable = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Is_Billable__c");
+				assertEquals(SFMIsBillable, Is_Billable);
+
+				String RecordType = restServices.getJsonValue(sJsonArrayparts, "RecordType");
+				//assertEquals(SFMRecordType, RecordType);
+				
+				String Line_Type = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Line_Type__c");
+				assertEquals(SFMlinetype, Line_Type);
+				
+				String Date_Requested = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Date_Requested__c");
+				assertEquals(SFMdaterequired, Date_Requested);
+				
+				String Start_Date_and_Time = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Start_Date_and_Time__c");
+			//	assertEquals(SFMdaterequired, Start_Date_and_Time);//today
+				
+				String Requested_Location = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Requested_Location__c");
+				String Requested_LocationQuery = "SELECT+Name+from+SVMXC__Site__c+where+id=\'"+Requested_Location+"\'";
+				String Requested_LocationName  =restServices.restGetSoqlValue(Requested_LocationQuery,"Name");
+				assertEquals(SFMSite, Requested_LocationName);
+				
+				 closedby = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Closed_By__c");
+				 userQuery = "SELECT+Name+from+User+where+id=\'"+closedby+"\'";
+				 userName  =restServices.restGetSoqlValue(userQuery,"Name");
+				assertEquals(SFMclosedby, userName);
+
+				String Canceled_By = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Canceled_By__c");
+				 userQuery = "SELECT+Name+from+User+where+id=\'"+Canceled_By+"\'";
+				 userName  =restServices.restGetSoqlValue(userQuery,"Name");
+				assertEquals(SFMclosedby, userName);
+				
 	}
+				
 
 }
