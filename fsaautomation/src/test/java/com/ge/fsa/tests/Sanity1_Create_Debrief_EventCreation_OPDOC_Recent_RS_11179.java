@@ -23,7 +23,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch= null;
+	String sActivityType=null;
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -32,18 +32,18 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
-	String sSheetName1 = "RS_11179";
+	String sSheetName = null;
+	String sPrintReportSearch = null;
 
 	
 @Test
 public void Scenario1Test() throws Exception
 {		
 	String sTestDataValue = "SCN_RS_11179";
-	sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Service Report Name");
-	System.out.println(sPrintReportSearch);
+	sSheetName ="RS_11179";
+	
 //	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-//
-//
+
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
@@ -116,8 +116,12 @@ public void Scenario1Test() throws Exception
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
+		
+		
 		// Creating the Service Report.
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		//sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName,"Service Report Name");
+	 	sPrintReportSearch = "Work Order Service Report";
+		workOrderPo.validateServiceReport(commonsPo,sPrintReportSearch, sworkOrderName);
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -142,8 +146,8 @@ public void Scenario1Test() throws Exception
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
-		toolsPo.syncData(commonsPo);
 		Thread.sleep(5000);
+		toolsPo.syncData(commonsPo);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
