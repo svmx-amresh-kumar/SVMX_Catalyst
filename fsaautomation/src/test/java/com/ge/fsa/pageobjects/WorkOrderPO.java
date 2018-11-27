@@ -1209,7 +1209,7 @@ import org.openqa.selenium.Rotatable;
 					ExtentManager.logger.log(Status.PASS,"Element is displayed");
 					commonsPo.tap(getEleActionsTxt(sActionsName));
 					
-					Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
+					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
 					System.out.println("Counter "+iWhileCnt);
 					
 					break;
@@ -1281,14 +1281,14 @@ import org.openqa.selenium.Rotatable;
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 			Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
-			getEleDoneLnk().click();
+			//getEleDoneLnk().click();
 			commonsPo.tap(getEleDoneLnk());
-			//Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.iHighSleep);
+			
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			//Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			//Thread.sleep(GenericLib.iHighSleep);
-	
+			Thread.sleep(GenericLib.iHighSleep);
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
