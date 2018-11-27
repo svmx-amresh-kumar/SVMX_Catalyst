@@ -141,6 +141,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductNameA));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
+				commonsPo.tap(workOrderPo.getEleClickSave());
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
@@ -175,6 +176,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 					assertEquals(0, 1);
 				}
+				
 				toolsPo.configSync(commonsPo);
 	
 	}
