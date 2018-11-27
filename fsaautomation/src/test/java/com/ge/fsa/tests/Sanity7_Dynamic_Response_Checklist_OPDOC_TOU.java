@@ -172,7 +172,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
