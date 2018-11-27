@@ -409,12 +409,13 @@ public class CommonsPO
 		
 		
 		//Wait for element until the element is displayed or time elapsed
-		public void waitforElement(WebElement wElement, long lTime)
+		public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
 		{ long lElapsedTime = 0;
 		System.out.println("Time to Wait : "+lTime);
 
 			while(lElapsedTime!=lTime)
 			{
+				Thread.sleep(1000);
 				try{
 					if(wElement.isDisplayed())
 					{ //System.out.println("*****Element is found *********");
@@ -662,15 +663,14 @@ public class CommonsPO
 		 * @return
 		 * @throws InterruptedException 
 		 */
-		public boolean waitForString(WebElement wElement, String sExpectedValue,long lTime) throws InterruptedException
+		public boolean waitForString(WebElement wElement, String sExpectedValue,int lTime) throws InterruptedException
 		{ 	
 		
 			String sSuccessString = null;
-			long lElapsedTime=0;
+			int lElapsedTime=0;
 			while(lElapsedTime!=lTime)
 			{
-				waitforElement(wElement, 3);
-				Thread.sleep(5000);
+				waitforElement(wElement, 1);
 				//Ignore Errors from string not found and wait
 				try{sSuccessString = wElement.getText();}catch(Exception e) {}
 					if(sSuccessString.equals(sExpectedValue))
