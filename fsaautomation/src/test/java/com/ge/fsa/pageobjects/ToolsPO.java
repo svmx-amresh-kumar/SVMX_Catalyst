@@ -170,6 +170,7 @@ public class ToolsPO
 		//Verification of successful sync
 		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+		Thread.sleep(GenericLib.iHighSleep);
 	}
 	
 	//Config Sync
