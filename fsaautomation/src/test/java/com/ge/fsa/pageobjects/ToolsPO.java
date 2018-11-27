@@ -202,14 +202,17 @@ public class ToolsPO
 			//commonsPo.waitforElement(element, lTime);
 			
 			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", GenericLib.lWaitTime)) {
-				System.out.println("Sync Completed Sucessfully-tools po");
+				System.out.println("Config Sync Completed Sucessfully-tools po");
+				ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 			}else {
-				System.out.println("Sync Failed");
+				System.out.println("Config Sync Failed");
+				//Verification of successful sync
+				ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
+				Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
 			}
 																	
-			//Verification of successful sync
-			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
-			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
+
+			
 		}
 	
 		

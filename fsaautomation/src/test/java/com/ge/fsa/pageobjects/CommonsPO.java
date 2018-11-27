@@ -666,30 +666,23 @@ public class CommonsPO
 		{ 	
 		
 			String sSuccessString = null;
-			lElapsedTime=0L;
-			while(true)
+			long lElapsedTime=0;
+			while(lElapsedTime!=lTime)
 			{
-				waitforElement(wElement, GenericLib.lWaitTime);
+				waitforElement(wElement, 3);
 				Thread.sleep(5000);
-				sSuccessString = wElement.getText();
-					//If not displayed success and timer is up then we return false
-					if(!sSuccessString.equals(sExpectedValue) && (lElapsedTime==lTime))
+				//Ignore Errors from string not found and wait
+				try{sSuccessString = wElement.getText();}catch(Exception e) {}
+					if(sSuccessString.equals(sExpectedValue))
 					{ 
-						return false;
+						return true;
 					}
-				
-				
 				lElapsedTime++;
-				
-				if(sSuccessString.equals(sExpectedValue)) {
-					return true;
-				}
 			
 			}
-			
-			
-		
-			
+			//If string not found after waiting return false
+			return false;
+
 		}
 		
 		/**
