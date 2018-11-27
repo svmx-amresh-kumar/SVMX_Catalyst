@@ -1292,10 +1292,11 @@ import org.openqa.selenium.Rotatable;
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 			Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
-			//getEleDoneLnk().click();
-			commonsPo.tap(getEleDoneLnk());
-			Thread.sleep(GenericLib.iHighSleep);
 			
+			Thread.sleep(GenericLib.iHighSleep);
+			//commonsPo.tap(getEleDoneLnk());
+			getEleDoneLnk().click();
+	
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(GenericLib.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);

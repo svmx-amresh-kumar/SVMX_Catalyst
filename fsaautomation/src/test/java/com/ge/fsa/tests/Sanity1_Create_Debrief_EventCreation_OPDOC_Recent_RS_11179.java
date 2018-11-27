@@ -123,16 +123,16 @@ public void Scenario1Test() throws Exception
 	 	sPrintReportSearch = "Work Order Service Report";
 		workOrderPo.validateServiceReport(commonsPo,sPrintReportSearch, sworkOrderName);
 		Thread.sleep(10000);
-		try
-		{
-			commonsPo.tap(workOrderPo.getEleTapUI());
-		
-		}
-		catch(Exception e)
-		{
-			System.out.println("Actions button is not clicked unwantedly");
-		}
-		
+//		try
+//		{
+//			commonsPo.tap(workOrderPo.getEleTapUI());
+//		
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Actions button is not clicked unwantedly");
+//		}
+//		
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -157,6 +157,8 @@ public void Scenario1Test() throws Exception
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
+		Thread.sleep(genericLib.i30SecSleep);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(genericLib.i30SecSleep);
 		toolsPo.syncData(commonsPo);
 		// Verifying the Work details and the service report
