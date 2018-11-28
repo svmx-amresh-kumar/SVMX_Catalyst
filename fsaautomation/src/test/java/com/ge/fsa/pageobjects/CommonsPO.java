@@ -177,7 +177,31 @@ public class CommonsPO
 					counter++;
 				}switchContext("Webview");
 
-			} 
+			} else {
+				int counter =0;
+				while(counter < 5 ) {
+
+					switchContext("Native");
+					try {
+						System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
+								+ point.getX() + "---" + point.getY());
+
+						System.out.println("Android Tapping on Offset Points xOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
+						touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+						switchContext("Webview");
+						break;
+					} catch (Exception e) {
+						System.out.println("Scrolling the page");
+						switchContext("Native");
+						touchAction.press(new PointOption().point(300, 300))
+						.moveTo(new PointOption().point(300, 500)).release().perform();
+						
+					}
+					switchContext("Webview");
+					point = wElement.getLocation();
+					counter++;
+				}switchContext("Webview");
+			}
 		}else {
 			//For IOS
 //			waitforElement(wElement, 3);
