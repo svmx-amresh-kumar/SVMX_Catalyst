@@ -114,6 +114,7 @@ public class BaseLib {
 					
 					ExtentManager.getInstance(driver);
 					Thread.sleep(2000);
+					ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
 					ExtentManager.logger.log(Status.PASS, " Android Driver Initialized Successfully on " + runMachine);
 
 
@@ -164,7 +165,7 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-
+			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
 			ExtentManager.logger.log(Status.PASS, " IOS Driver Initialized Successfully on " + runMachine);
 
 			
