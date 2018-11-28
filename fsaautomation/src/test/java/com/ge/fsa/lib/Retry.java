@@ -23,7 +23,7 @@ public class Retry implements IRetryAnalyzer {
 		// this will run until max count completes if test pass within this frame it
 		// will come out of for loop
 
-		if (minretryCount <= maxretryCount)
+		if (minretryCount < maxretryCount)
 
 		{
 
