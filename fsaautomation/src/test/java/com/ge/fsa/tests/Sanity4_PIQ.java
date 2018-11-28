@@ -43,7 +43,7 @@ public class Sanity4_PIQ extends BaseLib{
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iLowSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");

@@ -98,7 +98,7 @@ public class ExploreSearchPO
 		//getEleExploreSearchTxtFld().click();;
 		//getEleExploreSearchTxtFld().click();
 			//getEleExploreSearchTxtFld().click();
-	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+	try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
 		commonsPo.tap(getEleExploreSearchTxtFld());
 		getEleExploreSearchTxtFld().clear();
 		

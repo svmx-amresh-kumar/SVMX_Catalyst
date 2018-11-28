@@ -165,12 +165,24 @@ public class ToolsPO
 		
 		commonsPo.tap(getEleSyncDataNowLnk());
 		commonsPo.tap(getEleStartSyncBtn());
-		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+		System.out.println("Begining Data Sync");
+
+		commonsPo.waitforElement(getEleRefreshingViewTxt(),500);
+
+//		//Verification of successful sync
+//		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
+//		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+//		Thread.sleep(GenericLib.iHighSleep);
 		
-		//Verification of successful sync
-		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
-		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
-		Thread.sleep(GenericLib.iHighSleep);
+		if( commonsPo.waitForString(getEleSuccessTxt(), "Success", 500)) {
+			System.out.println("Data Sync Completed Sucessfully");
+			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+		}else {
+			System.out.println("Data Sync Failed");
+			//Verification of successful sync
+			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
+			Assert.assertTrue(1<2, "Data Sync Failed");
+		}
 	}
 	
 	//Config Sync
@@ -198,7 +210,7 @@ public class ToolsPO
 	
 			//Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
 			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 2000)) {
-				System.out.println("Config Sync Completed Sucessfully-tools po");
+				System.out.println("Config Sync Completed Sucessfully");
 				ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 			}else {
 				System.out.println("Config Sync Failed");
