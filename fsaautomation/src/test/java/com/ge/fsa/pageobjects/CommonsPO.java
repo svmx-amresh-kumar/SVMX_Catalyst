@@ -170,7 +170,7 @@ public class CommonsPO
 						switchContext("Native");
 						touchAction.press(new PointOption().point(300, 300))
 						.moveTo(new PointOption().point(300, 500)).release().perform();
-						
+					
 					}
 					switchContext("Webview");
 					point = wElement.getLocation();
