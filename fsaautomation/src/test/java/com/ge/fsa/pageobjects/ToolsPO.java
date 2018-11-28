@@ -153,7 +153,11 @@ public class ToolsPO
 		return eleConfigSyncAlertBadge;
 	}
 	
-	//To sync the data
+	/**
+	 * Perform Data Sync and Wait for the Data sync to complete in 900 seconds/ 15 min, beyond which we fail it
+	 * @param commonsPo
+	 * @throws InterruptedException
+	 */
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
 		GenericLib.lWaitTime=3*60*1000;
@@ -174,7 +178,8 @@ public class ToolsPO
 //		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 //		Thread.sleep(GenericLib.iHighSleep);
 		
-		if( commonsPo.waitForString(getEleSuccessTxt(), "Success", 500)) {
+		//Wait for the data sync to complete in 900 seconds/ 15 min, beyond which we fail it
+		if( commonsPo.waitForString(getEleSuccessTxt(), "Success", 900)) {
 			System.out.println("Data Sync Completed Sucessfully");
 			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 		}else {
@@ -185,7 +190,11 @@ public class ToolsPO
 		}
 	}
 	
-	//Config Sync
+	/**
+	 * Perform Config Sync and Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
+	 * @param commonsPo
+	 * @throws InterruptedException
+	 */
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
 			GenericLib.lWaitTime=25*60*1000;
@@ -198,7 +207,7 @@ public class ToolsPO
 			
 			commonsPo.tap(geteleSyncConfigNowLnk());	
 			commonsPo.tap(getEleOkBtn());
-			//cancelling sync in order to reset the config sync status.
+			//Canceling sync in order to reset the config sync status.
 			commonsPo.waitforElement(eleCancelConfigSyncBtn, 30);
 			commonsPo.tap(eleCancelConfigSyncBtn,20,20);
 			Thread.sleep(3000);
