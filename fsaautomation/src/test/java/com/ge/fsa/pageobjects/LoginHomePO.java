@@ -106,6 +106,8 @@ public class LoginHomePO
 	
 	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 
+		String sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
+		String sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
 		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase()) {
 		case "android":
 			
@@ -129,8 +131,8 @@ public class LoginHomePO
 				Thread.sleep(10000);
 				commonsPO.switchContext("Webview");
 
-				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
-				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleUserNameTxtFld().sendKeys(sUn);
+				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
 				Thread.sleep(GenericLib.iHighSleep);
 				try {
@@ -144,7 +146,7 @@ public class LoginHomePO
 
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD = "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				
 			} catch (Exception e) {
 				System.out.println("Already logged in exception ");
@@ -156,7 +158,7 @@ public class LoginHomePO
 				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD = "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
 			}
 			break;
@@ -168,8 +170,8 @@ public class LoginHomePO
 				// SignIn to App
 				getEleSignInBtn().click();
 				Thread.sleep(10000);
-				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
-				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleUserNameTxtFld().sendKeys(sUn);
+				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
 				Thread.sleep(GenericLib.iLowSleep);
 				try {
@@ -186,7 +188,7 @@ public class LoginHomePO
 
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD = "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				
 
 			} catch (Exception e) {
@@ -195,7 +197,7 @@ public class LoginHomePO
 
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD = "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
 			}
 			break;
