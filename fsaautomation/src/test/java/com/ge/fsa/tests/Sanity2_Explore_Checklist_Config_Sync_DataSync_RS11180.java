@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
@@ -59,7 +60,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	}
 
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";

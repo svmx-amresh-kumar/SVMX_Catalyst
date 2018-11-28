@@ -6,11 +6,12 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity9_Mobile_Inventory extends BaseLib {
 	
 	
-@Test
+@Test(retryAnalyzer=Retry.class)
 public void Scenario9Test() throws InterruptedException
 {
 			//Pre Login to app
