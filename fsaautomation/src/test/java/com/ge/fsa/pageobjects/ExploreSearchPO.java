@@ -98,7 +98,8 @@ public class ExploreSearchPO
 		//getEleExploreSearchTxtFld().click();;
 		//getEleExploreSearchTxtFld().click();
 			//getEleExploreSearchTxtFld().click();
-	try {commonsPo.tap(getEleResetFilerBtn());Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+		//If "Reset Filter Button is visible the click it
+	if (getEleResetFilerBtn().isDisplayed()){commonsPo.tap(getEleResetFilerBtn());}
 		commonsPo.tap(getEleExploreSearchTxtFld());
 		getEleExploreSearchTxtFld().clear();
 		

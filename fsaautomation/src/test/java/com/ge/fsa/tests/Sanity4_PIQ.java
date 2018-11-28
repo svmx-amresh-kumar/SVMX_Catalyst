@@ -16,8 +16,10 @@ import com.ge.fsa.lib.GenericLib;
 public class Sanity4_PIQ extends BaseLib{
 	
 	@Test
-	public void scenario4Test() throws IOException, InterruptedException {
-		
+	public void scenario4Test() throws Exception {
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
@@ -42,6 +44,7 @@ public class Sanity4_PIQ extends BaseLib{
 		System.out.println("Work Order Name Is "+ woName);
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iLowSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");

@@ -167,7 +167,7 @@ public class ToolsPO
 		commonsPo.tap(getEleStartSyncBtn());
 		System.out.println("Begining Data Sync");
 
-		commonsPo.waitforElement(getEleRefreshingViewTxt(),500);
+		commonsPo.waitforElement(getEleRefreshingViewTxt(),120);
 
 //		//Verification of successful sync
 //		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");

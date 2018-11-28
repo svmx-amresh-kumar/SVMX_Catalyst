@@ -412,7 +412,8 @@ public class CommonsPO
 		public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
 		{ long lElapsedTime = 0;
 		System.out.println("Time to Wait : "+lTime);
-
+		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+		System.out.println("Waiting For Element : "+printElement);
 			while(lElapsedTime!=lTime)
 			{
 				Thread.sleep(1000);
@@ -668,6 +669,7 @@ public class CommonsPO
 		
 			String sSuccessString = null;
 			int lElapsedTime=0;
+			
 			while(lElapsedTime!=lTime)
 			{
 				waitforElement(wElement, 1);
