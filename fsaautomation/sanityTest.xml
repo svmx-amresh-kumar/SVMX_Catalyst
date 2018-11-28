@@ -20,7 +20,7 @@
 			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />-->
 		
 		  
-		<!--  	<class name="com.ge.fsa.tests.SanityPreReq" /> -->
+			<class name="com.ge.fsa.tests.SanityPreReq" />
 		 	<class name="com.ge.fsa.tests.Sanity9_Mobile_Inventory" />
 		 	<class name="com.ge.fsa.tests.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" /> 
 		  	<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" /> 
