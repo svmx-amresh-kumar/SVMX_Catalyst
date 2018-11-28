@@ -14,7 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
@@ -84,7 +83,7 @@ public class BaseLib {
 		}
 		switch (sOSName) {
 		case "android":
-			try { 
+			try { //Android Drivers
 				   sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
 				   capabilities = new DesiredCapabilities();
 				   capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
@@ -114,8 +113,6 @@ public class BaseLib {
 					
 					ExtentManager.getInstance(driver);
 					Thread.sleep(2000);
-					ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-					ExtentManager.logger.log(Status.PASS, " Android Driver Initialized Successfully on " + runMachine);
 
 
 				
@@ -131,7 +128,7 @@ public class BaseLib {
 
 		default:
 		
-		try { 
+		try { //IOS Drivers
 		
 			sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
 			app = new File(sAppPath);
@@ -165,8 +162,7 @@ public class BaseLib {
 			
 			ExtentManager.getInstance(driver);
 			Thread.sleep(2000);
-			ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-			ExtentManager.logger.log(Status.PASS, " IOS Driver Initialized Successfully on " + runMachine);
+
 
 			
 		} catch (Exception e) {
