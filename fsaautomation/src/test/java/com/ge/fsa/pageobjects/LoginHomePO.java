@@ -150,7 +150,7 @@ public class LoginHomePO
 				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN : "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 				System.out.println("Already installed and logged in");
 			}
 			break;
@@ -183,7 +183,7 @@ public class LoginHomePO
 
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN : "+ GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") +" : PWD "+GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
 				System.out.println("Already installed and logged in");
 			}
 			break;
