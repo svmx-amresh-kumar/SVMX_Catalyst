@@ -243,12 +243,10 @@ public class CalendarPO
 	 */
 	public void openWoFromCalendar(CommonsPO commonsPo, String workordername) throws Exception 
 	{
+	
 		commonsPo.tap(getEleCalendarClick());
-		Thread.sleep(3000);
-
-		commonsPo.tap(getEleCalendarClick());
-		Thread.sleep(3000);
-		geteleWOendpoint("03:00").getLocation();
+		Thread.sleep(6000);
+		//geteleWOendpoint("03:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
 //		if(getEleworkordernumonCalendarWeek(workordername).isDisplayed()){
