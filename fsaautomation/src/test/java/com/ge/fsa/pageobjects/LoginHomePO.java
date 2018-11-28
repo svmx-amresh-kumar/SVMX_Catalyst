@@ -147,7 +147,8 @@ public class LoginHomePO
 				commonsPO.switchContext("Webview");
 
 				wait = new WebDriverWait(driver, 4000);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
 				System.out.println("Already installed and logged in");
@@ -178,7 +179,9 @@ public class LoginHomePO
 
 			} catch (Exception e) {
 				wait = new WebDriverWait(driver, 4000);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
 				System.out.println("Already installed and logged in");
