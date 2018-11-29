@@ -69,7 +69,7 @@ public class SCN_RS_10543 extends BaseLib {
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-			
+		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
@@ -185,13 +185,13 @@ public class SCN_RS_10543 extends BaseLib {
 				postCleanup();toolsPo.syncData(commonsPo);
 				Thread.sleep(GenericLib.iMedSleep);
 				if(bExecutionFlag) {
-				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi clean up  is successful");}
+				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 
 			}catch(Exception e) {
 				postCleanup();toolsPo.syncData(commonsPo);
 				Thread.sleep(GenericLib.iMedSleep);
 				if(bExecutionFlag) {
-				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi clean up is successful");}
+				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 			}
 		}
 	}
