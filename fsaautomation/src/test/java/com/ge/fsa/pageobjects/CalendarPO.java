@@ -247,7 +247,7 @@ public class CalendarPO
 	
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(6000);
-		//geteleWOendpoint("03:00").getLocation();
+		geteleWOendpoint("04:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
 //		if(getEleworkordernumonCalendarWeek(workordername).isDisplayed()){
