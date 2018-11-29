@@ -39,7 +39,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
-		toolsPo.configSync(commonsPo);
+		toolsPo.syncData(commonsPo);
 		//Create a Work Order to verify the Download Criteria
 		restServices.getAccessToken();
 		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -165,10 +165,9 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				}
 
 				
-				toolsPo.configSync(commonsPo);
+				toolsPo.syncData(commonsPo);
 	
 	}
-
 	
 	
 }
