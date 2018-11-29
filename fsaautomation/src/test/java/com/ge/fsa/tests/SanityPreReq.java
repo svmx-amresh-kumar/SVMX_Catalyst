@@ -11,12 +11,13 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.Retry;
 
 public class SanityPreReq extends BaseLib {
 	
 	String sTestCaseID = "SanityPreReq";
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void SanityPreReq() throws Exception {
 
 		

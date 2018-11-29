@@ -14,6 +14,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 
@@ -37,7 +38,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sPrintReportSearch = null;
 
 	
-@Test
+	@Test(retryAnalyzer=Retry.class)
 public void Scenario1Test() throws Exception
 {		
 	String sTestDataValue = "SCN_RS_11179";

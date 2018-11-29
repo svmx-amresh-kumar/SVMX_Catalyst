@@ -15,6 +15,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sTestCaseID= null;
@@ -31,7 +32,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sSheetName =null;
 
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario7() throws Exception {
 		sSheetName ="Scenario7_Checklist";
 		sTestCaseID = "Scenario7_Checklist";

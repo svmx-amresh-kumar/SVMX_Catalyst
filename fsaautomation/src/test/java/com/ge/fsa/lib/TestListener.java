@@ -1,6 +1,7 @@
 package com.ge.fsa.lib;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.testng.IInvokedMethod;
 
@@ -54,10 +55,22 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 	}
 
 	// This belongs to ITestListener and will execute, once the Test set/batch is finished
+    @Override
 
 	public void onFinish(ITestContext arg0) {
 
 		//Reporter.log("Completed executing test " + arg0.getName(), true);
+		Set<ITestResult> failedTests = arg0.getFailedTests().getAllResults();
+		for (ITestResult temp : failedTests) {
+			ITestNGMethod method = temp.getMethod();
+			if (arg0.getFailedTests().getResults(method).size() > 1) {
+				failedTests.remove(temp);
+			} else {
+				if (arg0.getPassedTests().getResults(method).size() > 0) {
+					failedTests.remove(temp);
+				}
+			}
+		}
 
 	}
 
