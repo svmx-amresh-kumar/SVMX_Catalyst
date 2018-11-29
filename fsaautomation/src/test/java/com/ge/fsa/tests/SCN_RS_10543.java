@@ -194,6 +194,10 @@ public class SCN_RS_10543 extends BaseLib {
 				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 			}
 		}
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		
 	}
 
 	
