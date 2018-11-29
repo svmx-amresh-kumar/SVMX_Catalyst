@@ -11,6 +11,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
@@ -59,7 +60,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 	}
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void toTest() throws Exception {
 		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";

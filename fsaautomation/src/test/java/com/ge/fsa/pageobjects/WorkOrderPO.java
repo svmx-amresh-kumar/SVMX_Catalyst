@@ -1210,25 +1210,25 @@ import org.openqa.selenium.Rotatable;
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
-			commonsPo.switchContext("Webview");			
-			iWhileCnt =0;
-			while(iWhileCnt<=3) 
-			{	
-				try {
-					commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
-					Assert.assertTrue(getEleActionsTxt(sActionsName).isDisplayed(),"Failed to scroll to search");
-					ExtentManager.logger.log(Status.PASS,"Element is displayed");
-					commonsPo.tap(getEleActionsTxt(sActionsName));
-					
-					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
-					System.out.println("Counter "+iWhileCnt);
-					
-					break;
-				}catch(Exception e) {}		
-				
-				iWhileCnt++;
-			}
-			//commonsPo.tap(getEleActionsTxt(sActionsName));
+//			commonsPo.switchContext("Webview");			
+//			iWhileCnt =0;
+//			while(iWhileCnt<=3) 
+//			{	
+//				try {
+//					commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
+//					Assert.assertTrue(getEleActionsTxt(sActionsName).isDisplayed(),"Failed to scroll to search");
+//					ExtentManager.logger.log(Status.PASS,"Element is displayed");
+//					commonsPo.tap(getEleActionsTxt(sActionsName));
+//					
+//					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
+//					System.out.println("Counter "+iWhileCnt);
+//					
+//					break;
+//				}catch(Exception e) {}		
+//				
+//				iWhileCnt++;
+//			}
+			commonsPo.tap(getEleActionsTxt(sActionsName));
 		
 			
 			/*

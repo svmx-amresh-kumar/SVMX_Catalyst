@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.Retry;
 
 
 public class Sanity8_Lookup_DOD extends BaseLib
@@ -28,7 +29,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	String sExploreChildSearchTxt = "Work Orders";
 
 
-	@Test		
+	@Test(retryAnalyzer=Retry.class)		
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration

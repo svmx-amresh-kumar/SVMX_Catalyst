@@ -12,10 +12,11 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity4_PIQ extends BaseLib{
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario4Test() throws Exception {
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");

@@ -868,8 +868,25 @@ public class CommonsPO
 				System.out.println("Element Not displayed returning false");
 				return false;
 			}
+			
+			
+			
 
 		}
+		
+		// STRICTLY FOR THE POC PURPOSE - ANDROID CLICK
+		public void androidtap(WebElement ele) throws InterruptedException {
+			
+			Point point = ele.getLocation();
+			System.out.println("POINT is"+ point);
+			TouchAction touchAction = new TouchAction(driver);
+			switchContext("Native");
+			touchAction.press(new PointOption().point(point.x, point.y))
+			.moveTo(new PointOption().point(point.x, point.y)).release().perform();
+			Thread.sleep(10000);
+			switchContext("Webview");
+		}
+		
 }
 	
 
