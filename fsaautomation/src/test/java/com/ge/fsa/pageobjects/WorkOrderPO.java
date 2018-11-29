@@ -1267,8 +1267,8 @@ import org.openqa.selenium.Rotatable;
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"04", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"05","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"05", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"06","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -1303,7 +1303,7 @@ import org.openqa.selenium.Rotatable;
 			Thread.sleep(GenericLib.iHighSleep);
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
+//			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 		}
 	
 		// To add Parts

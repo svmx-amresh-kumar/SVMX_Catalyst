@@ -79,10 +79,10 @@ public void Scenario1Test() throws Exception
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
-		// Select the Work Order from the Recent items
-
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+	//	 Select the Work Order from the Recent items
 		
+		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+
 //		// To create a new Event for the given Work Order
 		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 		
@@ -94,7 +94,7 @@ public void Scenario1Test() throws Exception
 		Thread.sleep(3000);
 		//calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
 		// This is to Tap the Date value near the Event to get it's location.
-		calendarPO.geteleWOendpoint("03:00").getLocation();
+		calendarPO.geteleWOendpoint("04:00").getLocation();
 		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
 		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
 		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
