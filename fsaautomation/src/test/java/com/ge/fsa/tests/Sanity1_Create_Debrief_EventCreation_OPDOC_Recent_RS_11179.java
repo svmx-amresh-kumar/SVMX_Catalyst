@@ -44,8 +44,8 @@ public void Scenario1Test() throws Exception
 	String sTestDataValue = "SCN_RS_11179";
 	sSheetName ="RS_11179";
 	
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-	Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+//	Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
@@ -93,23 +93,23 @@ public void Scenario1Test() throws Exception
 
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
-		//calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
+		calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
 		// This is to Tap the Date value near the Event to get it's location.
-		calendarPO.geteleWOendpoint("04:00").getLocation();
-		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
-		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
-		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
-			System.out.println("Found WO " + sworkOrderName);
-			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),15,60);
-			
-			}
-				
-		else
-		{
-			System.out.println("Did not Find WO " + sworkOrderName);
-			throw new Exception("WorkOrder not found on the Calendar");	
-		
-	}
+//		calendarPO.geteleWOendpoint("04:00").getLocation();
+//		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
+//		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
+//		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
+//			System.out.println("Found WO " + sworkOrderName);
+//			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),15,60);
+//			
+//			}
+//				
+//		else
+//		{
+//			System.out.println("Did not Find WO " + sworkOrderName);
+//			throw new Exception("WorkOrder not found on the Calendar");	
+//		
+//	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
@@ -128,15 +128,7 @@ public void Scenario1Test() throws Exception
 	 	sPrintReportSearch = "Work Order Service Report";
 		workOrderPo.validateServiceReport(commonsPo,sPrintReportSearch, sworkOrderName);
 		Thread.sleep(10000);
-//		try
-//		{
-//			commonsPo.tap(workOrderPo.getEleTapUI());
-//		
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Actions button is not clicked unwantedly");
-//		}
+
 //		
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
