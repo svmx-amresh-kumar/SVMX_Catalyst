@@ -112,11 +112,12 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			try
 			{
-				commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName));
+				workOrderPo.selectAction(commonsPo,sProcessname);
+				
 			}
 			catch(Exception e)
 			{
-				workOrderPo.selectAction(commonsPo,sProcessname);
+				commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName));
 				
 			}
 				
