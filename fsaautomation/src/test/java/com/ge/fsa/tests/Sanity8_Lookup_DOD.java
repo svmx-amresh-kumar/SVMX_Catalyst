@@ -109,19 +109,19 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-//			try
-//			{
-//				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-//				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-//				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-//			}
-//			catch(Exception e)
-//			{
-//				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
-//				
-//			}
+			try
+			{
+				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+			}
+			catch(Exception e)
+			{
 				workOrderPo.selectAction(commonsPo,sProcessname);
+				
+			}
+				
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());
 				commonsPo.lookupSearch(sProductNameA);
@@ -132,7 +132,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductNameA));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
-				commonsPo.tap(workOrderPo.getEleClickSave());
+				
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
@@ -143,6 +143,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
+					commonsPo.tap(workOrderPo.getEleClickSave());
 					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
 					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");
 
