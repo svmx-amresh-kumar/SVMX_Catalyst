@@ -52,7 +52,7 @@ public void Scenario1Test() throws Exception
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -71,6 +71,7 @@ public void Scenario1Test() throws Exception
 		
 		// Need to sync the data
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(5000);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);
@@ -89,9 +90,7 @@ public void Scenario1Test() throws Exception
 		// Open the Work Order from the calendar
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
-
-		commonsPo.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(3000);
+		
 		calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
 		// This is to Tap the Date value near the Event to get it's location.
 //		calendarPO.geteleWOendpoint("04:00").getLocation();
