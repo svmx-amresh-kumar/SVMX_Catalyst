@@ -1,6 +1,7 @@
 
 package com.ge.fsa.pageobjects;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -434,7 +435,110 @@ public class CalendarPO
 
 		return elegetday;
 	}
+	
+	
+	private WebElement elegetcolourcode;
+	public WebElement getelegetcolourcode(String WOname,String priority)
+	{
+		elegetcolourcode = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]//..//..//..//div[@class='sfmevent-colorbar sfmevent-colorbar-"+priority+"']"));
+		return elegetcolourcode;
+	}
 
+	public  String hex2Rgb(String colorStr) {
+	    
+		Color c = new Color(
+	        Integer.valueOf(colorStr.substring(1, 3), 16), 
+	        Integer.valueOf(colorStr.substring(3, 5), 16), 
+	        Integer.valueOf(colorStr.substring(5, 7), 16));
+
+	    StringBuffer sb = new StringBuffer();
+	    sb.append("background-color: rgb(");
+	    sb.append(c.getRed());
+	    sb.append(", ");
+	    sb.append(c.getGreen());
+	    sb.append(", ");
+	    sb.append(c.getBlue());
+	    sb.append(");");
+	    return sb.toString();
+	}
+	
+	private WebElement elegetsubjectblock;
+	public WebElement getelegetsubjectblocke(String WOname)
+	{
+		elegetsubjectblock = driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+WOname+"')]//..//div[@class='sfmevent-techSubject'])"));
+		return elegetsubjectblock;
+	}
+	
+	
+	
+	public void VerifyWOInCalenderafterconfchange(CommonsPO commonsPo, String workordername) throws Exception 
+	{
+	
+		Thread.sleep(3000);
+
+		commonsPo.waitforElement(getelegetWOnum(workordername), 300);
+		
+	
+		if(getelegetWOnum(workordername) != null){
+			System.out.println("Found WO " + workordername);
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + workordername);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
+	
+
+	}
+		
+		
+		private WebElement elegetWOnum;
+		public WebElement getelegetWOnum(String WOname)
+		{
+			elegetWOnum = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]"));
+			return elegetWOnum;
+		}
+		
+		
+		private WebElement elesub;
+		public WebElement getelesub(String Sub)
+		{
+			elesub = driver.findElement(By.xpath("//div[contains(text(),'"+Sub+"')]"));
+			return elesub;
+		}
+		
+		private WebElement elegetWOtitle;
+		public WebElement getelegetWOtitle(String WOname)
+		{
+			elegetWOtitle = driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+WOname+"')])"));
+			return elegetWOtitle;
+		}
+
+		private WebElement elegetWOlocation;
+		public WebElement getelegetWOlocation(String WOname)
+		{
+			elegetWOlocation = driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+WOname+"')]/../div[contains(@class,'sfmevent-location sfmevent-day-subject')])"));
+			return elegetWOlocation;
+		}
+
+		private WebElement elegetsubjectcal;
+		public WebElement getelegetsubjectcal(String WOname)
+		{
+			elegetsubjectcal = driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+WOname+"')]/..//div[contains(@class,'sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration')])"));
+			return elegetsubjectcal;
+		}
+
+		private WebElement elegetWOlocationontop;
+		public WebElement getelegetWOlocationontop(String WOname)
+		{
+			elegetWOlocationontop = driver.findElement(By.xpath("(//div[@class='sfmevent-day']//div[@class='sfmevent-location-container']//div[contains(text(),'"+WOname+"')]/../div[contains(@class,'sfmevent-location sfmevent-day-subtitle sfmevent-subject-top-border')])"));
+			return elegetWOlocationontop;
+		}
+
+	
 
 
 }
