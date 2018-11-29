@@ -92,23 +92,23 @@ public void Scenario1Test() throws Exception
 
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
-		calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
+		//calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
 		// This is to Tap the Date value near the Event to get it's location.
-//		calendarPO.geteleWOendpoint("03:00").getLocation();
-//		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
-//		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
-//		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
-//			System.out.println("Found WO " + sworkOrderName);
-//			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),15,60);
-//			
-//			}
-//				
-//		else
-//		{
-//			System.out.println("Did not Find WO " + sworkOrderName);
-//			throw new Exception("WorkOrder not found on the Calendar");	
-//		
-//	}
+		calendarPO.geteleWOendpoint("03:00").getLocation();
+		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
+		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
+		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
+			System.out.println("Found WO " + sworkOrderName);
+			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),15,60);
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + sworkOrderName);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
