@@ -18,8 +18,8 @@ public class SCN_RS_10546 extends BaseLib {
 	String sJsonData = null;
 	String sObjectID = null;
 	String sSqlQuery = null;
-	String sWOName = "WO-00000118";
-	String sAccountNameA = "0013D00000eyMQfQAM";
+	String sWOName = null;
+	String sAccountNameA = null;
 	String sObjectProID = null;
 	String sProductName = "RS_10543_28112018165232product";
 	String sContactName = "RS_10543_28112018165935 RS_10543 ";
@@ -52,11 +52,11 @@ public class SCN_RS_10546 extends BaseLib {
 		//create Contact
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sSerialNumber+"\", \"LastName\": \"RS_10546\", \"AccountId\": \""+sAccountNameA+"\"}");
 		sContactName = sSerialNumber+" "+"RS_10546";
-		/*
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		*/
+		
 	}
 
 	@Test(enabled = true)
@@ -66,11 +66,11 @@ public class SCN_RS_10546 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
 		
 	
-		//preRequiste();
+		preRequiste();
 
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		/*
+		
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -78,7 +78,7 @@ public class SCN_RS_10546 extends BaseLib {
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
-		*/
+		
 		//Navigation to SFM
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		
@@ -100,15 +100,15 @@ public class SCN_RS_10546 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Contacts", sWOName, null);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Contacts", sContactName, null);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Products", sWOName, null);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Products", sProductName, null);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Accounts", sWOName, null);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Accounts", sAccountNameA, null);
 		Thread.sleep(GenericLib.iLowSleep);
 
 	}

@@ -30,6 +30,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -66,26 +67,30 @@ public class workBench extends BaseLib
 //		return picPic;
 //	}
 	
-@Test
+	@Test(retryAnalyzer=Retry.class)
 
 public void workBenchAnd() throws Exception
 {		
+		
 	String sTaskName = "";
-	//lauchNewApp("true");
-	loginHomePo.login(commonsPo, exploreSearchPo);
+	lauchNewApp("true");
+	Thread.sleep(3000);
+
+	 driver.findElement(By.xpath("//*[contains(.,'Explore')]")).click();
+
+	//loginHomePo.login(commonsPo, exploreSearchPo);
+	//workOrderPo.selectAction(commonsPo, "Create New Event From Work Order");
+
+	//Assert.assertTrue(1<2);
 
 	//sTaskName = tasksPo.addTask(commonsPo);
 //toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
-//toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
-//toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
-toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
+//toolsPo.configSync(commonsPo);
 	Thread.sleep(3000);
 
 	
+	calendarPO.openWoFromCalendar(commonsPo, "WO-00005381");
+
 
 	//((JavascriptExecutor) this.driver).executeScript("return arguments[0].click();", element);
 	Thread.sleep(6000);
@@ -94,8 +99,52 @@ toolsPo.configSync(commonsPo);
 
 }
 
+	
+public void DateFormatTests() throws Exception {
+	String sSheetName ="RS_11859";
+	String[] sDeviceDate = driver.getDeviceTime().split(" ");
 
-public void workBench() throws Exception
+	String sTestCaseID="RS_11859_Calender_3";
+
+		//Pre Login to app
+		loginHomePo.login(commonsPo, exploreSearchPo);
+
+		//config sync
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		System.out.println("First time");
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		
+		
+		 toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		System.out.println("second time");
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		
+		
+		 toolsPo.configSync(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
+			System.out.println("third time");
+			commonsPo.tap(calendarPO.getEleCalendarClick());
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+			
+			
+
+			 toolsPo.configSync(commonsPo);
+				Thread.sleep(GenericLib.iMedSleep);
+				System.out.println("forth time");
+				commonsPo.tap(calendarPO.getEleCalendarClick());
+				workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+				
+
+    System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
+}
+
+
+public void AttachmentTests() throws Exception
 {		
 
 
@@ -337,7 +386,7 @@ commonsPo.switchContext("Native");
 //
 //
 }
-	
+
 
 	
 }
