@@ -121,19 +121,18 @@ public class CommonsPO
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
 		Thread.sleep(3000);
-		//Since in IOS now has clicks and taps alternatively
+
 		Boolean clickPassed = false;
 		Boolean tapPassed = false;
 		Exception tapExp = null;
 		int x = 0;
 		int y = 0;
-
-		try {wElement.click(); clickPassed = true;System.out.println("click passed"); }catch(Exception e) { System.out.println("click failed");clickPassed = false; tapExp = e;}
+		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
-
+			//Wait for the complete coordinates to be generated, E.g if (0,0) (0,231) (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
 
 				try{point =  wElement.getLocation();}catch(Exception e) {}
@@ -152,6 +151,7 @@ public class CommonsPO
 			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
 			System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
+			//Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
 				x = point.getX()+xNewOffset;
 				y = point.getY()+yNewOffset;
@@ -167,32 +167,39 @@ public class CommonsPO
 			switch(BaseLib.sOSName) {
 			case "android":
 				//For Android add *2 if real device
+				//Since in android now has clicks and taps alternatively do a click then a tap
+				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
+				
 				switchContext("Native");
-				try {wElement.click(); clickPassed = true;System.out.println("click passed"); }catch(Exception e) { System.out.println("click failed");clickPassed = false; tapExp = e;}
-
 				System.out.println("Android Tapping ");
 				switchContext("Native");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
 				break;
+				
 			case "ios":
 				//For IOS
+				//Since in IOS now has clicks and taps alternatively do a click then a tap
+				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
+		
 				System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
+				
 			default:
+				System.out.println("OS Error");
 				break;
 			}
 
-			System.out.println("tap passed");
+			System.out.println("Tap passed");
 			tapPassed = true;
 		}
 
 		catch(Exception e) {
 			tapExp = e;
 			tapPassed = false;
-			System.out.println("tap failed");
+			System.out.println("Tap failed");
 
 		}
 

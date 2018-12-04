@@ -174,7 +174,7 @@ public class LoginHomePO
 			}
 			break;
 
-		default:
+		case "ios":
 			try {//For IOS
 
 				//Login from Sign in Page
@@ -223,6 +223,10 @@ public class LoginHomePO
 				System.out.println("Already installed and logged in");
 			}
 			break;
+			
+			default:
+				System.out.println("OS Error");
+				break;
 
 		}
 
