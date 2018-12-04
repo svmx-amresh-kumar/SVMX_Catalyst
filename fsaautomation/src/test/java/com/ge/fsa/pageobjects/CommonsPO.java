@@ -24,6 +24,7 @@ import org.testng.Assert;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.BaseLib.Os;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
@@ -390,9 +391,9 @@ public class CommonsPO
 	//To set the value in PicsetPickerWheelValue(ive app
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
+		String osName = "Android";
 
 //		waitforElement1(wElement, GenericLib.i30SecSleep);
-		androidtap(wElement);
 //  	Thread.sleep(2000);
 //		tap(wElement,15,18); //newly added
 //		Point point = null; //newly added
@@ -404,25 +405,35 @@ public class CommonsPO
 //		executor.executeScript("arguments[0].click();", wElement);
 //		switchContext("WebView"); //newly added
 
-		switch(BaseLib.sOSName) {
-		case "android":
-		tap(wElement);
-		Thread.sleep(2000);
+//		switch(BaseLib.sOSName) {
+//		case "android":
+//		tap(wElement);
+//		Thread.sleep(2000);
+		if(osName=="Android") {
+		tap1(wElement);
 		switchContext("Native");
 		driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
-		//	tap(getEleDonePickerWheelBtn());
-		switchContext("WebView");
-		break;
-		default :
-		wElement.click();
-		Thread.sleep(2000);
-		switchContext("Native");
-//		System.out.println(driver.getPageSource());
-		getElePickerWheelPopUp().sendKeys(sValue);		
-		getEleDonePickerWheelBtn().click();
-		//	tap(getEleDonePickerWheelBtn());
+//		//	tap(getEleDonePickerWheelBtn());
 		switchContext("WebView");
 		}
+		else {
+			wElement.click();
+			Thread.sleep(2000);
+			switchContext("Native");
+			getElePickerWheelPopUp().sendKeys(sValue);		
+			getEleDonePickerWheelBtn().click();
+		}
+//		break;
+//		default :
+//		wElement.click();
+//		Thread.sleep(2000);
+//		switchContext("Native");
+////		System.out.println(driver.getPageSource());
+//		getElePickerWheelPopUp().sendKeys(sValue);		
+//		getEleDonePickerWheelBtn().click();
+//		//	tap(getEleDonePickerWheelBtn());
+//		switchContext("WebView");
+//		}
 	}
 
 
@@ -869,7 +880,7 @@ public class CommonsPO
 	}
 
 	// STRICTLY FOR THE POC PURPOSE - ANDROID CLICK
-	public void androidtap(WebElement ele) throws InterruptedException {
+	public void tap1(WebElement ele) throws InterruptedException {
 
 		Point point = ele.getLocation();
 		System.out.println("POINT is"+ point);
