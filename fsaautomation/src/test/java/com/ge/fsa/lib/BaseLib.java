@@ -55,6 +55,10 @@ public class BaseLib {
 	File app = null;
 	public static String sOSName = null;
 	public String runMachine = null;
+	
+	public static enum Os{
+		ANDRIOD,IOS
+	}
 
 	@BeforeSuite
 	public void startServer()
