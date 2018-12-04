@@ -10,13 +10,13 @@
 		<classes>
 			
 		
-			
+		<!--
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />
 			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10556" />
 			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
 			<class name="com.ge.fsa.tests.SCN_Acc_pro_history_RS_10566" />
-	<!--		<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
+		<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_6_RS_10525" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
 			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_10513" />
@@ -53,21 +53,23 @@
 		-->
 		
 		<!--
-
+		-->
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
+			
+
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
+			
+			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
+			
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
 			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
 			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
 			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
 			
-			-->
-		
-		
-
 		</classes>
 	</test> <!-- Test -->
 	
