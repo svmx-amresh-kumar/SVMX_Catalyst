@@ -121,7 +121,7 @@ public class BaseLib {
 			} 
 			break;
 
-		default:
+		case "ios":
 
 			try { //IOS Drivers
 
