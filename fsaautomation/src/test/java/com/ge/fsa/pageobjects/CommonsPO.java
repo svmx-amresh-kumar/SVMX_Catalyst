@@ -266,24 +266,29 @@ public class CommonsPO
 	}
 
 	//Customised touch LongPress
-	public void longPress(WebElement  wElement) throws InterruptedException
-	{Point point =  wElement.getLocation();
-	System.out.println("x "+point.getX()+" y "+point.getY());
+	public void longPress(WebElement wElement) throws InterruptedException {
+		Point point = wElement.getLocation();
+		System.out.println("x " + point.getX() + " y " + point.getY());
+		switch (BaseLib.sOSName) {
+		case "android":
 
-	if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
-		//For Android add *2 if real device
-		switchContext("Native");
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-		switchContext("Webview");
+			// For Android add *2 if real device
+			switchContext("Native");
+			touchAction = new TouchAction(driver);
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			Thread.sleep(GenericLib.iLowSleep);
+			switchContext("Webview");
+			break;
 
-	}else{
-		//For IOS
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
+		case "ios":
+
+			// For IOS
+			touchAction = new TouchAction(driver);
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
+
+		}
 	}
 
 	//Customised touch Doubletap
