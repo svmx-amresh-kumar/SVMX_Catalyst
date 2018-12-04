@@ -387,7 +387,12 @@ public class CommonsPO
 
 	}
 
-	//To set the value in PicsetPickerWheelValue(ive app
+	/**
+	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
+	 * @param wElement
+	 * @param sValue
+	 * @throws InterruptedException
+	 */
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
 		switch(BaseLib.sOSName) {
@@ -421,22 +426,28 @@ public class CommonsPO
 	}
 
 
-	//Wait for element until the element is displayed or time elapsed
+	/**
+	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * @param wElement
+	 * @param lTime
+	 * @throws InterruptedException
+	 */
 	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
 	{ long lElapsedTime = 0;
 	System.out.println("Time to Wait : "+lTime);
-//	String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-//	System.out.println("Waiting For Element : "+printElement);
+	//	String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+	//	System.out.println("Waiting For Element : "+printElement);
 	while(lElapsedTime!=lTime)
 	{
 		Thread.sleep(1000);
 		try{
 			if(wElement.isDisplayed())
-			{ //System.out.println("*****Element is found *********");
-				break;}
+			{//If element is displayed break
+				break;
+			}
 		}catch(Exception ex) {}
 		lElapsedTime++;
-		//System.out.println("Time Elapsed : "+lElapsedTime);
+
 	}
 
 
@@ -670,7 +681,7 @@ public class CommonsPO
 
 
 	/**
-	 * Wait for element until the element is displayed or time elapsed
+	 * Wait until the string is displayed or time elapsed in seconds
 	 * @param wElement
 	 * @param sExpectedValue
 	 * @param lTime
