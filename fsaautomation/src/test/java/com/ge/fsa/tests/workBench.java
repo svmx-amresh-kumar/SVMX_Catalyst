@@ -82,19 +82,12 @@ public void workBenchAnd() throws Exception
 		Thread.sleep(10000);
 		//(new TouchAction(driver)).tap(261, 212).perform()
 
-		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),20,60);
+		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);
 		Thread.sleep(3000);
 	commonsPo.switchContext("Native");
 //"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
-	 try {
-	 List <WebElement> el = driver.findElements(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
-	 
-	for(WebElement forEl:el) {
-		 System.out.println("Found ::::: "+forEl.getText());
-		 try {
-		 forEl.click();}catch(Exception e) {System.out.println("Eception E : "+e);}
-	 }
-	 }catch(Exception e) {System.out.println("Eception Element : "+e);}
+WebElement el = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+el.click();
 	 commonsPo.switchContext("Webview");
 
 	 //android.widget.CheckedTextView
@@ -102,7 +95,17 @@ public void workBenchAnd() throws Exception
 	 
 	Thread.sleep(6000);
 
-
+//	//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
+//		 try {
+//		 List <WebElement> el = driver.findElements(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+//		 
+//		for(WebElement forEl:el) {
+//			 System.out.println("Found ::::: "+forEl.getText());
+//			 try {
+//			 forEl.click();}catch(Exception e) {System.out.println("Eception E : "+e);}
+//		 }
+//		 }catch(Exception e) {System.out.println("Eception Element : "+e);}
+//		 commonsPo.switchContext("Webview");
 
 }
 
