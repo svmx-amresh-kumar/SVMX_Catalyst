@@ -67,32 +67,39 @@ public class workBench extends BaseLib
 //		return picPic;
 //	}
 	
-	@Test(retryAnalyzer=Retry.class)
+//	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/menu_host")
+//	private WebElement eleMenuIcn;
+//	public WebElement getEleMenuIcn() 
+//	{
+//		return eleMenuIcn;
+//	}
+
+	@Test()
 
 public void workBenchAnd() throws Exception
 {		
-		
-	String sTaskName = "";
-	lauchNewApp("true");
-	Thread.sleep(3000);
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		Thread.sleep(10000);
+		//(new TouchAction(driver)).tap(261, 212).perform()
 
-	 driver.findElement(By.xpath("//*[contains(.,'Explore')]")).click();
+		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),20,60);
+		Thread.sleep(3000);
+	commonsPo.switchContext("Native");
+//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
+	 try {
+	 List <WebElement> el = driver.findElements(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+	 
+	for(WebElement forEl:el) {
+		 System.out.println("Found ::::: "+forEl.getText());
+		 try {
+		 forEl.click();}catch(Exception e) {System.out.println("Eception E : "+e);}
+	 }
+	 }catch(Exception e) {System.out.println("Eception Element : "+e);}
+	 commonsPo.switchContext("Webview");
 
-	//loginHomePo.login(commonsPo, exploreSearchPo);
-	//workOrderPo.selectAction(commonsPo, "Create New Event From Work Order");
+	 //android.widget.CheckedTextView
 
-	//Assert.assertTrue(1<2);
-
-	//sTaskName = tasksPo.addTask(commonsPo);
-//toolsPo.syncData(commonsPo);
-//toolsPo.configSync(commonsPo);
-	Thread.sleep(3000);
-
-	
-	calendarPO.openWoFromCalendar(commonsPo, "WO-00005381");
-
-
-	//((JavascriptExecutor) this.driver).executeScript("return arguments[0].click();", element);
+	 
 	Thread.sleep(6000);
 
 

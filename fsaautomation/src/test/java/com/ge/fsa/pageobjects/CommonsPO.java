@@ -144,20 +144,22 @@ public class CommonsPO
 				}
 
 			}
+			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+			System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
 			//Switch the tap based on ANDROID or WINDOWS
 
 			if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
+
 				//For Android add *2 if real device
 				switchContext("Native");
-				TouchAction touchAction = new TouchAction(driver);
+				TouchAction andyTouchAction = new TouchAction(driver);
+				
 				if (xNewOffset != null) {
 					switchContext("Native");
-					System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
-							+ point.getX() + "---" + point.getY());
 
-					System.out.println("Android Tapping on Custom Offset Points xNewOffset x 2 times = "+(xNewOffset*2)+" yNewOffset x 2 times= "+(yNewOffset*2)+ " on "+point.getX() + "---" + point.getY());
-					touchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
+					System.out.println("Android Tapping on Custom Offset Points xNewOffset times = "+(xNewOffset)+" yNewOffset times= "+(yNewOffset)+ " on "+point.getX() + "---" + point.getY());
+					andyTouchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
 					switchContext("Webview");
 				} else {
 					switchContext("Native");
@@ -165,8 +167,8 @@ public class CommonsPO
 					System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
 							+ point.getX() + "---" + point.getY());
 
-					System.out.println("Android Tapping on Offset Points xOffset x 2 times = "+(xOffset*2)+" yNewOffset x 2 times= "+(yOffset*2)+ " on "+point.getX() + "---" + point.getY());
-					touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+					System.out.println("Android Tapping on Offset Points xOffset  = "+(xOffset)+" yOffset s= "+(yOffset)+ " on "+point.getX() + "---" + point.getY());
+					andyTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
 					switchContext("Webview");
 				}
 			}else {
@@ -174,9 +176,7 @@ public class CommonsPO
 				//			waitforElement(wElement, 3);
 				//			point =  wElement.getLocation();
 				TouchAction iosTouchAction = new TouchAction(driver);
-				String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-
-				System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+					
 				if (xNewOffset != null) {
 					int x = point.getX()+xNewOffset;
 					int y = point.getY()+yNewOffset;
@@ -389,6 +389,16 @@ public class CommonsPO
 	//To set the value in PicsetPickerWheelValue(ive app
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
+		switch(BaseLib.sOSName) {
+		case "android":
+		tap(wElement);
+		Thread.sleep(2000);
+		switchContext("Native");
+		driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+		//	tap(getEleDonePickerWheelBtn());
+		switchContext("WebView");
+		break;
+		default :
 		wElement.click();
 		Thread.sleep(2000);
 		switchContext("Native");
@@ -396,6 +406,7 @@ public class CommonsPO
 		getEleDonePickerWheelBtn().click();
 		//	tap(getEleDonePickerWheelBtn());
 		switchContext("WebView");
+		}
 	}
 
 

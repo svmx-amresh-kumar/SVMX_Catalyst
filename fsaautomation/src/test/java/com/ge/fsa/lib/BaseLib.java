@@ -53,7 +53,7 @@ public class BaseLib {
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
-	public String sOSName = null;
+	public static String sOSName = null;
 	public String runMachine = null;
 
 	@BeforeSuite
@@ -105,7 +105,6 @@ public class BaseLib {
 				capabilities.setCapability("unicodeKeyboard", true);
 				capabilities.setCapability("resetKeyboard", true);
 				capabilities.setCapability("autoAcceptAlerts", true);
-				capabilities.setCapability("chromedriverChromeMappingFile",   "/auto/SVMX_Catalyst/fsaautomation/resources/androidChromeDriverMapping.json");
 
 				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
