@@ -391,7 +391,7 @@ public class CommonsPO
 	//To set the value in PicsetPickerWheelValue(ive app
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
-		String osName = "Android";
+//		String osName = "Android";
 
 //		waitforElement1(wElement, GenericLib.i30SecSleep);
 //  	Thread.sleep(2000);
@@ -409,20 +409,20 @@ public class CommonsPO
 //		case "android":
 //		tap(wElement);
 //		Thread.sleep(2000);
-		if(osName=="Android") {
-		tap1(wElement);
-		switchContext("Native");
-		driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
-//		//	tap(getEleDonePickerWheelBtn());
-		switchContext("WebView");
-		}
-		else {
+//		if(osName=="Android") {
+//		tap1(wElement);
+//		switchContext("Native");
+//		driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+////		//	tap(getEleDonePickerWheelBtn());
+//		switchContext("WebView");
+//		}
+//		else {
 			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
 			getEleDonePickerWheelBtn().click();
-		}
+//		}
 //		break;
 //		default :
 //		wElement.click();
