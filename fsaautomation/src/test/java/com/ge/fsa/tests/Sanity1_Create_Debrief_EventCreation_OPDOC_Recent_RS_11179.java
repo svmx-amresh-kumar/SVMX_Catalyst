@@ -38,7 +38,8 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sPrintReportSearch = null;
 
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test
+	//(retryAnalyzer=Retry.class)
 public void Scenario1Test() throws Exception
 {		
 	String sTestDataValue = "SCN_RS_11179";
@@ -70,7 +71,7 @@ public void Scenario1Test() throws Exception
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
 		// Need to sync the data
-		toolsPo.syncData(commonsPo);
+//		toolsPo.syncData(commonsPo);-03/12
 		Thread.sleep(5000);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);

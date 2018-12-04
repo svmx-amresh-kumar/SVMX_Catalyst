@@ -19,7 +19,8 @@ public class CreateNewPO
 	AppiumDriver driver = null;
 	TouchAction touchAction = null;
 	
-	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Create New']")
+//	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Create New']")
+	@FindBy(xpath="//*[text()='Create New']")
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
 	{
@@ -52,7 +53,7 @@ public class CreateNewPO
 	{
 		return eleCreateNewcustomrecord;
 	}
-	
+	 
 	
 	@FindBy(xpath="//div[text()='Create New Installed Product Automation sahi']")
 	private WebElement eleCreateIB;
