@@ -7,8 +7,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -92,8 +94,24 @@ public void iphone() throws Exception
 //		MobileElement el7 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
 //		el7.click();
 		Thread.sleep(4000);
-		//commonsPo.switchContext("Native");
+		MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
+		el1.click();
+		
+		MobileElement el2 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField");
+		el2.sendKeys("rkong@t.com");
+		Thread.sleep(4000);
+
+		MobileElement el4 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField");
+		el4.click();
+		el4.sendKeys("servicemax1");
+		MobileElement el5 = (MobileElement) driver.findElementByAccessibilityId("Log In");
+		el5.click();
+		MobileElement el6 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
+		el6.click();
+	
+	
 		MobileElement el14 = (MobileElement) driver.findElementByAccessibilityId("More");
+		commonsPo.waitforElement(el14, 60);
 		el14.click();
 		MobileElement el15 = (MobileElement) driver.findElementByAccessibilityId("Sync ");
 		el15.click();
@@ -101,6 +119,10 @@ public void iphone() throws Exception
 		el16.click();
 		MobileElement el17 = (MobileElement) driver.findElementByAccessibilityId("Perform Config Sync");
 		el17.click();
+		commonsPo.waitforElement(el14, 60);
+		//Check if the test "Run Config Sync Run Config Sync" is not visible
+		assertFalse(el16.isDisplayed(), "Sync not done");
+		ExtentManager.logger.log(Status.PASS,"Sync Completed sucessfully");
 
 }
 

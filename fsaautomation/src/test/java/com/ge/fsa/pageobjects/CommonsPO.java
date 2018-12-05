@@ -693,7 +693,7 @@ public class CommonsPO
 
 
 	/**
-	 * Wait until the string is displayed or time elapsed in seconds
+	 * Wait until the string is displayed or time elapsed in seconds and returns true or false
 	 * @param wElement
 	 * @param sExpectedValue
 	 * @param lTime
