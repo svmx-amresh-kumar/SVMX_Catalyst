@@ -556,6 +556,17 @@ public class CalendarPO
 		        System.out.println("Converted to date "+stempDate); 
 			return stempDate;
 		}
+		
+		
+		
+		private WebElement elegetsubjectformultiday;
+		public WebElement getsubjectformultiday(String WOname)
+		{
+			elegetsubjectformultiday = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border'])[2]"));
+
+			return elegetsubjectformultiday;
+		}
+
 }
 
 

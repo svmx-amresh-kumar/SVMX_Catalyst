@@ -344,7 +344,8 @@ public class CommonsPO
 	//touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 20)).release().perform();
 	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 
-	touchAction.tap(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 15)).release().perform();
+	touchAction.press(new PointOption().withCoordinates(x,y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,y)).release().perform();
+	//touchAction.tap(new PointOption().withCoordinates(x,y));
 	}
 
 
