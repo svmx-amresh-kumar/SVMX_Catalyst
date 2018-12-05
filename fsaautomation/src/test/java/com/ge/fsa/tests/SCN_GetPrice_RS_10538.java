@@ -50,20 +50,20 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		sSheetName ="RS_10538";
 		System.out.println("SCN_GetPrice_RS_10538");
 		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		
+//		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
+//		if(commonsPo.verifySahiExecution()) {
+//			
+//			System.out.println("PASSED");
+//		}
+//		else 
+//		{
+//			System.out.println("FAILED");
+//			
+//
+//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+//			assertEquals(0, 1);
+//		}
+//		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
@@ -145,18 +145,18 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	/**
 	 * LABOR - Verification of Fields AFTER THE GET PRICE
 	*/
-		Date localTime = new Date();
-		DateFormat df = new SimpleDateFormat("HH");
-		 
-		// Tell the DateFormat that I want to show the date in the IST timezone
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours = df.format(localTime);
-
-
-		int sEndDateint = Integer.parseInt(sdatehours) + 4;
-		String sEndDate = Integer.toString(sEndDateint);
+//		Date localTime = new Date();
+//		DateFormat df = new SimpleDateFormat("HH");
+//		 
+//		// Tell the DateFormat that I want to show the date in the IST timezone
+//		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		String sdatehours = df.format(localTime);
+//
+//
+//		int sEndDateint = Integer.parseInt(sdatehours) + 4;
+//		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","0",sEndDate,sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","04","08",sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -203,7 +203,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","0",sEndDate,sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","04","08",sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
