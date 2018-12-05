@@ -48,7 +48,11 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10538() throws Exception {
 		sSheetName ="RS_10538";
+		Thread.sleep(50000);
 		System.out.println("SCN_GetPrice_RS_10538");
+		
+		loginHomePo.login(commonsPo, exploreSearchPo);
+
 		// To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
@@ -64,7 +68,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			assertEquals(0, 1);
 		}
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
@@ -153,10 +157,15 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 //		String sdatehours = df.format(localTime);
 //
 //
-//		int sEndDateint = Integer.parseInt(sdatehours) + 4;
+//		int sEndDateint = Integer.parseInt("04") + 4;
 //		String sEndDate = Integer.toString(sEndDateint);
-		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","04","08",sProcessname);
+//		System.out.println(sEndDate);
+//		
+		int sEndDateint = Integer.parseInt("03") + 4;
+		String sEndDate = Integer.toString(sEndDateint);
+		System.out.println(sEndDate);
+
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -203,7 +212,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","04","08",sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
