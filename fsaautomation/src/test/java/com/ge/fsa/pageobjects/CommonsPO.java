@@ -24,7 +24,6 @@ import org.testng.Assert;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.BaseLib.Os;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
@@ -69,7 +68,7 @@ public class CommonsPO
 	public BaseLib baseLib = new BaseLib();		
 
 	@FindBy(className="XCUIElementTypePickerWheel")	
-//	@FindBy(className="android.widget.ListView")	
+	//	@FindBy(className="android.widget.ListView")	
 	private WebElement elePickerWheelPopUp;
 	public  WebElement getElePickerWheelPopUp()
 	{
@@ -122,16 +121,18 @@ public class CommonsPO
 	 */
 	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
 		Thread.sleep(3000);
-		//Since in IOS now has clicks and taps alternatively
+
 		Boolean clickPassed = false;
 		Boolean tapPassed = false;
 		Exception tapExp = null;
-
-		try {wElement.click(); clickPassed = true;System.out.println("click passed"); }catch(Exception e) { System.out.println("click failed");clickPassed = false; tapExp = e;}
+		int x = 0;
+		int y = 0;
+		
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-		try {
 
+		try {
+			//Wait for the complete coordinates to be generated, E.g if (0,0) (0,231) (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
 
 				try{point =  wElement.getLocation();}catch(Exception e) {}
@@ -146,63 +147,63 @@ public class CommonsPO
 				}
 
 			}
+
 			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
 			System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
 
-			//Switch the tap based on ANDROID or WINDOWS
-
-			if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
-
-				//For Android add *2 if real device
-				switchContext("Native");
-				TouchAction andyTouchAction = new TouchAction(driver);
-				
-				if (xNewOffset != null) {
-					switchContext("Native");
-
-					System.out.println("Android Tapping on Custom Offset Points xNewOffset times = "+(xNewOffset)+" yNewOffset times= "+(yNewOffset)+ " on "+point.getX() + "---" + point.getY());
-					andyTouchAction.tap(new PointOption().withCoordinates(point.getX()+xNewOffset, point.getY()+yNewOffset)).perform();
-					switchContext("Webview");
-				} else {
-					switchContext("Native");
-
-					System.out.println("Android Tapping on Points xOffset = " + xOffset + " yOffset = " + yOffset + " on "
-							+ point.getX() + "---" + point.getY());
-
-					System.out.println("Android Tapping on Offset Points xOffset  = "+(xOffset)+" yOffset s= "+(yOffset)+ " on "+point.getX() + "---" + point.getY());
-					andyTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-					switchContext("Webview");
-				}
-			}else {
-				//For IOS
-				//			waitforElement(wElement, 3);
-				//			point =  wElement.getLocation();
-				TouchAction iosTouchAction = new TouchAction(driver);
-					
-				if (xNewOffset != null) {
-					int x = point.getX()+xNewOffset;
-					int y = point.getY()+yNewOffset;
-					System.out.println("Tapping on Custom Offset Points xNewOffset = "+xNewOffset+" yNewOffset = "+yNewOffset+ " on "+x + "---" + y);
-					iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
-
-				} else {
-					int x = point.getX()+xOffset;
-					int y = point.getY()+yOffset;
-					System.out.println("Tapping on Points xOffset = "+xOffset+" yOffset = "+yOffset+ " on "+x + "---" + y);
-					iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
-
-				}
+			//Set the custom or default offsets to x & y
+			if (xNewOffset != null) {
+				x = point.getX()+xNewOffset;
+				y = point.getY()+yNewOffset;
+				System.out.println("Using Custom Offset Points xNewOffset = "+(xNewOffset)+" yNewOffset = "+(yNewOffset)+ " on "+x + "," + y);
+			} else {
+				x = point.getX()+xOffset;
+				y = point.getY()+yOffset;
+				System.out.println("Using Offset Points xOffset  = "+(xOffset)+" yOffset s= "+(yOffset)+ " on "+x + "," + y);
 
 			}
-			System.out.println("tap passed");
+			
+			//Switch the tap based on ANDROID or WINDOWS
+			switch(BaseLib.sOSName) {
+			case "android":
+				//For Android add *2 if real device
+				//Since in android now has clicks and taps alternatively do a click then a tap
+				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
+				
+				switchContext("Native");
+				System.out.println("Android Tapping ");
+				switchContext("Native");
+				TouchAction andyTouchAction = new TouchAction(driver);
+				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
+				switchContext("Webview");
+				break;
+				
+			case "ios":
+				//For IOS
+				//Since in IOS now has clicks and taps alternatively do a click then a tap
+				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
+		
+				System.out.println("IOS Tapping ");
+				TouchAction iosTouchAction = new TouchAction(driver);
+				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
+				
+			default:
+				System.out.println("OS Error");
+				break;
+			}
+
+			System.out.println("Tap passed");
 			tapPassed = true;
 		}
+
 		catch(Exception e) {
 			tapExp = e;
 			tapPassed = false;
-			System.out.println("tap failed");
+			System.out.println("Tap failed");
 
 		}
+
+
 		Thread.sleep(3000);
 		if( clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
@@ -222,38 +223,38 @@ public class CommonsPO
 	}
 
 	//Customised touch tap version 2.0
-//	public void tap(WebElement element) throws InterruptedException
-//	{
-//
-//			waitforElement(element, GenericLib.i30SecSleep);
-//		point = element.getLocation();
-//						iosTouchAction = new IOSTouchAction(driver);
-//					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-//
-//
-///*
-//				touchAction = new TouchAction(driver);
-//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-//*/
-//			Thread.sleep(GenericLib.iLowSleep);
-//			}
+	//	public void tap(WebElement element) throws InterruptedException
+	//	{
+	//
+	//			waitforElement(element, GenericLib.i30SecSleep);
+	//		point = element.getLocation();
+	//						iosTouchAction = new IOSTouchAction(driver);
+	//					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+	//
+	//
+	///*
+	//				touchAction = new TouchAction(driver);
+	//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+	//*/
+	//			Thread.sleep(GenericLib.iLowSleep);
+	//			}
 
-//			public void tap(WebElement element, int...iOffset) throws InterruptedException
-//			{
-//
-//				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
-//				waitforElement(element, GenericLib.i30SecSleep);
-//				//point = element.getLocation();
-//				IOSTouchAction touchAction= new IOSTouchAction(driver);
-//				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
-//				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
-//
-//
-//				touchAction = new TouchAction(driver);
-//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-//
-//				Thread.sleep(GenericLib.iLowSleep);
-//			}
+	//			public void tap(WebElement element, int...iOffset) throws InterruptedException
+	//			{
+	//
+	//				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
+	//				waitforElement(element, GenericLib.i30SecSleep);
+	//				//point = element.getLocation();
+	//				IOSTouchAction touchAction= new IOSTouchAction(driver);
+	//				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
+	//				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
+	//
+	//
+	//				touchAction = new TouchAction(driver);
+	//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+	//
+	//				Thread.sleep(GenericLib.iLowSleep);
+	//			}
 
 
 	//Customised touch Tap
@@ -265,24 +266,29 @@ public class CommonsPO
 	}
 
 	//Customised touch LongPress
-	public void longPress(WebElement  wElement) throws InterruptedException
-	{Point point =  wElement.getLocation();
-	System.out.println("x "+point.getX()+" y "+point.getY());
+	public void longPress(WebElement wElement) throws InterruptedException {
+		Point point = wElement.getLocation();
+		System.out.println("x " + point.getX() + " y " + point.getY());
+		switch (BaseLib.sOSName) {
+		case "android":
 
-	if(GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase().equals("android")) {
-		//For Android add *2 if real device
-		switchContext("Native");
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-		switchContext("Webview");
+			// For Android add *2 if real device
+			switchContext("Native");
+			touchAction = new TouchAction(driver);
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			Thread.sleep(GenericLib.iLowSleep);
+			switchContext("Webview");
+			break;
 
-	}else{
-		//For IOS
-		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
-	}
+		case "ios":
+
+			// For IOS
+			touchAction = new TouchAction(driver);
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
+
+		}
 	}
 
 	//Customised touch Doubletap
@@ -335,9 +341,10 @@ public class CommonsPO
 	int xOff = x+100;
 	//int yOff = y-100;
 	touchAction = new TouchAction(driver);
-	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(500))).moveTo(new PointOption().withCoordinates(0, 0)).release().perform();
+	//touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 20)).release().perform();
+	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 
-	touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
+	touchAction.tap(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 15)).release().perform();
 	}
 
 
@@ -388,72 +395,63 @@ public class CommonsPO
 
 	}
 
-	//To set the value in PicsetPickerWheelValue(ive app
+	/**
+	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
+	 * @param wElement
+	 * @param sValue
+	 * @throws InterruptedException
+	 */
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
-		String osName = "Android";
 
-//		waitforElement1(wElement, GenericLib.i30SecSleep);
-//  	Thread.sleep(2000);
-//		tap(wElement,15,18); //newly added
-//		Point point = null; //newly added
-//		point = wElement.getLocation(); //newly added
-//		switchContext("Native"); //newly added
-//		TouchAction touchAction = new TouchAction(driver);//newly Added
-//		touchAction.tap(new PointOption().withCoordinates(point.getX()+15, point.getY()+18)).perform(); //newly added
-//		JavascriptExecutor executor = (JavascriptExecutor)driver;
-//		executor.executeScript("arguments[0].click();", wElement);
-//		switchContext("WebView"); //newly added
+		switch(BaseLib.sOSName) {
+		case "android":
+			tap(wElement,16,20);
+			Thread.sleep(2000);
+			switchContext("Native");
+			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+			switchContext("WebView");
+			break;
 
-//		switch(BaseLib.sOSName) {
-//		case "android":
-//		tap(wElement);
-//		Thread.sleep(2000);
-	
-		if(osName=="Android") {
-		tap1(wElement);
-		switchContext("Native");
-		driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
-//		//	tap(getEleDonePickerWheelBtn());
-		}
-		else {
+		case "ios" :
 			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
 			getEleDonePickerWheelBtn().click();
+			switchContext("WebView");
+			break;
+			
+			default:
+				System.out.println("OS error");
+				break;
 		}
-		switchContext("WebView");
-//		break;
-//		default :
-//		wElement.click();
-//		Thread.sleep(2000);
-//		switchContext("Native");
-////		System.out.println(driver.getPageSource());
-//		getElePickerWheelPopUp().sendKeys(sValue);		
-//		getEleDonePickerWheelBtn().click();
-//		//	tap(getEleDonePickerWheelBtn());
-//		switchContext("WebView");
-//		}
 	}
 
 
-	//Wait for element until the element is displayed or time elapsed
+	/**
+	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * @param wElement
+	 * @param lTime
+	 * @throws InterruptedException
+	 */
+
 	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
 	{ long lElapsedTime = 0;
-	System.out.println("Time to Wait : "+lTime);
-//	String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-//	System.out.println("Waiting For Element : "+printElement);
+	System.out.println("Time to Wait : "+lTime+" sec");
+	String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+	System.out.println("Waiting For Element : "+printElement);
 	while(lElapsedTime!=lTime)
 	{
 		Thread.sleep(1000);
 		try{
 			if(wElement.isDisplayed())
-			{ //System.out.println("*****Element is found *********");
-				break;}
+			{//If element is displayed break
+				break;
+			}
 		}catch(Exception ex) {}
 		lElapsedTime++;
-		//System.out.println("Time Elapsed : "+lElapsedTime);
+
 	}
 
 
@@ -687,7 +685,7 @@ public class CommonsPO
 
 
 	/**
-	 * Wait for element until the element is displayed or time elapsed
+	 * Wait until the string is displayed or time elapsed in seconds
 	 * @param wElement
 	 * @param sExpectedValue
 	 * @param lTime
@@ -880,32 +878,7 @@ public class CommonsPO
 
 	}
 
-	// STRICTLY FOR THE POC PURPOSE - ANDROID CLICK
-	public void tap1(WebElement ele) throws InterruptedException {
 
-		Point point = ele.getLocation();
-		System.out.println("POINT is"+ point);
-//		AndroidTouchAction touchAction = new AndroidTouchAction(driver);
-		TouchAction touchAction = new TouchAction(driver);
-		switchContext("Native");
-		touchAction.tap(new PointOption().withCoordinates(point.getX()+30, point.getY()+36)).perform();
-		Thread.sleep(10000);
-		switchContext("Webview");
-	}
-	
-	 public void waitforElement1(WebElement wElement, long lTime) { 
-		 lElapsedTime=0L;
-         while(true)
-                     {
-                        try{
-                            if(wElement.isDisplayed()|| (lElapsedTime==lTime))
-                            { break;}
-                            }catch(Exception ex) {}
-                             lElapsedTime++;
-                     }
-                    
-                    
-     }
 
 }
 

@@ -1626,7 +1626,7 @@ import org.openqa.selenium.Rotatable;
 			return WorkOrderNumber;
 		}
 	
-		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
+		@FindBy(xpath="(//span[text()='Customer Down']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{

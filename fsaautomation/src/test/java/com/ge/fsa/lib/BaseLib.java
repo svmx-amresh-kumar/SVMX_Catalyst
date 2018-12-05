@@ -56,9 +56,6 @@ public class BaseLib {
 	public static String sOSName = null;
 	public String runMachine = null;
 	
-	public static enum Os{
-		ANDRIOD,IOS
-	}
 
 	@BeforeSuite
 	public void startServer()
@@ -124,7 +121,7 @@ public class BaseLib {
 			} 
 			break;
 
-		default:
+		case "ios":
 
 			try { //IOS Drivers
 

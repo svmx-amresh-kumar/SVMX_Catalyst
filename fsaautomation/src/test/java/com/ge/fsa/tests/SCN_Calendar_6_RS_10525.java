@@ -17,6 +17,7 @@ import java.util.Date;
 
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -35,16 +36,16 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	String sObjectProID=null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	//String sAccountName = "Proforma30082018102823account";
+	String sObjectAWOID=null;
 	String sAccountName =null;
 	String sFieldServiceName = null;
-//String sproductname = "Proforma30082018102823product";
+	String sSoqlwoid1=null;
 	String sproductname =null;
 	String sSqlQuery = null;
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	String sIBLastModifiedBy=null;
-	
+	String WOIDoverlapping=null;
 	WebElement productname=null;
 	String sSheetName =null;
 	@BeforeMethod
@@ -99,7 +100,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 
 			//get Wo is and event start date and end date.
 			String sSoqlwoid= "SELECT+id+from+SVMXC__Service_Order__c+Where+Name=\'"+sworkOrderName+"\'";
-			String sSoqlwoid1 = restServices.restGetSoqlValue(sSoqlwoid, "Id");
+			 sSoqlwoid1 = restServices.restGetSoqlValue(sSoqlwoid, "Id");
 			System.out.println(sSoqlwoid1);
 			
 			String sSoqlStartDateTime= "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sSoqlwoid1+"\'";
@@ -156,7 +157,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 			sObjectApi = "SVMXC__Service_Order__c?";
 			sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\",\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Order_Type__c\":\"Field Service\",\"SVMXC__Group_Member__c\":\""+TechName+"\"}";
-			String sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
+			 sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
 			sSqlAccQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectAWOID+"\'";				
 			String sWOName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 			//sProductName1="v1";
@@ -257,8 +258,8 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 			sObjectApi = "SVMXC__Service_Order__c?";
 			sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\",\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Order_Type__c\":\"Field Service\",\"SVMXC__Group_Member__c\":\""+TechName+"\"}";
-			  sObjectAWOID = restServices.restCreate(sObjectApi,sJsonData);
-			sSqlAccQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectAWOID+"\'";				
+			  WOIDoverlapping = restServices.restCreate(sObjectApi,sJsonData);
+			sSqlAccQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+WOIDoverlapping+"\'";				
 				sWOName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 			//sProductName1="v1";
 			System.out.println(sWOName);
@@ -284,7 +285,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	    
 	    
 	     sObjectApi = "SVMXC__SVMX_Event__c?";
-			sJsonData = "{\"Name\": \"OverlappingEvent\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+TechName+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
+			sJsonData = "{\"Name\": \"OverlappingEvent\",\"SVMXC__Service_Order__c\": \""+WOIDoverlapping+"\",\"SVMXC__Technician__c\": \""+TechName+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+WOIDoverlapping+"\"}";	
 
 
 		  sObjecteventID = restServices.restCreate(sObjectApi,sJsonData);
@@ -295,11 +296,11 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 			toolsPo.syncData(commonsPo);
 			
-				 sSoqlStartDateTime= "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
+				 sSoqlStartDateTime= "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+WOIDoverlapping+"\'";
 				 sSoqlQueryStartDateTime = restServices.restGetSoqlValue(sSoqlStartDateTime, "SVMXC__StartDateTime__c");
 			System.out.println(sSoqlQueryStartDateTime);
 			
-				 sSoqlEndDateTime= "SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
+				 sSoqlEndDateTime= "SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+WOIDoverlapping+"\'";
 				 sSoqlQueryEndDateTime = restServices.restGetSoqlValue(sSoqlEndDateTime, "SVMXC__EndDateTime__c");
 			System.out.println(sSoqlQueryEndDateTime);
 		
@@ -344,5 +345,11 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 	}
 	
-
-}
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		
+		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sSoqlwoid1); 
+		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sObjectAWOID);
+		restServices.restDeleterecord("SVMXC__SVMX_Event__c",WOIDoverlapping);
+}}

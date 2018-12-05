@@ -43,7 +43,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.Point;
 
-public class workBench extends BaseLib
+public class iPhonePoc extends BaseLib
 {
 	
 	
@@ -76,36 +76,31 @@ public class workBench extends BaseLib
 
 	@Test()
 
-public void workBenchAnd() throws Exception
+public void iphone() throws Exception
 {		
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(10000);
-		//(new TouchAction(driver)).tap(261, 212).perform()
-
-		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);
-		Thread.sleep(3000);
-	commonsPo.switchContext("Native");
-//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
-WebElement el = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
-el.click();
-	 commonsPo.switchContext("Webview");
-
-	 //android.widget.CheckedTextView
-
-	 
-	Thread.sleep(6000);
-
-//	//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
-//		 try {
-//		 List <WebElement> el = driver.findElements(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
-//		 
-//		for(WebElement forEl:el) {
-//			 System.out.println("Found ::::: "+forEl.getText());
-//			 try {
-//			 forEl.click();}catch(Exception e) {System.out.println("Eception E : "+e);}
-//		 }
-//		 }catch(Exception e) {System.out.println("Eception Element : "+e);}
-//		 commonsPo.switchContext("Webview");
+//		commonsPo.switchContext("Native");
+//		TouchAction touchAction2 = new TouchAction(driver);
+//		//Locating & clicking on the element
+//		Point point = driver.findElementByAccessibilityId("PhotosGridView").findElement(By.xpath("//*[contains(@label,'Photo')]")).getLocation();
+//		int x = point.getX() + 2;
+//		int y = point.getY() + 5;
+//		commonsPo.switchContext("Webview");
+//		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
+		
+//		MobileElement el6 = (MobileElement) driver.findElementByAccessibilityId("Log In");
+//		el6.click();
+//		MobileElement el7 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
+//		el7.click();
+		Thread.sleep(4000);
+		//commonsPo.switchContext("Native");
+		MobileElement el14 = (MobileElement) driver.findElementByAccessibilityId("More");
+		el14.click();
+		MobileElement el15 = (MobileElement) driver.findElementByAccessibilityId("Sync ");
+		el15.click();
+		MobileElement el16 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name='Run Config Sync Run Config Sync'])[3]");
+		el16.click();
+		MobileElement el17 = (MobileElement) driver.findElementByAccessibilityId("Perform Config Sync");
+		el17.click();
 
 }
 

@@ -302,7 +302,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 300);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 30);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
@@ -547,6 +547,15 @@ public class CalendarPO
 		}
 
 
+		public String converttosfdcformat( String Datetime) throws Exception 
+		{
+			SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			 Date  dTempDate1 = parser1.parse(Datetime);
+			 SimpleDateFormat formatter1 = new SimpleDateFormat("MM/d/yyyy");
+		        String stempDate =  formatter1.format(dTempDate1);
+		        System.out.println("Converted to date "+stempDate); 
+			return stempDate;
+		}
 }
 
 
