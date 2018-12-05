@@ -118,7 +118,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
 			toolsPo.configSync(commonsPo);
-			//Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
 			toolsPo.syncData(commonsPo);

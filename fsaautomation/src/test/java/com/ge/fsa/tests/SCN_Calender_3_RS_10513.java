@@ -101,7 +101,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	/*	//verify WO event is present or not
+		/*//verify WO event is present or not
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -152,21 +152,27 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			String sWOJson="{\"SVMXC__EndDateTime__c\":\""+endtimezero+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
 				
-				toolsPo.syncData(commonsPo);
+				//toolsPo.syncData(commonsPo);
 			
 			String stempDate=calendarPO.convertedformate(endtimezero);
-		*/	
+			*/
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 		
-			calendarPO.geteleWOendpoint("09:00").getLocation();
+			calendarPO.geteleWOendpoint("10:00").getLocation();
 			Thread.sleep(3000);
 			System.out.println("Before Pencil icon enable");
 			Thread.sleep(3000);
+			commonsPo.Enablepencilicon(calendarPO.gettaponcalevent(sWO_SVMX_1));
+			System.out.println("!st");
+			/*Thread.sleep(5000);
 			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
+			System.out.println("2st");
+			Thread.sleep(5000);
+			commonsPo.Enablepencilicon(calendarPO.getEleworkordernumonCalendarWeek(sWO_SVMX_1));
+			System.out.println("3st");*/
+			Thread.sleep(5000);
+			/*commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
 
 			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
 
@@ -182,7 +188,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
-		System.out.println(EndDateTimecal);
+		System.out.println(EndDateTimecal);*/
 		 /*	
 		Assert.assertEquals(stempDate,EndDateTimecal, "End Date time value mapped is not displayed");
 		commonsPo.tap(workOrderPo.getEleCancelLnk());
