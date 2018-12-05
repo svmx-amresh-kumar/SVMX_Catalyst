@@ -76,8 +76,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		  			assertEquals(0, 1);
 		  		}
 		  		lauchNewApp("true");
-		  		System.out.println("RS-10513");*/
-	
+		  		System.out.println("RS-10513");
+	*/
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
@@ -97,11 +97,11 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			
 			//Data Sync for WO's created
-		//	toolsPo.syncData(commonsPo);
+			//toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	/*	//verify WO event is present or not
+		//verify WO event is present or not
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -152,38 +152,33 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			String sWOJson="{\"SVMXC__EndDateTime__c\":\""+endtimezero+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
 				
-				toolsPo.syncData(commonsPo);
+				//toolsPo.syncData(commonsPo);
 			
 			String stempDate=calendarPO.convertedformate(endtimezero);
-		*/	
+			
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 		
-			calendarPO.geteleWOendpoint("09:00").getLocation();
+			calendarPO.geteleWOendpoint("10:00").getLocation();
 			Thread.sleep(3000);
 			System.out.println("Before Pencil icon enable");
 			Thread.sleep(3000);
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-
-			//commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			 
-			Thread.sleep(3000);
+			
+		commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
+			
+		Thread.sleep(5000);
+			/*commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_2));
+			System.out.println("!getEleworkordernumonCalendarWeek");
+			Thread.sleep(5000);*/
+			
+			
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
 			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
-		 /*	
+		 
 		Assert.assertEquals(stempDate,EndDateTimecal, "End Date time value mapped is not displayed");
 		commonsPo.tap(workOrderPo.getEleCancelLnk());
 		ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful");
@@ -248,7 +243,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+id,SVMXC__StartDateTime__c,SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+name+=\'Event for 14 days\'";				
-		 String sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		  sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 		System.out.println("created event id from server:"+sEventIdSVMX);
         
 		String sEventstartdateSVMX =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__StartDateTime__c"); 
@@ -264,7 +259,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		Assert.assertEquals(startdatefromserver,startDateTimevalidate, "Start Date time is mismatch");
 		Assert.assertEquals(enddatefromserver,EndDateTimevalidate, "End Date time is mismatch");
 		
-		*/
+		
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 	}

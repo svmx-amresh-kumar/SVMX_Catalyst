@@ -53,12 +53,7 @@ import org.openqa.selenium.Rotatable;
 			return eleActionsLnk;
 		}
 	
-		private WebElement eleActionsTxt;
-		public WebElement getEleActionsTxt(String sActionsName)
-		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
-			return eleActionsTxt;
-		}
+		
 	
 		// Added by Harish.CS
 		private WebElement eleActionsTxtWithIcon;
@@ -1170,6 +1165,33 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCaseReasonLst;
 		}
+		private WebElement eleObjectTxt;
+		public WebElement getEleObjectTxt(String sValue)
+		{
+			eleObjectTxt = driver.findElement(By.xpath("//div[@class='x-innerhtml'][text()='"+sValue+"']"));
+			return eleObjectTxt;
+		}
+		
+		private WebElement eleActionsTxt;
+		public WebElement getEleActionsTxt(String sActionsName)
+		{
+			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			return eleActionsTxt;
+		}
+		
+		@FindBy(xpath="(//span[text()='Priority']/../..//input[@class='x-input-el'])[2]")
+		private WebElement elePriorityLst;
+		public WebElement getElePriorityLst()
+		{
+			return elePriorityLst;
+		}
+		@FindBy(xpath="(//span[text()='Account']/../..//input[@class='x-input-el'])[2]")
+		private WebElement eleAccountTxtFld;
+		public WebElement getEleAccountTxtFld()
+		{
+			return eleAccountTxtFld;
+		}
+		
 		
 
 		/*
@@ -1626,7 +1648,7 @@ import org.openqa.selenium.Rotatable;
 			return WorkOrderNumber;
 		}
 	
-		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
+		@FindBy(xpath="(//span[text()='Customer Down']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{

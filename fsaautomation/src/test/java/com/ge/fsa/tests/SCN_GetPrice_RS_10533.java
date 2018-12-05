@@ -162,14 +162,14 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		DateFormat df = new SimpleDateFormat("HH");
 		 
 		// Tell the DateFormat that I want to show the date in the IST timezone
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours = df.format(localTime);
+//		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		String sdatehours = df.format(localTime);
 
 
-		int sEndDateint = Integer.parseInt(sdatehours) + 4;
+		int sEndDateint = Integer.parseInt("03") + 4;
 		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Calibration", "0", sEndDate, sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Calibration", "03", sEndDate, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Calibration"));
 		String sEstimatedPricePUnit_labor = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");
@@ -219,10 +219,9 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		/**
 		 * Add Another Labor Lines to the Work Order
 		 */
-		int sEndDateint2 = Integer.parseInt(sdatehours) + 4;
+		int sEndDateint2 = Integer.parseInt("03") + 4;
 		String sEndDate2 = Integer.toString(sEndDateint2);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Cleanup", "0", sEndDate2, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Cleanup"));
 		String sEstimatedPricePUnit_labor2 = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");

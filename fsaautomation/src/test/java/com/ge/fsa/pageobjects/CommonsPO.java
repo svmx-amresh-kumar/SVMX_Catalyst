@@ -341,9 +341,11 @@ public class CommonsPO
 	int xOff = x+100;
 	//int yOff = y-100;
 	touchAction = new TouchAction(driver);
-	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(500))).moveTo(new PointOption().withCoordinates(0, 0)).release().perform();
+	//touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 20)).release().perform();
+	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 
-	touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates((20), 10)).release().perform();
+	touchAction.press(new PointOption().withCoordinates(x,y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,y)).release().perform();
+	//touchAction.tap(new PointOption().withCoordinates(x,y));
 	}
 
 
@@ -402,22 +404,13 @@ public class CommonsPO
 	 */
 	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
+
 		switch(BaseLib.sOSName) {
 		case "android":
 			tap(wElement,16,20);
-			//		Point point = null; //newly added
-			//		point = wElement.getLocation(); //newly added
-			//		switchContext("Native"); //newly added
-			//		TouchAction touchAction = new TouchAction(driver);//newly Added
-			//		touchAction.tap(new PointOption().withCoordinates(point.getX()+15, point.getY()+18)).perform(); //newly added
-			//		JavascriptExecutor executor = (JavascriptExecutor)driver;
-			//		executor.executeScript("arguments[0].click();", wElement);
-			//		switchContext("WebView"); //newly added
-
 			Thread.sleep(2000);
 			switchContext("Native");
 			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
-			//	tap(getEleDonePickerWheelBtn());
 			switchContext("WebView");
 			break;
 
@@ -427,7 +420,6 @@ public class CommonsPO
 			switchContext("Native");
 			getElePickerWheelPopUp().sendKeys(sValue);		
 			getEleDonePickerWheelBtn().click();
-			//	tap(getEleDonePickerWheelBtn());
 			switchContext("WebView");
 			break;
 			
@@ -444,6 +436,7 @@ public class CommonsPO
 	 * @param lTime
 	 * @throws InterruptedException
 	 */
+
 	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
 	{ long lElapsedTime = 0;
 	System.out.println("Time to Wait : "+lTime+" sec");

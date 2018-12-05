@@ -22,6 +22,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -101,7 +102,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -195,14 +196,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
 			
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		
 			commonsPo.tap(toolsPo.getEleToolsIcn());
 			commonsPo.tap(toolsPo.geteleSignOutBtn());
 			commonsPo.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(10000);
 			System.out.println("Sign out successfully");
 			
-			//lauchNewApp("false");
+			lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			Thread.sleep(3000);
@@ -221,6 +222,28 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	///////////////////////////////////////////////////////////////////////////////////////////////////		
 		
+	}
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
+		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		restServices.restDeleterecord("Event",sEventIdSFDC_2); 
+		
+		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event3\'";				
+		String sEventIdSFDC_3 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		restServices.restDeleterecord("Event",sEventIdSFDC_3); 
+		
+		
+		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";
+		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
+		
+		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event3\'";				
+		String sEventIdSVMX_3 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_3); 
+		
+					
 	}
 	
 

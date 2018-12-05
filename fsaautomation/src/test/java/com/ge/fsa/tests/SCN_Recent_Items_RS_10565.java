@@ -91,12 +91,9 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
-			//config sync
-			toolsPo.configSync(commonsPo);
+		
 			Thread.sleep(GenericLib.iMedSleep);
 			toolsPo.Resetapp(commonsPo,exploreSearchPo);
-			//datasync
-			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 	
 			//crete a wo
@@ -104,13 +101,20 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
 			commonsPo.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "High");
 			commonsPo.setPickerWheelValue(createNewPO.getEleClickBillingTypePicklist(), "Loan");
-			createNewPO.getEleproformainvoicevalue().click();
-			commonsPo.tap(createNewPO.getEleproformainvoicevalue());
+			//createNewPO.getEleproformainvoicevalue().click();
+			//commonsPo.tap(createNewPO.getEleproformainvoicevalue());
 			createNewPO.getEleproformainvoicetextarea().sendKeys(sProformainVoice);
-			commonsPo.tap(createNewPO.getEleupdatethetextfield());
+		//	commonsPo.tap(createNewPO.getEleupdatethetextfield());
 			Thread.sleep(1000);
 			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
-
+//create one case
+			sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Recent_Item\", \"Priority\": \"High\", \"Description\": \"Description of Recent_item \",\"Status\": \"Escalated\"}";
+			sObjectApi = "Case?";
+			String sObjectID = restServices.restCreate(sObjectApi,sJsonData);
+			sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
+			String sCaseID = restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
+			
+			
 			
 			toolsPo.syncData(commonsPo);
 			
@@ -130,7 +134,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			
 			
 			//open case
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Cases", "00001003", null);//case to be changed to global create case        
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Cases", sCaseID, null);//case to be changed to global create case        
 			Thread.sleep(2000);
 			commonsPo.tap(recenItemsPO.getEleClickRecentItems());
 			Thread.sleep(1000);
