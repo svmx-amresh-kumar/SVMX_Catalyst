@@ -190,16 +190,16 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	/**
 	 * LABOR - Verification of Fields AFTER THE GET PRICE
 	*/
-		Date localTime = new Date();
-		DateFormat df = new SimpleDateFormat("HH");
-		 
-		// Tell the DateFormat that I want to show the date in the IST timezone
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours = df.format(localTime);
-		int sEndDateint = Integer.parseInt(sdatehours) + 2;
+//		Date localTime = new Date();
+//		DateFormat df = new SimpleDateFormat("HH");
+//		 
+//		// Tell the DateFormat that I want to show the date in the IST timezone
+//		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		String sdatehours = df.format(localTime);
+		int sEndDateint = Integer.parseInt("03") + 2;
 		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","0",sEndDate,sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -237,7 +237,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","0",sEndDate,sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -369,18 +369,18 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		Date localTime1 = new Date();
-		DateFormat df1 = new SimpleDateFormat("HH");
-		 
-		// Tell the DateFormat that I want to show the date in the IST timezone
-		df1.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours1 = df1.format(localTime1);
+//		Date localTime1 = new Date();
+//		DateFormat df1 = new SimpleDateFormat("HH");
+//		 
+//		// Tell the DateFormat that I want to show the date in the IST timezone
+//		df1.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		String sdatehours1 = df1.format(localTime1);
 
 
-		int sEndDateint1 = Integer.parseInt(sdatehours1) + 4;
+		int sEndDateint1 = Integer.parseInt("03") + 4;
 		String sEndDate1 = Integer.toString(sEndDateint1);
 
-		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "0", sEndDate1);
+		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "03", sEndDate1);
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1));

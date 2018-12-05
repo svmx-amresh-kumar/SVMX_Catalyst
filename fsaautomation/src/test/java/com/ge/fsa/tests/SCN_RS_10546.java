@@ -21,8 +21,8 @@ public class SCN_RS_10546 extends BaseLib {
 	String sWOName = null;
 	String sAccountNameA = null;
 	String sObjectProID = null;
-	String sProductName = "RS_10543_28112018165232product";
-	String sContactName = "RS_10543_28112018165935 RS_10543 ";
+	String sProductName = null;
+	String sContactName = null;
 	
 	private void preRequiste() throws Exception  
 	{
@@ -98,19 +98,27 @@ public class SCN_RS_10546 extends BaseLib {
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders", sWOName, null);
 		Thread.sleep(GenericLib.iLowSleep);
-
+		Assert.assertTrue(workOrderPo.getEleObjectTxt(sWOName).isDisplayed(), sWOName +" is not displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName+" is successfully displayed");
+		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Contacts", sContactName, null);
 		Thread.sleep(GenericLib.iLowSleep);
-
+		Assert.assertTrue(workOrderPo.getEleObjectTxt(sContactName).isDisplayed(), sContactName +" is not displayed");
+		ExtentManager.logger.log(Status.PASS,sContactName+" is successfully displayed");
+		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Products", sProductName, null);
 		Thread.sleep(GenericLib.iLowSleep);
-
+		Assert.assertTrue(workOrderPo.getEleObjectTxt(sProductName).isDisplayed(), sProductName +" is not displayed");
+		ExtentManager.logger.log(Status.PASS,sProductName+" is successfully displayed");
+		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Accounts", sAccountNameA, null);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
 		Thread.sleep(GenericLib.iLowSleep);
-
+		Assert.assertTrue(workOrderPo.getEleObjectTxt(sSerialNumber+"AccA").isDisplayed(), sSerialNumber+"AccA is not displayed");
+		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccA is successfully displayed");
+		
 	}
 
 }
