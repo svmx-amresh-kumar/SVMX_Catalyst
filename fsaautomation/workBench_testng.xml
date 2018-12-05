@@ -54,7 +54,7 @@
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
 			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" /> 
 			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />
-		-->
+	
 		
 		
 	
@@ -63,9 +63,12 @@
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
+			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
+			-->
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
 	
-	<!--
+
 			
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
@@ -73,8 +76,7 @@
 			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
 			
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
-			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
-			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
+			
 			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
 
 			-->
