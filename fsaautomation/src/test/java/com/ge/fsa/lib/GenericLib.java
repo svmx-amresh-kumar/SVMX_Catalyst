@@ -190,10 +190,10 @@ public class GenericLib
 		
 	}
 	
-	public static void main(String[] args) throws IOException {
-		GenericLib gen = new GenericLib();
-		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
-		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
-	}
+//	public static void main(String[] args) throws IOException {
+//		GenericLib gen = new GenericLib();
+//		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
+//		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
+//	}
 	
 }

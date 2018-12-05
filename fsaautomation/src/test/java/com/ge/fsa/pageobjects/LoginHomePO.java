@@ -161,7 +161,6 @@ public class LoginHomePO
 
 			} catch (Exception e) {
 				//The App may be already logged in so check directly for the Explore button to be visible
-				System.out.println("Already logged in exception ");
 				Thread.sleep(10000);
 
 				commonsPO.switchContext("Webview");
@@ -175,7 +174,7 @@ public class LoginHomePO
 			}
 			break;
 
-		default:
+		case "ios":
 			try {//For IOS
 
 				//Login from Sign in Page
@@ -224,6 +223,10 @@ public class LoginHomePO
 				System.out.println("Already installed and logged in");
 			}
 			break;
+			
+			default:
+				System.out.println("OS Error");
+				break;
 
 		}
 
