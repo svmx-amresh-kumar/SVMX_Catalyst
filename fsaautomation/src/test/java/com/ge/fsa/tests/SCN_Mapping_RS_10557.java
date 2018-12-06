@@ -71,7 +71,7 @@ String Location=null;
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 	
 		//sahi
-				genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
+				/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
 				if(commonsPo.verifySahiExecution()) {
 					
 					System.out.println("PASSED");
@@ -85,7 +85,7 @@ String Location=null;
 					assertEquals(0, 1);
 				}
 				lauchNewApp("true");
-				System.out.println("RS_10557");
+				System.out.println("RS_10557");*/
 		
 		
 		
@@ -121,7 +121,7 @@ String Location=null;
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync

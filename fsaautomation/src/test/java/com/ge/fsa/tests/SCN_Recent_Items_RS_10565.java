@@ -59,7 +59,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		String sTestCaseID="RS_10565_Recent_Items";
 		
 		//sahi
-  		genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
+  		/*genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -73,7 +73,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
   			assertEquals(0, 1);
   		}
   		lauchNewApp("true");
-  		System.out.println("RS_10565");
+  		System.out.println("RS_10565");*/
 		
 		
 		//read from file

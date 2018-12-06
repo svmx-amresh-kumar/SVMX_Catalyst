@@ -62,7 +62,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		String sTestCaseID="RS_10513_Calender_3";
 		
 		//sahi
-				/*genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", "sTestCaseID");
+				genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", "sTestCaseID");
 		  		if(commonsPo.verifySahiExecution()) {
 		  			
 		  			System.out.println("PASSED");
@@ -77,7 +77,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		  		}
 		  		lauchNewApp("true");
 		  		System.out.println("RS-10513");
-	*/
+	
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
@@ -97,7 +97,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			
 			//Data Sync for WO's created
-			//toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -152,7 +152,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			String sWOJson="{\"SVMXC__EndDateTime__c\":\""+endtimezero+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
 				
-				//toolsPo.syncData(commonsPo);
+				toolsPo.syncData(commonsPo);
 			
 			String stempDate=calendarPO.convertedformate(endtimezero);
 			
@@ -164,7 +164,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			System.out.println("Before Pencil icon enable");
 			Thread.sleep(3000);
 			
-		commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
+		commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
 			
 		Thread.sleep(5000);
 			/*commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_2));
@@ -174,7 +174,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
-			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
+			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1));
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
