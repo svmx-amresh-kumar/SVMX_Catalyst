@@ -14,6 +14,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
@@ -34,6 +35,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 	String sSection2Name="Section Two";
 	String sSection3Name="Section Three";
 	String sChecklistOpDocName = null;
+	String sWORecordID = null;
 	// checklist q's set--;
 	
 	String sFirstversionQuestion1 = "10587 FirstVersion Question";
@@ -57,8 +59,8 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 	String schecklistStatus = "Completed";	
 	String sSheetName =null;
 	
-	@Test(enabled = true)
-	public void RS_10587() throws Exception {
+	public void prerequisites() throws Exception
+	{
 		sSheetName ="RS_10587";
 		System.out.println("RS 10587 first version, last version and all version validation");
 		
@@ -78,14 +80,19 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 		// Rest to Create Workorder - Work Order -
 		
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
-		String sWOName= restServices
+		sWOName= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 
 		//sWOName = "WO-00002005";
+	}
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10587() throws Exception {
+		prerequisites();
 		
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -124,6 +131,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		Thread.sleep(genericLib.iLowSleep);
 		
 		// First version checklist second time
+		
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("SecondAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
@@ -132,10 +140,12 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 					
+		
 		// tapping on the validation successful checklist popup
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"FirstVersion second Attempt Submitted sucessfully");
+		
 		
 		//First Version checklist Third time
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
@@ -188,7 +198,6 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Second Attempt Submitted sucessfully");
 
-		
 		//Last Version checklist Third time
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans3);
@@ -203,9 +212,9 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Third Attempt Submitted sucessfully");
-
-		//=============================All Version Checklist Submissions===================================
+	
 		
+		//=============================All Version Checklist Submissions===================================	
 		// Navigating to the checklist and entering all version checklist first time
 				commonsPo.tap(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
 				Thread.sleep(GenericLib.iLowSleep);

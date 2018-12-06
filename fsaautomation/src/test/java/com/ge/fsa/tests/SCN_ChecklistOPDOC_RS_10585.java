@@ -6,6 +6,7 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertNotNull;
 
+
 import java.time.Duration;
 import java.util.Set;
 import org.json.JSONArray;
@@ -19,6 +20,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
@@ -37,6 +39,11 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sSection2Name="Section Two";
 	String sSection3Name="Section Three";
 	String sChecklistOpDocName = null;
+	String sWORecordID = null;
+	String sSoqlqueryAttachment = null;
+	String sAttachmentIDAfter = null;
+	String ChecklistQueryval = null;
+	String ChecklistQuery = null;
 	// checklist q's set--;
 	
 	String sSection1Q1 = "What is the Work Order Number?";
@@ -44,7 +51,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sSection2Q1 = "Section Two Question One";
 	String sSection3q1 = "Section Three Question One";
 	String sSection3q1Ans = "ok";	
-	String sNumberSectionJumpAns = "20";
+	String sNumberSectionJumpAns = "19";
 	String snumberwithoutjump = "100";
 
 	// For ServerSide Validations
@@ -52,8 +59,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String schecklistStatus = "Completed";	
 	String sSheetName =null;
 	
-	@Test(enabled = true)
-	public void RS_10585() throws Exception {
+	public void prerequisites() throws Exception
+	{
 		sSheetName ="RS_10585";
 		System.out.println("RS 10585 In progress checklists with section skip and OPDOC");		
 		sTestCaseID = "SCN_ChecklistOPDOC_1_RS-10585";
@@ -68,15 +75,24 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 		// Rest to Create Workorder - Work Order -
 		
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
-		String sWOName= restServices
+		sWOName= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
+		
+		
+		
 
 		//sWOName1 = "WO-00001615";
-		
+	}
+	
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10585() throws Exception {
+	
+		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
@@ -109,7 +125,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		
 		commonsPo.tap(checklistPo.geteleBacktoChecklistslnk());	
 		commonsPo.tap(checklistPo.geteleSavePopUp());
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("checklistname is"+sChecklistName);
 		String wAppChecklistStatus = checklistPo.getEleChecklistStatusLbl(sChecklistName).getText();				
 		System.out.println("printing wappcheckliststatus"+wAppChecklistStatus);	
@@ -125,8 +141,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		
 		//Validating in the server if checklist status is synced as inprogress
 		System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
-		String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
-		String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
+		ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
+		ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	
 		Assert.assertTrue(ChecklistQueryval.contains(schecklistStatusInProgress),"checklist in progress is not synced to server");
 		ExtentManager.logger.log(Status.PASS,"Checklist In Progress status is displayed in Salesforce after sync");
 	
@@ -167,7 +183,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(ChecklistAnsjson.contains(sNumberSectionJumpAns), "Answer is synced to server");
 		ExtentManager.logger.log(Status.PASS,"Section One Answer is synced to server");
 	
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());		
@@ -176,7 +192,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// Navigate to Field Service process
 		//workOrderPo.selectAction(commonsPo, sChecklistOpDocName);
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(GenericLib.iLowSleep);
 		//Navigating to checklistOPDOC process
 		checklistPo.validateChecklistServiceReport(commonsPo, workOrderPo, sChecklistOpDocName,sWOName);
 	  	checklistPo.geteleChecklistOPDOCRow();
@@ -215,13 +231,11 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	  	System.out.println("Validating if OPDOC attachment is syned to server.");
 	  	Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.iMedSleep);
-		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		restServices.getAccessToken();
-		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
+		sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
 		assertNotNull(sAttachmentIDAfter); 
 		 ExtentManager.logger.log(Status.PASS,"OPDOC is synced to Server");
-
-		
 		
 	}
 
