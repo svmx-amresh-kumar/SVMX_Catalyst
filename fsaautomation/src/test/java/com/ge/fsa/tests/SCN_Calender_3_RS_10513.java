@@ -95,7 +95,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			
+			/*
 			//Data Sync for WO's created
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
@@ -131,7 +131,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			System.out.println("created event id from server:"+sEventIdSVMX);
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		//	On server/DC, edit one of the events created
 			
@@ -169,12 +169,12 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		Thread.sleep(5000);
 			/*commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_2));
 			System.out.println("!getEleworkordernumonCalendarWeek");
-			Thread.sleep(5000);*/
-			
+			Thread.sleep(5000);
+			*/
 			
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
-			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1));
+			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
@@ -243,7 +243,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+id,SVMXC__StartDateTime__c,SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+name+=\'Event for 14 days\'";				
-		  sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		  String sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 		System.out.println("created event id from server:"+sEventIdSVMX);
         
 		String sEventstartdateSVMX =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__StartDateTime__c"); 
@@ -259,6 +259,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		Assert.assertEquals(startdatefromserver,startDateTimevalidate, "Start Date time is mismatch");
 		Assert.assertEquals(enddatefromserver,EndDateTimevalidate, "End Date time is mismatch");
 		
+			
+			
 		
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");

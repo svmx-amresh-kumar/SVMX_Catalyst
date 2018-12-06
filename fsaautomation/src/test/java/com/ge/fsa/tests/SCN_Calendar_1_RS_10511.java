@@ -203,7 +203,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			Thread.sleep(10000);
 			System.out.println("Sign out successfully");
 			
-			lauchNewApp("false");
+			//lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			Thread.sleep(3000);
@@ -236,7 +236,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		
 		
 		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
 		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
 		
 		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event3\'";				
