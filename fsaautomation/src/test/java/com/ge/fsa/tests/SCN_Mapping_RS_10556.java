@@ -90,7 +90,7 @@ String SFMIsBillable="true";
 		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
 	
 		
-		/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -104,7 +104,7 @@ String SFMIsBillable="true";
 			assertEquals(0, 1);
 		}
 		lauchNewApp("true");
-		System.out.println("RS_10556");*/
+		System.out.println("RS_10556");
 		
 		
 		//read from file
