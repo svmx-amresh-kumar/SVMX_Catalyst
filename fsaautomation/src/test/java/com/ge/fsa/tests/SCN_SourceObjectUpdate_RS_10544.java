@@ -3,19 +3,19 @@
  *  SCN_SourceObjectUpdate_RS-10544 Verify Source Object Update
  *  
  *  PENDING TASKS ---
- *  ====Sahi Script for Process Creations SourcetoTarget and Edit process.
+ *  
  *  === MAKE SURE URL,Phone,Email - custom fields are created in the ORG before running.
- *  === DateTime and date field literals need to be completed.
+ *  === DateTime and date field literals after timezone is fixed.
  * 
  */
 
 package com.ge.fsa.tests;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,7 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+
 
 
 public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
@@ -44,8 +44,9 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	String sObjectAccID=null;
 	String sSqlAccQuery=null;	
 	String sAccountName=null;
-	
-	
+	String  sUsageLine=null;
+	String sRecordTypeId=null;
+	String sworkDetail=null;
 	//Source object update values
 			
 			String sBillingType = null;String sBillingTypeSOU= "Warranty";
@@ -65,75 +66,84 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	//For ServerSide Validations
 			String schecklistStatus = "Completed";
 			String sSheetName =null;
+			String sProformainVoice =null;
+			String sTestIB = null;
+			String sTestIBID=null;
+			String sProductId = null;
+			
+			public void prerequisites() throws Exception
+			{
+				sSheetName ="RS_10544";
+				System.out.println("SCN_SourceObject_UPDATE_RS10544");
+				
+				sProformainVoice = commonsPo.generaterandomnumber("Account");
+				sTestIB="RS-10544_SOU";
+				sTestIBID = sProformainVoice;
+
+				//String time = driver.getDeviceTime();
+				//System.out.println(time);
+				sScheduledDateSOU=driver.getDeviceTime().split(" ");
+				System.out.println(sScheduledDateSOU);
+				sTestCaseID = "SCN_SourceObjectUpdate_RS_10544";
+				sCaseWOID = "Data_SCN_SourceObjectUpdate_RS_10544";
+				
+
+				//Reading from the Excel sheet
+				sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+				sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
+				sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+					
+				
+				//Account Creation
+				sObjectApi = "Account?";
+				sJsonData = "{\"Name\": \""+sTestIBID+"\"}";
+				sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
+				sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
+				sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
+				System.out.println(sAccountName);	
+				
+				//Work Order Creation
+				sWorkOrderID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"Low\"}");
+				System.out.println(sWorkOrderID);
+				sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWorkOrderID + "\'", "Name");
+				System.out.println("WO no =" + sWOName);
+			
+				
+				// Creating Product from API
+				sProductName = "AUTO_RS10544";
+				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+				sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
+				System.out.println(sProductId);
+						
+				//Getting record type usage Usage/Consumption for work detail
+				sUsageLine = "Usage/Consumption";
+				sRecordTypeId = restServices.restGetSoqlValue("SELECT+Id+from+RecordType+Where+Name+=\'" + sUsageLine + "\'", "Id");
+
+				
+			//Creating and associating a work detail to the work Order	
+			sworkDetail = restServices.restCreate("SVMXC__Service_Order_Line__c?","{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Parts\",\"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\",\"RecordTypeId\":\""+sRecordTypeId+"\",\"SVMXC__Actual_Quantity2__c\":\"11\",\"SVMXC__Product__c\":\""+sProductId+"\"}");//,,
+			System.out.println("work Detail");
+			System.out.println(sworkDetail);
+			
+			//Creating a servicemax event and assigning the work order to it.
+			
+		/*	String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+			String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
+			restServices.getAccessToken();
+			String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
+			String sEventName = "AUTO_10544Event";
+			String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");*/
+					
+			//	sWOName = "WO-00002177";
+
+			}
 			
 	@Test(enabled = true)
 	public void RS_10544() throws Exception {
-		sSheetName ="RS_10544";
-		System.out.println("SCN_SourceObject_UPDATE_RS10544");
 		
-		String sProformainVoice = commonsPo.generaterandomnumber("Account");
-		String sTestIB="RS-10544_SOU";
-		String sTestIBID = sProformainVoice;
-
-		//String time = driver.getDeviceTime();
-		//System.out.println(time);
-		sScheduledDateSOU=driver.getDeviceTime().split(" ");
-		System.out.println(sScheduledDateSOU);
-		sTestCaseID = "SCN_SourceObjectUpdate_RS_10544";
-		sCaseWOID = "Data_SCN_SourceObjectUpdate_RS_10544";
-		
-
-		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
-			
-		
-		//Account Creation
-		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sTestIBID+"\"}";
-		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
-		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-		System.out.println(sAccountName);	
-		
-		//Work Order Creation
-		sWorkOrderID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"Low\"}");
-		System.out.println(sWorkOrderID);
-		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWorkOrderID + "\'", "Name");
-		System.out.println("WO no =" + sWOName);
-	
-		
-		// Creating Product from API
-		sProductName = "AUTO_RS10544";
-		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
-		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
-		System.out.println(sProductId);
-				
-		//Getting record type usage Usage/Consumption for work detail
-		String sUsageLine = "Usage/Consumption";
-		String sRecordTypeId = restServices.restGetSoqlValue("SELECT+Id+from+RecordType+Where+Name+=\'" + sUsageLine + "\'", "Id");
-
-		
-	//Creating and associating a work detail to the work Order	
-	String sworkDetail = restServices.restCreate("SVMXC__Service_Order_Line__c?","{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Parts\",\"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\",\"RecordTypeId\":\""+sRecordTypeId+"\",\"SVMXC__Actual_Quantity2__c\":\"11\",\"SVMXC__Product__c\":\""+sProductId+"\"}");//,,
-	System.out.println("work Detail");
-	System.out.println(sworkDetail);
-	
-	//Creating a servicemax event and assigning the work order to it.
-	
-/*	String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
-	String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
-	restServices.getAccessToken();
-	String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
-	String sEventName = "AUTO_10544Event";
-	String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWorkOrderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");*/
-			
-	//	sWOName = "WO-00002177";
-
-							
+		prerequisites();					
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);		
 		
