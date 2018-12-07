@@ -39,7 +39,8 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	String sJsonData=null;
 	String sObjectAccID=null;
 	String sSqlAccQuery=null;	
-	String sAccountName="SANITY10";
+	String sAccountName=null;
+	String sWORecordID = null;
 	
 	
 	//DVR STRINGS
@@ -73,9 +74,9 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 			
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
-		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
+		sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
 		//sWOName="WO-00002400";
 		
