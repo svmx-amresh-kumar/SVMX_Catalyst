@@ -8,8 +8,12 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
-			
-		
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10556" />
+		<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />
+			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10556" />
+			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
+			<class name="com.ge.fsa.tests.SCN_Acc_pro_history_RS_10566" />
 			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
@@ -19,10 +23,6 @@
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10586" />
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
 			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" /> 	
-			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10554" />
-			<class name="com.ge.fsa.tests.SCN_Mapping_RS_10557" />
-			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
-			<class name="com.ge.fsa.tests.SCN_Acc_pro_history_RS_10566" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />
 			
 	<!--		<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
