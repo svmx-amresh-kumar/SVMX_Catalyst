@@ -7,6 +7,7 @@
  */
 package com.ge.fsa.tests;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -31,6 +32,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
@@ -55,15 +57,18 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	Date dtempDate2;
 	Date dTempDate1;
 	String sSheetName =null;
-
+	String sWORecordID = null;
+	String sTech_Id  = null;
+	String sSoqlQueryTech = null;
+	String sTechnician_ID = null;
+	
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
 
 	}
 
-	
-	@Test(enabled = true)
-	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
+	public void prerequisites() throws Exception
+	{
 		sSheetName ="RS_10586";
 		sTestCaseID = "SCN_ChecklistOPDOC_2_RS-10586";
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_2_RS-10586";
@@ -79,23 +84,28 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
 		
 		//Creation of Work Order
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-01-01\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-01-01T00:00:00.000+0000\",\"SVMXC__NoOfTimesAssigned__c\":\"10\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__Proforma_Invoice__c\":\"Proforma Dynamic Response\"}");
 		System.out.println(sWORecordID);
-		String sWOName= restServices
+		 sWOName= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 		
 		//Creating a servicemax event and assigning the work order to it.
 		
-		String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
-			String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
+		 sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+		 sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 			restServices.getAccessToken();
-			String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
-			String sEventName = "AUTO_10586Event";
-			String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWORecordID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
+			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
+		//	String sEventName = "AUTO_10586Event";
+			//String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWORecordID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
 
 		//sWOName="WO-00002612";
+	}
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
+		
 		//Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";
@@ -126,12 +136,10 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sPicklistDynamicAns="Contract";
 		String sTextDynamicq="Dynamic Text From Proforma Invoice";
 		String sTextDynamicAns = "Proforma Dynamic Response";
-		
-		
+	
 		String sChecklistStatus = "Completed";
 	
-	//	GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
-
+			prerequisites();
 			// Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);			
 			//toolsPo.configSync(commonsPo);
@@ -163,11 +171,11 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			String sMultiPicklistStaticAnsApp = checklistPo.geteleChecklistAnsNumber(sMultiPicklistStaticQ).getAttribute("value");
 			Assert.assertTrue(sMultiPicklistStaticAnsApp.equals(sMultiPicklistStaticAns), "Static response with MultiSelect datatype failed");
 			ExtentManager.logger.log(Status.PASS,"Static response with MultiSelect datatype Passed");
-			
+		
 			String sPicklistStaticAnsApp = checklistPo.geteleChecklistAnsPicklist(sPicklistStaticQ).getAttribute("value");
 			Assert.assertTrue(sPicklistStaticAnsApp.equals(sPicklistStaticAns),"Static response with picklist failed");
 			ExtentManager.logger.log(Status.PASS, "Static response with picklist datatype Passed");
-
+		
 			String sTextStaticAnsApp=checklistPo.geteleChecklistAnswerTextArea(sTextStaticQ).getAttribute("value");
 			System.out.println("sTextStaticAnsApp"+sTextStaticAnsApp);
 			Assert.assertTrue(sTextStaticAnsApp.equals(sTextStaticAns),"Static response with picklist failed");

@@ -319,12 +319,20 @@ public class ChecklistPO{
 	}
     
     
-    
+    /*
     @FindBy(xpath="//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']")
 	private WebElement eleChecklistHelpIcn;
 	public WebElement geteleChecklistHelpIcn()
 	{
 		return eleChecklistHelpIcn;
+	}*/
+	
+	
+	private WebElement eleChecklistHelpIcn;
+    public WebElement  geteleChecklistHelpIcn(String sQuestionName)
+	{
+		return eleChecklistHelpIcn = driver.findElement(By.xpath("//div[text()='"+sQuestionName+"']/../../..//../../../..//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']"));
+		
 	}
 	
 	private WebElement eleChecklistStatuslbl;
