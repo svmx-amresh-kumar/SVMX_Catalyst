@@ -31,6 +31,7 @@ public class GenericLib
 	public static int iLowSleep = 2000;
 	public static int iProcessStatus=0;
 	public static long lWaitTime=0L;
+	public static String sAppBundleID = "com.servicemaxinc.svmxfieldserviceapp";
 	ProcessBuilder processBuilder = null;
 	Process process=null;
 	
