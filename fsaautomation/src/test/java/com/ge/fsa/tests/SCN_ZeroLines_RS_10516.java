@@ -81,7 +81,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		// Click on the Work Order
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "SFMProcessforRS-10516";// Need to pass this from the Excel sheet
+		String sProcessname = "SFMProcessforRS_10516";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
