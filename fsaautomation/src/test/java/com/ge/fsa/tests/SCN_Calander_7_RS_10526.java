@@ -78,7 +78,7 @@ public void RS_10526() throws Exception
 		calendarPO.VerifyWOInCalender(commonsPo,sworkOrderName);
 		
 		 sSoqlQuery = "SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		String sworkOrderID= restServices.restGetSoqlValue(sSoqlQuery,"Id");
+		 sworkOrderID= restServices.restGetSoqlValue(sSoqlQuery,"Id");
 		
 		  String sSqlWOQuery = "SELECT+name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c+=\'"+sworkOrderID+"\'";				
 		String sEventsuject =restServices.restGetSoqlValue(sSqlWOQuery,"Name"); 

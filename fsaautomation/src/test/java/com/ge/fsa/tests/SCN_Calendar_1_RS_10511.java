@@ -29,6 +29,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Calendar_1_RS_10511 extends BaseLib {
 
@@ -59,7 +60,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10511() throws Exception {
 		sSheetName ="RS_10511";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -125,6 +127,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			//delete one SFDC and one SVMX event
+			System.out.println("delete one SFDC and one SVMX event");
 			sObjectApi = "Event?";
 			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event1\'";				
 			String sEventIdSFDC_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 

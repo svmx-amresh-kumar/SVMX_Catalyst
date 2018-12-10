@@ -67,7 +67,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
-		String TechName = GenericLib.getExcelData(sTestIB,sSheetName, "TechName");
+		String TechName = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
