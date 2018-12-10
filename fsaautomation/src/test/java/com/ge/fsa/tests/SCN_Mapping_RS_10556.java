@@ -118,7 +118,7 @@ String SFMIsBillable="true";
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync

@@ -3,6 +3,7 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-124"
  */
 package com.ge.fsa.tests;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -28,6 +29,7 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 	String sFirstName = null;
 	String sLastName = null;
 	String sContactName = null;
+	String sworkOrderID=null;
 
 @Test
 public void RS_10526() throws Exception
@@ -38,7 +40,7 @@ public void RS_10526() throws Exception
 		String sEventSubject = "Create Event from WO in Client";
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		toolsPo.configSync(commonsPo);
+		
 		// Creating Account from API
 		sAccountName = "RS_10526_Account";
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -76,9 +78,9 @@ public void RS_10526() throws Exception
 		calendarPO.VerifyWOInCalender(commonsPo,sworkOrderName);
 		
 		 sSoqlQuery = "SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		String sworkOrderID= restServices.restGetSoqlValue(sSoqlQuery,"Id");
+		 sworkOrderID= restServices.restGetSoqlValue(sSoqlQuery,"Id");
 		
-		String sSqlWOQuery = "SELECT+name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c+=\'"+sworkOrderID+"\'";				
+		  String sSqlWOQuery = "SELECT+name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c+=\'"+sworkOrderID+"\'";				
 		String sEventsuject =restServices.restGetSoqlValue(sSqlWOQuery,"Name"); 
 		System.out.println(sEventsuject);
 		
@@ -86,7 +88,12 @@ public void RS_10526() throws Exception
 		
 		ExtentManager.logger.log(Status.PASS,"Test case passed successfully");
 }
+@AfterClass(enabled = true)
+public void deletedata() throws Exception {
+	//Deleting data created
+	restServices.restDeleterecord("SVMXC__Service_Order__c",sworkOrderID); 
 	
 
+}
 	
 }

@@ -53,12 +53,7 @@ import org.openqa.selenium.Rotatable;
 			return eleActionsLnk;
 		}
 	
-		private WebElement eleActionsTxt;
-		public WebElement getEleActionsTxt(String sActionsName)
-		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
-			return eleActionsTxt;
-		}
+		
 	
 		// Added by Harish.CS
 		private WebElement eleActionsTxtWithIcon;
@@ -217,7 +212,15 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleStartDateTimeLst;
 		}
+		
 	
+	
+		@FindBy(xpath="	//span[text()='Dead Time (In Minutes)']")
+		private WebElement eleDeadTimeLst;
+		public WebElement getEleDeadTimeLst()
+		{
+			return eleDeadTimeLst;
+		}
 		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeLst1;
 		public WebElement getEleEndDateTimeLst1()
@@ -401,6 +404,13 @@ import org.openqa.selenium.Rotatable;
 		{
 	
 			return eleclickOK;
+		}
+		@FindBy(xpath="//span[@class='x-button-icon x-font-icon x-hidden']//..//span[@class='x-button-label'][text()='Cancel']")
+		private WebElement eleclickCancel;
+		public  WebElement getEleclickCancel()
+		{
+	
+			return eleclickCancel;
 		}
 	
 		@FindBy(xpath="	//span[@class='x-button-label'][text()='+New']")
@@ -1170,6 +1180,33 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCaseReasonLst;
 		}
+		private WebElement eleObjectTxt;
+		public WebElement getEleObjectTxt(String sValue)
+		{
+			eleObjectTxt = driver.findElement(By.xpath("//div[@class='x-innerhtml'][text()='"+sValue+"']"));
+			return eleObjectTxt;
+		}
+		
+		private WebElement eleActionsTxt;
+		public WebElement getEleActionsTxt(String sActionsName)
+		{
+			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			return eleActionsTxt;
+		}
+		
+		@FindBy(xpath="(//span[text()='Priority']/../..//input[@class='x-input-el'])[2]")
+		private WebElement elePriorityLst;
+		public WebElement getElePriorityLst()
+		{
+			return elePriorityLst;
+		}
+		@FindBy(xpath="(//span[text()='Account']/../..//input[@class='x-input-el'])[2]")
+		private WebElement eleAccountTxtFld;
+		public WebElement getEleAccountTxtFld()
+		{
+			return eleAccountTxtFld;
+		}
+		
 		
 
 		/*
@@ -1384,9 +1421,18 @@ import org.openqa.selenium.Rotatable;
 			getEleLineQtyTxtFld().sendKeys("10");
 			commonsPo.tap(getEleLinePerUnitTxtFld());
 			getEleLinePerUnitTxtFld().sendKeys("1000");
+			Thread.sleep(1000);
+			commonsPo.tap(getEleDeadTimeLst());
+			try {
+					commonsPo.tap(getEleclickCancel());
+					Thread.sleep(2000);
+					
+				}
+			catch(Exception e)
+			{
+				System.out.println("Cancel Button is not button is not found");
+			}
 			commonsPo.tap(getEleDoneBtn());
-	
-	
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		

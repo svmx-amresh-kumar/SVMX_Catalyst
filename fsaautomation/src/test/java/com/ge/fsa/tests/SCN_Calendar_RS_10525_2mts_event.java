@@ -19,6 +19,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -43,8 +44,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 //String sproductname = "Proforma30082018102823product";
 	String sproductname =null;
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String[] sAppDate = null;
+	String sObjectAWOID = null;
 	String sIBLastModifiedBy=null;
 	//String techname="a240t000000GglLAAS";
 	WebElement productname=null;
@@ -57,7 +57,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10525_2months_event() throws Exception {
 		sSheetName ="RS_10525";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
 		String sTestIBID = sProformainVoice;
@@ -67,13 +67,12 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestIB,sSheetName, "ProcessName");
-		String sworkOrderName = GenericLib.getExcelData(sTestIB,sSheetName, "WorkOrder Number");
-		String TechName = GenericLib.getExcelData(sTestIB,sSheetName, "TechName");
+		String TechName = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
 		
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 		
-			
+		
 		//config sync
 			//toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
@@ -95,7 +94,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			
 			sObjectApi = "SVMXC__Service_Order__c?";
 			sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\",\"SVMXC__Order_Status__c\":\"Open\"}";
-			String sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
+			 sObjectAWOID=restServices.restCreate(sObjectApi,sJsonData);
 			sSqlAccQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectAWOID+"\'";				
 			String sWOName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 			//sProductName1="v1";
@@ -111,9 +110,11 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	     String  starttimezero=  sdf.format(now.getTime());
 	     System.out.println(starttimezero);
 		
+	     int month=now.get(Calendar.MONTH);
+		System.out.println(month);
 	     
 	     Calendar now1 = Calendar.getInstance();
-	     now1.set(Calendar.MONTH, 11);
+	     now1.set(Calendar.MONTH, month+2);
 	        now1.set(Calendar.HOUR, 0);
 	        now1.set(Calendar.MINUTE, 0);
 	        now1.set(Calendar.SECOND, 0);
@@ -154,7 +155,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 300);
+			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
 			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
 				System.out.println("Found WO in day View " + sWOName);
 				}
@@ -182,7 +183,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			//commonsPo.tap(calendarPO.geteletaponmonthdayindex());
 			
 			Thread.sleep(3000);
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 300);
+			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
 			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
 				System.out.println("Found WO in day View " + sWOName);
 				}
@@ -196,11 +197,15 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		
 			ExtentManager.logger.log(Status.PASS,"Two months event verification is successful");
 			
-			
-			
-			
-	
 	}
 	
 
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID); 
+		
+}
+	
 }

@@ -84,8 +84,9 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		//config sync
-		//toolsPo.configSync(commonsPo);
-		//toolsPo.syncData(commonsPo);
+		toolsPo.configSync(commonsPo);
+	
+		toolsPo.syncData(commonsPo);
 		
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);

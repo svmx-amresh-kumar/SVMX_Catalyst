@@ -29,6 +29,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Calendar_1_RS_10511 extends BaseLib {
 
@@ -59,7 +60,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10511() throws Exception {
 		sSheetName ="RS_10511";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -80,7 +82,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
   			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
   			assertEquals(0, 1);
   		}
-  		lauchNewApp("true");
+  		lauchNewApp("true"); 
   		System.out.println("RS_10511");
 	
 	//read from file
@@ -94,15 +96,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
 		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		String sSalesforceuser= GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
-		String sTechname2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
-		
-		
-			//Pre Login to app
+		String sSalesforceuser= GenericLib.getConfigValue(GenericLib.sConfigFile, "salesforce_ID1");
+		String sTechname2 = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID1");
+	
+		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -126,6 +127,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			//delete one SFDC and one SVMX event
+			System.out.println("delete one SFDC and one SVMX event");
 			sObjectApi = "Event?";
 			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event1\'";				
 			String sEventIdSFDC_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
@@ -203,7 +205,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			Thread.sleep(10000);
 			System.out.println("Sign out successfully");
 			
-			lauchNewApp("false");
+			//lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			Thread.sleep(3000);
@@ -236,7 +238,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		
 		
 		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
 		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
 		
 		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event3\'";				

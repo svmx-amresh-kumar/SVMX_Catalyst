@@ -187,6 +187,7 @@ public class CommonsPO
 				System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
+				break;
 				
 			default:
 				System.out.println("OS Error");
@@ -345,7 +346,8 @@ public class CommonsPO
 	//touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 20)).release().perform();
 	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
 
-	touchAction.tap(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 15)).release().perform();
+	touchAction.press(new PointOption().withCoordinates(x,y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,y)).release().perform();
+	//touchAction.tap(new PointOption().withCoordinates(x,y));
 	}
 
 
@@ -687,7 +689,7 @@ public class CommonsPO
 
 
 	/**
-	 * Wait until the string is displayed or time elapsed in seconds
+	 * Wait until the string is displayed or time elapsed in seconds and returns true or false
 	 * @param wElement
 	 * @param sExpectedValue
 	 * @param lTime

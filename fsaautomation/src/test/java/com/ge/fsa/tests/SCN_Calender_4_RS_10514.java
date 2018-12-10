@@ -155,7 +155,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				 String sWOJson = "{\"SVMXC__Salesforce_User__c\":\"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
 				lauchNewApp("false");
-				loginHomePo.login_tech2(commonsPo, exploreSearchPo);
+							loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			
 
 				commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -182,7 +182,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			
 				 sWOJson = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
-		
+				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		
 			genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
@@ -202,7 +202,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	  		System.out.println("RS_10514");	
 	  		
 	  		loginHomePo.login(commonsPo, exploreSearchPo);
-	  		toolsPo.configSync(commonsPo);
+	  	//	toolsPo.configSync(commonsPo);
 	  		
 	 
 	  		
@@ -211,9 +211,9 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteleNewClick());
 			
-			commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
+			//commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 			
-			calendarPO.getelesubjectSFDCtextarea().sendKeys("SFDC event RS-10514");
+			calendarPO.getelesubjectSFDCtap().sendKeys("SFDC event RS-10514");
 			commonsPo.tap(calendarPO.geteleclickupdate());
 			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");

@@ -2,6 +2,7 @@
 package com.ge.fsa.pageobjects;
 
 import java.awt.Color;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -370,13 +371,13 @@ public class CalendarPO
 	{
 		SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		 Date  dTempDate1 = parser1.parse(Datetime);
-		 SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		 SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/yyyy HH:mm");
 	        String stempDate =  formatter1.format(dTempDate1);
 	        System.out.println("Converted to date "+stempDate); 
 		return stempDate;
 	}
 	
-	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']")
+	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']//input")
 	private WebElement elesubjectSFDCtap;
 	public WebElement getelesubjectSFDCtap()
 	{
@@ -476,7 +477,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 300);
+		commonsPo.waitforElement(getelegetWOnum(workordername), 30);
 		
 	
 		if(getelegetWOnum(workordername) != null){
@@ -551,11 +552,23 @@ public class CalendarPO
 		{
 			SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			 Date  dTempDate1 = parser1.parse(Datetime);
-			 SimpleDateFormat formatter1 = new SimpleDateFormat("MM/d/yyyy");
+			 SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/yyyy");
 		        String stempDate =  formatter1.format(dTempDate1);
 		        System.out.println("Converted to date "+stempDate); 
 			return stempDate;
 		}
+		
+		
+	
+		
+		private WebElement elegetsubjectformultiday;
+		public WebElement getsubjectformultiday(String WOname)
+		{
+			elegetsubjectformultiday = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border'])[2]"));
+
+			return elegetsubjectformultiday;
+		}
+
 }
 
 

@@ -188,6 +188,9 @@ public class ToolsPO
 			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
 			Assert.assertTrue(1<2, "Data Sync Failed");
 		}
+		
+		driver.activateApp(GenericLib.sAppBundleID);
+		
 	}
 	
 	/**
@@ -228,7 +231,7 @@ public class ToolsPO
 				Assert.assertTrue(1<2, "Config Sync Failed");
 			}
 																	
-
+			driver.activateApp(GenericLib.sAppBundleID);
 			
 		}
 	

@@ -2,7 +2,6 @@
  *  @author Vinod Tharavath
  *  SCN_Checklist_2_RS-10578 Verify DataValidation on Checklists
  *  
- *  
  *  Date related stuff will be covered once timezone is sorted.
  */
 package com.ge.fsa.tests;
@@ -19,6 +18,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_Checklist_2_RS_10578 extends BaseLib {
@@ -33,9 +33,10 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sExploreChildSearchTxt = null;
 	String sOrderStatusVal = null;
 	String sEditProcessName = null;
+	String sWORecordID = null;
 
 	// checklist q's set--
-	
+
 	String sDateq = "Date DVRVS";
 	String sDateTimeq = "DateTime DVR";
 	String sConfirmationDVRq = "Confirmation DVR number cannot be 10";	
@@ -43,22 +44,20 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sDateAns = null;
 	String sDateTimeAns = null;
 	String sConfirmationDVRAns = "10";
-
 	
 	String sAdvancedDVRq="Advanced Expression DVR";
 	String sAdvanceDVRAns = "20";
 	String sAdvancedDVRValidAns = "300";
 			
-
 	// For ServerSide Validations
 	String schecklistStatus = "Completed";
 	String sSheetName =null;
 	
-	@Test(enabled = true)
-	public void RS_10578() throws Exception {
+	public void prerequisites() throws Exception
+	
+	{
 		sSheetName ="RS_10578";
 		System.out.println("SCN_RS10578_Checklist_DVR");
-
 		String time = driver.getDeviceTime();
 		System.out.println(time);
 
@@ -73,15 +72,22 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\"}");
 		System.out.println(sWORecordID);
-		String sWOName = restServices
+		sWOName = restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 
 		// sWOName = "WO-00001266";
-
+	}
+	
+	
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10578() throws Exception {
+		
+		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
@@ -164,8 +170,6 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		//commonsPo.tap(checklistPo.eleChecklistSubmit());
-
-		// Validation of required question lbl and issue found txt.
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
@@ -179,7 +183,6 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 
 		// Navigation back to Work Order
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-		// NXGReports.addStep("Creation of Checklist OPDOC passed", LogAs.PASSED, null);
 		ExtentManager.logger.log(Status.PASS, "Back to Work Order after submitting checklist passed");
 
 		Thread.sleep(GenericLib.iLowSleep);

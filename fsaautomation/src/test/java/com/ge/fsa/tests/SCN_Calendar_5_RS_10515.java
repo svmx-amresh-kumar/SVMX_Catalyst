@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.io.IOException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -38,11 +39,13 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 //String sproductname = "Proforma30082018102823product";
 	String sproductname =null;
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String[] sAppDate = null;
+	String sWO_SVMX_1 = null;
+	String sWO_SVMX_2 = null;
+	String sWO_SVMX_3 = null;
+	String sWO_SVMX_4 = null;
+	String sWO_SVMX_5 = null;
+	String sWO_SVMX_6 = null;
 	String sIBLastModifiedBy=null;
-	String techname="a240t000000GglLAAS";
-	WebElement productname=null;
 	String sSheetName =null;
 	
 	@BeforeMethod
@@ -53,14 +56,13 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_10512() throws Exception {
 		sSheetName ="RS_10515";
-		sDeviceDate = driver.getDeviceTime().split(" ");
 	
 		String sTestCaseID="RS_10515_Calender_5";
 	
 		
 		
 		//sahi
-		/*genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah", "sTestCaseID");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -74,19 +76,19 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
   			assertEquals(0, 1);
   		}
   		lauchNewApp("true");
-  		System.out.println("RS_10515");*/
+  		System.out.println("RS_10515");
 	
 		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
-		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		String sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
-		String sWO_SVMX_5 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_5");
-		String sWO_SVMX_6 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_6");
+		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
+		 sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
+		 sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
+		 sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
+		 sWO_SVMX_5 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_5");
+		 sWO_SVMX_6 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_6");
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		//config sync
-		toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		
 		commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -239,6 +241,33 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 				}
 	}
 	
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_1+"\'";
+		String sWO1id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO1id); 
+		
+		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_2+"\'";
+		 String sWO2id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO2id); 
+		
+		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_3+"\'";
+		 String sWO3id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO3id); 
+		
+		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_4+"\'";
+		 String sWO4id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO4id); 
+		
+		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_5+"\'";
+		 String sWO5id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO5id); 
+		
+		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_6+"\'";
+		 String sWO6id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO6id); 
+		
+}
 	
-
 }

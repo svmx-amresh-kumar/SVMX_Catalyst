@@ -82,8 +82,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
-		String TechName = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName");
-		
+		String TechName = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 		
@@ -349,7 +348,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	public void deletedata() throws Exception {
 		//Deleting data created
 		
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sSoqlwoid1); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sObjectAWOID);
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",WOIDoverlapping);
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sSoqlwoid1); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID);
+		restServices.restDeleterecord("SVMXC__Service_Order__c",WOIDoverlapping);
 }}
