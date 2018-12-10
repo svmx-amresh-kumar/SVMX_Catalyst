@@ -70,7 +70,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		restServices.getAccessToken();
 		String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 		// Assigning the Work order to Technician using Event
-		String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sRandomNumber+"\", \"SVMXC__Service_Order__c\":\""+sWorkorderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWorkorderID+"\"}");
+		//String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?","{\"Name\":\""+sRandomNumber+"\", \"SVMXC__Service_Order__c\":\""+sWorkorderID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWorkorderID+"\"}");
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+Id+=\'"+sWorkorderID+"\'";
 		restServices.getAccessToken();
@@ -81,7 +81,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		// Click on the Work Order
 		Thread.sleep(10000);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "SFM Process for RS-10516";// Need to pass this from the Excel sheet
+		String sProcessname = "SFMProcessforRS-10516";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		Thread.sleep(2000);
