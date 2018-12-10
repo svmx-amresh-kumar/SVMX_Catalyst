@@ -47,7 +47,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		toolsPo.configSync(commonsPo); // To get the SFM Wizard
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003756", "Auto_Reg_10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Auto_Reg_10529");
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(commonsPo.getElesearchTap());
 		commonsPo.getElesearchTap().clear();
@@ -78,9 +78,9 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.getElesearchTap().clear(); 
 		commonsPo.getElesearchTap().sendKeys(sLocName01); 
 		commonsPo.tap(commonsPo.getElesearchButton()); 
-//		String sLocationOptn01 = workOrderPo.getLblLookupOptns().getText(); 
-//		System.out.println(sLocationOptn01); 
-//		assertEquals(sLocationOptn01, sLocName01); //Covers Step 4
+		String sLocationOptn01 = workOrderPo.getLblLookupOptns().getText(); 
+		System.out.println(sLocationOptn01); 
+		assertEquals(sLocationOptn01, sLocName01); //Covers Step 4
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		Thread.sleep(genericLib.iLowSleep);
 		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "India");
@@ -102,7 +102,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.tap(commonsPo.getElesearchButton());
 		String sLastNameOptn01 = workOrderPo.getLblLookupOptns().getText(); 
 		System.out.println(sLastNameOptn01); 
-		assertEquals(sLastNameOptn01, sLastName01); //Covers Step 7
+		assertEquals(sLastNameOptn01, sLastName01); //Covers Step 7 //Valid Failure issue? cross verify with sesha
 	}
 
 }
