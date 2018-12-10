@@ -50,24 +50,24 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		sSheetName3 ="RS_10539";
 		
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
-//		genericLib.executeSahiScript("appium/Scenario_10532.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		genericLib.executeSahiScript("appium/Scenario_10532.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
