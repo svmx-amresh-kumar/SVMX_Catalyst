@@ -80,7 +80,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
   			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
   			assertEquals(0, 1);
   		}
-  		lauchNewApp("true");
+  		lauchNewApp("true"); 
   		System.out.println("RS_10511");
 	
 	//read from file
@@ -94,15 +94,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
 		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		String sSalesforceuser= GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
-		String sTechname2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
-		
-		
-			//Pre Login to app
+		String sSalesforceuser= GenericLib.getConfigValue(GenericLib.sConfigFile, "salesforce_ID1");
+		String sTechname2 = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID1");
+	
+		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created

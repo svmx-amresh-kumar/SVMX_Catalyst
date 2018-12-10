@@ -377,7 +377,7 @@ public class CalendarPO
 		return stempDate;
 	}
 	
-	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']")
+	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']//input")
 	private WebElement elesubjectSFDCtap;
 	public WebElement getelesubjectSFDCtap()
 	{
@@ -477,7 +477,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 300);
+		commonsPo.waitforElement(getelegetWOnum(workordername), 30);
 		
 	
 		if(getelegetWOnum(workordername) != null){

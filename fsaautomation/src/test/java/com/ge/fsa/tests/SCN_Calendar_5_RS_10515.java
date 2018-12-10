@@ -60,7 +60,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		
 		
 		//sahi
-		/*genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah", "sTestCaseID");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -74,7 +74,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
   			assertEquals(0, 1);
   		}
   		lauchNewApp("true");
-  		System.out.println("RS_10515");*/
+  		System.out.println("RS_10515");
 	
 		
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");

@@ -16,6 +16,7 @@ import java.util.Date;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -42,8 +43,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 //String sproductname = "Proforma30082018102823product";
 	String sproductname =null;
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String[] sAppDate = null;
+	String sEventIdSVMX_1 = null;
+	String sEventIdSFDC = null;
 	String sIBLastModifiedBy=null;
 	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
@@ -57,8 +58,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	@Test(enabled = true)
 	public void RS_11859() throws Exception {
 		sSheetName ="RS_11859";
-		sDeviceDate = driver.getDeviceTime().split(" ");
-	
+		
 		String sTestCaseID="RS_11859_Calender_3";
 		//sahi
 		genericLib.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah", "sTestCaseID");
@@ -92,7 +92,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-			toolsPo.configSync(commonsPo);
+		//	toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
@@ -132,7 +132,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			sObjectApi = "Event";
 			restServices.getAccessToken();
 			sSqlEventQuery ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";				
-			String sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+			 sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSFDC);
 			Assert.assertNotNull(sEventIdSFDC, "Record not found");;
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
@@ -168,8 +168,13 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			calendarPO.geteleWOendpoint("09:00").getLocation();
 			Thread.sleep(3000);
 			System.out.println("Before Pencil icon enable");
+			try {
 			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			Thread.sleep(3000);
+			Thread.sleep(3000);}
+			catch (Exception e) {
+				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
+			}
+			
 			//tap on pencil icon
 			System.out.println("tap on pencil icon");
 			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
@@ -189,14 +194,24 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		Thread.sleep(3000);
 		calendarPO.geteleWOendpoint("09:00").getLocation();
 		Thread.sleep(3000);
-		commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-		Thread.sleep(3000);
+		try {
+			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
+			Thread.sleep(3000);}
+			catch (Exception e) {
+				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
+			}
 	
 		System.out.println("tap on pencil icon");
 		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
-		
+
+			Thread.sleep(10000);
 		commonsPo.tap(calendarPO.geteleEndDateTime());
-		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
+		//commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
+	
+		commonsPo.switchContext("Native");
+		commonsPo.getEleDonePickerWheelBtn().click();
+		commonsPo.switchContext("Webview");
+		
 		
 		String EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
@@ -209,8 +224,6 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 	}
 	
-        commonsPo.tap(workOrderPo.getEleSaveLnk());
-       // commonsPo.tap(workOrderPo.getEleSaveLnk());
         System.out.println("#####################");
         commonsPo.tap(workOrderPo.getEleYesBtn());
         Thread.sleep(3000);
@@ -234,10 +247,10 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
     commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 		commonsPo.tap(calendarPO.geteleNewClick());
-		commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
+		//commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 		
-		calendarPO.getelesubjectSFDCtextarea().sendKeys("Event for more than 14 days");
-		commonsPo.tap(calendarPO.geteleclickupdate());
+		calendarPO.getelesubjectSFDCtap().sendKeys("Event for more than 14 days");
+		//commonsPo.tap(calendarPO.geteleclickupdate());
 		commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
 		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 18,"10","00");
 		
@@ -248,7 +261,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
 		toolsPo.getEleStartSyncBtn().click();
 		commonsPo.longPress(toolsPo.getEleStartSyncBtn());
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  120000);
 		
 		commonsPo.tap(toolsPo.geteleResolve());
 		String errormsg=toolsPo.getelesyncconflicterror().getText();
@@ -262,6 +275,20 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		toolsPo.syncData(commonsPo);
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 	}
+	
+	
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		
+		restServices.restDeleterecord("Event",sEventIdSFDC); 
+		restServices.restDeleterecord("Event",sEventIdSVMX_1);
+		sSqlWOQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event2\'";
+		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
+		restServices.restDeleterecord("Event",sEventIdSFDC_2);
+		
+}
+	
 	
 
 }
