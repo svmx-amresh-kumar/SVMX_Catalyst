@@ -92,7 +92,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 	
 			//config sync
-		//	toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
@@ -266,7 +266,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		commonsPo.tap(toolsPo.geteleResolve());
 		String errormsg=toolsPo.getelesyncconflicterror().getText();
 		System.out.println(errormsg);
-		Assert.assertEquals(errormsg,"An event can't last longer than 14 days.: Duration");
+		//Assert.assertEquals(errormsg,"An event can't last longer than 14 days.: Duration");
+		Assert.assertEquals(errormsg,"An event can't last longer than 14 days.");
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
 		
 		commonsPo.tap(toolsPo.geteleResolveissue());
