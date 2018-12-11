@@ -128,8 +128,9 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Sync the Data and verify in the Server end if both the data are present
+		Thread.sleep(20000);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(10000);
+		Thread.sleep(20000);
 		// Verify the Queries
 
 		restServices.getAccessToken();
