@@ -18,8 +18,16 @@
 			<class name="com.ge.fsa.tests.SCN_Acc_pro_history_RS_10566" />
 			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
 			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
-			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
-			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" />						
+			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />	
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
+			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />	
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
+			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
+			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />				
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_2_RS_10578" />		
 			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
@@ -29,17 +37,7 @@
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10540" /> 
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10541" /> 
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10542" /> 	
-			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
-			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
-			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />	
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
-			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
-			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
+
 			<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
 			<class name="com.ge.fsa.tests.SCN_RS_10543" />
 			<class name="com.ge.fsa.tests.SCN_RS_10545" />
