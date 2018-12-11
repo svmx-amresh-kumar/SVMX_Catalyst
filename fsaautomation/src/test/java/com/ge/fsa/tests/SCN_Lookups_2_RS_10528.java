@@ -16,11 +16,16 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		
 		String sTestID = "RS_10528"; 
 		String sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+//		System.out.println(sExploreSearch);
 		String sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
+//		System.out.println(sExploreChildSearchTxt);
 		String sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+//		System.out.println(sFieldServiceName);
 		String sZipCode = "51203";
 		String sCountry = GenericLib.getExcelData(sTestID,sTestID, "Country");
+//		System.out.println(sCountry);
 		String sCity = GenericLib.getExcelData(sTestID,sTestID, "City");
+//		System.out.println(sCity);
 		
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");

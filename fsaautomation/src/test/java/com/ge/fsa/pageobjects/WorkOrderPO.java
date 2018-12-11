@@ -856,7 +856,7 @@ import org.openqa.selenium.Rotatable;
 			return txtComponent;
 		}
 	
-		@FindBy(xpath="(//span[text()='City']/following::textarea)[1]")
+		@FindBy(xpath="(//span[text()='City']/following::input)[1]")
 		private WebElement txtCity;
 		public WebElement getTxtCity()
 		{
@@ -905,7 +905,7 @@ import org.openqa.selenium.Rotatable;
 			return lblSite;
 		}
 	
-		@FindBy(xpath="//span[text()='Zip']/following::textarea")
+		@FindBy(xpath="(//span[text()='Zip']/following::input)[1]")
 		private WebElement txtZip;
 		public WebElement getTxtZip()
 		{
@@ -2085,6 +2085,7 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleDiscardChangesbutton;
 		}
+
 	
 	}
 	

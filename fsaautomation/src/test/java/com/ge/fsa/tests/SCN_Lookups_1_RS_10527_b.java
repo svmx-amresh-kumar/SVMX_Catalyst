@@ -62,14 +62,16 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 //		System.out.println(sConId15);
 		
 		//Create Work Order
-//		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
-//		System.out.println("Wo ID "+sWoID);
+		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+		System.out.println("Wo ID "+sWoID);
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
+		System.out.println("WO no ="+sWOName);
 		String sProdName = "a1";
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-//		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "AutoReg10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "AutoReg10529");
 		//******Validate 4th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();

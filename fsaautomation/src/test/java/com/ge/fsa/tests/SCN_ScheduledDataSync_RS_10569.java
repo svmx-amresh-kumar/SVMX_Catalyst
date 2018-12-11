@@ -13,6 +13,7 @@ import static org.testng.Assert.assertEquals;
 import java.io.IOException;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
@@ -53,9 +54,20 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah",sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
+	
+	
+	public void postscript() throws Exception
+	{
+		// running the Sahi Script Post check - to reset scheduled data sync back to 1000
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah",sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+		//lauchNewApp("true");
+		toolsPo.configSync(commonsPo);
 	}
 	
 	@Test(enabled = true)
@@ -81,6 +93,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	
 		// Wait for 5-8 minutes as scheduled data sync will need to start trigger
 		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400000);
+		Thread.sleep(GenericLib.i30SecSleep);
 		//Verification of successful sync
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		ExtentManager.logger.log(Status.PASS,"Scheduled Data Sync is successfull");
@@ -94,22 +107,28 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 	    commonsPo.tap(toolsPo.getEleToolsIcn());	
 		Assert.assertTrue(toolsPo.getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");	    
+		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");	
+		
+		
 	//waiting for 5 bare minimum as we need to see capture the refreshing view for scheduled Data Sync.
 		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400000);
+		Thread.sleep(GenericLib.i30SecSleep);
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		restServices.getAccessToken();
+		
 		sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO,"SVMXC__Billing_Type__c");
         Assert.assertTrue(sBillTypeServer.equals(sBillingType), "Billing Type in Server has not been updated after scheduled data sync");
-		ExtentManager.logger.log(Status.PASS,"Billing Type edited from FSA has been updated in server after scheduled Data Sync");	    
-		// running the Sahi Script Post check - to reset scheduled data sync back to 1000
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah", "sTestCaseID");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-		//lauchNewApp("true");
-		toolsPo.configSync(commonsPo);
-		
+		ExtentManager.logger.log(Status.PASS,"Billing Type edited from FSA has been updated in server after scheduled Data Sync");	    	
+		postscript();
+	}
+	
+	@AfterMethod
+	public void tearDown() throws Exception {	
+	postscript();
+	System.out.println("Running the post script");
+	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
+
 	}
 
 }

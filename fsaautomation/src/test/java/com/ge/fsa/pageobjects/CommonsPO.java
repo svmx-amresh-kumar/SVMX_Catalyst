@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
@@ -408,7 +409,8 @@ public class CommonsPO
 
 		switch(BaseLib.sOSName) {
 		case "android":
-			tap(wElement,16,20);
+//			tap(wElement,16,20);
+			tap(wElement,30,36);
 			Thread.sleep(2000);
 			switchContext("Native");
 			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
@@ -878,6 +880,20 @@ public class CommonsPO
 
 
 
+	}
+	
+	public void verticalSwipe() {
+		switchContext("native");
+		Dimension dim  = driver.manage().window().getSize();
+		int height = dim.getHeight();
+		int width = dim.getWidth();
+		System.out.println("Height of the Screen is "+height);
+		System.out.println("Width of the Screen is "+width);
+		int x= width/2;
+		int starty = (int) (height*0.8);
+		int endy = (int) (height*0.2);
+//		new TouchAction(driver).longPress(new PointOption().withCoordinates(x,starty)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,endy)).release();
+		new TouchAction(driver).longPress(new PointOption().withCoordinates(150,900)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(150,60)).release();
 	}
 
 

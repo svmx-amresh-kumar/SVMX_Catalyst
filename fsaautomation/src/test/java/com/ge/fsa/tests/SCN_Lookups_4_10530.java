@@ -27,12 +27,16 @@ private void preRequisite() throws Exception {
 	
 	@Test
 	public void RS_10530() throws Exception {
+		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+		System.out.println(sWORecordID);
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
+		System.out.println("WO no ="+sWOName);
 		sProdName = "P2";
 //		preRequisite();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-//		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10530_lkp_proc1");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10530_lkp_proc1");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
 		for(int i=0;i<sProdArr.length;i++) {
