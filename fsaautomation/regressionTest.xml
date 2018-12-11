@@ -51,7 +51,7 @@
 			<class name="com.ge.fsa.tests.SCN_Calander_7_RS_10526" />
 			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_10513" />
 			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_11859" />
-			<class name="com.ge.fsa.tests.SCN_Calender_2_RS_10512" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_2_RS_10512" />
 			<class name="com.ge.fsa.tests.SCN_Calender_4_RS_10514" />
 	
 		</classes>
