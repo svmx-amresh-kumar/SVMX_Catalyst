@@ -51,7 +51,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 	}
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
-	public void SCN_SrctoTrgt_RS_10562Test() throws Exception {
+	public void RS_10562Test() throws Exception {
 		
 		sTestID = "RS_10562";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
