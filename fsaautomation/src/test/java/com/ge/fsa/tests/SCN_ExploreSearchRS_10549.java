@@ -8,8 +8,9 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
-public class SCN_RS_10549 extends BaseLib {
+public class SCN_ExploreSearchRS_10549 extends BaseLib {
 
 	String sTestID = null;
 	String sExploreSearch = null;
@@ -21,8 +22,8 @@ public class SCN_RS_10549 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
 
-	@Test(enabled = true)
-	public void SCN_RS_10549Test() throws Exception 
+	@Test(enabled = true, retryAnalyzer=Retry.class)
+	public void RS_10549Test() throws Exception 
 	{
 		sTestID = "RS_10549";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");

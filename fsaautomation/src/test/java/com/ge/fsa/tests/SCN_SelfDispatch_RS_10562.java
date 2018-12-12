@@ -10,6 +10,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 
@@ -49,8 +50,8 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 	}
 
-	@Test(enabled = true)
-	public void SCN_SrctoTrgt_RS_10562Test() throws Exception {
+	@Test(enabled = true, retryAnalyzer=Retry.class)
+	public void RS_10562Test() throws Exception {
 		
 		sTestID = "RS_10562";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
@@ -98,7 +99,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
 		
 		commonsPo.tap(calendarPO.getEleCalendarIcn());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Validation of WorkOrder event
 		Assert.assertTrue(calendarPO.getEleWOEventSubjectTxt(sSubject).isDisplayed(), "WorkOrder Subject is not displayed on the calender");
