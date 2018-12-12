@@ -477,7 +477,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 30);
+		commonsPo.waitforElement(getelegetWOnum(workordername), 20);
 		
 	
 		if(getelegetWOnum(workordername) != null){
