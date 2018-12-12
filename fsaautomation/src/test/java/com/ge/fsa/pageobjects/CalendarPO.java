@@ -303,7 +303,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 30);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 20);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
