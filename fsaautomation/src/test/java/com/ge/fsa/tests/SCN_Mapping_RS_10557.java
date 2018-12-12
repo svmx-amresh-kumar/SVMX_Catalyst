@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.CreateNewPO;
 
 public class SCN_Mapping_RS_10557 extends BaseLib {
@@ -61,7 +62,7 @@ String Location=null;
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10557() throws Exception {
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");

@@ -24,6 +24,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Calendar_6_RS_10525 extends BaseLib {
 
@@ -53,7 +54,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10525() throws Exception {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");

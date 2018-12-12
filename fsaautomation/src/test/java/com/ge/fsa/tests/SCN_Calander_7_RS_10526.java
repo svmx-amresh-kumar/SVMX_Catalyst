@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.Retry;
 
 
 
@@ -31,7 +32,7 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 	String sContactName = null;
 	String sworkOrderID=null;
 
-@Test
+	@Test(retryAnalyzer=Retry.class)
 public void RS_10526() throws Exception
 {		
 

@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
 
@@ -55,7 +56,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_11859() throws Exception {
 		sSheetName ="RS_11859";
 		
