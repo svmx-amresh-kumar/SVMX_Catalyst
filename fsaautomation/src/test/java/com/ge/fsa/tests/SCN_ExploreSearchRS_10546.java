@@ -9,7 +9,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
-public class SCN_RS_10546 extends BaseLib {
+public class SCN_ExploreSearchRS_10546 extends BaseLib {
 
 	String sTestID = null;
 	String sExploreSearch = null;

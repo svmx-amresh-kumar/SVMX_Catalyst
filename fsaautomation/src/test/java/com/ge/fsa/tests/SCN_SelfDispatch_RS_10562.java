@@ -98,7 +98,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
 		
 		commonsPo.tap(calendarPO.getEleCalendarIcn());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Validation of WorkOrder event
 		Assert.assertTrue(calendarPO.getEleWOEventSubjectTxt(sSubject).isDisplayed(), "WorkOrder Subject is not displayed on the calender");
