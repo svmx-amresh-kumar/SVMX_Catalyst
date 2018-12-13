@@ -8,7 +8,9 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
+		 
 					<class name="com.ge.fsa.tests.SanityPreReq" />
+						<!-- 
 		 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10543" />
 		 		 	<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10545" />
 		 		 	<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10546" />
@@ -20,7 +22,7 @@
 		 		 	<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
 		 
 		
-		<!--  
+	
 			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
@@ -117,7 +119,11 @@
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
 			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" /> 
 			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />
-			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
+
+			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
+			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
+			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />	
+			-->
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
@@ -126,9 +132,8 @@
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
 			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
-			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
-			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
-			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />	-->
+			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
+
 	
 		
 		
