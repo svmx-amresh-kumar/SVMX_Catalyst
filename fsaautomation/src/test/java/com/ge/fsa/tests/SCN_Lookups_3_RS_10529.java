@@ -9,11 +9,12 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10529() throws InterruptedException, IOException{
 		
 		// Create Location with Country

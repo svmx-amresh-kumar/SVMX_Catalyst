@@ -7,10 +7,11 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws InterruptedException {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);

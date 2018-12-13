@@ -9,10 +9,11 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_4_10530 extends BaseLib {
 	
-	String sTestID = null;
+	String sTestID = "RS_10528";
 	String[] sProdArr = {"P1", "P2", "P3", "P4"};
 	String sProdName = null;
 	
@@ -25,7 +26,7 @@ private void preRequisite() throws Exception {
 		
 	}
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 		System.out.println(sWORecordID);

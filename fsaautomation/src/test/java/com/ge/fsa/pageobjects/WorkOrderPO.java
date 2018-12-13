@@ -141,7 +141,19 @@ import org.openqa.selenium.Rotatable;
 			eleProcessName=driver.findElement(By.xpath("//span[text()='"+sprocessname+"']"));
 			return eleProcessName;
 		}
+		//Added by Harish.CS
+		private WebElement eleProcessNameLsMode;
+		public WebElement getEleProcessNameLsMode(String sprocessname)
+		{
+			eleProcessNameLsMode=driver.findElement(By.xpath("//label[@class='opdoc-title'][text()='"+sprocessname+"']"));
+			return eleProcessNameLsMode;
+		}
 	
+		@FindBy(xpath="//input[@value='Done']")
+		private WebElement eleDoneBtnLsMode;
+		public WebElement getEleDoneBtnLsMode(){
+			return eleDoneBtnLsMode;
+		}
 	
 		@FindBy(xpath="//*[text() = 'Save']")
 		private WebElement eleSaveLnk;

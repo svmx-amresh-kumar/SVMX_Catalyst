@@ -18,6 +18,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Opdoc_RS_10571 extends BaseLib{
 	
@@ -47,7 +48,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		
 	}
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void SCN_Opdoc_RS_10571() throws Exception {
 		sTestID = "RS_10571"; 
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
@@ -80,7 +81,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.selectAction(commonsPo, "10571_sample_test");
 		workOrderPo.getEleDoneLnk().click();
-		commonsPo.tap(workOrderPo.getEleDoneLnk());
+//		commonsPo.tap(workOrderPo.getEleDoneLnk());
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 //		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);

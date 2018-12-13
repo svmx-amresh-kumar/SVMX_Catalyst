@@ -9,10 +9,11 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
 		
 		// Create Account

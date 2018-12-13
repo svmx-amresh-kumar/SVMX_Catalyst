@@ -10,10 +10,11 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10559() throws InterruptedException {
 		String sWebServiceState = "Nottingham Shire";
 		String sWebServiceCountry = "United Kingdom";
