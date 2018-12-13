@@ -17,6 +17,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Calender_4_RS_10514 extends BaseLib {
 
@@ -47,7 +48,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10514() throws Exception {
 		sSheetName ="RS_10514";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -142,9 +143,9 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
-		        stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
+		      //  stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
 				sSalesforceuser = GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
-		        
+				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  
 		        sObjectApi = "SVMXC__Service_Group_Members__c";

@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -51,7 +52,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 	String sSheetName3 =null;
 	
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10547() throws Exception {
 		System.out.println("SCN_CustomPicklist_RS_10547");
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -139,9 +140,9 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					toolsPo.syncData(commonsPo);
 //===============================================================================================================
 		// To Edit the Work Order value and to verify in the Data Sync
-					// To save the Work Order and verify the Values after the Edit Work Order is Selected
+		// To save the Work Order and verify the Values after the Edit Work Order is Selected
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			String sProcessname2 = "RS_10547_311020181533";// Standard SFM Process
+			String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
 			Thread.sleep(2000);
 			workOrderPo.selectAction(commonsPo,sProcessname2);	
 			driver.findElement(By.xpath("//*[. = 'controlling picklist']//input")).click();

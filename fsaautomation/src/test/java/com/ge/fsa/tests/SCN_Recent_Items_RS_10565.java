@@ -18,6 +18,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Recent_Items_RS_10565 extends BaseLib {
 
@@ -50,7 +51,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void Recent_Items_RS_10565() throws Exception {
 		sSheetName ="RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");

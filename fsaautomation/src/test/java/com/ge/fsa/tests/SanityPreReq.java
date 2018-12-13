@@ -25,7 +25,12 @@ public class SanityPreReq extends BaseLib {
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
 		//Resinstall the app
 		lauchNewApp("false");
 

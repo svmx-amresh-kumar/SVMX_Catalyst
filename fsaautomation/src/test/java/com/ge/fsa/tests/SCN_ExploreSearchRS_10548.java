@@ -8,8 +8,9 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
-public class SCN_RS_10548 extends BaseLib {
+public class SCN_ExploreSearchRS_10548 extends BaseLib {
 	
 	int iWhileCnt = 0;
 	String sTestID = null;
@@ -88,7 +89,7 @@ public class SCN_RS_10548 extends BaseLib {
 		
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");

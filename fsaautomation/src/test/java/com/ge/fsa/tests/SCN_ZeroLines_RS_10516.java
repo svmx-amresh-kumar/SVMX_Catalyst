@@ -16,6 +16,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -32,7 +33,9 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 	String sContactName = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
-	@Test(enabled = true)
+	
+	
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10516() throws Exception {
 		
 		System.out.println("SCN_RS10516_ZeroLines");

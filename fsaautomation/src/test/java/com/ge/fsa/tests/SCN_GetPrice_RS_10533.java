@@ -22,6 +22,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -46,7 +47,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 	String sSheetName2 =null;
 	String sSheetName3 =null;
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10533() throws Exception {
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
