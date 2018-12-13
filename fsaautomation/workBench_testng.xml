@@ -9,6 +9,7 @@
 <test name="WorkBench">
 		<classes>
 		 
+		<!-- 
 					
 		 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10543" />
 		 		 	<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10545" />
@@ -20,7 +21,7 @@
 		 		 	<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10542" />
 		 		 	<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
 		 
-			<!-- 
+			
 	
 			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
@@ -123,6 +124,7 @@
 			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
 			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />	
 			
+		-->
 			
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
@@ -136,7 +138,7 @@
 
 
 		
-				-->
+
 		
 		</classes>
 	</test> <!-- Test -->
