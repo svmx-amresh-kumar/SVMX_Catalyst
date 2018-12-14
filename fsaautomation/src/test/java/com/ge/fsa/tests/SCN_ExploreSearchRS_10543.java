@@ -18,7 +18,8 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	String sExploreChildSearchTxt = null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	String sObjectID = null;	
+	String sWoObjectID = null;
+	String sCaseObjectID = null;	
 	String sFieldServiceName = null;
 	String sSerialNumber = null;
 	String sSqlQuery = null;
@@ -36,14 +37,14 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWoObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoObjectID+"\'";				
 		sWOName =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
 		
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Test RS_10543 Validation\", \"Priority\": \"High\", \"Description\": \"Description of RS_10543 \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
+		sCaseObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
@@ -155,7 +156,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonsPo.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
 
-		//Selecting Billing Type to contract to make sure sfm is working fine.
+		//Selecting Case reason to Existing Problem to make sure sfm is working fine.
 		commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "Existing problem");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 
@@ -166,19 +167,20 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		/*
-		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
-		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
+		sSqlQuery ="SELECT+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoObjectID+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"SVMXC__Billing_Type__c").equals("Contract"), "Work Order is not updated with contract ");
+		ExtentManager.logger.log(Status.PASS,"Work Order is updated with contract type successfully");
 		
-		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
-		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-		*/
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi clean up  is successful");
+		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"CaseNumber").equals("Existing problem"), "Case is not updated with case reason ");
+		ExtentManager.logger.log(Status.PASS,"Case is updated with case reason successfully");
+		
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Test case PASSED");
 
 		}
 		catch(Exception e) {
 			bExecutionFlag = true;
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase FAILED");
 			throw e;
 		}
 		finally
@@ -194,13 +196,10 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 				if(bExecutionFlag) {
 				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 			}
+			toolsPo.syncData(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
 		}
-		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
-		
-		
 	}
-
 	
 	private void postCleanup() throws Exception { 
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);

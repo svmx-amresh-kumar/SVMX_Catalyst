@@ -129,13 +129,13 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
 		
-		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10541__c+= \'"+sIBName2+"\')");
-		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-
+		//Validation of created Case object from IB
+		sSqlQuery ="SELECT+CaseNumber+from+Case+WHERE+Subject=\'"+sIBName2+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"CaseNumber")!=null, "IB to Case is not created");
+		ExtentManager.logger.log(Status.PASS,"IB to Case is successfully created.");
 		
 		}
 }
