@@ -1,4 +1,4 @@
-package com.ge.fsa.tests;
+  package com.ge.fsa.tests;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -12,12 +12,15 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 /**
  * 
  * @author meghanarao
  *
  */
+
+
 public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 	String sAccountName = null;
 	String sProductName = null;
@@ -30,12 +33,15 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10568() throws Exception {
 		
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
+
+
+
 		// To create a Work Order for Editing 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		// Creating Account from API
@@ -76,7 +82,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
-		Thread.sleep(2000);
+		Thread.sleep(20000);
 		// Single Adding the Labor by clicking on the +Add button
 		workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
 		commonsPo.tap(workOrderPo.getEleClickSave());
