@@ -72,11 +72,11 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		//sIBName1 ="IB_10542_22102018151352";
 		//sIBName2 = "IB_10542_22102018151302";
 		//sAccountName="IB_10542_22102018151257account";		
-		/*
+	
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		*/
+		
 	}
 
 	@Test(enabled = true)
