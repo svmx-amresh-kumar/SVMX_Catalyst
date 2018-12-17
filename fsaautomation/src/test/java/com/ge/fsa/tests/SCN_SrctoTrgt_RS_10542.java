@@ -11,6 +11,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	
@@ -72,14 +73,14 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		//sIBName1 ="IB_10542_22102018151352";
 		//sIBName2 = "IB_10542_22102018151302";
 		//sAccountName="IB_10542_22102018151257account";		
-		
+	
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10542Test() throws Exception {
 		sTestID = "RS_10542";	
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
@@ -133,13 +134,12 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
 		
-		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10541__c+= \'"+sIBName2+"\')");
-		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-
-			
+		//Validation of WorkOrder from IB
+		sSqlQuery="SELECT+Name+FROM+SVMXC__Service_Order__c+WHERE+SVMXC__Company__r.Name+=\'"+sSerialNumber+"account"+"\'";
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name")!=null, "IB to WorkOrder is not created");
+		ExtentManager.logger.log(Status.PASS,"IB to WorkOrder is successfully created.");
 	}
 }

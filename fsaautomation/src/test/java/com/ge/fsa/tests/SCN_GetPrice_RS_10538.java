@@ -54,6 +54,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
+		Thread.sleep(30000);
+
+
 		// To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
@@ -162,11 +165,11 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 //		String sEndDate = Integer.toString(sEndDateint);
 //		System.out.println(sEndDate);
 //		
-		int sEndDateint = Integer.parseInt("03") + 4;
-		String sEndDate = Integer.toString(sEndDateint);
-		System.out.println(sEndDate);
+//		int sEndDateint = Integer.parseInt("03") + 4;
+//		String sEndDate = Integer.toString(sEndDateint);
+//		System.out.println(sEndDate);
 
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
+	//	workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -213,6 +216,10 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
+		
+		int sEndDateint = Integer.parseInt("03") + 4;
+		String sEndDate = Integer.toString(sEndDateint);
+		System.out.println(sEndDate);
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
