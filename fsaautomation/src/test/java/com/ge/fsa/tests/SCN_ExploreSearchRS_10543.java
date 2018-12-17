@@ -171,8 +171,8 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"SVMXC__Billing_Type__c").equals("Contract"), "Work Order is not updated with contract ");
 		ExtentManager.logger.log(Status.PASS,"Work Order is updated with contract type successfully");
 		
-		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
-		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"CaseNumber").equals("Existing problem"), "Case is not updated with case reason ");
+		sSqlQuery ="SELECT+Reason+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Reason").equals("Existing problem"), "Case is not updated with case reason ");
 		ExtentManager.logger.log(Status.PASS,"Case is updated with case reason successfully");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Test case PASSED");
