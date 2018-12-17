@@ -10,6 +10,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 
@@ -77,7 +78,7 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10540Test() throws Exception {
 		
 		sTestID = "RS_10540";
