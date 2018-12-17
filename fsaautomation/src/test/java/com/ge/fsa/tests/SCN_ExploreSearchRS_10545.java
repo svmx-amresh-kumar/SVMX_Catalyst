@@ -17,7 +17,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	int iWhileCnt = 0;
 	String sTestID = null;
 	String sExploreSearch = null;
-	String sSerialNumber = "05122018115345";
+	String sSerialNumber = null;
 	String sObjectApi = null;
 	String sJsonData = null;
 	String sObjectID = null;
