@@ -23,7 +23,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-//		preReq(sScriptName, sTestCaseID);
+		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
 //		System.out.println("Fer "+sAccId);

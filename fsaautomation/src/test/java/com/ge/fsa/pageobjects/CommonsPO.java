@@ -792,6 +792,12 @@ public class CommonsPO
 
 		return result;
 	}
+	
+	public void preReq(GenericLib genericLib,String sScriptName,String sTestCaseID) throws Exception {
+		genericLib.executeSahiScript("appium/"+sScriptName+".sah", sTestCaseID);
+		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
 
 	/**
 	 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives

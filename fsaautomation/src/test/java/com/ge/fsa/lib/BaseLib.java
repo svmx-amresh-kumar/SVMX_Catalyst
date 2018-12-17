@@ -217,11 +217,7 @@ public class BaseLib {
 		System.out.println("Initialized Driver ** = "+driver.toString()+"** ");
 	}
 	
-	public void preReq(String sScriptName,String sTestCaseID) throws Exception {
-		genericLib.executeSahiScript("appium/"+sScriptName+".sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-	}
+
 
 	@BeforeMethod
 	public void startReport(ITestResult result) {
