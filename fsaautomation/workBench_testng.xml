@@ -10,15 +10,20 @@
 		<classes>
 		 
 		
-			<!-- 
+		<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10543" />
+		 		 	<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10545" />
+		 		 	<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10546" />
+		 		 	
 		 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10548" />
+		 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10549" />
+		 		 	
 		 		 	<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10540" />
 		 		 	<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10541" />
 		 		 	<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10542" />
 		 		 	<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
 		 
 	
-	
+	<!-- 
 			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
