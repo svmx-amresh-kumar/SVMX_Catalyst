@@ -1150,7 +1150,7 @@ import org.openqa.selenium.Rotatable;
 			return eleContactIDTxt;
 		}
 	
-		@FindBy(xpath="//div[text()='Edit']/../span")
+		@FindBy(xpath="//span[text()='Subject']/../..//input")
 		private WebElement eleIBSubjectTxt;
 		public WebElement getEleIBSubjectTxt()
 		{
