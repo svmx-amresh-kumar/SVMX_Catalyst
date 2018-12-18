@@ -1150,7 +1150,7 @@ import org.openqa.selenium.Rotatable;
 			return eleContactIDTxt;
 		}
 	
-		@FindBy(xpath="//span[text()='Subject']/../..//input")
+		@FindBy(xpath="//div[@class='sfm-delivery-textField-value']")
 		private WebElement eleIBSubjectTxt;
 		public WebElement getEleIBSubjectTxt()
 		{
