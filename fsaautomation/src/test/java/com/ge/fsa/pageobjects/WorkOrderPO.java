@@ -2061,13 +2061,11 @@ import org.openqa.selenium.Rotatable;
 	
 	
 	
-		//NOT WORKING NEED TO EDIT.
-		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
-		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
-		private WebElement eleIsEntitlementPerformed_Edit_Switch;
-		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')]/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleIsEntitlementPerformed_Switch_On;
+		public WebElement geteleIsEntitlementPerformed_Switch_On()
 		{
-			return eleIsEntitlementPerformed_Edit_Switch;
+			return eleIsEntitlementPerformed_Switch_On;
 		}
 	
 	
