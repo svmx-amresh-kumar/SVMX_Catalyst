@@ -400,7 +400,7 @@ public class CommonsPO
 
 	
 	private WebElement elePicklistValue;
-	public WebElement elePicklistValue(String sPickListValue)
+	public WebElement getElePicklistValue(String sPickListValue)
 	{
 		elePicklistValue = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sPickListValue+"')]"));
 
@@ -410,10 +410,10 @@ public class CommonsPO
 	/**
 	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
 	 * @param wElement
-	 * @param sValue
+	 * @param sPicklistValue
 	 * @throws InterruptedException
 	 */
-	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
+	public void setPickerWheelValue( WebElement wElement, String sPicklistValue) throws InterruptedException
 	{
 
 		switch(BaseLib.sOSName) {
@@ -422,7 +422,7 @@ public class CommonsPO
 			tap(wElement,30,36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			elePicklistValue.click();
+			getElePicklistValue(sPicklistValue).click();
 			switchContext("WebView");
 			break;
 
@@ -430,7 +430,7 @@ public class CommonsPO
 			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePickerWheelPopUp().sendKeys(sValue);		
+			getElePickerWheelPopUp().sendKeys(sPicklistValue);		
 			getEleDonePickerWheelBtn().click();
 			switchContext("WebView");
 			break;
