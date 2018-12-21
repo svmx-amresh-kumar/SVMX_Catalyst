@@ -410,10 +410,10 @@ public class CommonsPO
 	/**
 	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
 	 * @param wElement
-	 * @param sPicklistValue
+	 * @param sValue
 	 * @throws InterruptedException
 	 */
-	public void setPickerWheelValue( WebElement wElement, String sPicklistValue) throws InterruptedException
+	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
 	{
 
 		switch(BaseLib.sOSName) {
@@ -422,7 +422,7 @@ public class CommonsPO
 			tap(wElement,30,36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePicklistValue(sPicklistValue).click();
+			getElePicklistValue(sValue).click();
 			switchContext("WebView");
 			break;
 
@@ -430,7 +430,7 @@ public class CommonsPO
 			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePickerWheelPopUp().sendKeys(sPicklistValue);		
+			getElePickerWheelPopUp().sendKeys(sValue);		
 			getEleDonePickerWheelBtn().click();
 			switchContext("WebView");
 			break;
