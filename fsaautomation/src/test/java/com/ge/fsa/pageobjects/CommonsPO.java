@@ -398,6 +398,15 @@ public class CommonsPO
 
 	}
 
+	
+	private WebElement elePicklistValue;
+	public WebElement elePicklistValue(String sPickListValue)
+	{
+		elePicklistValue = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sPickListValue+"')]"));
+
+		return elePicklistValue;
+	}
+	
 	/**
 	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
 	 * @param wElement
@@ -413,7 +422,7 @@ public class CommonsPO
 			tap(wElement,30,36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+			elePicklistValue.click();
 			switchContext("WebView");
 			break;
 
