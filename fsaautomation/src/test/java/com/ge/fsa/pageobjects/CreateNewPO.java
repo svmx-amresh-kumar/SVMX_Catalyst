@@ -169,14 +169,19 @@ public class CreateNewPO
 		return eleCreateNewInstalledProduct;
 	}
 	
-	//Added by Harish.CS
+	//Added by Harish.CS--------------
 	private WebElement eleItemNameTxt;
 	public WebElement getEleItemNameTxt(String sItemName)
 	{
 		eleItemNameTxt=driver.findElement(By.xpath("//div[@class='listitem-sfm-search-result-name'][text()='"+sItemName+"']"));
 		return eleItemNameTxt;
 	}
-	
+	@FindBy(xpath="//*[contains(text(),'Location Name')][@class = 'x-label-text-el']/../..//input")
+	private WebElement eleLocNameTxt;
+	public WebElement getEleLocNameTxt() {
+		return eleLocNameTxt;
+	}
+	//----------------------
 	
 	/**
 	 * Owner : Meghana Rao P

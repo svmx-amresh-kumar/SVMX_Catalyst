@@ -146,14 +146,14 @@ public class CalendarPO
 	private WebElement eleWOEventTitleTxt;
 	public WebElement getEleWOEventTitleTxt(String sWOName)
 	{
-		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-title'][text()='"+sWOName+"']"));
+		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-location-container']/div[@class='sfmevent-title'][text()='"+sWOName+"']"));
 		return eleWOEventTitleTxt;
 	}
 	
 	private WebElement eleWOEventSubjectTxt;
-	public WebElement getEleWOEventSubjectTxt(String sWOSubject)
+	public WebElement getEleWOEventSubjectTxt()
 	{
-		eleWOEventSubjectTxt = driver.findElement(By.xpath("//div[@class='sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration'][text()='"+sWOSubject+"']"));
+		eleWOEventSubjectTxt = driver.findElement(By.xpath("//div[@class='sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration']"));
 		return eleWOEventSubjectTxt;
 	}
 	

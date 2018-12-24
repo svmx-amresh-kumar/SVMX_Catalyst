@@ -21,8 +21,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-
-
+import com.ge.fsa.pageobjects.ExploreSearchPO;
 
 public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	String sTestCaseID= null;
@@ -106,10 +105,14 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);		
 		//sWOName = "WO-00005043";
+		
+		/*genericLib.executeSahiScript("appium/Scenario_RS-10577_Checklist_SOU.sah",sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");*/
 	}
 			
 			
-	@Test(retryAnalyzer=Retry.class)
+@Test(retryAnalyzer=Retry.class)
 	public void RS_10577() throws Exception {
 		
 		prerequisites();
@@ -171,16 +174,12 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Back to Work Order after submitting checklist passed");
 
 		Thread.sleep(GenericLib.iLowSleep);		
-		 toolsPo.syncData(commonsPo);
 		
-		 Thread.sleep(GenericLib.iMedSleep);
-		 commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		
 		// Navigate to SFM processes
 		 workOrderPo.selectAction(commonsPo, sEditProcessName);
 		 	
-		 //------------------Validating the Source Object Updates------------------
-		 	
+		 //------------------Validating the Source Object Updates------------------	 	
 		 	//1.Picklist
 		 	sBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
 		 	Assert.assertEquals(workOrderPo.getEleBillingTypeLst().getAttribute("value"), sBillingTypeSOU, "Picklist Source Object is not updated");
@@ -212,6 +211,73 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			Assert.assertEquals(workOrderPo.getEleProformaInvoiceTxt().getAttribute("value"), sProformaInvoiceSOU, "Text Source Object is not updated");
 			ExtentManager.logger.log(Status.PASS,"Source Object Update for Text with Value Sucessfull");
 			
+			
+			//6. Checkbox
+			//Checkbox Button validation
+		
+			try {
+				commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+				ExtentManager.logger.log(Status.PASS, "Checkbox Source Object update with checkbox datatype Passed");
+			} catch (Exception e) {
+				ExtentManager.logger.log(Status.FAIL, "Checkbox Source Object update with checkbox datatype Failed");
+			}
+			
+			 commonsPo.tap(workOrderPo.getEleCancelLnk()); 
+			 commonsPo.tap( workOrderPo.getEleDiscardChanges()); 
+
+			 toolsPo.syncData(commonsPo);	
+			 Thread.sleep(GenericLib.iMedSleep);
+			 commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+				//Navigation to WO
+			 workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);							
+
+			 workOrderPo.selectAction(commonsPo, sEditProcessName);
+			 
+			//------------------Validating the Source Object Updates after data sync ------------------	 	
+			 	//1.Picklist
+			 	sBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
+			 	Assert.assertEquals(workOrderPo.getEleBillingTypeLst().getAttribute("value"), sBillingTypeSOU, "Picklist Source Object is not updated");
+				ExtentManager.logger.log(Status.PASS,"Source Object Update for Picklist Sucessfull after datasync");
+				
+				//2.Number 
+				
+				sNoOfTimesAssigned = workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value");
+				
+				//sIdleTime = workOrderPo.geteleIdleTimetxt().getAttribute("value");
+				System.out.println(sNoOfTimesAssigned);
+			 	Assert.assertEquals(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value"), sNooftimesAssignedSOU, "Number Source Object is not updated");
+				ExtentManager.logger.log(Status.PASS,"Source Object Update for Number with value  Sucessfull after data sync");
+
+				/*//3.DateTime
+				sScheduledDateTime = workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value");
+				System.out.println(sScheduledDateTime);
+			 	Assert.assertEquals(workOrderPo.getEleScheduledDateTimeTxt().getAttribute("value"), sScheduledDateTimeSou, "DateTime Source Object is not updated");
+				ExtentManager.logger.log(Status.PASS,"Source Object Update for DateTime Sucessfull");*/
+			
+				//4.Date
+				/*sScheduledDate = workOrderPo.getEleScheduledDateLst().getAttribute("value");
+				System.out.println(sScheduledDate);
+				Assert.assertEquals(workOrderPo.getEleScheduledDateLst().getAttribute("value"), sScheduledDateSOU, "Date Source Object is not updated");
+				ExtentManager.logger.log(Status.PASS,"Source Object Update for Date with function Today Sucessfull");*/
+				
+				//5. Text
+				sProformaInvoice = workOrderPo.getEleProformaInvoiceTxt().getAttribute("value");
+				Assert.assertEquals(workOrderPo.getEleProformaInvoiceTxt().getAttribute("value"), sProformaInvoiceSOU, "Text Source Object is not updated");
+				ExtentManager.logger.log(Status.PASS,"Source Object Update for Text with Value Sucessfull after datasync");
+				
+				
+				//6. Checkbox
+				//Checkbox Button validation
+			
+				try {
+					commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+					ExtentManager.logger.log(Status.PASS, "Checkbox Source Object update with checkbox datatype Passed after datasync");
+				} catch (Exception e) {
+					ExtentManager.logger.log(Status.FAIL, "Checkbox Source Object update with checkbox datatype Failed after datasync");
+				}
+			 
+			 
+		//	 commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			
 			//validating in server after source object update and if prefilled values are syned to server
 			

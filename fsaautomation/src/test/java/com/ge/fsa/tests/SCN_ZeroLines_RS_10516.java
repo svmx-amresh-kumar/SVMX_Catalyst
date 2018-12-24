@@ -33,6 +33,8 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 	String sContactName = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
+	
+	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10516() throws Exception {
 		

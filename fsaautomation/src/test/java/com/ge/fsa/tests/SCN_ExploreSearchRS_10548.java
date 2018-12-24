@@ -208,13 +208,6 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName3).isDisplayed(), "Work Order3 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
 	
-		/*
-		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
-		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-		
-		JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10540__c+= \'"+sIBName2+"\')");
-		System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-		*/
 		}
 		catch(Exception e) {
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");

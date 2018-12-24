@@ -62,6 +62,7 @@ import org.openqa.selenium.Rotatable;
 			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
 			return eleActionsTxtWithIcon;
 		}
+		
 	
 		@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
 		private WebElement eleAddLaborLnk;
@@ -141,7 +142,19 @@ import org.openqa.selenium.Rotatable;
 			eleProcessName=driver.findElement(By.xpath("//span[text()='"+sprocessname+"']"));
 			return eleProcessName;
 		}
+		//Added by Harish.CS
+		private WebElement eleProcessNameLsMode;
+		public WebElement getEleProcessNameLsMode(String sprocessname)
+		{
+			eleProcessNameLsMode=driver.findElement(By.xpath("//label[@class='opdoc-title'][text()='"+sprocessname+"']"));
+			return eleProcessNameLsMode;
+		}
 	
+		@FindBy(xpath="//input[@value='Done']")
+		private WebElement eleDoneBtnLsMode;
+		public WebElement getEleDoneBtnLsMode(){
+			return eleDoneBtnLsMode;
+		}
 	
 		@FindBy(xpath="//*[text() = 'Save']")
 		private WebElement eleSaveLnk;
@@ -689,6 +702,13 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleOrderStatusCaseLst;
 		}
+		
+		@FindBy(xpath="//*[text()='Status']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleStatusCaseLst;
+		public WebElement getEleStatusCaseLst()
+		{
+			return eleStatusCaseLst;
+		}
 	
 		@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input")
 		private WebElement eleBillingTypeCaseLst;
@@ -1115,8 +1135,22 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleIBAccountIDTxt;
 		}
+		
+		@FindBy(xpath="//span[contains(text(),'Installed Product ID')]/../..//input")
+		private WebElement eleIBIDTxt;
+		public WebElement getEleIBIDTxt()
+		{
+			return eleIBIDTxt;
+		}
+		
+		@FindBy(xpath="//span[contains(text(),'Contact ID')]/../..//input")
+		private WebElement eleContactIDTxt;
+		public WebElement getEleContactIDTxt()
+		{
+			return eleContactIDTxt;
+		}
 	
-		@FindBy(xpath="//div[text()='Edit']/../span")
+		@FindBy(xpath="//div[@class='sfm-delivery-textField-value']")
 		private WebElement eleIBSubjectTxt;
 		public WebElement getEleIBSubjectTxt()
 		{
@@ -2027,13 +2061,11 @@ import org.openqa.selenium.Rotatable;
 	
 	
 	
-		//NOT WORKING NEED TO EDIT.
-		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
-		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
-		private WebElement eleIsEntitlementPerformed_Edit_Switch;
-		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')]/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleIsEntitlementPerformed_Switch_On;
+		public WebElement geteleIsEntitlementPerformed_Switch_On()
 		{
-			return eleIsEntitlementPerformed_Edit_Switch;
+			return eleIsEntitlementPerformed_Switch_On;
 		}
 	
 	

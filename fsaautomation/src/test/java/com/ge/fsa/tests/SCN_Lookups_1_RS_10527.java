@@ -5,16 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	
-	@Test
-	public void RS_10527() throws IOException, InterruptedException {
+	String sTestCaseID = "RS_10527";
+	String sScriptName = "Scenario_10527";
+	String sAccountName = "Acme";
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10527() throws Exception {
 		
+		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
 //		System.out.println("Fer "+sAccId);
@@ -61,12 +70,12 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		String sConId15 = restServices.restCreate("Contact?","{\"FirstName\": \"David\",\"LastName\": \"Coulthard\"}");
 //		System.out.println(sConId15);
 		
-		//Create Work Order
+		//******Creating Work Order******
 		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 		System.out.println("Wo ID "+sWoID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
-		String sProdName = "a1";
+//		String sProdName = "a1";
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(5000);
@@ -76,14 +85,20 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts without Account "+contactList.size());
+//		System.out.println("Contacts without Account "+contactList.size());
+		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
+//		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 2nd Case******
 		commonsPo.tap(workOrderPo.getLblAccount());
-		commonsPo.lookupSearch("Acme");
+		commonsPo.lookupSearch(sAccountName);
 		commonsPo.tap(workOrderPo.getLblContact());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts with Account Acme "+contactList.size());
+//		System.out.println("Contacts with Account Acme "+contactList.size());
+		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -92,8 +107,11 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("All Accounts "+contactList.size());
-		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		
+//		System.out.println("All Accounts "+contactList.size());
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
+//		System.out.println("All Contacts fetched from Database ="+sAllCon);
+//		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
+	
 	}
 }

@@ -7,28 +7,15 @@
 	</listeners>
 	<test name="Sanity">
 		<classes>
-		<!--
-			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
-			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
-			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
-			<class name="com.ge.fsa.tests.SCN_Checklist_2_RS_10578" />		
-			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10585" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10586" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
-			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" /> 
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />-->
-		
-		  
 			<class name="com.ge.fsa.tests.SanityPreReq" />
 		 	<class name="com.ge.fsa.tests.Sanity9_Mobile_Inventory" />
-		 	<class name="com.ge.fsa.tests.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" /> 
 		  	<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" /> 
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.Sanity4_PIQ" />
 			<class name="com.ge.fsa.tests.Sanity5_DVR_Mapping_Qualification_Criteria" />
 			<class name="com.ge.fsa.tests.Sanity6_SourcetoTarget_Formula_Mapping_SOU"/>		
 			<class name="com.ge.fsa.tests.Sanity8_Lookup_DOD" /> 
+			<class name="com.ge.fsa.tests.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" /> 
 			<class name="com.ge.fsa.tests.Sanity3_InitialSync_Tasks" /> 
 
 		</classes>
