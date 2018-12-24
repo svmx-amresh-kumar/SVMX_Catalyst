@@ -57,6 +57,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	} 
 
 	@Test(retryAnalyzer=Retry.class)
+	
 	public void RS_11859() throws Exception {
 		sSheetName ="RS_11859";
 		
@@ -84,8 +85,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SFDC_2");
 		
 		
 		
@@ -107,8 +108,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
 			
 			ExtentManager.logger.log(Status.PASS,"Two SFDC events are displayed in calendar");
 			
@@ -144,12 +145,12 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			
 			sObjectApi = "Event";
 			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event1\'";				
-			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+			 sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSVMX_1);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Calendar now1 = Calendar.getInstance();
-	        now1.set(Calendar.HOUR, 10);
+	        now1.set(Calendar.HOUR, 12);
 	        now1.set(Calendar.MINUTE, 0);
 	        now1.set(Calendar.SECOND, 0);
 	        String    endtimezero=sdf.format(now1.getTime());
@@ -170,15 +171,18 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			Thread.sleep(3000);
 			System.out.println("Before Pencil icon enable");
 			try {
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			Thread.sleep(3000);}
-			catch (Exception e) {
-				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
-			}
+				commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
+				//tap on pencil icon
+				System.out.println("tap on pencil icon");
+				commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
+				String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");//dummy 
+}
+				catch (Exception e) {
+					commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
+					commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
+					Thread.sleep(3000);
+				}
 			
-			//tap on pencil icon
-			System.out.println("tap on pencil icon");
-			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
@@ -196,14 +200,14 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		calendarPO.geteleWOendpoint("09:00").getLocation();
 		Thread.sleep(3000);
 		try {
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
+			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
 			Thread.sleep(3000);}
 			catch (Exception e) {
-				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
+				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
 			}
 	
 		System.out.println("tap on pencil icon");
-		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
+		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
 
 			Thread.sleep(10000);
 		commonsPo.tap(calendarPO.geteleEndDateTime());
@@ -289,8 +293,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
 		restServices.restDeleterecord("Event",sEventIdSFDC_2);
 		
-}
+
 	
-	
+	}
 
 }

@@ -203,7 +203,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	  		System.out.println("RS_10514");	
 	  		
 	  		loginHomePo.login(commonsPo, exploreSearchPo);
-	  	//	toolsPo.configSync(commonsPo);
+	  		toolsPo.configSync(commonsPo);
 	  		
 	 
 	  		
@@ -215,7 +215,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			//commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 			
 			calendarPO.getelesubjectSFDCtap().sendKeys("SFDC event RS-10514");
-			commonsPo.tap(calendarPO.geteleclickupdate());
+			//commonsPo.tap(calendarPO.geteleclickupdate());
 			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
 			

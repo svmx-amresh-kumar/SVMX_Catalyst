@@ -54,7 +54,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		
 	} 
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10512() throws Exception {
 		sSheetName ="RS_10515";
 	
