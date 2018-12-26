@@ -199,18 +199,35 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		Thread.sleep(3000);
 		calendarPO.geteleWOendpoint("09:00").getLocation();
 		Thread.sleep(3000);
+		/*
+		 * try { commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
+		 * Thread.sleep(3000);} catch (Exception e) {
+		 * commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1)); }
+		 */
+	
 		try {
 			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
-			Thread.sleep(3000);}
+			//tap on pencil icon
+			System.out.println("tap on pencil icon");
+			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
+			commonsPo.tap(calendarPO.geteleEndDateTime());
+}
 			catch (Exception e) {
 				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
+				commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
+				commonsPo.tap(calendarPO.geteleEndDateTime());
+				Thread.sleep(3000);
 			}
-	
-		System.out.println("tap on pencil icon");
-		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
+		
+		
+		
+		/*
+		 * System.out.println("tap on pencil icon");
+		 * commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
+		 */
 
 			Thread.sleep(10000);
-		commonsPo.tap(calendarPO.geteleEndDateTime());
+		//commonsPo.tap(calendarPO.geteleEndDateTime());
 		//commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
 	
 		commonsPo.switchContext("Native");

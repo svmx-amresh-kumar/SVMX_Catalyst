@@ -114,7 +114,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-			/*//Create SVMX event from Create New Option
+			//Create SVMX event from Create New Option
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteleNewClick());
@@ -122,7 +122,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			calendarPO.getelesubjectcal().sendKeys("SVMX Event from calender New button");
 			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
-			commonsPo.tap(workOrderPo.getEleClickSave());*/
+			commonsPo.tap(workOrderPo.getEleClickSave());
 			
 			toolsPo.syncData(commonsPo);
 			
