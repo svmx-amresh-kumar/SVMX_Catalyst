@@ -248,21 +248,21 @@ public class CalendarPO
 	
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(6000);
+		try
+		{
 		geteleWOendpoint("04:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
-//		if(getEleworkordernumonCalendarWeek(workordername).isDisplayed()){
-//			System.out.println("Found WO " + workordername);
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
 			
-//			}
-//				
-//		else
-//		{
-//			System.out.println("Did not Find WO " + workordername);
-//			throw new Exception("WorkOrder not found on the Calendar");	
-//		
-//	}
+		}
+		catch(Exception e)
+		{
+			geteleWOendpoint("04:00 AM").getLocation();
+			commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
+			getEleworkordernumonCalendarWeek(workordername).getLocation();
+				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
+		}
 
 	}
 	
