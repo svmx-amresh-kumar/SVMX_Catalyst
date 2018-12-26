@@ -9,6 +9,7 @@
  *   with pre-filled questions in fsa and server through api
  */
 package com.ge.fsa.tests;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -20,6 +21,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 
@@ -39,6 +41,8 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	String sNoOfTimesAssigned = null;
 	String time = null;
 	String sWORecordID = null;
+	String sProcessCheck = null;
+	Boolean bProcessCheckResult;
 	
 	//checklist q's set--
 			String sTextq = "AUTO_Which City you are from?";
@@ -78,6 +82,10 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			String sNoOftimesServer = null;
 			String sNoOftimesServer1 = null;
 			String schecklistStatus = "Completed";
+			String sProcessID = null;
+			String sPrcessname1 = "vt";
+			String sPrcname2 = "inactivetest";
+			String sScriptName="Scenario_RS-10577_Checklist_SOU";
 			
 	public void prerequisites() throws Exception
 	{
@@ -105,19 +113,37 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);		
 		//sWOName = "WO-00005043";
+
+		//incomplete case
+		//ProcessCheck(sPrcname2, sScriptName, sTestCaseID);
 		
+		//Completed case
+		//ProcessCheck(sChecklistName, sScriptName, sTestCaseID);
+
+		//to create test
+		//ProcessCheck(sPrcessname1, sScriptName, sTestCaseID);
+		
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 		/*genericLib.executeSahiScript("appium/Scenario_RS-10577_Checklist_SOU.sah",sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");*/
-	}
-			
-			
+	
+	
+	
+} 
+	
+	 
 @Test(retryAnalyzer=Retry.class)
 	public void RS_10577() throws Exception {
 		
 		prerequisites();
 		//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);		
+		loginHomePo.login(commonsPo, exploreSearchPo);	
+		
+		if(bProcessCheckResult.booleanValue()== true)
+		{
+			toolsPo.configSync(commonsPo);
+		}
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);

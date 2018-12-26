@@ -27,6 +27,8 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.RestServices;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidTouchAction;
@@ -807,6 +809,39 @@ public class CommonsPO
 		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
+	
+	public boolean ProcessCheck(RestServices restServices,GenericLib genericLib,String sProcessName, String sScriptName ,String sTestCaseId) throws Exception
+	{
+	String sProcessCheck = restServices.restGetSoqlValue("SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"+sProcessName+"\'","SVMXC__Dispatch_Process_Status__c");
+	System.out.println("sProcess check"+sProcessCheck);
+	
+	try {
+		if(sProcessCheck.equals("Incomplete"))	
+		{
+			System.out.println("Process in InComplete Status");
+			ExtentManager.logger.log(Status.FAIL,"SFM PROCESS in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
+			Assert.assertFalse(sProcessCheck.equals("Incomplete"), "Status is in Incomplete State");
+			return false;
+
+		}
+		else if(sProcessCheck.equals("Complete"))	
+		 {
+			System.out.println("Process already exists:Proceeding to FSA Automation");
+			ExtentManager.logger.log(Status.PASS,"SFM PROCESS Already Exists and hence proceeding to FSA Client");
+			return false;
+
+		 }
+		
+	} catch (NullPointerException e) {
+		
+		System.out.println("SFM Process returned is null, Creating SFM Process!");
+		preReq(genericLib, sScriptName, sTestCaseId);
+		return true;
+
+	}
+	return false;
+	}
+	
 
 	/**
 	 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
