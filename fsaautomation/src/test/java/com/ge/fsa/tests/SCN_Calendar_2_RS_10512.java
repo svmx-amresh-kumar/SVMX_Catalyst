@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.io.IOException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -38,10 +39,8 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 	String sFieldServiceName = null;
 //String sproductname = "Proforma30082018102823product";
 	String sproductname =null;
-	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String[] sAppDate = null;
-	String sIBLastModifiedBy=null;
+	String sWO_SVMX_1=null;
+	String sWO_SVMX_2=null;String sWO_SVMX_3=null;String sWO_SVMX_4=null;
 	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
 	String sSheetName =null;
@@ -52,36 +51,33 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 	} 
 
 	@Test(retryAnalyzer=Retry.class)
+	
 	public void RS_10512() throws Exception {
 		sSheetName ="RS_10512";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 	
 		String sTestCaseID="RS_10512_Calender_2";
 	
 		
 		
 		//sahi
-		genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah", "sTestCaseID");
-  		if(commonsPo.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
-  		lauchNewApp("true");
-  		System.out.println("RS_10512");
+		
+		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah",
+		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		  
+		  System.out.println("PASSED"); } else { System.out.println("FAILED");
+		  
+		  
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		  System.out.println("RS_10512");
+		 
 	
 		
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
-		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		String sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
+		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
+		 sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
+		 sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
+		 sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		//config sync
@@ -93,10 +89,12 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		Thread.sleep(3000);
 		
 		//verify the Event is displayed or not
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_1);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_2);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_3);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_4);
+		
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_1);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_2);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_3);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_4);
+		 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 		//verify color codes for events
 		String styleWO1 = calendarPO.getelegetcolourcode(sWO_SVMX_1,"High").getAttribute("style");
@@ -117,6 +115,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
 		//verify SVMX event subject block display
+		Thread.sleep(3000);
 	String getsubblock = calendarPO.getelegetsubjectblocke(sWO_SVMX_1).getText();
 		System.out.println(getsubblock);
 		
@@ -166,6 +165,27 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
      
 	}
 	
-	
+	@AfterClass(enabled = true)
+	public void deletedata() throws Exception {
+		//Deleting data created
+		String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_1+"\'";
+		String sWO1id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO1id); 
+		
+		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_2+"\'";
+		 String sWO2id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO2id); 
+		
+		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_3+"\'";
+		 String sWO3id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO3id); 
+		
+		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_4+"\'";
+		 String sWO4id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO4id); 
+		
+		
+					
+	}
 
 }

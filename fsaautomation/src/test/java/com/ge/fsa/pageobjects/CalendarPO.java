@@ -146,14 +146,14 @@ public class CalendarPO
 	private WebElement eleWOEventTitleTxt;
 	public WebElement getEleWOEventTitleTxt(String sWOName)
 	{
-		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-location-container']/div[@class='sfmevent-title'][text()='"+sWOName+"']"));
+		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-title'][text()='"+sWOName+"']"));
 		return eleWOEventTitleTxt;
 	}
 	
 	private WebElement eleWOEventSubjectTxt;
-	public WebElement getEleWOEventSubjectTxt()
+	public WebElement getEleWOEventSubjectTxt(String sWOSubject)
 	{
-		eleWOEventSubjectTxt = driver.findElement(By.xpath("//div[@class='sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration']"));
+		eleWOEventSubjectTxt = driver.findElement(By.xpath("//div[@class='sfmevent-subject-container sfmevent-day-subject sfmevent-short-duration'][text()='"+sWOSubject+"']"));
 		return eleWOEventSubjectTxt;
 	}
 	
@@ -298,12 +298,45 @@ public class CalendarPO
 	}
 	
 	
+	
 	public void VerifyWOInCalender(CommonsPO commonsPo, String workordername) throws Exception 
 	{
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 20);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
+		
+	
+		if(getEleworkordernumonCalendarWeek(workordername) != null){
+			System.out.println("Found WO " + workordername);
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + workordername);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
+	
+	}
+	
+	catch(Exception e){
+		System.out.println(e);
+		System.out.println("Did not Find WO " + workordername);
+		
+		
+	}
+	}
+	
+	
+	
+	public void VerifyWOInCalenderException(CommonsPO commonsPo, String workordername) throws Exception 
+	{
+	
+		Thread.sleep(3000);
+		try {
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
@@ -568,6 +601,15 @@ public class CalendarPO
 
 			return elegetsubjectformultiday;
 		}
+
+		private WebElement elepenciliconcalmultiday;
+		public WebElement getelepenciliconcalmultiday(String WOname)
+		{
+			elepenciliconcalmultiday = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//..//div[@class='sfmevent-icon-edit sfmevent-icon-edit-hidden'])[2]"));
+
+			return elepenciliconcalmultiday;
+		}
+
 
 }
 

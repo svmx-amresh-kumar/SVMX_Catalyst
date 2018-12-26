@@ -105,11 +105,11 @@ public class LoginHomePO
 
 	/**
 	 * Login to FSA app based on values from config.properties. (** For BUILD machine set the RUN_MACHINE=build , which will pick up the data from config_build.properties file)
-	 * @param commonsPO
+	 * @param commonsPo
 	 * @param exploreSearchPo
 	 * @throws InterruptedException
 	 */
-	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) throws InterruptedException {
+	public void login(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 
 		String sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
 		String sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
@@ -125,7 +125,7 @@ public class LoginHomePO
 				getEleSignInBtn().click();
 
 				//Change to SandBox from native mode
-				commonsPO.switchContext("Native");
+				commonsPo.switchContext("Native");
 				getEleMenuIcn().click();
 				Thread.sleep(3000);
 
@@ -136,7 +136,7 @@ public class LoginHomePO
 
 				//Enter Credentials in Webview Mode
 				Thread.sleep(10000);
-				commonsPO.switchContext("Webview");
+				commonsPo.switchContext("Webview");
 
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
@@ -152,7 +152,7 @@ public class LoginHomePO
 				//Wait for the Explore button to be visible
 
 				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
@@ -163,10 +163,10 @@ public class LoginHomePO
 				//The App may be already logged in so check directly for the Explore button to be visible
 				Thread.sleep(10000);
 
-				commonsPO.switchContext("Webview");
+				commonsPo.switchContext("Webview");
 
 				wait = new WebDriverWait(driver, 4000);
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
@@ -204,7 +204,7 @@ public class LoginHomePO
 
 				//Wait for the Explore button to be visible
 
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Logged in Successfully");
@@ -217,7 +217,7 @@ public class LoginHomePO
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");

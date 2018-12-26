@@ -309,8 +309,13 @@ public class ChecklistPO{
     	return eleChecklistAnswerOPDOCtbl;
     }
     
-
-    
+    //Checklist badge error 
+    @FindBy(xpath="//span[@class='sfm-checklist-validation-error-badge']")
+    private WebElement eleChecklistErrorBadge;
+    public WebElement geteleChecklistErrorBadge()
+    {
+    	return eleChecklistErrorBadge;
+    }
     
     private WebElement eleSectionNametxt;
     public WebElement  geteleChecklistSectionNametab(String sSectionName)

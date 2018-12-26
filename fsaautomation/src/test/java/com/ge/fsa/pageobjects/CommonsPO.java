@@ -354,18 +354,18 @@ public class CommonsPO
 	//To search the element scrolling
 	public void getSearch(WebElement wElement) throws InterruptedException
 	{
-		while(iWhileCnt<=7) 
-		{	
-			try {
+//		while(iWhileCnt<=7) 
+//		{	
+//			try {
 				waitforElement(wElement, GenericLib.iLowSleep);
 				Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
 				ExtentManager.logger.log(Status.PASS,"Search is successfull");
 				System.out.println("Search is displayed");
-				break;
-			}catch(Exception e) {swipeUp();}			
-			iWhileCnt++;
-		}
-		Thread.sleep(5000);
+				//break;
+//			}catch(Exception e) {swipeUp();}			
+//			iWhileCnt++;
+//		}
+//		Thread.sleep(5000);
 	}
 
 	/**
@@ -398,6 +398,15 @@ public class CommonsPO
 
 	}
 
+	
+	private WebElement elePicklistValue;
+	public WebElement getElePicklistValue(String sPickListValue)
+	{
+		elePicklistValue = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sPickListValue+"')]"));
+
+		return elePicklistValue;
+	}
+	
 	/**
 	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
 	 * @param wElement
@@ -413,7 +422,7 @@ public class CommonsPO
 			tap(wElement,30,36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+			getElePicklistValue(sValue).click();
 			switchContext("WebView");
 			break;
 
