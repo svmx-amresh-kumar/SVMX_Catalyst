@@ -64,7 +64,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sTestCaseID="RS-10554_mapping";
 	//sahi
-		/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -78,7 +78,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			assertEquals(0, 1);
 		}
 		lauchNewApp("true");
-		System.out.println("RS_10554");*/
+		System.out.println("RS_10554");
 		
 		
 		//create Account
@@ -253,7 +253,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 				
 			String srequesteddateDate = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Date_Requested__c");
 			assertEquals("2018-08-29", srequesteddateDate);
-			ExtentManager.logger.log(Status.PASS,"Installed product to workorder field mapping is successfull");
+			ExtentManager.logger.log(Status.PASS,"Installed product to workorder field mapping is successfull(Lookup,date,datetime fields are covered for both header and child)");
 			
 	
 	}

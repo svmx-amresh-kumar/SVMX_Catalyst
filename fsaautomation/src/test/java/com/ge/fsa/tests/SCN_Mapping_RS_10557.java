@@ -175,7 +175,8 @@ String Location=null;
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
-			String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+SVMXC__Company__c+=\'"+sObjectAccID+"\'+AND+SVMXC__Product__c+=\'"+sObjectProID+"\'";
+		//	String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+SVMXC__Company__c+=\'"+sObjectAccID+"\'+AND+SVMXC__Product__c+=\'"+sObjectProID+"\'";
+			String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sInstalledproductID+"\'";
 			restServices.getAccessToken();
 			String sIBID = restServices.restGetSoqlValue(sSoqlQuery,"Id");
 			System.out.println(sIBID);
@@ -183,7 +184,7 @@ String Location=null;
 			
 			
 			// Collecting the Work Order number from the Server.
-			String sSoqlQuerywo = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Site__c+=\'"+sObjectlocationID+"\'";
+			String sSoqlQuerywo = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sIBID+"\'";
 			restServices.getAccessToken();
 			String sworkOrdername = restServices.restGetSoqlValue(sSoqlQuerywo,"Name");
 			System.out.println(sworkOrdername);
@@ -205,7 +206,7 @@ String Location=null;
 			String sstartdatetime = restServices.getJsonValue(sJsonArraylabor, "SVMXC__Start_Date_and_Time__c");
 			System.out.println("****************"+sstartdatetime);
 			assertEquals(sSoqlQueryscheduleddatewo, sstartdatetime);
-			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After save");
+			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After save(Lookup and datetime fields covered using SVMX.CURRENTRECORDHEADER)");
 		
 	
 	
