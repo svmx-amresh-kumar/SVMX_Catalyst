@@ -515,6 +515,12 @@ public class CommonsPO
 	 */
 	public void setDateTime24hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin) throws InterruptedException
 	{
+		switch(BaseLib.sOSName) {
+		case "android":
+			
+			
+			
+		case "ios":
 		wElement.click();
 		switchContext("Native");
 		setDatePicker(0,iDaysToScroll);
@@ -529,7 +535,7 @@ public class CommonsPO
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 
-
+		}
 	}
 
 	/**
@@ -549,6 +555,10 @@ public class CommonsPO
 	 */
 	public void setSpecificDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
 	{
+		switch(BaseLib.sOSName) {
+		case "android":
+			
+		case "ios":
 		wElement.click();
 		switchContext("Native");
 		getEleDatePickerPopUp().get(0).sendKeys(dateFormatToSelect);
@@ -562,7 +572,7 @@ public class CommonsPO
 
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
-
+		}
 
 	}
 
