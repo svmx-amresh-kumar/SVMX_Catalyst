@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.DeviceRotation;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -224,6 +226,9 @@ public class BaseLib {
 		lauchNewApp("true");
 		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		
+		driver.rotate((ScreenOrientation.LANDSCAPE));
+		driver.rotate((ScreenOrientation.PORTRAIT));
 
 	}
 
