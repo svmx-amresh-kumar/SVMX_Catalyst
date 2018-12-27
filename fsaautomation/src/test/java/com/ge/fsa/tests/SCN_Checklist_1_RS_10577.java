@@ -248,7 +248,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 				ExtentManager.logger.log(Status.FAIL, "Checkbox Source Object update with checkbox datatype Failed");
 			}
 			
-			 commonsPo.tap(workOrderPo.getEleCancelLnk()); 
+			 commonsPo.tap(workOrderPo.getEleCancelLink()); 
 			 commonsPo.tap( workOrderPo.getEleDiscardChanges()); 
 
 			 toolsPo.syncData(commonsPo);	

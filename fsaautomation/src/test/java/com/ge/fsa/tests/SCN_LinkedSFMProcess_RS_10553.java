@@ -95,7 +95,7 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		//Discard the Changes by clicking on it
 		commonsPo.tap(workOrderPo.getEleDiscardChanges());
 		//Click on Cancel Button and verify the Changes of the ChildLines
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.getEleDiscardChanges());
 		
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
