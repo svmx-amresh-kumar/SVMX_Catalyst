@@ -657,18 +657,12 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleDiscardBtn;
 		}
+		
 		@FindBy(xpath="//*[text() = 'Cancel']")
 		private WebElement eleCancelLnk;
-		public WebElement getEleCancelLnk()
-		{
-			return eleCancelLnk;
-		}
-		
-		@FindBy(xpath="//input[@value='Cancel']")
-		private WebElement eleCancel;
 		public WebElement getEleCancelLink()
 		{
-			return eleCancel;
+			return eleCancelLnk;
 		}
 	
 		// Added by Harish.CS

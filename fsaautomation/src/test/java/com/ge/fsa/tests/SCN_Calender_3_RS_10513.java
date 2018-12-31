@@ -188,7 +188,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		System.out.println(EndDateTimecal);
 		 
 		Assert.assertEquals(stempDate,EndDateTimecal, "End Date time value mapped is not displayed");
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful");
 	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");	
 		

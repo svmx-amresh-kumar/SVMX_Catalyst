@@ -157,12 +157,12 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	  
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
+	    commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
 		commonsPo.tap(checklistPo.geteleNext());
 
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date");	 	
 		ExtentManager.logger.log(Status.PASS,"8th June DVR passed date");
-	    commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
+	    commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
 
 		// checklistPo.geteleChecklistAnsDate(sDateq).click();
 		// commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "1", "2018");

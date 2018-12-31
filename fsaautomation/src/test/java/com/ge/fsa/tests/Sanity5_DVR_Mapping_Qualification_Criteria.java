@@ -114,7 +114,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 		commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.getEleDiscardBtn());
 
 		//Navigation to WO

@@ -34,7 +34,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
