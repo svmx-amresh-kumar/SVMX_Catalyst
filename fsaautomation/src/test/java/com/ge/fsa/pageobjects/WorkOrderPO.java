@@ -2125,6 +2125,13 @@ import org.openqa.selenium.Rotatable;
 			return eleDiscardChangesbutton;
 		}
 
+
+		@FindBy(xpath="(//div[contains(text(), 'P10556_Auto')][@class='x-inner-el'])[2]")
+		private WebElement eletaponfirstpart;
+		public WebElement geteletaponfirstpart()
+		{
+			return eletaponfirstpart;
+		}
 	
 	}
 	
