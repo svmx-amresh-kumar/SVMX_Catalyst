@@ -28,6 +28,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 	String sWOSqlQuery = null;
 	String sFieldServiceName = null;
 	String sSubject =null;
+	String sSqlQuery = null;
 	
 	
 	public void preRequiste() throws Exception { 
@@ -41,12 +42,10 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
 		
-		
 		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
-		//sWOName1="WO-00003607";
 		
 	}
 
@@ -57,8 +56,9 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		sSubject = "Testing "+sTestID;
 		preRequiste();
+		//sWOName1 = "WO-00001846";
+		sSubject = "Testing "+sWOName1+" "+sTestID;
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -78,7 +78,6 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonsPo.switchContext("Native");
 		commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		
-		
 		//Edit the subject
 		commonsPo.switchContext("Webview");
 		workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
@@ -93,7 +92,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(GenericLib.iLowSleep);
-
+		
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
@@ -101,19 +100,20 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonsPo.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iHighSleep);
 		
+		calendarPO.getEleCalendarIcn().click();
+		Thread.sleep(GenericLib.iMedSleep);
+		driver.activateApp(GenericLib.sAppBundleID);
 		//Validation of WorkOrder event
-		//Assert.assertTrue(calendarPO.getEleWOEventSubjectTxt().getText().equals("Testing RS_10562"), "WorkOrder Subject is not displayed on the calender");
-		ExtentManager.logger.log(Status.PASS,"WorkOrder Subject is displayed successfully on calender.");
-		try {
 		Assert.assertTrue(calendarPO.getEleWOEventTitleTxt(sWOName1).isDisplayed() , "WorkOrder Event is not displayed on the calender");
 		ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully on calender.");
-		}catch(Exception e) {}
+		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10541__c+= \'"+sIBName2+"\')");
-		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-
+		sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWOSqlQuery+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sWOName1), "Event is not created");
+		ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+		
 		
 	}
 }
