@@ -684,6 +684,116 @@ public class CommonsPO {
 	}
 	
 	/**
+	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
+	 * Formats for IOS and Android differ the user needs to switch sDateFormat
+	 * parameter when passing from the test script based on OS!
+	 * 
+	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
+	 * 
+	 * For adding Month Day and Year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
+	 *
+	 * For current Month, day and year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * =====================================================================
+	 * 
+	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
+	 * 
+	 * For adding DateFormat, hrs and min : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
+	 *
+	 * For adding DateFormat and leaving default hrs and min : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
+	 * 
+	 * For current Month, day and year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * @param wElement
+	 * @param sDateFormat
+	 * @param sTimeHrs
+	 * @param sTimeMin
+	 * @throws InterruptedException
+	 */
+
+	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
+			throws InterruptedException {
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			// Set current date if all paramters are "0"
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				// For android extract the month day and year from sDateFormat
+				String[] sAndyDateFormat = sDateFormat.split(" ");
+				String sMonth = sAndyDateFormat[0];
+				String sDay = sAndyDateFormat[1];
+				String sYear = sAndyDateFormat[2];
+
+				String date = getDatePicker().getText();
+				date = date + " " + getYearPicker().getText();
+				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
+				Date monthDate = convertStringToDate("MMMM", sMonth);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(monthDate);
+				cal.set(Integer.valueOf(sYear), cal.get(Calendar.MONTH), Integer.valueOf(sDay));
+				Date newDate = cal.getTime();
+				String selectDate = converDateToString("dd MMMM yyyy", newDate);
+				int count = 0;
+				// Check only for 10 year ahead or behind in calendar
+				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count < 120) {
+					if (currentDate.before(newDate)) {
+						getAccessibleElement("Next month").click();
+					} else {
+						getAccessibleElement("Previous month").click();
+					}
+					count++;
+				}
+				// Select the date
+				getAccessibleElement(selectDate).click();
+				getCalendarDone().click();
+				// set current or specific time
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getCalendarDone().click();
+
+				} else {
+					getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+					getCalendarDone().click();
+				}
+				switchContext("Webview");
+			}
+			break;
+		case "ios":
+			wElement.click();
+			switchContext("Native");
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getEleDonePickerWheelBtn().click();
+
+				} else {
+					timeSetter(sTimeHrs, sTimeMin, "", true);
+					getEleDonePickerWheelBtn().click();
+				}
+
+				switchContext("Webview");
+				Thread.sleep(GenericLib.iLowSleep);
+			}
+		}
+
+	}
+	
+	/**
 	 * For setting the Date Only. !!NOTE : for dateTime use "setSpecificDateTime" method or "setDateTime24hrs" method
 	 * 
 	 * FOR ANDROID : Supported Format is (Month,Day,Year)
@@ -764,115 +874,7 @@ public class CommonsPO {
 
 	}
 
-	/**
-	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
-	 * Formats for IOS and Android differ the user needs to switch sDateFormat
-	 * parameter when passing from the test script based on OS!
-	 * 
-	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
-	 * 
-	 * For adding Month Day and Year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
-	 *
-	 * For current Month, day and year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
-	 * 
-	 * =====================================================================
-	 * 
-	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
-	 * 
-	 * For adding DateFormat, hrs and min : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
-	 *
-	 * For adding DateFormat and leaving default hrs and min : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
-	 * 
-	 * For current Month, day and year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
-	 * 
-	 * @param wElement
-	 * @param sDateFormat
-	 * @param sTimeHrs
-	 * @param sTimeMin
-	 * @throws InterruptedException
-	 */
-
-	public void setSpecificDateTime(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
-			throws InterruptedException {
-		switch (BaseLib.sOSName) {
-		case "android":
-			switchContext("Webview");
-			tap(wElement, 30, 36);
-			switchContext("Native");
-			// Set current date if all paramters are "0"
-			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
-				Thread.sleep(1000);
-				getCalendarDone().click();
-			} else {
-				// For android extract the month day and year from sDateFormat
-				String[] sAndyDateFormat = sDateFormat.split(" ");
-				String sMonth = sAndyDateFormat[0];
-				String sDay = sAndyDateFormat[1];
-				String sYear = sAndyDateFormat[2];
-
-				String date = getDatePicker().getText();
-				date = date + " " + getYearPicker().getText();
-				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
-				Date monthDate = convertStringToDate("MMMM", sMonth);
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(monthDate);
-				cal.set(Integer.valueOf(sYear), cal.get(Calendar.MONTH), Integer.valueOf(sDay));
-				Date newDate = cal.getTime();
-				String selectDate = converDateToString("dd MMMM yyyy", newDate);
-				int count = 0;
-				// Check only for 10 year ahead or behind in calendar
-				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count < 120) {
-					if (currentDate.before(newDate)) {
-						getAccessibleElement("Next month").click();
-					} else {
-						getAccessibleElement("Previous month").click();
-					}
-					count++;
-				}
-				// Select the date
-				getAccessibleElement(selectDate).click();
-				getCalendarDone().click();
-				// set current or specific time
-				if (sTimeHrs == "0" && sTimeMin == "0") {
-					getCalendarDone().click();
-
-				} else {
-					getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
-					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
-					getCalendarDone().click();
-				}
-				switchContext("Webview");
-			}
-			break;
-		case "ios":
-			wElement.click();
-			switchContext("Native");
-			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
-				Thread.sleep(1000);
-				getCalendarDone().click();
-			} else {
-				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
-				if (sTimeHrs == "0" && sTimeMin == "0") {
-					getEleDonePickerWheelBtn().click();
-
-				} else {
-					timeSetter(sTimeHrs, sTimeMin, "", true);
-					getEleDonePickerWheelBtn().click();
-				}
-
-				switchContext("Webview");
-				Thread.sleep(GenericLib.iLowSleep);
-			}
-		}
-
-	}
+	
 	
 	/**
 	 * Set the time form the date picker wheels in 12hrs format, passing 0 for
