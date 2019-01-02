@@ -12,21 +12,22 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_Lookups_2_RS_10528 extends BaseLib {
 	
+	
+	
 	@Test(retryAnalyzer=Retry.class)
-	public void RS_10528() throws IOException, InterruptedException {
+	public void RS_10528() throws Exception {
 		
 		String sTestID = "RS_10528"; 
 		String sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-//		System.out.println(sExploreSearch);
 		String sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-//		System.out.println(sExploreChildSearchTxt);
 		String sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-//		System.out.println(sFieldServiceName);
 		String sZipCode = "51203";
 		String sCountry = GenericLib.getExcelData(sTestID,sTestID, "Country");
-//		System.out.println(sCountry);
 		String sCity = GenericLib.getExcelData(sTestID,sTestID, "City");
-//		System.out.println(sCity);
+		String sScriptName = "Scenario_10528";
+		
+		
+//		commonsPo.preReq(genericLib, sScriptName, sTestID);
 		
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");
@@ -65,9 +66,9 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		System.out.println("New IB Id is "+sIbId1);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
-		System.out.println(sWORecordID);
+//		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
+//		System.out.println("WO no ="+sWOName);
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);

@@ -59,9 +59,18 @@ import org.openqa.selenium.Rotatable;
 		private WebElement eleActionsTxtWithIcon;
 		public WebElement getEleActionsTxtWithIcon(String sActionsName)
 		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+//			System.out.println(eleActionsTxt);
 			return eleActionsTxtWithIcon;
 		}
+		
+		@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='10558_Action']")
+		private WebElement test;
+		public WebElement getTest() {
+			return test;
+		}
+		
+		
 		
 	
 		@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
@@ -1630,7 +1639,15 @@ import org.openqa.selenium.Rotatable;
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			if(sFieldServiceName!=null)
 			{
-				selectActionWithIcon(commonsPo, sFieldServiceName);	
+				commonsPo.tap(getEleActionsLnk());
+				Thread.sleep(10000);
+//				commonsPo.swipeUp();
+//				getTest().click();
+//				commonsPo.tap(getTest());
+//				System.out.println(sFieldServiceName);
+//				getEleActionsTxtWithIcon(sFieldServiceName).click();
+				commonsPo.tap(getEleActionsTxtWithIcon(sFieldServiceName));
+//				selectActionWithIcon(commonsPo, sFieldServiceName);	
 			}
 	
 		}
