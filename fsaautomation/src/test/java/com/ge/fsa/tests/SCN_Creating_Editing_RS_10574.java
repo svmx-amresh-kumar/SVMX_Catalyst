@@ -228,7 +228,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //------------------Script to read a work Order and create an Event for it.----------------		
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Create New Event From Work Order");
 		//------------------------------------------------------
 		//Navigation to SFM
 				

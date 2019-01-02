@@ -72,6 +72,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName,"Work Order Number");
+		System.out.println(sworkOrderName);
 		sProductName1 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product1 Name");
 		System.out.println(sProductName1);
 		sProductName2 = GenericLib.getExcelData(sTestDataValue,sSheetName,"Product2 Name");
@@ -96,6 +97,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName1));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName1),10,10);
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit1 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -139,6 +141,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName2));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName2),10,10);
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -241,6 +244,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"),10,10);
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent_labor2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty_labor2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -313,6 +317,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Gas"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Gas"),10,10);
 		String sBillableQty_laborGas = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_laborGas = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
@@ -343,6 +348,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Airfare"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Airfare"),10,10);
 		String sBillableQty_Airfare = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_Airfare = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
@@ -385,6 +391,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1));
+		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1),10,10);
 		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");

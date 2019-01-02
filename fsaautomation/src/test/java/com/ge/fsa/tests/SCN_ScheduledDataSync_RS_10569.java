@@ -120,7 +120,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO,"SVMXC__Billing_Type__c");
         Assert.assertTrue(sBillTypeServer.equals(sBillingType), "Billing Type in Server has not been updated after scheduled data sync");
 		ExtentManager.logger.log(Status.PASS,"Billing Type edited from FSA has been updated in server after scheduled Data Sync");	    	
-		postscript();
+		//postscript();
 	}
 	
 	@AfterMethod

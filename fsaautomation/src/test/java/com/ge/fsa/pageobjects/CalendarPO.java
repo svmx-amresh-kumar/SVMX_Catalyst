@@ -248,21 +248,21 @@ public class CalendarPO
 	
 		commonsPo.tap(getEleCalendarClick());
 		Thread.sleep(6000);
+		try
+		{
 		geteleWOendpoint("04:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
-//		if(getEleworkordernumonCalendarWeek(workordername).isDisplayed()){
-//			System.out.println("Found WO " + workordername);
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
 			
-//			}
-//				
-//		else
-//		{
-//			System.out.println("Did not Find WO " + workordername);
-//			throw new Exception("WorkOrder not found on the Calendar");	
-//		
-//	}
+		}
+		catch(Exception e)
+		{
+			geteleWOendpoint("04:00 AM").getLocation();
+			commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
+			getEleworkordernumonCalendarWeek(workordername).getLocation();
+				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
+		}
 
 	}
 	
@@ -298,12 +298,45 @@ public class CalendarPO
 	}
 	
 	
+	
 	public void VerifyWOInCalender(CommonsPO commonsPo, String workordername) throws Exception 
 	{
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 20);
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
+		
+	
+		if(getEleworkordernumonCalendarWeek(workordername) != null){
+			System.out.println("Found WO " + workordername);
+			
+			}
+				
+		else
+		{
+			System.out.println("Did not Find WO " + workordername);
+			throw new Exception("WorkOrder not found on the Calendar");	
+		
+	}
+	
+	}
+	
+	catch(Exception e){
+		System.out.println(e);
+		System.out.println("Did not Find WO " + workordername);
+		
+		
+	}
+	}
+	
+	
+	
+	public void VerifyWOInCalenderException(CommonsPO commonsPo, String workordername) throws Exception 
+	{
+	
+		Thread.sleep(3000);
+		try {
+		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
@@ -568,6 +601,15 @@ public class CalendarPO
 
 			return elegetsubjectformultiday;
 		}
+
+		private WebElement elepenciliconcalmultiday;
+		public WebElement getelepenciliconcalmultiday(String WOname)
+		{
+			elepenciliconcalmultiday = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//..//div[@class='sfmevent-icon-edit sfmevent-icon-edit-hidden'])[2]"));
+
+			return elepenciliconcalmultiday;
+		}
+
 
 }
 

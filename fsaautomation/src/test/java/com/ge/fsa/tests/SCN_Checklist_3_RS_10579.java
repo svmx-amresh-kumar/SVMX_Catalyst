@@ -162,7 +162,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
 		
 		
-		commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
+		commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
 		// tapping next button
 		commonsPo.tap(checklistPo.geteleNext());					 

@@ -58,7 +58,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String schecklistStatusInProgress = "In Process";
 	String schecklistStatus = "Completed";	
 	String sSheetName =null;
-	
+	String sSoqlquerypdf =  null;
+	String sSoqlquerypdf1 = null;
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10585";
@@ -206,9 +207,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		 ExtentManager.logger.log(Status.PASS,"Section 1 question two is displayed in OPDOC");
 		 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sNumberSectionJumpAns), "Section 1q2 answer is not displayed in OPDOC");
 		 ExtentManager.logger.log(Status.PASS,"Section 1 question two answer is displayed in OPDOC");
-	 
-		Assert.assertFalse(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
-		ExtentManager.logger.log(Status.PASS,"Section two question two is not displayed in the OPDOC as it is a skipped section");
+		 Assert.assertFalse(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
+		 ExtentManager.logger.log(Status.PASS,"Section two question two is not displayed in the OPDOC as it is a skipped section");
 
 		//workOrderPo.getEleDoneLnk().click();
 		commonsPo.tap(workOrderPo.getEleDoneLnk());
@@ -222,6 +222,16 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
+		
+		checklistPo.validateChecklistServiceReport(commonsPo, workOrderPo, "Auto_RS10585_ChecklistOPDOC_InProgOP2",sWOName);
+	  	checklistPo.geteleChecklistOPDOCRow();
+	  	Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
+		ExtentManager.logger.log(Status.PASS,"Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
+		commonsPo.tap(workOrderPo.getEleCancelLink());
+		Thread.sleep(GenericLib.i30SecSleep);
+		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(GenericLib.iHighSleep);
+		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(GenericLib.i30SecSleep);
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -232,6 +242,12 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	  	Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.iMedSleep);
 		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+		sSoqlquerypdf = "Select+Name+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+		sSoqlquerypdf1 = restServices.restGetSoqlValue(sSoqlquerypdf, "Name");	
+
+		Assert.assertTrue(sSoqlquerypdf1.contains("pdf"),"fileformat stored is not pdf");
+		 ExtentManager.logger.log(Status.PASS,"file is in pdf format in server");
+
 		restServices.getAccessToken();
 		sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
 		assertNotNull(sAttachmentIDAfter); 

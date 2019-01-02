@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.DeviceRotation;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -74,16 +76,20 @@ public class BaseLib {
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
 
-		//On setting RUN_MACHINE to "build" this config.properties file will be IGNORED and the config_build.properties file will be used to get data
+		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
 		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
-		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
-
-		System.out.println("OS Name = "+sOSName.toLowerCase());
-		System.out.println("Running On Machine : "+runMachine);
 		if(runMachine.equals("build")) {
-			GenericLib.sConfigFile = System.getProperty("user.dir")+"//resources"+"//config_build.properties";
+			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
 		}
+
+		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+		
+		System.out.println("Running On Machine : "+runMachine);
+		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
+		System.out.println("OS Name = "+sOSName.toLowerCase());
+		
+		
 		switch (sOSName) {
 		case "android":
 			try { //Android Drivers
@@ -224,6 +230,9 @@ public class BaseLib {
 		lauchNewApp("true");
 		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		
+		driver.rotate((ScreenOrientation.LANDSCAPE));
+		driver.rotate((ScreenOrientation.PORTRAIT));
 
 	}
 
@@ -258,7 +267,7 @@ public class BaseLib {
 	public void tearDownDriver()
 	{
 
-		try{driver.quit();}catch(Exception e) {};
+		//try{driver.quit();}catch(Exception e) {};
 	}
 
 }

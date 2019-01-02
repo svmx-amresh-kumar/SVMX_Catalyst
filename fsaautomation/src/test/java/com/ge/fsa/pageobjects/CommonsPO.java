@@ -1,7 +1,10 @@
 package com.ge.fsa.pageobjects;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,11 +30,16 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.RestServices;
+
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.ios.IOSTouchAction;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -47,80 +55,79 @@ import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static org.testng.Assert.assertTrue;
 
-
-public class CommonsPO
-{
-	public CommonsPO(AppiumDriver driver)
-	{
+public class CommonsPO {
+	public CommonsPO(AppiumDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+
 	AppiumDriver driver = null;
-	TouchAction touchAction = null;	
+	TouchAction touchAction = null;
 	IOSTouchAction iosTouchAction = null;
-	Iterator<String> iterator =null;
+	Iterator<String> iterator = null;
 	public static String sNativeApp = null;
-	public static String sWebView = null;		
+	public static String sWebView = null;
 	int xOffset = 15;
 	int yOffset = 18;
-	int iWhileCnt =0;
-	long lElapsedTime=0L;
+	int iWhileCnt = 0;
+	long lElapsedTime = 0L;
 	Point point = null;
-	public BaseLib baseLib = new BaseLib();		
+	public BaseLib baseLib = new BaseLib();
 
-	@FindBy(className="XCUIElementTypePickerWheel")	
-	//	@FindBy(className="android.widget.ListView")	
+	@FindBy(className = "XCUIElementTypePickerWheel")
+	// @FindBy(className="android.widget.ListView")
 	private WebElement elePickerWheelPopUp;
-	public  WebElement getElePickerWheelPopUp()
-	{
+
+	public WebElement getElePickerWheelPopUp() {
 		return elePickerWheelPopUp;
 	}
 
-	@FindBy(xpath="//*[@name='Done']")
+	@FindBy(xpath = "//*[@name='Done']")
 	private WebElement eleDonePickerWheelBtn;
-	public WebElement getEleDonePickerWheelBtn()
-	{
+
+	public WebElement getEleDonePickerWheelBtn() {
 		return eleDonePickerWheelBtn;
 	}
 
-	@FindBy(xpath="//div[@class='x-inner x-container-inner x-align-center x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner x-widthed x-heighted']//input[@placeholder='Search'][@class='x-input-el']")
+	@FindBy(xpath = "//div[@class='x-inner x-container-inner x-align-center x-pack-start x-layout-vbox x-vertical x-layout-box x-component-inner x-widthed x-heighted']//input[@placeholder='Search'][@class='x-input-el']")
 	private WebElement elesearchTap;
-	public WebElement getElesearchTap()
-	{
+
+	public WebElement getElesearchTap() {
 		return elesearchTap;
 	}
 
-	@FindBy(xpath="//span[text()='Search']")
+	@FindBy(xpath = "//span[text()='Search']")
 	private WebElement elesearchButton;
-	public WebElement getElesearchButton()
-	{
+
+	public WebElement getElesearchButton() {
 		return elesearchButton;
 	}
 
-
+	
 
 	private WebElement eleSearchListItem;
-	public WebElement getElesearchListItem(String searchName)
-	{
-		//eleSearchListItem = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
-		eleSearchListItem = driver.findElement(By.xpath("//*[.='"+searchName+"'][@class = 'x-gridcell']"));
+
+	public WebElement getElesearchListItem(String searchName) {
+		// eleSearchListItem =
+		// driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
+		eleSearchListItem = driver.findElement(By.xpath("//*[.='" + searchName + "'][@class = 'x-gridcell']"));
+	
+		
 		return eleSearchListItem;
+
 	}
 
-
-
-
-
-	//Customized touch Tap
+	// Customized touch Tap
 	/**
-	 * Tap an element by location points, passing the optional parameters optionalOffsetPointsxy will tap on the x&y offset provided 
-	 * useage : tap(element,pointx,pointy)
+	 * Tap an element by location points, passing the optional parameters
+	 * optionalOffsetPointsxy will tap on the x&y offset provided useage :
+	 * tap(element,pointx,pointy)
 	 * 
 	 * @param el
 	 * @param optionalOffsetPointsxy
 	 * @throws InterruptedException
 	 */
-	public void tap(WebElement  wElement, int... optionalOffsetPointsxy) throws InterruptedException{
+	public void tap(WebElement wElement, int... optionalOffsetPointsxy) throws InterruptedException {
 		Thread.sleep(3000);
 
 		Boolean clickPassed = false;
@@ -128,18 +135,23 @@ public class CommonsPO
 		Exception tapExp = null;
 		int x = 0;
 		int y = 0;
-		
+
 		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
-			//Wait for the complete coordinates to be generated, E.g if (0,0) (0,231) (12,0), then we will wait for both coordinates to be non-zero.
+			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
+			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
 
-				try{point =  wElement.getLocation();}catch(Exception e) {}
+				try {
+					point = wElement.getLocation();
+				} catch (Exception e) {
+				}
 
 				if (point.getX() == 0 || point.getY() == 0) {
-					System.out.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+					System.out
+							.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
 					Thread.sleep(1000);
 
 				} else {
@@ -150,27 +162,38 @@ public class CommonsPO
 			}
 
 			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-			System.out.println("Acting on element : "+ printElement +" " +  wElement.getText() + " " +  wElement.getTagName()+" "+wElement.getLocation());
+			System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
+					+ wElement.getTagName() + " " + wElement.getLocation());
 
-			//Set the custom or default offsets to x & y
+			// Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
-				x = point.getX()+xNewOffset;
-				y = point.getY()+yNewOffset;
-				System.out.println("Using Custom Offset Points xNewOffset = "+(xNewOffset)+" yNewOffset = "+(yNewOffset)+ " on "+x + "," + y);
+				x = point.getX() + xNewOffset;
+				y = point.getY() + yNewOffset;
+				System.out.println("Using Custom Offset Points xNewOffset = " + (xNewOffset) + " yNewOffset = "
+						+ (yNewOffset) + " on " + x + "," + y);
 			} else {
-				x = point.getX()+xOffset;
-				y = point.getY()+yOffset;
-				System.out.println("Using Offset Points xOffset  = "+(xOffset)+" yOffset s= "+(yOffset)+ " on "+x + "," + y);
+				x = point.getX() + xOffset;
+				y = point.getY() + yOffset;
+				System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset s= " + (yOffset) + " on "
+						+ x + "," + y);
 
 			}
-			
-			//Switch the tap based on ANDROID or WINDOWS
-			switch(BaseLib.sOSName) {
+
+			// Switch the tap based on ANDROID or WINDOWS
+			switch (BaseLib.sOSName) {
 			case "android":
-				//For Android add *2 if real device
-				//Since in android now has clicks and taps alternatively do a click then a tap
-				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
-				
+				// For Android add *2 if real device
+				// Since in android now has clicks and taps alternatively do a click then a tap
+				try {
+					wElement.click();
+					clickPassed = true;
+					System.out.println("Click passed");
+				} catch (Exception e) {
+					System.out.println("Click failed");
+					clickPassed = false;
+					tapExp = e;
+				}
+
 				switchContext("Native");
 				System.out.println("Android Tapping ");
 				switchContext("Native");
@@ -178,17 +201,25 @@ public class CommonsPO
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
 				break;
-				
+
 			case "ios":
-				//For IOS
-				//Since in IOS now has clicks and taps alternatively do a click then a tap
-				try {wElement.click(); clickPassed = true;System.out.println("Click passed"); }catch(Exception e) { System.out.println("Click failed");clickPassed = false; tapExp = e;}
-		
+				// For IOS
+				// Since in IOS now has clicks and taps alternatively do a click then a tap
+				try {
+					wElement.click();
+					clickPassed = true;
+					System.out.println("Click passed");
+				} catch (Exception e) {
+					System.out.println("Click failed");
+					clickPassed = false;
+					tapExp = e;
+				}
+
 				System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				break;
-				
+
 			default:
 				System.out.println("OS Error");
 				break;
@@ -198,76 +229,78 @@ public class CommonsPO
 			tapPassed = true;
 		}
 
-		catch(Exception e) {
+		catch (Exception e) {
 			tapExp = e;
 			tapPassed = false;
 			System.out.println("Tap failed");
 
 		}
 
-
 		Thread.sleep(3000);
-		if( clickPassed == false && tapPassed == false) {
+		if (clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 
-			Assert.assertTrue(1<2, ""+ExtentManager.logger.log(Status.FAIL,"Tap Exception : " + tapExp));
+			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
 
 	}
 
-
-
-	public void singleTap(Point point) throws InterruptedException
-	{
+	public void singleTap(Point point) throws InterruptedException {
 		touchAction = new TouchAction(driver);
-		touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+		touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	//Customised touch tap version 2.0
-	//	public void tap(WebElement element) throws InterruptedException
-	//	{
+	// Customised touch tap version 2.0
+	// public void tap(WebElement element) throws InterruptedException
+	// {
 	//
-	//			waitforElement(element, GenericLib.i30SecSleep);
-	//		point = element.getLocation();
-	//						iosTouchAction = new IOSTouchAction(driver);
-	//					iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+	// waitforElement(element, GenericLib.i30SecSleep);
+	// point = element.getLocation();
+	// iosTouchAction = new IOSTouchAction(driver);
+	// iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
+	// point.getY()+yOffset)).perform();
 	//
 	//
-	///*
-	//				touchAction = new TouchAction(driver);
-	//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
-	//*/
-	//			Thread.sleep(GenericLib.iLowSleep);
-	//			}
+	/// *
+	// touchAction = new TouchAction(driver);
+	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
+	// point.getY()+yOffset)).perform();
+	// */
+	// Thread.sleep(GenericLib.iLowSleep);
+	// }
 
-	//			public void tap(WebElement element, int...iOffset) throws InterruptedException
-	//			{
+	// public void tap(WebElement element, int...iOffset) throws
+	// InterruptedException
+	// {
 	//
-	//				System.out.println(iOffset[0] +  "       y cordi"+iOffset[1]);
-	//				waitforElement(element, GenericLib.i30SecSleep);
-	//				//point = element.getLocation();
-	//				IOSTouchAction touchAction= new IOSTouchAction(driver);
-	//				touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0], element.getLocation().getY()+iOffset[1])).perform();
-	//				//iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+iOffset[0], point.getY()+iOffset[1])).perform();
+	// System.out.println(iOffset[0] + " y cordi"+iOffset[1]);
+	// waitforElement(element, GenericLib.i30SecSleep);
+	// //point = element.getLocation();
+	// IOSTouchAction touchAction= new IOSTouchAction(driver);
+	// touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0],
+	// element.getLocation().getY()+iOffset[1])).perform();
+	// //iosTouchAction.tap(new
+	// PointOption().withCoordinates(point.getX()+iOffset[0],
+	// point.getY()+iOffset[1])).perform();
 	//
 	//
-	//				touchAction = new TouchAction(driver);
-	//				touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+	// touchAction = new TouchAction(driver);
+	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
+	// point.getY()+yOffset)).perform();
 	//
-	//				Thread.sleep(GenericLib.iLowSleep);
-	//			}
+	// Thread.sleep(GenericLib.iLowSleep);
+	// }
 
-
-	//Customised touch Tap
-	public void fingerTap(Point point, int iTapCount) throws InterruptedException
-	{
+	// Customised touch Tap
+	public void fingerTap(Point point, int iTapCount) throws InterruptedException {
 		touchAction = new TouchAction(driver);
-		touchAction.moveTo(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).tap(new TapOptions().withTapsCount(iTapCount)).perform();
+		touchAction.moveTo(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+				.tap(new TapOptions().withTapsCount(iTapCount)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	//Customised touch LongPress
+	// Customised touch LongPress
 	public void longPress(WebElement wElement) throws InterruptedException {
 		Point point = wElement.getLocation();
 		System.out.println("x " + point.getX() + " y " + point.getY());
@@ -277,7 +310,8 @@ public class CommonsPO
 			// For Android add *2 if real device
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+					.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			break;
@@ -286,93 +320,98 @@ public class CommonsPO
 
 			// For IOS
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+					.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			break;
 
 		}
 	}
 
-	//Customised touch Doubletap
-	public void doubleTap(WebElement  element) throws InterruptedException
-	{
+	// Customised touch Doubletap
+	public void doubleTap(WebElement element) throws InterruptedException {
 		waitforElement(element, GenericLib.i30SecSleep);
 
 		point = element.getLocation();
 		touchAction = new TouchAction(driver);
 
-		//touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) element)).perform();
-		touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)element)).perform(); 
+		// touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)
+		// element)).perform();
+		touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) element)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
 
 	}
 
-	//Customised touch Press
-	public void press(Point point) throws InterruptedException
-	{
+	// Customised touch Press
+	public void press(Point point) throws InterruptedException {
 		touchAction = new TouchAction(driver);
-		touchAction.press(new PointOption().withCoordinates(point.getX()+xOffset, point.getY()+yOffset)).perform();
+		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	public void swipeUp()
-	{	
+	public void swipeUp() {
 		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(150, 900)).moveTo(new PointOption().withCoordinates(150, 70)).release();
+		touchAction.longPress(new PointOption().withCoordinates(150, 900))
+				.moveTo(new PointOption().withCoordinates(150, 70)).release();
 	}
 
-	public void swipeLeft(WebElement  wElement)
-	{	int offset = 30;
-	Point point =  wElement.getLocation();
-	int x = point.getX();
-	int y = point.getY();
+	public void swipeLeft(WebElement wElement) {
+		int offset = 30;
+		Point point = wElement.getLocation();
+		int x = point.getX();
+		int y = point.getY();
 
-	int xOff = x+100;
-	//int yOff = y-100;
-	touchAction = new TouchAction(driver);
-	touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
+		int xOff = x + 100;
+		// int yOff = y-100;
+		touchAction = new TouchAction(driver);
+		touchAction.press(new PointOption().withCoordinates(x, y))
+				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+				.moveTo(new PointOption().withCoordinates((x - 5), 0)).release().perform();
 	}
 
+	public void Enablepencilicon(WebElement wElement) {
+		int offset = 30;
+		Point point = wElement.getLocation();
+		int x = point.getX();
+		int y = point.getY();
 
-	public void Enablepencilicon(WebElement  wElement)
-	{	int offset = 30;
-	Point point =  wElement.getLocation();
-	int x = point.getX();
-	int y = point.getY();
+		int xOff = x + 100;
+		// int yOff = y-100;
+		touchAction = new TouchAction(driver);
+		// touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new
+		// PointOption().withCoordinates(20, 20)).release().perform();
+		// touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new
+		// WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new
+		// PointOption().withCoordinates((x-5), 0)).release().perform();
 
-	int xOff = x+100;
-	//int yOff = y-100;
-	touchAction = new TouchAction(driver);
-	//touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new PointOption().withCoordinates(20, 20)).release().perform();
-	//touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates((x-5), 0)).release().perform();
-
-	touchAction.press(new PointOption().withCoordinates(x,y)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,y)).release().perform();
-	//touchAction.tap(new PointOption().withCoordinates(x,y));
+		touchAction.press(new PointOption().withCoordinates(x, y))
+				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+				.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
+		// touchAction.tap(new PointOption().withCoordinates(x,y));
 	}
 
-
-	//To search the element scrolling
-	public void getSearch(WebElement wElement) throws InterruptedException
-	{
-		while(iWhileCnt<=7) 
-		{	
-			try {
-				waitforElement(wElement, GenericLib.iLowSleep);
-				Assert.assertTrue(wElement.isDisplayed(),"Failed to scroll to search");
-				ExtentManager.logger.log(Status.PASS,"Search is successfull");
-				System.out.println("Search is displayed");
-				break;
-			}catch(Exception e) {swipeUp();}			
-			iWhileCnt++;
-		}
-		Thread.sleep(5000);
+	// To search the element scrolling
+	public void getSearch(WebElement wElement) throws InterruptedException {
+//		while(iWhileCnt<=7) 
+//		{	
+//			try {
+		waitforElement(wElement, GenericLib.iLowSleep);
+		Assert.assertTrue(wElement.isDisplayed(), "Failed to scroll to search");
+		ExtentManager.logger.log(Status.PASS, "Search is successfull");
+		System.out.println("Search is displayed");
+		// break;
+//			}catch(Exception e) {swipeUp();}			
+//			iWhileCnt++;
+//		}
+//		Thread.sleep(5000);
 	}
 
 	/**
 	 * To switch context between Native and Webview, defaults to Webview always
+	 * 
 	 * @param sContext
 	 */
-	public void switchContext(String sContext) {		
+	public void switchContext(String sContext) {
 
 		Set contextNames = driver.getContextHandles();
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
@@ -385,10 +424,10 @@ public class CommonsPO
 		try {
 			if (sContext.equalsIgnoreCase("Native")) {
 				driver.context(sNativeApp);
-				System.out.println("Setting Context = "+sNativeApp);
+				System.out.println("Setting Context = " + sNativeApp);
 			} else {
 				driver.context(sWebView);
-				System.out.println("Setting Context = "+sWebView);
+				System.out.println("Setting Context = " + sWebView);
 
 			}
 		} catch (Exception e) {
@@ -398,101 +437,459 @@ public class CommonsPO
 
 	}
 
+	private WebElement elePicklistValue;
+
+	public WebElement getElePicklistValue(String sPickListValue) {
+		elePicklistValue = driver.findElement(
+				By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'" + sPickListValue + "')]"));
+
+		return elePicklistValue;
+	}
+
 	/**
 	 * Set the pickerwheel(ios)/picklist(android) value in ios or android
+	 * 
 	 * @param wElement
 	 * @param sValue
 	 * @throws InterruptedException
 	 */
-	public void setPickerWheelValue( WebElement wElement, String sValue) throws InterruptedException
-	{
+	public void setPickerWheelValue(WebElement wElement, String sValue) throws InterruptedException {
 
-		switch(BaseLib.sOSName) {
+		switch (BaseLib.sOSName) {
 		case "android":
 //			tap(wElement,16,20);
-			tap(wElement,30,36);
+			tap(wElement, 30, 36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'"+sValue+"')]")).click();
+			getElePicklistValue(sValue).click();
 			switchContext("WebView");
 			break;
 
-		case "ios" :
+		case "ios":
 			wElement.click();
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePickerWheelPopUp().sendKeys(sValue);		
+			getElePickerWheelPopUp().sendKeys(sValue);
 			getEleDonePickerWheelBtn().click();
 			switchContext("WebView");
 			break;
-			
-			default:
-				System.out.println("OS error");
-				break;
+
+		default:
+			System.out.println("OS error");
+			break;
 		}
 	}
 
-
 	/**
 	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * 
 	 * @param wElement
 	 * @param lTime
 	 * @throws InterruptedException
 	 */
 
-	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException
-	{ long lElapsedTime = 0;
-	System.out.println("Time to Wait : "+lTime+" sec");
-	String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-	System.out.println("Waiting For Element : "+printElement);
-	while(lElapsedTime!=lTime)
-	{
-		Thread.sleep(1000);
-		try{
-			if(wElement.isDisplayed())
-			{//If element is displayed break
-				break;
+	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException {
+		long lElapsedTime = 0;
+		System.out.println("Time to Wait : " + lTime + " sec");
+		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+		System.out.println("Waiting For Element : " + printElement);
+		while (lElapsedTime != lTime) {
+			Thread.sleep(1000);
+			try {
+				if (wElement.isDisplayed()) {// If element is displayed break
+					break;
+				}
+			} catch (Exception ex) {
 			}
-		}catch(Exception ex) {}
-		lElapsedTime++;
+
+			lElapsedTime++;
+
+
+		}
+
 	}
 
-
-	}
-
-	// This method will search the required value and then click on it 
-	public void lookupSearch(String value)throws InterruptedException
-	{
+	// This method will search the required value and then click on it
+	public void lookupSearch(String value) throws InterruptedException {
 
 		tap(getElesearchTap());
 		getElesearchTap().clear();
 		getElesearchTap().sendKeys(value);
 		tap(getElesearchButton());
+		//tap(getElesearchButton(),30,36);
 		tap(getElesearchListItem(value));
 
 	}
-	/*
-	 * This method is used to generate the Random value times stamped with current time
-	 */
-	public String generaterandomnumber(String value)
-	{
 
-		String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis( ));
+	/*
+	 * This method is used to generate the Random value times stamped with current
+	 * time
+	 */
+	public String generaterandomnumber(String value) {
+
+		String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis());
 		System.out.println(date);
 		String randomstring = value + date;
 		System.out.println(randomstring);
 
 		return randomstring;
 	}
+	
+	/**
+	 * This method is used to parse the string to the passed format to return date
+	 * @param dateFormat
+	 * @param date
+	 * @return Date
+	 * Eg:Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+	 */
+	public Date convertStringToDate(String dateFormat,String date) {
+		SimpleDateFormat df=new SimpleDateFormat(dateFormat);
+		Date parsedDate=null;
+		try {
+			parsedDate = df.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return parsedDate;
+		
+	}
+	/**
+	 * This method is used to format the passed date to string.
+	 * @param dateFormat
+	 * @param date
+	 * @return String
+	 * Eg:String selectDate = converDateToString("dd MMMM yyyy",newDate);
+	 */
+	public String converDateToString(String dateFormat,Date date) {
+		SimpleDateFormat df=new SimpleDateFormat(dateFormat);
+		return df.format(date);
+	}
+	
+	@FindBy(id = "android:id/date_picker_header_date")
+	private WebElement datePicker;
+
+	public WebElement getDatePicker() {
+		return datePicker;
+	}
+
+	@FindBy(id = "android:id/date_picker_header_year")
+	private WebElement yearPicker;
+
+	public WebElement getYearPicker() {
+		return yearPicker;
+	}
+
+	@FindBy(id = "android:id/button1")
+	private WebElement calendarDone;
+
+	public WebElement getCalendarDone() {
+		return calendarDone;
+	}
+	/**
+	 * This object can be used for any field that can be identified by accessibilityId
+	 * eg: 
+	 * getCalendarEdit("11").click();
+	 * getCalendarEdit("30").click();
+	 */
+	private WebElement accessibleElement;
+	public WebElement getAccessibleElement(String accessibilityID) {
+		return accessibleElement =  driver.findElementByAccessibilityId(accessibilityID);
+	}
 
 	/**
-	 * Set the 24 hrs time form the date picker wheels, passing 0 for sTimeHrs,sTimeMin will set the present date
+	 * <pre>
+	 * Set the 24 Hrs time by moving no of day's ahead(+ve) or behind(-ve) followed by Hrs and Min.
 	 * 
-	 *for specific values:
-	 *setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(), 1, “02”,”30”)
+	 * FOR ANDROID :
+	 * 
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
 	 *
-	 *for only moving day and leaving default hrs and min :
-	 *setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * For only moving no of days +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * 
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 *
+	 *=====================================================================
+	 *
+	 * FOR IOS :
+	 * 
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
+	 *
+	 * For only moving no of day +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * 
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 *
+	 * @param wElement
+	 * @param iDaysToScroll
+	 * @param sTimeHrs
+	 * @param sTimeMin
+	 * @param sTimeAMPM
+	 * @throws InterruptedException
+	 * @throws ParseException
+	 * </pre>
+	 */
+	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
+			throws InterruptedException {
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			String date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(currentDate);
+			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
+			Date newDate = cal.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();;
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//selecting the date, hour and minutes 
+			getAccessibleElement(selectDate).click();;
+			getCalendarDone().click();
+			//set current or specific time
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+
+			} else {
+			getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+			getCalendarDone().click();
+			}
+			switchContext("Webview");
+			break;
+		case "ios":
+			wElement.click();
+			switchContext("Native");
+			setDatePicker(0, iDaysToScroll);
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getEleDonePickerWheelBtn().click();
+
+			} else {
+				timeSetter(sTimeHrs, sTimeMin, "", true);
+				getEleDonePickerWheelBtn().click();
+			}
+
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+
+		}
+	}
+	
+	/**
+	 * <pre>
+	 * This is an overloaded method. @see setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
+	 * 
+	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
+	 * Formats for IOS and Android differ the user needs to switch sDateFormat
+	 * parameter when passing from the test script based on OS!
+	 * 
+	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
+	 * 
+	 * For adding Month Day and Year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
+	 *
+	 * For current Month, day and year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * =====================================================================
+	 * 
+	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
+	 * 
+	 * For adding DateFormat, hrs and min : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
+	 *
+	 * For adding DateFormat and leaving default hrs and min : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
+	 * 
+	 * For current Month, day and year : setDateTime24hrs(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 *
+	 * @param wElement
+	 * @param sDateFormat
+	 * @param sTimeHrs
+	 * @param sTimeMin
+	 * @throws InterruptedException
+	 */
+
+	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
+			throws InterruptedException {
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			// Set current date if all paramters are "0"
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				// For android extract the month day and year from sDateFormat
+				String[] sAndyDateFormat = sDateFormat.split(" ");
+				String sMonth = sAndyDateFormat[0];
+				String sDay = sAndyDateFormat[1];
+				String sYear = sAndyDateFormat[2];
+
+				String date = getDatePicker().getText();
+				date = date + " " + getYearPicker().getText();
+				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
+				Date monthDate = convertStringToDate("MMMM", sMonth);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(monthDate);
+				cal.set(Integer.valueOf(sYear), cal.get(Calendar.MONTH), Integer.valueOf(sDay));
+				Date newDate = cal.getTime();
+				String selectDate = converDateToString("dd MMMM yyyy", newDate);
+				int count = 0;
+				// Check only for 10 year ahead or behind in calendar
+				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count < 120) {
+					if (currentDate.before(newDate)) {
+						getAccessibleElement("Next month").click();
+					} else {
+						getAccessibleElement("Previous month").click();
+					}
+					count++;
+				}
+				// Select the date
+				getAccessibleElement(selectDate).click();
+				getCalendarDone().click();
+				// set current or specific time
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getCalendarDone().click();
+
+				} else {
+					getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+					getCalendarDone().click();
+				}
+				switchContext("Webview");
+			}
+			break;
+		case "ios":
+			wElement.click();
+			switchContext("Native");
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getEleDonePickerWheelBtn().click();
+
+				} else {
+					timeSetter(sTimeHrs, sTimeMin, "", true);
+					getEleDonePickerWheelBtn().click();
+				}
+
+				switchContext("Webview");
+				Thread.sleep(GenericLib.iLowSleep);
+			}
+		}
+
+	}
+	
+	/**
+	 * For setting the Date Only. !!NOTE : for dateTime use "setSpecificDateTime" method or "setDateTime24hrs" method
+	 * 
+	 * FOR ANDROID : Supported Format is (Month,Day,Year)
+	 * 
+	 * For adding Month Day and Year : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “January”, “10”,”2018”)
+	 *
+	 * For current Month, day and year : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * =====================================================================
+	 * 
+	 * FOR IOS : Supported Format is (Month,Day,Year)
+	 * 
+	 * For adding Month, Day and Year : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “January”, “09”,”2018”)
+	 * 
+	 * For current Month, day and year : setSpecificDateYear(
+	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * @param wElement
+	 * @param sMonth
+	 * @param sDay
+	 * @param sYear
+	 * @throws InterruptedException
+	 */
+	
+	public void setSpecificDate(WebElement wElement, String sMonth, String sDay, String sYear)
+			throws InterruptedException {
+		switch (BaseLib.sOSName) {
+		case "android":
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			//Set current date if all paramters are "0"
+			if(sMonth =="0" && sDay == "0" && sYear =="0") {
+				getCalendarDone().click();
+			}else {
+			String date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Date monthDate=convertStringToDate("MMMM", sMonth);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(monthDate);
+			cal.set(Integer.valueOf(sYear),cal.get(Calendar.MONTH) , Integer.valueOf(sDay));
+			Date newDate = cal.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//Select the date
+			getAccessibleElement(selectDate).click();
+			getCalendarDone().click();
+			switchContext("Webview");
+			}
+			break;
+		case "ios":
+			wElement.click();
+			switchContext("Native");
+			//Select Current Date
+			if(sMonth =="0" && sDay == "0" && sYear =="0") {
+				getEleDonePickerWheelBtn().click();
+			} else {
+				getEleDatePickerPopUp().get(0).sendKeys(sMonth);
+				timeSetter(sDay, sYear, "", true);
+				getEleDonePickerWheelBtn().click();
+			}
+
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+		}
+
+	}
+
+	
+	
+	/**
+	 * Set the time form the date picker wheels in 12hrs format, passing 0 for
+	 * sTimeHrs,sTimeMin,sTimeAMPM will set the present date
 	 *
 	 * @param wElement
 	 * @param iDaysToScroll
@@ -501,225 +898,169 @@ public class CommonsPO
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 */
-	public void setDateTime24hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin) throws InterruptedException
-	{
+	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
+			String sTimeAMPM) throws InterruptedException {
 		wElement.click();
 		switchContext("Native");
-		setDatePicker(0,iDaysToScroll);
-		if(sTimeHrs == "0" && sTimeMin == "0" ) {
+		setDatePicker(0, iDaysToScroll);
+		if (sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
 			getEleDonePickerWheelBtn().click();
 
-		}else {
-			timeSetter(sTimeHrs,sTimeMin,"",true);
+		} else {
+			timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
 			getEleDonePickerWheelBtn().click();
 		}
 
 		switchContext("Webview");
 		Thread.sleep(GenericLib.iLowSleep);
 
-
 	}
 
-	/**
-	 * Set the specific dateFormatToSelect (e.g "Mon Oct 15") , followed by day and year form the date picker wheels, passing string for setting 0 for sYear,sTimeMin will set the present date
-	 *
-	 *for specific values:
-	 *setSpecificDateYear( workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”2022”) 
-	 *
-	 *for only moving day and leaving default day and year :
-	 *setSpecificDateYear( workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”) 
-	 * @param wElement
-	 * @param dateFormatToSelect
-	 * @param sTimeHrs
-	 * @param sTimeMin
-	 * @param sTimeAMPM
-	 * @throws InterruptedException
-	 */
-	public void setSpecificDateYear( WebElement wElement, String dateFormatToSelect, String sDay,String sYear) throws InterruptedException
-	{
-		wElement.click();
-		switchContext("Native");
-		getEleDatePickerPopUp().get(0).sendKeys(dateFormatToSelect);
-		if(sDay == "0" && sYear == "0" ) {
-			getEleDonePickerWheelBtn().click();
-
-		}else {
-			timeSetter(sDay,sYear,"",true);
-			getEleDonePickerWheelBtn().click();
-		}
-
-		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
-
-
-	}
-
-	/**
-	 * Set the time form the date picker wheels	in 12hrs format, passing 0 for sTimeHrs,sTimeMin,sTimeAMPM will set the present date
-	 *
-	 * @param wElement
-	 * @param iDaysToScroll
-	 * @param sTimeHrs
-	 * @param sTimeMin
-	 * @param sTimeAMPM
-	 * @throws InterruptedException
-	 */
-	public void setDateTime12Hrs( WebElement wElement, int iDaysToScroll, String sTimeHrs,String sTimeMin,String sTimeAMPM) throws InterruptedException
-	{
-		wElement.click();
-		switchContext("Native");
-		setDatePicker(0,iDaysToScroll);
-		if(sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
-			getEleDonePickerWheelBtn().click();
-
-		}else {
-			timeSetter(sTimeHrs,sTimeMin,sTimeAMPM,false);
-			getEleDonePickerWheelBtn().click();
-		}
-
-		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
-
-
-	}
-
-	@FindBy(xpath="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")	
+	@FindBy(xpath = "//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")
 	private List<WebElement> eleDatePickerPopup;
-	public  List<WebElement> getEleDatePickerPopUp()
-	{
+
+	public List<WebElement> getEleDatePickerPopUp() {
 		return eleDatePickerPopup;
 	}
 
 	/**
-	 * Set the specific date picker wheel (Day/month/year) by scrolling up or down based on +ve or -ve value to be used with setDateTime24hrs / setDateTime12hrs
+	 * Set the specific date picker wheel (Day/month/year) by scrolling up or down
+	 * based on +ve or -ve value to be used with setDateTime24hrs / setDateTime12hrs
 	 * 
 	 * @param iWheelIndex
 	 * @param scrollNum
 	 */
-	public void setDatePicker(int iWheelIndex, int scrollNum)
-	{ 	switchContext("Native");
-	int i=0;
-	int newTempVal = scrollNum;
-	scrollNum = Math.abs(scrollNum);
-	for(i=0;i<scrollNum;i++)
-	{JavascriptExecutor js = (JavascriptExecutor) driver;
-	Map<String, Object> params = new HashMap<>();
-	if(newTempVal<0) {
-		System.out.println("Scrolling Down "+scrollNum);
-		params.put("order", "previous");
+	public void setDatePicker(int iWheelIndex, int scrollNum) {
+		switchContext("Native");
+		int i = 0;
+		int newTempVal = scrollNum;
+		scrollNum = Math.abs(scrollNum);
+		for (i = 0; i < scrollNum; i++) {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Map<String, Object> params = new HashMap<>();
+			if (newTempVal < 0) {
+				System.out.println("Scrolling Down " + scrollNum);
+				params.put("order", "previous");
 
-	}else {
-		System.out.println("Scrolling Up "+scrollNum);
-		params.put("order", "next");
+			} else {
+				System.out.println("Scrolling Up " + scrollNum);
+				params.put("order", "next");
 
-	}
-	params.put("offset", 0.15);
-	params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
-	js.executeScript("mobile: selectPickerWheelValue", params);	
-	}
+			}
+			params.put("offset", 0.15);
+			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
+			js.executeScript("mobile: selectPickerWheelValue", params);
+		}
 	}
 
 	/**
-	 * Set the time, for the hrs, min, AMPM values, for 24hrs set the is24hrs to true, if 0 value is passed then it will be skipped to be used with setDateTime24hrs / setDateTime12hrs
+	 * Set the time, for the hrs, min, AMPM values, for 24hrs set the is24hrs to
+	 * true, if 0 value is passed then it will be skipped to be used with
+	 * setDateTime24hrs / setDateTime12hrs
 	 * 
 	 * @param sTimeHrs
 	 * @param sTimeMin
 	 * @param sTimeAMPM
 	 * @param is24hrs
 	 */
-	public void timeSetter(String sTimeHrs,String sTimeMin,String sTimeAMPM,Boolean is24hrs )
-	{
-		if(sTimeHrs !="0") {
+	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
+		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 		}
-		if(sTimeMin !="0") {
+		if (sTimeMin != "0") {
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 		}
-		if(is24hrs == false) {
-			if(sTimeAMPM !="0") {
+		if (is24hrs == false) {
+			if (sTimeAMPM != "0") {
 				getEleDatePickerPopUp().get(3).sendKeys(sTimeAMPM);
 			}
 		}
 
-	}				
+	}
 
 	/**
-	 * To get all the values from the picklist and verify with the given set of values in the UI
-	 * @return 
-	 * @throws InterruptedException 
-	 * @param  sActualValues = Values sent to verify the picklist fields on the UI.
+	 * To get all the values from the picklist and verify with the given set of
+	 * values in the UI
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 * @param sActualValues = Values sent to verify the picklist fields on the UI.
 	 */
-	public String[] getAllPicklistValues(CommonsPO commonsPo, WorkOrderPO workOrderPO, String[] sActualValues) throws InterruptedException
-	{
+	public String[] getAllPicklistValues(CommonsPO commonsPo, WorkOrderPO workOrderPO, String[] sActualValues)
+			throws InterruptedException {
 		String[] sVals = new String[sActualValues.length];
 		String sPrevVal = "";
 		String sCurrVal = "";
 		commonsPo.switchContext("Native");
-		for(int i=0;i<=sActualValues.length;i++) {
-			IOSElement PFS = (IOSElement) driver.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
+		for (int i = 0; i <= sActualValues.length; i++) {
+			IOSElement PFS = (IOSElement) driver
+					.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
 			sCurrVal = PFS.getText();
 			Thread.sleep(10000);
 			try {
-				System.out.println("-----------"+PFS);
+				System.out.println("-----------" + PFS);
 
-				System.out.println("sCurrVal -----------"+sCurrVal);
+				System.out.println("sCurrVal -----------" + sCurrVal);
 
-			}
-			catch(Exception e)
-			{
-				System.out.println("The picklist Values couldn't be fetched"+e);
+			} catch (Exception e) {
+				System.out.println("The picklist Values couldn't be fetched" + e);
 			}
 
 			sPrevVal = sCurrVal;
 			sVals[i] = sPrevVal;
 
-			try{commonsPo.scrollPickerWheel(i, 1);}catch(Exception e) {break;}
+			try {
+				commonsPo.scrollPickerWheel(i, 1);
+			} catch (Exception e) {
+				break;
+			}
 
 		}
 		for (String string : sVals) {
-			System.out.println("Array read = "+string);
+			System.out.println("Array read = " + string);
 
 		}
 		commonsPo.switchContext("WebView");
-		return sVals;	
+		return sVals;
 
 	}
 
-
-
 	/**
-	 * Wait until the string is displayed or time elapsed in seconds and returns true or false
+	 * Wait until the string is displayed or time elapsed in seconds and returns
+	 * true or false
+	 * 
 	 * @param wElement
 	 * @param sExpectedValue
 	 * @param lTime
 	 * @return
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
-	public boolean waitForString(WebElement wElement, String sExpectedValue,int lTime) throws InterruptedException
-	{ 	
+	public boolean waitForString(WebElement wElement, String sExpectedValue, int lTime) throws InterruptedException {
 
 		String sSuccessString = null;
-		int lElapsedTime=0;
+		int lElapsedTime = 0;
 
-		while(lElapsedTime!=lTime)
-		{
+		while (lElapsedTime != lTime) {
 			waitforElement(wElement, 1);
-			//Ignore Errors from string not found and wait
-			try{sSuccessString = wElement.getText();}catch(Exception e) {}
-			if(sSuccessString.equals(sExpectedValue))
-			{ 
+			// Ignore Errors from string not found and wait
+			try {
+				sSuccessString = wElement.getText();
+			} catch (Exception e) {
+			}
+			if (sSuccessString.equals(sExpectedValue)) {
 				return true;
 			}
 			lElapsedTime++;
 
 		}
-		//If string not found after waiting return false
+		// If string not found after waiting return false
 		return false;
 
 	}
 
 	/**
 	 * Read a text file
+	 * 
 	 * @param filePath
 	 * @return
 	 * @throws Exception
@@ -735,6 +1076,7 @@ public class CommonsPO
 
 	/**
 	 * Write to a text file
+	 * 
 	 * @param filePath
 	 * @param data
 	 * @throws IOException
@@ -758,12 +1100,14 @@ public class CommonsPO
 	}
 
 	/**
-	 * Verify if the sahi execution was a success based on the sahResultCommon.txt file having true or false
+	 * Verify if the sahi execution was a success based on the sahResultCommon.txt
+	 * file having true or false
+	 * 
 	 * @return
 	 */
 	public Boolean verifySahiExecution() {
-		String sahiResultCommon=null;
-		Boolean result=false;
+		String sahiResultCommon = null;
+		Boolean result = false;
 		try {
 			sahiResultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
 
@@ -791,18 +1135,53 @@ public class CommonsPO
 
 		return result;
 	}
-	
-	public void preReq(GenericLib genericLib,String sScriptName,String sTestCaseID) throws Exception {
-		genericLib.executeSahiScript("appium/"+sScriptName+".sah", sTestCaseID);
+
+	public void preReq(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
+		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
 		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
+
+	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
+			String sScriptName, String sTestCaseId) throws Exception {
+		String sProcessCheck = restServices.restGetSoqlValue(
+				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
+						+ sProcessName + "\'",
+				"SVMXC__Dispatch_Process_Status__c");
+		System.out.println("sProcess check" + sProcessCheck);
+
+		try {
+			if (sProcessCheck.equals("Incomplete")) {
+				System.out.println("Process in InComplete Status");
+				ExtentManager.logger.log(Status.FAIL,
+						"SFM PROCESS in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
+				Assert.assertFalse(sProcessCheck.equals("Incomplete"), "Status is in Incomplete State");
+				return false;
+
+			} else if (sProcessCheck.equals("Complete")) {
+				System.out.println("Process already exists:Proceeding to FSA Automation");
+				ExtentManager.logger.log(Status.PASS, "SFM PROCESS Already Exists and hence proceeding to FSA Client");
+				return false;
+
+			}
+
+		} catch (NullPointerException e) {
+
+			System.out.println("SFM Process returned is null, Creating SFM Process!");
+			preReq(genericLib, sScriptName, sTestCaseId);
+			return true;
+
+		}
+		return false;
 	}
 
 	/**
-	 * Function to click on Allow Pop Up , use try catch in the calling script if needed to avoid false positives
-	 * @throws InterruptedException 
+	 * Function to click on Allow Pop Up , use try catch in the calling script if
+	 * needed to avoid false positives
+	 * 
+	 * @throws InterruptedException
 	 */
-	public void clickAllowPopUp() throws InterruptedException  {
+	public void clickAllowPopUp() throws InterruptedException {
 
 		Thread.sleep(GenericLib.iLowSleep);
 		switchContext("Native");
@@ -817,15 +1196,16 @@ public class CommonsPO
 				driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
 			}
 
-		}catch(Exception e) {System.out.println("  ***** Suppresed exception as popups not displayed");}
-		finally {
+		} catch (Exception e) {
+			System.out.println("  ***** Suppresed exception as popups not displayed");
+		} finally {
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);}
+			Thread.sleep(GenericLib.iLowSleep);
+		}
 	}
 
-	public void lookupSearchOnly(String value)throws InterruptedException
-	{
+	public void lookupSearchOnly(String value) throws InterruptedException {
 		tap(getElesearchTap());
 		getElesearchTap().clear();
 		getElesearchTap().sendKeys(value);
@@ -833,77 +1213,76 @@ public class CommonsPO
 	}
 
 	/**
-	 * General Function to simply scroll any picker wheel based on -ve or +ve index and number times to scroll, see getAllPicklistValues() method for usage example
+	 * General Function to simply scroll any picker wheel based on -ve or +ve index
+	 * and number times to scroll, see getAllPicklistValues() method for usage
+	 * example
+	 * 
 	 * @param iWheelIndex
 	 * @param scrollNum
 	 */
-	public void scrollPickerWheel(int iWheelIndex, int scrollNum)
-	{ 	switchContext("Native");
-	int i=0;
-	int newTempVal = scrollNum;
-	scrollNum = Math.abs(scrollNum);
-	for(i=0;i<scrollNum;i++)
-	{JavascriptExecutor js = (JavascriptExecutor) driver;
-	Map<String, Object> params = new HashMap<>();
-	if(newTempVal<0) {
-		System.out.println("Scrolling Down "+scrollNum);
-		params.put("order", "previous");
+	public void scrollPickerWheel(int iWheelIndex, int scrollNum) {
+		switchContext("Native");
+		int i = 0;
+		int newTempVal = scrollNum;
+		scrollNum = Math.abs(scrollNum);
+		for (i = 0; i < scrollNum; i++) {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Map<String, Object> params = new HashMap<>();
+			if (newTempVal < 0) {
+				System.out.println("Scrolling Down " + scrollNum);
+				params.put("order", "previous");
 
-	}else {
-		System.out.println("Scrolling Up "+scrollNum);
-		params.put("order", "next");
+			} else {
+				System.out.println("Scrolling Up " + scrollNum);
+				params.put("order", "next");
 
-	}
-	params.put("offset", 0.15);
-	params.put("element", getElePickerWheelPopUp());
-	js.executeScript("mobile: selectPickerWheelValue", params);	
-	}
+			}
+			params.put("offset", 0.15);
+			params.put("element", getElePickerWheelPopUp());
+			js.executeScript("mobile: selectPickerWheelValue", params);
+		}
 	}
 
 	/**
 	 * Custom function to return the boolean value for isDiplayed
+	 * 
 	 * @param wElement
 	 * @return
 	 */
 	public boolean isDisplayedCust(WebElement wElement) {
 		boolean isDis = false;
 		switchContext("Webview");
-		try{				System.out.println("Element Is displayed ===== "+wElement.isDisplayed());
-		if(wElement.isDisplayed()) {
-			System.out.println("Element Is displayed returning true");
-			return true;
-		}else{
+		try {
+			System.out.println("Element Is displayed ===== " + wElement.isDisplayed());
+			if (wElement.isDisplayed()) {
+				System.out.println("Element Is displayed returning true");
+				return true;
+			} else {
+				System.out.println("Element Not displayed returning false");
+				return false;
+
+			}
+		} catch (Exception e) {
 			System.out.println("Element Not displayed returning false");
 			return false;
-
 		}
-		}catch(Exception e) {
-			System.out.println("Element Not displayed returning false");
-			return false;
-		}
-
-
-
 
 	}
-	
+
 	public void verticalSwipe() {
 		switchContext("native");
-		Dimension dim  = driver.manage().window().getSize();
+		Dimension dim = driver.manage().window().getSize();
 		int height = dim.getHeight();
 		int width = dim.getWidth();
-		System.out.println("Height of the Screen is "+height);
-		System.out.println("Width of the Screen is "+width);
-		int x= width/2;
-		int starty = (int) (height*0.8);
-		int endy = (int) (height*0.2);
+		System.out.println("Height of the Screen is " + height);
+		System.out.println("Width of the Screen is " + width);
+		int x = width / 2;
+		int starty = (int) (height * 0.8);
+		int endy = (int) (height * 0.2);
 //		new TouchAction(driver).longPress(new PointOption().withCoordinates(x,starty)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,endy)).release();
-		new TouchAction(driver).longPress(new PointOption().withCoordinates(150,900)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(150,60)).release();
+		new TouchAction(driver).longPress(new PointOption().withCoordinates(150, 900))
+				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+				.moveTo(new PointOption().withCoordinates(150, 60)).release();
 	}
 
-
-
 }
-
-
-

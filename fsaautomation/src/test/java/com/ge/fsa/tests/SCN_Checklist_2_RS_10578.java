@@ -105,13 +105,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// Navigating to the checklist
 		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
-		
-		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("10");
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("5");
 		commonsPo.tap(checklistPo.geteleNext());
 		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed");
-		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("300");
-		
+		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"1");
+		ExtentManager.logger.log(Status.PASS,"ChecklistBadgeError Displays 1 - Passed");
+	
 		checklistPo.geteleChecklistAnsDate(sDateq).click();
 	    commonsPo.switchContext("Native");
 	    System.out.println("SEt to native view now will click done");
@@ -123,7 +123,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
-	    
+		commonsPo.tap(checklistPo.geteleNext());
+		
+		
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("300");
+		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"2");
+		ExtentManager.logger.log(Status.PASS,"ChecklistBadgeError Displays 2 - Passed");
+		
 	    checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
 	    commonsPo.switchContext("Native");
 	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
@@ -151,12 +157,12 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    //commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	  
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
+	    commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
 		commonsPo.tap(checklistPo.geteleNext());
 
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date");	 	
 		ExtentManager.logger.log(Status.PASS,"8th June DVR passed date");
-	    commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
+	    commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
 
 		// checklistPo.geteleChecklistAnsDate(sDateq).click();
 		// commonsPo.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "1", "2018");
@@ -164,7 +170,26 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		//ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
 		
 		Thread.sleep(GenericLib.iLowSleep);
+		
+		// DVR BOUNDARY validations
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("9");
+		commonsPo.tap(checklistPo.geteleNext());
+		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
+		
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("101");
+		commonsPo.tap(checklistPo.geteleNext());
+		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
+		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 	  
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
+		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("15");
+		commonsPo.tap(checklistPo.geteleNext());
+	//	Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
+	//	ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
+		
 		// tapping next button
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
