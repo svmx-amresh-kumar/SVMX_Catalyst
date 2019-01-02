@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
@@ -12,6 +13,12 @@ import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527_b extends BaseLib {
+	
+	String sExploreSearch = "AUTOMATION SEARCH";
+	String sExploreChildSearch = "Work Orders";
+	String sFieldProcessName = "AutoReg10529";
+	String sAccountName = "McLaren3";
+	String sProdName = "a1";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
@@ -64,15 +71,14 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		
 		//Create Work Order
 		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
-		System.out.println("Wo ID "+sWoID);
+//		System.out.println("Wo ID "+sWoID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
-		String sProdName = "a1";
+//		System.out.println("WO no ="+sWOName);
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "AutoReg10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sFieldProcessName);
 		//******Validate 4th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
@@ -80,18 +86,23 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts without Account "+contactList.size());
+//		System.out.println("Contacts without Account "+contactList.size());
+		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
+		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+//		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 5th Case******
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
 		commonsPo.tap(workOrderPo.getLblPartAccount());
-		commonsPo.lookupSearch("Acme");
+		commonsPo.lookupSearch(sAccountName);
 		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts with Account Acme "+contactList.size());
+//		System.out.println("Contacts with Account Acme "+contactList.size());
+		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
 		//******Validate 6th Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
-		System.out.println("Waiting");
 		Thread.sleep(GenericLib.iMedSleep);
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
@@ -101,8 +112,10 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("All Accounts "+contactList.size());
-		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+//		System.out.println("All Accounts "+contactList.size());
+//		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
 		
 	}
 }

@@ -121,8 +121,8 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		commonsPo.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
 		
 		//Setting up Auto_date1 greater than Auto_date2		
-	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2019");
-	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
+	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2019");
+	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
 	    
 	    //Setting up scheduled DAtetime to today.
 	   workOrderPo.getEleScheduledDateTimeTxt().click();	   
@@ -199,11 +199,11 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		//commonsPo.setSpecificDateYear(workOrderPo.getEleScheduledDateTimeTxt(),"February", "3", "2019");
 	
 		//setting scheduled date other than today
-		commonsPo.setSpecificDateYear(workOrderPo.getEleScheduledDateLst(),"February", "3", "2019");
+		commonsPo.setSpecificDate(workOrderPo.getEleScheduledDateLst(),"February", "3", "2019");
 	
 		//Setting up Auto_date2 greater than Auto_date1		
-	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2017");
-	    commonsPo.setSpecificDateYear(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");
+	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2017");
+	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");
 		
 		//Setting up billing Type
 		commonsPo.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), "Contract");		

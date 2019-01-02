@@ -54,29 +54,27 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
-//		Thread.sleep(30000);
-//
-//
-//		// To run the Sahi Script before the Execution of Appium
-//		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+
+	//	 To run the Sahi Script before the Execution of Appium
+		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		
 
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
-		//toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		//Thread.sleep(genericLib.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPrice_RS_10538";
@@ -85,7 +83,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		System.out.println(sworkOrderName);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
-		Thread.sleep(2000);
+//		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		
 		
