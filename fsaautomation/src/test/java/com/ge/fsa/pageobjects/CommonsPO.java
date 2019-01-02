@@ -594,32 +594,34 @@ public class CommonsPO {
 	public WebElement getAccessibleElement(String accessibilityID) {
 		return accessibleElement =  driver.findElementByAccessibilityId(accessibilityID);
 	}
+
 	/**
+	 * <pre>
 	 * Set the 24 Hrs time by moving no of day's ahead(+ve) or behind(-ve) followed by Hrs and Min.
 	 * 
 	 * FOR ANDROID :
 	 * 
-	 * For adding one day ahead followed by Hrs and Min: setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),
-	 * 1, “02”,”30”)
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
 	 *
-	 * For only moving no of days +ve or -ve and leaving default Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * For only moving no of days +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
 	 * 
-	 * For current Day, Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
 	 *
 	 *=====================================================================
 	 *
 	 * FOR IOS :
 	 * 
-	 * For adding one day ahead followed by Hrs and Min: setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),
-	 * 1, “02”,”30”)
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
 	 *
-	 * For only moving no of day +ve or -ve and leaving default Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * For only moving no of day +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
 	 * 
-	 * For current Day, Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
 	 *
 	 * @param wElement
 	 * @param iDaysToScroll
@@ -628,6 +630,7 @@ public class CommonsPO {
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 * @throws ParseException
+	 * </pre>
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
@@ -687,6 +690,9 @@ public class CommonsPO {
 	}
 	
 	/**
+	 * <pre>
+	 * This is an overloaded method. @see setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
+	 * 
 	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
 	 * Formats for IOS and Android differ the user needs to switch sDateFormat
 	 * parameter when passing from the test script based on OS!
@@ -711,7 +717,7 @@ public class CommonsPO {
 	 * 
 	 * For current Month, day and year : setDateTime24hrs(
 	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
-	 * 
+	 *
 	 * @param wElement
 	 * @param sDateFormat
 	 * @param sTimeHrs
