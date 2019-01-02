@@ -137,6 +137,18 @@ public class CommonsPO {
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
+			// Since in android or IOS now has clicks and taps alternatively do a click then a tap
+			try {
+				wElement.click();	
+				clickPassed = true;
+				System.out.println("Click passed");
+			} catch (Exception e) {
+				System.out.println("Click failed");
+				clickPassed = false;
+				tapExp = e;
+			}
+			
+			
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
@@ -162,6 +174,7 @@ public class CommonsPO {
 			System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
 					+ wElement.getTagName() + " " + wElement.getLocation());
 
+			
 			// Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
 				x = point.getX() + xNewOffset;
@@ -180,20 +193,9 @@ public class CommonsPO {
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				// Since in android now has clicks and taps alternatively do a click then a tap
-				try {
-					wElement.click();
-					clickPassed = true;
-					System.out.println("Click passed");
-				} catch (Exception e) {
-					System.out.println("Click failed");
-					clickPassed = false;
-					tapExp = e;
-				}
-
+				
 				switchContext("Native");
 				System.out.println("Android Tapping ");
-				switchContext("Native");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -202,15 +204,6 @@ public class CommonsPO {
 			case "ios":
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
-				try {
-					wElement.click();
-					clickPassed = true;
-					System.out.println("Click passed");
-				} catch (Exception e) {
-					System.out.println("Click failed");
-					clickPassed = false;
-					tapExp = e;
-				}
 
 				System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
