@@ -18,69 +18,43 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	
 	String sTestCaseID = "RS_10527";
 	String sScriptName = "Scenario_10527";
-	String sAccountName = "Acme";
+	String sExploreSearch = "AUTOMATION SEARCH";
+	String sExploreChildSearch = "Work Orders";
+	String sProcessName = "AutoReg10529";
+	String sAccountName = "AshwiniAutoAcc";
+	String sAccId = "";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
+//		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
 		// Create Account
-//		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
-//		System.out.println("Fer "+sAccId);
-//		String sAccId1 = restServices.restCreate("Account?","{\"Name\": \"McLaren3\" }");
-//		System.out.println("McLaren "+sAccId1);
-//		String sAccId2 = restServices.restCreate("Account?","{\"Name\": \"Williams3\" }");
-//		System.out.println("Williams "+sAccId2);
-//		String sAccId3 = restServices.restCreate("Account?","{\"Name\": \"Renault3\" }");
-//		System.out.println("Renault "+sAccId3);
-//		String sAccId4 = restServices.restCreate("Account?","{\"Name\": \"Red Bull3\" }");
-//		System.out.println("Red Bull "+sAccId4);
-		
-		// Create Contact
-//		String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Jody33\", \"LastName\": \"Scheckter22\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println("Jacke "+sConId);
-//		String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"John\", \"LastName\": \"Surtees\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId1);
-//		String sConId2 = restServices.restCreate("Contact?","{\"FirstName\": \"Michael\", \"LastName\": \"Schumacher\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId2);
-//		String sConId3 = restServices.restCreate("Contact?","{\"FirstName\": \"Kimi\", \"LastName\": \"Roikkonen\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId3);
-//		String sConId4 = restServices.restCreate("Contact?","{\"FirstName\": \"Sebastian\", \"LastName\": \"Vettel\", \"AccountId\": \""+sAccId4+"\"}");
-//		System.out.println(sConId4);
-//		String sConId5 = restServices.restCreate("Contact?","{\"FirstName\": \"Fernando\", \"LastName\": \"Alonso\", \"AccountId\": \""+sAccId3+"\"}");
-//		System.out.println(sConId5);
-//		String sConId6 = restServices.restCreate("Contact?","{\"FirstName\": \"Mika\", \"LastName\": \"Hakkinen\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId6);
-//		String sConId7 = restServices.restCreate("Contact?","{\"FirstName\": \"Ayrton\", \"LastName\": \"Senna\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId7);
-//		String sConId8 = restServices.restCreate("Contact?","{\"FirstName\": \"James\", \"LastName\": \"Hunt\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId8);
-//		String sConId9 = restServices.restCreate("Contact?","{\"FirstName\": \"Damon\", \"LastName\": \"Hill\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId9);
-//		String sConId10 = restServices.restCreate("Contact?","{\"FirstName\": \"Nigel\", \"LastName\": \"Mansel\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId10);
-//		String sConId11 = restServices.restCreate("Contact?","{\"FirstName\": \"Jacques\", \"LastName\": \"Villeneuve\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId11);
-//		String sConId12 = restServices.restCreate("Contact?","{\"FirstName\": \"Alan\", \"LastName\": \"Jones\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId12);
-//		String sConId13 = restServices.restCreate("Contact?","{\"FirstName\": \"Keke\", \"LastName\": \"Roseberg\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId13);
-//		String sConId14 = restServices.restCreate("Contact?","{\"FirstName\": \"Stirling\",\"LastName\": \"Moss\"}");
-//		System.out.println(sConId14);
-//		String sConId15 = restServices.restCreate("Contact?","{\"FirstName\": \"David\",\"LastName\": \"Coulthard\"}");
-//		System.out.println(sConId15);
+		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
+		System.out.println(sAccCount);
+		if(Integer.parseInt(sAccCount)==0) {
+			sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccountName+"\"}");
+			System.out.println("The Acc Id of "+sAccountName+" is "+sAccId);
+			// Create Contact
+			String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Shane\", \"LastName\": \"Shalken\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("SS "+sConId);
+			String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"Tim\", \"LastName\": \"Shalken\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("TS "+sConId1);
+			String sConId2 = restServices.restCreate("Contact?","{\"FirstName\": \"Ronald\", \"LastName\": \"Ross\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("RR "+sConId2);
+		}
 		
 		//******Creating Work Order******
 		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
-		System.out.println("Wo ID "+sWoID);
+//		System.out.println("Wo ID "+sWoID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
+//		System.out.println("WO no ="+sWOName);
 //		String sProdName = "a1";
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
+	//	toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "AutoReg10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		//******Validate 1st Case******
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();

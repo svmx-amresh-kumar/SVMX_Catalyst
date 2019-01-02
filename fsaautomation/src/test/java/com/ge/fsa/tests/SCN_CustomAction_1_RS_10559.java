@@ -1,6 +1,7 @@
 package com.ge.fsa.tests;
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,8 +15,13 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
-	@Test(retryAnalyzer=Retry.class)
-	public void RS_10559() throws InterruptedException {
+	@Test//(retryAnalyzer=Retry.class)
+	public void RS_10559() throws InterruptedException, IOException {
+		
+		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+//		System.out.println(sWORecordID);
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
+//		System.out.println("WO no ="+sWOName);
 		String sWebServiceState = "Nottingham Shire";
 		String sWebServiceCountry = "United Kingdom";
 		DateFormat dateFormat = new SimpleDateFormat("M/d/yy");
@@ -25,7 +31,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "10559_Action");
+		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 //		Thread.sleep(GenericLib.iLowSleep);
 		// Validating Step 1
 		Assert.assertTrue(workOrderPo.getEleLblStateName().getText().equals(sWebServiceState));
@@ -40,7 +46,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 			commonsPo.tap(workOrderPo.getEleSaveLnk());
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
-			workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "10559_Action_Child");
+			workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 			Thread.sleep(GenericLib.iHighSleep);
 //			System.out.println("Wait Completed");
 //			workOrderPo.getEleclickparts("Prod03082018171757").click();

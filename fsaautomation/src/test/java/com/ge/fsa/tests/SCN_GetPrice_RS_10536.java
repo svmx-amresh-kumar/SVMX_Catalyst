@@ -111,6 +111,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538),10,10);
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit1 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -180,6 +181,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
+		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))),10,10);
 		
 		// To verify the values of the Next Addition of PArts
 		

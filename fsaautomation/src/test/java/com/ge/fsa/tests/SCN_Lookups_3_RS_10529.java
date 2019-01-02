@@ -14,8 +14,16 @@ import com.ge.fsa.pageobjects.WorkOrderPO;
 
 public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	
-	@Test(retryAnalyzer=Retry.class)
-	public void RS_10529() throws InterruptedException, IOException{
+	String sTestCaseID = "RS_10529";
+	String sScriptName = "Scenario_10529";
+	String sExploreSearch = "AUTOMATION SEARCH";
+	String sExploreChildSearch = "Work Orders";
+	String sProcessName = "Auto_Reg_10529";
+	
+	@Test//(retryAnalyzer=Retry.class)
+	public void RS_10529() throws Exception{
+		
+//		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Location with Country
 		String sLocName = "HCSLocation";
@@ -46,9 +54,9 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo); // To get the work Order and Products
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsPo); // To get the SFM Wizard
+//		toolsPo.configSync(commonsPo); // To get the SFM Wizard
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Auto_Reg_10529");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(commonsPo.getElesearchTap());
 		commonsPo.getElesearchTap().clear();
