@@ -38,12 +38,21 @@ public class ToolsPO
 	{
 		return eleSyncDataNowLnk;
 	}
-	@FindBy(xpath="//*[text() = 'Sync Config Now']")
+	
+	/*@FindBy(xpath="//*[text() = 'Sync Config Now']")
 	private WebElement eleSyncConfigNowLnk;
 	public WebElement geteleSyncConfigNowLnk()
 	{
 		return eleSyncConfigNowLnk;
-	}	
+	}	*/
+		
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Sync Config Now']")
+	private WebElement eleSyncConfigNowLnk;
+	public WebElement geteleSyncConfigNowLnk()
+	{
+		return eleSyncConfigNowLnk;
+	}
+
 	
 	
 	@FindBy(xpath="//span[text() ='Reset Application'][@class='x-button-label']")
@@ -73,7 +82,14 @@ public class ToolsPO
 		return eleRefreshingViewTxt;
 	}
 	
-	@FindBy(xpath="//*[text()='OK']")
+	/*@FindBy(xpath="//*[text()='OK']")
+	private WebElement eleOkBtn;
+	public WebElement getEleOkBtn()
+	{
+		return eleOkBtn;
+	}*/
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleOkBtn;
 	public WebElement getEleOkBtn()
 	{
@@ -101,7 +117,8 @@ public class ToolsPO
 		return eleConfigSyncBarMenuLnk;
 	}	
 	
-	@FindBy(xpath="//*[text()='Cancel']")
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+	//@FindBy(xpath="//*[text()='Cancel']")
 	private WebElement eleCancelConfigSyncBtn;
 	public WebElement geteleCancelConfigSyncBtn()
 	{
@@ -208,15 +225,15 @@ public class ToolsPO
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 
 			
-			commonsPo.tap(geteleSyncConfigNowLnk());	
+			commonsPo.tap(geteleSyncConfigNowLnk());
+			Thread.sleep(GenericLib.iLowSleep);
 			commonsPo.tap(getEleOkBtn());
+			Thread.sleep(GenericLib.iMedSleep);
 			//Canceling sync in order to reset the config sync status.
 			commonsPo.waitforElement(eleCancelConfigSyncBtn, 30);
 			commonsPo.tap(eleCancelConfigSyncBtn,20,20);
 			Thread.sleep(3000);
-			
 			commonsPo.tap(geteleSyncConfigNowLnk());	
-		
 			commonsPo.tap(getEleOkBtn());
 			System.out.println("Begining config sync");
 	
@@ -293,5 +310,17 @@ public class ToolsPO
 			return eleApply;
 		}
 		
+		public void OptionalConfigSync(ToolsPO toolsPo,CommonsPO commonsPo, Boolean bProcessCheckResult) throws InterruptedException
+		{
+		if(bProcessCheckResult.booleanValue()== true)
+		{
+			toolsPo.configSync(commonsPo);
+		}
+		else 
+		{
+			ExtentManager.logger.log(Status.INFO,"SFM process check return false: SFM Process exists");
+			System.out.println("skipping config sync as SFM process check return false: SFM Process exists");
+		}
+		}
 		
 }
