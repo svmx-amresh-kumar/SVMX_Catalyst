@@ -47,7 +47,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	String  sUsageLine=null;
 	String sRecordTypeId=null;
 	String sworkDetail=null;
-	Boolean bProcessCheckResult;
+	Boolean bProcessCheckResult  = false;
 	String sScriptName = "RS_10544_Source_Object_Update";
 	//Source object update values
 			
@@ -73,6 +73,14 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			String sTestIB = null;
 			String sTestIBID=null;
 			String sProductId = null;
+			
+			//For SFM Process Sahi Script name
+		
+		
+			
+			
+		//    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+
 			
 			public void prerequisites() throws Exception
 			{
@@ -154,10 +162,13 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
-		if(bProcessCheckResult.booleanValue()== true)
+	/*	if(bProcessCheckResult.booleanValue()== true)
 		{
 			toolsPo.configSync(commonsPo);
-		}
+		}*/
+		
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);

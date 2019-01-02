@@ -72,6 +72,9 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
 	String sSheetName =null;
 	
+	String sScriptName="Scenario_RS10580_Checklist_Sections";
+	Boolean bProcessCheckResult  = false;
+	
 	
 	public void prerequisites() throws Exception
 	{
@@ -96,6 +99,9 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		sWOName1= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName1);	
+		
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+
 				
 		//sWOName1 = "WO-00001615";
 		
@@ -108,6 +114,8 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);

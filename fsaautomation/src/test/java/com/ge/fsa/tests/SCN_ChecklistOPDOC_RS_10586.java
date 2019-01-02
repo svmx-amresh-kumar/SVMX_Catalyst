@@ -62,6 +62,10 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	String sSoqlQueryTech = null;
 	String sTechnician_ID = null;
 	
+	//For SFM Process Sahi Script name
+	String sScriptName="Scenario_RS10586_ChecklistOPDOC_DynamicnStaticRes";
+	Boolean bProcessCheckResult  = false;
+	
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
 
@@ -99,12 +103,13 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 		//	String sEventName = "AUTO_10586Event";
 			//String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWORecordID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
+				bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 		//sWOName="WO-00002612";
 	}
 	
 	@Test(retryAnalyzer=Retry.class)
-	public void SCN_ChecklistOPDOC_RS_10586() throws Exception {
+	public void RS_10586() throws Exception {
 		
 		//Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
@@ -141,7 +146,9 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	
 			prerequisites();
 			// Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);			
+			loginHomePo.login(commonsPo, exploreSearchPo);	
+		    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+
 			//toolsPo.configSync(commonsPo);
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
