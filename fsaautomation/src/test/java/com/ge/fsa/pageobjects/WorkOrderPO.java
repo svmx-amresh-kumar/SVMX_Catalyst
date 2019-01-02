@@ -673,7 +673,14 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCancelLnk;
 		}
-	
+		
+		@FindBy(xpath="//input[@class='opdoc-cancel-button']")
+		private WebElement eleOPDOCCancelLnk;
+		public WebElement geteleOPDOCCancelLnk()
+		{
+			return eleOPDOCCancelLnk;
+		}
+		
 		// Added by Harish.CS
 		private WebElement eleOnTreeView;
 		public WebElement getEleOnTreeView(String eleName) {
