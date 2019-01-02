@@ -111,7 +111,10 @@ public class CommonsPO {
 		// eleSearchListItem =
 		// driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
 		eleSearchListItem = driver.findElement(By.xpath("//*[.='" + searchName + "'][@class = 'x-gridcell']"));
+	
+		
 		return eleSearchListItem;
+
 	}
 
 	// Customized touch Tap
@@ -511,7 +514,7 @@ public class CommonsPO {
 		getElesearchTap().clear();
 		getElesearchTap().sendKeys(value);
 		tap(getElesearchButton());
-		tap(getElesearchButton(),30,36);
+		//tap(getElesearchButton(),30,36);
 		tap(getElesearchListItem(value));
 
 	}
