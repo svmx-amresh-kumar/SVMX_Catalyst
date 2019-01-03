@@ -1474,15 +1474,13 @@ import org.openqa.selenium.Rotatable;
 			getEleLinePerUnitTxtFld().sendKeys("1000");
 			Thread.sleep(1000);
 			commonsPo.tap(getEleDeadTimeLst());
-			try {
+		
+				if(commonsPo.isDisplayedCust(getEleclickCancel()))
+				{
 					commonsPo.tap(getEleclickCancel());
 					Thread.sleep(2000);
-					
 				}
-			catch(Exception e)
-			{
-				System.out.println("Cancel Button is not button is not found");
-			}
+				
 			commonsPo.tap(getEleDoneBtn());
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
