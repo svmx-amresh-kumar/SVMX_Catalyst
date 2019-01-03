@@ -1825,6 +1825,15 @@ import org.openqa.selenium.Rotatable;
 			return Laborontap;
 		}
 	
+		@FindBy(xpath="(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[2]")
+		private WebElement Laboronsecondprt;
+		public WebElement getLaboronsecondprt()
+		{
+			return Laboronsecondprt;
+		}
+	
+		
+		
 	
 		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement DateRequired;
@@ -2120,7 +2129,7 @@ import org.openqa.selenium.Rotatable;
 		}
 
 
-		@FindBy(xpath="(//div[contains(text(), 'P10556_Auto')][@class='x-inner-el'])[2]")
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-inner x-container-inner x-layout-auto x-component-inner x-widthed'])[3]")
 		private WebElement eletaponfirstpart;
 		public WebElement geteletaponfirstpart()
 		{
