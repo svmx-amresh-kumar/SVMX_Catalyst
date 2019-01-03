@@ -165,7 +165,9 @@
               			<mkdir dir="${testng-report-dir}" />
               			<!--Make sure the classpathref is set properly -->
               			<testng  classpathref="fsaautomation.classpath" useDefaultListeners="true">
-              				<xmlfileset dir="${basedir}" includes="${Track_Build}" />
+              				<!-- ${Track_Build} is derived from jenkins -->
+              				<property name="jenkins_track_build" value="${jenkins_browser_name}"/>
+              				<xmlfileset dir="${basedir}" includes="${jenkins_track_build}" />
               			</testng>
               		</target>
 	
