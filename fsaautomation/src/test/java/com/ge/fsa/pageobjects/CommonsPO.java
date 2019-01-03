@@ -67,8 +67,8 @@ public class CommonsPO {
 	Iterator<String> iterator = null;
 	public static String sNativeApp = null;
 	public static String sWebView = null;
-	int xOffset = 15;
-	int yOffset = 18;
+	int xOffset = BaseLib.sOSName.equalsIgnoreCase("android")?30:15;
+	int yOffset = BaseLib.sOSName.equalsIgnoreCase("android")?36:18;
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
