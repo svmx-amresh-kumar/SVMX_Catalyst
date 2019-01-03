@@ -350,7 +350,7 @@ import org.openqa.selenium.Rotatable;
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
@@ -1545,11 +1545,11 @@ import org.openqa.selenium.Rotatable;
 		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
+			//commonsPo.tap(workOrderPo.getEleAddExpenseType());
 			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			//commonsPo.tap(getEleUsePriceToggleBtn(),20,20);
 			getEleLineQtyTxtFld().sendKeys(sLineQty);
 			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
 			commonsPo.tap(getEleDoneBtn());
