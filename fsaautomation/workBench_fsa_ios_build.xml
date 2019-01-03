@@ -163,7 +163,7 @@
 	<!-- Make sure all the dependencies are executed first so mention them as :: depends="cleanall,build,build-project" -->
               		<target name="testng-execution" depends="cleanall,build,build-project">
               			<mkdir dir="${testng-report-dir}" />
-          				<property name="jenkins_track_build" value="${Track_Build}"/>
+          				<property name="jenkins_track_build"/>
 
               			<!--Make sure the classpathref is set properly -->
               			<testng  classpathref="fsaautomation.classpath" useDefaultListeners="true">
