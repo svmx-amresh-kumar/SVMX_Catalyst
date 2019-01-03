@@ -165,7 +165,7 @@
               			<mkdir dir="${testng-report-dir}" />
               			<!--Make sure the classpathref is set properly -->
               			<testng  classpathref="fsaautomation.classpath" useDefaultListeners="true">
-              				<xmlfileset dir="${basedir}" includes="workBench_testng.xml" />
+              				<xmlfileset dir="${basedir}" includes="${Track_Build}" />
               			</testng>
               		</target>
 	
