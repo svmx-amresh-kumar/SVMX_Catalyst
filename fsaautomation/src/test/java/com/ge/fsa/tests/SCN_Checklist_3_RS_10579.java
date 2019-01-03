@@ -77,7 +77,9 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 	String sBillingTpeSOUServer ="Paid";
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
 	String sSheetName =null;
-
+	String sScriptName="Scenario_RS10579_Checklist_Combo";
+	Boolean bProcessCheckResult  = false;
+	
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10579";
@@ -125,6 +127,10 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName4);				
 		//sWOName1 = "WO-00001615";		
+		
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+
+		
 	}
 	
 	//@Test(retryAnalyzer=Retry.class)
@@ -133,6 +139,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
@@ -293,6 +300,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			Thread.sleep(GenericLib.iLowSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());
 			Set contextNames = driver.getContextHandles();
+			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println(driver.getContext());
 			driver.context(contextNames.toArray()[2].toString());
 			String url = driver.getCurrentUrl();

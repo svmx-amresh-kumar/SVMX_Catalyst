@@ -67,8 +67,8 @@ public class CommonsPO {
 	Iterator<String> iterator = null;
 	public static String sNativeApp = null;
 	public static String sWebView = null;
-	int xOffset = 15;
-	int yOffset = 18;
+	int xOffset = BaseLib.sOSName.equalsIgnoreCase("android")?30:15;
+	int yOffset = BaseLib.sOSName.equalsIgnoreCase("android")?36:18;
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
@@ -111,7 +111,10 @@ public class CommonsPO {
 		// eleSearchListItem =
 		// driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
 		eleSearchListItem = driver.findElement(By.xpath("//*[.='" + searchName + "'][@class = 'x-gridcell']"));
+	
+		
 		return eleSearchListItem;
+
 	}
 
 	// Customized touch Tap
@@ -137,6 +140,18 @@ public class CommonsPO {
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
+			// Since in android or IOS now has clicks and taps alternatively do a click then a tap
+			try {
+				wElement.click();	
+				clickPassed = true;
+				System.out.println("Click passed");
+			} catch (Exception e) {
+				System.out.println("Click failed");
+				clickPassed = false;
+				tapExp = e;
+			}
+			
+			
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
@@ -162,6 +177,7 @@ public class CommonsPO {
 			System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
 					+ wElement.getTagName() + " " + wElement.getLocation());
 
+			
 			// Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
 				x = point.getX() + xNewOffset;
@@ -180,20 +196,9 @@ public class CommonsPO {
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				// Since in android now has clicks and taps alternatively do a click then a tap
-				try {
-					wElement.click();
-					clickPassed = true;
-					System.out.println("Click passed");
-				} catch (Exception e) {
-					System.out.println("Click failed");
-					clickPassed = false;
-					tapExp = e;
-				}
-
+				
 				switchContext("Native");
 				System.out.println("Android Tapping ");
-				switchContext("Native");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -202,15 +207,6 @@ public class CommonsPO {
 			case "ios":
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
-				try {
-					wElement.click();
-					clickPassed = true;
-					System.out.println("Click passed");
-				} catch (Exception e) {
-					System.out.println("Click failed");
-					clickPassed = false;
-					tapExp = e;
-				}
 
 				System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
@@ -369,22 +365,30 @@ public class CommonsPO {
 	public void Enablepencilicon(WebElement wElement) {
 		int offset = 30;
 		Point point = wElement.getLocation();
-		int x = point.getX();
-		int y = point.getY();
+		int x = point.getX()+xOffset;
+		int y = point.getY()+yOffset;
 
-		int xOff = x + 100;
-		// int yOff = y-100;
+		int xOff = x + 200;
 		touchAction = new TouchAction(driver);
-		// touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new
-		// PointOption().withCoordinates(20, 20)).release().perform();
-		// touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new
-		// WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new
-		// PointOption().withCoordinates((x-5), 0)).release().perform();
+		switch (BaseLib.sOSName) {
+		case "android":
 
-		touchAction.press(new PointOption().withCoordinates(x, y))
-				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-				.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
-		// touchAction.tap(new PointOption().withCoordinates(x,y));
+			// For Android add *2 if real device
+			switchContext("Native");
+			touchAction.longPress(new PointOption().withCoordinates(x, y))
+					.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+					.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			switchContext("webview");
+			break;
+
+		case "ios":
+			
+			touchAction.longPress(new PointOption().withCoordinates(x, y))
+			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			break;
+
+		}
 	}
 
 	// To search the element scrolling
@@ -498,7 +502,9 @@ public class CommonsPO {
 				}
 			} catch (Exception ex) {
 			}
+
 			lElapsedTime++;
+
 
 		}
 
@@ -591,32 +597,34 @@ public class CommonsPO {
 	public WebElement getAccessibleElement(String accessibilityID) {
 		return accessibleElement =  driver.findElementByAccessibilityId(accessibilityID);
 	}
+
 	/**
+	 * <pre>
 	 * Set the 24 Hrs time by moving no of day's ahead(+ve) or behind(-ve) followed by Hrs and Min.
 	 * 
 	 * FOR ANDROID :
 	 * 
-	 * For adding one day ahead followed by Hrs and Min: setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),
-	 * 1, “02”,”30”)
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
 	 *
-	 * For only moving no of days +ve or -ve and leaving default Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * For only moving no of days +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
 	 * 
-	 * For current Day, Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
 	 *
 	 *=====================================================================
 	 *
 	 * FOR IOS :
 	 * 
-	 * For adding one day ahead followed by Hrs and Min: setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),
-	 * 1, “02”,”30”)
+	 * For adding one day ahead followed by Hrs and Min: 
+	 * setDateTime24hrs( workOrderPo.getEleIBScheduledTxtFld(),1, “02”,”30”)
 	 *
-	 * For only moving no of day +ve or -ve and leaving default Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
+	 * For only moving no of day +ve or -ve and leaving default Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 1, “0”,”0”)
 	 * 
-	 * For current Day, Hrs and Min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
+	 * For current Day, Hrs and Min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), 0, “0”,”0”)
 	 *
 	 * @param wElement
 	 * @param iDaysToScroll
@@ -625,6 +633,7 @@ public class CommonsPO {
 	 * @param sTimeAMPM
 	 * @throws InterruptedException
 	 * @throws ParseException
+	 * </pre>
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
@@ -681,6 +690,119 @@ public class CommonsPO {
 			Thread.sleep(GenericLib.iLowSleep);
 
 		}
+	}
+	
+	/**
+	 * <pre>
+	 * This is an overloaded method. @see setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
+	 * 
+	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
+	 * Formats for IOS and Android differ the user needs to switch sDateFormat
+	 * parameter when passing from the test script based on OS!
+	 * 
+	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
+	 * 
+	 * For adding Month Day and Year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
+	 *
+	 * For current Month, day and year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * 
+	 * =====================================================================
+	 * 
+	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
+	 * 
+	 * For adding DateFormat, hrs and min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
+	 *
+	 * For adding DateFormat and leaving default hrs and min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
+	 * 
+	 * For current Month, day and year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 *
+	 * @param wElement
+	 * @param sDateFormat
+	 * @param sTimeHrs
+	 * @param sTimeMin
+	 * @throws InterruptedException
+	 */
+
+	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
+			throws InterruptedException {
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			// Set current date if all paramters are "0"
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				// For android extract the month day and year from sDateFormat
+				String[] sAndyDateFormat = sDateFormat.split(" ");
+				String sMonth = sAndyDateFormat[0];
+				String sDay = sAndyDateFormat[1];
+				String sYear = sAndyDateFormat[2];
+
+				String date = getDatePicker().getText();
+				date = date + " " + getYearPicker().getText();
+				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
+				Date monthDate = convertStringToDate("MMMM", sMonth);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(monthDate);
+				cal.set(Integer.valueOf(sYear), cal.get(Calendar.MONTH), Integer.valueOf(sDay));
+				Date newDate = cal.getTime();
+				String selectDate = converDateToString("dd MMMM yyyy", newDate);
+				int count = 0;
+				// Check only for 10 year ahead or behind in calendar
+				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count < 120) {
+					if (currentDate.before(newDate)) {
+						getAccessibleElement("Next month").click();
+					} else {
+						getAccessibleElement("Previous month").click();
+					}
+					count++;
+				}
+				// Select the date
+				getAccessibleElement(selectDate).click();
+				getCalendarDone().click();
+				// set current or specific time
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getCalendarDone().click();
+
+				} else {
+					getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+					getCalendarDone().click();
+				}
+				switchContext("Webview");
+			}
+			break;
+		case "ios":
+			wElement.click();
+			switchContext("Native");
+			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+				Thread.sleep(1000);
+				getCalendarDone().click();
+			} else {
+				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
+				if (sTimeHrs == "0" && sTimeMin == "0") {
+					getEleDonePickerWheelBtn().click();
+
+				} else {
+					timeSetter(sTimeHrs, sTimeMin, "", true);
+					getEleDonePickerWheelBtn().click();
+				}
+
+				switchContext("Webview");
+				Thread.sleep(GenericLib.iLowSleep);
+			}
+		}
+
 	}
 	
 	/**
@@ -764,115 +886,7 @@ public class CommonsPO {
 
 	}
 
-	/**
-	 * For setting the DateTime. !! NOTE : Only for this method Since the Date
-	 * Formats for IOS and Android differ the user needs to switch sDateFormat
-	 * parameter when passing from the test script based on OS!
-	 * 
-	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
-	 * 
-	 * For adding Month Day and Year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
-	 *
-	 * For current Month, day and year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
-	 * 
-	 * =====================================================================
-	 * 
-	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
-	 * 
-	 * For adding DateFormat, hrs and min : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
-	 *
-	 * For adding DateFormat and leaving default hrs and min : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
-	 * 
-	 * For current Month, day and year : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
-	 * 
-	 * @param wElement
-	 * @param sDateFormat
-	 * @param sTimeHrs
-	 * @param sTimeMin
-	 * @throws InterruptedException
-	 */
-
-	public void setSpecificDateTime(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
-			throws InterruptedException {
-		switch (BaseLib.sOSName) {
-		case "android":
-			switchContext("Webview");
-			tap(wElement, 30, 36);
-			switchContext("Native");
-			// Set current date if all paramters are "0"
-			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
-				Thread.sleep(1000);
-				getCalendarDone().click();
-			} else {
-				// For android extract the month day and year from sDateFormat
-				String[] sAndyDateFormat = sDateFormat.split(" ");
-				String sMonth = sAndyDateFormat[0];
-				String sDay = sAndyDateFormat[1];
-				String sYear = sAndyDateFormat[2];
-
-				String date = getDatePicker().getText();
-				date = date + " " + getYearPicker().getText();
-				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
-				Date monthDate = convertStringToDate("MMMM", sMonth);
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(monthDate);
-				cal.set(Integer.valueOf(sYear), cal.get(Calendar.MONTH), Integer.valueOf(sDay));
-				Date newDate = cal.getTime();
-				String selectDate = converDateToString("dd MMMM yyyy", newDate);
-				int count = 0;
-				// Check only for 10 year ahead or behind in calendar
-				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count < 120) {
-					if (currentDate.before(newDate)) {
-						getAccessibleElement("Next month").click();
-					} else {
-						getAccessibleElement("Previous month").click();
-					}
-					count++;
-				}
-				// Select the date
-				getAccessibleElement(selectDate).click();
-				getCalendarDone().click();
-				// set current or specific time
-				if (sTimeHrs == "0" && sTimeMin == "0") {
-					getCalendarDone().click();
-
-				} else {
-					getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
-					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
-					getCalendarDone().click();
-				}
-				switchContext("Webview");
-			}
-			break;
-		case "ios":
-			wElement.click();
-			switchContext("Native");
-			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
-				Thread.sleep(1000);
-				getCalendarDone().click();
-			} else {
-				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
-				if (sTimeHrs == "0" && sTimeMin == "0") {
-					getEleDonePickerWheelBtn().click();
-
-				} else {
-					timeSetter(sTimeHrs, sTimeMin, "", true);
-					getEleDonePickerWheelBtn().click();
-				}
-
-				switchContext("Webview");
-				Thread.sleep(GenericLib.iLowSleep);
-			}
-		}
-
-	}
+	
 	
 	/**
 	 * Set the time form the date picker wheels in 12hrs format, passing 0 for

@@ -24,6 +24,11 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	String sObjectProID = null;
 	String sProductName = null;
 	String sContactName = null;
+	String sWorkOrderCnt=null;
+	String sProductCnt=null;
+	String sAccountCnt=null;
+	String sContactCnt=null;
+	
 	
 	private void preRequiste() throws Exception  
 	{
@@ -65,8 +70,6 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	{
 		sTestID = "RS_10549";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		
-	
 		preRequiste();
 
 		//Pre Login to app
@@ -75,27 +78,47 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-
+		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
-		//Navigation to SFM
+		//Navigation to SFM search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		
+		//Validation of WorkOrder object search and count
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10549 Multi Field WO Search text is successfully displayed");
-	
+		sSqlQuery ="SELECT count() FROM SVMXC__Service_Order__c";				
+		sWorkOrderCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
+		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").getText().contains(sWorkOrderCnt), "Invalid WorkOrder count is displayed.");
+		ExtentManager.logger.log(Status.PASS,"Valid WorkOrder count is displayed.");
+		
+		//Validation of Contacts object search and count
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Contacts").isDisplayed(), "Contacts for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Contacts for RS_10549 Multi Field WO Search text is successfully displayed");
+		sSqlQuery ="SELECT count() FROM Contact";				
+		sContactCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
+		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Contacts").getText().contains(sContactCnt), "Invalid Contact count is displayed.");
+		ExtentManager.logger.log(Status.PASS,"Valid Contact count is displayed.");
 		
+		//Validation of Products object search and count
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Products").isDisplayed(), "Products for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Products for RS_10549 Multi Field WO Search text is successfully displayed");
-		
+		sSqlQuery ="SELECT count() FROM Product2";				
+		sProductCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
+		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Products").getText().contains(sProductCnt), "Invalid Product count is displayed.");
+		ExtentManager.logger.log(Status.PASS,"Valid Product count is displayed.");
+
+		//Validation of Accounts object search and count
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Accounts").isDisplayed(), "Accounts for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Accounts for RS_10549 SFM Search is successfully displayed");
-			
+		sSqlQuery ="SELECT count() FROM Account";				
+		sAccountCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
+		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Accounts").getText().contains(sAccountCnt), "Invalid Account count is displayed.");
+		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.");
+
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders", sWOName, null);
 		Thread.sleep(GenericLib.iLowSleep);

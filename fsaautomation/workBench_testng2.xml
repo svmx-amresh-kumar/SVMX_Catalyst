@@ -9,136 +9,32 @@
   <test name="Test1">
 		<classes>
 			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test2">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test3">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test4">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test5">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test6">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test7">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test8">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" />
-
-		</classes>
-	</test> <!-- Test -->
-	<test name="Test9">
-		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />
-			<class name="com.ge.fsa.tests.Scenario1Test" />
-			<class name="com.ge.fsa.tests.Scenario2Test" />
-			<class name="com.ge.fsa.tests.Scenario7Test" />
-			<class name="com.ge.fsa.tests.Scenario3Test" />
-			<class name="com.ge.fsa.tests.Scenario4Test" />
-			<class name="com.ge.fsa.tests.Scenario5Test" />
-			<!-- <class name="com.ge.fsa.tests.Scenario6Test"/> -->
-			<class name="com.ge.fsa.tests.Scenario8Test" />
-			<class name="com.ge.fsa.tests.Scenario9Test" /> 
-
-		</classes>
-	</test> <!-- Test -->
+			<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_6_RS_10525" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
+			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.SCN_Calender_3_RS_11859" />
+			<class name="com.ge.fsa.tests.SCN_Calendar_2_RS_10512" />
+			<class name="com.ge.fsa.tests.SCN_Calender_4_RS_10514" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
+			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />	
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
+			<class name="com.ge.fsa.tests.SCN_GetPriceNotCovered_RS_10532" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_1_RS_10527_b" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_1_RS_10527" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_2_RS_10528" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_3_RS_10529" />
+			<class name="com.ge.fsa.tests.SCN_Lookups_4_10530" />
+			<class name="com.ge.fsa.tests.SCN_CustomAction_1_RS_10559" />
+			<class name="com.ge.fsa.tests.SCN_CustomAction_2_RS_10558" />
+			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
+			<class name="com.ge.fsa.tests.SCN_Creating_Editing_RS_10574" />
+			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" />
+			
+			</classes>
+			</test>
 </suite> <!-- Suite -->

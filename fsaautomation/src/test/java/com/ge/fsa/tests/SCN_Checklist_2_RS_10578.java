@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -34,6 +33,8 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sOrderStatusVal = null;
 	String sEditProcessName = null;
 	String sWORecordID = null;
+	String sScriptName="Scenario_RS10578_Checklist_DVR";
+
 
 	// checklist q's set--
 
@@ -52,6 +53,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	// For ServerSide Validations
 	String schecklistStatus = "Completed";
 	String sSheetName =null;
+	boolean bProcessCheckResult = false;
 	
 	public void prerequisites() throws Exception
 	
@@ -78,6 +80,9 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		sWOName = restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
+		
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+
 
 		// sWOName = "WO-00001266";
 	}
@@ -90,7 +95,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);

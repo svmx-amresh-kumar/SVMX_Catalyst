@@ -58,6 +58,10 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	String SBillingType = "Warranty";
 	String sSheetName =null;
 	
+	//For SFM Process Sahi Script name
+		String sScriptName="SCN_DVR_RS_10550";
+		Boolean bProcessCheckResult  = false;
+	
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10550";
@@ -90,7 +94,11 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 		// Creating Product from API
 				sProductName = "RS10550Product";
-				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");					
+				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");	
+				
+				bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+		
+				
 	}
 	
 	@Test(retryAnalyzer=Retry.class)
@@ -99,6 +107,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		prerequisites();
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);		
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		//Config sync for the process to come in FSA.
 		//toolsPo.configSync(commonsPo);

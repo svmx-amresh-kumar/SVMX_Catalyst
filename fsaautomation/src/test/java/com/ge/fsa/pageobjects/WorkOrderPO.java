@@ -59,9 +59,18 @@ import org.openqa.selenium.Rotatable;
 		private WebElement eleActionsTxtWithIcon;
 		public WebElement getEleActionsTxtWithIcon(String sActionsName)
 		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+//			System.out.println(eleActionsTxt);
 			return eleActionsTxtWithIcon;
 		}
+		
+		@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='10558_Action']")
+		private WebElement test;
+		public WebElement getTest() {
+			return test;
+		}
+		
+		
 		
 	
 		@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
@@ -341,7 +350,7 @@ import org.openqa.selenium.Rotatable;
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
@@ -664,7 +673,14 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCancelLnk;
 		}
-	
+		
+		@FindBy(xpath="//input[@class='opdoc-cancel-button']")
+		private WebElement eleOPDOCCancelLnk;
+		public WebElement geteleOPDOCCancelLnk()
+		{
+			return eleOPDOCCancelLnk;
+		}
+		
 		// Added by Harish.CS
 		private WebElement eleOnTreeView;
 		public WebElement getEleOnTreeView(String eleName) {
@@ -1458,15 +1474,13 @@ import org.openqa.selenium.Rotatable;
 			getEleLinePerUnitTxtFld().sendKeys("1000");
 			Thread.sleep(1000);
 			commonsPo.tap(getEleDeadTimeLst());
-			try {
+		
+				if(commonsPo.isDisplayedCust(getEleclickCancel()))
+				{
 					commonsPo.tap(getEleclickCancel());
 					Thread.sleep(2000);
-					
 				}
-			catch(Exception e)
-			{
-				System.out.println("Cancel Button is not button is not found");
-			}
+				
 			commonsPo.tap(getEleDoneBtn());
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
@@ -1529,11 +1543,11 @@ import org.openqa.selenium.Rotatable;
 		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
+			//commonsPo.tap(workOrderPo.getEleAddExpenseType());
 			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			//commonsPo.tap(getEleUsePriceToggleBtn(),20,20);
 			getEleLineQtyTxtFld().sendKeys(sLineQty);
 			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
 			commonsPo.tap(getEleDoneBtn());
@@ -1631,7 +1645,15 @@ import org.openqa.selenium.Rotatable;
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			if(sFieldServiceName!=null)
 			{
-				selectActionWithIcon(commonsPo, sFieldServiceName);	
+				commonsPo.tap(getEleActionsLnk());
+				Thread.sleep(10000);
+//				commonsPo.swipeUp();
+//				getTest().click();
+//				commonsPo.tap(getTest());
+//				System.out.println(sFieldServiceName);
+//				getEleActionsTxtWithIcon(sFieldServiceName).click();
+				commonsPo.tap(getEleActionsTxtWithIcon(sFieldServiceName));
+//				selectActionWithIcon(commonsPo, sFieldServiceName);	
 			}
 	
 		}

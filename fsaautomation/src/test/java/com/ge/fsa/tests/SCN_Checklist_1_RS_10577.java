@@ -139,11 +139,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 		prerequisites();
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-		
-		if(bProcessCheckResult.booleanValue()== true)
-		{
-			toolsPo.configSync(commonsPo);
-		}
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
