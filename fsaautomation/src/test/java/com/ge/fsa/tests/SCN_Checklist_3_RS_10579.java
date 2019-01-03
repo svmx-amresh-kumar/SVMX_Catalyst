@@ -300,6 +300,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			Thread.sleep(GenericLib.iLowSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());
 			Set contextNames = driver.getContextHandles();
+			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println(driver.getContext());
 			driver.context(contextNames.toArray()[2].toString());
 			String url = driver.getCurrentUrl();
