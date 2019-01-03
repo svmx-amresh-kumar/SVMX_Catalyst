@@ -60,6 +60,10 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sSheetName =null;
 	String sSoqlquerypdf =  null;
 	String sSoqlquerypdf1 = null;
+	
+	//For SFM Process Sahi Script name
+	String sScriptName="Scenario_RS10585_ChecklistOPDOC_SkippedSections";
+	Boolean bProcessCheckResult  = false;
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10585";
@@ -84,7 +88,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		
 		
-		
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+
 
 		//sWOName1 = "WO-00001615";
 	}
@@ -96,6 +101,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
@@ -227,7 +233,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	  	checklistPo.geteleChecklistOPDOCRow();
 	  	Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
 		ExtentManager.logger.log(Status.PASS,"Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
-		commonsPo.tap(workOrderPo.getEleCancelLink());
+	//	commonsPo.tap(workOrderPo.getEleCancelLink());
+		commonsPo.tap(workOrderPo.geteleOPDOCCancelLnk());
 		Thread.sleep(GenericLib.i30SecSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);

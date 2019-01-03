@@ -59,6 +59,10 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 	String schecklistStatus = "Completed";	
 	String sSheetName =null;
 	
+	//For SFM Process Sahi Script name
+	String sScriptName="Scenario_RS10587_ChecklistOPDOC_Versions";
+	Boolean bProcessCheckResult  = false;
+	
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10587";
@@ -87,15 +91,19 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistNameLastVersion, sScriptName, sTestCaseID);		
+
 		//sWOName = "WO-00002005";
 	}
 	
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10587() throws Exception {
 		prerequisites();
 		
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);

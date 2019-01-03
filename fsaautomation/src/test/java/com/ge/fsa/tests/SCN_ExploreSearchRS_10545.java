@@ -98,6 +98,12 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
 		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
 		
+		//Create Location
+		sLocationD = sSerialNumber+"LocE";
+		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
+		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
+		
+		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"46\",\"SVMXC__Site__c\":\""+sLocationA+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -262,7 +268,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "Work Orders (CURRENTUSERID) --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) -->No Records to display text is successfully displayed");
 		
-		//Navigation to Work Orders (CURRENTUSERID) Search
+		//Navigation to Work Orders (DATE LITERALS) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (DATE LITERALS)"));
@@ -380,6 +386,9 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), sSerialNumber+"LocB --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber +"LocB -->No Records to display text is successfully displayed");
 	
+		
+		
+		
 	}catch(Exception e)
 	{	ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
 		throw e;

@@ -694,24 +694,24 @@ public class CommonsPO {
 	 * 
 	 * FOR ANDROID : Supported Format is ((Month date Year),Hrs,Min)
 	 * 
-	 * For adding Month Day and Year : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
+	 * For adding Month Day and Year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “January 10 2018”, “10”,”30”)
 	 *
-	 * For current Month, day and year : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * For current Month, day and year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
 	 * 
 	 * =====================================================================
 	 * 
 	 * FOR IOS : Supported Format is ((Day Month Date),Hrs,Min)
 	 * 
-	 * For adding DateFormat, hrs and min : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
+	 * For adding DateFormat, hrs and min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “09”,”30”)
 	 *
-	 * For adding DateFormat and leaving default hrs and min : setSpecificDateYear(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
+	 * For adding DateFormat and leaving default hrs and min : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “Mon Oct 15”, “0”,”0”)
 	 * 
-	 * For current Month, day and year : setDateTime24hrs(
-	 * workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
+	 * For current Month, day and year : 
+	 * setDateTime24hrs(workOrderPo.getEleIBScheduledTxtFld(), “0”, “0”,”0”)
 	 *
 	 * @param wElement
 	 * @param sDateFormat
