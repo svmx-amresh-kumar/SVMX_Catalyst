@@ -80,10 +80,15 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {		
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		//loginHomePo.login(commonsPo, exploreSearchPo);

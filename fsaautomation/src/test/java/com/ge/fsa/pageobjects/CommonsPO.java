@@ -1108,9 +1108,10 @@ public class CommonsPO {
 	 */
 	public Boolean verifySahiExecution() {
 		String sahiResultCommon = null;
+		String sFilePath = "/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt";
 		Boolean result = false;
 		try {
-			sahiResultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
+			sahiResultCommon = this.readTextFile(sFilePath);
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -1133,7 +1134,11 @@ public class CommonsPO {
 			System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
 			result = false;
 		}
-
+		File file = new File(sFilePath);
+        if(file.delete()){
+            System.out.println(sFilePath + "Deleted");
+        }else System.out.println(sFilePath +"Does not exists");
+        
 		return result;
 	}
 
