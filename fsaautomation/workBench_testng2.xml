@@ -10,8 +10,6 @@
 		<classes>
 		
 		<class name="com.ge.fsa.tests.workBench" />
-		<class name="com.ge.fsa.tests.workBench" />
-		<class name="com.ge.fsa.tests.workBench" />
 			<!-- <class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_6_RS_10525" />
