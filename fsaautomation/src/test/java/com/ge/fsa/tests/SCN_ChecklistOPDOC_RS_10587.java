@@ -96,8 +96,8 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//sWOName = "WO-00002005";
 	}
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_10587() throws Exception {
 		prerequisites();
 		
