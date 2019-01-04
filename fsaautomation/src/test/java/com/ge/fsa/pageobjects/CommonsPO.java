@@ -1136,8 +1136,8 @@ public class CommonsPO {
 		}
 		File file = new File(sFilePath);
         if(file.delete()){
-            System.out.println(sFilePath + "Deleted");
-        }else System.out.println(sFilePath +"Does not exists");
+            System.out.println("Resetting State by deleting file "+sFilePath);
+        }else System.out.println("No file to reset" + sFilePath);
         
 		return result;
 	}
