@@ -8,9 +8,7 @@
     </listeners>
   <test name="Test1">
 		<classes>
-		
-		<class name="com.ge.fsa.tests.workBench" />
-			<!-- <class name="com.ge.fsa.tests.SanityPreReq" />
+			<class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_1_RS_10511" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_6_RS_10525" />
 			<class name="com.ge.fsa.tests.SCN_Calendar_RS_10525_2mts_event" />
@@ -35,7 +33,7 @@
 			<class name="com.ge.fsa.tests.SCN_CustomAction_2_RS_10558" />
 			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
 			<class name="com.ge.fsa.tests.SCN_Creating_Editing_RS_10574" />
-			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" /> -->
+			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" />
 			
 			</classes>
 			</test>
