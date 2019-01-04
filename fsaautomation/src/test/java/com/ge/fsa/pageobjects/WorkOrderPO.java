@@ -1217,7 +1217,7 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleNoRecordsTxt;
 		}
-		
+				
 		@FindBy(xpath="//*[text()='Case Reason']/../..//div[@class='x-input-body-el']/input")
 		private WebElement eleCaseReasonLst;
 		public WebElement getEleCaseReasonLst()
@@ -1250,9 +1250,45 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleAccountTxtFld;
 		}
-		
-		
+		//lks
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Work Order Number']")
+		private WebElement eleWoOrderNumberTxt;
+		public WebElement getEleWoOrderNumberTxt()
+		{
+			return eleWoOrderNumberTxt;
+		}
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Billing City']")
+		private WebElement eleBillingCityTxt;
+		public WebElement getEleBillingCityTxt()
+		{
+			return eleBillingCityTxt;
+		}
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Priority']")
+		private WebElement elePriorityTxt;
+		public WebElement getElePriorityTxt()
+		{
+			return elePriorityTxt;
+		}
 
+		private WebElement eleWoNumTxt;
+		public WebElement getEleWoNumTxt(String sWoNumTxt)
+		{
+			eleWoNumTxt=driver.findElement(By.xpath("//div[text()="+sWoNumTxt+"]/../../..//div[@class='x-inner-el sfmsearch-grid-cell-inner']"));
+			return eleWoNumTxt;
+		}
+		private WebElement eleWoBillingCityTxt;
+		public WebElement getEleWoBillingCityTxt(String sWoNumTxt, String sBillingCity)
+		{
+			eleWoBillingCityTxt=driver.findElement(By.xpath("//div[text()='"+sWoNumTxt+"']/../../..//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sBillingCity +"']"));
+			return eleWoBillingCityTxt;
+		}
+		private WebElement eleWoPriorityTxt;
+		public WebElement getEleWoPriorityTxt(String sWoNumTxt, String sPriority)
+		{
+			eleWoPriorityTxt=driver.findElement(By.xpath("//div[text()='"+sWoNumTxt+"']/../..//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sPriority +"']"));
+			return eleWoPriorityTxt;
+		}
+		
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
