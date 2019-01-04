@@ -233,7 +233,8 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	  	checklistPo.geteleChecklistOPDOCRow();
 	  	Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
 		ExtentManager.logger.log(Status.PASS,"Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
-		commonsPo.tap(workOrderPo.getEleCancelLink());
+	//	commonsPo.tap(workOrderPo.getEleCancelLink());
+		commonsPo.tap(workOrderPo.geteleOPDOCCancelLnk());
 		Thread.sleep(GenericLib.i30SecSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);

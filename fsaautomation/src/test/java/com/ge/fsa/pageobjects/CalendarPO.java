@@ -583,7 +583,7 @@ public class CalendarPO
 
 		public String converttosfdcformat( String Datetime) throws Exception 
 		{
-			SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd");
 			 Date  dTempDate1 = parser1.parse(Datetime);
 			 SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/yyyy");
 		        String stempDate =  formatter1.format(dTempDate1);
