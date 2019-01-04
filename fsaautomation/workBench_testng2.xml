@@ -34,6 +34,7 @@
 			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
 			<class name="com.ge.fsa.tests.SCN_Creating_Editing_RS_10574" />
 			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" />
+			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />	
 			
 			</classes>
 			</test>
