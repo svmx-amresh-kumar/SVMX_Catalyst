@@ -137,6 +137,12 @@ import org.openqa.selenium.Rotatable;
 		public List<WebElement> getcontactListInLkp() {
 			return contactListInLkp;
 		}
+		
+		@FindBy(xpath="//div[contains(text(),'Location Name')]/following::div[contains(@id,'ext-gridrow-')]")
+		private List<WebElement> LocListInLkp;
+		public List<WebElement> getLocListInLkp() {
+			return LocListInLkp;
+		}
 	
 		@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 		private WebElement eleManageWOLinesTxt;
@@ -933,6 +939,13 @@ import org.openqa.selenium.Rotatable;
 		public WebElement getlblSite()
 		{
 			return lblSite;
+		}
+		
+		@FindBy(xpath="//span[text()='To Location']")
+		private WebElement lblToLocation;
+		public WebElement getlblToLocation()
+		{
+			return lblToLocation;
 		}
 	
 		@FindBy(xpath="(//span[text()='Zip']/following::input)[1]")
