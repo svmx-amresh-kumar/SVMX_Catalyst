@@ -118,6 +118,7 @@ public class LoginHomePO
 
 
 			try {//For Android
+				System.out.println("Login For Android");
 
 				//Login from Sign in Page
 				//commonsPO.switchContext("Webview");
@@ -176,6 +177,7 @@ public class LoginHomePO
 
 		case "ios":
 			try {//For IOS
+				System.out.println("Login For IOS");
 
 				//Login from Sign in Page
 				Assert.assertTrue(getEleSignInBtn().isDisplayed());

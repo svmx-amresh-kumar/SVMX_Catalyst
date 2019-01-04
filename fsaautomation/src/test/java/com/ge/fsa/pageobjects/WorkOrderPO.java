@@ -2136,6 +2136,23 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleRecordTypeLst;
 		}
+		
+		@FindBy(xpath="//*[. = 'controlling picklist']//input")
+		private WebElement eleControllingPicklist;
+		public WebElement getEleeleControllingPicklist()
+		{
+			return eleControllingPicklist;
+		}
+		
+		
+		@FindBy(xpath="//*[. = 'dependent picklist']//input")
+		private WebElement eleDependentPicklist;
+		public WebElement getEleeleDependentPicklist()
+		{
+			return eleDependentPicklist;
+		}
+		
+		
 		@FindBy(xpath="//span[text()='Cancel']")
 		private WebElement elecancelbutton;
 		public WebElement getelecancelbutton()
