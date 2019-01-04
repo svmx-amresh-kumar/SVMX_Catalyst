@@ -11,6 +11,7 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -78,22 +79,36 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {		
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(10000);
-		//(new TouchAction(driver)).tap(261, 212).perform()
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);
-		Thread.sleep(3000);
-	commonsPo.switchContext("Native");
-//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
-WebElement el = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
-el.click();
-	 commonsPo.switchContext("Webview");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-	 //android.widget.CheckedTextView
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
+		//loginHomePo.login(commonsPo, exploreSearchPo);
+
+
+
+//		//(new TouchAction(driver)).tap(261, 212).perform()
+//
+//		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);
+//		Thread.sleep(3000);
+//	commonsPo.switchContext("Native");
+////"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
+//WebElement el = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+//el.click();
+//	 commonsPo.switchContext("Webview");
+//
+//	 //android.widget.CheckedTextView
 
 	 
-	Thread.sleep(6000);
+	//Thread.sleep(6000);
 
 //	//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
 //		 try {

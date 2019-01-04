@@ -29,6 +29,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	String sLocationB = null;//"05122018115345"+"LocB";
 	String sLocationC = null;//"05122018115345"+"LocC";
 	String sLocationD = null;//"05122018115345"+"LocD";
+	String sLocationE = null;//"05122018115345"+"LocD";
 	String sLocationId = null;
 	String sWOName1 = null;//"WO-00005621";//null;//"WO-00005557";
 	String sWOName2 = null;//"WO-00005622";//null;//"WO-00005558";
@@ -99,9 +100,9 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
 		
 		//Create Location
-		sLocationD = sSerialNumber+"LocE";
-		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
-		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
+		sLocationE = sSerialNumber+"LocE";
+		sJsonData ="{\"Name\": \""+sLocationE+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
+		sLocationE = restServices.restCreate(sObjectApi,sJsonData);
 		
 		
 		//Creation of dynamic Work Order
