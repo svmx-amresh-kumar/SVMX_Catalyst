@@ -35,7 +35,7 @@
 			<class name="com.ge.fsa.tests.SCN_CustomAction_2_RS_10558" />
 			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
 			<class name="com.ge.fsa.tests.SCN_Creating_Editing_RS_10574" />
-			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" />
+			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" /> -->
 			
 			
 			
@@ -76,7 +76,7 @@
 			<class name="com.ge.fsa.tests.SCN_Calendar_5_RS_10515" />
 			<class name="com.ge.fsa.tests.SCN_Calander_7_RS_10526" />
 			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />		
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />  -->
+			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" /> 
 			
 				<!--
 		
@@ -152,10 +152,12 @@
 			<class name="com.ge.fsa.tests.SCN_Lookups_4_10530" />	
 			<class name="com.ge.fsa.tests.SCN_ConfigSync_Alert_RS_10561" />
 			<class name="com.ge.fsa.tests.SCN_ScheduledDataSync_RS_10569" />	
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />	-->
+			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />	
+			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
+			
+			-->
 		
 			<!--
-			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_2_RS_10578" />		
 			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
@@ -163,9 +165,9 @@
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10586" />
 			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" />
 			<class name="com.ge.fsa.tests.SCN_DVR_RS_10550" /> 
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />
+			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />-->
 			
-		-->
+		<!--
 			<class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" /> 
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
@@ -178,7 +180,7 @@
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10534" />
 			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
 			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
-			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />	
+			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />-->	
 		
 		</classes>
 	</test> <!-- Test -->

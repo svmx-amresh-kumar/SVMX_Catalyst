@@ -67,8 +67,8 @@ public class CommonsPO {
 	Iterator<String> iterator = null;
 	public static String sNativeApp = null;
 	public static String sWebView = null;
-	int xOffset = 15;
-	int yOffset = 18;
+	int xOffset = BaseLib.sOSName.equalsIgnoreCase("android")?30:15;
+	int yOffset = BaseLib.sOSName.equalsIgnoreCase("android")?36:18;
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
@@ -365,22 +365,30 @@ public class CommonsPO {
 	public void Enablepencilicon(WebElement wElement) {
 		int offset = 30;
 		Point point = wElement.getLocation();
-		int x = point.getX();
-		int y = point.getY();
+		int x = point.getX()+xOffset;
+		int y = point.getY()+yOffset;
 
-		int xOff = x + 100;
-		// int yOff = y-100;
+		int xOff = x + 200;
 		touchAction = new TouchAction(driver);
-		// touchAction.press(new PointOption().withCoordinates(x, y)).moveTo(new
-		// PointOption().withCoordinates(20, 20)).release().perform();
-		// touchAction.press(new PointOption().withCoordinates(x, y)).waitAction(new
-		// WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new
-		// PointOption().withCoordinates((x-5), 0)).release().perform();
+		switch (BaseLib.sOSName) {
+		case "android":
 
-		touchAction.press(new PointOption().withCoordinates(x, y))
-				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-				.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
-		// touchAction.tap(new PointOption().withCoordinates(x,y));
+			// For Android add *2 if real device
+			switchContext("Native");
+			touchAction.longPress(new PointOption().withCoordinates(x, y))
+					.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+					.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			switchContext("webview");
+			break;
+
+		case "ios":
+			
+			touchAction.longPress(new PointOption().withCoordinates(x, y))
+			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			break;
+
+		}
 	}
 
 	// To search the element scrolling
@@ -1100,9 +1108,10 @@ public class CommonsPO {
 	 */
 	public Boolean verifySahiExecution() {
 		String sahiResultCommon = null;
+		String sFilePath = "/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt";
 		Boolean result = false;
 		try {
-			sahiResultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
+			sahiResultCommon = this.readTextFile(sFilePath);
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -1125,7 +1134,11 @@ public class CommonsPO {
 			System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
 			result = false;
 		}
-
+		File file = new File(sFilePath);
+        if(file.delete()){
+            System.out.println("Resetting State by deleting file "+sFilePath);
+        }else System.out.println("No file to reset" + sFilePath);
+        
 		return result;
 	}
 

@@ -46,7 +46,9 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sSectionThreeConfirmationQ = "Section Three Warning";
 	String sSectionThreeConfirmationAns = "10";	
 	String sSectionTwoQ1 = "Section Two Question One";
+	String sSectionOneQ1 = "Section One Question One";
 	String sSectionTwoQAns = "jump";
+	String sSectionOneQAns= "Jump";
 	
 	String sSectionFourQ1 = "Section Four Question One";
 	String sSectionFourQ1Ans = "Section Four Question Answer 1";
@@ -55,6 +57,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sDateTimeAns = null;
 	String sNumberSectionJumpAns = "19";
 	String sNumberDVRAns="102";
+	String sSectionOneJump2 = "5";
 	String snumberwithoutjump = "100";
 	String sNumberSectionwithoutjump2 = "25";
 
@@ -154,7 +157,35 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 3");
 		}
 		
+		//Newly ADDED VT
+		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sSectionOneJump2);
+		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
+		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection4Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
+		ExtentManager.logger.log(Status.PASS," Multiple Q same section jump --Exit Criteria for section passed");
+		try {
+			//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
+			commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		} catch (Exception e) {
+			// TODO: handle exception
+			ExtentManager.logger.log(Status.PASS,"Multiple Q same section jump-Section two is not clickable as section was jumped from 1 to 4");
+		}
 		
+		
+		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys("55");
+		checklistPo.geteleChecklistAnswerTextArea(sSectionOneQ1).sendKeys(sSectionOneQAns);
+		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
+		try {
+			//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
+			commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		} catch (Exception e) {
+			// TODO: handle exception
+			ExtentManager.logger.log(Status.PASS,"Multiple Q same section jump-Section two is not clickable as section was jumped from 1 to 4");
+		}
+		
+		
+		//END of newly ADD VT
 		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		//checklistPo.geteleChecklistSectionNametab(sSection3Name).click();		
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).sendKeys(sNumberDVRAns);

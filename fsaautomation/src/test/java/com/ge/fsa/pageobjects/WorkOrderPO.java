@@ -350,7 +350,7 @@ import org.openqa.selenium.Rotatable;
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
@@ -673,7 +673,14 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCancelLnk;
 		}
-	
+		
+		@FindBy(xpath="//input[@class='opdoc-cancel-button']")
+		private WebElement eleOPDOCCancelLnk;
+		public WebElement geteleOPDOCCancelLnk()
+		{
+			return eleOPDOCCancelLnk;
+		}
+		
 		// Added by Harish.CS
 		private WebElement eleOnTreeView;
 		public WebElement getEleOnTreeView(String eleName) {
@@ -1503,15 +1510,13 @@ import org.openqa.selenium.Rotatable;
 			getEleLinePerUnitTxtFld().sendKeys("1000");
 			Thread.sleep(1000);
 			commonsPo.tap(getEleDeadTimeLst());
-			try {
+		
+				if(commonsPo.isDisplayedCust(getEleclickCancel()))
+				{
 					commonsPo.tap(getEleclickCancel());
 					Thread.sleep(2000);
-					
 				}
-			catch(Exception e)
-			{
-				System.out.println("Cancel Button is not button is not found");
-			}
+				
 			commonsPo.tap(getEleDoneBtn());
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
@@ -1574,11 +1579,11 @@ import org.openqa.selenium.Rotatable;
 		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
+			//commonsPo.tap(workOrderPo.getEleAddExpenseType());
 			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			//commonsPo.tap(getEleUsePriceToggleBtn(),20,20);
 			getEleLineQtyTxtFld().sendKeys(sLineQty);
 			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
 			commonsPo.tap(getEleDoneBtn());
@@ -1878,6 +1883,15 @@ import org.openqa.selenium.Rotatable;
 			return Laborontap;
 		}
 	
+		@FindBy(xpath="(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[2]")
+		private WebElement Laboronsecondprt;
+		public WebElement getLaboronsecondprt()
+		{
+			return Laboronsecondprt;
+		}
+	
+		
+		
 	
 		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement DateRequired;
@@ -2173,7 +2187,7 @@ import org.openqa.selenium.Rotatable;
 		}
 
 
-		@FindBy(xpath="(//div[contains(text(), 'P10556_Auto')][@class='x-inner-el'])[2]")
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-inner x-container-inner x-layout-auto x-component-inner x-widthed'])[3]")
 		private WebElement eletaponfirstpart;
 		public WebElement geteletaponfirstpart()
 		{
