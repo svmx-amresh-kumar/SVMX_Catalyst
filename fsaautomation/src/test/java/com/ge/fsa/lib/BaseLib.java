@@ -60,7 +60,7 @@ public class BaseLib {
 	File app = null;
 	public static String sOSName = null;
 	public String runMachine = null;
-	
+	public String sSuiteTestName = null;
 
 	@BeforeSuite
 	public void startServer()
@@ -227,10 +227,15 @@ public class BaseLib {
 
 
 	@BeforeMethod
-	public void startReport(ITestResult result) {
+	public void startReport(ITestResult result,ITestContext context) {
 		lauchNewApp("true");
+		
+		sSuiteTestName = context.getCurrentXmlTest().getName();
+		if(sSuiteTestName != null) {
+		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
+		}
 		System.out.println(" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
-		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		ExtentManager.logger(sSuiteTestName+ " : "+result.getMethod().getRealClass().getSimpleName());
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
