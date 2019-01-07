@@ -10,6 +10,7 @@ import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -59,7 +60,7 @@ public class BaseLib {
 	File app = null;
 	public static String sOSName = null;
 	public String runMachine = null;
-	
+	public String sSuiteTestName = null;
 
 	@BeforeSuite
 	public void startServer()
@@ -122,7 +123,7 @@ public class BaseLib {
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure "+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
@@ -165,7 +166,7 @@ public class BaseLib {
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure"+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
@@ -226,10 +227,15 @@ public class BaseLib {
 
 
 	@BeforeMethod
-	public void startReport(ITestResult result) {
+	public void startReport(ITestResult result,ITestContext context) {
 		lauchNewApp("true");
-		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
-		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		
+		sSuiteTestName = context.getCurrentXmlTest().getName();
+		if(sSuiteTestName != null) {
+		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
+		}
+		System.out.println(" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
+		ExtentManager.logger(sSuiteTestName+ " : "+result.getMethod().getRealClass().getSimpleName());
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
@@ -237,11 +243,11 @@ public class BaseLib {
 	}
 
 	@AfterMethod
-	public void endReport(ITestResult result)
+	public void endReport(ITestResult result,ITestContext context)
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
-			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
 			if(sOSName.toLowerCase().equals("android")) {	
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -255,10 +261,21 @@ public class BaseLib {
 				e.printStackTrace();
 			}
 		}else {
-			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
 
 		}
-		ExtentManager.extent.flush();
+		
+		// Avoid duplicate test results in reports on retry
+		if (Retry.isRetryRun) {
+			// Reset the isRetryRun to false to accept the next run
+			Retry.isRetryRun = false;
+			// Remove the failed first try
+			ExtentManager.extent.removeTest(ExtentManager.logger);
+		} else {
+			// Add the retry log
+			ExtentManager.extent.flush();
+		}
+        
 		try{driver.quit();}catch(Exception e) {};
 
 	}

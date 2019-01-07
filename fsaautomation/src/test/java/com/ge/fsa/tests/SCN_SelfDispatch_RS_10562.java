@@ -57,7 +57,6 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
 		preRequiste();
-		//sWOName1 = "WO-00001846";
 		sSubject = "Testing "+sWOName1+" "+sTestID;
 		
 		//Pre Login to app

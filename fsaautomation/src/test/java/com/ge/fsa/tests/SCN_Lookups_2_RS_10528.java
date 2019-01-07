@@ -1,7 +1,11 @@
 package com.ge.fsa.tests;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -28,6 +32,11 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		
 		
 //		commonsPo.preReq(genericLib, sScriptName, sTestID);
+		
+
+		
+		
+		
 		
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");
@@ -106,5 +115,40 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		String zip = workOrderPo.getTxtZip().getAttribute("value");
 		System.out.println("pre-filled zip: "+zip);
 		Assert.assertEquals(zip, sZipCode);
+		
+		
+		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		Thread.sleep(GenericLib.iMedSleep);
+		toolsPo.syncData(commonsPo);
+		
+		String sDBCity = restServices.restGetSoqlValue("SELECT+SVMXC__City__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__City__c");
+		System.out.println(sDBCity);
+		Assert.assertEquals(sDBCity, sCity);
+		String sDBZip = restServices.restGetSoqlValue("SELECT+SVMXC__Zip__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__Zip__c");
+		System.out.println(sDBZip);
+		Assert.assertEquals(sDBZip, sZipCode);
+		String sDBCountry = restServices.restGetSoqlValue("SELECT+SVMXC__Country__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__Country__c");
+		System.out.println(sDBCountry);
+		Assert.assertEquals(sDBCountry, sCountry);
+		String sDBContactId = restServices.restGetSoqlValue("SELECT+SVMXC__Contact__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__Contact__c");
+		System.out.println(sDBContactId);
+		String sDBContact = restServices.restGetSoqlValue("SELECT+name+from+Contact+Where+id+=\'"+sDBContactId+"\'", "Name");
+		Assert.assertEquals(sDBContact, sContactName);
+//		String sDBSite = restServices.restGetSoqlValue("SELECT+SVMXC__Site__r.Name+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "Name");
+//		System.out.println(sDBSite);
+//		Assert.assertEquals(sDBSite, sLocName);
+		String sDBProductId = restServices.restGetSoqlValue("SELECT+SVMXC__Product__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__Product__c");
+		System.out.println(sDBProductId);
+		String sDBProduct = restServices.restGetSoqlValue("SELECT+name+from+Product2+Where+id+=\'"+sDBProductId+"\'", "Name");
+		Assert.assertEquals(sDBProduct, sProdName);
+//		String sDBTopLevel = restServices.restGetSoqlValue("SELECT+SVMXC__Top_Level__r.Name+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__Top_Level__r.Name");
+//		System.out.println(sDBTopLevel);
+//		Assert.assertEquals(sDBTopLevel, sIbName);
+//		JSONArray jSon = restServices.restGetSoqlJsonArray("SELECT+SVMXC__City__c,SVMXC__Country__c,SVMXC__Zip__c,SVMXC__Top_Level__r.Name,SVMXC__Contact__r.Name,SVMXC__Product__r.Name,SVMXC__Site__r.Name+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'");
+//		System.out.println("Here it is------::::::: "+jSon.toString()+" :::::::::");
+
+		
+		
+
 	}
 }

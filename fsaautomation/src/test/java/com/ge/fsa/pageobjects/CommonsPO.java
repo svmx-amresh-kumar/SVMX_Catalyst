@@ -23,6 +23,7 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -40,6 +41,7 @@ import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.iOSBy;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -978,6 +980,14 @@ public class CommonsPO {
 		}
 
 	}
+	
+	@AndroidFindBy(id="android:id/select_dialog_listview")
+	@iOSBy(xpath ="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")
+	private WebElement elPicklistValues;
+	public WebElement getElPicklistValues() {
+		
+		return elePicklistValue;
+	}
 
 	/**
 	 * To get all the values from the picklist and verify with the given set of
@@ -992,38 +1002,75 @@ public class CommonsPO {
 		String[] sVals = new String[sActualValues.length];
 		String sPrevVal = "";
 		String sCurrVal = "";
-		commonsPo.switchContext("Native");
-		for (int i = 0; i <= sActualValues.length; i++) {
-			IOSElement PFS = (IOSElement) driver
-					.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
-			sCurrVal = PFS.getText();
-			Thread.sleep(10000);
-			try {
-				System.out.println("-----------" + PFS);
+		
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			commonsPo.switchContext("Native");
+			 //List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
+			List<WebElement> listElemets = driver.findElements(By.id("android:id/text1"));
+					  
+			System.out.println("Size of pl = "+listElemets.size());
+			for (int i = 0; i < listElemets.size(); i++) {
+				WebElement listItem = listElemets.get(i);
+				sCurrVal = listItem.getText();
+				Thread.sleep(10000);
+				try {
+					System.out.println("-----------" + listItem);
 
-				System.out.println("sCurrVal -----------" + sCurrVal);
+					System.out.println("sCurrVal -----------" + sCurrVal);
 
-			} catch (Exception e) {
-				System.out.println("The picklist Values couldn't be fetched" + e);
+				} catch (Exception e) {
+					System.out.println("The picklist Values couldn't be fetched" + e);
+				}
+
+				sPrevVal = sCurrVal;
+				sVals[i] = sPrevVal;
 			}
-
-			sPrevVal = sCurrVal;
-			sVals[i] = sPrevVal;
-
-			try {
-				commonsPo.scrollPickerWheel(i, 1);
-			} catch (Exception e) {
-				break;
+			for (String string : sVals) {
+				System.out.println("Array read = " + string);
 			}
+			commonsPo.switchContext("WebView");
+		break;
+	
+		
+		
+		case "ios":
+			
+			commonsPo.switchContext("Native");
+			for (int i = 0; i <= sActualValues.length; i++) {
+				IOSElement PFS = (IOSElement) driver
+						.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
+				sCurrVal = PFS.getText();
+				Thread.sleep(10000);
+				try {
+					System.out.println("-----------" + PFS);
 
-		}
-		for (String string : sVals) {
-			System.out.println("Array read = " + string);
+					System.out.println("sCurrVal -----------" + sCurrVal);
 
+				} catch (Exception e) {
+					System.out.println("The picklist Values couldn't be fetched" + e);
+				}
+
+				sPrevVal = sCurrVal;
+				sVals[i] = sPrevVal;
+
+				try {
+					commonsPo.scrollPickerWheel(i, 1);
+				} catch (Exception e) {
+					break;
+				}
+
+			}
+			for (String string : sVals) {
+				System.out.println("Array read = " + string);
+
+			}
+			commonsPo.switchContext("WebView");
+			break;
+			
 		}
-		commonsPo.switchContext("WebView");
+		
 		return sVals;
-
 	}
 
 	/**
@@ -1108,9 +1155,10 @@ public class CommonsPO {
 	 */
 	public Boolean verifySahiExecution() {
 		String sahiResultCommon = null;
+		String sFilePath = "/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt";
 		Boolean result = false;
 		try {
-			sahiResultCommon = this.readTextFile("/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt");
+			sahiResultCommon = this.readTextFile(sFilePath);
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -1133,7 +1181,11 @@ public class CommonsPO {
 			System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
 			result = false;
 		}
-
+		File file = new File(sFilePath);
+        if(file.delete()){
+            System.out.println("Resetting State by deleting file "+sFilePath);
+        }else System.out.println("No file to reset" + sFilePath);
+        
 		return result;
 	}
 

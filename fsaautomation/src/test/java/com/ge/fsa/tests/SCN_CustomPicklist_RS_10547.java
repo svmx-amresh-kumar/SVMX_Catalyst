@@ -56,6 +56,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 	public void RS_10547() throws Exception {
 		System.out.println("SCN_CustomPicklist_RS_10547");
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		Thread.sleep(10000);
 		
 		// Create Installed Product
 		sIBName = commonsPo.generaterandomnumber("IB");
@@ -71,14 +72,19 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		String[] sContollingPicklist_WO_001 = {"--None--","CP-011", "CP-012"};
+		System.out.println(sContollingPicklist_WO_001.length);
 		String[] sDependentPicklist_CP_001 = {"--None--","DP-0111"};
 		String[] sControllingPicklist2 = {"--None--","CP-011"};
-		
+	
 // ==========================================================================================================================================
 		// To click the Record Type button and choosing the values
-		Thread.sleep(10000);
 		commonsPo.setPickerWheelValue(workOrderPo.getEleeleRecordTypeLst(), "WO_001");
-		driver.findElement(By.xpath("//*[. = 'controlling picklist']//input")).click();
+		if(BaseLib.sOSName.toLowerCase().equals("android")) {
+			commonsPo.tap(workOrderPo.getEleeleControllingPicklist());
+		}else {
+			workOrderPo.getEleeleControllingPicklist().click();
+		}	
+		
 //==============================================================================================
 	
 		String[] sExpectedValues = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sContollingPicklist_WO_001);
@@ -97,17 +103,32 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //==============================================================================================
 		// To click on the Controlling picklist value to the Dependent Picklist value
 				Thread.sleep(10000);
-				commonsPo.switchContext("Native");
-				commonsPo.getElePickerWheelPopUp().sendKeys("CP-011");	
-				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+				commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
+				commonsPo.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-011");
+//				commonsPo.switchContext("Native");	
+//				commonsPo.getElePickerWheelPopUp().sendKeys("CP-011");	
+				if(BaseLib.sOSName.toLowerCase().equals("android")) 
+				{
+					System.out.println("No Done Button Present for Android");
+				}
+				else {
+					commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+				}	
+				
 				commonsPo.switchContext("WebView");
 				Thread.sleep(genericLib.iMedSleep);
 				
-				driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
+	// For Dependent Picklist clicking and verifying the values
+				
+				if(BaseLib.sOSName.toLowerCase().equals("android")) {
+					commonsPo.tap(workOrderPo.getEleeleDependentPicklist());
+				}else {
+					workOrderPo.getEleeleDependentPicklist().click();
+				}		
 //==============================================================================================
 			
 				String[] sExpectedValues2 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_001);
-				for(int i=0;i<sDependentPicklist_CP_001.length-1;i++) {
+				for(int i=0;i<sDependentPicklist_CP_001.length;i++) {
 					if(sExpectedValues2[i].equals(sDependentPicklist_CP_001[i]))
 							{
 						ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The Controlling Picklist Values match");
@@ -120,19 +141,27 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //=======================================================================================================
 			// To select the Dependent Picklist value
 					Thread.sleep(10000);
-					commonsPo.switchContext("Native");
-					commonsPo.getElePickerWheelPopUp().sendKeys("DP-0111");	
-					commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+					commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
+					commonsPo.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0111");	
+					
+					if(BaseLib.sOSName.toLowerCase().equals("android")) 
+					{
+						System.out.println("No Done Button Present for Android");
+					}
+					else {
+						commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+					}
 					commonsPo.switchContext("WebView");
+					Thread.sleep(genericLib.iMedSleep);
 					Thread.sleep(2000);
 					commonsPo.tap(workOrderPo.getEleClickSave());
 					toolsPo.syncData(commonsPo);
 //==============================================================================================================					
 					
 // To update the Work Order Order status
-					
+				
 					String sObjectApi = "SVMXC__Service_Order__c";
-					String sSqlWOID ="SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sIbId+"\'";					
+				String sSqlWOID ="SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sIbId+"\'";					
 					String sWOId =restServices.restGetSoqlValue(sSqlWOID,"Id"); 
 					System.out.println(sWOId);
 					String sWOJson="{\"SVMXC__Order_Status__c\":\"Open\"}";
@@ -145,20 +174,34 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
 			Thread.sleep(2000);
 			workOrderPo.selectAction(commonsPo,sProcessname2);	
-			driver.findElement(By.xpath("//*[. = 'controlling picklist']//input")).click();
-			Thread.sleep(2000);
-			commonsPo.switchContext("Native");
-			commonsPo.getElePickerWheelPopUp().sendKeys("CP-012");	
-			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {
+				commonsPo.tap(workOrderPo.getEleeleControllingPicklist());
+			}else {
+				workOrderPo.getEleeleControllingPicklist().click();
+			}	
+			Thread.sleep(10000);
+			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
+			commonsPo.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-012");
+			if(BaseLib.sOSName.toLowerCase().equals("android")) 
+			{
+				System.out.println("No Done Button Present for Android");
+			}
+			else {
+				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			}
 			commonsPo.switchContext("WebView");
 			Thread.sleep(2000);
-			
-			
-			
+
 //======================================================================================================
 		// To verify the values at the Dependent Picklist
 			String[] sDependentPicklist_CP_012 = {"--None--","DP-0112"};
-			driver.findElement(By.xpath("//*[. = 'dependent picklist']//input")).click();
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {
+				commonsPo.tap(workOrderPo.getEleeleDependentPicklist());
+			}else {
+				workOrderPo.getEleeleDependentPicklist().click();
+			}	
+			
+			
 			String[] sExpectedValues3 = commonsPo.getAllPicklistValues(commonsPo, workOrderPo, sDependentPicklist_CP_012);
 			for(int i1=0;i1<sDependentPicklist_CP_012.length;i1++) {
 				if(sExpectedValues3[i1].equals(sDependentPicklist_CP_012[i1]))
@@ -172,14 +215,19 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			}
 			
 			Thread.sleep(10000);
-			commonsPo.switchContext("Native");
-			commonsPo.getElePickerWheelPopUp().sendKeys("DP-0112");	
-			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
+			commonsPo.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0112");	
+			if(BaseLib.sOSName.toLowerCase().equals("android")) 
+			{
+				System.out.println("No Done Button Present for Android");
+			}
+			else {
+				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			}
 			commonsPo.switchContext("WebView");
+			Thread.sleep(2000);
 			commonsPo.tap(workOrderPo.getEleClickSave());
-			Thread.sleep(10000);
 			toolsPo.syncData(commonsPo);
-
 		}
 	}
 

@@ -15,6 +15,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.CalendarPO;
 
 
 public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
@@ -96,8 +97,8 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//sWOName = "WO-00002005";
 	}
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_10587() throws Exception {
 		prerequisites();
 		
@@ -351,7 +352,15 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 			ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-			Thread.sleep(GenericLib.iLowSleep);			
+			Thread.sleep(GenericLib.iLowSleep);		
+			
+			//Post Done button sometimes Actions is extended and we will
+			// need to click calendar
+			
+				commonsPo.tap(calendarPO.getEleCalendarClick());
+				/*commonsPo.tap(workOrderPo.getelecancelbutton());
+				Thread.sleep(GenericLib.iLowSleep);		
+				commonsPo.tap(workOrderPo.getEleDiscardChanges());*/
 			toolsPo.syncData(commonsPo);
 			   Thread.sleep(GenericLib.iHighSleep);
 		   Thread.sleep(GenericLib.iHighSleep);

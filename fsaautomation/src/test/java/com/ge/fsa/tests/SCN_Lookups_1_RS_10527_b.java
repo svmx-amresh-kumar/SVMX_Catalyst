@@ -78,6 +78,8 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sFieldProcessName);
 		//******Validate 4th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
