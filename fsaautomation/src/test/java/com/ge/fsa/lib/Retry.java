@@ -28,7 +28,7 @@ public class Retry implements IRetryAnalyzer {
 
 		{
 
-			System.out.println("<< Retrying failed test : " + result.getName());
+			System.out.println(" << Retrying failed test : " + result.getName());
 
 			minretryCount++;
 			//Set the is isRetryRun flag to true
