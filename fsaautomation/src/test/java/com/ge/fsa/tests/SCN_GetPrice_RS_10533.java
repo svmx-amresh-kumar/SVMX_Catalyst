@@ -22,6 +22,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -46,24 +47,24 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 	String sSheetName2 =null;
 	String sSheetName3 =null;
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10533() throws Exception {
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
 		// To run the Sahi Script before the Execution of Appium - 10539
-//		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("PASSED");
-//		}
-//		else 
-//		{
-//			System.out.println("FAILED");
-//			
-//
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah", "sTestCaseID");
+		if(commonsPo.verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+		}
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Have a config Sync
@@ -71,6 +72,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Work Order Number");
@@ -161,14 +163,14 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		DateFormat df = new SimpleDateFormat("HH");
 		 
 		// Tell the DateFormat that I want to show the date in the IST timezone
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours = df.format(localTime);
+//		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//		String sdatehours = df.format(localTime);
 
 
-		int sEndDateint = Integer.parseInt(sdatehours) + 4;
+		int sEndDateint = Integer.parseInt("03") + 4;
 		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Calibration", "0", sEndDate, sProcessname);
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Calibration", "03", sEndDate, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Calibration"));
 		String sEstimatedPricePUnit_labor = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");
@@ -218,10 +220,9 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		/**
 		 * Add Another Labor Lines to the Work Order
 		 */
-		int sEndDateint2 = Integer.parseInt(sdatehours) + 4;
+		int sEndDateint2 = Integer.parseInt("03") + 4;
 		String sEndDate2 = Integer.toString(sEndDateint2);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Cleanup", "0", sEndDate2, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Cleanup"));
 		String sEstimatedPricePUnit_labor2 = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");

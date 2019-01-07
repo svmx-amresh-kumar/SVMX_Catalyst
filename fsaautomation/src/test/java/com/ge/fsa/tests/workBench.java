@@ -11,6 +11,7 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -66,90 +68,108 @@ public class workBench extends BaseLib
 //		return picPic;
 //	}
 	
-@Test
+//	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/menu_host")
+//	private WebElement eleMenuIcn;
+//	public WebElement getEleMenuIcn() 
+//	{
+//		return eleMenuIcn;
+//	}
+
+	@Test()
 
 public void workBenchAnd() throws Exception
 {		
-	String sTaskName = "";
-	lauchNewApp("true");
-	loginHomePo.login(commonsPo, exploreSearchPo);
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-	//sTaskName = tasksPo.addTask(commonsPo);
-toolsPo.syncData(commonsPo);
-toolsPo.configSync(commonsPo);
-toolsPo.configSync(commonsPo);
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-toolsPo.configSync(commonsPo);
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-toolsPo.configSync(commonsPo);
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		//loginHomePo.login(commonsPo, exploreSearchPo);
 
 
-toolsPo.configSync(commonsPo);
 
-toolsPo.configSync(commonsPo);
+//		//(new TouchAction(driver)).tap(261, 212).perform()
+//
+//		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);
+//		Thread.sleep(3000);
+//	commonsPo.switchContext("Native");
+////"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
+//WebElement el = driver.findElement(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+//el.click();
+//	 commonsPo.switchContext("Webview");
+//
+//	 //android.widget.CheckedTextView
 
-toolsPo.configSync(commonsPo);
+	 
+	//Thread.sleep(6000);
 
-toolsPo.configSync(commonsPo);
-
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
-
-
-//Fetching the task name and checking if the task is present on the server.
-String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+sTaskName+"\'";
-
-String sTaskcount = restServices.restGetSoqlValue(soqlquery, "totalSize");
-Assert.assertTrue(sTaskcount.equals("1"));
-ExtentManager.logger.log(Status.PASS,"Tasks updated successfully");
-
-toolsPo.configSync(commonsPo);
-
-toolsPo.configSync(commonsPo);
+//	//"//*[@class='android.widget.CheckedTextView'][contains(text(),'Starts With')]"
+//		 try {
+//		 List <WebElement> el = driver.findElements(By.xpath("//*[@class='android.widget.CheckedTextView'][contains(@text,'PicklOne')]"));
+//		 
+//		for(WebElement forEl:el) {
+//			 System.out.println("Found ::::: "+forEl.getText());
+//			 try {
+//			 forEl.click();}catch(Exception e) {System.out.println("Eception E : "+e);}
+//		 }
+//		 }catch(Exception e) {System.out.println("Eception Element : "+e);}
+//		 commonsPo.switchContext("Webview");
 
 }
 
+	
+public void DateFormatTests() throws Exception {
+	String sSheetName ="RS_11859";
+	String[] sDeviceDate = driver.getDeviceTime().split(" ");
 
-public void workBench() throws Exception
+	String sTestCaseID="RS_11859_Calender_3";
+
+		//Pre Login to app
+		loginHomePo.login(commonsPo, exploreSearchPo);
+
+		//config sync
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		System.out.println("First time");
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		
+		
+		 toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		System.out.println("second time");
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		
+		
+		 toolsPo.configSync(commonsPo);
+			Thread.sleep(GenericLib.iMedSleep);
+			System.out.println("third time");
+			commonsPo.tap(calendarPO.getEleCalendarClick());
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+			
+			
+
+			 toolsPo.configSync(commonsPo);
+				Thread.sleep(GenericLib.iMedSleep);
+				System.out.println("forth time");
+				commonsPo.tap(calendarPO.getEleCalendarClick());
+				workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+				
+
+    System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
+}
+
+
+public void AttachmentTests() throws Exception
 {		
 
 
@@ -391,7 +411,7 @@ commonsPo.switchContext("Native");
 //
 //
 }
-	
+
 
 	
 }

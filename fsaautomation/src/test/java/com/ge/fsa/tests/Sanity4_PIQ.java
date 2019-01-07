@@ -3,6 +3,8 @@ package com.ge.fsa.tests;
 
 import java.io.IOException;
 
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,12 +12,15 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity4_PIQ extends BaseLib{
 	
-	@Test
-	public void scenario4Test() throws IOException, InterruptedException {
-		
+	@Test(retryAnalyzer=Retry.class)
+	public void scenario4Test() throws Exception {
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
@@ -40,8 +45,9 @@ public class Sanity4_PIQ extends BaseLib{
 		System.out.println("Work Order Name Is "+ woName);
 		
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iLowSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");
@@ -50,7 +56,8 @@ public class Sanity4_PIQ extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Location displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sIbName).isDisplayed(),"Installed Product not displayed in Tree View");
 		ExtentManager.logger.log(Status.PASS,"Installed Product displayed on Tree View");
-		
+		Thread.sleep(GenericLib.iHighSleep);
+	
 		
 	}
 

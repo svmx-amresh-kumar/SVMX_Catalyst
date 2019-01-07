@@ -17,6 +17,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Calender_4_RS_10514 extends BaseLib {
 
@@ -47,7 +48,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10514() throws Exception {
 		sSheetName ="RS_10514";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -142,9 +143,9 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
-		        stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
+		      //  stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
 				sSalesforceuser = GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
-		        
+				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  
 		        sObjectApi = "SVMXC__Service_Group_Members__c";
@@ -155,7 +156,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				 String sWOJson = "{\"SVMXC__Salesforce_User__c\":\"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
 				lauchNewApp("false");
-				loginHomePo.login_tech2(commonsPo, exploreSearchPo);
+							loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			
 
 				commonsPo.tap(calendarPO.getEleCalendarClick());
@@ -182,7 +183,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			
 				 sWOJson = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
-		
+				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		
 			genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
@@ -211,10 +212,10 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			Thread.sleep(3000);
 			commonsPo.tap(calendarPO.geteleNewClick());
 			
-			commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
+			//commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 			
-			calendarPO.getelesubjectSFDCtextarea().sendKeys("SFDC event RS-10514");
-			commonsPo.tap(calendarPO.geteleclickupdate());
+			calendarPO.getelesubjectSFDCtap().sendKeys("SFDC event RS-10514");
+			//commonsPo.tap(calendarPO.geteleclickupdate());
 			commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
 			commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
 			

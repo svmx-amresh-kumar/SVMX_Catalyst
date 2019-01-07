@@ -19,7 +19,8 @@ public class CreateNewPO
 	AppiumDriver driver = null;
 	TouchAction touchAction = null;
 	
-	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Create New']")
+//	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Create New']")
+	@FindBy(xpath="//*[text()='Create New']")
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
 	{
@@ -52,7 +53,7 @@ public class CreateNewPO
 	{
 		return eleCreateNewcustomrecord;
 	}
-	
+	 
 	
 	@FindBy(xpath="//div[text()='Create New Installed Product Automation sahi']")
 	private WebElement eleCreateIB;
@@ -76,7 +77,7 @@ public class CreateNewPO
 		return eleClickContactfield;
 	}
 	
-	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(), 'Installed Product ID')]/../../div[@class='x-body-el x-widthed']//textarea")
+	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(), 'Installed Product ID')]/../../div[@class='x-body-el x-widthed']//input")
 	private WebElement eleClickInstalledProductID;
 	public WebElement getClickInstalledProductID()
 	{
@@ -114,6 +115,7 @@ public class CreateNewPO
 		return eleClickPriorityPicklist;
 	}
 	
+	
 	// Xpath for Billing Type
 	
 	@FindBy(xpath="//span[text()='Billing Type']/../..//div[@class='x-body-el x-widthed']//input[@class='x-input-el']")
@@ -131,7 +133,14 @@ public class CreateNewPO
 		return eleproformainvoicevalue;
 	}
 	
-	@FindBy(xpath="//div[@class='x-dock-body']//div[@class='x-body x-widthed x-heighted']//div[@class='x-textareainput x-textinput x-input x-component x-sized x-widthed x-heighted']//textarea[@class='x-input-el']")
+//	@FindBy(xpath="//div[@class='x-dock-body']//div[@class='x-body x-widthed x-heighted']//div[@class='x-textareainput x-textinput x-input x-component x-sized x-widthed x-heighted']//textarea[@class='x-input-el']")
+//	private WebElement eleproformainvoicetextarea;
+//	public WebElement getEleproformainvoicetextarea()
+//	{
+//		return eleproformainvoicetextarea;
+//	}
+	
+	@FindBy(xpath="//span[@class='x-label-text-el'][text()='Proforma Invoice']/../..//input[@class='x-input-el']")
 	private WebElement eleproformainvoicetextarea;
 	public WebElement getEleproformainvoicetextarea()
 	{
@@ -160,14 +169,19 @@ public class CreateNewPO
 		return eleCreateNewInstalledProduct;
 	}
 	
-	//Added by Harish.CS
+	//Added by Harish.CS--------------
 	private WebElement eleItemNameTxt;
 	public WebElement getEleItemNameTxt(String sItemName)
 	{
 		eleItemNameTxt=driver.findElement(By.xpath("//div[@class='listitem-sfm-search-result-name'][text()='"+sItemName+"']"));
 		return eleItemNameTxt;
 	}
-	
+	@FindBy(xpath="//*[contains(text(),'Location Name')][@class = 'x-label-text-el']/../..//input")
+	private WebElement eleLocNameTxt;
+	public WebElement getEleLocNameTxt() {
+		return eleLocNameTxt;
+	}
+	//----------------------
 	
 	/**
 	 * Owner : Meghana Rao P
@@ -199,10 +213,11 @@ public class CreateNewPO
 		// Selecting the Priority Low
 		commonsPo.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
 		commonsPo.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
-		getEleproformainvoicevalue().click();
-		commonsPo.tap(getEleproformainvoicevalue());
+		//getEleproformainvoicevalue().click();
+		//commonsPo.tap(getEleproformainvoicevalue());
+		//commonsPo.tap(getEleproformainvoicevalue());
 		getEleproformainvoicetextarea().sendKeys(proformaInvoice);
-		commonsPo.tap(getEleupdatethetextfield());
+		//commonsPo.tap(getEleupdatethetextfield());
 		Thread.sleep(1000);
 		commonsPo.tap(getEleSaveWorkOrdert());
 		

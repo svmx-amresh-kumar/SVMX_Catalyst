@@ -22,6 +22,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -46,7 +47,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 	String sSheetName2 =null;
 	String sSheetName3 =null;
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10536() throws Exception {
 		sSheetName1 ="RS_10539";
 		sSheetName2 = "RS_10538";
@@ -91,7 +92,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		sworkOrderName = GenericLib.getExcelData(sTestDataValue3,sSheetName3,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
-		
+		Thread.sleep(genericLib.iMedSleep);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
 		Thread.sleep(2000);
@@ -110,6 +111,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538),10,10);
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit1 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -179,6 +181,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
+		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))),10,10);
 		
 		// To verify the values of the Next Addition of PArts
 		

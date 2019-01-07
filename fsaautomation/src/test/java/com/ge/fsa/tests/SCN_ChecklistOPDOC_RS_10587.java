@@ -14,6 +14,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
@@ -34,6 +35,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 	String sSection2Name="Section Two";
 	String sSection3Name="Section Three";
 	String sChecklistOpDocName = null;
+	String sWORecordID = null;
 	// checklist q's set--;
 	
 	String sFirstversionQuestion1 = "10587 FirstVersion Question";
@@ -57,8 +59,12 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 	String schecklistStatus = "Completed";	
 	String sSheetName =null;
 	
-	@Test(enabled = true)
-	public void RS_10587() throws Exception {
+	//For SFM Process Sahi Script name
+	String sScriptName="Scenario_RS10587_ChecklistOPDOC_Versions";
+	Boolean bProcessCheckResult  = false;
+	
+	public void prerequisites() throws Exception
+	{
 		sSheetName ="RS_10587";
 		System.out.println("RS 10587 first version, last version and all version validation");
 		
@@ -78,17 +84,26 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 		// Rest to Create Workorder - Work Order -
 		
-		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
+		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
-		String sWOName= restServices
+		sWOName= restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 
+		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistNameLastVersion, sScriptName, sTestCaseID);		
+
 		//sWOName = "WO-00002005";
+	}
+	
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
+	public void RS_10587() throws Exception {
+		prerequisites();
 		
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
@@ -104,29 +119,27 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//=============================First Version Checklist Submissions===================================
 		
 		// Navigating to the checklist and entering first version checklist first time
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistNameFirstVersion));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistNameFirstVersion));
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("FirstAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
+		System.out.println("completed allow triess..now will go to submit");
 		
-		try {
-			checklistPo.Allowlocationbutton();
-			//commonsPo.clickAllowPopUp();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		commonsPo.tap(checklistPo.eleChecklistSubmit());
-				
+	//	try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");	
 		ExtentManager.logger.log(Status.PASS,"FirstVersion First Attempt Submitted sucessfully");
 
 		Thread.sleep(genericLib.iLowSleep);
 		
 		// First version checklist second time
+		
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("SecondAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
@@ -135,10 +148,12 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 					
+		
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"FirstVersion second Attempt Submitted sucessfully");
+		
 		
 		//First Version checklist Third time
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
@@ -147,10 +162,13 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
+		commonsPo.clickAllowPopUp();
+		commonsPo.switchContext("WebView");
 		//checklistPo.Allowlocationbutton();
-		commonsPo.tap(checklistPo.eleChecklistSubmit());		
+		commonsPo.tap(checklistPo.eleChecklistSubmit());
+		Thread.sleep(genericLib.iHighSleep);
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"FirstVersion Third Attempt Submitted sucessfully");
 
@@ -159,7 +177,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 
 		// Navigating to the checklist and entering last version checklist first time
-		commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistNameLastVersion));
+		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistNameLastVersion));
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans1);
 		Thread.sleep(genericLib.iHighSleep);
@@ -169,7 +187,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");	
 		ExtentManager.logger.log(Status.PASS,"LastVersion First Attempt Submitted sucessfully");
 
@@ -184,11 +202,10 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//checklistPo.Allowlocationbutton();
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Second Attempt Submitted sucessfully");
 
-		
 		//Last Version checklist Third time
 		commonsPo.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans3);
@@ -200,24 +217,24 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Third Attempt Submitted sucessfully");
-
-		//=============================All Version Checklist Submissions===================================
+	
 		
+		//=============================All Version Checklist Submissions===================================	
 		// Navigating to the checklist and entering all version checklist first time
-				commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
+				commonsPo.tap(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
 				Thread.sleep(GenericLib.iLowSleep);
 				checklistPo.geteleChecklistAnswerTextArea(sAllVersionQuestion1).sendKeys(sAllVersionQ1Ans1);
 				Thread.sleep(genericLib.iHighSleep);
 				commonsPo.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
-				checklistPo.Allowlocationbutton();
+				//checklistPo.Allowlocationbutton();
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");	
 				ExtentManager.logger.log(Status.PASS,"AllVersion First Attempt Submitted sucessfully");
 
@@ -234,7 +251,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				Thread.sleep(GenericLib.iLowSleep);
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");
 				ExtentManager.logger.log(Status.PASS,"AllVersion Second Attempt Submitted sucessfully");
 				
@@ -248,7 +265,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				//checklistPo.Allowlocationbutton();
 				commonsPo.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsPo.longPress(checklistPo.geteleChecklistPopupSubmit());
+				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");
 				ExtentManager.logger.log(Status.PASS,"AllVersion third Attempt Submitted sucessfully");
 			
@@ -321,14 +338,14 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 					// TODO: handle exception
 				}
 			 
-			 workOrderPo.getEleDoneLnk().click();
+			// workOrderPo.getEleDoneLnk().click();
 					
 			commonsPo.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 					
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -336,9 +353,10 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 			Thread.sleep(GenericLib.iLowSleep);			
 			toolsPo.syncData(commonsPo);
-		   Thread.sleep(genericLib.iHighSleep);
-		   Thread.sleep(genericLib.iHighSleep);
-		   Thread.sleep(genericLib.iHighSleep);
+			   Thread.sleep(GenericLib.iHighSleep);
+		   Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
+
 		// Verifying the Work details and the service report
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();

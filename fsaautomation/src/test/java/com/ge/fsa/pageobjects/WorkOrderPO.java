@@ -2,7 +2,8 @@
 	
 	import java.util.List;
 	import org.openqa.selenium.By;
-	import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.Rotatable;
 	import org.openqa.selenium.ScreenOrientation;
 	import org.openqa.selenium.WebElement;
 	import org.openqa.selenium.support.FindBy;
@@ -52,20 +53,25 @@
 			return eleActionsLnk;
 		}
 	
-		private WebElement eleActionsTxt;
-		public WebElement getEleActionsTxt(String sActionsName)
-		{
-			eleActionsTxt=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-button-no-icon x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
-			return eleActionsTxt;
-		}
+		
 	
 		// Added by Harish.CS
 		private WebElement eleActionsTxtWithIcon;
 		public WebElement getEleActionsTxtWithIcon(String sActionsName)
 		{
-			eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[text()='"+sActionsName+"']"));
+			eleActionsTxtWithIcon=driver.findElement(By.xpath("//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+//			System.out.println(eleActionsTxt);
 			return eleActionsTxtWithIcon;
 		}
+		
+		@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-menu-button x-component-svmx-menu-button x-iconalign-center x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched x-widthed']//span[@class='x-button-label'][text()='10558_Action']")
+		private WebElement test;
+		public WebElement getTest() {
+			return test;
+		}
+		
+		
+		
 	
 		@FindBy(xpath="//div[contains(text(),'Labor (')]/../../../../..//span[text()='Add']")
 		private WebElement eleAddLaborLnk;
@@ -131,6 +137,12 @@
 		public List<WebElement> getcontactListInLkp() {
 			return contactListInLkp;
 		}
+		
+		@FindBy(xpath="//div[contains(text(),'Location Name')]/following::div[contains(@id,'ext-gridrow-')]")
+		private List<WebElement> LocListInLkp;
+		public List<WebElement> getLocListInLkp() {
+			return LocListInLkp;
+		}
 	
 		@FindBy(xpath="//span[text()='Manage Work Order Lines - Usage']")
 		private WebElement eleManageWOLinesTxt;
@@ -145,7 +157,19 @@
 			eleProcessName=driver.findElement(By.xpath("//span[text()='"+sprocessname+"']"));
 			return eleProcessName;
 		}
+		//Added by Harish.CS
+		private WebElement eleProcessNameLsMode;
+		public WebElement getEleProcessNameLsMode(String sprocessname)
+		{
+			eleProcessNameLsMode=driver.findElement(By.xpath("//label[@class='opdoc-title'][text()='"+sprocessname+"']"));
+			return eleProcessNameLsMode;
+		}
 	
+		@FindBy(xpath="//input[@value='Done']")
+		private WebElement eleDoneBtnLsMode;
+		public WebElement getEleDoneBtnLsMode(){
+			return eleDoneBtnLsMode;
+		}
 	
 		@FindBy(xpath="//*[text() = 'Save']")
 		private WebElement eleSaveLnk;
@@ -191,7 +215,7 @@
 		{
 			return eleNewEventTxt;
 		}
-		@FindBy(xpath="//*[contains(text(),'Subject')][@class = 'x-label-text-el']/../..//textarea")
+		@FindBy(xpath="//*[contains(text(),'Subject')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleSubjectTxtFld;
 		public WebElement getEleSubjectTxtFld()
 		{
@@ -216,7 +240,15 @@
 		{
 			return eleStartDateTimeLst;
 		}
+		
 	
+	
+		@FindBy(xpath="	//span[text()='Dead Time (In Minutes)']")
+		private WebElement eleDeadTimeLst;
+		public WebElement getEleDeadTimeLst()
+		{
+			return eleDeadTimeLst;
+		}
 		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeLst1;
 		public WebElement getEleEndDateTimeLst1()
@@ -324,7 +356,7 @@
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
@@ -400,6 +432,13 @@
 		{
 	
 			return eleclickOK;
+		}
+		@FindBy(xpath="//span[@class='x-button-icon x-font-icon x-hidden']//..//span[@class='x-button-label'][text()='Cancel']")
+		private WebElement eleclickCancel;
+		public  WebElement getEleclickCancel()
+		{
+	
+			return eleclickCancel;
 		}
 	
 		@FindBy(xpath="	//span[@class='x-button-label'][text()='+New']")
@@ -505,7 +544,18 @@
 	
 			return eleClickSave;
 		}
+		
+		// Tap on the UI
+		
+		
+		
+		@FindBy(xpath="//div[@class='x-mask']")
+		private WebElement eleTapUI;
+		public  WebElement getEleTapUI()
+		{
 	
+			return eleTapUI;
+		}
 		// Add selected button
 	
 		@FindBy(xpath="//span[@class='x-button-label'][text()='Add Selected']")
@@ -622,13 +672,21 @@
 		{
 			return eleDiscardBtn;
 		}
+		
 		@FindBy(xpath="//*[text() = 'Cancel']")
 		private WebElement eleCancelLnk;
-		public WebElement getEleCancelLnk()
+		public WebElement getEleCancelLink()
 		{
 			return eleCancelLnk;
 		}
-	
+		
+		@FindBy(xpath="//input[@class='opdoc-cancel-button']")
+		private WebElement eleOPDOCCancelLnk;
+		public WebElement geteleOPDOCCancelLnk()
+		{
+			return eleOPDOCCancelLnk;
+		}
+		
 		// Added by Harish.CS
 		private WebElement eleOnTreeView;
 		public WebElement getEleOnTreeView(String eleName) {
@@ -666,6 +724,13 @@
 		public WebElement getEleOrderStatusCaseLst()
 		{
 			return eleOrderStatusCaseLst;
+		}
+		
+		@FindBy(xpath="//*[text()='Status']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleStatusCaseLst;
+		public WebElement getEleStatusCaseLst()
+		{
+			return eleStatusCaseLst;
 		}
 	
 		@FindBy(xpath="//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input")
@@ -733,7 +798,7 @@
 		}
 	
 	
-		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//textarea")
+		@FindBy(xpath="//*[text()='Proforma Invoice']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement EleProformaInvoiceTxt;
 		public WebElement getEleProformaInvoiceTxt()
 		{
@@ -834,7 +899,7 @@
 			return txtComponent;
 		}
 	
-		@FindBy(xpath="(//span[text()='City']/following::textarea)[1]")
+		@FindBy(xpath="(//span[text()='City']/following::input)[1]")
 		private WebElement txtCity;
 		public WebElement getTxtCity()
 		{
@@ -882,8 +947,15 @@
 		{
 			return lblSite;
 		}
+		
+		@FindBy(xpath="//span[text()='To Location']")
+		private WebElement lblToLocation;
+		public WebElement getlblToLocation()
+		{
+			return lblToLocation;
+		}
 	
-		@FindBy(xpath="//span[text()='Zip']/following::textarea")
+		@FindBy(xpath="(//span[text()='Zip']/following::input)[1]")
 		private WebElement txtZip;
 		public WebElement getTxtZip()
 		{
@@ -1093,14 +1165,27 @@
 		{
 			return eleIBAccountIDTxt;
 		}
+		
+		@FindBy(xpath="//span[contains(text(),'Installed Product ID')]/../..//input")
+		private WebElement eleIBIDTxt;
+		public WebElement getEleIBIDTxt()
+		{
+			return eleIBIDTxt;
+		}
+		
+		@FindBy(xpath="//span[contains(text(),'Contact ID')]/../..//input")
+		private WebElement eleContactIDTxt;
+		public WebElement getEleContactIDTxt()
+		{
+			return eleContactIDTxt;
+		}
 	
-		@FindBy(xpath="//div[text()='Edit']/../span")
+		@FindBy(xpath="//div[@class='sfm-delivery-textField-value']")
 		private WebElement eleIBSubjectTxt;
 		public WebElement getEleIBSubjectTxt()
 		{
 			return eleIBSubjectTxt;
 		}
-		
 		
 		@FindBy(xpath="//span[text()='Component']/../..//input")
 		private WebElement eleIBComponentTxt;
@@ -1132,6 +1217,98 @@
 		}
 		
 
+		@FindBy(xpath="//div[@class='x-label-el sfmsearch-include-online-label']/../div[@class = 'x-body-el']/div/div[5]")
+		private WebElement eleIncludeOnlineRdBtn;
+		public WebElement getEleIncludeOnlineRdBtn()
+		{
+			return eleIncludeOnlineRdBtn;
+		}
+		
+		@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
+		private WebElement eleCloudIcn;
+		public WebElement getEleCloudIcn()
+		{
+			return eleCloudIcn;
+		}
+		
+		@FindBy(xpath="//div[text()='No records to display.']")
+		private WebElement eleNoRecordsTxt;
+		public WebElement getEleNoRecordsTxt()
+		{
+			return eleNoRecordsTxt;
+		}
+				
+		@FindBy(xpath="//*[text()='Case Reason']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleCaseReasonLst;
+		public WebElement getEleCaseReasonLst()
+		{
+			return eleCaseReasonLst;
+		}
+		private WebElement eleObjectTxt;
+		public WebElement getEleObjectTxt(String sValue)
+		{
+			eleObjectTxt = driver.findElement(By.xpath("//div[@class='x-innerhtml'][text()='"+sValue+"']"));
+			return eleObjectTxt;
+		}
+		
+		private WebElement eleActionsTxt;
+		public WebElement getEleActionsTxt(String sActionsName)
+		{
+			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			return eleActionsTxt;
+		}
+		
+		@FindBy(xpath="(//span[text()='Priority']/../..//input[@class='x-input-el'])[2]")
+		private WebElement elePriorityLst;
+		public WebElement getElePriorityLst()
+		{
+			return elePriorityLst;
+		}
+		@FindBy(xpath="(//span[text()='Account']/../..//input[@class='x-input-el'])[2]")
+		private WebElement eleAccountTxtFld;
+		public WebElement getEleAccountTxtFld()
+		{
+			return eleAccountTxtFld;
+		}
+		//lks
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Work Order Number']")
+		private WebElement eleWoOrderNumberTxt;
+		public WebElement getEleWoOrderNumberTxt()
+		{
+			return eleWoOrderNumberTxt;
+		}
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Billing City']")
+		private WebElement eleBillingCityTxt;
+		public WebElement getEleBillingCityTxt()
+		{
+			return eleBillingCityTxt;
+		}
+		@FindBy(xpath="//div[@class='x-inner x-headercontainer-inner x-align-stretch x-layout-hbox x-horizontal x-pack-start x-layout-box x-container-inner x-component-inner']//div[text()='Priority']")
+		private WebElement elePriorityTxt;
+		public WebElement getElePriorityTxt()
+		{
+			return elePriorityTxt;
+		}
+
+		private WebElement eleWoNumTxt;
+		public WebElement getEleWoNumTxt(String sWoNumTxt)
+		{
+			eleWoNumTxt=driver.findElement(By.xpath("//div[text()="+sWoNumTxt+"]/../../..//div[@class='x-inner-el sfmsearch-grid-cell-inner']"));
+			return eleWoNumTxt;
+		}
+		private WebElement eleWoBillingCityTxt;
+		public WebElement getEleWoBillingCityTxt(String sWoNumTxt, String sBillingCity)
+		{
+			eleWoBillingCityTxt=driver.findElement(By.xpath("//div[text()='"+sWoNumTxt+"']/../../..//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sBillingCity +"']"));
+			return eleWoBillingCityTxt;
+		}
+		private WebElement eleWoPriorityTxt;
+		public WebElement getEleWoPriorityTxt(String sWoNumTxt, String sPriority)
+		{
+			eleWoPriorityTxt=driver.findElement(By.xpath("//div[text()='"+sWoNumTxt+"']/../..//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sPriority +"']"));
+			return eleWoPriorityTxt;
+		}
+		
 		/*
 	//NOTE: setTime should be a common function and added in coomPO object repo
 	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
@@ -1165,11 +1342,47 @@
 		 */
 		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
-			commonsPo.getSearch(getEleActionsTxt(sActionsName));
-			commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
+			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
+			Thread.sleep(5000);
+//			commonsPo.switchContext("Webview");			
+//			iWhileCnt =0;
+//			while(iWhileCnt<=3) 
+//			{	
+//				try {
+//					commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
+//					Assert.assertTrue(getEleActionsTxt(sActionsName).isDisplayed(),"Failed to scroll to search");
+//					ExtentManager.logger.log(Status.PASS,"Element is displayed");
+//					commonsPo.tap(getEleActionsTxt(sActionsName));
+//					
+//					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
+//					System.out.println("Counter "+iWhileCnt);
+//					
+//					break;
+//				}catch(Exception e) {}		
+//				
+//				iWhileCnt++;
+//			}
+			commonsPo.tap(getEleActionsTxt(sActionsName));
+		
+			
+			/*
+			try {
+				System.out.println("2 Try");
+				commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
+				
+				commonsPo.tap(getEleActionsTxt(sActionsName),10,10);
+				
+				
+				System.out.println("Testing ________________");
+				}catch(Exception e)
+				{
+					System.out.println("Caught and moved");
+					throw e;
+				}*/
+			
 	
 		}
 	
@@ -1179,8 +1392,11 @@
 			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
-			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
-	
+			try {
+			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName));
+			}catch(Exception e)
+			{commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
+			}
 		}
 	
 		public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
@@ -1188,22 +1404,22 @@
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"00", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"02","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"05", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"06","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
 			commonsPo.tap(getEleSaveLnk());
-			try {
+			/*try {
 				if(getEleYesBtn() != null){
 					commonsPo.tap(getEleYesBtn());	
 				}
 			}
 			catch(Exception e){
 	
-			}
-			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
+			}*/
+		//	Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
+		//	ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 		}
 		public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 		{	
@@ -1213,17 +1429,18 @@
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 			Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
+			
+			Thread.sleep(GenericLib.iHighSleep);
+			//commonsPo.tap(getEleDoneLnk());
 			getEleDoneLnk().click();
-			commonsPo.tap(getEleDoneLnk());
-			//Thread.sleep(GenericLib.iHighSleep);
-			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			//Thread.sleep(GenericLib.iHighSleep);
-			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			//Thread.sleep(GenericLib.iHighSleep);
 	
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			Thread.sleep(GenericLib.iHighSleep);
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(GenericLib.iHighSleep);
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
-			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
+//			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 		}
 	
 		// To add Parts
@@ -1300,11 +1517,20 @@
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
+			commonsPo.tap(getEleLineQtyTxtFld());
 			getEleLineQtyTxtFld().sendKeys("10");
+			commonsPo.tap(getEleLinePerUnitTxtFld());
 			getEleLinePerUnitTxtFld().sendKeys("1000");
+			Thread.sleep(1000);
+			commonsPo.tap(getEleDeadTimeLst());
+		
+				if(commonsPo.isDisplayedCust(getEleclickCancel()))
+				{
+					commonsPo.tap(getEleclickCancel());
+					Thread.sleep(2000);
+				}
+				
 			commonsPo.tap(getEleDoneBtn());
-	
-	
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
@@ -1366,11 +1592,11 @@
 		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
 			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
+			//commonsPo.tap(workOrderPo.getEleAddExpenseType());
 			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			//commonsPo.tap(getEleUsePriceToggleBtn(),20,20);
 			getEleLineQtyTxtFld().sendKeys(sLineQty);
 			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
 			commonsPo.tap(getEleDoneBtn());
@@ -1421,6 +1647,7 @@
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
@@ -1433,10 +1660,14 @@
 		//Navigation to WorkOrder SFM with child search	
 		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
+			try {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			Thread.sleep(GenericLib.iLowSleep);
+			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+			Thread.sleep(3000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
+			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
@@ -1444,21 +1675,34 @@
 			{
 				selectAction(commonsPo, sFieldServiceName);	
 			}
+			}catch(Exception e)
+			{
+				throw e;
+			}
 	
 		}
 	
 		public void navigateToWOSFMWithIcon(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 			if(sFieldServiceName!=null)
 			{
-				selectActionWithIcon(commonsPo, sFieldServiceName);	
+				commonsPo.tap(getEleActionsLnk());
+				Thread.sleep(10000);
+//				commonsPo.swipeUp();
+//				getTest().click();
+//				commonsPo.tap(getTest());
+//				System.out.println(sFieldServiceName);
+//				getEleActionsTxtWithIcon(sFieldServiceName).click();
+				commonsPo.tap(getEleActionsTxtWithIcon(sFieldServiceName));
+//				selectActionWithIcon(commonsPo, sFieldServiceName);	
 			}
 	
 		}
@@ -1468,9 +1712,10 @@
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			Thread.sleep(1000);
-			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+			Thread.sleep(GenericLib.iMedSleep);
+			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
@@ -1490,7 +1735,7 @@
 		public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 	
 			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
-			exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+			//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 			commonsPo.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
 			commonsPo.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 			exploreSearchPO.getEleExploreSearchTxtFld().click();
@@ -1533,7 +1778,7 @@
 			return WorkOrderNumber;
 		}
 	
-		@FindBy(xpath="(//span[text()='Is Entitlement Performed']//..//..//div[@class='x-size-monitors scroll'])[3]")
+		@FindBy(xpath="(//span[text()='Customer Down']//..//..//div[@class='x-size-monitors scroll'])[3]")
 		private WebElement CustomerDown ;
 		public WebElement getCustomerDown()
 		{
@@ -1651,6 +1896,15 @@
 			return Laborontap;
 		}
 	
+		@FindBy(xpath="(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[2]")
+		private WebElement Laboronsecondprt;
+		public WebElement getLaboronsecondprt()
+		{
+			return Laboronsecondprt;
+		}
+	
+		
+		
 	
 		@FindBy(xpath="//*[text()='Date Required']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement DateRequired;
@@ -1888,13 +2142,11 @@
 	
 	
 	
-		//NOT WORKING NEED TO EDIT.
-		@FindBy(xpath=("(//div[@class='x-thumb-wrap-el x-size-monitored x-paint-monitored'])[2]/following-sibling::div[@class='x-size-monitors scroll']"))
-		//@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')][@class = 'x-label-text-el']/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-off'][1]")
-		private WebElement eleIsEntitlementPerformed_Edit_Switch;
-		public WebElement geteleIsEntitlementPerformed_Edit_Switch()
+		@FindBy(xpath="//*[contains(text(),'Is Entitlement Performed')]/../..//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleIsEntitlementPerformed_Switch_On;
+		public WebElement geteleIsEntitlementPerformed_Switch_On()
 		{
-			return eleIsEntitlementPerformed_Edit_Switch;
+			return eleIsEntitlementPerformed_Switch_On;
 		}
 	
 	
@@ -1926,6 +2178,30 @@
 		{
 			return eleAuto_TextBox_c;
 		}
+		
+		@FindBy(xpath="//*[. = 'Record Type']//input")
+		private WebElement eleRecordTypeLst;
+		public WebElement getEleeleRecordTypeLst()
+		{
+			return eleRecordTypeLst;
+		}
+		
+		@FindBy(xpath="//*[. = 'controlling picklist']//input")
+		private WebElement eleControllingPicklist;
+		public WebElement getEleeleControllingPicklist()
+		{
+			return eleControllingPicklist;
+		}
+		
+		
+		@FindBy(xpath="//*[. = 'dependent picklist']//input")
+		private WebElement eleDependentPicklist;
+		public WebElement getEleeleDependentPicklist()
+		{
+			return eleDependentPicklist;
+		}
+		
+		
 		@FindBy(xpath="//span[text()='Cancel']")
 		private WebElement elecancelbutton;
 		public WebElement getelecancelbutton()
@@ -1939,8 +2215,17 @@
 		{
 			return eleDiscardChangesbutton;
 		}
+
+
+		@FindBy(xpath="(//div[contains(text(), 'Parts')][@class='x-panel-title-text']/../../../..//div[@class='x-inner x-container-inner x-layout-auto x-component-inner x-widthed'])[3]")
+		private WebElement eletaponfirstpart;
+		public WebElement geteletaponfirstpart()
+		{
+			return eletaponfirstpart;
+		}
 	
 	}
+	
 	
 	
 	

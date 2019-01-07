@@ -16,6 +16,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
@@ -62,13 +63,13 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001147";
-		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
-		
+	*/	
 	}
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -95,7 +96,6 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
-		sFieldServiceName="lscenario6";
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);

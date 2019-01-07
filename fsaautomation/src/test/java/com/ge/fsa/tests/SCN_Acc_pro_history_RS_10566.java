@@ -17,6 +17,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 
@@ -49,7 +50,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void Acc_pro_history_RS_10566() throws Exception {
 		sSheetName ="RS_10566";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -118,7 +119,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//config sync
 			toolsPo.configSync(commonsPo);
-			//Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
 			toolsPo.syncData(commonsPo);

@@ -5,82 +5,95 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	
-	@Test
-	public void RS_10527() throws IOException, InterruptedException {
+	String sTestCaseID = "RS_10527";
+	String sScriptName = "Scenario_10527";
+	String sExploreSearch = "AUTOMATION SEARCH";
+	String sExploreChildSearch = "Work Orders";
+	String sProcessName = "Auto_Reg_10527";
+//	String sProcessName = "AutoReg10529";
+	String sAccountName = "AshwiniAutoAcc";
+	String sAccId = "";
+	String sLocName = "Ricardo";
+	String sLocName1 = "Nashville";
+	String sProdName = "a1";
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10527() throws Exception {
+		
+//		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Account
-//		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
-//		System.out.println("Fer "+sAccId);
-//		String sAccId1 = restServices.restCreate("Account?","{\"Name\": \"McLaren3\" }");
-//		System.out.println("McLaren "+sAccId1);
-//		String sAccId2 = restServices.restCreate("Account?","{\"Name\": \"Williams3\" }");
-//		System.out.println("Williams "+sAccId2);
-//		String sAccId3 = restServices.restCreate("Account?","{\"Name\": \"Renault3\" }");
-//		System.out.println("Renault "+sAccId3);
-//		String sAccId4 = restServices.restCreate("Account?","{\"Name\": \"Red Bull3\" }");
-//		System.out.println("Red Bull "+sAccId4);
+		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println(sAccCount);
+		if(Integer.parseInt(sAccCount)==0) {
+			sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccountName+"\"}");
+			System.out.println("The Acc Id of "+sAccountName+" is "+sAccId);
+			// Create Contact
+			String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Shane\", \"LastName\": \"Shalken\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("SS "+sConId);
+			String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"Tim\", \"LastName\": \"Shalken\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("TS "+sConId1);
+			String sConId2 = restServices.restCreate("Contact?","{\"FirstName\": \"Ronald\", \"LastName\": \"Ross\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("RR "+sConId2);
+		}
 		
-		// Create Contact
-//		String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Jody33\", \"LastName\": \"Scheckter22\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println("Jacke "+sConId);
-//		String sConId1 = restServices.restCreate("Contact?","{\"FirstName\": \"John\", \"LastName\": \"Surtees\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId1);
-//		String sConId2 = restServices.restCreate("Contact?","{\"FirstName\": \"Michael\", \"LastName\": \"Schumacher\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId2);
-//		String sConId3 = restServices.restCreate("Contact?","{\"FirstName\": \"Kimi\", \"LastName\": \"Roikkonen\", \"AccountId\": \""+sAccId+"\"}");
-//		System.out.println(sConId3);
-//		String sConId4 = restServices.restCreate("Contact?","{\"FirstName\": \"Sebastian\", \"LastName\": \"Vettel\", \"AccountId\": \""+sAccId4+"\"}");
-//		System.out.println(sConId4);
-//		String sConId5 = restServices.restCreate("Contact?","{\"FirstName\": \"Fernando\", \"LastName\": \"Alonso\", \"AccountId\": \""+sAccId3+"\"}");
-//		System.out.println(sConId5);
-//		String sConId6 = restServices.restCreate("Contact?","{\"FirstName\": \"Mika\", \"LastName\": \"Hakkinen\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId6);
-//		String sConId7 = restServices.restCreate("Contact?","{\"FirstName\": \"Ayrton\", \"LastName\": \"Senna\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId7);
-//		String sConId8 = restServices.restCreate("Contact?","{\"FirstName\": \"James\", \"LastName\": \"Hunt\", \"AccountId\": \""+sAccId1+"\"}");
-//		System.out.println(sConId8);
-//		String sConId9 = restServices.restCreate("Contact?","{\"FirstName\": \"Damon\", \"LastName\": \"Hill\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId9);
-//		String sConId10 = restServices.restCreate("Contact?","{\"FirstName\": \"Nigel\", \"LastName\": \"Mansel\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId10);
-//		String sConId11 = restServices.restCreate("Contact?","{\"FirstName\": \"Jacques\", \"LastName\": \"Villeneuve\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId11);
-//		String sConId12 = restServices.restCreate("Contact?","{\"FirstName\": \"Alan\", \"LastName\": \"Jones\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId12);
-//		String sConId13 = restServices.restCreate("Contact?","{\"FirstName\": \"Keke\", \"LastName\": \"Roseberg\", \"AccountId\": \""+sAccId2+"\"}");
-//		System.out.println(sConId13);
-//		String sConId14 = restServices.restCreate("Contact?","{\"FirstName\": \"Stirling\",\"LastName\": \"Moss\"}");
-//		System.out.println(sConId14);
-//		String sConId15 = restServices.restCreate("Contact?","{\"FirstName\": \"David\",\"LastName\": \"Coulthard\"}");
-//		System.out.println(sConId15);
+		//Create Location
+		String sLoc = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName+"\'", "totalSize");
+		if(Integer.parseInt(sLoc)==0) {
+			String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"France\"}");
+			System.out.println("Loc Id is "+sLocId);
+		}
 		
-		//Create Work Order
-//		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+		
+		//Create Location 2
+		String sLoc1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName1+"\'", "totalSize");
+		if(Integer.parseInt(sLoc1)==0) {
+			String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Qatar\"}");
+			System.out.println("Loc Id is "+sLocId1);
+		}
+		
+		
+		//******Creating Work Order******
+		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println("Wo ID "+sWoID);
-		String sProdName = "a1";
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
+//		System.out.println("WO no ="+sWOName);
+//		String sProdName = "a1";
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-//		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00003685", "AutoReg10529");
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		//******Validate 1st Case******
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts without Account "+contactList.size());
+//		System.out.println("Contacts without Account "+contactList.size());
+		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
+//		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 2nd Case******
 		commonsPo.tap(workOrderPo.getLblAccount());
-		commonsPo.lookupSearch("Acme");
+		commonsPo.lookupSearch(sAccountName);
 		commonsPo.tap(workOrderPo.getLblContact());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("Contacts with Account Acme "+contactList.size());
+//		System.out.println("Contacts with Account Acme "+contactList.size());
+		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -89,8 +102,46 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
-		System.out.println("All Accounts "+contactList.size());
+//		System.out.println("All Accounts "+contactList.size());
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
+//		System.out.println("All Contacts fetched from Database ="+sAllCon);
+//		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		
+		//******Validate 7th Case******
+		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "France");
+		commonsPo.tap(workOrderPo.getlblSite());
+		List<WebElement> locList = new ArrayList<WebElement>();
+		locList = workOrderPo.getLocListInLkp();
+		System.out.println(locList.size());
+		for(WebElement w:locList) {
+			System.out.println("Test is "+w.getText());
+			Assert.assertTrue(w.getText().contains(sLocName));
+		}
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		//******Validate 8th Case******
+		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
+		workOrderPo.getLblChildPart(sProdName).click();
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.tap(workOrderPo.getlblToLocation());
+		List<WebElement> locList1 = new ArrayList<WebElement>();
+		locList1 = workOrderPo.getLocListInLkp();
+		System.out.println(locList1.size());
+		for(WebElement w:locList1) {
+			Assert.assertTrue(w.getText().contains(sLocName));
+		}
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		//******Validate 9th Case******
+		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
+		workOrderPo.getLblChildPart(sProdName).click();
+		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
+		commonsPo.tap(workOrderPo.getlblToLocation());
+		List<WebElement> locList2 = new ArrayList<WebElement>();
+		locList2 = workOrderPo.getLocListInLkp();
+		System.out.println(locList2.size());
+		for(WebElement w:locList2) {
+			Assert.assertTrue(w.getText().contains(sLocName1));
+		}
 	}
 }

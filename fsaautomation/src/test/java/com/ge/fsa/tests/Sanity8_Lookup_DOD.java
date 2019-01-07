@@ -5,11 +5,13 @@
 package com.ge.fsa.tests;
 import static org.testng.Assert.assertEquals;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.Retry;
 
 
 public class Sanity8_Lookup_DOD extends BaseLib
@@ -27,28 +29,17 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	String sExploreChildSearchTxt = "Work Orders";
 
 
-	@Test		
+	@Test(retryAnalyzer=Retry.class)		
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		lauchNewApp("true");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		// Syncing after the Pre-Requisite is done
-		toolsPo.configSync(commonsPo);
+		toolsPo.syncData(commonsPo);
 		//Create a Work Order to verify the Download Criteria
 		restServices.getAccessToken();
 		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -121,17 +112,16 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 			try
 			{
-				exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-				commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+				workOrderPo.selectAction(commonsPo,sProcessname);
+				
 			}
 			catch(Exception e)
 			{
-				exploreSearchPo.selectWorkOrder(commonsPo,sWorkOrderName);
+				commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName));
+				workOrderPo.selectAction(commonsPo,sProcessname);
 				
 			}
-				workOrderPo.selectAction(commonsPo,sProcessname);
+				
 		// Adding Product A to the Header and verifying the child values
 				commonsPo.tap(workOrderPo.getEleProductLookup());
 				commonsPo.lookupSearch(sProductNameA);
@@ -142,6 +132,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				commonsPo.tap(workOrderPo.getEleTaponParts(sProductNameA));
 				commonsPo.tap(workOrderPo.getEleIbSerialnumTap());
+				
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
@@ -152,6 +143,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				{
 					commonsPo.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
 					commonsPo.tap(workOrderPo.getEleDoneBtn());
+					commonsPo.tap(workOrderPo.getEleClickSave());
 					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
 					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");
 
@@ -166,21 +158,16 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
 				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-				if(commonsPo.verifySahiExecution()) {
-					
-					System.out.println("PASSED");
+				try{Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");}
+				catch(Exception e){genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 				}
-				else 
-				{
-					System.out.println("FAILED");
-					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-					assertEquals(0, 1);
-				}
-				lauchNewApp("true");
-				toolsPo.configSync(commonsPo);
+
+				
+				toolsPo.syncData(commonsPo);
 	
 	}
-
 	
 	
 }

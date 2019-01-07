@@ -11,6 +11,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	
@@ -78,8 +79,8 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		}
 
-	@Test(enabled = true)
-	public void SCN_SrctoTrgt_RS_10541() throws Exception {
+	@Test(enabled = true, retryAnalyzer=Retry.class)
+	public void RS_10541Test() throws Exception {
 		sTestID = "RS_10541";
 		
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
@@ -129,13 +130,13 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
 		
-		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		//JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("Select+Name+from+Auto_Custom_Object10540__c+where+Number_10541__c+= \'"+sIBName2+"\')");
-		//System.out.println(restServices.getJsonValue(sJsonArrayparts, "Name"));
-
+		//Validation of created Case object from IB
+		sSqlQuery ="SELECT+CaseNumber+from+Case+WHERE+Subject=\'"+sIBName2+"\'";				
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"CaseNumber")!=null, "IB to Case is not created");
+		ExtentManager.logger.log(Status.PASS,"IB to Case is successfully created.");
 		
 		}
 }

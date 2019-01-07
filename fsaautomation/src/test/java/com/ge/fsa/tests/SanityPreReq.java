@@ -11,30 +11,29 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.Retry;
 
 public class SanityPreReq extends BaseLib {
 	
 	String sTestCaseID = "SanityPreReq";
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void SanityPreReq() throws Exception {
 
 		
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-//		if(commonsPo.verifySahiExecution()) {
-//			
-//			System.out.println("Sahi verification success");
-//		}
-//		else 
-//		{
-//			System.out.println("Sahi verification failure");
-//			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-//			assertEquals(0, 1);
-//		}
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah", "sTestCaseID");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+
 		//Resinstall the app
 		lauchNewApp("false");
+
 		// Syncing after the Pre-Requisite is done
 		//toolsPo.configSync(commonsPo);
 	}

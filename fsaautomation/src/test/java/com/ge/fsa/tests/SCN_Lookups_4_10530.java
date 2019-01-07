@@ -9,30 +9,40 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_4_10530 extends BaseLib {
 	
-	String sTestID = null;
+	String sTestCaseID = "RS_10528";
 	String[] sProdArr = {"P1", "P2", "P3", "P4"};
 	String sProdName = null;
+	String sExploreSearch = "AUTOMATION SEARCH";
+	String sExploreChildSearch = "Work Orders";
+	String sProcessName = "10530_lkp_proc1";
+	String sScriptName = "Scenario_10530";
 	
-private void preRequisite() throws Exception {
-		
-		// Invoking Sahi Script.
-		genericLib.executeSahiScript("appium/Scenario_10530.sah", sTestID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		
-	}
+//private void preRequisite() throws Exception {
+//		
+//		// Invoking Sahi Script.
+//		genericLib.executeSahiScript("appium/Scenario_10530.sah", sTestID);
+//		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+//		
+//	}
 	
-	@Test
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
+		commonsPo.preReq(genericLib, sScriptName, sTestCaseID);
+		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
+		System.out.println(sWORecordID);
+		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
+		System.out.println("WO no ="+sWOName);
 		sProdName = "P2";
 //		preRequisite();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-//		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00002005", "10530_lkp_proc1");
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
 		for(int i=0;i<sProdArr.length;i++) {

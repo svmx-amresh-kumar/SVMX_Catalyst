@@ -3,6 +3,7 @@
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
  */
 package com.ge.fsa.tests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -12,6 +13,8 @@ import org.json.JSONArray;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 
@@ -22,7 +25,7 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
+	String sActivityType=null;
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -31,19 +34,25 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
+	String sSheetName = null;
+	String sPrintReportSearch = null;
 
 	
-@Test
+	@Test(retryAnalyzer=Retry.class)
 public void Scenario1Test() throws Exception
 {		
-
+	String sTestDataValue = "SCN_RS_11179";
+	sSheetName ="RS_11179";
+	
+//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+//	Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		toolsPo.configSync(commonsPo);
+//		toolsPo.syncData(commonsPo);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -62,6 +71,7 @@ public void Scenario1Test() throws Exception
 		
 		// Need to sync the data
 		toolsPo.syncData(commonsPo);
+		Thread.sleep(5000);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonsPo);
@@ -70,13 +80,34 @@ public void Scenario1Test() throws Exception
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
-		// Select the Work Order from the Recent items
+	//	 Select the Work Order from the Recent items
+		
 		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
-		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
 
+//		// To create a new Event for the given Work Order
+		workOrderPo.createNewEvent(commonsPo,sEventSubject, "Test Description");
+		
 		// Open the Work Order from the calendar
-		calendarPO.openWofromCalendar(commonsPo, sworkOrderName);
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(3000);
+		
+		calendarPO.openWoFromCalendar(commonsPo, sworkOrderName);
+		// This is to Tap the Date value near the Event to get it's location.
+//		calendarPO.geteleWOendpoint("04:00").getLocation();
+//		commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
+//		calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).getLocation();
+//		if(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName).isDisplayed()){
+//			System.out.println("Found WO " + sworkOrderName);
+//			commonsPo.tap(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName),15,60);
+//			
+//			}
+//				
+//		else
+//		{
+//			System.out.println("Did not Find WO " + sworkOrderName);
+//			throw new Exception("WorkOrder not found on the Calendar");	
+//		
+//	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
 		workOrderPo.selectAction(commonsPo,sProcessname);
@@ -88,8 +119,15 @@ public void Scenario1Test() throws Exception
 		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
+		
+		
 		// Creating the Service Report.
-		workOrderPo.validateServiceReport(commonsPo, sPrintReportSearch, sworkOrderName);
+		//sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName,"Service Report Name");
+	 	sPrintReportSearch = "Work Order Service Report";
+		workOrderPo.validateServiceReport(commonsPo,sPrintReportSearch, sworkOrderName);
+		Thread.sleep(10000);
+
+//		
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
@@ -114,8 +152,10 @@ public void Scenario1Test() throws Exception
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
+		Thread.sleep(genericLib.i30SecSleep);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(5000);
+		Thread.sleep(genericLib.i30SecSleep);
+		toolsPo.syncData(commonsPo);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();

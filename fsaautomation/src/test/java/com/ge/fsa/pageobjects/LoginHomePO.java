@@ -44,157 +44,202 @@ public class LoginHomePO
 	int yOffset = 18;
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
-	
+
 	@FindBy(id="svmx_splash_signin")
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
 		return eleSignInBtn;
 	}
-	
+
 	@FindBy(id="username")
 	private WebElement eleUserNameTxtFld;
 	public WebElement getEleUserNameTxtFld()
 	{
 		return eleUserNameTxtFld;
 	}
-	
+
 	@FindBy(id="password")
 	private WebElement elePasswordTxtFld;
 	public WebElement getElePasswordTxtFld()
 	{
 		return elePasswordTxtFld;
 	}
-	
+
 	@FindBy(id="Login")
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
 		return eleLoginBtn;
 	}
-	
+
 	@FindBy(id="oaapprove")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
 	{
 		return eleAllowBtn;
 	}
-	
-	
+
+
 	@FindBy(xpath="(//span[text()='Login'])[1]")
 	private WebElement eleMotoGpLogin;
 	public WebElement geteleMotoGpLogin()
 	{
 		return eleMotoGpLogin;
 	}
-	
+
 	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/menu_host")
 	private WebElement eleMenuIcn;
 	public WebElement getEleMenuIcn() 
 	{
 		return eleMenuIcn;
 	}
-	
+
 	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/radio_sandbox")
 	private WebElement eleSandBxRdBtn;
 	public WebElement getEleSandBxRdBtn() 
 	{
 		return eleSandBxRdBtn;
 	}
-	
-	
-	
-	public void login(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 
+
+	/**
+	 * Login to FSA app based on values from config.properties. (** For BUILD machine set the RUN_MACHINE=build , which will pick up the data from config_build.properties file)
+	 * @param commonsPo
+	 * @param exploreSearchPo
+	 * @throws InterruptedException
+	 */
+	public void login(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo) throws InterruptedException {
+
+		String sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
+		String sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
 		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase()) {
 		case "android":
-			
 
-			try {
+
+			try {//For Android
+				System.out.println("Login For Android");
+
+				//Login from Sign in Page
 				//commonsPO.switchContext("Webview");
-
 				Assert.assertTrue(getEleSignInBtn().isDisplayed());
 				getEleSignInBtn().click();
-				commonsPO.switchContext("Native");
+
+				//Change to SandBox from native mode
+				commonsPo.switchContext("Native");
 				getEleMenuIcn().click();
 				Thread.sleep(3000);
 
 				getEleSandBxRdBtn().click();
-				
-					touchAction = new TouchAction(driver);
-					touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
 
-			
+				touchAction = new TouchAction(driver);
+				touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
 
+				//Enter Credentials in Webview Mode
 				Thread.sleep(10000);
-				commonsPO.switchContext("Webview");
+				commonsPo.switchContext("Webview");
 
-				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
-				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleUserNameTxtFld().sendKeys(sUn);
+				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
 				Thread.sleep(GenericLib.iHighSleep);
+				//Either click Allow or Skip it without an exception
 				try {
 					getEleAllowBtn().click();
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
-		
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+
+				//Wait for the Explore button to be visible
+
+				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+				System.out.println("Logged in Successfully");
+
 			} catch (Exception e) {
-				System.out.println("Already logged in exception ");
+				//The App may be already logged in so check directly for the Explore button to be visible
 				Thread.sleep(10000);
 
-				commonsPO.switchContext("Webview");
+				commonsPo.switchContext("Webview");
 
 				wait = new WebDriverWait(driver, 4000);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
 			}
 			break;
 
-		default:
-			try {
+		case "ios":
+			try {//For IOS
+				System.out.println("Login For IOS");
+
+				//Login from Sign in Page
 				Assert.assertTrue(getEleSignInBtn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
 				// SignIn to App
 				getEleSignInBtn().click();
+
+				//Enter Credentials
+
 				Thread.sleep(10000);
-				getEleUserNameTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN"));
-				getElePasswordTxtFld().sendKeys(GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+				getEleUserNameTxtFld().sendKeys(sUn);
+				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
 				Thread.sleep(GenericLib.iLowSleep);
 				try {
 					getEleAllowBtn().click();
 				} catch (Exception e) {
 				}
-				commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
-				/*
-				 * while(true) { try{ if(getEleExploreIcn().isDisplayed()||
-				 * (lElapsedTime==20*60*1000)) {
-				 * System.out.println("Logged is successful");break;} }catch(Exception ex) {} }
-				 */
+				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
+
+				//while(true) { try{ if(getEleExploreIcn().isDisplayed()||
+				//(lElapsedTime==20*60*1000)) {
+				//System.out.println("Logged is successful");break;} }catch(Exception ex) {} }
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+
+
+				//Wait for the Explore button to be visible
+
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+				System.out.println("Logged in Successfully");
+
 
 			} catch (Exception e) {
-				wait = new WebDriverWait(driver, 4000);
-				wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+
+				//The App may be already logged in so check directly for the Explore button to be visible
+
+				//wait = new WebDriverWait(driver, 4000);
+				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-				ExtentManager.logger.log(Status.PASS, "Logged into FSA app successfully");
+				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
 			}
 			break;
-		
+			
+			default:
+				System.out.println("OS Error");
+				break;
+
 		}
 
 	}
-	
-	
+
+
 	public void login_tech2(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) {
 		try 
 		{
-			
-			
+
+
 			//SignIn to App
 			getEleSignInBtn().click();
 			Thread.sleep(10000);
@@ -205,16 +250,16 @@ public class LoginHomePO
 			try{getEleAllowBtn().click();}catch(Exception e) {}
 			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
 
-			
+
 		}catch(Exception e)
 		{		
-		wait = new WebDriverWait(driver, 40000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
-		ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");			
-	}
+			wait = new WebDriverWait(driver, 40000);
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+			Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+			ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");			
+		}
 
 	}
-	
-	
+
+
 }

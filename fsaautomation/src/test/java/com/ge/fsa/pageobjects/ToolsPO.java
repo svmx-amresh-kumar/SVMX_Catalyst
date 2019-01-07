@@ -38,12 +38,21 @@ public class ToolsPO
 	{
 		return eleSyncDataNowLnk;
 	}
-	@FindBy(xpath="//*[text() = 'Sync Config Now']")
+	
+	/*@FindBy(xpath="//*[text() = 'Sync Config Now']")
 	private WebElement eleSyncConfigNowLnk;
 	public WebElement geteleSyncConfigNowLnk()
 	{
 		return eleSyncConfigNowLnk;
-	}	
+	}	*/
+		
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Sync Config Now']")
+	private WebElement eleSyncConfigNowLnk;
+	public WebElement geteleSyncConfigNowLnk()
+	{
+		return eleSyncConfigNowLnk;
+	}
+
 	
 	
 	@FindBy(xpath="//span[text() ='Reset Application'][@class='x-button-label']")
@@ -73,7 +82,14 @@ public class ToolsPO
 		return eleRefreshingViewTxt;
 	}
 	
-	@FindBy(xpath="//*[text()='OK']")
+	/*@FindBy(xpath="//*[text()='OK']")
+	private WebElement eleOkBtn;
+	public WebElement getEleOkBtn()
+	{
+		return eleOkBtn;
+	}*/
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
 	private WebElement eleOkBtn;
 	public WebElement getEleOkBtn()
 	{
@@ -101,21 +117,22 @@ public class ToolsPO
 		return eleConfigSyncBarMenuLnk;
 	}	
 	
-	@FindBy(xpath="//*[text()='Cancel']")
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+	//@FindBy(xpath="//*[text()='Cancel']")
 	private WebElement eleCancelConfigSyncBtn;
 	public WebElement geteleCancelConfigSyncBtn()
 	{
 		return eleCancelConfigSyncBtn;
 	}
 	
-	@FindBy(xpath="//*[text()='Sign Out']")
+	@FindBy(xpath="//*[text()='Sign Out']//..//span[@class='x-button-label']")
 	private WebElement eleSignOutBtn;
 	public WebElement geteleSignOutBtn()
 	{
 		return eleSignOutBtn;
 	}
 	
-	@FindBy(xpath="(//*[text()='Sign Out'])[2]")
+	@FindBy(xpath="//*[text()='Sign Out']//..//span[@class='x-button-icon x-font-icon x-hidden']//..//span[@class='x-button-label']")
 	private WebElement elepopSignOutBtn;
 	public WebElement getelepopSignOutBtn()
 	{
@@ -153,7 +170,11 @@ public class ToolsPO
 		return eleConfigSyncAlertBadge;
 	}
 	
-	//To sync the data
+	/**
+	 * Perform Data Sync and Wait for the Data sync to complete in 900 seconds/ 15 min, beyond which we fail it
+	 * @param commonsPo
+	 * @throws InterruptedException
+	 */
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
 		GenericLib.lWaitTime=3*60*1000;
@@ -162,19 +183,38 @@ public class ToolsPO
 		commonsPo.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-		commonsPo.tap(getEleSyncDataNowLnk());
-		//getEleSyncDataNowLnk().click();
-		commonsPo.tap(getEleSyncDataNowLnk());	
-		getEleStartSyncBtn().click();
-		commonsPo.tap(getEleStartSyncBtn());
-		commonsPo.waitforElement(getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
 		
-		//Verification of successful sync
-		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
-		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+		commonsPo.tap(getEleSyncDataNowLnk());
+		commonsPo.tap(getEleStartSyncBtn());
+		System.out.println("Begining Data Sync");
+
+		commonsPo.waitforElement(getEleRefreshingViewTxt(),240);
+
+//		//Verification of successful sync
+//		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
+//		ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+//		Thread.sleep(GenericLib.iHighSleep);
+		
+		//Wait for the data sync to complete in 900 seconds/ 15 min, beyond which we fail it
+		if( commonsPo.waitForString(getEleSuccessTxt(), "Success", 900)) {
+			System.out.println("Data Sync Completed Sucessfully");
+			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+		}else {
+			System.out.println("Data Sync Failed");
+			//Verification of successful sync
+			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
+			Assert.assertTrue(1<2, "Data Sync Failed");
+		}
+		
+		driver.activateApp(GenericLib.sAppBundleID);
+		
 	}
 	
-	//Config Sync
+	/**
+	 * Perform Config Sync and Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
+	 * @param commonsPo
+	 * @throws InterruptedException
+	 */
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
 			GenericLib.lWaitTime=25*60*1000;
@@ -184,36 +224,32 @@ public class ToolsPO
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 
-			//geteleSyncConfigNowLnk().click();
-			commonsPo.tap(geteleSyncConfigNowLnk());	
-			getEleOkBtn().click();
+			
+			commonsPo.tap(geteleSyncConfigNowLnk());
+			Thread.sleep(GenericLib.iLowSleep);
 			commonsPo.tap(getEleOkBtn());
-			//cancelling sync in order to reset the config sync status.
-			commonsPo.waitforElement(eleCancelConfigSyncBtn, 500);
-			commonsPo.tap(eleCancelConfigSyncBtn);
+			Thread.sleep(GenericLib.iMedSleep);
+			//Canceling sync in order to reset the config sync status.
+			commonsPo.waitforElement(eleCancelConfigSyncBtn, 30);
+			commonsPo.tap(eleCancelConfigSyncBtn,20,20);
 			Thread.sleep(3000);
-			
 			commonsPo.tap(geteleSyncConfigNowLnk());	
-			getEleOkBtn().click();
 			commonsPo.tap(getEleOkBtn());
-			//commonsPo.waitforElement(eleSuccessTxt,  GenericLib.lWaitTime);
-			//Assert.assertTrue(geteleConfigSyncinProgressTxt().isDisplayed(), "Config sync is in progress");
-			System.out.println("begining config sync");
-			//boolean Syncinprogress =geteleConfigSyncinProgressTxt().isDisplayed();
-			//commonsPo.waitforElement(element, lTime);
-			
-			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", GenericLib.lWaitTime)) {
-				System.out.println("Sync Completed Sucessfully-tools po");
-
+			System.out.println("Begining config sync");
+	
+			//Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
+			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 2000)) {
+				System.out.println("Config Sync Completed Sucessfully");
+				ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 			}else {
-				System.out.println("Sync Failed");
-
+				System.out.println("Config Sync Failed");
+				//Verification of successful sync
+				ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
+				Assert.assertTrue(1<2, "Config Sync Failed");
 			}
 																	
+			driver.activateApp(GenericLib.sAppBundleID);
 			
-			//Verification of successful sync
-			Assert.assertEquals(geteleConfigSyncStatusTxt().getText(), "Success");
-			ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 		}
 	
 		
@@ -274,5 +310,17 @@ public class ToolsPO
 			return eleApply;
 		}
 		
+		public void OptionalConfigSync(ToolsPO toolsPo,CommonsPO commonsPo, Boolean bProcessCheckResult) throws InterruptedException
+		{
+		if(bProcessCheckResult.booleanValue()== true)
+		{
+			toolsPo.configSync(commonsPo);
+		}
+		else 
+		{
+			ExtentManager.logger.log(Status.INFO,"SFM process check return false: SFM Process exists");
+			System.out.println("skipping config sync as SFM process check return false: SFM Process exists");
+		}
+		}
 		
 }

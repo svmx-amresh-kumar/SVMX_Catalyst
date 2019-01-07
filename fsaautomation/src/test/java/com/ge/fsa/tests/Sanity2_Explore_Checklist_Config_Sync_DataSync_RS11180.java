@@ -19,11 +19,17 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
+
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSTouchAction;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends BaseLib {
 
@@ -54,12 +60,12 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	}
 
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";
-		sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
+		//sCaseSahiFile = "backOffice/appium_verifyWorkDetails.sah";
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
@@ -68,83 +74,86 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 		//sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-
+		System.out.println("---------- "+ sChecklistName+"        &&&&&  ");
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
-		System.out.println("WO no ="+sWOName);
+		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
 		
 		
-		String sradioQuestion ="checkbox2372018162542";
+		String sradioQuestion ="RadioButton Question";
 		String sradioAns = null;		
-		String stextQuestion = "text2372018162553";
+		String stextQuestion = "Test Question";
 		String stextAns = "Text Question Answered";
-		String snumberQuestion = "number2372018162548";
+		String snumberQuestion = "Number Question";
 		String snumberAns ="200";		
-		String spicklistQuestion = "picklist2372018162550";
-		String spicklistAns = "Answer2372018163046";
-		String sdateQuestion = "date2372018162544";
+		String spicklistQuestion = "Picklist Question";
+		String spicklistAns = "PicklOne";
+		String sdateQuestion = "Date Question";
 		String sdateAns = null;
-		String sdateTimeQuestion = "dateTime2372018162545";
+		String sdateTimeQuestion = "DateTime Question";
 		String sdateTimeAns = null;
-		String schecklistStatus = "Completed";
+		String schecklistStatus = "Completed";		
 		
-	//	GenericLib.setCongigValue(GenericLib.sDataFile, sCaseWOID, sWOName);
-
-
-			// Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);			
-			
-			
-			
+		// Pre Login to app
+			loginHomePo.login(commonsPo, exploreSearchPo);					
 			//toolsPo.configSync(commonsPo);
 			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
-			
+			System.out.println(sWOName);
+			//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
-			
-			
-			Thread.sleep(15000);
-			
-
-			//System.out.println("Going to Enter checklist");
-			
 			commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
-			
 			//commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			//System.out.println("Entering Text Question Answer");
+			commonsPo.tap(checklistPo.geteleChecklistAnswerTextArea(stextQuestion));
+		
+			System.out.println("-------------"+stextAns);
 			checklistPo.geteleChecklistAnswerTextArea(stextQuestion).sendKeys(stextAns);
 			
 			//System.out.println("Entering Number Question Answer");
+			commonsPo.tap(checklistPo.geteleChecklistAnsNumber(snumberQuestion));
 			checklistPo.geteleChecklistAnsNumber(snumberQuestion).sendKeys(snumberAns);;
 			
 			//System.out.println("Selecting Picklist Question Answer");
 			commonsPo.setPickerWheelValue(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
-			
-			//System.out.println("Setting  Date Question Answer");
-			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
-			commonsPo.switchContext("Native");
-		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 		    commonsPo.switchContext("WebView");
-		    sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
+			try {
+			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
+			System.out.println("*** USed normal click ******");
+			
+			}
+			catch(Exception er) {
+				commonsPo.tap(checklistPo.geteleChecklistAnsDate(sdateQuestion));
+				System.out.println("*** USed normal SINGLE TAP ******");
+				
+			}
+			commonsPo.switchContext("Native");
+			commonsPo.getEleDonePickerWheelBtn().click();
+		    commonsPo.switchContext("WebView");
+			sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
 		    System.out.println("dateANS is "+sdateAns);
 		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
 	        dTempDate1 = parser.parse(sdateAns);
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
-		      
-		    
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+			commonsPo.switchContext("Webview");
+			
+			
 		    //System.out.println("Setting dateTime Question Answer");
-		    checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
+			checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
+		   // commonsPo.tap((checklistPo.geteleChecklistAnsDate(sdateTimeQuestion)));
 		    commonsPo.switchContext("Native");
-		    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.getEleDonePickerWheelBtn().click();
 		    commonsPo.switchContext("WebView");
 		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");	    
 		    System.out.println("direct sdatetime"+sdateTimeAns);	    
@@ -165,53 +174,55 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
-
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		   commonsPo.switchContext("WebView");
 		    //System.out.println("Setting Radio button  Question Answer");
-		    checklistPo.geteleChecklistAnsradio(sradioQuestion).click();
+	        
+	        
 		    commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
+		  //  commonsPo.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-		    
-		    
-		    // tapping the next button in checklist
+			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
+		   commonsPo.switchContext("WebView");
+	    // tapping the next button in checklist
 		 	commonsPo.tap(checklistPo.geteleNext());
 
 		 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
-			Thread.sleep(genericLib.iLowSleep);
+			Thread.sleep(GenericLib.iLowSleep);
 			System.out.println(driver.getContext());
 			commonsPo.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
 			try{commonsPo.clickAllowPopUp();}catch(Exception e) {}
-			commonsPo.switchContext("WEBVIEW");
-
+			commonsPo.switchContext("WebView");
 			// tapping on the validation sucessfull checklist popup
 			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
+			Thread.sleep(GenericLib.iLowSleep);
 
 			
 			// Tapping on Show Completed Checklists
 			//System.out.println("going to tap on show completedchecklists");
-			commonsPo.tap(checklistPo.geteleShowCompletedChecklist());
+			commonsPo.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
 			//System.out.println("tapped on completed checklist");
 			//System.out.println("going to tap on the completedchecklist");
 			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			//System.out.println("tapped on completed checklist");
-			
+			Thread.sleep(GenericLib.iMedSleep);
 			
 			
 			
 			//System.out.println("====================Checklist Answers Valdation=========================");
-			
+			System.out.println("_______________________"+checklistPo.geteleChecklistAnswerTextArea(stextQuestion).getAttribute("value"));
 			Assert.assertEquals(checklistPo.geteleChecklistAnswerTextArea(stextQuestion).getAttribute("value"), stextAns, "textquestion answered is not displayed");
 			ExtentManager.logger.log(Status.PASS,"ChecklistText Quesiton Answer validation sucessfull");
 
 			
-		//	Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value"), sdateAns, "date checklist question answered is not displayed");
-		//ExtentManager.logger.log(Status.PASS,"Checklist Date Quesiton Answer validation sucessfull");
+			//	Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value"), sdateAns, "date checklist question answered is not displayed");
+			//ExtentManager.logger.log(Status.PASS,"Checklist Date Quesiton Answer validation sucessfull");
 
 					
 			//Assert.assertEquals(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value"), sdateTimeAns, "datetime checklist question answered is not displayed");
@@ -227,13 +238,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 
 			
 			//Navigating back to Work Orders
+			System.out.println("Going to navigate back to work Order");
 			checklistPo.navigateBacktoWorkOrder(commonsPo);
 			
 			
 			
 			// Sync the Data
 			 toolsPo.syncData(commonsPo);		
-			 
+			 Thread.sleep(GenericLib.iVHighSleep);
 			
 			 									//SERVER SIDE API VALIDATIONS
 			 
@@ -248,28 +260,23 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			String ChecklistAnsjson = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__ChecklistJSON__c");
 			Assert.assertTrue(ChecklistAnsjson.contains(stextAns), "checklist text question answer is not synced to server");
-			ExtentManager.logger.log(Status.PASS,"checklist text question answer is not synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist text question answer is synced to server");
 
 			Assert.assertTrue(ChecklistAnsjson.contains(snumberAns), "checklist number answer sycned to server in checklist answer");
 			ExtentManager.logger.log(Status.PASS,"checklist number answer sycned to server in checklist answer");
 
-		//	Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
-		//	ExtentManager.logger.log(Status.PASS,"checklist date question answer synced to server");
+			//	Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date answer was not sycned to server in checklist answer");
+			//	ExtentManager.logger.log(Status.PASS,"checklist date question answer synced to server");
 
-		//	Assert.assertTrue(ChecklistAnsjson.contains(sformattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
-		//	ExtentManager.logger.log(Status.PASS,"checklist datetime question answer synced to server");
+			//	Assert.assertTrue(ChecklistAnsjson.contains(sformattedDatetime), "checklist datetime answer was not sycned to server in checklist answer");
+			//	ExtentManager.logger.log(Status.PASS,"checklist datetime question answer synced to server");
 
 			Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
 			ExtentManager.logger.log(Status.PASS,"checklist picklist question answer synced to server");
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
 			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");
-
-			
-																	
-		//	genericLib.executeSahiScript(GenericLib.getCongigValue(GenericLib.sDataFile, "RS_2389_SAHISCRIPT"),
-		//			sTestCaseID);
-		
+					
 	}
 
 	@AfterMethod

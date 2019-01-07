@@ -17,6 +17,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -34,7 +35,7 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sIBName = null;
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10553() throws Exception {
 		
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
@@ -94,7 +95,7 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		//Discard the Changes by clicking on it
 		commonsPo.tap(workOrderPo.getEleDiscardChanges());
 		//Click on Cancel Button and verify the Changes of the ChildLines
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.getEleDiscardChanges());
 		
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
@@ -128,8 +129,9 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		Thread.sleep(1000);
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Sync the Data and verify in the Server end if both the data are present
+		Thread.sleep(20000);
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(10000);
+		Thread.sleep(20000);
 		// Verify the Queries
 
 		restServices.getAccessToken();

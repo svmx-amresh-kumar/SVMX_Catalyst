@@ -1,6 +1,8 @@
 package com.ge.fsa.pageobjects;
 
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,6 +13,8 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.ios.IOSTouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class ChecklistPO{
 	
@@ -161,6 +165,11 @@ public class ChecklistPO{
 		return eleChecklistCheckboxValue = driver.findElement(By.xpath("//span[@class='x-label-text-el'][text()='"+checklistCheckbox+"']/../..//div[@class='x-unsized x-checkboxinput x-input x-component x-font-icon']//input"));
 	}
 	
+	private WebElement eleChecklistAttach;
+	public WebElement geteleChecklistAttach(String checklistq)
+	{
+		return eleChecklistAttach = driver.findElement(By.xpath("//div[text()='"+checklistq+"']/../..//div[@class='x-component x-label x-stretched x-widthed sfm-checklist-attach-label x-layout-box-item x-layout-hbox-item x-flexed']/div"));
+	}
 	
 	//"//span[@class='x-label-text-el'][text()='RadioOne']/../..//input")
 	private WebElement eleChecklistRadioButtonValue;
@@ -190,21 +199,26 @@ public class ChecklistPO{
 	}
 	
 	
-	@FindBy(xpath="//span[text()='< Work Order']")
+	//@FindBy(xpath="//span[text()='< Work Order']")
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label'][contains(text(),'Work Order')]")
+	
 	private WebElement eleBacktoWorkOrderlnk;
 	public WebElement geteleBacktoWorkOrderlnk()
 	{
 		return eleBacktoWorkOrderlnk;
 	}
 	
-	@FindBy(xpath="//span[text()='< Back']")
+	//@FindBy(xpath="//span[contains(text(),'Back')]")
+	
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label']")
 	private WebElement eleBacklnk;
 	public WebElement geteleBacklnk()
 	{
 		return eleBacklnk;
 	}
+	//@FindBy(xpath="//span[text()='<Checklists')]")
 	
-	@FindBy(xpath="//span[text()='< Checklists']")
+	@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']/span[@class='x-button-label'][contains(text(),'Checklists')]")
 	private WebElement eleBacktoChecklistslnk;
 	public WebElement geteleBacktoChecklistslnk()
 	{
@@ -295,8 +309,13 @@ public class ChecklistPO{
     	return eleChecklistAnswerOPDOCtbl;
     }
     
-
-    
+    //Checklist badge error 
+    @FindBy(xpath="//span[@class='sfm-checklist-validation-error-badge']")
+    private WebElement eleChecklistErrorBadge;
+    public WebElement geteleChecklistErrorBadge()
+    {
+    	return eleChecklistErrorBadge;
+    }
     
     private WebElement eleSectionNametxt;
     public WebElement  geteleChecklistSectionNametab(String sSectionName)
@@ -305,12 +324,20 @@ public class ChecklistPO{
 	}
     
     
-    
+    /*
     @FindBy(xpath="//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']")
 	private WebElement eleChecklistHelpIcn;
 	public WebElement geteleChecklistHelpIcn()
 	{
 		return eleChecklistHelpIcn;
+	}*/
+	
+	
+	private WebElement eleChecklistHelpIcn;
+    public WebElement  geteleChecklistHelpIcn(String sQuestionName)
+	{
+		return eleChecklistHelpIcn = driver.findElement(By.xpath("//div[text()='"+sQuestionName+"']/../../..//../../../..//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']"));
+		
 	}
 	
 	private WebElement eleChecklistStatuslbl;
@@ -339,16 +366,35 @@ public class ChecklistPO{
 		
 		
 		try {
-			commonsPo.tap(geteleBacktoChecklistslnk());
-			commonsPo.tap(geteleBacktoWorkOrderlnk());
-			
-		} catch (Exception e) {
+			System.out.println("Try block for back");
 			commonsPo.tap(geteleBacklnk());
-			commonsPo.tap(geteleBacktoChecklistslnk());
-			commonsPo.tap(geteleBacktoWorkOrderlnk());
-		}
+            commonsPo.tap(geteleBacktoChecklistslnk());
+            commonsPo.tap(geteleBacktoWorkOrderlnk());
+            
+           
+      } catch (Exception e) {
+			System.out.println("Catch block for back");
+            
+            
+            commonsPo.tap(geteleBacktoChecklistslnk());
+            commonsPo.tap(geteleBacktoWorkOrderlnk());
+      }
+
 	
 	
+		
+		/*Point point = geteleBacklnk().getLocation();
+		try {
+			System.out.println("***** USing Single Tap in TRY BLock*******");
+		commonsPo.singleTap(geteleBacklnk());
+		commonsPo.singleTap(geteleBacktoChecklistslnk());
+		
+		
+		commonsPo.singleTap(geteleBacktoWorkOrderlnk());
+		System.out.println("***** USing Single Tap in TRY BLock*******");
+		
+		}*/
+		
 		
 		
 		

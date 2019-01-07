@@ -11,6 +11,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
@@ -53,13 +54,13 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 
-		genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+	/*	genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
+		//Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-
+*/
 	}
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void toTest() throws Exception {
 		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";
@@ -113,7 +114,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 		commonsPo.tap(workOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(workOrderPo.getEleCancelLnk());
+		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.getEleDiscardBtn());
 
 		//Navigation to WO

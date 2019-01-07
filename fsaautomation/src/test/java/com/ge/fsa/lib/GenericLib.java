@@ -25,11 +25,13 @@ public class GenericLib
 	public static String sConfigFile =  sResources+"//config.properties";
 	public static String sTestDataFile = sResources + "//TestData.xlsx";
 	public static int iVHighSleep = 60000;
+	public static int i30SecSleep = 30000;
 	public static int iHighSleep = 8000;
 	public static int iMedSleep = 5000;
 	public static int iLowSleep = 2000;
 	public static int iProcessStatus=0;
 	public static long lWaitTime=0L;
+	public static String sAppBundleID = "com.servicemaxinc.svmxfieldserviceapp";
 	ProcessBuilder processBuilder = null;
 	Process process=null;
 	
@@ -79,11 +81,12 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To read test data from excel sheet
 	 */
-	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) {
+	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) throws IOException {
 		String sData = null;
+		FileInputStream fis = new FileInputStream(sTestDataFile);
+		
 		try {
 
-			FileInputStream fis = new FileInputStream(sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
 			Sheet sht = wb.getSheet(sSheetName);
 			int iRowNum = sht.getLastRowNum();
@@ -103,9 +106,12 @@ public class GenericLib
 					break;
 				}
 			}
+			wb.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		fis.close();
 		return sData;
 	}
 	
@@ -122,7 +128,9 @@ public class GenericLib
 	
 	
 	public void executeSahiScript(String sSahiScript, String sTestCaseID ) throws Exception
-	{	//Create Shell script to execute Sahi file
+	{	
+		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
+		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
 		File file = new File(GenericLib.sShellFile);
 		Runtime.getRuntime().exec("chmod u+x " +file);
@@ -145,13 +153,15 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To write test data from excel sheet
 	 */
-	public static void setExcelData(String sTestCaseID, String sKey, String sValue) {
+	public static void setExcelData(String sTestCaseID, String sKey, String sValue) throws IOException {
 		String sData = null;
+		FileInputStream fis = null;
+		FileOutputStream fos =null;
 		try {
 
-			FileInputStream fis = new FileInputStream(sTestDataFile);
+			fis = new FileInputStream(sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
-			Sheet sht = wb.getSheet("TestData");
+			Sheet sht = wb.getSheet("sTestCaseID");
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
 			for (int i = 1; i <= iRowNum; i++) {
@@ -168,20 +178,23 @@ public class GenericLib
 					break;
 				}
 			}
-			FileOutputStream fos = new FileOutputStream(sTestDataFile);
+			fos = new FileOutputStream(sTestDataFile);
 			wb.write(fos);
+			
+			wb.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
+		fos.close();
 		
 	}
 	
-	public static void main(String[] args) throws IOException {
-		GenericLib gen = new GenericLib();
-		gen.createShellFile("backOffice/appium_verifyWorkDetails.sah");
-		System.out.println("Passed");
-	}
+//	public static void main(String[] args) throws IOException {
+//		GenericLib gen = new GenericLib();
+//		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
+//		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
+//	}
 	
 }

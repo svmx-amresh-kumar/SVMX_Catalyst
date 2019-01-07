@@ -21,6 +21,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 import com.ge.fsa.pageobjects.WorkOrderPO;
 
@@ -45,11 +46,16 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	String sPBillableLinePrice = "7000.000";
 	String sSheetName =null;
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10538() throws Exception {
 		sSheetName ="RS_10538";
+		//Thread.sleep(50000);
 		System.out.println("SCN_GetPrice_RS_10538");
-		// To run the Sahi Script before the Execution of Appium
+		
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		Thread.sleep(50000);
+
+	//	 To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
 		if(commonsPo.verifySahiExecution()) {
 			
@@ -64,19 +70,19 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 			assertEquals(0, 1);
 		}
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+
 		// Have a config Sync
 		//toolsPo.configSync(commonsPo);
 		// Do a Data sync
 		toolsPo.syncData(commonsPo);
-		// Get the Work Order from the sheet
+		Thread.sleep(genericLib.iMedSleep);
+//		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPrice_RS_10538";
 		String sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Work Order Number");
 		String sProductName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Product Name ");
 		System.out.println(sworkOrderName);
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
-		Thread.sleep(2000);
 		workOrderPo.selectAction(commonsPo,sProcessname);
 		
 		
@@ -92,7 +98,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
-		
+		//commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName),10,10);
+		Thread.sleep(10000);
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -144,20 +151,15 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	/**
 	 * LABOR - Verification of Fields AFTER THE GET PRICE
 	*/
-		Date localTime = new Date();
-		DateFormat df = new SimpleDateFormat("HH");
-		 
-		// Tell the DateFormat that I want to show the date in the IST timezone
-		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sdatehours = df.format(localTime);
-
-
-		int sEndDateint = Integer.parseInt(sdatehours) + 4;
-		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","0",sEndDate,sProcessname);
+		int sEndDateint = Integer.parseInt("03") + 4;
+		String sEndDate = Integer.toString(sEndDateint);
+		System.out.println(sEndDate);
+
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
+		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"),10,10);
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		System.out.println(sLinePricePUnit_labor);
 		String sCoveredPercent_labor = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -202,9 +204,12 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","0",sEndDate,sProcessname);
+		
+
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
+	//	commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"),10,10);
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent_labor2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty_labor2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -252,11 +257,15 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	/**
 	 * EXPENSE - VERIFICATION OF THE FIELDS
 	 */
+		Thread.sleep(20000);	
+		
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Food - Dinner",sProcessname,"5","100");
+
 		//Verifying the fields of Expenses
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
+		//commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"),10,10);
 		String sCoveredPercent_labor3 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty_labor3 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor3 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");

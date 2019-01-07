@@ -18,6 +18,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_Recent_Items_RS_10565 extends BaseLib {
 
@@ -50,7 +51,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		
 	} 
 
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void Recent_Items_RS_10565() throws Exception {
 		sSheetName ="RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -59,7 +60,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		String sTestCaseID="RS_10565_Recent_Items";
 		
 		//sahi
-  		genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
+  		/*genericLib.executeSahiScript("appium/SCN_RecentItems_RS_10565.sah", "sTestCaseID");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -73,7 +74,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
   			assertEquals(0, 1);
   		}
   		lauchNewApp("true");
-  		System.out.println("RS_10565");
+  		System.out.println("RS_10565");*/
 		
 		
 		//read from file
@@ -91,12 +92,9 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			
-			//config sync
-			toolsPo.configSync(commonsPo);
+		
 			Thread.sleep(GenericLib.iMedSleep);
 			toolsPo.Resetapp(commonsPo,exploreSearchPo);
-			//datasync
-			toolsPo.syncData(commonsPo);
 			Thread.sleep(GenericLib.iMedSleep);
 	
 			//crete a wo
@@ -104,13 +102,20 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
 			commonsPo.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "High");
 			commonsPo.setPickerWheelValue(createNewPO.getEleClickBillingTypePicklist(), "Loan");
-			createNewPO.getEleproformainvoicevalue().click();
-			commonsPo.tap(createNewPO.getEleproformainvoicevalue());
+			//createNewPO.getEleproformainvoicevalue().click();
+			//commonsPo.tap(createNewPO.getEleproformainvoicevalue());
 			createNewPO.getEleproformainvoicetextarea().sendKeys(sProformainVoice);
-			commonsPo.tap(createNewPO.getEleupdatethetextfield());
+		//	commonsPo.tap(createNewPO.getEleupdatethetextfield());
 			Thread.sleep(1000);
 			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
-
+//create one case
+			sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Recent_Item\", \"Priority\": \"High\", \"Description\": \"Description of Recent_item \",\"Status\": \"Escalated\"}";
+			sObjectApi = "Case?";
+			String sObjectID = restServices.restCreate(sObjectApi,sJsonData);
+			sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
+			String sCaseID = restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
+			
+			
 			
 			toolsPo.syncData(commonsPo);
 			
@@ -130,7 +135,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			
 			
 			//open case
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Cases", "00001003", null);//case to be changed to global create case        
+			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Cases", sCaseID, null);//case to be changed to global create case        
 			Thread.sleep(2000);
 			commonsPo.tap(recenItemsPO.getEleClickRecentItems());
 			Thread.sleep(1000);
