@@ -123,7 +123,7 @@ public class BaseLib {
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure "+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
@@ -166,7 +166,7 @@ public class BaseLib {
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure"+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
