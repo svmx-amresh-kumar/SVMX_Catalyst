@@ -260,14 +260,15 @@ public class BaseLib {
 
 		}
 		
-		//Avoid duplicate test results in reports on retry
-        if (Retry.isRetryRun) {			
-        	//Remove the failed first try
-        	Retry.isRetryRun = false;
+		// Avoid duplicate test results in reports on retry
+		if (Retry.isRetryRun) {
+			// Reset the isRetryRun to false to accept the next run
+			Retry.isRetryRun = false;
+			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
-		}else{
-		//Add the retry log
-		ExtentManager.extent.flush();
+		} else {
+			// Add the retry log
+			ExtentManager.extent.flush();
 		}
         
 		try{driver.quit();}catch(Exception e) {};
