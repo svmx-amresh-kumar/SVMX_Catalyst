@@ -16,7 +16,8 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	
 	String sExploreSearch = "AUTOMATION SEARCH";
 	String sExploreChildSearch = "Work Orders";
-	String sFieldProcessName = "AutoReg10529";
+//	String sFieldProcessName = "AutoReg10529";
+	String sFieldProcessName = "Auto_Reg_10527";
 	String sAccountName = "McLaren3";
 	String sProdName = "a1";
 	
