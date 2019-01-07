@@ -38,11 +38,10 @@
 			<class name="com.ge.fsa.tests.SCN_Opdoc_RS_10571" /> -->
 			
 			
-			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
 			
 			
 		
-	<!-- 
+	
 		   <class name="com.ge.fsa.tests.SanityPreReq" />
 			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
@@ -78,7 +77,7 @@
 			<class name="com.ge.fsa.tests.SCN_Calendar_5_RS_10515" />
 			<class name="com.ge.fsa.tests.SCN_Calander_7_RS_10526" />
 			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />		
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" />  -->
+			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" /> 
 			
 				<!--
 		
