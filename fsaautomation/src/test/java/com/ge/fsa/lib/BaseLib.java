@@ -10,6 +10,7 @@ import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -228,7 +229,7 @@ public class BaseLib {
 	@BeforeMethod
 	public void startReport(ITestResult result) {
 		lauchNewApp("true");
-		System.out.println(" ► ► RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
+		System.out.println(" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
@@ -237,11 +238,11 @@ public class BaseLib {
 	}
 
 	@AfterMethod
-	public void endReport(ITestResult result)
+	public void endReport(ITestResult result,ITestContext context)
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
-			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
 			if(sOSName.toLowerCase().equals("android")) {	
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -255,10 +256,20 @@ public class BaseLib {
 				e.printStackTrace();
 			}
 		}else {
-			System.out.println(" ☯ ☯ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
 
 		}
+		
+		//Avoid duplicate test results in reports on retry
+        if (Retry.isRetryRun) {			
+        	//Remove the failed first try
+        	Retry.isRetryRun = false;
+			ExtentManager.extent.removeTest(ExtentManager.logger);
+		}else{
+		//Add the retry log
 		ExtentManager.extent.flush();
+		}
+        
 		try{driver.quit();}catch(Exception e) {};
 
 	}

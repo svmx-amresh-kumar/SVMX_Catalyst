@@ -8,6 +8,7 @@ import org.testng.ITestResult;
 
 public class Retry implements IRetryAnalyzer {
 
+	public static boolean isRetryRun = false;
 	// set counter to 0
 
 	int minretryCount = 0;
@@ -38,7 +39,7 @@ public class Retry implements IRetryAnalyzer {
 			// increment counter each time by 1
 
 			minretryCount++;
-
+			isRetryRun = true;
 			return true;
 
 		}
