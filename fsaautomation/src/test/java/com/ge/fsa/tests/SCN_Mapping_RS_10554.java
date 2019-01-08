@@ -66,22 +66,19 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		String sTestCaseID="RS-10554_mapping";
 		String sID=sProformainVoice+"RS_10554_IB";
 	//sahi
-		genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah", "sTestCaseID");
-		if(commonsPo.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-		lauchNewApp("true");
-		System.out.println("RS_10554");
 		
+		/*
+		 * genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah",
+		 * "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		 * 
+		 * System.out.println("PASSED"); } else { System.out.println("FAILED");
+		 * 
+		 * 
+		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		 * "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		 * System.out.println("RS_10554");
+		 */
+		 
 		
 		//create Account
 		sObjectApi = "Account?";

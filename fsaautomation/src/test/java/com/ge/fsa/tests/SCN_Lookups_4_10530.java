@@ -18,17 +18,18 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sProdName = null;
 	String sExploreSearch = "AUTOMATION SEARCH";
 	String sExploreChildSearch = "Work Orders";
-	String sProcessName = "10530_lkp_proc1";
+//	String sProcessName = "10530_lkp_proc1";
+	String sProcessName = "Auto_Regression_10530";
 	String sScriptName = "Scenario_10530";
 	
-//private void preRequisite() throws Exception {
-//		
-//		// Invoking Sahi Script.
-//		genericLib.executeSahiScript("appium/Scenario_10530.sah", sTestID);
-//		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
-//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-//		
-//	}
+private void preRequisite() throws Exception {
+		
+		// Invoking Sahi Script.
+		genericLib.executeSahiScript("appium/Scenario_10530.sah", sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+		
+	}
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
@@ -38,7 +39,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
 		sProdName = "P2";
-//		preRequisite();
+		preRequisite();
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);

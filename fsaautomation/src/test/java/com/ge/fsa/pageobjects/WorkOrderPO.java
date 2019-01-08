@@ -138,6 +138,12 @@ import org.openqa.selenium.Rotatable;
 			return contactListInLkp;
 		}
 		
+		@FindBy(xpath="//div[contains(text(),'Product Name')]/following::div[contains(@id,'ext-gridrow-')]")
+		private List<WebElement> productListInLkp;
+		public List<WebElement> getProductListInLkp() {
+			return productListInLkp;
+		}
+		
 		@FindBy(xpath="//div[contains(text(),'Location Name')]/following::div[contains(@id,'ext-gridrow-')]")
 		private List<WebElement> LocListInLkp;
 		public List<WebElement> getLocListInLkp() {

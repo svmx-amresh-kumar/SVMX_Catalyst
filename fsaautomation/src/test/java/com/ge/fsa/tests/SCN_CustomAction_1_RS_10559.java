@@ -15,7 +15,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10559() throws InterruptedException, IOException {
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
