@@ -17,5 +17,5 @@
 			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" /> 
 		</classes>
 	</test> <!-- Test -->
-	
+
 </suite> <!-- Suite -->
