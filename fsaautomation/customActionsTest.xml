@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+<test name="CustomActions">
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_CustomAction_1_RS_10559" />
+			<class name="com.ge.fsa.tests.SCN_CustomAction_2_RS_10558" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
