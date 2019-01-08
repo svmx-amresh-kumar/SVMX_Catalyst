@@ -460,7 +460,7 @@ import org.openqa.selenium.Rotatable;
 		{
 	
 			//eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
-			eleclickparts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+partsname+"']"));
+			eleclickparts = driver.findElement(By.xpath("(//div[@class='x-inner-el'][text()='"+partsname+"'])[2]"));
 			return eleclickparts;
 		}
 	
@@ -1003,13 +1003,15 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 		@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
+//		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='State']/following::input)[1]")
 		private WebElement eleLblStateName;
 		public WebElement getEleLblStateName()
 		{
 			return eleLblStateName;
 		}
 	
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-mask-el']")
 		private WebElement eleLblCountryName;
 		public WebElement getEleLblCountryName()
 		{
