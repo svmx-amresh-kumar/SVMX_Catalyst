@@ -9,6 +9,8 @@
 		<classes>	
 			<class name="com.ge.fsa.tests.SanityPreReq" />				
 			<class name="com.ge.fsa.tests.SCN_ConfigSync_Alert_RS_10561" />
+			<class name="com.ge.fsa.tests.SCN_ConfigSync_RS_10563" />
+			
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
