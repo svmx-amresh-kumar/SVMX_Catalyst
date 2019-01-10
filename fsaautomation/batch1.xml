@@ -5,7 +5,23 @@
 		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
 	</listeners>
-	<test name="Batch1">
+	
+	
+
+  <suite-files>
+    <suite-file path="checklistTest.xml" />
+    <suite-file path="mappingTest.xml" />
+      <suite-file path="childLineTest.xml" />
+        <suite-file path="linkedSfmTest.xml" />
+          <suite-file path="sourceObjectUpdateTest.xml" />
+            <suite-file path="dvrTest.xml" />
+              <suite-file path="zeroLinesTest.xml" />
+
+  </suite-files>
+
+	
+	
+<!-- <test name="Batch1">
 		<classes>
 					 
 		 	<class name="com.ge.fsa.tests.SanityPreReq" />
@@ -28,5 +44,5 @@
 			
 
 		</classes>
-	</test> <!-- Test -->
+	</test>  -->	<!-- Test --> 
 </suite> <!-- Suite -->
