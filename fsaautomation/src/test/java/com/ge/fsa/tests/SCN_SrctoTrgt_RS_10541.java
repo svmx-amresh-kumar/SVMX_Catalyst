@@ -117,9 +117,9 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
-		System.out.println(workOrderPo.getEleIBSubjectTxt().getText());
+		//System.out.println(workOrderPo.getEleIBSubjectTxt().getText());
 		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
+		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt(sIBName2).isDisplayed(), "Subject is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Subject is  displayed");
 		
 			

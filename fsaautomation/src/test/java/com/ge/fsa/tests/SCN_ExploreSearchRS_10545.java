@@ -39,6 +39,14 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	String sWOName5 = null;//"WO-00005625";//null;//"WO-00005561";
 	
 	String sAutoEditWO = "AUTO_EDIT_WORKORDER";
+	String[] sDate=null;
+	String sCompletedDateTxt=null;
+	String sActualDateTxt=null;
+	String sTomDateTxt = null;
+	String sTodayDateTxt = null;
+	String sDateAfterTomTxt = null;
+	int iDay=0;
+	int iMonth=0;
 	
 	private void preRequiste() throws Exception  
 	{
@@ -139,11 +147,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		
+		/*
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		
+		*/
 	}
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
@@ -153,8 +161,36 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
 		
 	try {
+		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
+		if(Integer.parseInt(sDate[2])>28)
+		{
+			sDate[2]="1";
+			iMonth=Integer.parseInt(sDate[1])+1;
+			if(iMonth>12) {
+				iMonth=01;
+			}
+			sDate[1]=""+iMonth;
+		}
+		sTodayDateTxt= sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+	
+		iDay=Integer.parseInt(sDate[2])+1;
+		sDate[2]=""+iDay;
+		sTomDateTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+		
+		iDay=Integer.parseInt(sDate[2])+1;
+		sDate[2]=""+iDay;
+		sDateAfterTomTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+		
+		
 		preRequiste();
-
+		System.out.println("************** ---------------- ***********");
+		
+		sObjectApi = "SVMXC__Service_Order__c";
+		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+		
+		System.out.println("************** ---------------- ***********");
+		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
@@ -387,7 +423,27 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), sSerialNumber+"LocB --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber +"LocB -->No Records to display text is successfully displayed");
 	
+		System.out.println(driver.getDeviceTime());
+		//Updating WorkOrder2 with Location5 and scheduled date to tomorrow
+		sObjectApi = "SVMXC__Service_Order__c";
+		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
 		
+		//Updating WorkOrder5 with Location5 and scheduled date to tomorrow
+		sObjectApi = "SVMXC__Service_Order__c";
+		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sTomDateTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+
+		//Updating WorkOrder3  and scheduled date to today
+		sObjectApi = "SVMXC__Service_Order__c";
+		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sTodayDateTxt+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+
+		//Updating WorkOrder4 with scheduled Day after tomorrow
+		sObjectApi = "SVMXC__Service_Order__c";
+		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+
 		
 		
 	}catch(Exception e)
