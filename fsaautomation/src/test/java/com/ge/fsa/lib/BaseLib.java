@@ -63,8 +63,9 @@ public class BaseLib {
 	public String sSuiteTestName = null;
 
 	@BeforeSuite
-	public void startServer()
+	public void startServer(ITestContext context)
 	{
+		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
 
 
 	}
@@ -229,7 +230,6 @@ public class BaseLib {
 	@BeforeMethod
 	public void startReport(ITestResult result,ITestContext context) {
 		lauchNewApp("true");
-		
 		sSuiteTestName = context.getCurrentXmlTest().getName();
 		if(sSuiteTestName != null) {
 		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
