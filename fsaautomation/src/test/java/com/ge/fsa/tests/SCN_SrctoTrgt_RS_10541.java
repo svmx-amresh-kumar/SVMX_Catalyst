@@ -86,11 +86,11 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		preRequiste();
-		
+		//preRequiste();
+		sIBName2="IB_10541_10012019163025";
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		
+		/*
 		//Config Sync
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -108,7 +108,8 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
-
+	*/
+		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
@@ -117,12 +118,11 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
-		//System.out.println(workOrderPo.getEleIBSubjectTxt().getText());
 		//Validation of auto update process
+		commonsPo.tap(workOrderPo.getEleIBSubjectTxt(sIBName2));
 		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt(sIBName2).isDisplayed(), "Subject is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Subject is  displayed");
 		
-			
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
