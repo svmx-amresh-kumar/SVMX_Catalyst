@@ -67,6 +67,8 @@ public class BaseLib {
 	{
 		
 		System.out.println("Run envo "+System.getenv("jenkins_run_on_platform"));
+		System.out.println("Run envo property"+System.getProperty("jenkins_run_on_platform"));
+
 	    
 		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
 
