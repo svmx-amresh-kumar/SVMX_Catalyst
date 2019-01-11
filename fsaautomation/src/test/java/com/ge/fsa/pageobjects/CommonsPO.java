@@ -1164,28 +1164,30 @@ public class CommonsPO {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		// if we add "true,false,true" in the results file as comma separated values
 		String[] arrValues = sahiResultCommon.split(",");
 		int i = 0;
 		for (String arrValRead : arrValues) {
-			System.out.println("use  arrValues[" + i + "] = " + arrValRead);
+			System.out.println("File boolean state values in arrValues[" + i + "] = " + arrValRead);
 			i++;
 		}
 
 		if (arrValues[0].toLowerCase().equals("true")) {
 
-			System.out.println("Its a Match , Read File = " + sahiResultCommon);
+			System.out.println("Its a Match , Sahi exceution state in file = " + sahiResultCommon);
 			// In case you want to stop even if the script passes
 			result = true;
 
 		} else {
-			System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
+			System.out.println("Its Not a Match , Sahi exceution state in file = " + sahiResultCommon);
 			result = false;
 		}
 		File file = new File(sFilePath);
-        if(file.delete()){
-            System.out.println("Resetting State by deleting file "+sFilePath);
-        }else System.out.println("No file to reset" + sFilePath);
-        
+		if (file.delete()) {
+			System.out.println("Resetting State by deleting file : " + sFilePath);
+		} else
+			System.out.println("No file to reset : " + sFilePath);
+
 		return result;
 	}
 
