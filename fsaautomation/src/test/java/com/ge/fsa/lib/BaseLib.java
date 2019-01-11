@@ -65,7 +65,7 @@ public class BaseLib {
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
-		System.out.println("Run envo "+System.getProperty("${jenkins_run_on_platform}"));
+		System.out.println("Run envo "+System.getenv("jenkins_run_on_platform"));
 	    
 		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
 
