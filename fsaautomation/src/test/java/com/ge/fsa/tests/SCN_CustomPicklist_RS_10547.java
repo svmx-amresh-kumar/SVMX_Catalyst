@@ -137,7 +137,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					{
 						ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "The Controlling Picklist Values don't match");
 					}
-						
+				}
 //=======================================================================================================
 			// To select the Dependent Picklist value
 					Thread.sleep(10000);
@@ -151,9 +151,10 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					else {
 						commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 					}
+					
 					commonsPo.switchContext("WebView");
 					Thread.sleep(genericLib.iMedSleep);
-					Thread.sleep(2000);
+					Thread.sleep(20000);
 					commonsPo.tap(workOrderPo.getEleClickSave());
 					toolsPo.syncData(commonsPo);
 //==============================================================================================================					
@@ -190,7 +191,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 			}
 			commonsPo.switchContext("WebView");
-			Thread.sleep(2000);
+			Thread.sleep(20000);
 
 //======================================================================================================
 		// To verify the values at the Dependent Picklist
@@ -224,12 +225,15 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			else {
 				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 			}
+			
+			
 			commonsPo.switchContext("WebView");
 			Thread.sleep(2000);
 			commonsPo.tap(workOrderPo.getEleClickSave());
-			toolsPo.syncData(commonsPo);
+
+		
 		}
-	}
+
 
 
 }
