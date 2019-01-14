@@ -57,20 +57,16 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sObjectApi = "Account?";
 		sJsonData =  "{\"Name\": \""+sSerialNumber+""+"AccA\"}";
 		sAccountNameA=restServices.restCreate(sObjectApi,sJsonData);
-		System.out.println(sAccountNameA);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\"Hyderabad\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameA );
 
-		System.out.println("**************"+sAccountNameA);
-		
 		//create AccountB with Bangalore
 		sObjectApi = "Account?";
 		sJsonData =  "{\"Name\": \""+sSerialNumber+""+"AccB\"}";
 		sAccountNameB=restServices.restCreate(sObjectApi,sJsonData);
-		System.out.println("******* CITY ******"+sAccountNameB);
 		Thread.sleep(GenericLib.iMedSleep);
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
@@ -81,7 +77,6 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccC\"}";
 		sAccountNameC=restServices.restCreate(sObjectApi,sJsonData);
-		System.out.println(sAccountNameC);
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\"Manchester\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameC );
@@ -147,11 +142,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		/*
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		*/
+		
 	}
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
@@ -159,8 +154,6 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	{
 		sTestID = "RS_10545";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		
-	try {
 		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
 		if(Integer.parseInt(sDate[2])>28)
 		{
@@ -180,19 +173,15 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		iDay=Integer.parseInt(sDate[2])+1;
 		sDate[2]=""+iDay;
 		sDateAfterTomTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-		
-		
+	
+	try {
 		preRequiste();
-		System.out.println("************** ---------------- ***********");
-		
-		sObjectApi = "SVMXC__Service_Order__c";
-		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
-		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
-		
-		System.out.println("************** ---------------- ***********");
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		
+		sWOName3="WO-00003845";
+		
 		
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
@@ -370,9 +359,6 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Thread.sleep(GenericLib.iMedSleep); 
 		 
 		driver.activateApp("com.servicemaxinc.svmxfieldserviceapp");
-		
-		
-		//Validation of WO search after updating WO2
 		//Validation of WO search after updating WO2
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
@@ -444,8 +430,60 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
 
+		//Data Sync for WO's created
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep); 
+		/*
+		//Navigation to Work Orders (USERTRUNK) Search
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
+		Thread.sleep(GenericLib.iMedSleep); 
 		
+		//Validation of WO2 and WO5
+		validateSearch("WO");
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName2).isDisplayed(), "Work Order2 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order2 Record is successfully displayed");
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order5 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
+		*/
+		//Navigation to Work Orders (DATE LITERALS) Search
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (DATE LITERALS)"));
+		Thread.sleep(GenericLib.iMedSleep); 
 		
+		//Validation of WO1, WO3 and WO5
+		validateSearch("WO");
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName1).isDisplayed(), "Work Order1 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName3).isDisplayed(), "Work Order3 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order5 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
+		
+		/*
+		//Navigation to SFM
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders", sWOName5, sAutoEditWO);
+		Thread.sleep(GenericLib.iLowSleep);
+		Assert.assertTrue(workOrderPo.getEleActionsTxt(sAutoEditWO).isDisplayed(), sAutoEditWO +" is not displayed");
+		ExtentManager.logger.log(Status.PASS,sAutoEditWO+" is successfully displayed");
+		
+		//Update the WO5 with priority Medium
+		commonsPo.setPickerWheelValue(workOrderPo.getElePriorityLst(), "Medium");
+		Thread.sleep(GenericLib.iLowSleep);
+		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		Thread.sleep(GenericLib.iLowSleep);
+	
+		//Navigation to Work Orders (CURRENTUSERID) Search
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
+		Thread.sleep(GenericLib.iMedSleep); 
+		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName1).isDisplayed(), "Work Order1 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
+		*/
+				
 	}catch(Exception e)
 	{	ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
 		throw e;

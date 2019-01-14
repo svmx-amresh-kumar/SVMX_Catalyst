@@ -1189,10 +1189,11 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 		//@FindBy(xpath="//div[@class='sfm-delivery-textField-value'][text()='"++"']")
+		
 		private WebElement eleIBSubjectTxt;
 		public WebElement getEleIBSubjectTxt(String sSubject)
 		{
-			driver.findElement(By.xpath("//div[@class='sfm-delivery-textField-value'][text()='"+sSubject+"']"));
+			driver.findElement(By.xpath("//div[text()='"+sSubject+"']"));
 			return eleIBSubjectTxt;
 		}
 		
