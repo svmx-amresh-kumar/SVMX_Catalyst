@@ -83,8 +83,8 @@ String SFMIsBillable="true";
 		
 	} 
 
-	@Test(retryAnalyzer=Retry.class)
-	
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10556() throws Exception {
 		sSheetName ="RS_10556";
 		String sTestCaseID="RS-10556_mapping";
@@ -93,18 +93,19 @@ String SFMIsBillable="true";
 	
 		
 		
-		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah","sTestCaseID"); 
-		  if(commonsPo.verifySahiExecution()) 
-		  {
-		  System.out.println("PASSED");
-		  } else 
-		  { 
-			  System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID+"Sahi verification failure"); 
-		  assertEquals(0, 1); } 
-		  lauchNewApp("true");
-		  System.out.println("RS_10556");
-
+		
+		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah","sTestCaseID")
+		  ; if(commonsPo.verifySahiExecution()) { System.out.println("PASSED"); } else
+		  { System.out.println("FAILED");
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
+		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
+		  lauchNewApp("true"); System.out.println("RS_10556");
+		 
+		 
+		 
+		 
+		 
+		 
 		//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
@@ -121,15 +122,15 @@ String SFMIsBillable="true";
 		  Thread.sleep(GenericLib.iMedSleep);
 		  
 		  //datasync 
-		  toolsPo.syncData(commonsPo); 
+		 toolsPo.syncData(commonsPo); 
 		  Thread.sleep(GenericLib.iMedSleep);
 		  
 		
 		  
 		  
-		  calendarPO.openWoFromCalendar(commonsPo, sworkordernumber);
+		// calendarPO.openWoFromCalendar(commonsPo, sworkordernumber);
 		  commonsPo.tap(calendarPO.getEleCalendarClick());
-		  commonsPo.tap(calendarPO.gettaponcalevent(sworkordernumber),15,60);
+		 commonsPo.tap(calendarPO.gettaponcalevent(sworkordernumber),15,60);
 		  Thread.sleep(GenericLib.iMedSleep);
 		  workOrderPo.selectAction(commonsPo,sFieldServiceName);
 		  
@@ -530,7 +531,7 @@ String SFMIsBillable="true";
 
 				System.out.println("Validation of child after data sync ");
 				
-				
+				//commonsPo.tap(workOrderPo.openpartsontap());
 				commonsPo.tap(workOrderPo.geteletaponfirstpart(),20,20);
 				Thread.sleep(2000);
 				

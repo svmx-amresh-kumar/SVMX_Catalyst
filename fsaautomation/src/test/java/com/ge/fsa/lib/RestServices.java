@@ -413,4 +413,57 @@ public class RestServices
 	            }
 	     }
 	 }
+	 
+	 public  void resttechUpdaterecord(String sSoObjectName,String sWOJson,String RecordId) throws IOException
+	 {
+		 getAccessToken();
+		 String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
+			URL url = new URL(sURL);
+			System.out.println(sURL);
+	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+	     httpsUrlCon.setDoOutput(true);
+	     httpsUrlCon.setDoInput(true);
+	  	
+	  	//httpsUrlCon.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+	  	httpsUrlCon.setRequestMethod("POST");
+	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
+	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
+	 	httpsUrlCon.setRequestProperty("Username",GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN") );
+		httpsUrlCon.setRequestProperty("Password", GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD"));
+	 	
+	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
+	 	OutputStream os = httpsUrlCon.getOutputStream();
+	     os.write(sWOJson.getBytes());
+	     os.flush();
+	 	
+	     BufferedReader bufferedReader = null;
+	     StringBuilder stringBuilder = new StringBuilder();
+	     String line;
+	     try {
+	            bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream()));
+	            while ((line =bufferedReader.readLine())!=null){
+	                  stringBuilder.append(line);
+	            }
+	     } catch (IOException e) {
+	            e.printStackTrace();
+	     } finally {
+	            if (bufferedReader != null) {
+	                  try {
+	                         bufferedReader.close();
+	                  } catch (IOException e) {
+	                         e.printStackTrace();
+	                  }
+	            }
+	     }
+	 }
+	 
+	 public static void main(String[] args) throws IOException {
+		/*RestServices restServices = new RestServices();
+		String sCaseObjectID="5003D000003BGQjQAO";
+		String	sObjectApi = "SVMXC__Case__c";
+		String	sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
+	    restServices.restUpdaterecord(sObjectApi,sJsonData,sCaseObjectID);
+		*/
+		 
+	}
 }

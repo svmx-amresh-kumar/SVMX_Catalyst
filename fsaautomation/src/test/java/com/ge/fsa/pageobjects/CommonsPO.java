@@ -194,11 +194,13 @@ public class CommonsPO {
 
 			}
 
-			// Switch the tap based on ANDROID or WINDOWS
+			// Switch the tap based on ANDROID or IOS
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				
+				//Overriding offsets for android as it works always with 30,36
+				x = point.getX() + xOffset;
+				y = point.getY() + yOffset;
 				switchContext("Native");
 				System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);

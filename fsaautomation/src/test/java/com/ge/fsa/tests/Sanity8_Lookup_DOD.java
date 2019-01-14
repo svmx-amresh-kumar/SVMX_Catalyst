@@ -58,6 +58,8 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
 				 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
 				 // If the Cloud button is Visible then need to Tap on it
+				 
+				 
 					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 						{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
