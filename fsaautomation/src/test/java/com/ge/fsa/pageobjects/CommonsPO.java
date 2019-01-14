@@ -1189,7 +1189,7 @@ public class CommonsPO {
 		return result;
 	}
 
-	public void preReq(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
+	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
 		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
 		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
@@ -1221,7 +1221,7 @@ public class CommonsPO {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			preReq(genericLib, sScriptName, sTestCaseId);
+			execSahi(genericLib, sScriptName, sTestCaseId);
 			return true;
 
 		}
