@@ -93,12 +93,14 @@ String SFMIsBillable="true";
 	
 		
 		
+		
 		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah","sTestCaseID")
 		  ; if(commonsPo.verifySahiExecution()) { System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  lauchNewApp("true"); System.out.println("RS_10556");
+		 
 		 
 		 
 		 
@@ -529,8 +531,8 @@ String SFMIsBillable="true";
 
 				System.out.println("Validation of child after data sync ");
 				
-				
-				commonsPo.tap(workOrderPo.geteletaponfirstpart());
+				//commonsPo.tap(workOrderPo.openpartsontap());
+				commonsPo.tap(workOrderPo.geteletaponfirstpart(),20,20);
 				Thread.sleep(2000);
 				
 				//Verifying mapping After data sync on child
