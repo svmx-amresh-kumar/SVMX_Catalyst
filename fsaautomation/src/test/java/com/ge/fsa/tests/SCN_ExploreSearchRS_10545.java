@@ -142,14 +142,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		
 		//Updating Technician with LocationE
 				sObjectApi = "SVMXC__Service_Group_Members__c?";
 				sJsonData="{\"SVMXC__Inventory_Location__c\":\""+sSerialNumber+"LocE"+"\"}";
 				restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 
-			
-		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
