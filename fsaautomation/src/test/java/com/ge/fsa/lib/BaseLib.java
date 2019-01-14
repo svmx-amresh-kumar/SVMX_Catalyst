@@ -65,10 +65,12 @@ public class BaseLib {
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
+		
 		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
 
 
 	}
+	
 	//@BeforeClass
 	public void setAPP() throws Exception
 	{
@@ -85,10 +87,17 @@ public class BaseLib {
 			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
 		}
 
-		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
 		
 		System.out.println("Running On Machine : "+runMachine);
 		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
+		
+		if(System.getenv("Run_On_Platform") != null) {
+			System.out.println("Runing on platform defined via jenkins parameter ${Run_On_Platform} : "+System.getenv("Run_On_Platform"));
+			sOSName = System.getenv("Run_On_Platform").toLowerCase();
+		}else {
+			sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+
+		}
 		System.out.println("OS Name = "+sOSName.toLowerCase());
 		
 		

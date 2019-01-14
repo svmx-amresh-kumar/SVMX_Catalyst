@@ -250,7 +250,7 @@ public class CalendarPO
 		Thread.sleep(6000);
 		try
 		{
-		geteleWOendpoint("04:00").getLocation();
+		//geteleWOendpoint("07:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
@@ -258,7 +258,7 @@ public class CalendarPO
 		}
 		catch(Exception e)
 		{
-			geteleWOendpoint("04:00 AM").getLocation();
+			//geteleWOendpoint("07:00 AM").getLocation();
 			commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 			getEleworkordernumonCalendarWeek(workordername).getLocation();
 				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);

@@ -62,6 +62,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		
 		//sahi
 		
+		
 		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah",
 		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
 		  
@@ -71,6 +72,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
 		  System.out.println("RS_10512");
+		 
 		 
 	
 		
