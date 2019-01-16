@@ -49,6 +49,10 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10561() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");	
 		prerequisites();
 	// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);

@@ -12,8 +12,12 @@ public class Sanity9_Mobile_Inventory extends BaseLib {
 	
 	
 @Test(retryAnalyzer=Retry.class)
-public void Scenario9Test() throws InterruptedException
+public void Scenario9Test() throws Exception
 {
+	
+	commonsPo.preReqSetup(genericLib);
+	// Resinstall the app
+	lauchNewApp("false");
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//toolsPo.configSync(commonsPo);
