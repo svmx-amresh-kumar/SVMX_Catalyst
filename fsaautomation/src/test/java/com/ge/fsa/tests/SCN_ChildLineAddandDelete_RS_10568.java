@@ -114,7 +114,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleExpensestap(sExpenseType));
 		commonsPo.tap(workOrderPo.getEleclickNew());
 		commonsPo.tap(workOrderPo.getEleclickOK());
-		commonsPo.tap(workOrderPo.getEleAddExpenseType());
+		//commonsPo.tap(workOrderPo.getEleAddExpenseType());
 		commonsPo.setPickerWheelValue(workOrderPo.getEleAddExpenseType(), sExpenseType);
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		Thread.sleep(10000);
