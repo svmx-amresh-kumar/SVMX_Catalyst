@@ -14,7 +14,6 @@
 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10546" />
 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10548" />
 			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10549" />
-			<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
 			
 			
 		</classes>
