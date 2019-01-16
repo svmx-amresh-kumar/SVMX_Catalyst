@@ -357,7 +357,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 			ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 			// System.out.println(ans);
 			
