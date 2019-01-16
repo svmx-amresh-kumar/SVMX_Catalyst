@@ -7,7 +7,6 @@
 	</listeners>
 		<test name="DataSync">
 		<classes>		
-			<class name="com.ge.fsa.tests.SanityPreReq" />			
 			<class name="com.ge.fsa.tests.SCN_ScheduledDataSync_RS_10569" />
 			<class name="com.ge.fsa.tests.SCN_Creating_Editing_RS_10574" />
 		</classes>

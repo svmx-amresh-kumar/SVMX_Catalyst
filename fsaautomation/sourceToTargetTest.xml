@@ -7,7 +7,6 @@
 	</listeners>
 		<test name="SourceToTarget">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />			
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10540" />
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10541" />
 			<class name="com.ge.fsa.tests.SCN_SrctoTrgt_RS_10542" />
