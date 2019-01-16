@@ -15,8 +15,13 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
-	@Test//(retryAnalyzer=Retry.class)
-	public void RS_10559() throws InterruptedException, IOException {
+	String sScriptName = "SCN_CustomAction_RS_10559";
+	String sTestCaseID = "RS_10559";
+	
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10559() throws Exception {
+		
+		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
@@ -47,7 +52,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo); 
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);

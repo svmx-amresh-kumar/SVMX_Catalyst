@@ -55,6 +55,7 @@ import java.nio.file.Paths;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CommonsPO {
@@ -1195,8 +1196,18 @@ public class CommonsPO {
 
 	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
 		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
-		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
+		if(verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+	}
 	}
 
 	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
