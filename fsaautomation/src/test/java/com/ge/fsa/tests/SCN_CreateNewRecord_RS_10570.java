@@ -8,8 +8,13 @@ import com.ge.fsa.pageobjects.CommonsPO;
 
 public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 
-	@Test//(retryAnalyzer=Retry.class)
-	public void RS_10570Test() throws InterruptedException {
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10570Test() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
+		
 		String sAccountName = "Acme";
 		String sContactName = "Jon Amos";
 		String sProductName = "testerProd";

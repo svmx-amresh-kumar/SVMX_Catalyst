@@ -8,7 +8,6 @@
 
 	<suite-files>
 		<!-- First Delivery -->
-		<suite-file path="calendarTest.xml" />
 		<suite-file path="checklistTest.xml" />
 		<suite-file path="childLineTest.xml" />
 		<suite-file path="configSyncTest.xml" />
@@ -33,6 +32,7 @@
 		<suite-file path="sourceObjectUpdateTest.xml" />
 		<suite-file path="sourceToTargetTest.xml" />
 		<suite-file path="zeroLinesTest.xml" />
+		<suite-file path="calendarTest.xml" />
 
 
 

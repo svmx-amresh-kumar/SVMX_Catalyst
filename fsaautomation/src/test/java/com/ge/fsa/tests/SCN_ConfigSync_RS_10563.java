@@ -41,11 +41,11 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("WO SEARCH").isDisplayed());
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
 		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sOpDocProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
 //		commonsPo.tap(workOrderPo.getEleDoneBtnLsMode());
