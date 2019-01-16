@@ -74,7 +74,7 @@ public class CommonsPO {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
-	public BaseLib baseLib = new BaseLib();
+	
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -1340,6 +1340,29 @@ public class CommonsPO {
 		new TouchAction(driver).longPress(new PointOption().withCoordinates(150, 900))
 				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
 				.moveTo(new PointOption().withCoordinates(150, 60)).release();
+	}
+
+	/**
+	 * Should be called before running any tests/suites if needed. 
+	 * Function to initialize and run and pre requisites, please add the relevant
+	 * pre requisites here.
+	 * 
+	 * @param genericLib
+	 * @throws Exception
+	 */
+	public void preReqSetup(GenericLib genericLib) throws Exception {
+
+		// running the Sahi Script Pre-requisites - To make My Records to All Records in
+		// Mobile Configuration
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah", "sTestCaseID");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah", "sTestCaseID");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
 	}
 
 }
