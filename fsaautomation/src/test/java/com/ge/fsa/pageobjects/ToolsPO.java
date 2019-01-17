@@ -117,7 +117,8 @@ public class ToolsPO
 		return eleConfigSyncBarMenuLnk;
 	}	
 	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+//	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+	@FindBy(xpath="//div[@data-componentid='configCancel']")
 	//@FindBy(xpath="//*[text()='Cancel']")
 	private WebElement eleCancelConfigSyncBtn;
 	public WebElement geteleCancelConfigSyncBtn()
