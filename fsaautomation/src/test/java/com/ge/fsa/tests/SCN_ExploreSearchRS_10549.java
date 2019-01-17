@@ -57,7 +57,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("SVMXSTD:Search Trunk Stock").isDisplayed(), "SVMXSTD:Search Trunk Stock is not displayed");
 		ExtentManager.logger.log(Status.PASS,"SVMXSTD:Search Trunk Stock text is successfully displayed");
 		
-		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("RS_10549 SFM Search for Multi Page View").isDisplayed(), "RS_10549 Multi Field WO Search  is not displayed");
+		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("RS_10549 Multi Field WO Search").isDisplayed(), "RS_10549 Multi Field WO Search  is not displayed");
 		ExtentManager.logger.log(Status.PASS,"RS_10549 Multi Field WO Search text is successfully displayed");
 		
 	
@@ -76,7 +76,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 			
 	}catch(Exception e)
 	{
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Sahi clean up is successful");
+		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " failed.");
 		}
 	
 	}
