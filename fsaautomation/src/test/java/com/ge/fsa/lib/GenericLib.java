@@ -144,11 +144,11 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			ExtentManager.logger.log(Status.PASS,"Sahi script for case "+sMessage+" executed successfully");
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ "+sMessage+" ] executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			ExtentManager.logger.log(Status.FAIL,"Sahi script for case " + sMessage + " failed");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script for case [ " + sMessage + " ] failed");
 			throw e;
 		}
 	}
