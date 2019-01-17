@@ -60,8 +60,8 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah",
-		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		  genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
+		  if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  

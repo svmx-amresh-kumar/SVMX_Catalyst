@@ -51,7 +51,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		sSheetName3 ="RS_10539";
 		
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
-		genericLib.executeSahiScript("appium/Scenario_10532.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10532.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

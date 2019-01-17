@@ -55,7 +55,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		sSheetName3 = "RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10531");
 		// To run the Sahi Script before the Execution of Appium - 10531
-		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -174,7 +174,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		
 		// ==========================================================================================================
 		 //To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
-		genericLib.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

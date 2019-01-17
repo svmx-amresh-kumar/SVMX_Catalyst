@@ -33,7 +33,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		
 		System.out.println("Scenario 8");
