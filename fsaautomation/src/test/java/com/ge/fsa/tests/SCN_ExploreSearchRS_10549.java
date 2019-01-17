@@ -77,7 +77,8 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 	}catch(Exception e)
 	{
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " failed.");
-		}
+		throw e;
+	}
 	
 	}
 
