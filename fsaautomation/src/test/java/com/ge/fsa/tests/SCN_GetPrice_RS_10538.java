@@ -61,7 +61,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		Thread.sleep(50000);
 
 	//	 To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10538.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

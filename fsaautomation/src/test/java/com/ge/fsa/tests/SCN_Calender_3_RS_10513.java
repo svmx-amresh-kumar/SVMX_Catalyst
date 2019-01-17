@@ -67,8 +67,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah",
-		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
+		  if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  

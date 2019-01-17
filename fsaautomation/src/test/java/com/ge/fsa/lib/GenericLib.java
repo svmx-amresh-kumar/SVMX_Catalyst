@@ -127,8 +127,11 @@ public class GenericLib
 	}
 	
 	
-	public void executeSahiScript(String sSahiScript, String sTestCaseID ) throws Exception
+	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
 	{	
+		
+		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
+
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
@@ -141,11 +144,11 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			ExtentManager.logger.log(Status.PASS,"Sahi script for case "+sTestCaseID+" executed successfully");
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ "+sMessage+" ] executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi execution failure");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script for case [ " + sMessage + " ] failed");
 			throw e;
 		}
 	}

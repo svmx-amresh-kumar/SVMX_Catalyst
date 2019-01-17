@@ -48,7 +48,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10539.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
