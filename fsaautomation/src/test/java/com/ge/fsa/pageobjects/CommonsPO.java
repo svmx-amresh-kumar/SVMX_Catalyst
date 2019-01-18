@@ -147,7 +147,7 @@ public class CommonsPO {
 			try {
 				wElement.click();	
 				clickPassed = true;
-				System.out.println("Click passed");
+				//System.out.println("Click passed");
 			} catch (Exception e) {
 				System.out.println("Click failed");
 				clickPassed = false;
@@ -203,7 +203,7 @@ public class CommonsPO {
 				x = point.getX() + xOffset;
 				y = point.getY() + yOffset;
 				switchContext("Native");
-				System.out.println("Android Tapping ");
+				//System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -213,7 +213,7 @@ public class CommonsPO {
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
 
-				System.out.println("IOS Tapping ");
+				//System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				break;
@@ -223,7 +223,7 @@ public class CommonsPO {
 				break;
 			}
 
-			System.out.println("Tap passed");
+			//System.out.println("Tap passed");
 			tapPassed = true;
 		}
 
