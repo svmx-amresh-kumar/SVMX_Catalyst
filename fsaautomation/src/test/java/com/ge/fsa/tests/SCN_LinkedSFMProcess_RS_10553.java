@@ -44,7 +44,7 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		System.out.println(LocalDate.now().plusDays(1L));
 		// Have a config Sync
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		// Creating Account from API

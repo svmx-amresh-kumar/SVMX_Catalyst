@@ -147,7 +147,7 @@ public class CommonsPO {
 			try {
 				wElement.click();	
 				clickPassed = true;
-				System.out.println("Click passed");
+				//System.out.println("Click passed");
 			} catch (Exception e) {
 				System.out.println("Click failed");
 				clickPassed = false;
@@ -203,7 +203,7 @@ public class CommonsPO {
 				x = point.getX() + xOffset;
 				y = point.getY() + yOffset;
 				switchContext("Native");
-				System.out.println("Android Tapping ");
+				//System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -213,7 +213,7 @@ public class CommonsPO {
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
 
-				System.out.println("IOS Tapping ");
+				//System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				break;
@@ -223,7 +223,7 @@ public class CommonsPO {
 				break;
 			}
 
-			System.out.println("Tap passed");
+			//System.out.println("Tap passed");
 			tapPassed = true;
 		}
 
@@ -249,46 +249,7 @@ public class CommonsPO {
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	// Customised touch tap version 2.0
-	// public void tap(WebElement element) throws InterruptedException
-	// {
-	//
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// point = element.getLocation();
-	// iosTouchAction = new IOSTouchAction(driver);
-	// iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	//
-	/// *
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	// */
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
-
-	// public void tap(WebElement element, int...iOffset) throws
-	// InterruptedException
-	// {
-	//
-	// System.out.println(iOffset[0] + " y cordi"+iOffset[1]);
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// //point = element.getLocation();
-	// IOSTouchAction touchAction= new IOSTouchAction(driver);
-	// touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0],
-	// element.getLocation().getY()+iOffset[1])).perform();
-	// //iosTouchAction.tap(new
-	// PointOption().withCoordinates(point.getX()+iOffset[0],
-	// point.getY()+iOffset[1])).perform();
-	//
-	//
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
+	
 
 	// Customised touch Tap
 	public void fingerTap(Point point, int iTapCount) throws InterruptedException {
