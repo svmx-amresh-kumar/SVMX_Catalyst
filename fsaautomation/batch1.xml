@@ -17,7 +17,7 @@
 		<suite-file path="exploreTest.xml" /> <!-- 5 -->
 		<suite-file path="customPicklistTest.xml" /> <!-- 1 -->
 		<suite-file path="recentItemsTest.xml" /> <!-- 1 -->
-		<suite-file path="productHistoryTest.xml" /> <!-- 1 -->
+		<suite-file path="productAccountHistoryTest.xml" /> <!-- 1 -->
 
 		<!-- First Delivery -->
 		<suite-file path="checklistTest.xml" /> <!-- 8 -->
