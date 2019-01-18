@@ -23,6 +23,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 
 public class SCN_Checklist_1_RS_10577 extends BaseLib{
@@ -87,6 +88,8 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 			String sPrcname2 = "inactivetest";
 			String sScriptName="Scenario_RS-10577_Checklist_SOU";
 			
+		
+			
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10577";
@@ -134,8 +137,15 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib{
 	
 	 
 @Test(retryAnalyzer=Retry.class)
+	
 	public void RS_10577() throws Exception {
-		
+		//Running Pre-Req
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
+	//sanityPreReq.SanityPreReqs();
+	System.out.println("Finished Sanity Pre Requ");
+	//SanityPreReq()
 		prerequisites();
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);	

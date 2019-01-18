@@ -55,6 +55,7 @@ import java.nio.file.Paths;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CommonsPO {
@@ -74,7 +75,7 @@ public class CommonsPO {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
-	public BaseLib baseLib = new BaseLib();
+	
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -146,7 +147,7 @@ public class CommonsPO {
 			try {
 				wElement.click();	
 				clickPassed = true;
-				System.out.println("Click passed");
+				//System.out.println("Click passed");
 			} catch (Exception e) {
 				System.out.println("Click failed");
 				clickPassed = false;
@@ -194,13 +195,15 @@ public class CommonsPO {
 
 			}
 
-			// Switch the tap based on ANDROID or WINDOWS
+			// Switch the tap based on ANDROID or IOS
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				
+				//Overriding offsets for android as it works always with 30,36
+				x = point.getX() + xOffset;
+				y = point.getY() + yOffset;
 				switchContext("Native");
-				System.out.println("Android Tapping ");
+				//System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -210,7 +213,7 @@ public class CommonsPO {
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
 
-				System.out.println("IOS Tapping ");
+				//System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				break;
@@ -220,7 +223,7 @@ public class CommonsPO {
 				break;
 			}
 
-			System.out.println("Tap passed");
+			//System.out.println("Tap passed");
 			tapPassed = true;
 		}
 
@@ -246,46 +249,7 @@ public class CommonsPO {
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	// Customised touch tap version 2.0
-	// public void tap(WebElement element) throws InterruptedException
-	// {
-	//
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// point = element.getLocation();
-	// iosTouchAction = new IOSTouchAction(driver);
-	// iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	//
-	/// *
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	// */
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
-
-	// public void tap(WebElement element, int...iOffset) throws
-	// InterruptedException
-	// {
-	//
-	// System.out.println(iOffset[0] + " y cordi"+iOffset[1]);
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// //point = element.getLocation();
-	// IOSTouchAction touchAction= new IOSTouchAction(driver);
-	// touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0],
-	// element.getLocation().getY()+iOffset[1])).perform();
-	// //iosTouchAction.tap(new
-	// PointOption().withCoordinates(point.getX()+iOffset[0],
-	// point.getY()+iOffset[1])).perform();
-	//
-	//
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
+	
 
 	// Customised touch Tap
 	public void fingerTap(Point point, int iTapCount) throws InterruptedException {
@@ -1193,8 +1157,18 @@ public class CommonsPO {
 
 	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
 		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
-		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
+		if(verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+	}
 	}
 
 	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
@@ -1338,6 +1312,29 @@ public class CommonsPO {
 		new TouchAction(driver).longPress(new PointOption().withCoordinates(150, 900))
 				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
 				.moveTo(new PointOption().withCoordinates(150, 60)).release();
+	}
+
+	/**
+	 * Should be called before running any tests/suites if needed. 
+	 * Function to initialize and run and pre requisites, please add the relevant
+	 * pre requisites here.
+	 * 
+	 * @param genericLib
+	 * @throws Exception
+	 */
+	public void preReqSetup(GenericLib genericLib) throws Exception {
+
+		// running the Sahi Script Pre-requisites - To make My Records to All Records in
+		// Mobile Configuration
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
 	}
 
 }

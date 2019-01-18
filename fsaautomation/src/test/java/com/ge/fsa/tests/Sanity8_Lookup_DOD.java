@@ -33,7 +33,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		
 		System.out.println("Scenario 8");
@@ -58,6 +58,8 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
 				 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
 				 // If the Cloud button is Visible then need to Tap on it
+				 
+				 
 					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 						{
 						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);

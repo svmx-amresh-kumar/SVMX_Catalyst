@@ -81,6 +81,10 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10540Test() throws Exception {
 		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
+		
 		sTestID = "RS_10540";
 		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");

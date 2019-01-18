@@ -86,11 +86,10 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		//preRequiste();
-		sIBName2="IB_10541_10012019163025";
+		preRequiste();
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		/*
+		
 		//Config Sync
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -108,7 +107,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
-	*/
+	
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);

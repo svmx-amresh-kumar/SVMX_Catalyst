@@ -17,7 +17,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_ConfigSync_RS_10563 extends BaseLib {
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10563() throws Exception {
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
@@ -29,6 +29,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sTestCaseID = "RS_10563_configSync_edit";
 		String sScriptName = "Scenario_RS_10563_configSync_edit";
 		String sScriptName1 = "Scenario_RS_10563_configSync";
+		String sExploreSearch = "WO SEARCH";
 		
 		// Add Processes
 		commonsPo.execSahi(genericLib, sScriptName1, sTestCaseID);
@@ -39,13 +40,13 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("WO SEARCH").isDisplayed());
+		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt(sExploreSearch).isDisplayed());
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
 		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sOpDocProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
 //		commonsPo.tap(workOrderPo.getEleDoneBtnLsMode());
@@ -60,10 +61,14 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt("WO SEARCH"),20,20);
+		Thread.sleep(GenericLib.iMedSleep);
+		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+		Thread.sleep(GenericLib.iMedSleep);
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Cases").isDisplayed());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sProcessName);
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"),20,20);
+		exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+		workOrderPo.selectAction(commonsPo, sProcessName);	
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
 		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
 			

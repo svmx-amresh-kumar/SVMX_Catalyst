@@ -19,6 +19,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	// For ServerSide Validations
@@ -70,8 +71,12 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 	}
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10569() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
 		
 		PreRequisites();
 		

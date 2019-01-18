@@ -48,6 +48,11 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10538() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
+		
 		sSheetName ="RS_10538";
 		//Thread.sleep(50000);
 		System.out.println("SCN_GetPrice_RS_10538");
@@ -56,7 +61,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		Thread.sleep(50000);
 
 	//	 To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10538.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10538.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

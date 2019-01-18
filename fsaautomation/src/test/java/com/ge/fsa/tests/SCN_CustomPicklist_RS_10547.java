@@ -105,24 +105,15 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 				Thread.sleep(10000);
 				commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
 				commonsPo.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-011");
-//				commonsPo.switchContext("Native");	
-//				commonsPo.getElePickerWheelPopUp().sendKeys("CP-011");	
-				if(BaseLib.sOSName.toLowerCase().equals("android")) 
-				{
-					System.out.println("No Done Button Present for Android");
-				}
-				else {
-					commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-				}	
-				
-				commonsPo.switchContext("WebView");
-				Thread.sleep(genericLib.iMedSleep);
+
 				
 	// For Dependent Picklist clicking and verifying the values
 				
-				if(BaseLib.sOSName.toLowerCase().equals("android")) {
+				if(BaseLib.sOSName.toLowerCase().equals("android")) 
+				{
 					commonsPo.tap(workOrderPo.getEleeleDependentPicklist());
-				}else {
+				}
+				else {
 					workOrderPo.getEleeleDependentPicklist().click();
 				}		
 //==============================================================================================
@@ -144,16 +135,6 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
 					commonsPo.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0111");	
 					
-					if(BaseLib.sOSName.toLowerCase().equals("android")) 
-					{
-						System.out.println("No Done Button Present for Android");
-					}
-					else {
-						commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-					}
-					
-					commonsPo.switchContext("WebView");
-					Thread.sleep(genericLib.iMedSleep);
 					Thread.sleep(20000);
 					commonsPo.tap(workOrderPo.getEleClickSave());
 					toolsPo.syncData(commonsPo);
@@ -183,15 +164,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			Thread.sleep(10000);
 			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
 			commonsPo.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-012");
-			if(BaseLib.sOSName.toLowerCase().equals("android")) 
-			{
-				System.out.println("No Done Button Present for Android");
-			}
-			else {
-				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-			}
-			commonsPo.switchContext("WebView");
-			Thread.sleep(20000);
+
 
 //======================================================================================================
 		// To verify the values at the Dependent Picklist
@@ -218,17 +191,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			Thread.sleep(10000);
 			commonsPo.tap(createNewPO.getEleSaveWorkOrdert());
 			commonsPo.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0112");	
-			if(BaseLib.sOSName.toLowerCase().equals("android")) 
-			{
-				System.out.println("No Done Button Present for Android");
-			}
-			else {
-				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-			}
-			
-			
-			commonsPo.switchContext("WebView");
-			Thread.sleep(2000);
+
 			commonsPo.tap(workOrderPo.getEleClickSave());
 
 		
