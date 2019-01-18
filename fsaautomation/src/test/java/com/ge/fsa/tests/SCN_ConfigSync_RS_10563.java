@@ -49,7 +49,6 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
-//		commonsPo.tap(workOrderPo.getEleDoneBtnLsMode());
 		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -61,14 +60,11 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iMedSleep);
-		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Cases").isDisplayed());
-		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"),20,20);
-		exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-		workOrderPo.selectAction(commonsPo, sProcessName);	
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
+		Assert.assertTrue(exploreSearchPo.getEleSearchItem("Cases").isDisplayed());
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("Work Orders"));
+		commonsPo.tap(exploreSearchPo.getEleWOSearch(sWOName));
+		workOrderPo.selectAction(commonsPo, sProcessName);
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
 		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
 			
