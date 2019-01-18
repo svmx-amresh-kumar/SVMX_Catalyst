@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
@@ -143,10 +144,10 @@ public class CalendarPO
 	}
 	
 	
-	private WebElement eleWOEventTitleTxt;
-	public WebElement getEleWOEventTitleTxt(String sWOName)
+	private List<WebElement> eleWOEventTitleTxt;
+	public List<WebElement> getEleWOEventTitleTxt()
 	{
-		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-title'][text()='"+sWOName+"']"));
+		eleWOEventTitleTxt = driver.findElements(By.xpath("//div[@class='sfmevent-title']"));
 		return eleWOEventTitleTxt;
 	}
 	
