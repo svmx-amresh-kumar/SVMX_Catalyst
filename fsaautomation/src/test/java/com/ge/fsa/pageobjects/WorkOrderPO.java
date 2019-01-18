@@ -1332,7 +1332,7 @@ import org.openqa.selenium.Rotatable;
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsTxt(sActionsName),20,20);
+			commonsPo.tap(getEleActionsTxt(sActionsName),20,25);
 
 		}
 	
