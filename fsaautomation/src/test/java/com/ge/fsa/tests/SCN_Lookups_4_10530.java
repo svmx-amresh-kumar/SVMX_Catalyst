@@ -154,6 +154,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
+		//**********Launch Process**********
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
@@ -170,7 +171,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 			commonsPo.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
 			commonsPo.tap(workOrderPo.getBtnApply());
-			System.out.println(workOrderPo.getEleProds(sProdName1).isDisplayed() );
+			System.out.println(workOrderPo.getEleProds(sProdName1).isDisplayed());
 //			Assert.assertTrue(workOrderPo.getEleProds(sProductName).isDisplayed()); //Scenario 2
 			// Call edit Sahi_Process
 			commonsPo.tap(workOrderPo.getLnkLookupCancel());
