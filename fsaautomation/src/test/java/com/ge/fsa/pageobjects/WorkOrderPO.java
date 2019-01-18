@@ -1264,7 +1264,8 @@ import org.openqa.selenium.Rotatable;
 		private WebElement eleActionsTxt;
 		public WebElement getEleActionsTxt(String sActionsName)
 		{
-			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			//eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			eleActionsTxt=driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]"));
 			return eleActionsTxt;
 		}
 		
@@ -1320,7 +1321,7 @@ import org.openqa.selenium.Rotatable;
 		}
 		
 	/**
-	 * Select the process name from the action menu in workorder oage
+	 * Select the process name from the action menu in workorder page
 	 * @param commonsPo
 	 * @param sActionsName
 	 * @throws InterruptedException
@@ -1328,7 +1329,6 @@ import org.openqa.selenium.Rotatable;
 		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(5000);
-			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
