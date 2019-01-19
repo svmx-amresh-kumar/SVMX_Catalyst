@@ -63,8 +63,10 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		//sahi
 		
 		
+		
+		
 		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
-		  if(commonsPo.verifySahiExecution()) {
+		   if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -72,7 +74,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
 		  System.out.println("RS_10512");
-		 
+		  
 		 
 	
 		
@@ -105,6 +107,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		String styleWO4= calendarPO.getelegetcolourcode(sWO_SVMX_4,"").getAttribute("style");
 		System.out.println(styleWO4);
 		
+		calendarPO.geteleWOendpoint("07:00").getLocation();
 		String rgb_high=calendarPO.hex2Rgb("#FF0000");
 		String rgb_medium=calendarPO.hex2Rgb("#0000FF");
 		String rgb_low=calendarPO.hex2Rgb("#FFFF00");
