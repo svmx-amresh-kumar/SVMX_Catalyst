@@ -30,10 +30,13 @@
 
 		<!-- Third Delivery -->
 		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
-		<suite-file path="createNewRecordTest.xml" /> <!-- 1 -->
-		<suite-file path="customActionsTest.xml" /> <!-- 2 -->
-		<suite-file path="lookupTest.xml" /> <!-- 4 -->
 		<suite-file path="calendarTest.xml" /> <!-- 11 -->
+        
+        <!-- Fourth Delivery -->
+        <!--  <suite-file path="createNewRecordTest.xml" /> <!-- 1 -->
+        <!--<suite-file path="customActionsTest.xml" /> <!-- 2 -->
+        <!--<suite-file path="lookupTest.xml" /> <!-- 4 -->
+
 
 
 	</suite-files>
