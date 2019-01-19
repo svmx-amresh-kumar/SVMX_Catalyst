@@ -17,7 +17,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_ConfigSync_RS_10563 extends BaseLib {
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10563() throws Exception {
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
