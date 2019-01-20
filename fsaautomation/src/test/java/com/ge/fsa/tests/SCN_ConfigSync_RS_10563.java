@@ -36,7 +36,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		
 		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-		
+		lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
