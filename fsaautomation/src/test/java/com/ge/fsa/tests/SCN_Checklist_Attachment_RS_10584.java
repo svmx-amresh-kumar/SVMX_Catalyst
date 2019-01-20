@@ -9,7 +9,7 @@ import org.openqa.selenium.Point;
 import org.testng.annotations.Test;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
-
+import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
@@ -71,7 +71,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 	}
 	
 	//@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10584() throws Exception {
 	
 		

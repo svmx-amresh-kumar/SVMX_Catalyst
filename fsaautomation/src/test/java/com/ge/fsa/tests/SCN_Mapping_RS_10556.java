@@ -83,8 +83,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 	}
 
-	// @Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10556() throws Exception {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";

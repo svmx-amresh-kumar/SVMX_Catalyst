@@ -23,6 +23,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 
@@ -155,7 +156,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 
 			}
 			
-	@Test(enabled = true)
+			@Test(retryAnalyzer=Retry.class)
 	public void RS_10544() throws Exception {
 		
 		prerequisites();					
