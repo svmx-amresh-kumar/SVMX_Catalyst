@@ -136,8 +136,8 @@ public class GenericLib
 	{	
 		
 		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
-		String sSahiLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "/auto/Jenkins/workspace/FSA_AUTOMATION/offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
-	
+		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
+		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "/auto/Jenkins/workspace/FSA_AUTOMATION/offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
 		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
@@ -155,14 +155,14 @@ public class GenericLib
 			
 			if(BaseLib.runMachine.equalsIgnoreCase("build")) {
 				
-				 sSahiLogPath = ""+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 
 			}else {
-				 sSahiLogPath = ""+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 
 			}
 			
-			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sSahiLogPath+" '>"+sMessage+" </a> ] executed successfully");
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
@@ -214,7 +214,7 @@ public class GenericLib
 	
 	
 	/* Get the newest file for a specific extension */
-	public File getLastModifiedFile(String filePath, String pattern,String ext) {
+	public String getLastModifiedFile(String filePath, String pattern,String ext) {
 	    File lastModifiedFile = null;
 	    File dir = new File(filePath);
 	    FileFilter fileFilter = new WildcardFileFilter(pattern + ext);
@@ -226,8 +226,8 @@ public class GenericLib
 	        lastModifiedFile = files[0];
 	    }
 
-	    System.out.println("Fetching Last Modified File : "+lastModifiedFile);
-	    return lastModifiedFile;
+	    System.out.println("Fetching Last Modified File : "+lastModifiedFile.getName().toString());
+	    return lastModifiedFile.getName().toString();
 	}
 	
 //	public static void main(String[] args) throws IOException {
