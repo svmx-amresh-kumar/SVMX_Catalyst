@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -44,8 +45,10 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		String sWebServiceCountry = "United Kingdom";
 		String sRequestedCity = "Adams Town";
 		String sRequestedCountry = "French Polynesia";
-		DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
 		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+		TimeZone gmtTime = TimeZone.getTimeZone("GMT");
+		dateFormat.setTimeZone(gmtTime);
 		String sCurrentDate = dateFormat.format(date);
 		System.out.println(sCurrentDate);
 		loginHomePo.login(commonsPo, exploreSearchPo);	
@@ -84,7 +87,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleclickparts(sProductName),20,20);
 //		Thread.sleep(5000);
 //		System.out.println("R city "+workOrderPo.getEleLblRequestedCity().getAttribute("innerText"));
-//		System.out.println("R county "+workOrderPo.getEleLblRequestedCountry().getAttribute("innerText"));
+//		System.out.println("R county "+workOrderPo.getEleLblRequestedCountry().getText());
 		Assert.assertTrue(workOrderPo.getEleLblRequestedCity().getAttribute("innerText").equals(sRequestedCity));
 //		Assert.assertTrue(workOrderPo.getEleLblRequestedCountry().getText().equals(sRequestedCountry));
 	}

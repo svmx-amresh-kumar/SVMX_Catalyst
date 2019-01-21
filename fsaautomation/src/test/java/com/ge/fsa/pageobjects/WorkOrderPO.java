@@ -1011,7 +1011,8 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 //		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-mask-el']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-mask-el']")
+		@FindBy(xpath="(//span[text()='Country']/following::input[@name='picker'][@type='text'][@class='x-input-el'])[1]")
 		private WebElement eleLblCountryName;
 		public WebElement getEleLblCountryName()
 		{
@@ -1032,7 +1033,8 @@ import org.openqa.selenium.Rotatable;
 			return eleLblRequestedCity;
 		}
 	
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+		@FindBy(xpath="(//span[text()='Requested Country']/following::input[@name='picker'][@type='text'][@class='x-input-el'])[1]")
 		private WebElement eleLblRequestedCountry;
 		public WebElement getEleLblRequestedCountry()
 		{
