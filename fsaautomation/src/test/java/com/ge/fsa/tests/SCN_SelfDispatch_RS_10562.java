@@ -118,12 +118,18 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.i30SecSleep);
-		
-		//Validation of event creation at server side after sync.
-		sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWOSqlQuery+"\'";				
-		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sWOName1), "Event is not created");
-		ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
-		
+		try {
+			//Validation of event creation at server side after sync.
+			sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
+			Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sSubject), "Event is not created");
+			ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+		}catch(Exception e)
+		{	try {	//Validation of event creation at server side after sync.
+				sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
+				Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").contains(sWOName1), "Event is not created");
+				ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+			}	catch(Exception ex){throw ex;}
+		}
 		
 	}
 }
