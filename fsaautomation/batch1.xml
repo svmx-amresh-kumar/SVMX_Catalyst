@@ -30,7 +30,7 @@
 
 		<!-- Third Delivery -->
 		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
-		<suite-file path="calendarTest.xml" /> <!-- 11 -->
+		<!--<suite-file path="calendarTest.xml" /> --> <!-- 8 -->
         
         <!-- Fourth Delivery -->
         <!--  <suite-file path="createNewRecordTest.xml" /> --> <!-- 1 --> 
