@@ -15,6 +15,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 public class SCN_Creating_Editing_RS_10574 extends BaseLib {
@@ -173,7 +174,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 	}
 	
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	///@Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
 		
