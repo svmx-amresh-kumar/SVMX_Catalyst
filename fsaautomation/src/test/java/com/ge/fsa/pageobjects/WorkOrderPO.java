@@ -1264,8 +1264,8 @@ import org.openqa.selenium.Rotatable;
 		private WebElement eleActionsTxt;
 		public WebElement getEleActionsTxt(String sActionsName)
 		{
-			//eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
-			eleActionsTxt=driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]"));
+			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			//eleActionsTxt=driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]"));
 			return eleActionsTxt;
 		}
 		
@@ -1332,7 +1332,9 @@ import org.openqa.selenium.Rotatable;
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsTxt(sActionsName),20,25);
+			driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]")).getLocation();
+			Thread.sleep(5000);
+			commonsPo.tap(getEleActionsTxt(sActionsName));
 
 		}
 	

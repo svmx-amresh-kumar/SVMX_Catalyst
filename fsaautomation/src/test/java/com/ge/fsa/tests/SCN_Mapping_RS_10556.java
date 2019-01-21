@@ -83,8 +83,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 	}
 
-	// @Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10556() throws Exception {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";
@@ -97,7 +96,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
-		  lauchNewApp("true"); System.out.println("RS_10556");
+		  lauchNewApp("false"); System.out.println("RS_10556");
 		  
 		 
 

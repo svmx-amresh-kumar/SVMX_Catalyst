@@ -81,7 +81,9 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 			System.out.println("Could not find the popup config sync pop up button this time");
 		}	*/
 		
-		
+		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
+
 		//Getting the value of 1 in Tools icon as there is a config sync due
 		sConfigSyncDueBadge =  toolsPo.geeteleConflictBadge().getText();
 		Assert.assertTrue(sConfigSyncDueBadge.equals(sConfigSyncDueBadgevalidationvalue), "Config sync Due alert is not turned to 1");
@@ -121,8 +123,8 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 	@AfterMethod
 	public void tearDown() throws Exception {
 	postscript();
-	System.out.println("Running the post script");
-	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
+//	System.out.println("Running the post script");
+//	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
 
 	}
 
