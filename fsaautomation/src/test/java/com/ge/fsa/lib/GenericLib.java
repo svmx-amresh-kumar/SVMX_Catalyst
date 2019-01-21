@@ -144,7 +144,8 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/setDownloadCriteriaWoToAllRecords_chrome__2e691c860f75e041430bd4e01c600665e48e.html";
+			String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/index.html";
+			//String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/setDownloadCriteriaWoToAllRecords_chrome__2e691c860f75e041430bd4e01c600665e48e.html";
 			//ExtentManager.logger.log(Status.PASS,"<a href='"+sSahiLogPath+" '>"+sMessage+" </a>");
 			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sSahiLogPath+" '>"+sMessage+" </a> ] executed successfully");
 				
