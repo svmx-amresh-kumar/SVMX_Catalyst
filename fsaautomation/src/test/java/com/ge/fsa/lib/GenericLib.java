@@ -221,7 +221,7 @@ public class GenericLib
 	    File[] files = dir.listFiles(fileFilter);
 
 	    if (files.length > 0) {
-	        /** The newest file comes first **/
+	        //The newest file comes first after sorting
 	        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 	        lastModifiedFile = files[0];
 	    }
@@ -229,11 +229,5 @@ public class GenericLib
 	    System.out.println("Fetching Last Modified File : "+lastModifiedFile.getName().toString());
 	    return lastModifiedFile.getName().toString();
 	}
-	
-//	public static void main(String[] args) throws IOException {
-//		GenericLib gen = new GenericLib();
-//		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
-//		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
-//	}
 	
 }
