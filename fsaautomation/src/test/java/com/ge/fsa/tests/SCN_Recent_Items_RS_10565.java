@@ -164,7 +164,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			restServices.getAccessToken();
 			String Custom_ObjectName = restServices.restGetSoqlValue(sSoqlQuery1,"Name");	
 			System.out.println(Custom_ObjectName);
-				Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName), "workOrderName value  is not displayed");
+				Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName), "Custom object  value  is not displayed");
 			
 			
 			toolsPo.Resetapp(commonsPo,exploreSearchPo);
