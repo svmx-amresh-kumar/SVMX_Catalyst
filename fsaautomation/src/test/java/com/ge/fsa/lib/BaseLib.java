@@ -59,7 +59,7 @@ public class BaseLib {
 	public String sAppPath = null;
 	File app = null;
 	public static String sOSName = null;
-	public String runMachine = null;
+	public static String runMachine = null;
 	public String sSuiteTestName = null;
 
 	@BeforeSuite

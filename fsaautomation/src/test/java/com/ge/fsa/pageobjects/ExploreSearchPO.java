@@ -33,6 +33,21 @@ public class ExploreSearchPO
 		eleWorkOrderIDTxt=driver.findElement(By.xpath("//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sWorkOrderIDTxt+"']"));
 		 return eleWorkOrderIDTxt;
 	}
+	//Added by Harish for fixing 10563
+	private WebElement eleSearchItem;
+	public WebElement getEleSearchItem(String sSearchItem)
+	{
+		eleSearchItem=driver.findElement(By.xpath("//div[@class='x-container x-component widget-sfm-search-home-view app-card x-layout-card-item x-sized x-widthed x-heighted']//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sSearchItem+"')]"));
+		 return eleSearchItem;
+	}
+	
+	private WebElement eleWOSearch;
+	public WebElement getEleWOSearch(String sWO)
+	{
+		eleWOSearch=driver.findElement(By.xpath("//div[@class='x-container x-component x-container-svmx-default x-component-svmx-default x-paint-monitored widget-sfm-search-resultview-view app-card x-layout-card-item x-sized x-widthed x-heighted']//div[@class='x-inner-el sfmsearch-grid-cell-inner'][text()='"+sWO+"']"));
+		 return eleWOSearch;
+	}
+	//------------
 	
 	
 	@FindBy(xpath="//div[@class='x-innerhtml'][text()='No records to display.']")
@@ -82,7 +97,6 @@ public class ExploreSearchPO
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'"+sExploreChildSearchTxt+"')]"));
 		return eleExploreChildSearchTxt;
 	}
-	
 
 	@FindBy(xpath="//div[@class='icon-cloud-download sfmsearch-download-icon']")
 	private WebElement eleCloudSymbol;

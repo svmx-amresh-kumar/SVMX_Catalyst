@@ -25,7 +25,7 @@
 		<suite-file path="mobileConfigurationTest.xml" />
 		<suite-file path="opDocTest.xml" />
 		<suite-file path="pickListTest.xml" />
-		<suite-file path="productHistoryTest.xml" />
+		<suite-file path="productAccountHistoryTest.xml" />
 		<suite-file path="recentItemsTest.xml" />
 		<suite-file path="sanityTest.xml" />
 		<suite-file path="selfDispatchTest.xml" />

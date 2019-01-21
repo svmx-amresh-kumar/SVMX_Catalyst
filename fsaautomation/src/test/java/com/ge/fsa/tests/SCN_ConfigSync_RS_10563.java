@@ -17,7 +17,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_ConfigSync_RS_10563 extends BaseLib {
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10563() throws Exception {
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
@@ -34,10 +34,13 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		// Add Processes
 		commonsPo.execSahi(genericLib, sScriptName1, sTestCaseID);
 		
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
 		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt(sExploreSearch).isDisplayed());
@@ -49,7 +52,6 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
-//		commonsPo.tap(workOrderPo.getEleDoneBtnLsMode());
 		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -61,14 +63,11 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iMedSleep);
-		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Cases").isDisplayed());
-		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"),20,20);
-		exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-		workOrderPo.selectAction(commonsPo, sProcessName);	
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
+		Assert.assertTrue(exploreSearchPo.getEleSearchItem("Cases").isDisplayed());
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("Work Orders"));
+		commonsPo.tap(exploreSearchPo.getEleWOSearch(sWOName));
+		workOrderPo.selectAction(commonsPo, sProcessName);
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
 		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
 			

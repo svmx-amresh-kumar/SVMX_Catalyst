@@ -26,7 +26,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sScriptName = "Scenario_10530";
 	
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********

@@ -190,7 +190,7 @@ public class CommonsPO {
 			} else {
 				x = point.getX() + xOffset;
 				y = point.getY() + yOffset;
-				System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset s= " + (yOffset) + " on "
+				System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset = " + (yOffset) + " on "
 						+ x + "," + y);
 
 			}

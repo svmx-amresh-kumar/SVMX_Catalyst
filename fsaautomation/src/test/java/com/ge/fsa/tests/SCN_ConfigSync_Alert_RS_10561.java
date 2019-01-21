@@ -121,8 +121,8 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 	@AfterMethod
 	public void tearDown() throws Exception {
 	postscript();
-	System.out.println("Running the post script");
-	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
+//	System.out.println("Running the post script");
+//	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
 
 	}
 
