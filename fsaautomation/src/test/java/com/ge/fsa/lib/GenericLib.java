@@ -131,6 +131,16 @@ public class GenericLib
 	{	
 		
 		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
+		String sSahiLogPath = null;
+		//Set the path  of sahi reports
+		if(BaseLib.runMachine.equalsIgnoreCase("build")) {
+			
+			 sSahiLogPath = "/auto/Jenkins/workspace/FSA_AUTOMATION/offlineSahiLogs/index.html";
+
+		}else {
+			 sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/index.html";
+
+		}
 
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
@@ -144,9 +154,7 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/index.html";
-			//String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/setDownloadCriteriaWoToAllRecords_chrome__2e691c860f75e041430bd4e01c600665e48e.html";
-			//ExtentManager.logger.log(Status.PASS,"<a href='"+sSahiLogPath+" '>"+sMessage+" </a>");
+			
 			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sSahiLogPath+" '>"+sMessage+" </a> ] executed successfully");
 				
 		} catch (Exception e) {
