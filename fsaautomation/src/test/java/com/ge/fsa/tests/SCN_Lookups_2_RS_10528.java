@@ -33,11 +33,6 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		
 		commonsPo.execSahi(genericLib, sScriptName, sTestID);
 		
-
-		
-		
-		
-		
 		// Create Account
 		String sAccName = commonsPo.generaterandomnumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
