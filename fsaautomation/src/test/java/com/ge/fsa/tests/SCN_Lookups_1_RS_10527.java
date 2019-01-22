@@ -26,9 +26,9 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	String sAccId = "";
 	String sLocName = "Ricardo";
 	String sLocName1 = "Nashville";
-	String sProdName = "a1";
+	String sProdName = "SampleProd";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
 //		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
@@ -62,6 +62,15 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 			String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Qatar\"}");
 			System.out.println("Loc Id is "+sLocId1);
 		}
+		
+		//Create Product
+		String sProd = restServices.restGetSoqlValue("SELECT+Count()+from+Product2+Where+name+=\'"+sProdName+"\'", "totalSize");
+		if(Integer.parseInt(sProd)==0) {
+			String sProdId = restServices.restCreate("Product2?","{\"Name\": \""+sProdName+"\"}");
+			System.out.println("Product Id is "+sProdId);
+		}
+		
+		
 		
 		
 		//******Creating Work Order******
@@ -143,7 +152,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		List<WebElement> locList2 = new ArrayList<WebElement>();
 		locList2 = workOrderPo.getLocListInLkp();
 		String sLocCnt2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Qatar\'", "totalSize");
-		Assert.assertEquals(Integer.parseInt(sLocCnt),locList2.size());
+		Assert.assertEquals(Integer.parseInt(sLocCnt2),locList2.size());
 //		System.out.println(locList2.size());
 //		for(WebElement w:locList2) {
 //			Assert.assertTrue(w.getText().contains(sLocName1));
