@@ -132,7 +132,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			String fetchedWOfromrecents =recenItemsPO.getEleworkorderrecentused().getText();
 			System.out.println(fetchedWOfromrecents);
 			Assert.assertTrue(fetchedWOfromrecents.equals(sworkOrderName), "workOrderName value  is not displayed");
-			
+			ExtentManager.logger.log(Status.PASS,"Workorder valaditation in recent item is successful");
 			
 			//open case
 			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Cases", sCaseID, null);//case to be changed to global create case        
@@ -142,6 +142,9 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			commonsPo.tap(recenItemsPO.gettaponobject("Case ("));
 			String fetchedcasefromrecents =recenItemsPO.geteleChecklistName("Case (").getText();
 			System.out.println(fetchedcasefromrecents);
+			Assert.assertTrue(sCaseID.equals(fetchedcasefromrecents), "case value  is not displayed");
+			ExtentManager.logger.log(Status.PASS," case valaditation in recent item is successful");
+			
 			Thread.sleep(5000);
 			//create new custom record
 			commonsPo.tap(createNewPO.getEleCreateNew());
@@ -158,14 +161,12 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			String fetchedCustom_Objectfromrecents =recenItemsPO.geteleChecklistName("Auto_Custom_Object2 (").getText();
 			System.out.println(fetchedCustom_Objectfromrecents);
 			
-			//a370t000002JrlJ
-
 			String sSoqlQuery1 = "SELECT+Name+from+Auto_Custom_Object2__c+Where+Auto_TextBox_c__c+=\'"+sProformainVoice+"\'";
 			restServices.getAccessToken();
 			String Custom_ObjectName = restServices.restGetSoqlValue(sSoqlQuery1,"Name");	
 			System.out.println(Custom_ObjectName);
 				Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName), "Custom object  value  is not displayed");
-			
+				ExtentManager.logger.log(Status.PASS," Custom object valaditation in recent item is successful");
 			
 			toolsPo.Resetapp(commonsPo,exploreSearchPo);
 			Thread.sleep(2000);
