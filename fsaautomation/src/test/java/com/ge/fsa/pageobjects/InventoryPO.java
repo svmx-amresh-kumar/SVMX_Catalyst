@@ -23,6 +23,13 @@ public class InventoryPO{
 		return elePartsIcn;
 	}
 	
+	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Inventory']")
+	private WebElement eleInventoryIcn;
+	public WebElement geteleInventoryIcn()
+	{
+		return eleInventoryIcn;
+	}
+	
 	@FindBy(xpath="//*[text() = 'My Stock']")
 	private WebElement eleMyStockTab;
 	public WebElement geteleMyStockTab()
