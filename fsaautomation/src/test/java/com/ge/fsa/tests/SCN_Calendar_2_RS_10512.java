@@ -108,6 +108,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		System.out.println(styleWO4);
 		
 		calendarPO.geteleWOendpoint("07:00").getLocation();
+		calendarPO.geteleWOendpoint("07:00").getLocation();
 		String rgb_high=calendarPO.hex2Rgb("#FF0000");
 		String rgb_medium=calendarPO.hex2Rgb("#0000FF");
 		String rgb_low=calendarPO.hex2Rgb("#FFFF00");
