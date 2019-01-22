@@ -28,10 +28,10 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	String sLocName1 = "Nashville";
 	String sProdName = "a1";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -73,6 +73,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
@@ -103,7 +104,6 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getBtnApply());
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Accounts "+contactList.size());
-		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
 //		System.out.println("All Contacts fetched from Database ="+sAllCon);
 //		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
@@ -113,11 +113,13 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getlblSite());
 		List<WebElement> locList = new ArrayList<WebElement>();
 		locList = workOrderPo.getLocListInLkp();
-		System.out.println(locList.size());
-		for(WebElement w:locList) {
-			System.out.println("Test is "+w.getText());
-			Assert.assertTrue(w.getText().contains(sLocName));
-		}
+//		System.out.println(locList.size());
+		String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'France\'", "totalSize");
+		Assert.assertEquals(Integer.parseInt(sLocCnt),locList.size());
+		//		for(WebElement w:locList) {
+//			System.out.println("Test is "+w.getText());
+//			Assert.assertTrue(w.getText().contains(sLocName));
+//		}
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 8th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
@@ -127,10 +129,11 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getlblToLocation());
 		List<WebElement> locList1 = new ArrayList<WebElement>();
 		locList1 = workOrderPo.getLocListInLkp();
-		System.out.println(locList1.size());
-		for(WebElement w:locList1) {
-			Assert.assertTrue(w.getText().contains(sLocName));
-		}
+		Assert.assertEquals(Integer.parseInt(sLocCnt),locList1.size());
+//		System.out.println(locList1.size());
+//		for(WebElement w:locList1) {
+//			Assert.assertTrue(w.getText().contains(sLocName));
+//		}
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 9th Case******
 		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
@@ -139,9 +142,11 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getlblToLocation());
 		List<WebElement> locList2 = new ArrayList<WebElement>();
 		locList2 = workOrderPo.getLocListInLkp();
-		System.out.println(locList2.size());
-		for(WebElement w:locList2) {
-			Assert.assertTrue(w.getText().contains(sLocName1));
-		}
+		String sLocCnt2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Qatar\'", "totalSize");
+		Assert.assertEquals(Integer.parseInt(sLocCnt),locList2.size());
+//		System.out.println(locList2.size());
+//		for(WebElement w:locList2) {
+//			Assert.assertTrue(w.getText().contains(sLocName1));
+//		}
 	}
 }
