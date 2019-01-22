@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -32,23 +33,24 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		String sProductName = commonsPo.generaterandomnumber("Prod");
 		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
 		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
-		System.out.println(sProductId);
+		//	System.out.println(sProductId);
 		//**********Get record type Usage/Consumption for work detail**********
 		String sUsageLine = "Usage/Consumption";
 		String sRecordTypeId = restServices.restGetSoqlValue("SELECT+Id+from+RecordType+Where+Name+=\'" + sUsageLine + "\'", "Id");
 		//**********Create Work Detail and associate with Work Order
-		String sworkDetail = restServices.restCreate("SVMXC__Service_Order_Line__c?","{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Parts\",\"SVMXC__Service_Order__c\":\""+sWORecordID+"\",\"RecordTypeId\":\""+sRecordTypeId+"\",\"SVMXC__Actual_Quantity2__c\":\"11\",\"SVMXC__Product__c\":\""+sProductId+"\"}");//,,
-		System.out.println("work Detail");
-		System.out.println(sworkDetail);
+		String sworkDetail = restServices.restCreate("SVMXC__Service_Order_Line__c?","{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Parts\",\"SVMXC__Service_Order__c\":\""+sWORecordID+"\",\"RecordTypeId\":\""+sRecordTypeId+"\",\"SVMXC__Actual_Quantity2__c\":\"11\",\"SVMXC__Product__c\":\""+sProductId+"\"}");
+		//	System.out.println(sworkDetail);
 	
 		String sWebServiceState = "Nottingham Shire";
 		String sWebServiceCountry = "United Kingdom";
 		String sRequestedCity = "Adams Town";
 		String sRequestedCountry = "French Polynesia";
-		DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
 		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+		TimeZone gmtTime = TimeZone.getTimeZone("GMT");
+		dateFormat.setTimeZone(gmtTime);
 		String sCurrentDate = dateFormat.format(date);
-//		System.out.println(sCurrentDate);
+		System.out.println(sCurrentDate);
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -56,20 +58,20 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
-////		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "EDIT_WORKORDER_MAPPING");
 		workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		Thread.sleep(GenericLib.iMedSleep);
 //		System.out.println("State is "+workOrderPo.getEleLblStateName().getAttribute("innerText"));
-////		Thread.sleep(GenericLib.iHighSleep);
-////		System.out.println("Country is "+workOrderPo.getEleLblCountryName().getText());
-////		System.out.println("Country is 1111 "+workOrderPo.getEleLblCountryName().getAttribute("textContent"));
+//		Thread.sleep(GenericLib.iHighSleep);
+//		System.out.println("Country is "+workOrderPo.getEleLblCountryName().getText());
+//		System.out.println("Country is 1111 "+workOrderPo.getEleLblCountryName().getAttribute("textContent"));
 		Assert.assertTrue(workOrderPo.getEleLblStateName().getAttribute("textContent").equals(sWebServiceState));
-////		Assert.assertTrue(workOrderPo.getEleLblCountryName().getText().equals(sWebServiceCountry));
+//		Assert.assertTrue(workOrderPo.getEleLblCountryName().getText().equals(sWebServiceCountry));
 //		System.out.println("Time is "+workOrderPo.getEleLblCompletedDateTime().getAttribute("innerText"));
 //		System.out.println("Build Up Time "+sCurrentDate);
+//		System.out.println(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent"));
 		Assert.assertTrue(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent").contains(sCurrentDate));
 		workOrderPo.getelecancelbutton().click();
 		commonsPo.tap(workOrderPo.getelecancelbutton());
@@ -81,14 +83,12 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleActionsLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
-		workOrderPo.geteleCountry_Edit_Lst().click();
-		Thread.sleep(30000);
 		workOrderPo.getEleclickparts(sProductName).click();
-		commonsPo.tap(workOrderPo.getEleclickparts(sProductName));
-		Thread.sleep(3000);
-		System.out.println("R city "+workOrderPo.getEleLblRequestedCity().getAttribute("innerText"));
-		System.out.println("R county "+workOrderPo.getEleLblRequestedCountry().getAttribute("innerText"));
-			Assert.assertTrue(workOrderPo.getEleLblRequestedCity().getAttribute("innerText").equals(sRequestedCity));
+		commonsPo.tap(workOrderPo.getEleclickparts(sProductName),20,20);
+//		Thread.sleep(5000);
+//		System.out.println("R city "+workOrderPo.getEleLblRequestedCity().getAttribute("innerText"));
+//		System.out.println("R county "+workOrderPo.getEleLblRequestedCountry().getText());
+		Assert.assertTrue(workOrderPo.getEleLblRequestedCity().getAttribute("innerText").equals(sRequestedCity));
 //		Assert.assertTrue(workOrderPo.getEleLblRequestedCountry().getText().equals(sRequestedCountry));
 	}
 

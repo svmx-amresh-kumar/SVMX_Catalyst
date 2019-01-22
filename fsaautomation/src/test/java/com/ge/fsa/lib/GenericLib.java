@@ -137,7 +137,7 @@ public class GenericLib
 		
 		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
 		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
-		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "/auto/Jenkins/workspace/FSA_AUTOMATION/offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
+		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
 		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
@@ -221,7 +221,7 @@ public class GenericLib
 	    File[] files = dir.listFiles(fileFilter);
 
 	    if (files.length > 0) {
-	        /** The newest file comes first **/
+	        //The newest file comes first after sorting
 	        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
 	        lastModifiedFile = files[0];
 	    }
@@ -229,11 +229,5 @@ public class GenericLib
 	    System.out.println("Fetching Last Modified File : "+lastModifiedFile.getName().toString());
 	    return lastModifiedFile.getName().toString();
 	}
-	
-//	public static void main(String[] args) throws IOException {
-//		GenericLib gen = new GenericLib();
-//		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
-//		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
-//	}
 	
 }

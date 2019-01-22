@@ -103,7 +103,8 @@ public class ExtentManager {
 		TakesScreenshot ts = (TakesScreenshot) localDriver;
 
 		File src = ts.getScreenshotAs(OutputType.FILE);
-String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
+		//This will be the actual path that the reports html file will have reference to for the screenshots
+		String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
 		String fullPath = sReportPath + actualScreenshotPath;
 
 		File destination = new File(fullPath);

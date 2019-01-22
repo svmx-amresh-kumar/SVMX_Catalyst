@@ -64,6 +64,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		String sTestCaseID="RS_11859_Calender_3";
 		//sahi
 		
+		
+		
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
 		  if(commonsPo.verifySahiExecution()) {
 		  
@@ -73,6 +75,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
 		  System.out.println("RS-11859");
+		 
 		 
 	
 	//read from file
@@ -157,6 +160,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  
 		  toolsPo.syncData(commonsPo);
 		  
+	
 		  String stempDate=calendarPO.convertedformate(endtimezero);
 		  
 		  commonsPo.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
@@ -195,26 +199,19 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		 * commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1)); }
 		 */
 	
-		try {
-			commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
-			//tap on pencil icon
-			System.out.println("tap on pencil icon");
-			commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
-			commonsPo.tap(calendarPO.geteleEndDateTime());
-}
-			catch (Exception e) {
-				commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
-				commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
-				commonsPo.tap(calendarPO.geteleEndDateTime());
-				Thread.sleep(3000);
-			}
-		
-		
-		
-		
-		 // System.out.println("tap on pencil icon");
-		//  commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
-		 
+		/*
+		 * try { commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
+		 * //tap on pencil icon System.out.println("tap on pencil icon");
+		 * commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
+		 * commonsPo.tap(calendarPO.geteleEndDateTime()); } catch (Exception e) {
+		 * commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
+		 * commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
+		 * commonsPo.tap(calendarPO.geteleEndDateTime()); Thread.sleep(3000); }
+		 */
+		System.out.println("before");
+		commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_2));
+		System.out.println("tap on pencil icon");
+		commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_2),20,20);
 
 			Thread.sleep(10000);
 		commonsPo.tap(calendarPO.geteleEndDateTime());
@@ -241,9 +238,14 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
         Thread.sleep(3000);
        toolsPo.syncData(commonsPo);
         
-    
+       
+       sObjectApi = "Event"; 
+       sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event2\'"; 
+       String sEventIdSVMX_2 = restServices.restGetSoqlValue(sSqlEventQuery,"Id");
+		  System.out.println(sEventIdSVMX_2);
+       
       sObjectApi = "Event";
-		sSqlEventQuery ="SELECT+EndDateTime+from+Event+Where+id+=\'"+sEventIdSVMX_1+"\'";				
+		sSqlEventQuery ="SELECT+EndDateTime+from+Event+Where+id+=\'"+sEventIdSVMX_2+"\'";				
 		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"EndDateTime"); 
 		System.out.println(sEventenddatetimeserver);
 		
