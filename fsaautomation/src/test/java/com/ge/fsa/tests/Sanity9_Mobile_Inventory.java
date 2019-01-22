@@ -18,12 +18,13 @@ public void Scenario9Test() throws Exception
 	commonsPo.preReqSetup(genericLib);
 	// Resinstall the app
 	lauchNewApp("false");
+	
 			//Pre Login to app
 			loginHomePo.login(commonsPo, exploreSearchPo);
 			//toolsPo.configSync(commonsPo);
 			
 			Thread.sleep(GenericLib.iMedSleep);
-			Assert.assertTrue(inventoryPo.getelePartsIcn().isDisplayed(), "Parts Icon Mobile Inventory is not dipslayed");		
+			Assert.assertTrue(inventoryPo.geteleInventoryIcn().isDisplayed(), "Inventory Icon Mobile Inventory is not dipslayed");		
 			//NXGReports.addStep("Parts icon Mobile Inventory is visible", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"Parts icon Mobile Inventory is visible");
 
