@@ -1350,6 +1350,8 @@ public class CommonsPO {
 		 salesforceversion[0] = sMajorVersion;
 		 salesforceversion[1] = sMinorVersion;
 		 String sversionv = Arrays.toString(salesforceversion).replaceAll(",",".");
+		 System.out.println("Sales Force Version : "+sversionv);
+		 
 		 return sversionv;
 			 
 	 }

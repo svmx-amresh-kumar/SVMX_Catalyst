@@ -60,8 +60,9 @@ public class BaseLib {
 	File app = null;
 	public static String sOSName = null;
 	public static String runMachine = null;
-	public String sSuiteTestName = null;
-
+	public static String sSuiteTestName = null;
+	public static String sSalesforceServerVersion = null;
+	
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
@@ -128,8 +129,7 @@ public class BaseLib {
 
 				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-				ExtentManager.getInstance(driver);
+			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
@@ -171,8 +171,7 @@ public class BaseLib {
 
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-				ExtentManager.getInstance(driver);
+			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
@@ -201,7 +200,14 @@ public class BaseLib {
 		checklistPo = new ChecklistPO(driver);
 		inventoryPo = new InventoryPO(driver);
 
-
+		try {
+			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ExtentManager.getInstance(driver);
+		
 	}   
 
 	/**
@@ -248,6 +254,7 @@ public class BaseLib {
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
+		
 
 	}
 
