@@ -1357,15 +1357,23 @@ public class CommonsPO {
 	 
 	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
 		{
-					String sWorkOrder = null;
-					for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++)
+		 			System.out.println("Entered Deletion of Calendar Events");
+		 			System.out.println(calendarPO.getEleWOEventTitleTxt1().size());
+					//String sWorkOrder = null;
+					if(calendarPO.getEleWOEventTitleTxt1().size()!=0)
 					{
-						sWorkOrder = calendarPO.getEleWOEventTitleTxt().get(i).getText();
+					for(int i=0;i<calendarPO.getEleWOEventTitleTxt1().size();i++)
+					{
+						Thread.sleep(GenericLib.iMedSleep);
+						String sWorkOrder = calendarPO.getEleWOEventTitleTxt1().get(i).getText();
+						System.out.println("WorkOrderEvent tobeDeleted"+sWorkOrder);
 					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
 						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
 						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
 					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
-					} 
+					}
+					}
+					System.out.println("No Events to be Deleted");
 		}
 	
 }
