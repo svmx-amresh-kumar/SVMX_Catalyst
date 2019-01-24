@@ -59,7 +59,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sTestCaseID="RS_10525_Calender_6";
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
 	//sahi
 		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
   		if(commonsPo.verifySahiExecution()) {

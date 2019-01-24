@@ -62,7 +62,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
 		String sTestIBID = sProformainVoice;
-	
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
 	
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");

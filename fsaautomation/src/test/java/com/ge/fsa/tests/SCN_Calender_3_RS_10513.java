@@ -65,6 +65,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		String sTestCaseID="RS_10513_Calender_3";
 		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
+		
 		//sahi
 		
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 

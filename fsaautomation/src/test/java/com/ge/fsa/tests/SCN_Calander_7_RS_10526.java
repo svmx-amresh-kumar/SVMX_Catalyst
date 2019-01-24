@@ -36,6 +36,7 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 public void RS_10526() throws Exception
 {		
 
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";

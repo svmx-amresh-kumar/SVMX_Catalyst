@@ -60,7 +60,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	
 		String sTestCaseID="RS_10515_Calender_5";
 	
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
 		
 		//sahi
 		genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
@@ -78,7 +78,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
   		}
   		lauchNewApp("true");
   		System.out.println("RS_10515");
-	
+  		
 		
 		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		 sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
@@ -94,6 +94,8 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
+		
+		
 		
 		//verify the Event is displayed or not
 		

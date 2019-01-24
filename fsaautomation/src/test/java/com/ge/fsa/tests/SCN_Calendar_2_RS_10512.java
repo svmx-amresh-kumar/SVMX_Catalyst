@@ -59,10 +59,8 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		String sTestCaseID="RS_10512_Calender_2";
 	
 		
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO);
 		//sahi
-		
-		
 		
 		
 		
