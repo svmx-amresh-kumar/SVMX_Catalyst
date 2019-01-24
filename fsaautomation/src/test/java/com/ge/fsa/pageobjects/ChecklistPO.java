@@ -74,6 +74,13 @@ public class ChecklistPO{
 		return eleChecklistokPopUp;
 	}
 	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='OK']")
+	private WebElement eleChecklistOK;
+	public WebElement geteleChecklistOK()
+	{
+		return eleChecklistOK;
+	}
+	
 	 @FindBy(xpath="//span[text()='Save']")
 	    private WebElement eleSavePopUp;
 	    public WebElement geteleSavePopUp()

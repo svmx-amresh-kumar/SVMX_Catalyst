@@ -117,7 +117,8 @@ public class ToolsPO
 		return eleConfigSyncBarMenuLnk;
 	}	
 	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+//	@FindBy(xpath="//span[@class='x-button-label'][text()='Cancel']")
+	@FindBy(xpath="//div[@data-componentid='configCancel']")
 	//@FindBy(xpath="//*[text()='Cancel']")
 	private WebElement eleCancelConfigSyncBtn;
 	public WebElement geteleCancelConfigSyncBtn()
@@ -203,7 +204,7 @@ public class ToolsPO
 			System.out.println("Data Sync Failed");
 			//Verification of successful sync
 			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
-			Assert.assertTrue(1<2, "Data Sync Failed");
+			Assert.assertTrue(2<1, "Data Sync Failed");
 		}
 		
 		driver.activateApp(GenericLib.sAppBundleID);
@@ -245,7 +246,7 @@ public class ToolsPO
 				System.out.println("Config Sync Failed");
 				//Verification of successful sync
 				ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
-				Assert.assertTrue(1<2, "Config Sync Failed");
+				Assert.assertTrue(2<1, "Config Sync Failed");
 			}
 																	
 			driver.activateApp(GenericLib.sAppBundleID);

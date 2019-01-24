@@ -67,8 +67,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah",
-		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
+		  if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -130,6 +130,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'SVMX Event from calender New button\'";				
 			 sEventIdSVMX =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSVMX);
+			 Assert.assertNotNull(sEventIdSVMX, "Record not found");;
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 //Assert nt null

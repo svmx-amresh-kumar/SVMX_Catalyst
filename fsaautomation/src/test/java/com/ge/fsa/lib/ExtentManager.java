@@ -17,6 +17,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.ge.fsa.pageobjects.CommonsPO;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -35,13 +36,13 @@ import io.appium.java_client.AppiumDriver;
  * 
  *
  */
-public class ExtentManager {
+public class ExtentManager{
 	//All variables need to be global here as they will be used across all files
 	public static ExtentReports extent = null;
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-    public static String sReportName = LocalDateTime.now().format(formatter)+ "_report.html";
+    public static String sReportName = LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
 	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
 
 	/**
@@ -103,7 +104,8 @@ public class ExtentManager {
 		TakesScreenshot ts = (TakesScreenshot) localDriver;
 
 		File src = ts.getScreenshotAs(OutputType.FILE);
-String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
+		//This will be the actual path that the reports html file will have reference to for the screenshots
+		String actualScreenshotPath = "Screenshot/" + System.currentTimeMillis() + ".png";
 		String fullPath = sReportPath + actualScreenshotPath;
 
 		File destination = new File(fullPath);

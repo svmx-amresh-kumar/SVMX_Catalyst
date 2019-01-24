@@ -4,9 +4,7 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
-import java.io.IOException;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -72,7 +70,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		//sIBName1 ="IB_10542_16102018172046";
 		//sIBName2 = "IB_10541_22102018144716";
-			
+		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -86,8 +84,8 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		preRequiste();
 		
+		preRequiste();
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
@@ -108,7 +106,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
-
+	
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
@@ -117,21 +115,16 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
-		System.out.println(workOrderPo.getEleIBSubjectTxt().getText());
-		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleIBSubjectTxt().getText().equals(sIBName2), "Subject is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Subject is  displayed");
-		
-			
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
+		Thread.sleep(GenericLib.iLowSleep);
 		
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Validation of created Case object from IB
 		sSqlQuery ="SELECT+CaseNumber+from+Case+WHERE+Subject=\'"+sIBName2+"\'";				

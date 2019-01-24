@@ -1,13 +1,18 @@
 
 package com.ge.fsa.lib;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
+
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -127,8 +132,13 @@ public class GenericLib
 	}
 	
 	
-	public void executeSahiScript(String sSahiScript, String sTestCaseID ) throws Exception
+	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
 	{	
+		
+		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
+		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
+		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
+		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
@@ -141,11 +151,22 @@ public class GenericLib
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			ExtentManager.logger.log(Status.PASS,"Sahi script for case "+sTestCaseID+" executed successfully");
+			//Set the path  of sahi reports
+			
+			if(BaseLib.runMachine.equalsIgnoreCase("build")) {
+				
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+
+			}else {
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+
+			}
+			
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully");
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi execution failure");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script for case [ " + sMessage + " ] failed");
 			throw e;
 		}
 	}
@@ -191,10 +212,22 @@ public class GenericLib
 		
 	}
 	
-//	public static void main(String[] args) throws IOException {
-//		GenericLib gen = new GenericLib();
-//		GenericLib.setExcelData("RS_10543","RS_10543", "ExploreSearch");
-//		//GenericLib.getExcelData("RS_10543","RS_10543", "ExploreSearch");
-//	}
+	
+	/* Get the newest file for a specific extension */
+	public String getLastModifiedFile(String filePath, String pattern,String ext) {
+	    File lastModifiedFile = null;
+	    File dir = new File(filePath);
+	    FileFilter fileFilter = new WildcardFileFilter(pattern + ext);
+	    File[] files = dir.listFiles(fileFilter);
+
+	    if (files.length > 0) {
+	        //The newest file comes first after sorting
+	        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+	        lastModifiedFile = files[0];
+	    }
+
+	    System.out.println("Fetching Last Modified File : "+lastModifiedFile.getName().toString());
+	    return lastModifiedFile.getName().toString();
+	}
 	
 }

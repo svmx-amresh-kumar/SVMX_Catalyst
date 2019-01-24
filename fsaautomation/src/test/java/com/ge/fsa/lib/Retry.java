@@ -28,18 +28,12 @@ public class Retry implements IRetryAnalyzer {
 
 		{
 
-			// print the test name for log purpose
-
-			System.out.println("Following test is failing << " + result.getName());
-
-			// print the counter value
-
-			System.out.println("Retrying the test Count is = " + (minretryCount + 1));
-
-			// increment counter each time by 1
+			System.out.println(" << RETRYING FAILED TEST : " + result.getName());
 
 			minretryCount++;
+			//Set the is isRetryRun flag to true
 			isRetryRun = true;
+			
 			return true;
 
 		}

@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,7 +33,6 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -55,6 +55,7 @@ import java.nio.file.Paths;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CommonsPO {
@@ -74,7 +75,7 @@ public class CommonsPO {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
-	public BaseLib baseLib = new BaseLib();
+	
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -146,7 +147,7 @@ public class CommonsPO {
 			try {
 				wElement.click();	
 				clickPassed = true;
-				System.out.println("Click passed");
+				//System.out.println("Click passed");
 			} catch (Exception e) {
 				System.out.println("Click failed");
 				clickPassed = false;
@@ -189,18 +190,20 @@ public class CommonsPO {
 			} else {
 				x = point.getX() + xOffset;
 				y = point.getY() + yOffset;
-				System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset s= " + (yOffset) + " on "
+				System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset = " + (yOffset) + " on "
 						+ x + "," + y);
 
 			}
 
-			// Switch the tap based on ANDROID or WINDOWS
+			// Switch the tap based on ANDROID or IOS
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				
+				//Overriding offsets for android as it works always with 30,36
+				x = point.getX() + xOffset;
+				y = point.getY() + yOffset;
 				switchContext("Native");
-				System.out.println("Android Tapping ");
+				//System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);
 				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				switchContext("Webview");
@@ -210,7 +213,7 @@ public class CommonsPO {
 				// For IOS
 				// Since in IOS now has clicks and taps alternatively do a click then a tap
 
-				System.out.println("IOS Tapping ");
+				//System.out.println("IOS Tapping ");
 				TouchAction iosTouchAction = new TouchAction(driver);
 				iosTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
 				break;
@@ -220,7 +223,7 @@ public class CommonsPO {
 				break;
 			}
 
-			System.out.println("Tap passed");
+			//System.out.println("Tap passed");
 			tapPassed = true;
 		}
 
@@ -246,46 +249,7 @@ public class CommonsPO {
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	// Customised touch tap version 2.0
-	// public void tap(WebElement element) throws InterruptedException
-	// {
-	//
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// point = element.getLocation();
-	// iosTouchAction = new IOSTouchAction(driver);
-	// iosTouchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	//
-	/// *
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	// */
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
-
-	// public void tap(WebElement element, int...iOffset) throws
-	// InterruptedException
-	// {
-	//
-	// System.out.println(iOffset[0] + " y cordi"+iOffset[1]);
-	// waitforElement(element, GenericLib.i30SecSleep);
-	// //point = element.getLocation();
-	// IOSTouchAction touchAction= new IOSTouchAction(driver);
-	// touchAction.tap(PointOption.point(element.getLocation().getX()+iOffset[0],
-	// element.getLocation().getY()+iOffset[1])).perform();
-	// //iosTouchAction.tap(new
-	// PointOption().withCoordinates(point.getX()+iOffset[0],
-	// point.getY()+iOffset[1])).perform();
-	//
-	//
-	// touchAction = new TouchAction(driver);
-	// touchAction.tap(new PointOption().withCoordinates(point.getX()+xOffset,
-	// point.getY()+yOffset)).perform();
-	//
-	// Thread.sleep(GenericLib.iLowSleep);
-	// }
+	
 
 	// Customised touch Tap
 	public void fingerTap(Point point, int iTapCount) throws InterruptedException {
@@ -1164,40 +1128,52 @@ public class CommonsPO {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		// if we add "true,false,true" in the results file as comma separated values
 		String[] arrValues = sahiResultCommon.split(",");
 		int i = 0;
 		for (String arrValRead : arrValues) {
-			System.out.println("use  arrValues[" + i + "] = " + arrValRead);
+			System.out.println("File boolean state values in arrValues[" + i + "] = " + arrValRead);
 			i++;
 		}
 
 		if (arrValues[0].toLowerCase().equals("true")) {
 
-			System.out.println("Its a Match , Read File = " + sahiResultCommon);
+			System.out.println("Its a Match , Sahi exceution state in file = " + sahiResultCommon);
 			// In case you want to stop even if the script passes
 			result = true;
 
 		} else {
-			System.out.println("Its Not a Match , Read File = " + sahiResultCommon);
+			System.out.println("Its Not a Match , Sahi exceution state in file = " + sahiResultCommon);
 			result = false;
 		}
 		File file = new File(sFilePath);
-        if(file.delete()){
-            System.out.println("Resetting State by deleting file "+sFilePath);
-        }else System.out.println("No file to reset" + sFilePath);
-        
+		if (file.delete()) {
+			System.out.println("Resetting State by deleting file : " + sFilePath);
+		} else
+			System.out.println("No file to reset : " + sFilePath);
+
 		return result;
 	}
 
-	public void preReq(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
+	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
 		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
-		Assert.assertTrue(verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
+		if(verifySahiExecution()) {
+			
+			System.out.println("PASSED");
+		}
+		else 
+		{
+			System.out.println("FAILED");
+			
+
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+			assertEquals(0, 1);
+	}
 	}
 
 	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
 			String sScriptName, String sTestCaseId) throws Exception {
-		String sProcessCheck = restServices.restGetSoqlValue(
+			String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
 						+ sProcessName + "\'",
 				"SVMXC__Dispatch_Process_Status__c");
@@ -1221,7 +1197,7 @@ public class CommonsPO {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			preReq(genericLib, sScriptName, sTestCaseId);
+			execSahi(genericLib, sScriptName, sTestCaseId);
 			return true;
 
 		}
@@ -1338,4 +1314,58 @@ public class CommonsPO {
 				.moveTo(new PointOption().withCoordinates(150, 60)).release();
 	}
 
+	/**
+	 * Should be called before running any tests/suites if needed. 
+	 * Function to initialize and run and pre requisites, please add the relevant
+	 * pre requisites here.
+	 * 
+	 * @param genericLib
+	 * @throws Exception
+	 */
+	public void preReqSetup(GenericLib genericLib) throws Exception {
+
+		// running the Sahi Script Pre-requisites - To make My Records to All Records in
+		// Mobile Configuration
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
+	}
+
+	
+	 public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
+	 {
+		 String sMajorVersion = "";
+		 String sMinorVersion = "";
+		 String[] salesforceversion = new String[2];
+		 
+		 sMajorVersion = restServices.restGetSoqlValue("SELECT+MajorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MajorVersion");
+		 sMinorVersion = restServices.restGetSoqlValue("SELECT+MinorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MinorVersion");
+		 salesforceversion[0] = sMajorVersion;
+		 salesforceversion[1] = sMinorVersion;
+		 String sversionv = Arrays.toString(salesforceversion).replaceAll(",",".");
+		 System.out.println("Sales Force Version : "+sversionv);
+		 
+		 return sversionv;
+			 
+	 }
+	 
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
+		{
+					String sWorkOrder = null;
+					for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++)
+					{
+						sWorkOrder = calendarPO.getEleWOEventTitleTxt().get(i).getText();
+					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
+						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
+					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
+					} 
+		}
+	
 }

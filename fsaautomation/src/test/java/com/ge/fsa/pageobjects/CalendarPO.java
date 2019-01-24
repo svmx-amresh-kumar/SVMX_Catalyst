@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
@@ -143,10 +144,10 @@ public class CalendarPO
 	}
 	
 	
-	private WebElement eleWOEventTitleTxt;
-	public WebElement getEleWOEventTitleTxt(String sWOName)
+	private List<WebElement> eleWOEventTitleTxt;
+	public List<WebElement> getEleWOEventTitleTxt()
 	{
-		eleWOEventTitleTxt = driver.findElement(By.xpath("//div[@class='sfmevent-title'][text()='"+sWOName+"']"));
+		eleWOEventTitleTxt = driver.findElements(By.xpath("//div[@class='sfmevent-title']"));
 		return eleWOEventTitleTxt;
 	}
 	
@@ -250,7 +251,7 @@ public class CalendarPO
 		Thread.sleep(6000);
 		try
 		{
-		geteleWOendpoint("04:00").getLocation();
+		//geteleWOendpoint("07:00").getLocation();
 		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
 			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
@@ -258,7 +259,7 @@ public class CalendarPO
 		}
 		catch(Exception e)
 		{
-			geteleWOendpoint("04:00 AM").getLocation();
+			//geteleWOendpoint("07:00 AM").getLocation();
 			commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 			getEleworkordernumonCalendarWeek(workordername).getLocation();
 				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
@@ -510,7 +511,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 20);
+		commonsPo.waitforElement(getelegetWOnum(workordername), 10);
 		
 	
 		if(getelegetWOnum(workordername) != null){
@@ -610,8 +611,28 @@ public class CalendarPO
 			return elepenciliconcalmultiday;
 		}
 
+		private WebElement elepenciliconcalmultidaysfdc;
+		public WebElement getelepenciliconcalmultidaysfdc(String WOname)
+		{
+			elepenciliconcalmultidaysfdc = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//..//div[@class='sfmevent-icon-edit sfmevent-icon-edit-hidden'])[4]"));
+
+			return elepenciliconcalmultidaysfdc;
+		}
+
+
+		private WebElement elesubjectformultidaysfdc;
+		public WebElement getsubjectformultidaysfdc(String WOname)
+		{
+			elesubjectformultidaysfdc = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border'])[4]"));
+
+			return elesubjectformultidaysfdc;
+		}
+
 
 }
+
+
+
 
 
 

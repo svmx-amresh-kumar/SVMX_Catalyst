@@ -133,8 +133,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		
 	}
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10579() throws Exception {
 		prerequisites();
 		// Pre Login to app
@@ -297,11 +296,10 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			commonsPo.tap(checklistPo.geteleSectionNextBtn(1));
 			//checklistPo.geteleChecklistHelpIcn().click();
 			commonsPo.tap(checklistPo.geteleChecklistHelpIcn(sAttachmentQ));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(GenericLib.i30SecSleep);
 			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());
 			Set contextNames = driver.getContextHandles();
-			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println(driver.getContext());
 			driver.context(contextNames.toArray()[2].toString());
 			String url = driver.getCurrentUrl();

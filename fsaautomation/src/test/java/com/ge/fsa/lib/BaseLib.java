@@ -59,15 +59,19 @@ public class BaseLib {
 	public String sAppPath = null;
 	File app = null;
 	public static String sOSName = null;
-	public String runMachine = null;
+	public static String runMachine = null;
+	public static String sSuiteTestName = null;
+	public static String sSalesforceServerVersion = null;
 	
-
 	@BeforeSuite
-	public void startServer()
+	public void startServer(ITestContext context)
 	{
+		
+		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
 
 
 	}
+	
 	//@BeforeClass
 	public void setAPP() throws Exception
 	{
@@ -84,10 +88,17 @@ public class BaseLib {
 			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
 		}
 
-		sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
 		
 		System.out.println("Running On Machine : "+runMachine);
 		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
+		
+		if(System.getenv("Run_On_Platform") != null) {
+			System.out.println("Runing on platform defined via jenkins parameter ${Run_On_Platform} : "+System.getenv("Run_On_Platform"));
+			sOSName = System.getenv("Run_On_Platform").toLowerCase();
+		}else {
+			sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+
+		}
 		System.out.println("OS Name = "+sOSName.toLowerCase());
 		
 		
@@ -118,12 +129,11 @@ public class BaseLib {
 
 				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-				ExtentManager.getInstance(driver);
+			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure "+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
@@ -161,12 +171,11 @@ public class BaseLib {
 
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-				ExtentManager.getInstance(driver);
+			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
 				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure"+"Running On Machine :"+runMachine);
+				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
 				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
 				ExtentManager.extent.flush();
 				throw e;
@@ -191,7 +200,14 @@ public class BaseLib {
 		checklistPo = new ChecklistPO(driver);
 		inventoryPo = new InventoryPO(driver);
 
-
+		try {
+			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ExtentManager.getInstance(driver);
+		
 	}   
 
 	/**
@@ -227,13 +243,18 @@ public class BaseLib {
 
 
 	@BeforeMethod
-	public void startReport(ITestResult result) {
+	public void startReport(ITestResult result,ITestContext context) {
 		lauchNewApp("true");
+		sSuiteTestName = context.getCurrentXmlTest().getName();
+		if(sSuiteTestName != null) {
+		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
+		}
 		System.out.println(" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
-		ExtentManager.logger(result.getMethod().getRealClass().getSimpleName());
+		ExtentManager.logger(sSuiteTestName+ " : "+result.getMethod().getRealClass().getSimpleName());
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
+		
 
 	}
 

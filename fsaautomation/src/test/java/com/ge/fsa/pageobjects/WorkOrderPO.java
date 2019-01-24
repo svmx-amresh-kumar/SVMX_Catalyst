@@ -138,6 +138,12 @@ import org.openqa.selenium.Rotatable;
 			return contactListInLkp;
 		}
 		
+		@FindBy(xpath="//div[contains(text(),'Product Name')]/following::div[contains(@id,'ext-gridrow-')]")
+		private List<WebElement> productListInLkp;
+		public List<WebElement> getProductListInLkp() {
+			return productListInLkp;
+		}
+		
 		@FindBy(xpath="//div[contains(text(),'Location Name')]/following::div[contains(@id,'ext-gridrow-')]")
 		private List<WebElement> LocListInLkp;
 		public List<WebElement> getLocListInLkp() {
@@ -454,7 +460,7 @@ import org.openqa.selenium.Rotatable;
 		{
 	
 			//eleclickparts = driver.findElement(By.xpath("(//div[@class='x-gridcell']//div[text()='"+partsname+"'])[1]"));
-			eleclickparts = driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+partsname+"']"));
+			eleclickparts = driver.findElement(By.xpath("(//div[@class='x-inner-el'][text()='"+partsname+"'])[2]"));
 			return eleclickparts;
 		}
 	
@@ -997,13 +1003,16 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 		@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
+//		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='State']/following::input)[1]")
 		private WebElement eleLblStateName;
 		public WebElement getEleLblStateName()
 		{
 			return eleLblStateName;
 		}
 	
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-innerhtml']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Country']/../..//div[@class='x-mask-el']")
+		@FindBy(xpath="(//span[text()='Country']/following::input[@name='picker'][@type='text'][@class='x-input-el'])[1]")
 		private WebElement eleLblCountryName;
 		public WebElement getEleLblCountryName()
 		{
@@ -1024,7 +1033,8 @@ import org.openqa.selenium.Rotatable;
 			return eleLblRequestedCity;
 		}
 	
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+//		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Requested Country']/../..//div[@class='x-innerhtml']")
+		@FindBy(xpath="(//span[text()='Requested Country']/following::input[@name='picker'][@type='text'][@class='x-input-el'])[1]")
 		private WebElement eleLblRequestedCountry;
 		public WebElement getEleLblRequestedCountry()
 		{
@@ -1180,10 +1190,12 @@ import org.openqa.selenium.Rotatable;
 			return eleContactIDTxt;
 		}
 	
-		@FindBy(xpath="//div[@class='sfm-delivery-textField-value']")
+		//@FindBy(xpath="//div[@class='sfm-delivery-textField-value'][text()='"++"']")
+		
 		private WebElement eleIBSubjectTxt;
-		public WebElement getEleIBSubjectTxt()
+		public WebElement getEleIBSubjectTxt(String sSubject)
 		{
+			driver.findElement(By.xpath("//div[text()='"+sSubject+"']"));
 			return eleIBSubjectTxt;
 		}
 		
@@ -1255,6 +1267,7 @@ import org.openqa.selenium.Rotatable;
 		public WebElement getEleActionsTxt(String sActionsName)
 		{
 			eleActionsTxt=driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sActionsName+"']"));
+			//eleActionsTxt=driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]"));
 			return eleActionsTxt;
 		}
 		
@@ -1309,81 +1322,22 @@ import org.openqa.selenium.Rotatable;
 			return eleWoPriorityTxt;
 		}
 		
-		/*
-	//NOTE: setTime should be a common function and added in coomPO object repo
-	public void setTime(CommonsPO commonsPo, WebElement element, int iDay, String sTime) throws InterruptedException
-	{
-		element.click();
-		commonsPo.switchContext("Native");
-		datePicker( 0,iDay);
-		timeSetter(1, sTime);
-		commonsPo.getEleDonePickerWheelBtn().click();
-		commonsPo.switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
-	}
-	public void datePicker(int iIndex, int scrollNum)
-	{ 	i=0;
-		for(i=0;i<scrollNum;i++)
-		{JavascriptExecutor js = (JavascriptExecutor) driver;
-	    Map<String, Object> params = new HashMap<>();
-	    params.put("order", "next");
-	    params.put("offset", 0.15);
-	    params.put("element", (getEleDatePickerPopUp().get(iIndex)));
-	    js.executeScript("mobile: selectPickerWheelValue", params);	
-		}
-	}
-	
-	public void timeSetter(int iIndex, String sTime )
-	{
-		getEleDatePickerPopUp().get(1).sendKeys(sTime);
-		getEleDatePickerPopUp().get(2).sendKeys("00");
-		getEleDatePickerPopUp().get(3).sendKeys("PM");
-	}
-		 */
+	/**
+	 * Select the process name from the action menu in workorder page
+	 * @param commonsPo
+	 * @param sActionsName
+	 * @throws InterruptedException
+	 */
 		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(5000);
-			//getEleActionsLnk().click();
 			commonsPo.tap(getEleActionsLnk());	
 			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
-//			commonsPo.switchContext("Webview");			
-//			iWhileCnt =0;
-//			while(iWhileCnt<=3) 
-//			{	
-//				try {
-//					commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
-//					Assert.assertTrue(getEleActionsTxt(sActionsName).isDisplayed(),"Failed to scroll to search");
-//					ExtentManager.logger.log(Status.PASS,"Element is displayed");
-//					commonsPo.tap(getEleActionsTxt(sActionsName));
-//					
-//					//Assert.assertTrue(driver.findElement(By.xpath("//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default sfm-console-titlelabel x-iconalign-right x-layout-box-item x-layout-vbox-item x-stretched']//span[@class='x-button-label'][text()='"+sActionsName+"']")).isDisplayed(),"Element is not clicked");
-//					System.out.println("Counter "+iWhileCnt);
-//					
-//					break;
-//				}catch(Exception e) {}		
-//				
-//				iWhileCnt++;
-//			}
+			driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]")).getLocation();
+			Thread.sleep(5000);
 			commonsPo.tap(getEleActionsTxt(sActionsName));
-		
-			
-			/*
-			try {
-				System.out.println("2 Try");
-				commonsPo.waitforElement(getEleActionsTxt(sActionsName), GenericLib.i30SecSleep);
-				
-				commonsPo.tap(getEleActionsTxt(sActionsName),10,10);
-				
-				
-				System.out.println("Testing ________________");
-				}catch(Exception e)
-				{
-					System.out.println("Caught and moved");
-					throw e;
-				}*/
-			
-	
+
 		}
 	
 		public void selectActionWithIcon(CommonsPO commonsPo, String sActionsName) throws InterruptedException

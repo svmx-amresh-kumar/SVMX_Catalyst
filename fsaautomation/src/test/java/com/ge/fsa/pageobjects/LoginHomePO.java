@@ -113,7 +113,7 @@ public class LoginHomePO
 
 		String sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
 		String sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
-		switch (GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase()) {
+		switch (BaseLib.sOSName) {
 		case "android":
 
 

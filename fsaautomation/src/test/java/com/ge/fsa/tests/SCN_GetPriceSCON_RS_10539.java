@@ -48,7 +48,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10539.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10539.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -310,7 +310,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		//commonsPo.tap(workOrderPo.getEleDoneBtn());
 		// Expenses - 2
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Gas",sProcessname,"4","");
 		//Verifying the fields of Expenses - 2
@@ -342,7 +342,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		}
 		
 		// Expenses - 3
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		//commonsPo.tap(workOrderPo.getEleDoneBtn());
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Airfare",sProcessname,"4","500");
 		//Verifying the fields of Expenses - 3
 		
@@ -375,7 +375,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		/**
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		//commonsPo.tap(workOrderPo.getEleDoneBtn());
 //		Date localTime1 = new Date();
 //		DateFormat df1 = new SimpleDateFormat("HH");
 //		 

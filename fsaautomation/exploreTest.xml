@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+		<test name="Explore">
+		
+		<classes>
+			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10543" />	
+			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10545" />
+			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10546" />
+			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10548" />
+			<class name="com.ge.fsa.tests.SCN_ExploreSearchRS_10549" />
+			
+			
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

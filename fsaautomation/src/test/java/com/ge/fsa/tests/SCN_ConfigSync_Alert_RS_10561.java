@@ -35,7 +35,7 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 				
-				genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah",sTestCaseID);
+				genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah");
 				Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
@@ -49,6 +49,10 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10561() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");	
 		prerequisites();
 	// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -77,7 +81,9 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 			System.out.println("Could not find the popup config sync pop up button this time");
 		}	*/
 		
-		
+		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
+
 		//Getting the value of 1 in Tools icon as there is a config sync due
 		sConfigSyncDueBadge =  toolsPo.geeteleConflictBadge().getText();
 		Assert.assertTrue(sConfigSyncDueBadge.equals(sConfigSyncDueBadgevalidationvalue), "Config sync Due alert is not turned to 1");
@@ -117,8 +123,8 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 	@AfterMethod
 	public void tearDown() throws Exception {
 	postscript();
-	System.out.println("Running the post script");
-	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
+//	System.out.println("Running the post script");
+//	ExtentManager.logger.log(Status.INFO,"Post script run sucessfully at aftermethod");
 
 	}
 

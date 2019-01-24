@@ -4,7 +4,9 @@
 package com.ge.fsa.tests;
 
 import org.testng.annotations.Test;
-import org.json.JSONArray;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
@@ -29,7 +31,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 	String sFieldServiceName = null;
 	String sSubject =null;
 	String sSqlQuery = null;
-	
+	List<WebElement> lsWoList = null;
 	
 	public void preRequiste() throws Exception { 
 		
@@ -41,11 +43,9 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
-		
 		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-		
 		
 	}
 
@@ -62,9 +62,11 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
+		//Config Sync
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
+		//Data Sync
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 	
@@ -75,18 +77,19 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		workOrderPo.getEleStartDateTimeTxtFld().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Native");
-		commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		commonsPo.getEleDonePickerWheelBtn().click();;
 		
 		//Edit the subject
 		commonsPo.switchContext("Webview");
 		workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
+		//Set end time
 		workOrderPo.getEleEndDateTimeTxtFld().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Native");
 		
 		commonsPo.setDatePicker(1, 1);
-		commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		commonsPo.getEleDonePickerWheelBtn().click();
 		
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
@@ -96,23 +99,37 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
 		
+		//Navigation to Calendar
 		commonsPo.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iHighSleep);
 		
 		calendarPO.getEleCalendarIcn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		driver.activateApp(GenericLib.sAppBundleID);
-		//Validation of WorkOrder event
-		Assert.assertTrue(calendarPO.getEleWOEventTitleTxt(sWOName1).isDisplayed() , "WorkOrder Event is not displayed on the calender");
-		ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully on calender.");
+		
+		//Validation of event on the calender
+		for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++){
+		    if(calendarPO.getEleWOEventTitleTxt().get(i).getText().equals(sWOName1))
+		    {
+		    	Assert.assertTrue(true,"Work Order event is not displayed on calender");
+		    	ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully on calender.");
+			}
+		} 
 		
 		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
-		
-		sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWOSqlQuery+"\'";				
-		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sWOName1), "Event is not created");
-		ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
-		
+		Thread.sleep(GenericLib.i30SecSleep);
+		try {
+			//Validation of event creation at server side after sync.
+			sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
+			Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sSubject), "Event is not created");
+			ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+		}catch(Exception e)
+		{	try {	//Validation of event creation at server side after sync.
+				sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
+				Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").contains(sWOName1), "Event is not created");
+				ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+			}	catch(Exception ex){throw ex;}
+		}
 		
 	}
 }

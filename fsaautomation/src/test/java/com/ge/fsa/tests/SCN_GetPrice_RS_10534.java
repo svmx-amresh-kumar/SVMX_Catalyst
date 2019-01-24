@@ -53,7 +53,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		sSheetName2 = "RS_10538";
 		System.out.println("SCN_GetPrice_RS_10534");
 		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10534_before.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10534_before.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -461,7 +461,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
 			System.out.println("The Childlines After Sync is "+sChildlines2);
 		}
-		genericLib.executeSahiScript("appium/Scenario_10534_after.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_10534_after.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
