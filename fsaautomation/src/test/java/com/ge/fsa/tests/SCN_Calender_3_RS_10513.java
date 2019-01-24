@@ -290,18 +290,5 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	//Server create 14 days event
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_1); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX);
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX14);
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
-
-}
 	
-
 }

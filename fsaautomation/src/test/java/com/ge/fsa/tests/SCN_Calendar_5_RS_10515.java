@@ -244,33 +244,6 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 				}
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_1+"\'";
-		String sWO1id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO1id); 
-		
-		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_2+"\'";
-		 String sWO2id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO2id); 
-		
-		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_3+"\'";
-		 String sWO3id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO3id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_4+"\'";
-		 String sWO4id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO4id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_5+"\'";
-		 String sWO5id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO5id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_6+"\'";
-		 String sWO6id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO6id); 
-		
-}
+	
 	
 }

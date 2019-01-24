@@ -345,11 +345,4 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sSoqlwoid1); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID);
-		restServices.restDeleterecord("SVMXC__Service_Order__c",WOIDoverlapping);
-}}
+	}

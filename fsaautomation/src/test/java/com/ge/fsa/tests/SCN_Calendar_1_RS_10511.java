@@ -229,28 +229,6 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	///////////////////////////////////////////////////////////////////////////////////////////////////		
 		
 	}
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
-		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
-		restServices.restDeleterecord("Event",sEventIdSFDC_2); 
-		
-		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event3\'";				
-		String sEventIdSFDC_3 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
-		restServices.restDeleterecord("Event",sEventIdSFDC_3); 
-		
-		
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
-		
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event3\'";				
-		String sEventIdSVMX_3 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_3); 
-		
-					
-	}
 	
 
 }

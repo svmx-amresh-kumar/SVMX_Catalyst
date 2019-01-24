@@ -295,18 +295,5 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	}
 	
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("Event",sEventIdSFDC); 
-		restServices.restDeleterecord("Event",sEventIdSVMX_1);
-		sSqlWOQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event2\'";
-		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("Event",sEventIdSFDC_2);
-		
-
 	
-	}
-
 }

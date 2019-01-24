@@ -90,12 +90,6 @@ public void RS_10526() throws Exception
 		
 		ExtentManager.logger.log(Status.PASS,"Test case passed successfully");
 }
-@AfterClass(enabled = true)
-public void deletedata() throws Exception {
-	//Deleting data created
-	restServices.restDeleterecord("SVMXC__Service_Order__c",sworkOrderID); 
-	
 
-}
 	
 }

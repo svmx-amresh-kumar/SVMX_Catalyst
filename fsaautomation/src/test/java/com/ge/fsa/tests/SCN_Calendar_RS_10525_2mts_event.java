@@ -201,12 +201,6 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	}
 	
 
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID); 
-		
-}
+	
 	
 }
