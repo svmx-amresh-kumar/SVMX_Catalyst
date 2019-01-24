@@ -17,10 +17,10 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sProcessName = "10558_Action";
 	String sScriptName = "SCN_CustomAction_RS_10558";
 	String sTestCaseID = "RS_10558";
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println(sWORecordID);
@@ -35,10 +35,25 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		Thread.sleep(GenericLib.iHighSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
 		Set<String> contextNames = driver.getContextHandles();
-		for(String s:contextNames) {
-			System.out.println(s);
-		}
-		driver.context(contextNames.toArray()[2].toString());
+//		System.out.println(contextNames.size());
+//		for(String s:contextNames) {
+////			if(s.contains("WEBVIEW")) {
+////				driver.context(s);
+////				String url = driver.getCurrentUrl();
+////		        System.out.println(url);
+////			}
+//			System.out.println(s);
+//		}
+//		for(int i=0;i<contextNames.size();i++) {
+//			if(contextNames.toArray()[i].toString().contains("WEBVIEW")) {
+//				System.out.println(i+": "+contextNames.toArray()[i].toString());
+//				driver.context(contextNames.toArray()[i].toString());
+//				String url = driver.getCurrentUrl();
+//				System.out.println(url);
+//			}
+//			
+//		}
+		driver.context(contextNames.toArray()[contextNames.size()-1].toString());
 		String url = driver.getCurrentUrl();
         System.out.println(url);
         Assert.assertTrue(url.contains("motogp")&&url.contains(sWOName));
