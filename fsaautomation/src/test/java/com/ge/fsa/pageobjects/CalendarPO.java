@@ -151,6 +151,15 @@ public class CalendarPO
 		return eleWOEventTitleTxt;
 	}
 	
+	private List<WebElement> eleWOEventTitleTxt1;
+	public List<WebElement> getEleWOEventTitleTxt1()
+	{
+		eleWOEventTitleTxt1 = driver.findElements(By.xpath("//div[@class='sfmevent-title sfmevent-subject-top-border']"));
+		return eleWOEventTitleTxt1;
+	}
+	
+	
+	
 	private WebElement eleWOEventSubjectTxt;
 	public WebElement getEleWOEventSubjectTxt(String sWOSubject)
 	{
