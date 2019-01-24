@@ -33,7 +33,6 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -1355,5 +1354,18 @@ public class CommonsPO {
 		 return sversionv;
 			 
 	 }
+	 
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
+		{
+					String sWorkOrder = null;
+					for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++)
+					{
+						sWorkOrder = calendarPO.getEleWOEventTitleTxt().get(i).getText();
+					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
+						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
+					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
+					} 
+		}
 	
 }
