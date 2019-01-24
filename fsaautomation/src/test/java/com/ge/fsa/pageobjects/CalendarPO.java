@@ -511,7 +511,7 @@ public class CalendarPO
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 20);
+		commonsPo.waitforElement(getelegetWOnum(workordername), 10);
 		
 	
 		if(getelegetWOnum(workordername) != null){
@@ -611,8 +611,28 @@ public class CalendarPO
 			return elepenciliconcalmultiday;
 		}
 
+		private WebElement elepenciliconcalmultidaysfdc;
+		public WebElement getelepenciliconcalmultidaysfdc(String WOname)
+		{
+			elepenciliconcalmultidaysfdc = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//..//div[@class='sfmevent-icon-edit sfmevent-icon-edit-hidden'])[4]"));
+
+			return elepenciliconcalmultidaysfdc;
+		}
+
+
+		private WebElement elesubjectformultidaysfdc;
+		public WebElement getsubjectformultidaysfdc(String WOname)
+		{
+			elesubjectformultidaysfdc = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')]/..//div[@class='sfmevent-account sfmevent-day-subtitle sfmevent-subject-top-border'])[4]"));
+
+			return elesubjectformultidaysfdc;
+		}
+
 
 }
+
+
+
 
 
 

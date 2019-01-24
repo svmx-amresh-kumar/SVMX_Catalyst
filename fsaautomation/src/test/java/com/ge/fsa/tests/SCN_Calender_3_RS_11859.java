@@ -134,11 +134,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";
 		  sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
 		  System.out.println("created event id from server:"+sEventIdSFDC);
-		  Assert.assertNotNull(sEventIdSFDC, "Record not found");;
-		  ExtentManager.logger.log(Status.
-		  PASS,"Create SVMX event from Create New Option is Successful");
-		  System.out.println(
-		  "//////////////////////////////////////////////////////////////////////////////////////////////"
+		  Assert.assertNotNull(sEventIdSFDC, "Record not found");
+		  ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
+		  System.out.println( "//////////////////////////////////////////////////////////////////////////////////////////////"
 		  );
 		  
 		  /////////////////////////////////////////////////////////////////////////////
@@ -209,9 +207,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		 * commonsPo.tap(calendarPO.geteleEndDateTime()); Thread.sleep(3000); }
 		 */
 		System.out.println("before");
-		commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_2));
+		commonsPo.Enablepencilicon(calendarPO.getsubjectformultidaysfdc(sWO_SFDC_2));
 		System.out.println("tap on pencil icon");
-		commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_2),20,20);
+		commonsPo.tap(calendarPO.getelepenciliconcalmultidaysfdc(sWO_SFDC_2),20,20);
 
 			Thread.sleep(10000);
 		commonsPo.tap(calendarPO.geteleEndDateTime());
@@ -226,7 +224,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		System.out.println(EndDateTimevalidate);
         
 		Thread.sleep(3000);
-
+		commonsPo.tap(workOrderPo.getEleSaveLnk());
 	try {commonsPo.tap(workOrderPo.getEleSaveLnk());
 	}
 	catch (Exception e) {

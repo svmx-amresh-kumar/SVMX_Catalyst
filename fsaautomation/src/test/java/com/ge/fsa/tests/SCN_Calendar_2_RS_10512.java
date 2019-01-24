@@ -65,17 +65,20 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		
 		
 		
+		
 		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
-		   if(commonsPo.verifySahiExecution()) {
+		  if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
 		  
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		  "Sahi verification failure"); assertEquals(0, 1); }
 		  System.out.println("RS_10512");
+		 
 		  
 		 
+		lauchNewApp("false");
 	
 		
 		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
@@ -85,15 +88,16 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		//config sync
-		toolsPo.configSync(commonsPo);
-	
-		toolsPo.syncData(commonsPo);
-		
-		commonsPo.tap(calendarPO.getEleCalendarClick());
+		//toolsPo.configSync(commonsPo);
+		Thread.sleep(3000);
+		//toolsPo.syncData(commonsPo);
 		Thread.sleep(3000);
 		
+		commonsPo.tap(calendarPO.getEleCalendarClick());
+		Thread.sleep(5000);
 		//verify the Event is displayed or not
-		
+	
+		calendarPO.geteleWOendpoint("06:00").getLocation();
 		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_1);
 		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_2);
 		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_3);
@@ -107,8 +111,9 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		String styleWO4= calendarPO.getelegetcolourcode(sWO_SVMX_4,"").getAttribute("style");
 		System.out.println(styleWO4);
 		
-		calendarPO.geteleWOendpoint("07:00").getLocation();
-		calendarPO.geteleWOendpoint("07:00").getLocation();
+		
+		
+		System.out.println(":)))))))))))))))):):):):):)");
 		String rgb_high=calendarPO.hex2Rgb("#FF0000");
 		String rgb_medium=calendarPO.hex2Rgb("#0000FF");
 		String rgb_low=calendarPO.hex2Rgb("#FFFF00");
@@ -170,7 +175,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 			
      
 	}
-	
+
 	@AfterClass(enabled = true)
 	public void deletedata() throws Exception {
 		//Deleting data created
