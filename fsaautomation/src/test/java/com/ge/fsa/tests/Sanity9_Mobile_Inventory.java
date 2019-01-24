@@ -29,7 +29,8 @@ public void Scenario9Test() throws Exception
 			ExtentManager.logger.log(Status.PASS,"Parts icon Mobile Inventory is visible");
 
 			System.out.println("mobile inventory tab is visible....");
-			commonsPo.tap(inventoryPo.getelePartsIcn());
+			commonsPo.tap(inventoryPo.geteleInventoryIcn());
+			Thread.sleep(GenericLib.iLowSleep);
 			
 			Assert.assertTrue(inventoryPo.geteleMyStockTab().isDisplayed(), "My Stock tab is not dipslayed");		
 			//NXGReports.addStep("My Stock tab is visible", LogAs.PASSED, null);

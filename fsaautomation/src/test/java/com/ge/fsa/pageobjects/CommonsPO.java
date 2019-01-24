@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,7 +33,6 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -1173,7 +1173,7 @@ public class CommonsPO {
 
 	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
 			String sScriptName, String sTestCaseId) throws Exception {
-		String sProcessCheck = restServices.restGetSoqlValue(
+			String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
 						+ sProcessName + "\'",
 				"SVMXC__Dispatch_Process_Status__c");
@@ -1337,4 +1337,35 @@ public class CommonsPO {
 
 	}
 
+	
+	 public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
+	 {
+		 String sMajorVersion = "";
+		 String sMinorVersion = "";
+		 String[] salesforceversion = new String[2];
+		 
+		 sMajorVersion = restServices.restGetSoqlValue("SELECT+MajorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MajorVersion");
+		 sMinorVersion = restServices.restGetSoqlValue("SELECT+MinorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MinorVersion");
+		 salesforceversion[0] = sMajorVersion;
+		 salesforceversion[1] = sMinorVersion;
+		 String sversionv = Arrays.toString(salesforceversion).replaceAll(",",".");
+		 System.out.println("Sales Force Version : "+sversionv);
+		 
+		 return sversionv;
+			 
+	 }
+	 
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
+		{
+					String sWorkOrder = null;
+					for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++)
+					{
+						sWorkOrder = calendarPO.getEleWOEventTitleTxt().get(i).getText();
+					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
+						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
+						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
+					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
+					} 
+		}
+	
 }
