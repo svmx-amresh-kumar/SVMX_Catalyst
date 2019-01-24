@@ -17,7 +17,8 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sProcessName = "10558_Action";
 	String sScriptName = "SCN_CustomAction_RS_10558";
 	String sTestCaseID = "RS_10558";
-	@Test(retryAnalyzer=Retry.class)
+@Test()
+//	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
 		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
