@@ -318,7 +318,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			{
 				ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 			}
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			//commonsPo.tap(workOrderPo.getEleDoneBtn());
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			// Verifying after sync the system
 			toolsPo.syncData(commonsPo);

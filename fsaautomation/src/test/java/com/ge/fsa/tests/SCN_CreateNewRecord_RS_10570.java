@@ -34,7 +34,7 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 //		commonsPo.tap(workOrderPo.getEleIBAccountIDTxt());
 //		commonsPo.lookupSearch(sAccountName);
 //		commonsPo.tap(workOrderPo.getEleSaveLnk());
-//		//********Creating Contact********
+//		//********Creating Case********
 //		commonsPo.tap(createNewPO.getEleCreateNew());
 //		commonsPo.tap(createNewPO.getEleItemNameTxt("SFM_Case_10570"),30,36);
 //		commonsPo.setPickerWheelValue(workOrderPo.getEleStatusCaseLst(), "New");
