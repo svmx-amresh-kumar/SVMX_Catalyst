@@ -35,8 +35,11 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 	@Test(retryAnalyzer=Retry.class)
 public void RS_10526() throws Exception
 {		
-
-		commonsPo.deleteCalendarEvents(restServices,calendarPO);
+		lauchNewApp("false");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		
+		
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";

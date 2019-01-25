@@ -60,24 +60,21 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	
 		String sTestCaseID="RS_10515_Calender_5";
 	
-		commonsPo.deleteCalendarEvents(restServices,calendarPO);
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
-		genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
-  		if(commonsPo.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
-  		lauchNewApp("true");
-  		System.out.println("RS_10515");
+		
+		  genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
+		  if(commonsPo.verifySahiExecution()) {
+		  
+		  System.out.println("PASSED"); } else { System.out.println("FAILED");
+		  
+		  
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
+		  System.out.println("RS_10515");
+		 
   		
 		
 		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
@@ -88,7 +85,8 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		 sWO_SVMX_6 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_6");
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		//config sync
+		
+			//config sync
 		//toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		

@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -1355,25 +1356,35 @@ public class CommonsPO {
 			 
 	 }
 	 
-	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO, String objapi) throws Exception
 		{
 		 			System.out.println("Entered Deletion of Calendar Events");
-		 			System.out.println(calendarPO.getEleWOEventTitleTxt1().size());
-					//String sWorkOrder = null;
-					if(calendarPO.getEleWOEventTitleTxt1().size()!=0)
-					{
-					for(int i=0;i<calendarPO.getEleWOEventTitleTxt1().size();i++)
-					{
-						Thread.sleep(GenericLib.iMedSleep);
-						String sWorkOrder = calendarPO.getEleWOEventTitleTxt1().get(i).getText();
-						System.out.println("WorkOrderEvent tobeDeleted"+sWorkOrder);
-					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
-						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
-					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
-					}
-					}
-					System.out.println("No Events to be Deleted");
+		 			
+		 			ArrayList<String> mylist = new ArrayList<String>();
+		 			String queryeventcount = "SELECT count() FROM "+objapi+"";
+		 			restServices.getAccessToken();
+		 			String  eventcount = restServices.restGetSoqlValue(queryeventcount, "totalSize");	
+		 			System.out.println(eventcount);
+		 			int eventcountint=Integer.parseInt(eventcount);
+		 			
+		 			for (int i = 0; i<eventcountint; i++) {
+		 String Query = "SELECT Id from "+objapi+" limit 1 offset "+i+"";
+		 mylist.add(restServices.restGetSoqlValue(Query,"Id")); 
+		 			}
+		 			
+		 			System.out.println(Arrays.toString(mylist.toArray()));
+		 			
+		
+		  for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
+		  mylist.get(i));
+		  restServices.restDeleterecord(objapi,mylist.get(i)); }
+		 
+		 			
+		 		
+		 			
+		
+		 
+					
 		}
 	
 }

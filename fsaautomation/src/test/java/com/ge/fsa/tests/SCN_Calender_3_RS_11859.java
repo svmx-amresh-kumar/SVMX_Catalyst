@@ -63,7 +63,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		String sTestCaseID="RS_11859_Calender_3";
 		
-		commonsPo.deleteCalendarEvents(restServices,calendarPO);
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
 		
