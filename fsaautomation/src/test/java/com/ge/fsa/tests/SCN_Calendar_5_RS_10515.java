@@ -60,25 +60,22 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	
 		String sTestCaseID="RS_10515_Calender_5";
 	
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
-		genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah", "sTestCaseID");
-  		if(commonsPo.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
-  		lauchNewApp("true");
-  		System.out.println("RS_10515");
-	
+		
+		  genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
+		  if(commonsPo.verifySahiExecution()) {
+		  
+		  System.out.println("PASSED"); } else { System.out.println("FAILED");
+		  
+		  
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
+		  System.out.println("RS_10515");
+		 
+  		
 		
 		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		 sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
@@ -88,12 +85,15 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		 sWO_SVMX_6 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_6");
   	//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		//config sync
+		
+			//config sync
 		//toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
+		
+		
 		
 		//verify the Event is displayed or not
 		
@@ -242,33 +242,6 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 				}
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_1+"\'";
-		String sWO1id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO1id); 
-		
-		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_2+"\'";
-		 String sWO2id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO2id); 
-		
-		 sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_3+"\'";
-		 String sWO3id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO3id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_4+"\'";
-		 String sWO4id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO4id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_5+"\'";
-		 String sWO5id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO5id); 
-		
-		sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWO_SVMX_6+"\'";
-		 String sWO6id = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sWO6id); 
-		
-}
+	
 	
 }

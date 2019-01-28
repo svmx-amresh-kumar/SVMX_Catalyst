@@ -15,6 +15,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 
 public class SCN_Creating_Editing_RS_10574 extends BaseLib {
@@ -72,7 +73,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sSubject = "Testing "+sTestCaseID;
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard
-		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		
@@ -173,7 +174,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 	}
 	
 	
-	@Test(enabled = true)
+	@Test(retryAnalyzer=Retry.class)
 	///@Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
 		

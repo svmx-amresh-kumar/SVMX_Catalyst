@@ -29,26 +29,29 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sTestCaseID = "RS_10563_configSync_edit";
 		String sScriptName = "Scenario_RS_10563_configSync_edit";
 		String sScriptName1 = "Scenario_RS_10563_configSync";
+		String sExploreSearch = "WO SEARCH";
 		
 		// Add Processes
 		commonsPo.execSahi(genericLib, sScriptName1, sTestCaseID);
 		
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);	
-		toolsPo.syncData(commonsPo);
-		Thread.sleep(GenericLib.iMedSleep);
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("WO SEARCH").isDisplayed());
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sProcessName);
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt(sExploreSearch).isDisplayed());
+		Thread.sleep(GenericLib.iMedSleep);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
 		commonsPo.tap(workOrderPo.getEleCancelLink());
 		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sOpDocProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
-//		commonsPo.tap(workOrderPo.getEleDoneBtnLsMode());
 		Thread.sleep(GenericLib.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -60,10 +63,11 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt("WO SEARCH"),20,20);
-		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Cases").isDisplayed());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, "WO SEARCH", "Work Orders", sWOName, sProcessName);
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
+		Assert.assertTrue(exploreSearchPo.getEleSearchItem("Cases").isDisplayed());
+		commonsPo.tap(exploreSearchPo.getEleSearchItem("Work Orders"));
+		commonsPo.tap(exploreSearchPo.getEleWOSearch(sWOName));
+		workOrderPo.selectAction(commonsPo, sProcessName);
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
 		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
 			

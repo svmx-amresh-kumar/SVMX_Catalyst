@@ -62,6 +62,11 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
+		
+		commonsPo.preReqSetup(genericLib);
+		// Resinstall the app
+		lauchNewApp("false");
+		
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";

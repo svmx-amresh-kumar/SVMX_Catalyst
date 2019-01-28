@@ -52,7 +52,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah");
 		if(commonsPo.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -318,7 +318,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			{
 				ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 			}
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			//commonsPo.tap(workOrderPo.getEleDoneBtn());
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			// Verifying after sync the system
 			toolsPo.syncData(commonsPo);

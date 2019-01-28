@@ -22,13 +22,13 @@ public class SanityPreReq extends BaseLib {
 
 		
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
-		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		//Resinstall the app

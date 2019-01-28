@@ -11,6 +11,8 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
+import net.bytebuddy.description.type.TypeDescription.Generic;
+
 public class SCN_ExploreSearchRS_10545 extends BaseLib 
 {
 
@@ -143,10 +145,10 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		//Updating Technician with LocationE
-				sObjectApi = "SVMXC__Service_Group_Members__c?";
-				sJsonData="{\"SVMXC__Inventory_Location__c\":\""+sSerialNumber+"LocE"+"\"}";
-				restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
-
+		sObjectApi = "SVMXC__Service_Group_Members__c?";
+		sJsonData="{\"SVMXC__Inventory_Location__c\":\""+sSerialNumber+"LocE"+"\"}";
+		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -196,12 +198,12 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 			
 		//Navigation to Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10545 SFM Search  is not displayed");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10545 Multi Field WO Search text is successfully displayed");
 	
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Accounts").isDisplayed(), "Accounts for RS_10545 SFM Search is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Contacts for RS_10545 Multi Field WO Search text is successfully displayed");
+		ExtentManager.logger.log(Status.PASS,"Accounts for RS_10545 Multi Field WO Search text is successfully displayed");
 		
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Locations").isDisplayed(), "Locations for RS_10545 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Products for RS_10545 Multi Field WO Search text is successfully displayed");
@@ -214,8 +216,10 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)").isDisplayed(), "Serial Number Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) Search text is successfully displayed");
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
 		
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch("WO");
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName3).isDisplayed(), "Work Order3 is not displayed");
@@ -239,9 +243,13 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		//Navigation to Accounts Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Accounts"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Accounts"));
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		
 		validateSearch(sSerialNumber+"AccB");
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sSerialNumber+"AccB").isDisplayed(), sSerialNumber+"AccB is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccB Record is successfully displayed");
@@ -258,9 +266,12 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		//Navigation to Location Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
+		Thread.sleep(GenericLib.iMedSleep); 
+		
 		validateSearch(sSerialNumber+"LocB");
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sSerialNumber+"LocB").isDisplayed(), sSerialNumber+"LocB is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"LocB Record is successfully displayed");
@@ -282,24 +293,29 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		//Navigation to Work Orders (USERTRUNK) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		driver.activateApp(GenericLib.sAppBundleID);
+		
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "Work Orders (USERTRUNK) --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (USERTRUNK) -->No Records to display text is successfully displayed");
 		
 		//Navigation to Work Orders (CURRENTUSERID) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "Work Orders (CURRENTUSERID) --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) -->No Records to display text is successfully displayed");
 		
 		//Navigation to Work Orders (DATE LITERALS) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("(DATE LITERALS)"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("(DATE LITERALS)"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch("WO");
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName1).isDisplayed(), "Work Order1 is not displayed");
@@ -359,13 +375,16 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
-		 
+		
 		driver.activateApp("com.servicemaxinc.svmxfieldserviceapp");
 		//Validation of WO search after updating WO2
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch(sWOName2);
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName2).isDisplayed(), "Work Order2 is not displayed");
@@ -385,8 +404,8 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		//Navigation to Accounts Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Accounts"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Accounts"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Clearing search text
@@ -401,8 +420,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		
 		//Navigation to Location Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
+		
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		//Clearing search text
 		validateSearch(sSerialNumber+"LocA");		
@@ -442,8 +464,8 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		/*
 		//Navigation to Work Orders (USERTRUNK) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Validation of WO2 and WO5
@@ -458,8 +480,9 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		Thread.sleep(GenericLib.iMedSleep); 
+		driver.activateApp(GenericLib.sAppBundleID);
 		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("DATE LITERALS"));
-		
 		Thread.sleep(GenericLib.iHighSleep); 
 		
 		//Validation of WO1, WO3 and WO5
@@ -490,8 +513,8 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	
 		//Navigation to Work Orders (CURRENTUSERID) Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		commonsPo.longPress(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
+		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName1).isDisplayed(), "Work Order1 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");

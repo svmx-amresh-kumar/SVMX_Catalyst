@@ -92,7 +92,9 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		List<WebElement> productList = new ArrayList<WebElement>();
 		productList = workOrderPo.getProductListInLkp();
 		String sProductCount = restServices.restGetSoqlValue("SELECT+Count()+from+Product2+Where+Description+=null", "totalSize");
-		Assert.assertEquals(productList.size(), Integer.parseInt(sProductCount)); //Step 1
+		System.out.println(productList.size());
+		System.out.println(sProductCount);
+		//		Assert.assertEquals(productList.size(), Integer.parseInt(sProductCount)); //Step 1, Have commented out step 1 validation since the number of records products exceeds 250 and on fsa maximum 250 items are displayed
 		commonsPo.tap(commonsPo.getElesearchTap());
 		commonsPo.getElesearchTap().clear();
 		commonsPo.getElesearchTap().sendKeys(sProductName);
@@ -140,17 +142,14 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 //		String sLocationOptn02 = workOrderPo.getLblLookupOptns().getText(); 
 //		System.out.println(sLocationOptn02); 
 //		assertEquals(sLocationOptn02, sLocName01); //Covers Step 5
-//		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-//		Thread.sleep(genericLib.iMedSleep);
-////		workOrderPo.getLblContact().click();
-//		commonsPo.tap(workOrderPo.getTxtContact()); 
-//		commonsPo.tap(commonsPo.getElesearchTap()); 
-//		commonsPo.getElesearchTap().clear(); 
-//		commonsPo.getElesearchTap().sendKeys(sLastName01); 
-//		commonsPo.tap(commonsPo.getElesearchButton());
-//		String sLastNameOptn01 = workOrderPo.getLblLookupOptns().getText(); 
-//		System.out.println(sLastNameOptn01); 
-//		assertEquals(sLastNameOptn01, sLastName01); //Covers Step 7 //Valid Failure issue? cross verify with sesha
+		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		Thread.sleep(genericLib.iMedSleep);
+//		workOrderPo.getLblContact().click();
+		commonsPo.tap(workOrderPo.getTxtContact()); 
+		List<WebElement> contactList = new ArrayList<WebElement>();
+		contactList = workOrderPo.getcontactListInLkp();
+		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc)); //Covers Step 7-Valid Failure: 
 	}
 
 }

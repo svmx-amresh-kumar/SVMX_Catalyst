@@ -132,8 +132,8 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		
 	}
-	
-	@Test//(retryAnalyzer=Retry.class)
+
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10579() throws Exception {
 		prerequisites();
 		// Pre Login to app

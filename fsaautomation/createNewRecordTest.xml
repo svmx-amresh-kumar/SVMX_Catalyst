@@ -7,7 +7,6 @@
 	</listeners>
 	<test name="CreatenewRecord">
 		<classes>
-			<class name="com.ge.fsa.tests.SanityPreReq" />				
 			<class name="com.ge.fsa.tests.SCN_CreateNewRecord_RS_10570" />
 		</classes>
 	</test> <!-- Test -->

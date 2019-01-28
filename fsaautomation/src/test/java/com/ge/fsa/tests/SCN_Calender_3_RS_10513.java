@@ -65,10 +65,13 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		String sTestCaseID="RS_10513_Calender_3";
 		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah",
-		  "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
+		  if(commonsPo.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -130,6 +133,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'SVMX Event from calender New button\'";				
 			 sEventIdSVMX =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSVMX);
+			 Assert.assertNotNull(sEventIdSVMX, "Record not found");;
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 //Assert nt null
@@ -287,18 +291,5 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	//Server create 14 days event
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_1); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX);
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX14);
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
-
-}
 	
-
 }

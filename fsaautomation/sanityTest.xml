@@ -8,7 +8,6 @@
 	<test name="Sanity">
 		<classes>
 					 
-		 	 <class name="com.ge.fsa.tests.SanityPreReq" />
 		 	<class name="com.ge.fsa.tests.Sanity9_Mobile_Inventory" />
 		  	<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" /> 
 			<class name="com.ge.fsa.tests.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />

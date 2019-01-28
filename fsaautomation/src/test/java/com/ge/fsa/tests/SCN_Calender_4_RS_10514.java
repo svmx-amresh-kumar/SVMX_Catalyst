@@ -55,10 +55,11 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	
 		String sTestCaseID="RS_10514_Calender_4";
 	
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
-		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -137,6 +138,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'CreateEventRS_10514\'";				
 			String sEventIdSVMX =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSVMX);
+			Assert.assertNotNull(sEventIdSVMX, "SVMX Record not found");
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 			
@@ -228,7 +230,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			sSqlEventQuery ="SELECT+Id+from+Event+Where+Subject+=\'SFDC event RS-10514\'";				
 			String sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println("created event id from server:"+sEventIdSFDC);
-			Assert.assertNotNull(sEventIdSFDC, "Record not found");
+			Assert.assertNotNull(sEventIdSFDC, " SFDC Record not found");
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");	
 	  		

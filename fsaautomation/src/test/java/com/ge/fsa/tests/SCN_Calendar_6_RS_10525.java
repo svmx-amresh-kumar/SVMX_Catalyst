@@ -59,9 +59,10 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sTestCaseID="RS_10525_Calender_6";
-		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
-		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah", "sTestCaseID");
+		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
   		if(commonsPo.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -345,11 +346,4 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sSoqlwoid1); 
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID);
-		restServices.restDeleterecord("SVMXC__Service_Order__c",WOIDoverlapping);
-}}
+	}
