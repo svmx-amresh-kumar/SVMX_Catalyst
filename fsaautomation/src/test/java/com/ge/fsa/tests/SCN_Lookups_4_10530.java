@@ -2,9 +2,13 @@ package com.ge.fsa.tests;
 
 import static org.testng.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,6 +17,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_4_10530 extends BaseLib {
@@ -24,14 +29,15 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sProcessName = "Auto_10530_Regression";
 //	String sProcessName = "Auto_Regression_10530";
 	String sScriptName = "Scenario_10530";
+	String sSearchTxt = "HarryProduct";
 	
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
-		
+//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		   
 		//**********Create Product1**********
 		String sProdName1 = "P1_10530";
 		String sProdCount1 = restServices.restGetSoqlValue("SELECT+Count()+from+product2+Where+name+=\'"+sProdName1+"\'", "totalSize");
@@ -74,10 +80,25 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		//**********Create Location2**********
 		String sLocName2 = "InventoryLoc2_10530";
 		String sLocCount2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName2+"\'", "totalSize");
+		String sLocId1 = "";
 		if(Integer.parseInt(sLocCount2)==0) {
-		String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName2+"\", \"SVMXC__Street__c\": \"Paris\",\"SVMXC__Country__c\": \"France\"}");
-        System.out.println("Loc Id is "+sLocId);
+		sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName2+"\", \"SVMXC__Street__c\": \"Paris\",\"SVMXC__Country__c\": \"France\"}");
+        System.out.println("Loc Id is "+sLocId1);
 		}
+		else {
+			sLocId1=restServices.restGetSoqlValue("SELECT+Id+from+SVMXC__Site__c+Where+name+=\'"+sLocName2+"\'", "Id");
+			System.out.println("Loc id is "+sLocId1);
+		}
+		
+		
+		//**********Fetch Technician ID**********
+		String sTechId = restServices.restGetSoqlValue("SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+name+=\'Auto_Tech\'", "Id");
+		System.out.println("Tech id is "+sTechId);
+		
+		//**********Update Inventory Location of Technician**********
+		String sObjName= "SVMXC__Service_Group_Members__c";
+		String sObJson = "{\"SVMXC__Inventory_Location__c\":\""+sLocId1+"\"}";
+		restServices.restUpdaterecord(sObjName, sObJson, sTechId);
 		
 		//**********Create IB1**********
 		String sIBName1 = "IB1_10530";
@@ -112,7 +133,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		}
 		
 		//**********Product Stock1**********
-		String sprodStkName1 ="STK-00000002";
+		String sprodStkName1 ="STK-00000006";
 		String sprodStkCount1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName1+"\'", "totalSize");
 		if(Integer.parseInt(sprodStkCount1)==0) {
 			String sprodStkId1 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName1+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName1+"\"}}");
@@ -120,7 +141,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		}
 		
 		//**********Product Stock2**********
-		String sprodStkName2 ="STK-00000003";
+		String sprodStkName2 ="STK-00000007";
 		String sprodStkCount2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName2+"\'", "totalSize");
 		if(Integer.parseInt(sprodStkCount2)==0) {
 		String sprodStkId2 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName2+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName2+"\"}}");
@@ -128,7 +149,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		}
 		
 		//**********Product Stock3**********
-		String sprodStkName3 ="STK-00000004";
+		String sprodStkName3 ="STK-00000008";
 		String sprodStkCount3 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName3+"\'", "totalSize");
 		if(Integer.parseInt(sprodStkCount3)==0) {
 		String sprodStkId3 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName3+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName2+"\"}}");
@@ -158,30 +179,57 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
+		commonsPo.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
 		List<WebElement> prodList = new ArrayList<WebElement>();
 		prodList = workOrderPo.getProductListInLkp();
-		System.out.println(prodList.size()); //Scenario 1
-		// Add Query
-//		for(int i=0;i<sProdArr.length;i++) {
-//			commonsPo.lookupSearchOnly(sProdArr[i].toString());
-//			Assert.assertTrue(workOrderPo.getEleProds(sProdArr[i].toString()).isDisplayed());
-//		}
+//		System.out.println(prodList.size());
+//		String sProdCount = restServices.restGetSoqlValue("SELECT+Count()+from+product2+Where+Name+LIKE+'%"+sSearchTxt+"%'", "totalSize");
+		String sProdCount = restServices.restGetSoqlValue("SELECT+Count()+from+product2+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
+//		System.out.println(sProdCount);
+		Assert.assertEquals(prodList.size(),Integer.parseInt(sProdCount)); //Scenario 1
+		commonsPo.tap(workOrderPo.getBtnReset());
+		Thread.sleep(GenericLib.iHighSleep);
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
-//		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 			commonsPo.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
 			commonsPo.tap(workOrderPo.getBtnApply());
-			System.out.println(workOrderPo.getEleProds(sProdName1).isDisplayed());
-//			Assert.assertTrue(workOrderPo.getEleProds(sProductName).isDisplayed()); //Scenario 2
-			// Call edit Sahi_Process
+		    String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
+		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
+		    ArrayList<String> sArrOfProd = restServices.getJsonArr(jSonArr, "Name");
+		    prodList = workOrderPo.getProductListInLkp();
+//		    System.out.println(prodList);
+//		    System.out.println(prodList.size());
+		    Collections.sort(sArrOfProd);
+//		    System.out.println(sArrOfProd);
+		    ArrayList<String>sProdList = new ArrayList<String>();
+		    for(WebElement we:prodList) {
+		    	sProdList.add(we.getText());
+		    }
+//		    System.out.println(sProdList);
+		    Collections.sort(sProdList);
+		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 2
 			commonsPo.tap(workOrderPo.getLnkLookupCancel());
-			workOrderPo.addParts(commonsPo, workOrderPo, sProdName1);
-			workOrderPo.getLblChildPart(sProdName1).click();
-			commonsPo.tap(workOrderPo.getLblChildPart(sProdName1));
-			commonsPo.tap(workOrderPo.getLblPart());
-			commonsPo.lookupSearchOnly("P4");
-//			select SVMXC__Product_Name__c from SVMXC__Installed_Product__c where RecordType.name='IB002' and SVMXC__Status__c='shipped'
-		
+			commonsPo.tap(workOrderPo.getElePartLnk());
+			soqlquery="select+SVMXC__Product_Name__c+from+SVMXC__Installed_Product__c+where+RecordType.name=\'IB002\'+and+SVMXC__Status__c=\'shipped\'";
+			jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
+		    sArrOfProd = restServices.getJsonArr(jSonArr, "SVMXC__Product_Name__c");
+		    prodList = workOrderPo.getProductListInLkp();
+		    System.out.println(prodList);
+		    System.out.println(prodList.size());
+		    Collections.sort(sArrOfProd);
+		    System.out.println(sArrOfProd);
+		    sProdList = new ArrayList<String>();     	
+		    for(WebElement we:prodList) {
+		    	sProdList.add(we.getText());
+		    }
+		    System.out.println(sProdList);
+		    Collections.sort(sProdList);
+		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
+		    Thread.sleep(GenericLib.iHighSleep);
+			commonsPo.tap(workOrderPo.getLnkFilters());
+			Assert.assertTrue(workOrderPo.getChkBoxComplexFilter().isSelected());
 	}
+	
+
 
 }

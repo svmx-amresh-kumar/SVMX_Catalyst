@@ -18,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -102,6 +103,7 @@ public class RestServices
 	public JSONArray restGetSoqlJsonArray(String soqlquery ) throws IOException
 	{getAccessToken();
 		soqlquery = parseQuery(soqlquery);
+//		System.out.println("Soql Query is "+soqlquery);
 		String sURL = GenericLib.getConfigValue(GenericLib.sConfigFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
@@ -251,6 +253,19 @@ public class RestServices
 		 	System.out.println("Returned value for "+sfieldName+" = "+fieldValueObtained);
 
 	     return fieldValueObtained;
+		 
+	 }
+	 // Added by Harish.CS
+	 public ArrayList<String>  getJsonArr(JSONArray jsonArray,String sfieldName) {
+		 ArrayList<String>  arrOfValues =new ArrayList<String>();
+			Iterator iterator = jsonArray.iterator();
+			while (iterator.hasNext()) {
+		         JSONObject jsonObjectKey = (JSONObject) iterator.next();
+		         arrOfValues.add(jsonObjectKey.get(sfieldName).toString());
+		     }
+//		 	System.out.println("Returned value for "+sfieldName+" = "+arrOfValues);
+
+	     return arrOfValues;
 		 
 	 }
 
@@ -457,13 +472,18 @@ public class RestServices
 	     }
 	 }
 	 
-	 public static void main(String[] args) throws IOException {
-		/*RestServices restServices = new RestServices();
-		String sCaseObjectID="5003D000003BGQjQAO";
-		String	sObjectApi = "SVMXC__Case__c";
-		String	sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
-	    restServices.restUpdaterecord(sObjectApi,sJsonData,sCaseObjectID);
-		*/
-		 
-	}
+		public static void main(String[] args) throws IOException {
+		      RestServices restServices = new RestServices();
+//		      String sCaseObjectID="5003D000003BGQjQAO";
+//		      String sObjectApi = "SVMXC__Case__c";
+//		      String   sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
+		      String soqlquery="Select+Name+from+product2+where+id+=\'01t3D000003iJR8QAM\'";
+//		      String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
+		      JSONArray test = restServices.restGetSoqlJsonArray(soqlquery);
+		      System.out.println("Json is "+test);
+		     String hello = restServices.restGetSoqlValue(soqlquery, "Name");
+		      // Select SVMXC__Product__r.Name from SVMXC__Product_Stock__c where SVMXC__Location__r.name='InventoryLoc2_10530' and SVMXC__Product__c!=null
+		     System.out.println("abcded "+hello); 
+		       
+		   }
 }

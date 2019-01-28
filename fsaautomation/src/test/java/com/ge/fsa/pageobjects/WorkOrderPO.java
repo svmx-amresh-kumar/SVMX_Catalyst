@@ -1040,6 +1040,21 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleLblRequestedCountry;
 		}
+		
+		@FindBy(xpath="//span[text()='Reset']")
+		private WebElement btnReset;
+		public WebElement getBtnReset()
+		{
+			return btnReset;
+		}
+		
+		@FindBy(xpath="//span[text()='Complex Filter']/../..//input[@type='checkbox']")
+		private WebElement chkBoxComplexFilter;
+		public WebElement getChkBoxComplexFilter()
+		{
+			return chkBoxComplexFilter;
+		}
+		
 		//close---------
 	
 	
