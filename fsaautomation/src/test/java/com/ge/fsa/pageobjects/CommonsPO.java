@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -153,13 +155,12 @@ public class CommonsPO {
 				tapExp = e;
 			}
 			
-			
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
 
 				try {
-					point = wElement.getLocation();
+					 point = wElement.getLocation();
 				} catch (Exception e) {
 				}
 
@@ -181,7 +182,7 @@ public class CommonsPO {
 
 			
 			// Set the custom or default offsets to x & y
-			if (xNewOffset != null) {
+			if (xNewOffset != null && BaseLib.sOSName.equalsIgnoreCase("IOS")) {
 				x = point.getX() + xNewOffset;
 				y = point.getY() + yNewOffset;
 				System.out.println("Using Custom Offset Points xNewOffset = " + (xNewOffset) + " yNewOffset = "
@@ -198,13 +199,17 @@ public class CommonsPO {
 			switch (BaseLib.sOSName) {
 			case "android":
 				// For Android add *2 if real device
-				//Overriding offsets for android as it works always with 30,36
-				x = point.getX() + xOffset;
-				y = point.getY() + yOffset;
+				//Overriding offsets for android as it works always with 30,36  [1089,1872][1138,1908]
+//				int leftX = wElement.getLocation().getX();
+//				int rightX = wElement.getSize().getWidth()/2;
+//				int middleX = rightX + leftX;
+//				int upperY = wElement.getLocation().getY();
+//				int lowerY = wElement.getSize().getHeight()/2;
+//				int middleY = upperY + lowerY;
 				switchContext("Native");
 				System.out.println("Android Tapping ");
 				TouchAction andyTouchAction = new TouchAction(driver);
-				andyTouchAction.tap(new PointOption().withCoordinates(x, y)).perform();
+				andyTouchAction.tap(new PointOption().withCoordinates(x,y)).perform();
 				switchContext("Webview");
 				break;
 
@@ -308,6 +313,8 @@ public class CommonsPO {
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+			.perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 					.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
@@ -676,7 +683,6 @@ public class CommonsPO {
 			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 			getCalendarDone().click();
 			}
-			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
@@ -690,10 +696,11 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			switchContext("Webview");
+			
 			Thread.sleep(GenericLib.iLowSleep);
 
 		}
+		switchContext("Webview");
 	}
 	
 	/**
@@ -802,11 +809,10 @@ public class CommonsPO {
 					getEleDonePickerWheelBtn().click();
 				}
 
-				switchContext("Webview");
 				Thread.sleep(GenericLib.iLowSleep);
 			}
 		}
-
+		switchContext("Webview");
 	}
 	
 	/**
@@ -869,7 +875,6 @@ public class CommonsPO {
 			//Select the date
 			getAccessibleElement(selectDate).click();
 			getCalendarDone().click();
-			switchContext("Webview");
 			}
 			break;
 		case "ios":
@@ -884,10 +889,9 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
 		}
-
+		switchContext("Webview");
 	}
 
 	
@@ -956,6 +960,62 @@ public class CommonsPO {
 			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 			js.executeScript("mobile: selectPickerWheelValue", params);
 		}
+	}
+	
+	@FindBy(id = "android:id/hours")
+	private WebElement calendarHours;
+
+	public WebElement getCalendarHours() {
+		return calendarHours;
+	}
+	
+	@FindBy(id = "android:id/minutes")
+	private WebElement calendarMinutes;
+
+	public WebElement getCalendarMinutes() {
+		return calendarMinutes;
+	}
+	
+	@FindBy(id = "android:id/am_label")
+	private WebElement calendarAM;
+
+	public WebElement getCalendarAM() {
+		return calendarAM;
+	}
+	
+	@FindBy(id = "android:id/pm_label")
+	private WebElement calendarPM;
+
+	public WebElement getCalendarPM() {
+		return calendarPM;
+	}
+	
+	public String getDate(WebElement wElement,String dateTime) throws InterruptedException {
+		String date="";
+		switch (BaseLib.sOSName) {
+		case "android":
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
+			getCalendarDone().click();
+			if(dateTime.equalsIgnoreCase("datetime")) {
+				String sHours=getCalendarHours().getText();
+				String sMinutes=getCalendarMinutes().getText();
+				String sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
+				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
+				getCalendarDone().click();
+			}
+			switchContext("webview");
+			break;
+		case "ios":
+			setSpecificDate(wElement, "0", "0", "0");
+			date=wElement.getAttribute("value");
+			break;
+		}
+		return date;
 	}
 
 	/**
