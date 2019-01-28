@@ -32,11 +32,11 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sSearchTxt = "HarryProduct";
 	
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		   
 		//**********Create Product1**********
 		String sProdName1 = "P1_10530";
@@ -227,7 +227,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
 		    Thread.sleep(GenericLib.iHighSleep);
 			commonsPo.tap(workOrderPo.getLnkFilters());
-			Assert.assertTrue(workOrderPo.getChkBoxComplexFilter().isSelected());
+			Assert.assertTrue(workOrderPo.getChkBoxComplexFilter().isSelected()); //Scenario 5
 	}
 	
 
