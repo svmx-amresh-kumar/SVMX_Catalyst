@@ -136,6 +136,14 @@ public class CalendarPO
 		eleWOendpoint = driver.findElement(By.xpath("(//span[@class ='hour'][contains(text(), '"+hour+"')])[2]"));
 		return eleWOendpoint;
 	}
+	
+	private WebElement eleWOendpoint3;
+	public WebElement geteleWOendpoint3(String hour)
+	{
+		eleWOendpoint3 = driver.findElement(By.xpath("(//span[@class ='hour'][contains(text(), '"+hour+"')])[3]"));
+		return eleWOendpoint3;
+	}
+	
 	@FindBy(xpath="//div[@class='svmx-menu-icon-label'][text()='Calendar']")
 	private WebElement eleCalendarIcn;
 	public WebElement getEleCalendarIcn()
@@ -150,6 +158,15 @@ public class CalendarPO
 		eleWOEventTitleTxt = driver.findElements(By.xpath("//div[@class='sfmevent-title']"));
 		return eleWOEventTitleTxt;
 	}
+	
+	private List<WebElement> eleWOEventTitleTxt1;
+	public List<WebElement> getEleWOEventTitleTxt1()
+	{
+		eleWOEventTitleTxt1 = driver.findElements(By.xpath("//div[@class='sfmevent-title sfmevent-subject-top-border']"));
+		return eleWOEventTitleTxt1;
+	}
+	
+	
 	
 	private WebElement eleWOEventSubjectTxt;
 	public WebElement getEleWOEventSubjectTxt(String sWOSubject)
@@ -629,6 +646,14 @@ public class CalendarPO
 		}
 
 
+		private WebElement swipeblock;
+		public WebElement getswipeblock(String WOname)
+		{
+			swipeblock = driver.findElement(By.xpath("//div[@class='sfmevent-title'][contains(text(), '"+WOname+"')]/../..//div[@class ='sfmevent-location-container']/../..//div[@class='sfmevent-content']/../..//div[@class='sfmevent-day']/.."));
+			return swipeblock;
+		}
+		
+	
 }
 
 

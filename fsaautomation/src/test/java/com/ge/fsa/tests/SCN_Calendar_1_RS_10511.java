@@ -68,9 +68,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	
 		String sTestCaseID="RS_10511_Calender_1";
 		
-		commonsPo.deleteCalendarEvents(restServices,calendarPO);
-		
-		commonsPo.deleteCalendarEvents(restServices,calendarPO);
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
   		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
@@ -212,7 +211,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			//lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
-			Thread.sleep(3000);
+			Thread.sleep(8000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);

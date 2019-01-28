@@ -132,7 +132,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		
 	}
-	
+
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10579() throws Exception {
 		prerequisites();
@@ -157,12 +157,13 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		
 		
 		//commonsPo.tap(checklistPo.geteleChecklistAnsDate(sDateq));
-		checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.switchContext("Native");
-	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	   	//commonsPo.getEleDonePickerWheelBtn().click();
-	    commonsPo.switchContext("WebView");
-	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");	    
+//		checklistPo.geteleChecklistAnsDate(sDateq).click();
+//	    commonsPo.switchContext("Native");
+//	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+//	   	//commonsPo.getEleDonePickerWheelBtn().click();
+//	    commonsPo.switchContext("WebView");
+//	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");
+		sDateAns=commonsPo.getDate(checklistPo.geteleChecklistAnsDate(sDateq), "date");
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
@@ -180,17 +181,18 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
 		ExtentManager.logger.log(Status.PASS,"Exit Criteria for section passed");
-		checklistPo.geteleChecklistSectionNametab(sSection3Name).click();		
+		//checklistPo.geteleChecklistSectionNametab(sSection3Name).click();	
+		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).sendKeys(sSectionThreeq1Ans);
-		commonsPo.tap(checklistPo.geteleNext());	
+		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));	
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		Thread.sleep(genericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(snumberwithoutjump);
 		commonsPo.tap(checklistPo.geteleNext());	
-		checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
-
+		//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
+		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(checklistPo.geteleSectionNextBtn(2));
 		Thread.sleep(GenericLib.iLowSleep);
@@ -296,10 +298,11 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			commonsPo.tap(checklistPo.geteleSectionNextBtn(1));
 			//checklistPo.geteleChecklistHelpIcn().click();
 			commonsPo.tap(checklistPo.geteleChecklistHelpIcn(sAttachmentQ));
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(GenericLib.iLowSleep);
 			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());
 			Set contextNames = driver.getContextHandles();
+			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println(driver.getContext());
 			driver.context(contextNames.toArray()[2].toString());
 			String url = driver.getCurrentUrl();

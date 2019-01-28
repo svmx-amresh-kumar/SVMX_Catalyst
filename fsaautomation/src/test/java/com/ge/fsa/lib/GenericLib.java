@@ -104,7 +104,7 @@ public class GenericLib
 					for(int j=0;j<iCellNum;j++)
 					{
 						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
-							{sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
+							{sData = sht.getRow(i+1).getCell(j).getStringCellValue();break;}
 							
 					}
 					
