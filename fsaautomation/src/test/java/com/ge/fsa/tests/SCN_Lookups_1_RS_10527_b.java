@@ -20,6 +20,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	String sFieldProcessName = "Auto_Reg_10527";
 	String sAccountName = "AshwiniAutoAcc";
 	String sProdName = "SampleProd";
+	String sSearchTxt = "HCSContact";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
@@ -114,10 +115,12 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 //			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
+		commonsPo.lookupSearchOnly(sSearchTxt);
+		Thread.sleep(GenericLib.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Accounts "+contactList.size());
 //		commonsPo.tap(workOrderPo.getLnkLookupCancel());
-		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
 		
 	}

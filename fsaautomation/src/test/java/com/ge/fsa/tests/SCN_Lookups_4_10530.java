@@ -180,6 +180,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
 		commonsPo.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
+		Thread.sleep(GenericLib.iMedSleep);
 		List<WebElement> prodList = new ArrayList<WebElement>();
 		prodList = workOrderPo.getProductListInLkp();
 //		System.out.println(prodList.size());
@@ -199,13 +200,13 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    prodList = workOrderPo.getProductListInLkp();
 //		    System.out.println(prodList);
 //		    System.out.println(prodList.size());
-		    Collections.sort(sArrOfProd);
 //		    System.out.println(sArrOfProd);
 		    ArrayList<String>sProdList = new ArrayList<String>();
 		    for(WebElement we:prodList) {
 		    	sProdList.add(we.getText());
 		    }
 //		    System.out.println(sProdList);
+		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 2
 			commonsPo.tap(workOrderPo.getLnkLookupCancel());
@@ -214,15 +215,15 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 			jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
 		    sArrOfProd = restServices.getJsonArr(jSonArr, "SVMXC__Product_Name__c");
 		    prodList = workOrderPo.getProductListInLkp();
-		    System.out.println(prodList);
-		    System.out.println(prodList.size());
-		    Collections.sort(sArrOfProd);
-		    System.out.println(sArrOfProd);
+//		    System.out.println(prodList);
+//		    System.out.println(prodList.size());
+//		    System.out.println(sArrOfProd);
 		    sProdList = new ArrayList<String>();     	
 		    for(WebElement we:prodList) {
 		    	sProdList.add(we.getText());
 		    }
-		    System.out.println(sProdList);
+//		    System.out.println(sProdList);
+		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
 		    Thread.sleep(GenericLib.iHighSleep);
