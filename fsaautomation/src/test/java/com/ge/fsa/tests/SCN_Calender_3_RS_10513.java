@@ -77,7 +77,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		  
 		  
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
 		  System.out.println("RS-10513");
 		 
 	

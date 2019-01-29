@@ -87,7 +87,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
 			//config sync
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		toolsPo.syncData(commonsPo);
 		
 		commonsPo.tap(calendarPO.getEleCalendarClick());
