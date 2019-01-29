@@ -129,20 +129,23 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			//System.out.println("Selecting Picklist Question Answer");
 			commonsPo.setPickerWheelValue(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
 		    commonsPo.switchContext("WebView");
-			try {
-			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
-			System.out.println("*** USed normal click ******");
-			
-			}
-			catch(Exception er) {
-				commonsPo.tap(checklistPo.geteleChecklistAnsDate(sdateQuestion));
-				System.out.println("*** USed normal SINGLE TAP ******");
-				
-			}
-			commonsPo.switchContext("Native");
-			commonsPo.getEleDonePickerWheelBtn().click();
-		    commonsPo.switchContext("WebView");
-			sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
+//			try {
+//			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
+//			System.out.println("*** USed normal click ******");
+//			
+//			}
+//			catch(Exception er) {
+//				commonsPo.tap(checklistPo.geteleChecklistAnsDate(sdateQuestion));
+//				System.out.println("*** USed normal SINGLE TAP ******");
+//				
+//			}
+//			commonsPo.switchContext("Native");
+//			commonsPo.getEleDonePickerWheelBtn().click();
+//		    commonsPo.switchContext("WebView");
+		    commonsPo.setSpecificDate(checklistPo.geteleChecklistAnsDate(sdateQuestion),"0","0","0");
+			//sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
+		    commonsPo.switchContext("Webview");
+		    sdateAns = driver.findElement(By.xpath("//div[contains(@class,'checklisteditview')][not(contains(@class,'hidden'))]//div[text()='Date Question'][@class='x-innerhtml']/../following-sibling::div//div[@class='x-innerhtml']")).getAttribute("innerHTML");
 		    System.out.println("dateANS is "+sdateAns);
 		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
 	        dTempDate1 = parser.parse(sdateAns);
@@ -154,13 +157,15 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			
 		    //System.out.println("Setting dateTime Question Answer");
-			checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
-		   // commonsPo.tap((checklistPo.geteleChecklistAnsDate(sdateTimeQuestion)));
-		    commonsPo.switchContext("Native");
-		   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-			commonsPo.getEleDonePickerWheelBtn().click();
+//			checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).click();
+//		   // commonsPo.tap((checklistPo.geteleChecklistAnsDate(sdateTimeQuestion)));
+//		    commonsPo.switchContext("Native");
+//		   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+//			commonsPo.getEleDonePickerWheelBtn().click();
+			commonsPo.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion), 0, "0", "0");
 		    commonsPo.switchContext("WebView");
-		    sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("value");	    
+		    //sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("innerHTML");	    
+		    sdateTimeAns=driver.findElement(By.xpath("//div[contains(@class,'checklisteditview')][not(contains(@class,'hidden'))]//div[text()='DateTime Question'][@class='x-innerhtml']/../following-sibling::div//div[@class='x-innerhtml']")).getAttribute("innerHTML");
 		    System.out.println("direct sdatetime"+sdateTimeAns);	    
 		    SimpleDateFormat parser1 = new SimpleDateFormat("MM/dd/yy hh:mm");
 		    dTempDate1 = parser1.parse(sdateTimeAns);
