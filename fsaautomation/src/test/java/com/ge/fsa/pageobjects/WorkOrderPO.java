@@ -1958,11 +1958,11 @@ import org.openqa.selenium.Rotatable;
 	
 	
 	
-		@FindBy(xpath="//*[text()='No Of Times Assigned']/../..//div[@class='x-innerhtml']/../..//input")
-		private WebElement NoOfTimesAssigned;
-		public WebElement GetEleNoOfTimesAssigned_Edit_Input()
+		@FindBy(xpath="//*[text()='Number']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement txtNumber;
+		public WebElement getTxtNumber()
 		{
-			return NoOfTimesAssigned;
+			return txtNumber;
 		}
 	
 		@FindBy(xpath="//span[@class='x-button-icon x-shown icon-chevron-left svmx-back-button']")
