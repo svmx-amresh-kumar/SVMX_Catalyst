@@ -1965,7 +1965,7 @@ import org.openqa.selenium.Rotatable;
 			return txtNumber;
 		}
 		
-		@FindBy(xpath="//*[text()='NoOfTimesAssigned']/../..//div[@class='x-innerhtml']/../..//input")
+		@FindBy(xpath="//*[text()='No Of Times Assigned']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement NoOfTimesAssigned;
 		public WebElement GetEleNoOfTimesAssigned_Edit_Input()
 		{
