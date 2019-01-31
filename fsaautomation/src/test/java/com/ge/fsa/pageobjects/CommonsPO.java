@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,6 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -271,6 +271,8 @@ public class CommonsPO {
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+			.perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 					.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
@@ -639,7 +641,6 @@ public class CommonsPO {
 			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 			getCalendarDone().click();
 			}
-			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
@@ -653,10 +654,11 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			switchContext("Webview");
+			
 			Thread.sleep(GenericLib.iLowSleep);
 
 		}
+		switchContext("Webview");
 	}
 	
 	/**
@@ -765,11 +767,10 @@ public class CommonsPO {
 					getEleDonePickerWheelBtn().click();
 				}
 
-				switchContext("Webview");
 				Thread.sleep(GenericLib.iLowSleep);
 			}
 		}
-
+		switchContext("Webview");
 	}
 	
 	/**
@@ -832,7 +833,6 @@ public class CommonsPO {
 			//Select the date
 			getAccessibleElement(selectDate).click();
 			getCalendarDone().click();
-			switchContext("Webview");
 			}
 			break;
 		case "ios":
@@ -847,10 +847,9 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
 		}
-
+		switchContext("Webview");
 	}
 
 	
@@ -919,6 +918,62 @@ public class CommonsPO {
 			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 			js.executeScript("mobile: selectPickerWheelValue", params);
 		}
+	}
+	
+	@FindBy(id = "android:id/hours")
+	private WebElement calendarHours;
+
+	public WebElement getCalendarHours() {
+		return calendarHours;
+	}
+	
+	@FindBy(id = "android:id/minutes")
+	private WebElement calendarMinutes;
+
+	public WebElement getCalendarMinutes() {
+		return calendarMinutes;
+	}
+	
+	@FindBy(id = "android:id/am_label")
+	private WebElement calendarAM;
+
+	public WebElement getCalendarAM() {
+		return calendarAM;
+	}
+	
+	@FindBy(id = "android:id/pm_label")
+	private WebElement calendarPM;
+
+	public WebElement getCalendarPM() {
+		return calendarPM;
+	}
+	
+	public String getDate(WebElement wElement,String dateTime) throws InterruptedException {
+		String date="";
+		switch (BaseLib.sOSName) {
+		case "android":
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
+			getCalendarDone().click();
+			if(dateTime.equalsIgnoreCase("datetime")) {
+				String sHours=getCalendarHours().getText();
+				String sMinutes=getCalendarMinutes().getText();
+				String sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
+				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
+				getCalendarDone().click();
+			}
+			switchContext("webview");
+			break;
+		case "ios":
+			setSpecificDate(wElement, "0", "0", "0");
+			date=wElement.getAttribute("value");
+			break;
+		}
+		return date;
 	}
 
 	/**
@@ -1355,5 +1410,36 @@ public class CommonsPO {
 		 return sversionv;
 			 
 	 }
+	 
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO, String objapi) throws Exception
+		{
+		 			System.out.println("Entered Deletion of Calendar Events");
+		 			
+		 			ArrayList<String> mylist = new ArrayList<String>();
+		 			String queryeventcount = "SELECT count() FROM "+objapi+"";
+		 			restServices.getAccessToken();
+		 			String  eventcount = restServices.restGetSoqlValue(queryeventcount, "totalSize");	
+		 			System.out.println(eventcount);
+		 			int eventcountint=Integer.parseInt(eventcount);
+		 			
+		 			for (int i = 0; i<eventcountint; i++) {
+		 String Query = "SELECT Id from "+objapi+" limit 1 offset "+i+"";
+		 mylist.add(restServices.restGetSoqlValue(Query,"Id")); 
+		 			}
+		 			
+		 			System.out.println(Arrays.toString(mylist.toArray()));
+		 			
+		
+		  for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
+		  mylist.get(i));
+		  restServices.restDeleterecord(objapi,mylist.get(i)); }
+		 
+		 			
+		 		
+		 			
+		
+		 
+					
+		}
 	
 }

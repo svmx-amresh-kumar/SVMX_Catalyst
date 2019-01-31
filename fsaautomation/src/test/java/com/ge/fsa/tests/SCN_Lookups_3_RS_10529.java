@@ -148,8 +148,10 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.tap(workOrderPo.getTxtContact()); 
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
+		System.out.println("contactList "+contactList.size());
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
-		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc)); //Covers Step 7-Valid Failure: 
+		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc),"Valid Failure: FSA-2528"); //Covers Step 7-Valid Failure: FSA-2528
+
 	}
 
 }

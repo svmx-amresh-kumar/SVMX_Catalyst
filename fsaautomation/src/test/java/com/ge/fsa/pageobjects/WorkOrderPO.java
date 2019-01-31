@@ -1040,6 +1040,21 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleLblRequestedCountry;
 		}
+		
+		@FindBy(xpath="//span[text()='Reset']")
+		private WebElement btnReset;
+		public WebElement getBtnReset()
+		{
+			return btnReset;
+		}
+		
+		@FindBy(xpath="//span[text()='Complex Filter']/../..//input[@type='checkbox']")
+		private WebElement chkBoxComplexFilter;
+		public WebElement getChkBoxComplexFilter()
+		{
+			return chkBoxComplexFilter;
+		}
+		
 		//close---------
 	
 	
@@ -1943,6 +1958,13 @@ import org.openqa.selenium.Rotatable;
 	
 	
 	
+		@FindBy(xpath="//*[text()='Number']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement txtNumber;
+		public WebElement getTxtNumber()
+		{
+			return txtNumber;
+		}
+		
 		@FindBy(xpath="//*[text()='No Of Times Assigned']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement NoOfTimesAssigned;
 		public WebElement GetEleNoOfTimesAssigned_Edit_Input()

@@ -17,10 +17,11 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sProcessName = "10558_Action";
 	String sScriptName = "SCN_CustomAction_RS_10558";
 	String sTestCaseID = "RS_10558";
-	@Test//(retryAnalyzer=Retry.class)
+
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
-//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println(sWORecordID);
@@ -32,7 +33,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 //		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, "10558_Action");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
 		Set<String> contextNames = driver.getContextHandles();
 //		System.out.println(contextNames.size());
@@ -54,13 +55,15 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 //			
 //		}
 		driver.context(contextNames.toArray()[contextNames.size()-1].toString());
+		Thread.sleep(GenericLib.i30SecSleep);
 		String url = driver.getCurrentUrl();
-        System.out.println(url);
+        System.out.println("The Url is "+url);
         Assert.assertTrue(url.contains("motogp")&&url.contains(sWOName));
         driver.close();
 //        Thread.sleep(GenericLib.iMedSleep);
 //        loginHomePo.geteleMotoGpLogin().click();
 //        Thread.sleep(GenericLib.iMedSleep);
+
 		
 	}
 	

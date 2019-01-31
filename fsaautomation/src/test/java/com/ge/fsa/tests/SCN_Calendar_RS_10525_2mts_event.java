@@ -62,7 +62,8 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
 		String sTestIBID = sProformainVoice;
-	
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 	
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
@@ -201,12 +202,6 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	}
 	
 
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__Service_Order__c",sObjectAWOID); 
-		
-}
+	
 	
 }

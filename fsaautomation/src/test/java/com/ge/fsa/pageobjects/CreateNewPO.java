@@ -181,6 +181,11 @@ public class CreateNewPO
 	public WebElement getEleLocNameTxt() {
 		return eleLocNameTxt;
 	}
+	@FindBy(xpath="//*[contains(text(),'Auto_Custom_Object2 Name')][@class = 'x-label-text-el']/../..//input")
+	private WebElement eleCustomObjNameTxt;
+	public WebElement getEleCustomObjNameTxt() {
+		return eleCustomObjNameTxt;
+	}
 	//----------------------
 	
 	/**

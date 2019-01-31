@@ -134,7 +134,25 @@ public class ChecklistPO{
 		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//textarea"));
 	}
 	
+	private WebElement eleChecklistInput;
+	public WebElement  geteleChecklistAnswerInput(String ChecklistInput)
+	{
+		return eleChecklistInput = driver.findElement(By.xpath("//div[text()='"+ChecklistInput+"'][@class='x-innerhtml']/../..//input"));
+	}
 	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='Attach New']")
+	private WebElement geteleAttachNew;
+	public WebElement eleAttachNew()
+	{
+		return geteleAttachNew;
+	}
+	 @FindBy(xpath="//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']")
+	private WebElement  geteleChecklistImage;
+	public WebElement eleChecklistImage()
+	{
+		return geteleChecklistImage;
+	}
+
 	private WebElement eleChecklistAnsPicklist;
 	public WebElement  geteleChecklistAnsPicklist(String ChecklistTextQuestion)
 	{
