@@ -62,8 +62,8 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Perform Config Sync************
-//		toolsPo.configSync(commonsPo);
-//		Thread.sleep(GenericLib.iMedSleep);
+		toolsPo.configSync(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Navigate to SFM************
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);

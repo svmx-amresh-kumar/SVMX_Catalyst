@@ -35,11 +35,11 @@
 		
         
         <!-- Fourth Delivery -->
-       <!-- <suite-file path="createNewRecordTest.xml" /> --> <!-- 1 --> 
-       <!--  <suite-file path="customActionsTest.xml" /> --> <!-- 2 -->  
-       <!--  <suite-file path="lookupTest.xml" /> -->  <!-- 4 --> 
-        <!-- <suite-file path="formulaTest.xml" /> -->  <!-- 1 -->
-		<!-- <suite-file path="opDocTest.xml" />  --> <!-- 1 --> 
+        <suite-file path="createNewRecordTest.xml" /> <!-- 1 --> 
+        <suite-file path="customActionsTest.xml" /> <!-- 2 -->  
+        <suite-file path="lookupTest.xml" /> <!-- 4 --> 
+        <suite-file path="formulaTest.xml" />  <!-- 1 -->
+		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
 
 
 

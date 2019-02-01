@@ -2199,7 +2199,55 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eletaponfirstpart;
 		}
-	
+		
+		@FindBy(xpath="//span[text()='Customer Down']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-off x-component-toggle-off']")
+		private WebElement eleCustomerDownOffRdBtn;
+		public WebElement getEleCustomerDownOffRdBtn()
+		{
+			return eleCustomerDownOffRdBtn;
+		}
+		
+		
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleAutoChkBxRdBtn;
+		public WebElement getEleAutoChkBxRdBtn()
+		{
+			return eleAutoChkBxRdBtn;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-on x-component-toggle-on']")
+		private WebElement eleAutoChkBxOnRdBtn;
+		public WebElement getEleAutoChkBxOnRdBtn()
+		{
+			return eleAutoChkBxOnRdBtn;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-off x-component-toggle-off']")
+		private WebElement eleAutoChkBxOFFRdBtn;
+		public WebElement getEleAutoChkBxOFFRdBtn()
+		{
+			return eleAutoChkBxOFFRdBtn;
+		}
+		@FindBy(xpath="(//*[text()='Order Status']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleOrderStatusCase2Lst;
+		public WebElement getEleOrderStatusCase2Lst()
+		{
+			return eleOrderStatusCase2Lst;
+		}
+		
+		@FindBy(xpath="//span[text()='Auto_Date1']/../..//div[@class='x-innerhtml']")
+		private WebElement eleAutoDate1Txt;
+		public WebElement getEleAutoDate1Txt()
+		{
+			return eleAutoDate1Txt;
+		}
+		
+		
+		@FindBy(xpath="//div[@class='x-unsized x-component x-label x-label-svmx-default x-component-svmx-default x-has-width x-widthed x-hidden-display x-hidden sfm-readonly-label']/../..//div[@class='x-innerhtml')")
+		private List<WebElement> eleDateTimeLst;
+		public List<WebElement> getEleDateTimeLst() {
+			return eleDateTimeLst;
+		}
 	}
 	
 	
