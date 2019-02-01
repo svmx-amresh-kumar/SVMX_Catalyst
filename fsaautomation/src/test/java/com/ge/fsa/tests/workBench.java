@@ -87,16 +87,27 @@ public void workBenchAnd() throws Exception
 commonsPo.tap(calendarPO.getEleCalendarClick());
 Thread.sleep(3000);
 commonsPo.tap(calendarPO.getElecalendarmonthtap());
-Thread.sleep(3000);
+Thread.sleep(5000);
 
 
 
 
-String convertedstartday="31-01-2019";
-
-List<WebElement> eletaponmonthdayTEST = driver.findElements(By.xpath("//span[contains(@datetime, '"+convertedstartday+"')]"));
-
-System.out.println("elemstns  [[[[ "+eletaponmonthdayTEST);
+//String convertedstartday="31-01-2019";
+//
+////List<WebElement> eletaponmonthdayTEST = driver.findElements(By.xpath("//span[contains(@datetime, '"+convertedstartday+"')]"));
+//try {
+//	System.out.println(driver.findElements(By.xpath("(//span[contains(@datetime, '31-01-2019')])")).size());
+//	WebElement tap=driver.findElement(By.xpath("//div[@class='x-component x-carousel-item x-sized x-widthed x-heighted'][not(contains(@style,'800'))]//span[contains(@datetime, '31-01-2019')]"));
+//	commonsPo.tap(tap);
+//	commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+//	calendarPO.geteletaponmonthday(convertedstartday).click();
+//	System.out.println("$$$$$$$$$$$$$$$");
+//}
+//catch (Exception e) {
+//	System.out.println("catchcatchcatch");
+//	commonsPo.tap(calendarPO.geteletaponmonthday2(convertedstartday));
+//}
+/*System.out.println("elemstns  [[[[ "+eletaponmonthdayTEST);
 
 Thread.sleep(3000);
 Iterator<WebElement> crunchifyIterator = eletaponmonthdayTEST.iterator();
@@ -106,10 +117,10 @@ while (crunchifyIterator.hasNext()) {
 		 commonsPo.tap(crunchifyIterator.next());
 	
 	 
-	System.out.println("000000000"+crunchifyIterator.next());
-}
+	System.out.println("000000000"+crunchifyIterator.next());*/
+
 		
-Thread.sleep(3000); 
+
 
 
 		//loginHomePo.login(commonsPo, exploreSearchPo)

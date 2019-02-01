@@ -232,8 +232,15 @@ public class CalendarPO
 	private WebElement eletaponmonthday;
 	public WebElement geteletaponmonthday(String datetotap)
 	{
-		eletaponmonthday = driver.findElement(By.xpath("//span[contains(@datetime, '"+datetotap+"')]"));
+		eletaponmonthday = driver.findElement(By.xpath("(//span[contains(@datetime, '"+datetotap+"')])[1]"));
 		return eletaponmonthday;
+	}
+	
+	private WebElement eletaponmonthday2;
+	public WebElement geteletaponmonthday2(String datetotap)
+	{
+		eletaponmonthday2 = driver.findElement(By.xpath("(//span[contains(@datetime, '"+datetotap+"')])[2]"));
+		return eletaponmonthday2;
 	}
 	
 	
