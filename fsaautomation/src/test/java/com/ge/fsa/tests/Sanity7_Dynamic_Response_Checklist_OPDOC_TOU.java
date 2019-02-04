@@ -167,7 +167,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(GenericLib.i30SecSleep);
 		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
