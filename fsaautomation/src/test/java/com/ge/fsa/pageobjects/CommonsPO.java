@@ -754,9 +754,9 @@ public class CommonsPO {
 			wElement.click();
 			switchContext("Native");
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
+				getEleDonePickerWheelBtn().click();
 				Thread.sleep(1000);
-				getCalendarDone().click();
+				getEleDonePickerWheelBtn().click();
 			} else {
 				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
