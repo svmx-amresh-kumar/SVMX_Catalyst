@@ -154,7 +154,7 @@ public class GenericLib
 			//Set the path  of sahi reports
 			
 			if(BaseLib.runMachine.equalsIgnoreCase("build")) {
-				
+				//first reference the log file name from local path ,then build a path for the build machine where we archive these logs
 				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 
 			}else {
@@ -166,7 +166,7 @@ public class GenericLib
 				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			ExtentManager.logger.log(Status.FAIL,"Sahi script for case [ " + sMessage + " ] failed");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] failed");
 			throw e;
 		}
 	}
@@ -213,21 +213,29 @@ public class GenericLib
 	}
 	
 	
-	/* Get the newest file for a specific extension */
-	public String getLastModifiedFile(String filePath, String pattern,String ext) {
-	    File lastModifiedFile = null;
-	    File dir = new File(filePath);
-	    FileFilter fileFilter = new WildcardFileFilter(pattern + ext);
-	    File[] files = dir.listFiles(fileFilter);
+	
+	/**
+	 * Return the last modified file name for a specific extension
+	 * 
+	 * @param filePath
+	 * @param pattern
+	 * @param ext
+	 * @return
+	 */
+	public String getLastModifiedFile(String filePath, String pattern, String ext) {
+		File lastModifiedFile = null;
+		File dir = new File(filePath);
+		FileFilter fileFilter = new WildcardFileFilter(pattern + ext);
+		File[] files = dir.listFiles(fileFilter);
 
-	    if (files.length > 0) {
-	        //The newest file comes first after sorting
-	        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
-	        lastModifiedFile = files[0];
-	    }
+		if (files.length > 0) {
+			// The newest file comes first after sorting
+			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			lastModifiedFile = files[0];
+		}
 
-	    System.out.println("Fetching Last Modified File : "+lastModifiedFile.getName().toString());
-	    return lastModifiedFile.getName().toString();
+		System.out.println("Fetching Last Modified File : " + lastModifiedFile.getName().toString());
+		return lastModifiedFile.getName().toString();
 	}
 	
 }
