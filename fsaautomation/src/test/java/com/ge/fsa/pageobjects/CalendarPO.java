@@ -236,7 +236,7 @@ public class CalendarPO
 		return eletaponmonthday;
 	}
 	
-<<<<<<< HEAD
+
 	private WebElement elemonthday;
 	public WebElement getelemonthday(String datetotap)
 	{
@@ -244,9 +244,7 @@ public class CalendarPO
 		return elemonthday;
 	}
 	
-=======
->>>>>>> 8ac28a538dceb69ee5699b610ae895eb9c1f3755
-	
+
 	private WebElement eletaponmonthdayindex;
 	public WebElement geteletaponmonthdayindex(String datetotap)
 	{
