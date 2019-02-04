@@ -102,7 +102,7 @@ public class BaseLib {
 		System.out.println("OS Name = "+sOSName.toLowerCase());
 		
 		//Get the build number from jenkins
-		sBuildNo = System.getenv("BUILD_NUMBER") != null? System.getenv("BUILD_NUMBER"):"" ;
+		sBuildNo = System.getenv("BUILD_NUMBER") != null? System.getenv("BUILD_NUMBER"):"local" ;
 		
 		switch (sOSName) {
 		case "android":
