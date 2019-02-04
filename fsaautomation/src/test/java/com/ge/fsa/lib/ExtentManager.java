@@ -42,7 +42,7 @@ public class ExtentManager{
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-    public static String sReportName = LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
+    public static String sReportName = BaseLib.sBuildNo+"_"+LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
 	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
 
 	/**

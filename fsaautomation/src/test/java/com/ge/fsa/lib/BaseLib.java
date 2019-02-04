@@ -62,7 +62,7 @@ public class BaseLib {
 	public static String runMachine = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
-	
+	public static String sBuildNo = null;
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
@@ -101,6 +101,8 @@ public class BaseLib {
 		}
 		System.out.println("OS Name = "+sOSName.toLowerCase());
 		
+		//Get the build number from jenkins
+		sBuildNo = System.getenv("BUILD_NUMBER") != null? System.getenv("BUILD_NUMBER"):"" ;
 		
 		switch (sOSName) {
 		case "android":
