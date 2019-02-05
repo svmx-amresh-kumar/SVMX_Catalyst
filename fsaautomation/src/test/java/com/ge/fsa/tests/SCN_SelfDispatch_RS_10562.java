@@ -74,24 +74,15 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 		
 		//Set Start time for event
-		workOrderPo.getEleStartDateTimeTxtFld().click();
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Native");
-		commonsPo.getEleDonePickerWheelBtn().click();;
+		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
 		
 		//Edit the subject
 		commonsPo.switchContext("Webview");
 		workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
-		workOrderPo.getEleEndDateTimeTxtFld().click();
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Native");
-		
-		commonsPo.setDatePicker(1, 1);
-		commonsPo.getEleDonePickerWheelBtn().click();
-		
 		commonsPo.switchContext("Webview");
+		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		
@@ -103,7 +94,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonsPo.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iHighSleep);
 		
-		calendarPO.getEleCalendarIcn().click();
+		commonsPo.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		driver.activateApp(GenericLib.sAppBundleID);
 		

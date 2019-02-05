@@ -9,8 +9,7 @@
 
 
 	<suite-files>
-
-		<!-- Second Delivery -->
+		<suite-file path="sanityTest.xml" /> <!--  -->
 		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="selfDispatchTest.xml" /> <!-- 1 -->
@@ -19,7 +18,6 @@
 		<suite-file path="recentItemsTest.xml" /> <!-- 1 -->
 		<suite-file path="productAccountHistoryTest.xml" /> <!-- 1 -->
 
-		<!-- First Delivery -->
 		<suite-file path="checklistTest.xml" /> <!-- 8 -->
 		<suite-file path="mappingTest.xml" /> <!-- 3 -->
 		<suite-file path="childLineTest.xml" /> <!-- 1 -->
@@ -28,19 +26,16 @@
 		<suite-file path="dvrTest.xml" /> <!-- 1 -->
 		<suite-file path="zeroLinesTest.xml" /> <!-- 1 -->
 
-		<!-- Third Delivery -->
 		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
-		<suite-file path="calendarTest.xml" /> <!-- 8 -->
 		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
 		
-        
-        <!-- Fourth Delivery -->
         <suite-file path="createNewRecordTest.xml" /> <!-- 1 --> 
         <suite-file path="customActionsTest.xml" /> <!-- 2 -->  
         <suite-file path="lookupTest.xml" /> <!-- 4 --> 
         <suite-file path="formulaTest.xml" />  <!-- 1 -->
 		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
 
+		<suite-file path="calendarTest.xml" /> <!-- 8 -->
 
 
 	</suite-files>
