@@ -13,6 +13,7 @@ import static org.testng.Assert.assertNull;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,8 @@ import io.appium.java_client.touch.offset.PointOption;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 
 public class workBench extends BaseLib
 {
@@ -75,26 +78,52 @@ public class workBench extends BaseLib
 //		return eleMenuIcn;
 //	}
 
+
 	@Test()
 
 public void workBenchAnd() throws Exception
 {		
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-
-		//loginHomePo.login(commonsPo, exploreSearchPo);
+		Thread.sleep(3000);
+commonsPo.tap(calendarPO.getEleCalendarClick());
+Thread.sleep(3000);
+commonsPo.tap(calendarPO.getElecalendarmonthtap());
+Thread.sleep(5000);
 
 
 
+
+//String convertedstartday="31-01-2019";
+//
+////List<WebElement> eletaponmonthdayTEST = driver.findElements(By.xpath("//span[contains(@datetime, '"+convertedstartday+"')]"));
+//try {
+//	System.out.println(driver.findElements(By.xpath("(//span[contains(@datetime, '31-01-2019')])")).size());
+//	WebElement tap=driver.findElement(By.xpath("//div[@class='x-component x-carousel-item x-sized x-widthed x-heighted'][not(contains(@style,'800'))]//span[contains(@datetime, '31-01-2019')]"));
+//	commonsPo.tap(tap);
+//	commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+//	calendarPO.geteletaponmonthday(convertedstartday).click();
+//	System.out.println("$$$$$$$$$$$$$$$");
+//}
+//catch (Exception e) {
+//	System.out.println("catchcatchcatch");
+//	commonsPo.tap(calendarPO.geteletaponmonthday2(convertedstartday));
+//}
+/*System.out.println("elemstns  [[[[ "+eletaponmonthdayTEST);
+
+Thread.sleep(3000);
+Iterator<WebElement> crunchifyIterator = eletaponmonthdayTEST.iterator();
+while (crunchifyIterator.hasNext()) {
+	System.out.println("000000000"+crunchifyIterator.next());
+
+		 commonsPo.tap(crunchifyIterator.next());
+	
+	 
+	System.out.println("000000000"+crunchifyIterator.next());*/
+
+		
+
+
+
+		//loginHomePo.login(commonsPo, exploreSearchPo)
 //		//(new TouchAction(driver)).tap(261, 212).perform()
 //
 //		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Picklist Question'][@class='x-innerhtml']/../..//input")),15,-60);

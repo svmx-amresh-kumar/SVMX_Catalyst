@@ -62,12 +62,15 @@ public class BaseLib {
 	public static String runMachine = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
-	
+	public static String sBuildNo = null;
+	public static String sTestName = null;
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
-		
+		//For report naming purpose, does not impact executions
 		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
+		sSuiteTestName = context.getCurrentXmlTest().getName();
+		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default test")?context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("com.ge.fsa.tests.", ""):sSuiteTestName;
 
 
 	}
@@ -101,6 +104,8 @@ public class BaseLib {
 		}
 		System.out.println("OS Name = "+sOSName.toLowerCase());
 		
+		//Get the build number from jenkins
+		sBuildNo = System.getenv("BUILD_NUMBER") != null? System.getenv("BUILD_NUMBER"):"local" ;
 		
 		switch (sOSName) {
 		case "android":
@@ -132,10 +137,10 @@ public class BaseLib {
 			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
-				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
-				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-				ExtentManager.extent.flush();
+//				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+//				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
+//				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+//				ExtentManager.extent.flush();
 				throw e;
 			} 
 			break;
@@ -174,10 +179,10 @@ public class BaseLib {
 			
 				Thread.sleep(2000);	
 			} catch (Exception e) {
-				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
-				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-				ExtentManager.extent.flush();
+//				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
+//				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
+//				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
+//				ExtentManager.extent.flush();
 				throw e;
 			} 
 
@@ -245,7 +250,6 @@ public class BaseLib {
 	@BeforeMethod
 	public void startReport(ITestResult result,ITestContext context) {
 		lauchNewApp("true");
-		sSuiteTestName = context.getCurrentXmlTest().getName();
 		if(sSuiteTestName != null) {
 		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
 		}

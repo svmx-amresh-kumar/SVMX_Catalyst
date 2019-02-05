@@ -236,7 +236,15 @@ public class CalendarPO
 		return eletaponmonthday;
 	}
 	
+
+	private WebElement elemonthday;
+	public WebElement getelemonthday(String datetotap)
+	{
+		elemonthday = driver.findElement(By.xpath("//div[@class='x-component x-carousel-item x-sized x-widthed x-heighted'][not(contains(@style,'800'))]//span[contains(@datetime, '"+datetotap+"')]"));
+		return elemonthday;
+	}
 	
+
 	private WebElement eletaponmonthdayindex;
 	public WebElement geteletaponmonthdayindex(String datetotap)
 	{
