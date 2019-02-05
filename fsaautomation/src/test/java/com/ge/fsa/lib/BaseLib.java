@@ -68,10 +68,12 @@ public class BaseLib {
 	public void startServer(ITestContext context)
 	{
 		//For report naming purpose, does not impact executions
-		System.out.println("Excuting SUITE : "+context.getSuite().getName());
-		System.out.println("Excuting Tests : "+context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", " "));
-		sSuiteTestName = context.getCurrentXmlTest().getName();
-		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default test")?context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("com.ge.fsa.tests.", ""):context.getSuite().getName();
+		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
+		sSuiteTestName = context.getSuite().getName();
+		System.out.println("Excuting SUITE : "+sSuiteTestName);
+		System.out.println("Excuting Tests : "+sTestName);
+		
+		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default suite")?sTestName:sSuiteTestName;
 
 
 	}
