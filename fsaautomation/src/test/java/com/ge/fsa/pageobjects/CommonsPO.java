@@ -1433,13 +1433,22 @@ public class CommonsPO {
 		  for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
 		  mylist.get(i));
 		  restServices.restDeleterecord(objapi,mylist.get(i)); }
-		 
-		 			
-		 		
-		 			
-		
-		 
 					
+		}
+	 
+	 /**
+	  * Take screenshot and return the screenshot path to be consumed in Extent logger
+	  * 
+	  * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+	  * @return
+	  */
+		public String takeScreenShot() {
+			
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
+				Set contextNames = driver.getContextHandles();
+				driver.context(contextNames.toArray()[0].toString());
+			}
+			return ExtentManager.getScreenshot();
 		}
 	
 }
