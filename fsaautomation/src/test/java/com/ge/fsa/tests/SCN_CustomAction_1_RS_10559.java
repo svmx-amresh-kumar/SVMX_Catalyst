@@ -22,6 +22,10 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10559() throws Exception {
 		
+		//Running Pre-Req
+		 commonsPo.preReqSetup(genericLib);
+				// Resinstall the app
+				lauchNewApp("false");
 		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
