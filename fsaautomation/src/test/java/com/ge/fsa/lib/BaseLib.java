@@ -70,11 +70,10 @@ public class BaseLib {
 		//For report naming purpose, does not impact executions
 		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
 		sSuiteTestName = context.getSuite().getName();
-		System.out.println("Excuting SUITE : "+sSuiteTestName);
-		System.out.println("Excuting Tests : "+sTestName);
 		
 		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default suite")?sTestName:sSuiteTestName;
-
+		System.out.println("Excuting SUITE : "+sSuiteTestName);
+		System.out.println("Excuting Tests : "+sTestName);
 
 	}
 	
