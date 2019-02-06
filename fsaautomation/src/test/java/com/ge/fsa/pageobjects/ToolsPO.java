@@ -68,7 +68,7 @@ public class ToolsPO
 	{
 		return eleStartSyncBtn;
 	}
-	@FindBy(xpath="//*[text()='Success']")
+	@FindBy(xpath="//div[@id='toolsHorizontalPanel']//div[@class='x-innerhtml' and text()='Success']")//"//*[text()='Success']"
 	private WebElement eleSuccessTxt;
 	public WebElement getEleSuccessTxt()
 	{
@@ -265,10 +265,12 @@ public class ToolsPO
 			
 			
 			
-			geteleResetAppLnkk().click();
-			commonsPo.longPress(geteleResetAppLnkk());	
-			getEleYesBtn().click();
-			commonsPo.longPress(getEleYesBtn());
+			//geteleResetAppLnkk().click();
+			//commonsPo.longPress(geteleResetAppLnkk());	
+			//getEleYesBtn().click();
+			//commonsPo.longPress(getEleYesBtn());
+			commonsPo.tap(geteleResetAppLnkk());
+			commonsPo.tap(getEleYesBtn());
 			System.out.println("begining Reset App");
 			
 			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
