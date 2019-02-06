@@ -166,9 +166,10 @@ public class LoginHomePO
 
 				commonsPo.switchContext("Webview");
 
-				wait = new WebDriverWait(driver, 4000);
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
