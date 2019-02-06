@@ -641,8 +641,10 @@ public class CommonsPO {
 			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 			getCalendarDone().click();
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Webview");
 			wElement.click();
 			switchContext("Native");
 			setDatePicker(0, iDaysToScroll);
@@ -654,9 +656,9 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			
+			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-
+			break;
 		}
 		switchContext("Webview");
 	}
@@ -747,10 +749,12 @@ public class CommonsPO {
 					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 					getCalendarDone().click();
 				}
-				switchContext("Webview");
+				
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Webview");
 			wElement.click();
 			switchContext("Native");
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
@@ -766,9 +770,11 @@ public class CommonsPO {
 					timeSetter(sTimeHrs, sTimeMin, "", true);
 					getEleDonePickerWheelBtn().click();
 				}
-
-				Thread.sleep(GenericLib.iLowSleep);
+				
 			}
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
 		}
 		switchContext("Webview");
 	}
@@ -834,6 +840,7 @@ public class CommonsPO {
 			getAccessibleElement(selectDate).click();
 			getCalendarDone().click();
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
@@ -846,7 +853,7 @@ public class CommonsPO {
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
-
+			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		switchContext("Webview");
