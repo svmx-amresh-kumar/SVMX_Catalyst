@@ -6,16 +6,25 @@ package com.ge.fsa.tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.CommonsPO;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.offset.PointOption;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,11 +50,19 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 	String sSection1Name="Section One";
 	String sSheetName =null;
 	String sWORecordID = null;
+	String sWORecordID1 = null;
+	String sWORecordID2 = null;
+	String sWOName2 = null;
+	String sWOName1 = null;
 	String sWOName = null;
 	
 	//Attachment questions
 	
 	String sAttachmentQuestion1 = null;
+	String sAttachText ="AttachmentChecklistupload";
+	String sAttachmentQ = "AttachmentQuestion1";
+
+
 	public void prereq() throws Exception
 	{	
 		sSheetName ="RS_10584";
@@ -60,123 +77,231 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
 		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 		
-		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
-		
-	/*	sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
+		//WorkOrder for Choose from Library
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
 		sWOName= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
-		System.out.println("WO no =" + sWOName);*/				
-		sWOName = "WO-00004603";
+		System.out.println("WO no =" + sWOName);			
+		//sWOName = "WO-00004603";
+		
+		//Work Order for Record Video
+		sWORecordID1 = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
+		System.out.println(sWORecordID1);
+		sWOName1= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID1 + "\'", "Name");
+		System.out.println("WO no =" + sWOName1);	
+		
+		//Work Order for Take Photo
+		sWORecordID2 = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
+		System.out.println(sWORecordID2);
+		sWOName2= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID2 + "\'", "Name");
+		System.out.println("WO no =" + sWOName2);	
 	
 	}
-	
-	//@SuppressWarnings("unchecked")
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10584() throws Exception {
-	
-		
-		
+
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		prereq();
-		System.out.println("NOW");
-		//toolsPo.configSyncCheckVT(commonsPo);
-		//workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
-		//toolsPo.configSyncCheckVT(commonsPo);
-		
-//		toolsPo.configSync(commonsPo);
-	//	workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
-	//	toolsPo.configSync(commonsPo);
-
-		
-		Thread.sleep(15000);
-		prereq();
 		// Data Sync for WO's created
-		//toolsPo.syncData(commonsPo);
-		// Thread.sleep(GenericLib.iMedSleep);
-		// toolsPo.configSync(commonsPo);
+		toolsPo.syncData(commonsPo);
+		Thread.sleep(GenericLib.iMedSleep);
 
+/*-----------------------------------Upload from Library------------------------------------*/
 		// Navigation to WO
-
-
+		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		
 		// Navigate to Field Service process
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
-
+		
 		// Navigating to the checklist
 		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
-		try {
-			//commonsPo.tap(checklistPo.geteleChecklistAttach(sAttachmentQuestion1));
-			//checklistPo.geteleChecklistAttach(sAttachmentQuestion1).click();
-			//commonsPo.switchContext("Native");
-			System.out.println("Trying to click Attach");
-			commonsPo.switchContext("Native");
-			driver.findElementByAccessibilityId("Attach").click();
-			Thread.sleep(10000);
-			driver.findElementByAccessibilityId("Choose from Library").click();
-			Thread.sleep(10000);
-			//driver.findElementBy
-			//driver.findElementByAccessibilityId("Choose from Library").click();
-			
-			//commonsPo.tap(driver.findElement(By.xpath("//*[contains(@label,'Photo, Portrait, November 07, 15:14')]")));
+		checklistPo.checklistAttach(commonsPo, "Choose from Library", sAttachmentQ);
+		ExtentManager.logger.log(Status.PASS, "Checklist Attachment Choose from library added sucessfull");
+		commonsPo.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
+		checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
+		commonsPo.tap(checklistPo.geteleNext());
+		commonsPo.tap(checklistPo.eleChecklistSubmit());
+		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+		ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWOName);
+		Thread.sleep(GenericLib.iHighSleep);
+		
+		// Navigating back to work Orders
+		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		Thread.sleep(GenericLib.iHighSleep);
+		workOrderPo.selectAction(commonsPo, sFieldServiceName);
+		System.out.println("Tapped on default title for checklist");
+		Thread.sleep(GenericLib.iLowSleep);
+		commonsPo.tap(checklistPo.geteleShowCompletedChecklist(), 15, 18);
+		commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
+		Thread.sleep(GenericLib.iMedSleep);
+		Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"),
+				sAttachText, "Attachment Text is not "+sAttachText+"displayed");
+		ExtentManager.logger.log(Status.PASS, "Attachment text"+sAttachText +"is visible in completed Checklist" + sChecklistName);
+		Thread.sleep(GenericLib.iHighSleep);
+		commonsPo.tap(checklistPo.eleChecklistImage(), 20, 20);
+		commonsPo.switchContext("Native");
+		checklistPo.geteleDoneAttachment().click();
+		ExtentManager.logger.log(Status.PASS, "done button was clicked below the image/video");
+		commonsPo.switchContext("WebView");
+		checklistPo.navigateBacktoWorkOrder(commonsPo);
+		System.out.println("Upload from Library completed");
 
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
-			el.click();
-			System.out.println("Clicked on Momemts");
-			List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
-			int numPhotos = photos.size();
-			photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
-			System.out.println("There were " + numPhotos + " photos before, and now there are " +
-			photos.size() + "!");
-			commonsPo.switchContext("Native");
-			WebElement elem = null;
-			List<WebElement> mel = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
-			for(int i =0;i<mel.size();i++) {
-			try {
-		    elem =  mel.get(i);
-		    System.out.println("  picpic = "+i+"----"+elem.getText()+" remotewebele = "+((RemoteWebElement) elem).getId());
+/*--------------------------------Take Video---------------------------------------*/
+				driver.activateApp(GenericLib.sAppBundleID);
+				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
-				WebElement pgv = driver.findElement(By.xpath("//*[contains(@label,'Moments')]"));
-				Point pointPhotoGrid = pgv.getLocation();
-				int pgx = pointPhotoGrid.getX() + 2;
-				int pgy = pointPhotoGrid.getY() + 5;
-				System.out.println("Moments  pgv = "+i+"----"+pointPhotoGrid);
-			}catch(Exception e) {
-				System.out.println("In catch ##### "+e);
+			    workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,sWOName1);	
+			    Thread.sleep(GenericLib.iMedSleep);
+				workOrderPo.selectAction(commonsPo, sFieldServiceName);
+				// Navigating to the checklist
+				commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
+				Thread.sleep(GenericLib.iLowSleep);
+				//assertFalse(commonsPo.isDisplayedCust(checklistPo.eleAttachNew()));
+				//ExtentManager.logger.log(Status.PASS,"Attach New link is not visible");
+				checklistPo.checklistAttach(commonsPo, "Take Video",sAttachmentQ);
+				System.out.println("Attaching video finished");
+				ExtentManager.logger.log(Status.PASS,"Checklist Attachment Take video added sucessfull");
 
-			}
+				//assertEquals(checklistPo.eleAttachNew().isDisplayed(),true);
+				//ExtentManager.logger.log(Status.PASS,"Attach New link visible after attaching video");
+				commonsPo.switchContext("WebView");
+				Thread.sleep(GenericLib.iHighSleep);
+				commonsPo.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
+				checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
+				commonsPo.tap(checklistPo.geteleNext());
+				commonsPo.tap(checklistPo.eleChecklistSubmit());
+				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+				ExtentManager.logger.log(Status.PASS,"Checklist is submitted sucessfully for Work Order"+sWOName1);
 
-
-		}
-		//	elem =  mel.get(i);	
-		driver.findElement(By.xpath("//*[contains(@label,'"+elem.getText()+"')]")).click();
-
-			//driver.findElement(By.xpath("//*[contains(@label,'Photo, Portrait, November 07, 15:14')]")).click();
-			System.out.println("finished Clicking");
-		//	driver.findElement(By.xpath("(//span[contains(text(),'Choose from Library')])[3]")).click();;
-			try {
-				commonsPo.tap(driver.findElement(By.xpath("//*[contains(@label,'Photo, Portrait, November 07, 15:14')]")));
-				}
-				catch(Exception e) {
-				//	commonsPo.tap(driver.findElement(By.xpath("//*[contains(@label,'Photo')]")));
+				//Navigating back to work Orders
+				commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
+				workOrderPo.selectAction(commonsPo, sFieldServiceName);
+				System.out.println("Tapped on default title for checklist");
+				Thread.sleep(GenericLib.iLowSleep);
+				commonsPo.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
+				commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 				
+				Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"), sAttachText, "Attachment Text is displayed");
+				ExtentManager.logger.log(Status.PASS,"Attachment text is visible for video attachment in completed Checklist:"+sChecklistName);
+				Thread.sleep(GenericLib.iHighSleep);
+				
+				commonsPo.tap(checklistPo.eleChecklistVideo(),20,20);
+				commonsPo.switchContext("Native");
+				Thread.sleep(GenericLib.iHighSleep);
+				try {
+				//	WebElement eleDoneButton1 =driver.findElementByAccessibilityId("Done");
+					//eleDoneButton1.click();
+					checklistPo.geteleDoneAccessibilityid().click();
+
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("Did not get the fullscreen video mode.. proceeding with exection");
 				}
-				////XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']
-				//List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeOther[@type='XCUIElementTypeOther']"));
+				try {
+					checklistPo.geteleDoneAccessibilityid().click();
+					//WebElement eleDoneButton2 =driver.findElementByAccessibilityId("Done");
+					//eleDoneButton2.click();
+				} catch (Exception e) {
+					// TODO: handle exception				
+					System.out.println("Done button clicked below");
 
-					//commonsPo.switchContext("Webview");
+				}
+			
+				ExtentManager.logger.log(Status.PASS,"done button was clicked below the video");
+				commonsPo.switchContext("WebView");
+				checklistPo.navigateBacktoWorkOrder(commonsPo);	
 
-					//List<IOSElement> picPic1 = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeApplication[@name=\"ServiceMax\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]"));
-					//List<IOSElement> picPic1 = (List<IOSElement>) driver.findElements(By.xpath("//*[@type='XCUIElementTypeOther'][contains(@label,'Photo')]"));
+				/*--------------------------Take Photo -----------------------*/
+				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
-					
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			//checklistPo.geteleChecklistAttach(sAttachmentQuestion1).click();
-			// TODO: handle exception
-		}
-			//------------------SERVER SIDE VALIDATIONS
+			    workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,sWOName2);							
+				workOrderPo.selectAction(commonsPo, sFieldServiceName);
+				// Navigating to the checklist
+				commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
+				Thread.sleep(GenericLib.iLowSleep);
+				checklistPo.checklistAttach(commonsPo, "Take Photo",sAttachmentQ);
+				ExtentManager.logger.log(Status.PASS,"Checklist Attachment Take Photo added sucessfull");
+				commonsPo.switchContext("WebView");
+				commonsPo.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
+				checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
+				commonsPo.tap(checklistPo.geteleNext());
+				commonsPo.tap(checklistPo.eleChecklistSubmit());
+				commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+				ExtentManager.logger.log(Status.PASS,"Checklist is submitted sucessfully for Work Order"+sWOName2);
 
+				//Navigating back to work Orders
+				commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
+				workOrderPo.selectAction(commonsPo, sFieldServiceName);
+				System.out.println("Tapped on default title for checklist");
+				Thread.sleep(GenericLib.iLowSleep);
+				commonsPo.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
+				commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
+				
+				Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"), sAttachText, "Attachment Text is displayed");
+				ExtentManager.logger.log(Status.PASS,"Attachment text is visible for take photo in completed Checklist:"+sChecklistName);
+				Thread.sleep(GenericLib.iHighSleep);
+				commonsPo.tap(checklistPo.eleChecklistImage(),20,20);
+				commonsPo.switchContext("Native");
+				checklistPo.geteleDoneAccessibilityid().click();
+				//WebElement eleDoneButton3 =driver.findElementByAccessibilityId("Done");
+				//eleDoneButton3.click();
+				ExtentManager.logger.log(Status.PASS,"done button was clicked below the photo");
+				commonsPo.switchContext("WebView");
+				checklistPo.navigateBacktoWorkOrder(commonsPo);	
+				
+
+				//------------------SERVER SIDE VALIDATIONS===================//
+				//Navigating back to WorkOrder Screen as Tools button will not be visible from checklists
+				//checklistPo.navigateBacktoWorkOrder(commonsPo);	
+				toolsPo.syncData(commonsPo);
+				Thread.sleep(GenericLib.i30SecSleep);
+			  	Thread.sleep(GenericLib.i30SecSleep);
+				
+				System.out.println("Validating if  attachment is syned to server.");
+			  	Thread.sleep(GenericLib.i30SecSleep);
+			  	Thread.sleep(GenericLib.i30SecSleep);
+			  	Thread.sleep(GenericLib.iMedSleep);
+			  	String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
+			  	String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");	
+			  	String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid+"\')"; 
+			  	//String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+				restServices.getAccessToken();
+				String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlAttachment, "Id");	
+				assertNotNull(sAttachmentIDAfter); 
+				ExtentManager.logger.log(Status.PASS,"attachment is synced to Server");
+			  	String sSoqlAttachmentName = "SELECT Name FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid+"\')"; 
+			  	String sAttachmentNameAfter = restServices.restGetSoqlValue(sSoqlAttachmentName, "Name");
+				ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter);
+				
+				
+				String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\')";
+			  	String schecklistid1 = restServices.restGetSoqlValue(sSoqlchecklistid1, "Id");	
+			  	String sSoqlAttachment1 = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid1+"\')"; 
+			  	//String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+				restServices.getAccessToken();
+				String sAttachmentIDAfter1 = restServices.restGetSoqlValue(sSoqlAttachment1, "Id");	
+				assertNotNull(sAttachmentIDAfter1); 
+				ExtentManager.logger.log(Status.PASS,"attachment is synced to Server");
+			  	String sSoqlAttachmentName1 = "SELECT Name FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid1+"\')"; 
+			  	String sAttachmentNameAfter1 = restServices.restGetSoqlValue(sSoqlAttachmentName1, "Name");
+				ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter1);
+			
+				String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName2+"\')";
+			  	String schecklistid2 = restServices.restGetSoqlValue(sSoqlchecklistid2, "Id");	
+			  	String sSoqlAttachment2 = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid2+"\')"; 
+			  	//String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
+				restServices.getAccessToken();
+				String sAttachmentIDAfter2 = restServices.restGetSoqlValue(sSoqlAttachment2, "Id");	
+				assertNotNull(sAttachmentIDAfter2); 
+				ExtentManager.logger.log(Status.PASS,"attachment is synced to Server");
+			  	String sSoqlAttachmentName2 = "SELECT Name FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid2+"\')"; 
+			  	String sAttachmentNameAfter2 = restServices.restGetSoqlValue(sSoqlAttachmentName2, "Name");
+				ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter2);
 }
+
+	
 }
