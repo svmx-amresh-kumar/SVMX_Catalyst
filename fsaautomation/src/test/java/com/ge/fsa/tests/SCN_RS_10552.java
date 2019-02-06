@@ -2,6 +2,7 @@
  *  @author lakshmibs
  */
 package com.ge.fsa.tests;
+import java.util.Arrays;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -31,15 +32,21 @@ public class SCN_RS_10552 extends BaseLib {
 	String[] sDate=null;
 	String sCompletedDateTxt=null;
 	String sActualDateTxt=null;
+	String sAutoDate=null;
+	String sPreviousDate=null;
+	String sOnsiteDate=null;
 	int iDay=0;
 	int iMonth=0;
+	int iYear=0;
 	
 	public void preRequiste() throws Exception { 
 		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
-		driver.getDeviceTime();
+		iYear=Integer.parseInt(sDate[0])+1;
+		sAutoDate=sDate[1]+"/"+1+"/"+iYear;
+		iDay = Integer.parseInt(sDate[2])-1;
+		sPreviousDate = Integer.parseInt(sDate[1])+"/"+iDay+"/"+sDate[0];
+		sOnsiteDate=Integer.parseInt(sDate[1])+"/"+Integer.parseInt(sDate[2])+"/"+sDate[0];	
 		
-		System.out.println(driver.getDeviceTime());
-		/*
 		if(Integer.parseInt(sDate[2])>28)
 		{
 			sDate[2]="1";
@@ -48,14 +55,17 @@ public class SCN_RS_10552 extends BaseLib {
 				iMonth=01;
 			}
 			sDate[1]=""+iMonth;
-		}*/
-		sCompletedDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2]+"T09:00:00.000+0000";
+		}
+		sCompletedDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
 		iDay=Integer.parseInt(sDate[2])+2;
 		sDate[2]=""+iDay;
-		sActualDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2]+"T09:00:00.000+0000";
+		sActualDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
 		
-		System.out.println("*****"+sCompletedDateTxt);
-		System.out.println("*****"+sActualDateTxt);
+		System.out.println("Completed *****"+sCompletedDateTxt);
+		System.out.println("Actual *****"+sActualDateTxt);
+		System.out.println("sAutoDate *****"+sAutoDate);
+		System.out.println("sOnsiteDate *****"+sOnsiteDate);
+		System.out.println("sPreviousDate *****"+sPreviousDate);
 		
 		restServices = new RestServices();
 		genericLib = new GenericLib();
@@ -68,60 +78,52 @@ public class SCN_RS_10552 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
-		//Creation of dynamic Work Order2
-				sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__Actual_Initial_Response__c\":\""+sActualDateTxt+"\",\"SVMXC__Completed_Date_Time__c\":\""+sCompletedDateTxt+"\",\"SVMXC__State__c\":\"Haryana\"}";
-				sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-				sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		String		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
-				
-				//Creation of dynamic Work Order2
-				sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__Actual_Initial_Response__c\":\""+sActualDateTxt+"\",\"SVMXC__Completed_Date_Time__c\":\""+sCompletedDateTxt+"\",\"SVMXC__State__c\":\"Haryana\"}";
-				sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-				sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		String		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
-				
-		/*
 		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-		*/
+		
 	}
 
 	@Test(retryAnalyzer=Retry.class)
 	public void SCN_RS_10552() throws Exception {
 		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
-		
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 			
-		System.out.println("0000000    "+new java.sql.Date(System.currentTimeMillis()));
 		preRequiste();
-		sWOName="WO-00007127";
+		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
-		/*
+		
 		//Config Sync for process
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 			
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);*/
+		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep); 
 		sFieldServiceName="RS_10552Process";
+		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(sAutoDate.contains(workOrderPo.getEleDateTimeLst().get(2).getAttribute("value")),"Next Scheduled Date is not set to 1st day of the created month in next year.");
+		ExtentManager.logger.log(Status.PASS,"Next Scheduled Date is set to 1st day of the created month in next year.");
+		
+		Assert.assertTrue(( workOrderPo.getEleDateTimeLst().get(3).getAttribute("value")).contains(sOnsiteDate) || (workOrderPo.getEleDateTimeLst().get(3).getAttribute("value")).contains(sPreviousDate),"Actual Onsite Response is not set to current date.");
+		ExtentManager.logger.log(Status.PASS,"Actual Onsite Response is set to current date.");
+		
+		Assert.assertTrue(workOrderPo.getEleDateTimeLst().get(4).getAttribute("value").equals("2"),"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
+		ExtentManager.logger.log(Status.PASS,"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
 		
 		Assert.assertTrue(workOrderPo.getEleCustomerDownOffRdBtn().isDisplayed(), " Customer Down is not OFF for contract");
 		ExtentManager.logger.log(Status.PASS,"Order status is open and Customer down is OFF");
 		
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Billing Type Contract.");
-		
 		//Validate for status is open and customer down is unchecked
 		workOrderPo.getEleOrderStatusCase2Lst().click();;
-		//commonsPo.tap(workOrderPo.getEleOrderStatusCaseLst());
 		commonsPo.switchContext("Native");
 		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Open"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is open.");
@@ -130,23 +132,13 @@ public class SCN_RS_10552 extends BaseLib {
 		commonsPo.getEleDonePickerWheelBtn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
-		System.out.println("-------      VVVVVVVV    --------");
-		/*
-		try {workOrderPo.getEleAutoOnSwitchBtn().click();}
-		catch(Exception e) {
-			commonsPo.tap(workOrderPo.getEleAutoOnSwitchBtn());
-		}
 		
-		System.out.println("-------      VVVVVVVV    --------");
-		
+		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
+		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Billing Type Contract.");
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFFfor Billing Type Contract.");
-		
-		//Validate for Billing type is contract and Auto check box is unchecked
-		workOrderPo.getEleBillingTypeCaseLst().click();;
+		//Validate for Billing type is contract and Auto check box is checked
+		workOrderPo.getEleWOBillingTypeCaseLst().click();;
 		commonsPo.switchContext("Native");
 		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Contract"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
@@ -154,39 +146,27 @@ public class SCN_RS_10552 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.getEleDonePickerWheelBtn().click();
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Webview");*/
+		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		workOrderPo.getEleOrderStatusCase2Lst().click();
 		commonsPo.switchContext("Native");
 		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Open"), " Order status is not open.");
-		ExtentManager.logger.log(Status.PASS,"Order status is open.");
+		ExtentManager.logger.log(Status.PASS,"Order status is still open as customer down is OFF");
 		commonsPo.getEleDonePickerWheelBtn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Courtesy.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Courtesy.");
-		System.out.println("***************      ---------     ****************");
-		System.out.println(workOrderPo.getEleAutoDate1Txt().getAttribute("value"));
+		//Validating for check box is OFF when Billing type is Coutesy
+		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
+		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
 		
 		
-//		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Courtesy.");
 		
-		//Validation of event on the calender
 				
-	    if(workOrderPo.getEleDateTimeLst().get(1).getText().equals("1/1/2020"))
-	    {
-	    	Assert.assertTrue(true,"Work Order event is not displayed on calender");
-	    	ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully on calender.");
-		}
-	    
-	    if(workOrderPo.getEleDateTimeLst().get(2).getText().equals("1/1/2020"))
-	    {
-	    	Assert.assertTrue(true,"Work Order event is not displayed on calender");
-	    	ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully on calender.");
-		}
+	   
 	
 		
 	}
