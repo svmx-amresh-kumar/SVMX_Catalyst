@@ -839,7 +839,6 @@ public class CommonsPO {
 			getAccessibleElement(selectDate).click();
 			getCalendarDone().click();
 			}
-			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
@@ -852,7 +851,7 @@ public class CommonsPO {
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
-			switchContext("Webview");
+			
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		switchContext("Webview");
