@@ -222,7 +222,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		 */
 		int sEndDateint2 = Integer.parseInt("03") + 4;
 		String sEndDate2 = Integer.toString(sEndDateint2);
-		
+		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Cleanup", "03", sEndDate, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Cleanup"));
 		String sEstimatedPricePUnit_labor2 = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");
