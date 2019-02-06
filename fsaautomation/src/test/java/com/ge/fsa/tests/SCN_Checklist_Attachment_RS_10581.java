@@ -46,6 +46,7 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 	String sAttachText ="AttachmentChecklistupload";
 
 	String sAttachmentQuestion1 = null;
+	String sAttachmentQ = "AttachmentQuestion1";
 	public void prereq() throws Exception
 	{	
 		//SanityPreReq sp = new SanityPreReq();
@@ -91,7 +92,7 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		assertFalse(commonsPo.isDisplayedCust(checklistPo.eleAttachNew()));
 		ExtentManager.logger.log(Status.PASS,"Attach New link is not displayed");
-		checklistAttach();
+		checklistPo.checklistAttach(commonsPo, "Choose from Library",sAttachmentQ);
 		assertEquals(checklistPo.eleAttachNew().isDisplayed(),true);
 		ExtentManager.logger.log(Status.PASS,"Attachment New link is displayed post attaching image");
 		//commonsPo.isDisplayedCust(wElement)
@@ -119,8 +120,9 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		commonsPo.tap(checklistPo.eleChecklistImage(),20,20);
 		System.out.println("After attachment image");
 		commonsPo.switchContext("Native");
-		WebElement eleDoneButton = driver.findElement(By.xpath("//*[contains(@label,'Done')]"));
-		eleDoneButton.click();
+		checklistPo.geteleDoneAttachment().click();
+		//WebElement eleDoneButton = driver.findElement(By.xpath("//*[contains(@label,'Done')]"));
+	//	eleDoneButton.click();
 		ExtentManager.logger.log(Status.PASS,"done button was clicked below the image");
 		commonsPo.switchContext("WebView");
 		
@@ -149,36 +151,6 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 
 }
 	
-	public void checklistAttach() throws Exception
-	{
-		System.out.println("Trying to click Attach");
-		commonsPo.switchContext("Native");
-		driver.findElementByAccessibilityId("Attach").click();
-		Thread.sleep(10000);
-		driver.findElementByAccessibilityId("Choose from Library").click();
-		Thread.sleep(10000);
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
-		el.click();
-		List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
-		int numPhotos = photos.size();
-		commonsPo.switchContext("Native");
-		WebElement elem = null;
-		List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
-		int count = lsPhotoGrid.size();
-		if (count==0 || count ==1 ) {
-			 ExtentManager.logger.log(Status.FAIL,"PLease add photos to Device and reexecute tests");
-		} else {
-			count = lsPhotoGrid.size()-1;
-			elem =lsPhotoGrid.get(count);
-			driver.findElement(By.xpath("//*[contains(@label,'"+elem.getText()+"')]")).click();
-			System.out.println("finished Clicking");
-			Thread.sleep(10000);	
-		}
-			commonsPo.switchContext("Webview");
-			Thread.sleep(GenericLib.i30SecSleep);
 	
-	
-	}
 	
 }

@@ -899,25 +899,58 @@ public class CommonsPO {
 	 */
 	public void setDatePicker(int iWheelIndex, int scrollNum) {
 		switchContext("Native");
-		int i = 0;
-		int newTempVal = scrollNum;
-		scrollNum = Math.abs(scrollNum);
-		for (i = 0; i < scrollNum; i++) {
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			Map<String, Object> params = new HashMap<>();
-			if (newTempVal < 0) {
-				System.out.println("Scrolling Down " + scrollNum);
-				params.put("order", "previous");
-
-			} else {
-				System.out.println("Scrolling Up " + scrollNum);
-				params.put("order", "next");
-
+		switch (BaseLib.sOSName) {
+		case "android":
+			Calendar calendar=Calendar.getInstance();
+			Date currentDate=calendar.getTime();
+			if(iWheelIndex==1) {
+				calendar.add(Calendar.DATE, scrollNum);
 			}
-			params.put("offset", 0.15);
-			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
-			js.executeScript("mobile: selectPickerWheelValue", params);
+			else if(iWheelIndex==2) {
+				calendar.add(Calendar.MONTH, scrollNum);
+			}
+			else {
+				calendar.add(Calendar.YEAR, scrollNum);
+			}
+			Date newDate = calendar.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//Select the date
+			getAccessibleElement(selectDate).click();
+			//getCalendarDone().click();
+			break;
+		case "ios":
+			int i = 0;
+			int newTempVal = scrollNum;
+			scrollNum = Math.abs(scrollNum);
+			for (i = 0; i < scrollNum; i++) {
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				Map<String, Object> params = new HashMap<>();
+				if (newTempVal < 0) {
+					System.out.println("Scrolling Down " + scrollNum);
+					params.put("order", "previous");
+	
+				} else {
+					System.out.println("Scrolling Up " + scrollNum);
+					params.put("order", "next");
+	
+				}
+				params.put("offset", 0.15);
+				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
+				js.executeScript("mobile: selectPickerWheelValue", params);
+			}
+			break;
 		}
+		switchContext("Webview");
 	}
 	
 	@FindBy(id = "android:id/hours")
@@ -987,6 +1020,7 @@ public class CommonsPO {
 	 * @param is24hrs
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
+		switchContext("Native");
 		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 		}

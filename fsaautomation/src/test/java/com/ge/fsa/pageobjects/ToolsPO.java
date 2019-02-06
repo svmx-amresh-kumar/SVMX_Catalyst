@@ -265,7 +265,7 @@ public class ToolsPO
 			
 			
 			
-			geteleResetAppLnkk().click();
+			commonsPo.tap(geteleResetAppLnkk());
 			commonsPo.longPress(geteleResetAppLnkk());	
 			getEleYesBtn().click();
 			commonsPo.longPress(getEleYesBtn());
