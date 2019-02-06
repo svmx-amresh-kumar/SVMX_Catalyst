@@ -646,8 +646,8 @@ public class CommonsPO {
 		case "ios":
 			switchContext("Webview");
 			wElement.click();
-			switchContext("Native");
 			setDatePicker(0, iDaysToScroll);
+			switchContext("Native");
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 
@@ -754,7 +754,6 @@ public class CommonsPO {
 			switchContext("Webview");
 			break;
 		case "ios":
-			switchContext("Webview");
 			wElement.click();
 			switchContext("Native");
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
@@ -958,10 +957,10 @@ public class CommonsPO {
 				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 				js.executeScript("mobile: selectPickerWheelValue", params);
 			}
-			switchContext("Webview");
+			
 			break;
 		}
-		switchContext("Webview");
+
 	}
 	
 	@FindBy(id = "android:id/hours")
@@ -1032,7 +1031,6 @@ public class CommonsPO {
 	 * @param is24hrs
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
-		switchContext("Native");
 		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 		}
