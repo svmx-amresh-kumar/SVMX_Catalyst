@@ -154,7 +154,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
 		//toolsPo.getEleStartSyncBtn().click();
 		commonsPo.tap(toolsPo.getEleStartSyncBtn());
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  180);
 	try {
 			//Verification of successful sync
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");

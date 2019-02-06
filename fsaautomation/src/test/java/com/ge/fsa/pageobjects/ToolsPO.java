@@ -178,7 +178,7 @@ public class ToolsPO
 	 */
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
-		GenericLib.lWaitTime=3*60*1000;
+		GenericLib.lWaitTime=2000;
 		
 		//Navigation to Tools screen
 		commonsPo.tap(getEleToolsIcn());	
@@ -218,7 +218,7 @@ public class ToolsPO
 	 */
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=25*60*1000;
+			GenericLib.lWaitTime=2000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
@@ -258,7 +258,7 @@ public class ToolsPO
 		
 		public void Resetapp(CommonsPO commonsPo,ExploreSearchPO exploreSearchPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=5*60*1000;
+			GenericLib.lWaitTime=2000;
 			commonsPo.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
