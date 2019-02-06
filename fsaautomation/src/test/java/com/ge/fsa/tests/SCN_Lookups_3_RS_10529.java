@@ -99,6 +99,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.getElesearchTap().clear();
 		commonsPo.getElesearchTap().sendKeys(sProductName);
 		commonsPo.tap(commonsPo.getElesearchButton());
+		Thread.sleep(GenericLib.iHighSleep);
 		String sProductOptn = workOrderPo.getLblLookupOptns().getText();
 		System.out.println(sProductOptn);
 		assertEquals(sProductOptn, sProductName); // Step 2
