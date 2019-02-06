@@ -402,7 +402,7 @@ public class CommonsPO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not find switch the context");
+			System.out.println("Could not switch the context");
 		}
 
 	}
@@ -905,9 +905,10 @@ public class CommonsPO {
 	 * @param scrollNum
 	 */
 	public void setDatePicker(int iWheelIndex, int scrollNum) {
-		switchContext("Native");
+		
 		switch (BaseLib.sOSName) {
 		case "android":
+			switchContext("Native");
 			Calendar calendar=Calendar.getInstance();
 			Date currentDate=calendar.getTime();
 			if(iWheelIndex==1) {
@@ -934,8 +935,10 @@ public class CommonsPO {
 			//Select the date
 			getAccessibleElement(selectDate).click();
 			//getCalendarDone().click();
+			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Native");
 			int i = 0;
 			int newTempVal = scrollNum;
 			scrollNum = Math.abs(scrollNum);
@@ -955,6 +958,7 @@ public class CommonsPO {
 				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 				js.executeScript("mobile: selectPickerWheelValue", params);
 			}
+			switchContext("Webview");
 			break;
 		}
 		switchContext("Webview");
@@ -1013,6 +1017,7 @@ public class CommonsPO {
 			date=wElement.getAttribute("value");
 			break;
 		}
+		switchContext("webview");
 		return date;
 	}
 
@@ -1066,7 +1071,7 @@ public class CommonsPO {
 		
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			 //List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
 			List<WebElement> listElemets = driver.findElements(By.id("android:id/text1"));
 					  
@@ -1090,14 +1095,14 @@ public class CommonsPO {
 			for (String string : sVals) {
 				System.out.println("Array read = " + string);
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 		break;
 	
 		
 		
 		case "ios":
 			
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			for (int i = 0; i <= sActualValues.length; i++) {
 				IOSElement PFS = (IOSElement) driver
 						.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
@@ -1126,7 +1131,7 @@ public class CommonsPO {
 				System.out.println("Array read = " + string);
 
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 			break;
 			
 		}
