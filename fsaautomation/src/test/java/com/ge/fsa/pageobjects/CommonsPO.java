@@ -950,7 +950,7 @@ public class CommonsPO {
 			}
 			break;
 		}
-		switchContext("webview");
+		switchContext("Webview");
 	}
 	
 	@FindBy(id = "android:id/hours")
@@ -1020,6 +1020,7 @@ public class CommonsPO {
 	 * @param is24hrs
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
+		switchContext("Native");
 		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 		}
