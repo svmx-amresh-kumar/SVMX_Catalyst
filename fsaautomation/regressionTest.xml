@@ -10,8 +10,7 @@
 		<!-- First Delivery -->
 		<suite-file path="sanityTest.xml" />
 		
-		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
-		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
+		
 		<suite-file path="selfDispatchTest.xml" /> <!-- 1 -->
 		<suite-file path="exploreTest.xml" /> <!-- 5 -->
 		<suite-file path="customPicklistTest.xml" /> <!-- 1 -->
@@ -36,7 +35,8 @@
 		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
 
 		<suite-file path="calendarTest.xml" /> <!-- 8 -->
-
+		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
+		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
 
 
 	</suite-files>
