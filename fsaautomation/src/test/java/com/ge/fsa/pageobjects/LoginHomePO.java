@@ -236,7 +236,7 @@ public class LoginHomePO
 	}
 
 
-	public void login_tech2(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo) {
+	public void login_tech2(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 		try 
 		{
 
@@ -249,7 +249,7 @@ public class LoginHomePO
 			getEleLoginBtn().click();
 			Thread.sleep(GenericLib.iLowSleep);
 			try{getEleAllowBtn().click();}catch(Exception e) {}
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 
 
 		}catch(Exception e)
