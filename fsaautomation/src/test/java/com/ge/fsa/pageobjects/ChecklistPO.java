@@ -1,18 +1,20 @@
 package com.ge.fsa.pageobjects;
 
 
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -134,6 +136,33 @@ public class ChecklistPO{
 		return eleChecklistAnswerText = driver.findElement(By.xpath("//div[text()='"+ChecklistTextQuestion+"'][@class='x-innerhtml']/../..//textarea"));
 	}
 	
+	private WebElement eleChecklistInput;
+	public WebElement  geteleChecklistAnswerInput(String ChecklistInput)
+	{
+		return eleChecklistInput = driver.findElement(By.xpath("//div[text()='"+ChecklistInput+"'][@class='x-innerhtml']/../..//input"));
+	}
+	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='Attach New']")
+	private WebElement geteleAttachNew;
+	public WebElement eleAttachNew()
+	{
+		return geteleAttachNew;
+	}
+	 @FindBy(xpath="//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']")
+	private WebElement  geteleChecklistImage;
+	public WebElement eleChecklistImage()
+	{
+		return geteleChecklistImage;
+	}
+
+	
+	 @FindBy(xpath="//div[@class='x-component x-video x-sized x-widthed x-heighted x-floating sfm-checklist-attachment-thumb']")
+		private WebElement  geteleChecklistVideo;
+		public WebElement eleChecklistVideo()
+		{
+			return geteleChecklistVideo;
+		}
+
 	
 	private WebElement eleChecklistAnsPicklist;
 	public WebElement  geteleChecklistAnsPicklist(String ChecklistTextQuestion)
@@ -257,6 +286,14 @@ public class ChecklistPO{
 		return eleopDoneLnk;
 	}
 	
+	@FindBy(xpath ="//*[contains(@label,'Done')]")
+	private WebElement eleDoneattachment;
+	public WebElement geteleDoneAttachment()
+	{
+		return eleDoneattachment;
+	}
+
+	
 	@FindBy(xpath="//span[text() = 'Actions']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -324,11 +361,21 @@ public class ChecklistPO{
     	return eleChecklistErrorBadge;
     }
     
+   
+    
     private WebElement eleSectionNametxt;
     public WebElement  geteleChecklistSectionNametab(String sSectionName)
 	{
 		return eleSectionNametxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sSectionName+"']"));
 	}
+    
+    
+    private WebElement eleDoneAccessibilityid;
+    public WebElement geteleDoneAccessibilityid()
+    {
+    	return eleDoneAccessibilityid = driver.findElementByAccessibilityId("Done");
+    }
+    
     
     
     /*
@@ -346,6 +393,9 @@ public class ChecklistPO{
 		return eleChecklistHelpIcn = driver.findElement(By.xpath("//div[text()='"+sQuestionName+"']/../../..//../../../..//div[@class='x-unsized x-component x-button x-button-svmx-default x-component-svmx-default x-button-no-icon svmx-help-url x-layout-auto-item']"));
 		
 	}
+    
+    
+ 
 	
 	private WebElement eleChecklistStatuslbl;
     public WebElement  getEleChecklistStatusLbl(String sChecklistNames)
@@ -381,8 +431,6 @@ public class ChecklistPO{
            
       } catch (Exception e) {
 			System.out.println("Catch block for back");
-            
-            
             commonsPo.tap(geteleBacktoChecklistslnk());
             commonsPo.tap(geteleBacktoWorkOrderlnk());
       }
@@ -416,6 +464,85 @@ public class ChecklistPO{
 		
 	}
 	
+	
+	public void AllowCamerabutton(CommonsPO commonsPo) throws Exception
+	{
+		commonsPo.switchContext("Native");
+		Thread.sleep(GenericLib.iHighSleep);
+try {
+	driver.findElementByAccessibilityId("OK").click();
+
+} catch (Exception e) {
+	System.out.println("Could not Find OK Popup for camera");
+	commonsPo.switchContext("WebView");
+
+}
+
+
+	}
+	
+	
+	public void checklistAttach(CommonsPO commonsPo, String AttachmentAction, String checklistq) throws Exception
+	{
+		System.out.println("Trying to click Attach");
+		geteleChecklistAttach(checklistq);
+		commonsPo.switchContext("Native");
+		driver.findElementByAccessibilityId("Attach").click();
+		Thread.sleep(10000);
+		driver.findElementByAccessibilityId(AttachmentAction).click();
+		
+		if (AttachmentAction=="Choose from Library"||AttachmentAction=="choose from library") {
+		
+			Thread.sleep(10000);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			AllowCamerabutton(commonsPo);
+			commonsPo.switchContext("Native");
+			WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
+			el.click();
+			List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
+			int numPhotos = photos.size();
+			//commonsPo.switchContext("Native");
+			WebElement elem = null;
+			List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
+			int count = lsPhotoGrid.size();
+				if (count==0 || count ==1 ) {
+					 ExtentManager.logger.log(Status.FAIL,"PLease add photos to Device and reexecute tests");
+				} else {
+					count = lsPhotoGrid.size()-1;
+					elem =lsPhotoGrid.get(count);
+					driver.findElement(By.xpath("//*[contains(@label,'"+elem.getText()+"')]")).click();
+					System.out.println("finished Clicking");
+					Thread.sleep(10000);	
+					
+				}
+		} 
+		if(AttachmentAction=="Take Photo"||AttachmentAction=="take photo") {
+			Thread.sleep(GenericLib.iMedSleep);
+			AllowCamerabutton(commonsPo);
+			commonsPo.switchContext("Native");
+			driver.findElementByAccessibilityId("Take Picture").click();
+			Thread.sleep(3000);
+			driver.findElementByAccessibilityId("Use Photo").click();
+		}
+			
+		if(AttachmentAction=="Take Video"||AttachmentAction=="take video") {
+			Thread.sleep(GenericLib.iMedSleep);
+			AllowCamerabutton(commonsPo);;
+			//com.apple.camera
+			commonsPo.switchContext("Native");
+			driver.findElementByAccessibilityId("Record Video").click();
+			Thread.sleep(5000);
+			System.out.println("Recording 5 secs video");
+			driver.findElementByAccessibilityId("Stop Recording Video").click();
+			driver.findElementByAccessibilityId("Use Video").click();
+		}
+		
+		
+			commonsPo.switchContext("Webview");
+			Thread.sleep(GenericLib.i30SecSleep);
+	
+	
+	}
 	
 }
 

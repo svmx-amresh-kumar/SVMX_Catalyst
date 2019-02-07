@@ -64,12 +64,12 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sCaseWOID = "SCN_Creating_Editing_RS_10574";	
 		sSheetName = "RS_10574";
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		System.out.println(sExploreSearch);
-		
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+//		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+//		System.out.println(sExploreSearch);
+//		
+//		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+//		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
+//		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
 		sSubject = "Testing "+sTestCaseID;
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard
@@ -151,10 +151,10 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 		commonsPo.tap(toolsPo.getEleSyncDataNowLnk());
 		//getEleSyncDataNowLnk().click();
-		commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
-		toolsPo.getEleStartSyncBtn().click();
+		//commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
+		//toolsPo.getEleStartSyncBtn().click();
 		commonsPo.tap(toolsPo.getEleStartSyncBtn());
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  180);
 	try {
 			//Verification of successful sync
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
@@ -234,22 +234,24 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//Navigation to SFM
 				
 				//Set Start time for event
-				workOrderPo.getEleStartDateTimeTxtFld().click();
-				Thread.sleep(GenericLib.iMedSleep);
-				commonsPo.switchContext("Native");
-				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+//				workOrderPo.getEleStartDateTimeTxtFld().click();
+//				Thread.sleep(GenericLib.iMedSleep);
+//				commonsPo.switchContext("Native");
+//				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+				commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0,"0","0");
 				//Edit the subject
-				commonsPo.switchContext("Webview");
+				//commonsPo.switchContext("Webview");
 				workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 				
-				workOrderPo.getEleEndDateTimeTxtFld().click();
-				Thread.sleep(GenericLib.iMedSleep);
-				commonsPo.switchContext("Native");
-				
-				commonsPo.setDatePicker(1, 1);
-				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-				
-				commonsPo.switchContext("Webview");
+//				workOrderPo.getEleEndDateTimeTxtFld().click();
+//				Thread.sleep(GenericLib.iMedSleep);
+//				commonsPo.switchContext("Native");
+//				
+//				commonsPo.setDatePicker(1, 1);
+//				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+//				
+//				commonsPo.switchContext("Webview");
+				commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 0,"0","0");
 				commonsPo.tap(workOrderPo.getEleSaveLnk());
 				Thread.sleep(GenericLib.iLowSleep);
 

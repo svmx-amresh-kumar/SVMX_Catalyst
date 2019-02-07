@@ -3,6 +3,7 @@ package com.ge.fsa.tests;
 import java.io.IOException;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,6 +18,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sProcessName = "10558_Action";
 	String sScriptName = "SCN_CustomAction_RS_10558";
 	String sTestCaseID = "RS_10558";
+	String url = "";
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
@@ -54,15 +56,25 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 //			}
 //			
 //		}
-		driver.context(contextNames.toArray()[contextNames.size()-1].toString());
-		Thread.sleep(GenericLib.i30SecSleep);
-		String url = driver.getCurrentUrl();
+		if(sOSName.contains("android")) {
+			driver.context("NATIVE_APP");
+			Thread.sleep(5000);
+			url = driver.findElement(By.id("com.android.chrome:id/url_bar")).getText();
+			driver.context("WEBVIEW_com.servicemaxinc.svmxfieldserviceapp");
+		}
+		else {
+			driver.context(contextNames.toArray()[contextNames.size()-1].toString());
+			Thread.sleep(GenericLib.i30SecSleep);
+			url = driver.getCurrentUrl();
+		}
+		
         System.out.println("The Url is "+url);
         Assert.assertTrue(url.contains("motogp")&&url.contains(sWOName));
-        driver.close();
+        driver.quit();
 //        Thread.sleep(GenericLib.iMedSleep);
 //        loginHomePo.geteleMotoGpLogin().click();
 //        Thread.sleep(GenericLib.iMedSleep);
+
 		
 	}
 	

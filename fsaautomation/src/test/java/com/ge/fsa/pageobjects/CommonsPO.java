@@ -3,6 +3,7 @@ package com.ge.fsa.pageobjects;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -270,6 +271,8 @@ public class CommonsPO {
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+			.perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 					.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
@@ -399,7 +402,7 @@ public class CommonsPO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not find switch the context");
+			System.out.println("Could not switch the context");
 		}
 
 	}
@@ -641,9 +644,10 @@ public class CommonsPO {
 			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Webview");
 			wElement.click();
-			switchContext("Native");
 			setDatePicker(0, iDaysToScroll);
+			switchContext("Native");
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 
@@ -654,8 +658,9 @@ public class CommonsPO {
 
 			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-
+			break;
 		}
+		switchContext("Webview");
 	}
 	
 	/**
@@ -744,16 +749,17 @@ public class CommonsPO {
 					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 					getCalendarDone().click();
 				}
-				switchContext("Webview");
+				
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
 			switchContext("Native");
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
-				getCalendarDone().click();
+				getEleDonePickerWheelBtn().click();
 				Thread.sleep(1000);
-				getCalendarDone().click();
+				getEleDonePickerWheelBtn().click();
 			} else {
 				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
@@ -763,12 +769,13 @@ public class CommonsPO {
 					timeSetter(sTimeHrs, sTimeMin, "", true);
 					getEleDonePickerWheelBtn().click();
 				}
-
-				switchContext("Webview");
-				Thread.sleep(GenericLib.iLowSleep);
+				
 			}
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
 		}
-
+		switchContext("Webview");
 	}
 	
 	/**
@@ -831,7 +838,6 @@ public class CommonsPO {
 			//Select the date
 			getAccessibleElement(selectDate).click();
 			getCalendarDone().click();
-			switchContext("Webview");
 			}
 			break;
 		case "ios":
@@ -845,11 +851,10 @@ public class CommonsPO {
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
-
-			switchContext("Webview");
+			
 			Thread.sleep(GenericLib.iLowSleep);
 		}
-
+		switchContext("Webview");
 	}
 
 	
@@ -898,26 +903,120 @@ public class CommonsPO {
 	 * @param scrollNum
 	 */
 	public void setDatePicker(int iWheelIndex, int scrollNum) {
-		switchContext("Native");
-		int i = 0;
-		int newTempVal = scrollNum;
-		scrollNum = Math.abs(scrollNum);
-		for (i = 0; i < scrollNum; i++) {
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			Map<String, Object> params = new HashMap<>();
-			if (newTempVal < 0) {
-				System.out.println("Scrolling Down " + scrollNum);
-				params.put("order", "previous");
-
-			} else {
-				System.out.println("Scrolling Up " + scrollNum);
-				params.put("order", "next");
-
+		
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Native");
+			Calendar calendar=Calendar.getInstance();
+			Date currentDate=calendar.getTime();
+			if(iWheelIndex==1) {
+				calendar.add(Calendar.DATE, scrollNum);
 			}
-			params.put("offset", 0.15);
-			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
-			js.executeScript("mobile: selectPickerWheelValue", params);
+			else if(iWheelIndex==2) {
+				calendar.add(Calendar.MONTH, scrollNum);
+			}
+			else {
+				calendar.add(Calendar.YEAR, scrollNum);
+			}
+			Date newDate = calendar.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//Select the date
+			getAccessibleElement(selectDate).click();
+			//getCalendarDone().click();
+			switchContext("Webview");
+			break;
+		case "ios":
+			switchContext("Native");
+			int i = 0;
+			int newTempVal = scrollNum;
+			scrollNum = Math.abs(scrollNum);
+			for (i = 0; i < scrollNum; i++) {
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				Map<String, Object> params = new HashMap<>();
+				if (newTempVal < 0) {
+					System.out.println("Scrolling Down " + scrollNum);
+					params.put("order", "previous");
+	
+				} else {
+					System.out.println("Scrolling Up " + scrollNum);
+					params.put("order", "next");
+	
+				}
+				params.put("offset", 0.15);
+				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
+				js.executeScript("mobile: selectPickerWheelValue", params);
+			}
+			
+			break;
 		}
+
+	}
+	
+	@FindBy(id = "android:id/hours")
+	private WebElement calendarHours;
+
+	public WebElement getCalendarHours() {
+		return calendarHours;
+	}
+	
+	@FindBy(id = "android:id/minutes")
+	private WebElement calendarMinutes;
+
+	public WebElement getCalendarMinutes() {
+		return calendarMinutes;
+	}
+	
+	@FindBy(id = "android:id/am_label")
+	private WebElement calendarAM;
+
+	public WebElement getCalendarAM() {
+		return calendarAM;
+	}
+	
+	@FindBy(id = "android:id/pm_label")
+	private WebElement calendarPM;
+
+	public WebElement getCalendarPM() {
+		return calendarPM;
+	}
+	
+	public String getDate(WebElement wElement,String dateTime) throws InterruptedException {
+		String date="";
+		switch (BaseLib.sOSName) {
+		case "android":
+			tap(wElement, 30, 36);
+			switchContext("Native");
+			date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
+			getCalendarDone().click();
+			if(dateTime.equalsIgnoreCase("datetime")) {
+				String sHours=getCalendarHours().getText();
+				String sMinutes=getCalendarMinutes().getText();
+				String sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
+				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
+				getCalendarDone().click();
+			}
+			switchContext("webview");
+			break;
+		case "ios":
+			setSpecificDate(wElement, "0", "0", "0");
+			date=wElement.getAttribute("value");
+			break;
+		}
+		switchContext("webview");
+		return date;
 	}
 
 	/**
@@ -969,7 +1068,7 @@ public class CommonsPO {
 		
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			 //List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
 			List<WebElement> listElemets = driver.findElements(By.id("android:id/text1"));
 					  
@@ -993,14 +1092,14 @@ public class CommonsPO {
 			for (String string : sVals) {
 				System.out.println("Array read = " + string);
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 		break;
 	
 		
 		
 		case "ios":
 			
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			for (int i = 0; i <= sActualValues.length; i++) {
 				IOSElement PFS = (IOSElement) driver
 						.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
@@ -1029,7 +1128,7 @@ public class CommonsPO {
 				System.out.println("Array read = " + string);
 
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 			break;
 			
 		}
@@ -1355,17 +1454,44 @@ public class CommonsPO {
 			 
 	 }
 	 
-	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO) throws Exception
+	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO, String objapi) throws Exception
 		{
-					String sWorkOrder = null;
-					for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++)
-					{
-						sWorkOrder = calendarPO.getEleWOEventTitleTxt().get(i).getText();
-					    String sSoqlQuery = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWorkOrder+"\'";
-						String sWOid = restServices.restGetSoqlValue(sSoqlQuery,"Id"); 
-						restServices.restDeleterecord("SVMXC__Service_Order__c",sWOid); 
-					    ExtentManager.logger.log(Status.PASS,"Work Order Event is Deleted :"+sWorkOrder);
-					} 
+		 			System.out.println("Entered Deletion of Calendar Events");
+		 			
+		 			ArrayList<String> mylist = new ArrayList<String>();
+		 			String queryeventcount = "SELECT count() FROM "+objapi+"";
+		 			restServices.getAccessToken();
+		 			String  eventcount = restServices.restGetSoqlValue(queryeventcount, "totalSize");	
+		 			System.out.println(eventcount);
+		 			int eventcountint=Integer.parseInt(eventcount);
+		 			
+		 			for (int i = 0; i<eventcountint; i++) {
+		 String Query = "SELECT Id from "+objapi+" limit 1 offset "+i+"";
+		 mylist.add(restServices.restGetSoqlValue(Query,"Id")); 
+		 			}
+		 			
+		 			System.out.println(Arrays.toString(mylist.toArray()));
+		 			
+		
+		  for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
+		  mylist.get(i));
+		  restServices.restDeleterecord(objapi,mylist.get(i)); }
+					
+		}
+	 
+	 /**
+	  * Take screenshot and return the screenshot path to be consumed in Extent logger
+	  * 
+	  * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+	  * @return
+	  */
+		public String takeScreenShot() {
+			
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
+				Set contextNames = driver.getContextHandles();
+				driver.context(contextNames.toArray()[0].toString());
+			}
+			return ExtentManager.getScreenshot();
 		}
 	
 }

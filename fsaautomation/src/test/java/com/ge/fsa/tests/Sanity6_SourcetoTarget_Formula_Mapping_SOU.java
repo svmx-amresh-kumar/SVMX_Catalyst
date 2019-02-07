@@ -136,8 +136,8 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 
 		//Save the workorder updates and validate
-		commonsPo.singleTap(workOrderPo.getEleDoneBtn().getLocation());
-		commonsPo.singleTap(workOrderPo.getEleSaveLnk().getLocation());
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsPo.tap(workOrderPo.getEleSaveLnk());
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
 	

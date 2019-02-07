@@ -97,7 +97,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		
 	
 		// Wait for 5-8 minutes as scheduled data sync will need to start trigger
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400000);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
 		Thread.sleep(GenericLib.i30SecSleep);
 		//Verification of successful sync
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
@@ -116,7 +116,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		
 		
 	//waiting for 5 bare minimum as we need to see capture the refreshing view for scheduled Data Sync.
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400000);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
 		Thread.sleep(GenericLib.i30SecSleep);
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		restServices.getAccessToken();

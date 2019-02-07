@@ -117,14 +117,15 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"1");
 		ExtentManager.logger.log(Status.PASS,"ChecklistBadgeError Displays 1 - Passed");
 	
-		checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsPo.switchContext("Native");
-	    System.out.println("SEt to native view now will click done");
-	    Thread.sleep(GenericLib.iLowSleep);
-	    commonsPo.getEleDonePickerWheelBtn().click();
-	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn2());
-	    commonsPo.switchContext("WebView");
-	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");	    
+//		checklistPo.geteleChecklistAnsDate(sDateq).click();
+//	    commonsPo.switchContext("Native");
+//	    System.out.println("SEt to native view now will click done");
+//	    Thread.sleep(GenericLib.iLowSleep);
+//	    commonsPo.getEleDonePickerWheelBtn().click();
+//	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn2());
+//	    commonsPo.switchContext("WebView");
+//	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");
+		sDateAns=commonsPo.getDate(checklistPo.geteleChecklistAnsDate(sDateq),"date");
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
@@ -135,12 +136,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"2");
 		ExtentManager.logger.log(Status.PASS,"ChecklistBadgeError Displays 2 - Passed");
 		
-	    checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
-	    commonsPo.switchContext("Native");
-	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	    commonsPo.getEleDonePickerWheelBtn().click();
-	    commonsPo.switchContext("WebView");
-	    sDateTimeAns = checklistPo.geteleChecklistAnsDate(sDateTimeq).getAttribute("value");	    
+//	    checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
+//	    commonsPo.switchContext("Native");
+//	   // commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+//	    commonsPo.getEleDonePickerWheelBtn().click();
+//	    commonsPo.switchContext("WebView");
+//	    sDateTimeAns = checklistPo.geteleChecklistAnsDate(sDateTimeq).getAttribute("value");
+		sDateTimeAns=commonsPo.getDate(checklistPo.geteleChecklistAnsDate(sDateTimeq), "dateTime");
 	    System.out.println("direct sdatetime"+sDateTimeAns);	
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");

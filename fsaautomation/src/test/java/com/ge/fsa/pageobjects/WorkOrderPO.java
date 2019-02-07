@@ -1040,6 +1040,21 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleLblRequestedCountry;
 		}
+		
+		@FindBy(xpath="//span[text()='Reset']")
+		private WebElement btnReset;
+		public WebElement getBtnReset()
+		{
+			return btnReset;
+		}
+		
+		@FindBy(xpath="//span[text()='Complex Filter']/../..//input[@type='checkbox']")
+		private WebElement chkBoxComplexFilter;
+		public WebElement getChkBoxComplexFilter()
+		{
+			return chkBoxComplexFilter;
+		}
+		
 		//close---------
 	
 	
@@ -1943,6 +1958,13 @@ import org.openqa.selenium.Rotatable;
 	
 	
 	
+		@FindBy(xpath="//*[text()='Number']/../..//div[@class='x-innerhtml']/../..//input")
+		private WebElement txtNumber;
+		public WebElement getTxtNumber()
+		{
+			return txtNumber;
+		}
+		
 		@FindBy(xpath="//*[text()='No Of Times Assigned']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement NoOfTimesAssigned;
 		public WebElement GetEleNoOfTimesAssigned_Edit_Input()
@@ -2177,7 +2199,65 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eletaponfirstpart;
 		}
-	
+		
+		@FindBy(xpath="//span[text()='Customer Down']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-off x-component-toggle-off']")
+		private WebElement eleCustomerDownOffRdBtn;
+		public WebElement getEleCustomerDownOffRdBtn()
+		{
+			return eleCustomerDownOffRdBtn;
+		}
+		
+		
+		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		private WebElement eleAutoChkBxRdBtn;
+		public WebElement getEleAutoChkBxRdBtn()
+		{
+			return eleAutoChkBxRdBtn;
+		}
+		
+		
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-on x-component-toggle-on']")
+		//@FindBy(xpath="//div[@class='x-togglefield x-sliderfield x-field x-component x-labeled x-label-align-top x-has-width x-widthed x-label-text-align-top x-body-align-start x-no-label-wrap svmx-twocolumn sfmdelivery-column-height x-layout-auto-item']//div[@class='x-body-el x-widthed']")
+		private WebElement eleAutoChkBxOnRdBtn;
+		public WebElement getEleAutoChkBxOnRdBtn()
+		{
+			return eleAutoChkBxOnRdBtn;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-off x-component-toggle-off']")
+		private WebElement eleAutoChkBxOFFRdBtn;
+		public WebElement getEleAutoChkBxOFFRdBtn()
+		{
+			return eleAutoChkBxOFFRdBtn;
+		}
+		@FindBy(xpath="(//*[text()='Order Status']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleOrderStatusCase2Lst;
+		public WebElement getEleOrderStatusCase2Lst()
+		{
+			return eleOrderStatusCase2Lst;
+		}
+		
+		@FindBy(xpath="//span[text()='Auto_Date1']/../..//div[@class='x-innerhtml']")
+		private WebElement eleAutoDate1Txt;
+		public WebElement getEleAutoDate1Txt()
+		{
+			return eleAutoDate1Txt;
+		}
+		
+		
+		@FindBy(xpath="//div[@class='x-unsized x-textinput x-input x-component x-has-width x-widthed']//input[@class='x-input-el']")
+		private List<WebElement> eleDateTimeLst;
+		public List<WebElement> getEleDateTimeLst() {
+			return eleDateTimeLst;
+		}
+		
+		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleWOBillingTypeCaseLst;
+		public WebElement getEleWOBillingTypeCaseLst()
+		{
+			return eleWOBillingTypeCaseLst;
+		}
 	}
 	
 	

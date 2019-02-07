@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
+<suite name="RegressionTest">
 	<listeners>
 		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
@@ -10,29 +10,33 @@
 		<!-- First Delivery -->
 		<suite-file path="sanityTest.xml" />
 		
-		<suite-file path="checklistTest.xml" />
-		<suite-file path="childLineTest.xml" />
-		<suite-file path="configSyncTest.xml" />
-		<suite-file path="createNewRecordTest.xml" />
-		<suite-file path="customActionsTest.xml" />
-		<suite-file path="customPicklistTest.xml" />
-		<suite-file path="dataSyncTest.xml" />
-		<suite-file path="dvrTest.xml" />
-		<suite-file path="exploreTest.xml" />
-		<suite-file path="formulaTest.xml" />
-		<suite-file path="getPriceTest.xml" />
-		<suite-file path="linkedSfmTest.xml" />
-		<suite-file path="lookupTest.xml" />
-		<suite-file path="mappingTest.xml" />
-		<suite-file path="opDocTest.xml" />
-		<suite-file path="productAccountHistoryTest.xml" />
-		<suite-file path="recentItemsTest.xml" />
-		<suite-file path="selfDispatchTest.xml" />
-		<suite-file path="sourceObjectUpdateTest.xml" />
-		<suite-file path="sourceToTargetTest.xml" />
-		<suite-file path="zeroLinesTest.xml" />
-		<suite-file path="calendarTest.xml" />
+		
+		<suite-file path="selfDispatchTest.xml" /> <!-- 1 -->
+		<suite-file path="exploreTest.xml" /> <!-- 5 -->
+		<suite-file path="customPicklistTest.xml" /> <!-- 1 -->
+		<suite-file path="recentItemsTest.xml" /> <!-- 1 -->
+		<suite-file path="productAccountHistoryTest.xml" /> <!-- 1 -->
 
+		<suite-file path="checklistTest.xml" /> <!-- 8 -->
+		<suite-file path="mappingTest.xml" /> <!-- 3 -->
+		<suite-file path="childLineTest.xml" /> <!-- 1 -->
+		<suite-file path="linkedSfmTest.xml" /> <!-- 1 -->
+		<suite-file path="sourceObjectUpdateTest.xml" /> <!--1 -->
+		<suite-file path="dvrTest.xml" /> <!-- 1 -->
+		<suite-file path="zeroLinesTest.xml" /> <!-- 1 -->
+
+		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
+		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
+		
+        <suite-file path="createNewRecordTest.xml" /> <!-- 1 --> 
+        <suite-file path="customActionsTest.xml" /> <!-- 2 -->  
+        <suite-file path="lookupTest.xml" /> <!-- 4 --> 
+        <suite-file path="formulaTest.xml" />  <!-- 1 -->
+		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
+
+		<suite-file path="calendarTest.xml" /> <!-- 8 -->
+		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
+		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
 
 
 	</suite-files>

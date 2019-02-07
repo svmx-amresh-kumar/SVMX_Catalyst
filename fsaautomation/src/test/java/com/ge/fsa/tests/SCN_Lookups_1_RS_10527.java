@@ -27,11 +27,12 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	String sLocName = "Ricardo";
 	String sLocName1 = "Nashville";
 	String sProdName = "SampleProd";
+	String sSearchTxt = "HCSContact";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -82,7 +83,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);	
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact", "totalSize");
+		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
@@ -111,11 +112,14 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
+		commonsPo.lookupSearchOnly(sSearchTxt);
+		Thread.sleep(GenericLib.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
-//		System.out.println("All Accounts "+contactList.size());
+//		System.out.println("All Contacts displayed on FSA "+contactList.size());
 //		System.out.println("All Contacts fetched from Database ="+sAllCon);
 //		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
+		commonsPo.tap(workOrderPo.getBtnReset());
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 7th Case******
 		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "France");

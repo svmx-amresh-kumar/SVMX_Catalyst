@@ -100,7 +100,6 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 				
 	}
-	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10550() throws Exception {
 		
@@ -134,17 +133,19 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
 	    
 	    //Setting up scheduled DAtetime to today.
-	   workOrderPo.getEleScheduledDateTimeTxt().click();	   
-	   commonsPo.switchContext("Native");
-	   commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	   commonsPo.switchContext("WebView");	   
-	   
+	    workOrderPo.getEleScheduledDateTimeTxt().click();	   
+	    commonsPo.switchContext("Native");
+	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+	    commonsPo.switchContext("WebView");	   
+	//    commonsPo.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(),"0", "0", "0");
+	    
 	   //Setting up Scheduled Date to today
-	   workOrderPo.getEleScheduledDateLst().click();
-	   commonsPo.switchContext("Native");
+	    workOrderPo.getEleScheduledDateLst().click();
+	    commonsPo.switchContext("Native");
 	   commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 	   commonsPo.switchContext("WebView");   
-	    	    		
+	   //commonsPo.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
+	   
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
 		

@@ -67,7 +67,8 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
 		try {
 		preRequiste();
-		//sCaseID="00001160";
+		//sWOName="WO-00007492";
+		//sCaseID="00001293";
 		
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -109,7 +110,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWOName),10,10);
 		
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.getEleActionsLnk().click();
+		//workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());	
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
@@ -155,7 +156,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sCaseID),10,10);
 		
 		//Update case reason from server 
-		//sCaseObjectID="5003D000003BacqQAC";
+		//sCaseObjectID="5003D000003CFGQQA4";
 		sObjectApi = "Case";
 		sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sCaseObjectID);
@@ -186,44 +187,59 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sCaseID),10,10);
-				
-		workOrderPo.getEleActionsLnk().click();
+		
 		commonsPo.tap(workOrderPo.getEleActionsLnk());	
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonsPo.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
-
+		Thread.sleep(GenericLib.iMedSleep);
 		//Validation that case reason is not updated
-		workOrderPo.getEleCaseReasonLst().click();
+		try{workOrderPo.getEleCaseReasonLst().click();}catch(Exception e) {commonsPo.tap(workOrderPo.getEleCaseReasonLst());}
 		commonsPo.switchContext("Native");
 		
-		System.out.println(commonsPo.getElePickerWheelPopUp().getText());
-		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
-		ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
-		commonsPo.getEleDonePickerWheelBtn().click();
+		try {
+			Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
+			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
+			Thread.sleep(GenericLib.iMedSleep);
+			commonsPo.getEleDonePickerWheelBtn().click();
+		}
+		catch(Exception e) {
+			Assert.assertTrue(commonsPo.getElePicklistValue("--None--").getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
+			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
+			commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "--None--");
+		}
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
-		
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Selecting Case reason to Existing Problem to make sure sfm is working fine.
-		workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());	
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt("Refresh from Salesforce"));
 		commonsPo.tap(workOrderPo.getEleActionsTxt("Refresh from Salesforce"),20,20);
-
+		Thread.sleep(GenericLib.iMedSleep);
 		
-		workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());	
 		commonsPo.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonsPo.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
-
-		//Validation of Case reason is not updated.
-		workOrderPo.getEleCaseReasonLst().click();
-		commonsPo.switchContext("Native");
-		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Existing problem"), " Case reason is updated before refresh from salesforce");
-		ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.getEleDonePickerWheelBtn().click();
+		
+		//Validation of Case reason is not updated.
+		try{workOrderPo.getEleCaseReasonLst().click();}catch(Exception e) {commonsPo.tap(workOrderPo.getEleCaseReasonLst());}
+		commonsPo.switchContext("Native");
+		Thread.sleep(GenericLib.iMedSleep);
+		try {
+			Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Existing problem"), " Case reason is updated before refresh from salesforce");
+			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
+			Thread.sleep(GenericLib.iMedSleep);
+			commonsPo.getEleDonePickerWheelBtn().click();
+			
+		}
+		catch(Exception e) {
+			Assert.assertTrue(commonsPo.getElePicklistValue("Existing problem").getText().equals("Existing problem"), " Case reason is updated before refresh from salesforce");
+			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
+			commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "Existing problem");
+		}
+		
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		
@@ -274,6 +290,6 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-
+	
 	}
 }

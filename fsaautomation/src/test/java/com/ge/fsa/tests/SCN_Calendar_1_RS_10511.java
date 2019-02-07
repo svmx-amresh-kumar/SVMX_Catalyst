@@ -68,6 +68,9 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	
 		String sTestCaseID="RS_10511_Calender_1";
 		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		
 		//sahi
   		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
   		if(commonsPo.verifySahiExecution()) {
@@ -208,7 +211,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			//lauchNewApp("false");
 			//Login to tech2
 			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
-			Thread.sleep(3000);
+			Thread.sleep(8000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
@@ -224,28 +227,6 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	///////////////////////////////////////////////////////////////////////////////////////////////////		
 		
-	}
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
-		String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
-		restServices.restDeleterecord("Event",sEventIdSFDC_2); 
-		
-		sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event3\'";				
-		String sEventIdSFDC_3 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
-		restServices.restDeleterecord("Event",sEventIdSFDC_3); 
-		
-		
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
-		
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event3\'";				
-		String sEventIdSVMX_3 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_3); 
-		
-					
 	}
 	
 

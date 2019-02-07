@@ -65,6 +65,9 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		String sTestCaseID="RS_10513_Calender_3";
 		
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		
 		//sahi
 		
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
@@ -74,7 +77,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		  
 		  
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
 		  System.out.println("RS-10513");
 		 
 	
@@ -288,18 +291,5 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	//Server create 14 days event
 	}
 	
-	@AfterClass(enabled = true)
-	public void deletedata() throws Exception {
-		//Deleting data created
-		
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_1); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX);
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX14);
-		sSqlWOQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event2\'";
-		String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
-		restServices.restDeleterecord("SVMXC__SVMX_Event__c",sEventIdSVMX_2);
-
-}
 	
-
 }

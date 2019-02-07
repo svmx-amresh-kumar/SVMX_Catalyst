@@ -139,7 +139,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			Thread.sleep(2000);
 			commonsPo.tap(recenItemsPO.getEleClickRecentItems());
 			Thread.sleep(1000);
-			commonsPo.tap(recenItemsPO.gettaponobject("Case ("));
+			//commonsPo.tap(recenItemsPO.gettaponobject("Case ("));
 			String fetchedcasefromrecents =recenItemsPO.geteleChecklistName("Case (").getText();
 			System.out.println(fetchedcasefromrecents);
 			Assert.assertTrue(sCaseID.equals(fetchedcasefromrecents), "case value  is not displayed");
@@ -157,7 +157,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			toolsPo.syncData(commonsPo);
 			
 			commonsPo.tap(recenItemsPO.getEleClickRecentItems());
-			commonsPo.tap(recenItemsPO.gettaponobject("Auto_Custom_Object2 ("));
+			//commonsPo.tap(recenItemsPO.gettaponobject("Auto_Custom_Object2 ("));
 			String fetchedCustom_Objectfromrecents =recenItemsPO.geteleChecklistName("Auto_Custom_Object2 (").getText();
 			System.out.println(fetchedCustom_Objectfromrecents);
 			

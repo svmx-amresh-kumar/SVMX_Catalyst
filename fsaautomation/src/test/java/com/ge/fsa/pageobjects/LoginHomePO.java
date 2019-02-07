@@ -166,9 +166,10 @@ public class LoginHomePO
 
 				commonsPo.switchContext("Webview");
 
-				wait = new WebDriverWait(driver, 4000);
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+
+				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
@@ -235,7 +236,7 @@ public class LoginHomePO
 	}
 
 
-	public void login_tech2(CommonsPO commonsPO, ExploreSearchPO exploreSearchPo) {
+	public void login_tech2(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo) throws InterruptedException {
 		try 
 		{
 
@@ -248,13 +249,15 @@ public class LoginHomePO
 			getEleLoginBtn().click();
 			Thread.sleep(GenericLib.iLowSleep);
 			try{getEleAllowBtn().click();}catch(Exception e) {}
-			commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 
 
 		}catch(Exception e)
-		{		
-			wait = new WebDriverWait(driver, 40000);
-			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+		{	
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+
+//			wait = new WebDriverWait(driver, 40000);
+//			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 			Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 			ExtentManager.logger.log(Status.PASS,"Logged into FSA app successfully");			
 		}
