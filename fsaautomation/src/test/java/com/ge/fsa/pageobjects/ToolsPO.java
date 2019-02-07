@@ -271,10 +271,10 @@ public class ToolsPO
 			commonsPo.longPress(getEleYesBtn());
 			System.out.println("begining Reset App");
 			
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 			
-		wait = new WebDriverWait(driver, 40000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+//		wait = new WebDriverWait(driver, 40000);
+//		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 		ExtentManager.logger.log(Status.PASS,"Rest app successfully");	
 		System.out.println("Rest app successfully");		
