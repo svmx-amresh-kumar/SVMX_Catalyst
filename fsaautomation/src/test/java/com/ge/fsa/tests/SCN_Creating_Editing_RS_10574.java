@@ -154,7 +154,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
 		//toolsPo.getEleStartSyncBtn().click();
 		commonsPo.tap(toolsPo.getEleStartSyncBtn());
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  180);
+		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),180);
 	try {
 			//Verification of successful sync
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
@@ -167,7 +167,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 			commonsPo.tap(toolsPo.getEleSyncDataNowLnk());	
 			toolsPo.getEleStartSyncBtn().click();
 			commonsPo.tap(toolsPo.getEleStartSyncBtn());
-			commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),  GenericLib.lWaitTime);
+			commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),240);
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 		}
@@ -261,7 +261,8 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 				
 				commonsPo.tap(calendarPO.getEleCalendarIcn());
 				Thread.sleep(GenericLib.iLowSleep);
-				toolsPo.syncData(commonsPo);
+				//toolsPo.syncData(commonsPo);
+				syncwithConflict();
 
 				//----------------------------Deleting the work Order,event and sync back
 				DeletionOfWorkOrder();
