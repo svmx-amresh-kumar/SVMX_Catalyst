@@ -402,7 +402,7 @@ public class CommonsPO {
 			}
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not find switch the context");
+			System.out.println("Could not switch the context");
 		}
 
 	}
@@ -641,11 +641,13 @@ public class CommonsPO {
 			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 			getCalendarDone().click();
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Webview");
 			wElement.click();
-			switchContext("Native");
 			setDatePicker(0, iDaysToScroll);
+			switchContext("Native");
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 
@@ -654,9 +656,9 @@ public class CommonsPO {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			
+			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-
+			break;
 		}
 		switchContext("Webview");
 	}
@@ -747,8 +749,9 @@ public class CommonsPO {
 					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 					getCalendarDone().click();
 				}
-				switchContext("Webview");
+				
 			}
+			switchContext("Webview");
 			break;
 		case "ios":
 			wElement.click();
@@ -766,9 +769,11 @@ public class CommonsPO {
 					timeSetter(sTimeHrs, sTimeMin, "", true);
 					getEleDonePickerWheelBtn().click();
 				}
-
-				Thread.sleep(GenericLib.iLowSleep);
+				
 			}
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
 		}
 		switchContext("Webview");
 	}
@@ -846,7 +851,7 @@ public class CommonsPO {
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
-
+			
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		switchContext("Webview");
@@ -898,9 +903,10 @@ public class CommonsPO {
 	 * @param scrollNum
 	 */
 	public void setDatePicker(int iWheelIndex, int scrollNum) {
-		switchContext("Native");
+		
 		switch (BaseLib.sOSName) {
 		case "android":
+			switchContext("Native");
 			Calendar calendar=Calendar.getInstance();
 			Date currentDate=calendar.getTime();
 			if(iWheelIndex==1) {
@@ -927,8 +933,10 @@ public class CommonsPO {
 			//Select the date
 			getAccessibleElement(selectDate).click();
 			//getCalendarDone().click();
+			switchContext("Webview");
 			break;
 		case "ios":
+			switchContext("Native");
 			int i = 0;
 			int newTempVal = scrollNum;
 			scrollNum = Math.abs(scrollNum);
@@ -948,9 +956,10 @@ public class CommonsPO {
 				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 				js.executeScript("mobile: selectPickerWheelValue", params);
 			}
+			
 			break;
 		}
-		switchContext("Webview");
+
 	}
 	
 	@FindBy(id = "android:id/hours")
@@ -1006,6 +1015,7 @@ public class CommonsPO {
 			date=wElement.getAttribute("value");
 			break;
 		}
+		switchContext("webview");
 		return date;
 	}
 
@@ -1020,7 +1030,6 @@ public class CommonsPO {
 	 * @param is24hrs
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
-		switchContext("Native");
 		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 		}
@@ -1059,7 +1068,7 @@ public class CommonsPO {
 		
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			 //List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
 			List<WebElement> listElemets = driver.findElements(By.id("android:id/text1"));
 					  
@@ -1083,14 +1092,14 @@ public class CommonsPO {
 			for (String string : sVals) {
 				System.out.println("Array read = " + string);
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 		break;
 	
 		
 		
 		case "ios":
 			
-			commonsPo.switchContext("Native");
+			switchContext("Native");
 			for (int i = 0; i <= sActualValues.length; i++) {
 				IOSElement PFS = (IOSElement) driver
 						.findElement(By.xpath("//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']"));
@@ -1119,7 +1128,7 @@ public class CommonsPO {
 				System.out.println("Array read = " + string);
 
 			}
-			commonsPo.switchContext("WebView");
+			switchContext("WebView");
 			break;
 			
 		}

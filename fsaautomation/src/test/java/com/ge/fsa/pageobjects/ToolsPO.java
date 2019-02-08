@@ -178,7 +178,7 @@ public class ToolsPO
 	 */
 	public void syncData(CommonsPO commonsPo) throws InterruptedException
 	{
-		GenericLib.lWaitTime=3*60*1000;
+		GenericLib.lWaitTime=2000;
 		
 		//Navigation to Tools screen
 		commonsPo.tap(getEleToolsIcn());	
@@ -218,7 +218,7 @@ public class ToolsPO
 	 */
 		public void configSync(CommonsPO commonsPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=25*60*1000;
+			GenericLib.lWaitTime=2000;
 			
 			//Navigation to Tools screen
 			commonsPo.tap(getEleToolsIcn());	
@@ -258,7 +258,7 @@ public class ToolsPO
 		
 		public void Resetapp(CommonsPO commonsPo,ExploreSearchPO exploreSearchPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=5*60*1000;
+			GenericLib.lWaitTime=2000;
 			commonsPo.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
@@ -271,10 +271,10 @@ public class ToolsPO
 			commonsPo.longPress(getEleYesBtn());
 			System.out.println("begining Reset App");
 			
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 20*60*1000);
+			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 			
-		wait = new WebDriverWait(driver, 40000);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+//		wait = new WebDriverWait(driver, 40000);
+//		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 		Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 		ExtentManager.logger.log(Status.PASS,"Rest app successfully");	
 		System.out.println("Rest app successfully");		

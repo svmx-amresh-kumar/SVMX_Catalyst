@@ -1351,7 +1351,7 @@ import org.openqa.selenium.Rotatable;
 			Thread.sleep(5000);
 			driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]")).getLocation();
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsTxt(sActionsName));
+			commonsPo.tap(getEleActionsTxt(sActionsName),0,20);
 
 		}
 	
@@ -2215,7 +2215,10 @@ import org.openqa.selenium.Rotatable;
 			return eleAutoChkBxRdBtn;
 		}
 		
+		
+		
 		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-on x-component-toggle-on']")
+		//@FindBy(xpath="//div[@class='x-togglefield x-sliderfield x-field x-component x-labeled x-label-align-top x-has-width x-widthed x-label-text-align-top x-body-align-start x-no-label-wrap svmx-twocolumn sfmdelivery-column-height x-layout-auto-item']//div[@class='x-body-el x-widthed']")
 		private WebElement eleAutoChkBxOnRdBtn;
 		public WebElement getEleAutoChkBxOnRdBtn()
 		{
@@ -2243,10 +2246,17 @@ import org.openqa.selenium.Rotatable;
 		}
 		
 		
-		@FindBy(xpath="//div[@class='x-unsized x-component x-label x-label-svmx-default x-component-svmx-default x-has-width x-widthed x-hidden-display x-hidden sfm-readonly-label']/../..//div[@class='x-innerhtml')")
+		@FindBy(xpath="//div[@class='x-unsized x-textinput x-input x-component x-has-width x-widthed']//input[@class='x-input-el']")
 		private List<WebElement> eleDateTimeLst;
 		public List<WebElement> getEleDateTimeLst() {
 			return eleDateTimeLst;
+		}
+		
+		@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+		private WebElement eleWOBillingTypeCaseLst;
+		public WebElement getEleWOBillingTypeCaseLst()
+		{
+			return eleWOBillingTypeCaseLst;
 		}
 	}
 	
