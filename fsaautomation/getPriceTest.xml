@@ -15,9 +15,10 @@
 	
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10538" />
 			<class name="com.ge.fsa.tests.SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
 			
 			-->
-			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10536" />
+			
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10537" />
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10531" />	
 			<class name="com.ge.fsa.tests.SCN_GetPrice_RS_10533" />
