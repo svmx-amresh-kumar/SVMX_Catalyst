@@ -196,7 +196,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(1000);
 		// To Re-verify the Values with the Work Order not Covered 
-		//workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
+		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		Thread.sleep(2000);
 		String sProcessname2 = "EditWoAutoTimesstamp";
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
