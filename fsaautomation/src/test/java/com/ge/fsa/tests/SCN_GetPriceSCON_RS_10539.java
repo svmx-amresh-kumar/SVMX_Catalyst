@@ -376,17 +376,18 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges()))
+		{
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
+		else
+		{
+			System.out.println("Done button clicked successfully");
+		}
 		/**
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
-		
-//		Date localTime1 = new Date();
-//		DateFormat df1 = new SimpleDateFormat("HH");
-//		 
-//		// Tell the DateFormat that I want to show the date in the IST timezone
-//		df1.setTimeZone(TimeZone.getTimeZone("GMT"));
-//		String sdatehours1 = df1.format(localTime1);
-
 
 		int sEndDateint1 = Integer.parseInt("03") + 4;
 		String sEndDate1 = Integer.toString(sEndDateint1);
