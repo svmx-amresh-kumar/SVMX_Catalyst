@@ -490,6 +490,8 @@ try {
 		driver.findElementByAccessibilityId("Attach").click();
 		Thread.sleep(10000);
 		driver.findElementByAccessibilityId(AttachmentAction).click();
+		AllowCamerabutton(commonsPo);
+
 		
 		if (AttachmentAction=="Choose from Library"||AttachmentAction=="choose from library") {
 		
