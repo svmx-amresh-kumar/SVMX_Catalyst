@@ -487,6 +487,7 @@ public class CommonsPO {
 		getElesearchTap().sendKeys(value);
 		tap(getElesearchButton());
 		//tap(getElesearchButton(),30,36);
+		Thread.sleep(5000);
 		tap(getElesearchListItem(value));
 
 	}
