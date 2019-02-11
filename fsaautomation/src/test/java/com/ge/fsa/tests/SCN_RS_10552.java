@@ -80,7 +80,7 @@ public class SCN_RS_10552 extends BaseLib {
 		
 		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		
 	}
 
@@ -138,7 +138,7 @@ public class SCN_RS_10552 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validate for Billing type is contract and Auto check box is checked
-		workOrderPo.getEleWOBillingTypeCaseLst().click();;
+	try {workOrderPo.getEleWOBillingTypeCaseLst().click();}catch(Exception e) {workOrderPo.getEleBillingTypeCaseLst().click();}
 		commonsPo.switchContext("Native");
 		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Contract"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
