@@ -487,6 +487,7 @@ public class CommonsPO {
 		getElesearchTap().sendKeys(value);
 		tap(getElesearchButton());
 		//tap(getElesearchButton(),30,36);
+		Thread.sleep(5000);
 		tap(getElesearchListItem(value));
 
 	}
@@ -1486,12 +1487,15 @@ public class CommonsPO {
 	  * @return
 	  */
 		public String takeScreenShot() {
-			
+			String filePath;
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				Set contextNames = driver.getContextHandles();
-				driver.context(contextNames.toArray()[0].toString());
+				switchContext("Native");
 			}
-			return ExtentManager.getScreenshot();
+			filePath = ExtentManager.getScreenshot();
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
+				switchContext("web_view");
+			}
+			return filePath;
 		}
 	
 }

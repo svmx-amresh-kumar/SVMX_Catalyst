@@ -310,7 +310,9 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
-		//commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
+		
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		// Expenses - 2
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Gas",sProcessname,"4","");
 		//Verifying the fields of Expenses - 2
@@ -342,7 +344,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		}
 		
 		// Expenses - 3
-		//commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		workOrderPo.addExpense(commonsPo, workOrderPo,"Airfare",sProcessname,"4","500");
 		//Verifying the fields of Expenses - 3
 		
@@ -371,18 +373,21 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected- Expense");
 		}
+
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges()))
+		{
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
+		else
+		{
+			System.out.println("Done button clicked successfully");
+		}
 		/**
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
-		//commonsPo.tap(workOrderPo.getEleDoneBtn());
-//		Date localTime1 = new Date();
-//		DateFormat df1 = new SimpleDateFormat("HH");
-//		 
-//		// Tell the DateFormat that I want to show the date in the IST timezone
-//		df1.setTimeZone(TimeZone.getTimeZone("GMT"));
-//		String sdatehours1 = df1.format(localTime1);
-
 
 		int sEndDateint1 = Integer.parseInt("03") + 4;
 		String sEndDate1 = Integer.toString(sEndDateint1);

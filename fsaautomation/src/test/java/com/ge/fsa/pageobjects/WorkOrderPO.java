@@ -1351,7 +1351,7 @@ import org.openqa.selenium.Rotatable;
 			Thread.sleep(5000);
 			driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]")).getLocation();
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsTxt(sActionsName));
+			commonsPo.tap(getEleActionsTxt(sActionsName),0,20);
 
 		}
 	
