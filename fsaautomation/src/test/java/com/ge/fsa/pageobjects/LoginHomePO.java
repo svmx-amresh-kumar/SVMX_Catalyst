@@ -163,7 +163,11 @@ public class LoginHomePO
 			} catch (Exception e) {
 				//The App may be already logged in so check directly for the Explore button to be visible
 				Thread.sleep(10000);
-
+				try {
+					getEleAllowBtn().click();
+				} catch (Exception e1) {
+					System.out.println("Allow not present " + e);
+				}
 				commonsPo.switchContext("Webview");
 
 				//wait = new WebDriverWait(driver, 4000);
