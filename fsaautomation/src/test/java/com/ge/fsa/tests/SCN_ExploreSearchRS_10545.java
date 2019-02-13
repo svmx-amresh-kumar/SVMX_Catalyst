@@ -530,9 +530,9 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	
 	private void validateSearch(String sObjectValue) throws InterruptedException
 	{
-		exploreSearchPo.getEleExploreSearchTxtFld().click();
+		commonsPo.tap(exploreSearchPo.getEleExploreSearchTxtFld());
 
-		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		try {commonsPo.tap(exploreSearchPo.getEleResetFilerBtn());Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue);
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
