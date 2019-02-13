@@ -93,6 +93,8 @@ public void iphone() throws Exception
 //		el6.click();
 //		MobileElement el7 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
 //		el7.click();
+		
+		//Need to remove the autowebview capability, set it to false
 		Thread.sleep(4000);
 		MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
 		el1.click();
