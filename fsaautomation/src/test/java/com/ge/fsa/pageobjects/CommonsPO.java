@@ -19,6 +19,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -244,7 +246,8 @@ public class CommonsPO {
 
 			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
-
+		
+		switchContext("Webview");
 	}
 
 	public void singleTap(Point point) throws InterruptedException {
@@ -1499,6 +1502,16 @@ public class CommonsPO {
 				switchContext("web_view");
 			}
 			return filePath;
+		}
+		
+		
+		public void custRotateScreen() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
 		}
 	
 }
