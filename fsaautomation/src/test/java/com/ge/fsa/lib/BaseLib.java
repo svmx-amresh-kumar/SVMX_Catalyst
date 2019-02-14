@@ -269,6 +269,7 @@ public class BaseLib {
 	{
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
 		{
+			System.out.println("Last Context Exited From : "+driver.getContext());
 			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
 			if(sOSName.toLowerCase().equals("android")) {	
 				Set contextNames = driver.getContextHandles();

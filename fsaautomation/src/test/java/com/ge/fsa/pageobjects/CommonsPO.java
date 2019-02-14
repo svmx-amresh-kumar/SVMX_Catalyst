@@ -19,6 +19,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -144,22 +146,23 @@ public class CommonsPO {
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
-			// Since in android or IOS now has clicks and taps alternatively do a click then a tap
-			try {
-				wElement.click();	
-				clickPassed = true;
-				//System.out.println("Click passed");
-			} catch (Exception e) {
-				System.out.println("Click failed");
-				clickPassed = false;
-				tapExp = e;
-			}
+			
 			
 			
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
-
+				// Since in android or IOS now has clicks and taps alternatively do a click then a tap
+				try {
+					wElement.click();	
+					clickPassed = true;
+					//System.out.println("Click passed");
+				} catch (Exception e) {
+					System.out.println("Click failed");
+					clickPassed = false;
+					tapExp = e;
+				}
+				
 				try {
 					point = wElement.getLocation();
 				} catch (Exception e) {
@@ -176,12 +179,14 @@ public class CommonsPO {
 				}
 
 			}
+			try {
+				String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+				System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
+						+ wElement.getTagName() + " " + wElement.getLocation());
+			} catch (Exception e) {
+				System.out.println("Acting on element : " + e);
+			}
 
-			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-			System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
-					+ wElement.getTagName() + " " + wElement.getLocation());
-
-			
 			// Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
 				x = point.getX() + xNewOffset;
@@ -241,7 +246,8 @@ public class CommonsPO {
 
 			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
-
+		
+		switchContext("Webview");
 	}
 
 	public void singleTap(Point point) throws InterruptedException {
@@ -383,26 +389,32 @@ public class CommonsPO {
 	 */
 	public void switchContext(String sContext) {
 
-		Set contextNames = driver.getContextHandles();
+
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 		// global variable to access across
-		System.out.println("Available Contexts = " + contextNames);
-
-		sNativeApp = contextNames.toArray()[0].toString();
-		sWebView = contextNames.toArray()[1].toString();
 		try {
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = " + sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = " + sWebView);
+			Set<String> availableContextNames = driver.getContextHandles();
+			System.out.println("Available Contexts = " + availableContextNames);
 
+			for (String retreivedContext : availableContextNames) {
+				if (sContext.toLowerCase().contains("chrome")) {
+					if (retreivedContext.toLowerCase().contains("chrome")) {
+						System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+
+				} else {
+					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
+						System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+				}
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not switch the context");
+			System.out.println("Could not switch the context" + e);
 		}
 
 	}
@@ -487,6 +499,7 @@ public class CommonsPO {
 		getElesearchTap().sendKeys(value);
 		tap(getElesearchButton());
 		//tap(getElesearchButton(),30,36);
+		Thread.sleep(5000);
 		tap(getElesearchListItem(value));
 
 	}
@@ -1486,12 +1499,25 @@ public class CommonsPO {
 	  * @return
 	  */
 		public String takeScreenShot() {
-			
+			String filePath;
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				Set contextNames = driver.getContextHandles();
-				driver.context(contextNames.toArray()[0].toString());
+				switchContext("Native");
 			}
-			return ExtentManager.getScreenshot();
+			filePath = ExtentManager.getScreenshot();
+			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
+				switchContext("web_view");
+			}
+			return filePath;
+		}
+		
+		
+		public void custRotateScreen() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
 		}
 	
 }

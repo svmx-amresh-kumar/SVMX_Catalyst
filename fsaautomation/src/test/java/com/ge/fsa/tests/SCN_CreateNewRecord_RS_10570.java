@@ -11,14 +11,14 @@ import com.ge.fsa.pageobjects.CommonsPO;
 
 public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10570Test() throws Exception {
 		
 		String sTestCaseID = "RS_10570";
 		String sScriptName = "Scenario_10570";
 		
 		String sAccountName = "Acme";
-		String sContactName = "stuart law";
+		String sContactName = "Stuart Law";
 		String sProductName = "SampleProd";
 		
 		String sCoName = commonsPo.generaterandomnumber("customAction");
@@ -28,8 +28,19 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		String sEmailDomain = commonsPo.generaterandomnumber("Auto");
 		String sEmail = sEmailDomain+"@svmx.com";
 		
+		// Create Account
+		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println(sAccCount);
+		if(Integer.parseInt(sAccCount)==0) {
+			String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccountName+"\"}");
+			System.out.println("The Acc Id of "+sAccountName+" is "+sAccId);
+			// Create Contact
+			String sConId = restServices.restCreate("Contact?","{\"FirstName\": \"Stuart\", \"LastName\": \"Law\", \"AccountId\": \""+sAccId+"\"}");
+			System.out.println("SS "+sConId);
+		}
+		
 		//**********Create Process on Sahi**********
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//********Login to FSA********
 		loginHomePo.login(commonsPo, exploreSearchPo);

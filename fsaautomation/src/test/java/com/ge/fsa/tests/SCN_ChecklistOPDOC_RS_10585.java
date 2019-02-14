@@ -218,12 +218,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		//workOrderPo.getEleDoneLnk().click();
 		commonsPo.tap(workOrderPo.getEleDoneLnk());
-		Thread.sleep(GenericLib.i30SecSleep);
-		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iHighSleep);
-		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.i30SecSleep);
-		
+		commonsPo.custRotateScreen();
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");

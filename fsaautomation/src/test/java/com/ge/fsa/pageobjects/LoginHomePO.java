@@ -122,8 +122,13 @@ public class LoginHomePO
 
 				//Login from Sign in Page
 				//commonsPO.switchContext("Webview");
-				Assert.assertTrue(getEleSignInBtn().isDisplayed());
+				try {
+				//Assert.assertTrue(getEleSignInBtn().isDisplayed());
 				getEleSignInBtn().click();
+				}catch(Exception e) {
+					System.out.println("ByPassing 'Sign In' Button");
+				}
+				Thread.sleep(3000);
 
 				//Change to SandBox from native mode
 				commonsPo.switchContext("Native");
@@ -136,7 +141,7 @@ public class LoginHomePO
 				touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
 
 				//Enter Credentials in Webview Mode
-				Thread.sleep(10000);
+				Thread.sleep(5000);
 				commonsPo.switchContext("Webview");
 
 				getEleUserNameTxtFld().sendKeys(sUn);
@@ -149,6 +154,7 @@ public class LoginHomePO
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
+				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
 
 				//Wait for the Explore button to be visible
 
@@ -162,8 +168,12 @@ public class LoginHomePO
 
 			} catch (Exception e) {
 				//The App may be already logged in so check directly for the Explore button to be visible
-				Thread.sleep(10000);
-
+				Thread.sleep(3000);
+				try {
+					getEleAllowBtn().click();
+				} catch (Exception e1) {
+					System.out.println("Allow not present " + e);
+				}
 				commonsPo.switchContext("Webview");
 
 				//wait = new WebDriverWait(driver, 4000);
@@ -181,14 +191,18 @@ public class LoginHomePO
 				System.out.println("Login For IOS");
 
 				//Login from Sign in Page
-				Assert.assertTrue(getEleSignInBtn().isDisplayed());
+				try {
+					//Assert.assertTrue(getEleSignInBtn().isDisplayed());
+					getEleSignInBtn().click();
+					}catch(Exception e) {
+						System.out.println("ByPassing 'Sign In' Button");
+					}
+				
 				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
-				// SignIn to App
-				getEleSignInBtn().click();
 
 				//Enter Credentials
 
-				Thread.sleep(10000);
+				Thread.sleep(5000);
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
