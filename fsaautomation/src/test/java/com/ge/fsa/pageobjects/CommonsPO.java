@@ -389,26 +389,32 @@ public class CommonsPO {
 	 */
 	public void switchContext(String sContext) {
 
-		Set contextNames = driver.getContextHandles();
+
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 		// global variable to access across
-		System.out.println("Available Contexts = " + contextNames);
-
-		sNativeApp = contextNames.toArray()[0].toString();
-		sWebView = contextNames.toArray()[1].toString();
 		try {
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = " + sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = " + sWebView);
+			Set<String> availableContextNames = driver.getContextHandles();
+			System.out.println("Available Contexts = " + availableContextNames);
 
+			for (String retreivedContext : availableContextNames) {
+				if (sContext.toLowerCase().contains("chrome")) {
+					if (retreivedContext.toLowerCase().contains("chrome")) {
+						System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+
+				} else {
+					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
+						System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+				}
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not switch the context");
+			System.out.println("Could not switch the context" + e);
 		}
 
 	}
