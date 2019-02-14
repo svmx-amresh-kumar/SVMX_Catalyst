@@ -128,6 +128,7 @@ public class LoginHomePO
 				}catch(Exception e) {
 					System.out.println("ByPassing 'Sign In' Button");
 				}
+				Thread.sleep(3000);
 
 				//Change to SandBox from native mode
 				commonsPo.switchContext("Native");
