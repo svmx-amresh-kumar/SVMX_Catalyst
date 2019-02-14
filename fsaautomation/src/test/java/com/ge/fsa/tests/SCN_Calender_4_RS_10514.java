@@ -146,7 +146,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
 		      //  stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
-				sSalesforceuser = GenericLib.getExcelData(sTestCaseID,sSheetName, "Salesforceuser");
+				sSalesforceuser = GenericLib.getExcelData(sTestCaseID,sSheetName,"Salesforceuser");
 				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  
@@ -158,6 +158,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				 String sWOJson = "{\"SVMXC__Salesforce_User__c\":\"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
 				lauchNewApp("false");
+				
+			
 							loginHomePo.login_tech2(commonsPo, exploreSearchPo);
 			
 
@@ -182,9 +184,9 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			commonsPo.tap(toolsPo.geteleSignOutBtn());
 			commonsPo.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(5000);
-			
-				 sWOJson = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
-				restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
+			System.out.println(sSalesforceuser);
+				 String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
+				restServices.restUpdaterecord(sObjectApi,sWOJson1,techID );
 				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		

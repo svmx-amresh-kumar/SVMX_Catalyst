@@ -143,7 +143,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
 		  System.out.println("created event id from server:"+sEventIdSFDC);
 		  Assert.assertNotNull(sEventIdSFDC, "Record not found");
-		  ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
+		  ExtentManager.logger.log(Status.PASS,"Create SFDC event from Create New Option is Successful");
 		  System.out.println( "//////////////////////////////////////////////////////////////////////////////////////////////"
 		  );
 		   
@@ -226,11 +226,11 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 			Thread.sleep(10000);
 		commonsPo.tap(calendarPO.geteleEndDateTime());
 		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
-	
+	if(BaseLib.sOSName=="ios") {
 		commonsPo.switchContext("Native");
 		commonsPo.getEleDonePickerWheelBtn().click();
 		commonsPo.switchContext("Webview");
-		
+	}
 		
 		String EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
@@ -275,7 +275,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  commonsPo.tap(calendarPO.geteleNewClick());
 		  //commonsPo.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 		  
-		  calendarPO.getelesubjectSFDCtap().sendKeys("Event for more than 14 days");
+		  calendarPO.getelesubjectSFDCtap().sendKeys("SFDC Event for more than 14 days");
 		  //commonsPo.tap(calendarPO.geteleclickupdate());
 		  commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10",
 		  "00"); //set start time to Today
@@ -284,16 +284,15 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  commonsPo.tap(workOrderPo.getEleClickSave());
 		  
 		  commonsPo.tap(toolsPo.getEleToolsIcn());
-		  toolsPo.getEleSyncDataNowLnk().click();
+		 // toolsPo.getEleSyncDataNowLnk().click();
 		  commonsPo.tap(toolsPo.getEleSyncDataNowLnk());
-		  toolsPo.getEleStartSyncBtn().click();
-		  commonsPo.longPress(toolsPo.getEleStartSyncBtn());
-		  commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(), 120000);
+		  commonsPo.tap(toolsPo.getEleStartSyncBtn());
+		  commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(), 120);
 		  
 		  commonsPo.tap(toolsPo.geteleResolve()); String
 		  errormsg=toolsPo.getelesyncconflicterror().getText();
 		  System.out.println(errormsg); 
-		  //Assert.assertEquals(errormsg,"An event can't last longer than 14 days.: Duration");
+		 // Assert.assertEquals(errormsg,"An event can't last longer than 14 days.: Duration");
 		  Assert.assertEquals(errormsg,"An event can't last longer than 14 days.");
 		  ExtentManager.logger.log(Status.
 		  PASS," On client, create an SVMX event longer than 14 days is successful");
@@ -301,7 +300,16 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  commonsPo.tap(toolsPo.geteleResolveissue());
 		  commonsPo.tap(toolsPo.geteleApply()); commonsPo.tap(toolsPo.getEleOkBtn());
 		  toolsPo.syncData(commonsPo);
-		 
+		  
+		  
+		  sObjectApi = "Event"; 
+		  restServices.getAccessToken(); 
+		  sSqlEventQuery="SELECT+Id+from+Event+Where+Subject+=\'SFDC Event for more than 14 days\'";
+		  sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
+		  System.out.println("created event id from server:"+sEventIdSFDC);
+		  Assert.assertNull(sEventIdSFDC, "Record not found");
+		  ExtentManager.logger.log(Status.PASS,"verification of SFDC event more then 14days is Successful");
+		  
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 	}
 	
