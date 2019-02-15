@@ -135,12 +135,15 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 			//verifing event is present at the rite location in month view
 			
+			
 			commonsPo.tap(calendarPO.getElecalendarmonthtap());
+			
+			///////commonsPo.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 			String convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+			commonsPo.tap(calendarPO.getelemonthday(convertedstartday));//check
 			calendarPO.VerifyWOInCalender(commonsPo,sworkOrderName);
 			
 			ExtentManager.logger.log(Status.PASS,"one hour event verification is successful in day,week,month view");
@@ -237,7 +240,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 				  convertedstartday = calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+			commonsPo.tap(calendarPO.getelemonthday(convertedstartday));//check
 			calendarPO.VerifyWOInCalender(commonsPo,sWOName);
 			
 			
@@ -334,7 +337,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 				 convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+			commonsPo.tap(calendarPO.getelemonthday(convertedstartday));//check
 			calendarPO.VerifyWOInCalender(commonsPo,sWOName);
 			
 			

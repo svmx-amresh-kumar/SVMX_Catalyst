@@ -156,7 +156,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			String convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.geteletaponmonthday(convertedstartday));
+			commonsPo.tap(calendarPO.getelemonthday(convertedstartday));
 			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
 			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
 				System.out.println("Found WO in day View " + sWOName);
@@ -180,8 +180,8 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
 			
 			Thread.sleep(3000);
-			calendarPO.geteletaponmonthdayindex(convertedendday).getLocation();
-			commonsPo.tap(calendarPO.geteletaponmonthdayindex(convertedendday));
+			calendarPO.getelemonthday(convertedendday).getLocation();
+			commonsPo.tap(calendarPO.getelemonthday(convertedendday));
 			//commonsPo.tap(calendarPO.geteletaponmonthdayindex());
 			
 			Thread.sleep(3000);

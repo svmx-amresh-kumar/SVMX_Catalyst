@@ -352,7 +352,7 @@ public class CommonsPO {
 			switchContext("Native");
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 					.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-					.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+					.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
 			switchContext("webview");
 			break;
 
