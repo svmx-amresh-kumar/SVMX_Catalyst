@@ -132,10 +132,10 @@ public class LoginHomePO
 
 				//Change to SandBox from native mode
 				commonsPo.switchContext("Native");
-				commonsPo.waitforElement(getEleMenuIcn(), 5);
+				commonsPo.waitforElement(getEleMenuIcn(), 2);
 				getEleMenuIcn().click();
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleSandBxRdBtn(), 5);
+				commonsPo.waitforElement(getEleSandBxRdBtn(), 2);
 				getEleSandBxRdBtn().click();
 
 				touchAction = new TouchAction(driver);
@@ -144,14 +144,14 @@ public class LoginHomePO
 				//Enter Credentials in Webview Mode
 				//Thread.sleep(5000);
 				commonsPo.switchContext("Webview");
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
 				//Thread.sleep(3000);
 				//Either click Allow or Skip it without an exception
 				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 5);
+					commonsPo.waitforElement(getEleAllowBtn(), 2);
 					getEleAllowBtn().click();
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
@@ -159,7 +159,7 @@ public class LoginHomePO
 				
 				
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
 				{
 					Assert.assertTrue(false,"Login Failed");
@@ -178,7 +178,7 @@ public class LoginHomePO
 				//The App may be already logged in so check directly for the Explore button to be visible
 				//Thread.sleep(3000);
 				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 5);
+					commonsPo.waitforElement(getEleAllowBtn(), 2);
 					getEleAllowBtn().click();
 				} catch (Exception e1) {
 					System.out.println("Allow not present " + e);
@@ -188,7 +188,7 @@ public class LoginHomePO
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
 				{
 					Assert.assertTrue(false,"Login Failed");
@@ -218,7 +218,7 @@ public class LoginHomePO
 				//Enter Credentials
 
 				//Thread.sleep(5000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
@@ -235,7 +235,7 @@ public class LoginHomePO
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
 				{
 					Assert.assertTrue(false,"Login Failed");
@@ -256,7 +256,7 @@ public class LoginHomePO
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 5);
+				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
 				{
 					Assert.assertTrue(false,"Login Failed");
