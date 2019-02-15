@@ -395,18 +395,18 @@ public class CommonsPO {
 		// global variable to access across
 		try {
 			Set<String> availableContextNames = driver.getContextHandles();
-			System.out.println("Available Contexts = " + availableContextNames);
+			//System.out.println("Available Contexts = " + availableContextNames);
 
 			for (String retreivedContext : availableContextNames) {
 				if (sContext.toLowerCase().contains("chrome")) {
 					if (retreivedContext.toLowerCase().contains("chrome")) {
-						System.out.println("Setting Context = " + retreivedContext);
+						//System.out.println("Setting Context = " + retreivedContext);
 						driver.context(retreivedContext);
 					}
 
 				} else {
 					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
-						System.out.println("Setting Context = " + retreivedContext);
+						//System.out.println("Setting Context = " + retreivedContext);
 						driver.context(retreivedContext);
 					}
 				}
