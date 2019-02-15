@@ -470,7 +470,7 @@ public class CommonsPO {
 	 * @throws InterruptedException
 	 */
 
-	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException {
+	public boolean waitforElement(WebElement wElement, long lTime) throws InterruptedException {
 		long lElapsedTime = 0;
 		System.out.println("Time to Wait : " + lTime + " sec");
 		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
@@ -479,15 +479,15 @@ public class CommonsPO {
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
-					break;
+					//break;
+					return true;
 				}
 			} catch (Exception ex) {
 			}
 
 			lElapsedTime++;
-
-
 		}
+		return false;
 
 	}
 

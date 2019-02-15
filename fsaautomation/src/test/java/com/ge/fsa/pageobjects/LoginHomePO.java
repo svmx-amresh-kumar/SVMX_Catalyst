@@ -154,8 +154,13 @@ public class LoginHomePO
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
-				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
-
+				
+				
+				Thread.sleep(3000);
+				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				{
+					Assert.assertTrue(false,"Login Failed");
+				}	
 				//Wait for the Explore button to be visible
 
 				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
@@ -178,8 +183,15 @@ public class LoginHomePO
 
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				Thread.sleep(3000);
+				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				{
+					Assert.assertTrue(false,"Login Failed");
 
+				}
+				
 				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
@@ -197,8 +209,6 @@ public class LoginHomePO
 					}catch(Exception e) {
 						System.out.println("ByPassing 'Sign In' Button");
 					}
-				
-				ExtentManager.logger.log(Status.PASS, "FSA app is successfully installed");
 
 				//Enter Credentials
 
@@ -218,7 +228,12 @@ public class LoginHomePO
 				//System.out.println("Logged is successful");break;} }catch(Exception ex) {} }
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 
+				Thread.sleep(3000);
+				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				{
+					Assert.assertTrue(false,"Login Failed");
 
+				}
 				//Wait for the Explore button to be visible
 
 				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
@@ -233,6 +248,12 @@ public class LoginHomePO
 
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
+				Thread.sleep(3000);
+				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				{
+					Assert.assertTrue(false,"Login Failed");
+
+				}
 				
 				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
