@@ -1394,8 +1394,9 @@ public class CommonsPO {
 		boolean isDis = false;
 		switchContext("Webview");
 		try {
-			System.out.println("Element Is displayed ===== " + wElement.isDisplayed());
-			if (wElement.isDisplayed()) {
+			isDis = wElement.isDisplayed();
+			System.out.println("Element Is displayed ===== " + isDis);
+			if (isDis) {
 				System.out.println("Element Is displayed returning true");
 				return true;
 			} else {
@@ -1510,11 +1511,27 @@ public class CommonsPO {
 			return filePath;
 		}
 		
-		
-		public void custRotateScreen() throws InterruptedException {
+		/**
+		 * Rotate the screen to Portrait
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenPortrait() throws InterruptedException {
 			switchContext("Native");
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
+		}
+		
+		/**
+		 * Rotate the screen to Landscape
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenLandscape() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(3000);
 			switchContext("Webview");
 
