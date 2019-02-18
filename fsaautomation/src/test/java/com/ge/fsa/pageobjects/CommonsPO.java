@@ -1017,8 +1017,13 @@ public class CommonsPO {
 			if(dateTime.equalsIgnoreCase("datetime")) {
 				String sHours=getCalendarHours().getText();
 				String sMinutes=getCalendarMinutes().getText();
-				String sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
-				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
+				String sAMPM;
+				try{
+					sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
+				}
+				catch (Exception e) {
+					sAMPM=Integer.parseInt(sHours)>11?"PM":"AM";
+				}				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
 				getCalendarDone().click();
 			}
 			switchContext("webview");
