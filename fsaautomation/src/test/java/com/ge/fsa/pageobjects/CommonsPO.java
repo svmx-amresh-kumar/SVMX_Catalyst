@@ -395,18 +395,18 @@ public class CommonsPO {
 		// global variable to access across
 		try {
 			Set<String> availableContextNames = driver.getContextHandles();
-			System.out.println("Available Contexts = " + availableContextNames);
+			//System.out.println("Available Contexts = " + availableContextNames);
 
 			for (String retreivedContext : availableContextNames) {
 				if (sContext.toLowerCase().contains("chrome")) {
 					if (retreivedContext.toLowerCase().contains("chrome")) {
-						System.out.println("Setting Context = " + retreivedContext);
+						//System.out.println("Setting Context = " + retreivedContext);
 						driver.context(retreivedContext);
 					}
 
 				} else {
 					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
-						System.out.println("Setting Context = " + retreivedContext);
+						//System.out.println("Setting Context = " + retreivedContext);
 						driver.context(retreivedContext);
 					}
 				}
@@ -1399,8 +1399,9 @@ public class CommonsPO {
 		boolean isDis = false;
 		switchContext("Webview");
 		try {
-			System.out.println("Element Is displayed ===== " + wElement.isDisplayed());
-			if (wElement.isDisplayed()) {
+			isDis = wElement.isDisplayed();
+			System.out.println("Element Is displayed ===== " + isDis);
+			if (isDis) {
 				System.out.println("Element Is displayed returning true");
 				return true;
 			} else {
@@ -1515,11 +1516,27 @@ public class CommonsPO {
 			return filePath;
 		}
 		
-		
-		public void custRotateScreen() throws InterruptedException {
+		/**
+		 * Rotate the screen to Portrait
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenPortrait() throws InterruptedException {
 			switchContext("Native");
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
+		}
+		
+		/**
+		 * Rotate the screen to Landscape
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenLandscape() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(3000);
 			switchContext("Webview");
 
