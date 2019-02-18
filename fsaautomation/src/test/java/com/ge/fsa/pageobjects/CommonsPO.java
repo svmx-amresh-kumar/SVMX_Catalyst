@@ -772,7 +772,7 @@ public class CommonsPO {
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 				Thread.sleep(1000);
-				getEleDonePickerWheelBtn().click();
+				//getEleDonePickerWheelBtn().click();
 			} else {
 				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
