@@ -1497,5 +1497,15 @@ public class CommonsPO {
 			}
 			return filePath;
 		}
+		
+		public int getHeaderCount(Object obj) {
+			int count = 0;
+			if(obj instanceof WorkOrderPO) {
+				WorkOrderPO wO = (WorkOrderPO)obj;
+				count = Integer.parseInt(wO.getTxtFullNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+			}
+
+			return count;
+		}
 	
 }

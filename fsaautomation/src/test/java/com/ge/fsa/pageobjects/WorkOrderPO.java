@@ -1055,6 +1055,13 @@ import org.openqa.selenium.Rotatable;
 			return chkBoxComplexFilter;
 		}
 		
+		@FindBy(xpath="//div[contains(text(),'Full Name')]")
+		private WebElement txtFullNameHeader;
+		public WebElement getTxtFullNameHeader()
+		{
+			return txtFullNameHeader;
+		}
+		
 		//close---------
 	
 	
@@ -1729,8 +1736,6 @@ import org.openqa.selenium.Rotatable;
 			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
 	
 		}
-	
-	
 	
 		// get Account from header
 		@FindBy(xpath="//*[text()='Account']/../..//div[@class='x-innerhtml']/../..//input")
