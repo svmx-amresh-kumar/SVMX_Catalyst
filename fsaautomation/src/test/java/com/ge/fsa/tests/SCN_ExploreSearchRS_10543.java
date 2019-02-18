@@ -205,7 +205,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		catch(Exception e) {
 			Assert.assertTrue(commonsPo.getElePicklistValue("--None--").getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
 			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
-			commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "--None--");
+			commonsPo.getElePicklistValue("--None--").click();
 		}
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
@@ -237,7 +237,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		catch(Exception e) {
 			Assert.assertTrue(commonsPo.getElePicklistValue("Existing problem").getText().equals("Existing problem"), " Case reason is updated before refresh from salesforce");
 			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
-			commonsPo.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "Existing problem");
+			commonsPo.getElePicklistValue("Existing problem").click();
 		}
 		
 		Thread.sleep(GenericLib.iMedSleep);

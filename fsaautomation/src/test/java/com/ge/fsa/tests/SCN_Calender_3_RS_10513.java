@@ -64,7 +64,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
 		String sTestCaseID="RS_10513_Calender_3";
-		
+	
 		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
@@ -100,7 +100,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			
 			//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsPo);
 		
 			Thread.sleep(GenericLib.iMedSleep);
 		
@@ -160,7 +160,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 				toolsPo.syncData(commonsPo);
 			
 			String stempDate=calendarPO.convertedformate(endtimezero);
-			
+		
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 		
@@ -182,20 +182,14 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 					Thread.sleep(3000);
 				}
 			
-			/*commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_2));
-			System.out.println("!getEleworkordernumonCalendarWeek");
-			Thread.sleep(5000);*/
-			
-		
-			
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimecal);
-		 
+	 
 		Assert.assertEquals(stempDate,EndDateTimecal, "End Date time value mapped is not displayed");
 		commonsPo.tap(workOrderPo.getEleCancelLink());
 		ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful");
 	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");	
-		
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//	On client, edit one of the events created 
@@ -215,12 +209,12 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 		
 		commonsPo.tap(calendarPO.geteleEndDateTime());
-		//commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
-		
+		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
+		if(BaseLib.sOSName=="ios") {
 		commonsPo.switchContext("Native");
 		commonsPo.getEleDonePickerWheelBtn().click();
 		commonsPo.switchContext("Webview");
-		
+		}
 	
 		String EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
@@ -287,7 +281,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
-	
+
 	//Server create 14 days event
 	}
 	
