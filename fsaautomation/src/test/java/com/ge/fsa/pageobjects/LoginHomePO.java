@@ -159,8 +159,8 @@ public class LoginHomePO
 				
 				
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				
+				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
 				{
 					Assert.assertTrue(false,"Login Failed");
 				}	
@@ -181,15 +181,15 @@ public class LoginHomePO
 					commonsPo.waitforElement(getEleAllowBtn(), 2);
 					getEleAllowBtn().click();
 				} catch (Exception e1) {
-					System.out.println("Allow not present " + e);
+					System.out.println("Allow not present ");
 				}
 				commonsPo.switchContext("Webview");
 
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
+				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
 				{
 					Assert.assertTrue(false,"Login Failed");
 
@@ -235,8 +235,8 @@ public class LoginHomePO
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
+				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
 				{
 					Assert.assertTrue(false,"Login Failed");
 
@@ -256,8 +256,8 @@ public class LoginHomePO
 				//wait = new WebDriverWait(driver, 4000);
 				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
 				//Thread.sleep(3000);
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.isDisplayedCust(getEleUserNameTxtFld()))
+				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
+				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
 				{
 					Assert.assertTrue(false,"Login Failed");
 
