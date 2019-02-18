@@ -120,11 +120,21 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Component is  displayed");
 		
 		//Set the schedule Date for future date by 2 days
-		workOrderPo.getEleIBScheduledTxtFld().click();
+		try{
+			workOrderPo.getEleIBScheduledTxtFld().click();
+			Thread.sleep(GenericLib.iMedSleep);
+			commonsPo.setDatePicker(1, 2);
+			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+		}
+		catch(Exception e) {
+			commonsPo.tap(workOrderPo.getEleIBScheduledTxtFld());
+			Thread.sleep(GenericLib.iMedSleep);
+			commonsPo.setDatePicker(1, 2);
+			commonsPo.switchContext("native");
+			commonsPo.getCalendarDone().click();
+			commonsPo.switchContext("webview");
+		}
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.setDatePicker(1, 2);
-		commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-		
 		//Save the case created by IB
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleClickSave());

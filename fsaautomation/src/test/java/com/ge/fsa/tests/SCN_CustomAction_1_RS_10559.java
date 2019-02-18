@@ -63,8 +63,12 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
-		workOrderPo.getEleActionsLnk().click();
-		commonsPo.tap(workOrderPo.getEleActionsLnk());
+		try{
+			workOrderPo.getEleActionsLnk().click();
+		}
+		catch(Exception e) {
+			commonsPo.tap(workOrderPo.getEleActionsLnk());
+		}
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -78,14 +82,23 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 //		System.out.println("Build Up Time "+sCurrentDate);
 //		System.out.println(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent"));
 //		Assert.assertTrue(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent").contains(sCurrentDate));
-		workOrderPo.getelecancelbutton().click();
-		commonsPo.tap(workOrderPo.getelecancelbutton());
-		workOrderPo.geteleDiscardChangesbutton().click();
-		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
+		try{
+			workOrderPo.getelecancelbutton().click();
+			workOrderPo.geteleDiscardChangesbutton().click();
+		}
+		catch(Exception e){
+			commonsPo.tap(workOrderPo.getelecancelbutton());
+			commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
+		}
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 		Thread.sleep(GenericLib.i30SecSleep);
-		workOrderPo.getEleActionsLnk().click();
-		commonsPo.tap(workOrderPo.getEleActionsLnk());
+		try{
+			workOrderPo.getEleActionsLnk().click();
+		}
+		catch (Exception e) {
+			commonsPo.tap(workOrderPo.getEleActionsLnk());
+		}
+		
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		workOrderPo.getEleclickparts(sProductName).click();
