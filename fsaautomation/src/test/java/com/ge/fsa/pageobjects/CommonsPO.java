@@ -491,7 +491,7 @@ public class CommonsPO {
 		System.out.println("Waiting For Element : " + wElement.toString());
 		}
 		while (lElapsedTime != lTime) {
-			//Thread.sleep(1000);
+			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
