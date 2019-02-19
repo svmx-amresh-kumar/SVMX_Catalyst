@@ -123,18 +123,15 @@ public class LoginHomePO
 				//Login from Sign in Page
 				//commonsPO.switchContext("Webview");
 				try {
-				//Assert.assertTrue(getEleSignInBtn().isDisplayed());
-				getEleSignInBtn().click();
+					getEleSignInBtn().click();
 				}catch(Exception e) {
 					System.out.println("ByPassing 'Sign In' Button");
 				}
-				//Thread.sleep(3000);
 
 				//Change to SandBox from native mode
 				commonsPo.switchContext("Native");
 				commonsPo.waitforElement(getEleMenuIcn(), 2);
 				getEleMenuIcn().click();
-				//Thread.sleep(3000);
 				commonsPo.waitforElement(getEleSandBxRdBtn(), 2);
 				getEleSandBxRdBtn().click();
 
@@ -142,13 +139,11 @@ public class LoginHomePO
 				touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
 
 				//Enter Credentials in Webview Mode
-				//Thread.sleep(5000);
 				commonsPo.switchContext("Webview");
 				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
-				//Thread.sleep(3000);
 				//Either click Allow or Skip it without an exception
 				try {
 					commonsPo.waitforElement(getEleAllowBtn(), 2);
@@ -156,27 +151,17 @@ public class LoginHomePO
 				} catch (Exception e) {
 					System.out.println("Allow not present " + e);
 				}
-				
-				
-				//Thread.sleep(3000);
-				
-				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
-				{
-					Assert.assertTrue(false,"Login Failed");
-				}	
+
+				//Check if username field is not displayed
+				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-
-				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
-
-				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Logged in Successfully");
 
 			} catch (Exception e) {
 				//The App may be already logged in so check directly for the Explore button to be visible
-				//Thread.sleep(3000);
+
 				try {
 					commonsPo.waitforElement(getEleAllowBtn(), 2);
 					getEleAllowBtn().click();
@@ -184,20 +169,10 @@ public class LoginHomePO
 					System.out.println("Allow not present ");
 				}
 				commonsPo.switchContext("Webview");
-
-				//wait = new WebDriverWait(driver, 4000);
-				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-				//Thread.sleep(3000);
-				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
-				{
-					Assert.assertTrue(false,"Login Failed");
-
-				}
-				
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
-
-				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				//Check if username field is not displayed
+				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+				//Wait for the Explore button to be visible
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
 				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Already installed and logged in");
 			}
@@ -209,15 +184,12 @@ public class LoginHomePO
 
 				//Login from Sign in Page
 				try {
-					//Assert.assertTrue(getEleSignInBtn().isDisplayed());
 					getEleSignInBtn().click();
-					}catch(Exception e) {
-						System.out.println("ByPassing 'Sign In' Button");
-					}
+				}catch(Exception e) {
+					System.out.println("ByPassing 'Sign In' Button");
+				}
 
 				//Enter Credentials
-
-				//Thread.sleep(5000);
 				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
@@ -227,24 +199,10 @@ public class LoginHomePO
 					getEleAllowBtn().click();
 				} catch (Exception e) {
 				}
-				//commonsPO.waitforElement(exploreSearchPo.getEleExploreIcn(), 20 * 60 * 1000);
-
-				//while(true) { try{ if(getEleExploreIcn().isDisplayed()||
-				//(lElapsedTime==20*60*1000)) {
-				//System.out.println("Logged is successful");break;} }catch(Exception ex) {} }
-				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-
-				//Thread.sleep(3000);
-				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
-				{
-					Assert.assertTrue(false,"Login Failed");
-
-				}
+				//Check if username field is not displayed
+				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
-				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
 				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 				System.out.println("Logged in Successfully");
 
@@ -252,27 +210,19 @@ public class LoginHomePO
 			} catch (Exception e) {
 
 				//The App may be already logged in so check directly for the Explore button to be visible
-
-				//wait = new WebDriverWait(driver, 4000);
-				//wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
-				//Thread.sleep(3000);
-				//commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				if(commonsPo.waitforElement(getEleUserNameTxtFld(), 2))
-				{
-					Assert.assertTrue(false,"Login Failed");
-
-				}
-				
-				commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
-				Assert.assertTrue(exploreSearchPo.getEleExploreIcn().isDisplayed());
+				//Check if username field is not displayed
+				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+				//Wait for the Explore button to be visible
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
 				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-				System.out.println("Already installed and logged in");
+				System.out.println("Logged in Successfully");
+
 			}
 			break;
-			
-			default:
-				System.out.println("OS Error");
-				break;
+
+		default:
+			System.out.println("OS Error");
+			break;
 
 		}
 

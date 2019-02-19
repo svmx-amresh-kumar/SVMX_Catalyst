@@ -27,7 +27,9 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -479,16 +481,21 @@ public class CommonsPO {
 	 * @throws InterruptedException
 	 */
 
-	public boolean waitforElement(WebElement wElement, long lTime) throws InterruptedException {
-		long lElapsedTime = 0;
+	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
+		int lElapsedTime = 0;
 		System.out.println("Time to Wait : " + lTime + " sec");
+		if(wElement.toString().contains("->")) {
 		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
 		System.out.println("Waiting For Element : " + printElement);
+
+		}else {
+		System.out.println("Waiting For Element : " + wElement.toString());
+		}
 		while (lElapsedTime != lTime) {
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
-					//break;
+					System.out.println("Element is displayed");
 					return true;
 				}
 			} catch (Exception ex) {
@@ -496,6 +503,7 @@ public class CommonsPO {
 
 			lElapsedTime++;
 		}
+		System.out.println("Element is not displayed");
 		return false;
 
 	}
@@ -1409,17 +1417,16 @@ public class CommonsPO {
 		switchContext("Webview");
 		try {
 			isDis = wElement.isDisplayed();
-			System.out.println("Element Is displayed ===== " + isDis);
 			if (isDis) {
-				System.out.println("Element Is displayed returning true");
+				System.out.println("Element is visible");
 				return true;
 			} else {
-				System.out.println("Element Not displayed returning false");
+				System.out.println("Element is not visible");
 				return false;
 
 			}
 		} catch (Exception e) {
-			System.out.println("Element Not displayed returning false");
+			System.out.println("Element is not visible");
 			return false;
 		}
 
