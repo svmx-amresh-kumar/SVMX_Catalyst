@@ -46,7 +46,6 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 
-
 		// Create product
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
@@ -70,9 +69,9 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		System.out.println(sIBName2);
 		
-		//sIBName1 ="IB_10542_22102018151352";
-		//sIBName2 = "IB_10542_22102018151302";
-		//sAccountName="IB_10542_22102018151257account";		
+		//sIBName1 ="IB_10542_19022019152503";
+		//sIBName2 = "IB_10542_19022019152508";
+		//sAccountName="IB_10542_19022019152508account";		
 	
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
@@ -87,7 +86,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
 		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
 		preRequiste();
-		
+			
 		//Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
@@ -106,7 +105,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
-
+		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
@@ -124,7 +123,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 			workOrderPo.getEleIBScheduledTxtFld().click();
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.setDatePicker(1, 2);
-			commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
+			commonsPo.getEleDonePickerWheelBtn().click();
 		}
 		catch(Exception e) {
 			commonsPo.tap(workOrderPo.getEleIBScheduledTxtFld());
@@ -135,14 +134,15 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 			commonsPo.switchContext("webview");
 		}
 		Thread.sleep(GenericLib.iMedSleep);
-		//Save the case created by IB
+		//Save the case created byx IB
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
-
+		try {
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
+		}catch(Exception e) {}
 		
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
