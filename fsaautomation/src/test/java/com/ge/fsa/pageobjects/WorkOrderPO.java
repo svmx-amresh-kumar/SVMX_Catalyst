@@ -1062,6 +1062,13 @@ import org.openqa.selenium.Rotatable;
 			return txtFullNameHeader;
 		}
 		
+		@FindBy(xpath="//div[contains(text(),'Location Name')]")
+		private WebElement txtLocNameHeader;
+		public WebElement getTxtLocNameHeader()
+		{
+			return txtLocNameHeader;
+		}
+		
 		//close---------
 	
 	
