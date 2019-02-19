@@ -208,7 +208,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		System.out.println("tap on pencil icon");
 		commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 		
-		commonsPo.tap(calendarPO.geteleEndDateTime());
+		//commonsPo.tap(calendarPO.geteleEndDateTime());
 		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
 		if(BaseLib.sOSName=="ios") {
 		commonsPo.switchContext("Native");

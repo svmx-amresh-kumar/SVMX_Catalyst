@@ -71,9 +71,6 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 			System.out.println("Product Id is "+sProdId);
 		}
 		
-		
-		
-		
 		//******Creating Work Order******
 		String sWoID  = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println("Wo ID "+sWoID);
@@ -91,10 +88,18 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
-//		System.out.println("Contacts without Account "+contactList.size());
+		System.out.println("Contacts without Account "+contactList.size());
+		for(WebElement we:contactList) {
+			System.out.println(we.getText());
+		}
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
-//		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
-		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
+		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
+		}
+		else {
+			Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
+		}
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 2nd Case******
 		commonsPo.tap(workOrderPo.getLblAccount());
@@ -104,7 +109,12 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		System.out.println("Contacts with Account Acme "+contactList.size());
 		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
 //		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sConWithAcme));
+		}
+		else {
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
+		}
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
@@ -118,7 +128,12 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		System.out.println("All Contacts displayed on FSA "+contactList.size());
 //		System.out.println("All Contacts fetched from Database ="+sAllCon);
 //		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
+		}
+		else {
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
+		}
 		commonsPo.tap(workOrderPo.getBtnReset());
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 7th Case******
@@ -163,3 +178,4 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		}
 	}
 }
+

@@ -12,6 +12,8 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -115,10 +117,12 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 			}
 			
 			catch(Exception e) {
-				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI");
+				
+				//ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI");
+				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI",MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
 			}
-			//Assert.assertTrue(workOrderPo.getEleChildLine1IssueFound().isDisplayed(), "1 Issue Found Error message is not Popped");
+			
 
 			commonsPo.tap(workOrderPo.getEleChildLine1IssueFound());
 			commonsPo.tap(workOrderPo.getEleNoLaborEntry());
@@ -130,7 +134,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"2 Issues Found Error message is not Popped");
+			ExtentManager.logger.log(Status.FAIL,"2 Issues Found Error message is not Popped Up",MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 
 		

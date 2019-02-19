@@ -772,7 +772,7 @@ public class CommonsPO {
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 				Thread.sleep(1000);
-				getEleDonePickerWheelBtn().click();
+				//getEleDonePickerWheelBtn().click();
 			} else {
 				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
@@ -1516,6 +1516,18 @@ public class CommonsPO {
 			return filePath;
 		}
 		
+
+		public int getHeaderCount(Object obj) {
+			int count = 0;
+			if(obj instanceof WorkOrderPO) {
+				WorkOrderPO wO = (WorkOrderPO)obj;
+				count = Integer.parseInt(wO.getTxtFullNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+			}
+
+			return count;
+			
+		}
+
 		/**
 		 * Rotate the screen to Portrait
 		 * @throws InterruptedException
@@ -1539,6 +1551,7 @@ public class CommonsPO {
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(3000);
 			switchContext("Webview");
+
 
 		}
 	

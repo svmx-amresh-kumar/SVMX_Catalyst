@@ -82,10 +82,6 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  System.out.println("RS-11859");
 		 
 		 
-		 
-		 
-		 
-		 
 	
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
@@ -100,14 +96,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  //Pre Login to app 
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		  
-		  //config sync 
-		//toolsPo.configSync(commonsPo);
-		  Thread.sleep(GenericLib.iMedSleep);
-		  
-		  
-		  //Data Sync for WO's created 
-		// toolsPo.syncData(commonsPo);
-		  Thread.sleep(GenericLib.iMedSleep);
+	
 		  
 		  /////////////////////////////////////////////////////////////////////////////
 		  //////////////////////////////////////////////// //verify WO event is presentor not 
@@ -199,21 +188,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 
 	//	On client, edit one of the events created 
 		
-		/*
-		 * try { commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
-		 * Thread.sleep(3000);} catch (Exception e) {
-		 * commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1)); }
-		 */
 	
-		/*
-		 * try { commonsPo.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1));
-		 * //tap on pencil icon System.out.println("tap on pencil icon");
-		 * commonsPo.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20);
-		 * commonsPo.tap(calendarPO.geteleEndDateTime()); } catch (Exception e) {
-		 * commonsPo.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
-		 * commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
-		 * commonsPo.tap(calendarPO.geteleEndDateTime()); Thread.sleep(3000); }
-		 */
 		commonsPo.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 		calendarPO.geteleWOendpoint("09:00").getLocation();
@@ -224,8 +199,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		commonsPo.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_2),20,20);//getelepenciliconcalmultidaysfdc
 
 			Thread.sleep(10000);
-		commonsPo.tap(calendarPO.geteleEndDateTime());
-		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
+		//commonsPo.tap(calendarPO.geteleEndDateTime());
+		commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTime(), -1,"15","00");
 	if(BaseLib.sOSName=="ios") {
 		commonsPo.switchContext("Native");
 		commonsPo.getEleDonePickerWheelBtn().click();
@@ -246,7 +221,10 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
         System.out.println("#####################");
         commonsPo.tap(workOrderPo.getEleYesBtn());
         Thread.sleep(3000);
-       toolsPo.syncData(commonsPo);
+    
+        
+        
+        toolsPo.syncData(commonsPo);
         
        
        sObjectApi = "Event"; 
@@ -277,8 +255,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  
 		  calendarPO.getelesubjectSFDCtap().sendKeys("SFDC Event for more than 14 days");
 		  //commonsPo.tap(calendarPO.geteleclickupdate());
-		  commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10",
-		  "00"); //set start time to Today
+		  commonsPo.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10","00"); //set start time to Today
 		  commonsPo.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 18,"10","00");
 		  
 		  commonsPo.tap(workOrderPo.getEleClickSave());

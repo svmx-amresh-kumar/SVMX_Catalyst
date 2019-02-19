@@ -21,6 +21,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	String sAccountName = "AshwiniAutoAcc";
 	String sProdName = "SampleProd";
 	String sSearchTxt = "HCSContact";
+	int getContactCount = 0;
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
@@ -82,7 +83,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sFieldProcessName);
+		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, "WO-00008012", sFieldProcessName);
 		//******Validate 4th Case******
 		workOrderPo.addParts(commonsPo, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
@@ -90,10 +91,15 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
-//		System.out.println("Contacts without Account "+contactList.size());
+		System.out.println("Contacts without Account "+contactList.size());
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
-		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
-//		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
+//		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
+		}
+		else {
+			Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
+		}
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 5th Case******
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
@@ -101,16 +107,26 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		commonsPo.lookupSearch(sAccountName);
 		commonsPo.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
-//		System.out.println("Contacts with Account Acme "+contactList.size());
-		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
-//		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
-		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
+//		System.out.println("Contacts with Account "+contactList.size());
+//		for(WebElement we:contactList) {
+//			System.out.println(we.getText());
+//		}
+		String sContactWithAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
+//		System.out.println("Contacts with Account fetched from Database ="+sContactWithAcc);
+		if(sOSName.equals("android")) {
+//			getContactCount = Integer.parseInt(workOrderPo.getTxtFullNameHeader().getText().substring(workOrderPo.getTxtFullNameHeader().getText().indexOf('(')+1,workOrderPo.getTxtFullNameHeader().getText().indexOf(')')));
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sContactWithAcc));
+		}
+		else {
+			Assert.assertEquals(contactList.size(), Integer.parseInt(sContactWithAcc));
+		}
+		
 		//******Validate 6th Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iMedSleep);
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
-			workOrderPo.getcheckBoxAccount01().click();
+			workOrderPo.getcheckBoxAccount01().click(); 
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 //			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
 		}
@@ -121,7 +137,14 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 //		System.out.println("All Accounts "+contactList.size());
 //		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
-		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
+//		System.out.println("All Accounts fetched from DB "+sAllCon);
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
+		}
+		else {
+			Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
+		}
+		
 		
 	}
 }
