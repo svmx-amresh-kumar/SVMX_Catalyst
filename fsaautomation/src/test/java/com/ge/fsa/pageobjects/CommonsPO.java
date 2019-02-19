@@ -37,6 +37,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidElement;
@@ -443,7 +444,15 @@ public class CommonsPO {
 			tap(wElement, 30, 36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePicklistValue(sValue).click();
+			try {
+				//if element is visible clicks it else throws error
+				getElePicklistValue(sValue).click();
+			}
+			catch(Exception e) {
+				//scroll till the element till element is visible
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
+				getElePicklistValue(sValue).click();
+			}
 			switchContext("WebView");
 			break;
 
