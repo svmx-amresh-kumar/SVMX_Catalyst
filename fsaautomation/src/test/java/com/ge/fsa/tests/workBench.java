@@ -28,6 +28,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -83,12 +84,13 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {		
-		Thread.sleep(3000);
-commonsPo.tap(calendarPO.getEleCalendarClick());
-Thread.sleep(3000);
-commonsPo.tap(calendarPO.getElecalendarmonthtap());
-Thread.sleep(5000);
+		
+//commonsPo.tap(calendarPO.getEleCalendarClick());
+		loginHomePo.login(commonsPo, exploreSearchPo);
 
+		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+
+        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
 
 
