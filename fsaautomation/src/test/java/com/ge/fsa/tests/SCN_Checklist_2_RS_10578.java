@@ -87,11 +87,10 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// sWOName = "WO-00001266";
 	}
 	
-	
-	
+	//@Test()
 	@Test(retryAnalyzer=Retry.class)
-	public void RS_10578() throws Exception {
-		
+	public void RS_10578() throws Exception {	
+		//Prerequisite script
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonsPo, exploreSearchPo);
@@ -100,13 +99,10 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		// toolsPo.configSync(commonsPo);
-
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
-
 		// Navigate to Field Service process
 		workOrderPo.selectAction(commonsPo, sFieldServiceName);
-
 		// Navigating to the checklist
 		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
@@ -116,7 +112,6 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed");
 		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"1");
 		ExtentManager.logger.log(Status.PASS,"ChecklistBadgeError Displays 1 - Passed");
-	
 //		checklistPo.geteleChecklistAnsDate(sDateq).click();
 //	    commonsPo.switchContext("Native");
 //	    System.out.println("SEt to native view now will click done");
@@ -192,13 +187,15 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 	  
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
+		Thread.sleep(3000);
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("15");
+		Thread.sleep(3000);
 		commonsPo.tap(checklistPo.geteleNext());
 	//	Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 	//	ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 		
 		// tapping next button
-		commonsPo.tap(checklistPo.geteleNext());
+	//	commonsPo.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		//commonsPo.tap(checklistPo.eleChecklistSubmit());

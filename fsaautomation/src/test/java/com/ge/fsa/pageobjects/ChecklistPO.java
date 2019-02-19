@@ -506,11 +506,13 @@ try {
 				WebElement sd = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Photos')]"));
 				commonsPo.tap(sd);
 				System.out.println("clicked photos");
+				Thread.sleep(3000);
 				driver.context("NATIVE_APP");
 				WebElement se = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Camera')]"));
 				commonsPo.tap(se);
 				System.out.println("Clicked on Camera");
 				driver.context("NATIVE_APP");
+				Thread.sleep(3000);
 				WebElement el5 = driver
 						.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'Photo taken')][1]");
 				commonsPo.tap(el5);
@@ -519,6 +521,7 @@ try {
 			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
 				commonsPo.switchContext("Native");
 				try {
+					Thread.sleep(3000);
 					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
 					e.get(0).click();
 				} catch (Exception e) {
@@ -532,6 +535,7 @@ try {
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
 				Thread.sleep(GenericLib.iMedSleep);
 				commonsPo.switchContext("Native");
+				Thread.sleep(3000);
 				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
 				e.get(0).click();
 				Thread.sleep(4000);
@@ -558,6 +562,7 @@ try {
 				int numPhotos = photos.size();
 				// commonsPo.switchContext("Native");
 				WebElement elem = null;
+				Thread.sleep(5000);
 				List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView")
 						.findElements(By.xpath("//*[contains(@label,'Photo')]"));
 				int count = lsPhotoGrid.size();
@@ -576,6 +581,7 @@ try {
 				Thread.sleep(GenericLib.iMedSleep);
 				AllowCamerabutton(commonsPo);
 				commonsPo.switchContext("Native");
+				Thread.sleep(5000);
 				driver.findElementByAccessibilityId("Take Picture").click();
 				Thread.sleep(3000);
 				driver.findElementByAccessibilityId("Use Photo").click();
