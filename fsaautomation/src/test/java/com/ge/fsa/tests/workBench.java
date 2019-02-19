@@ -85,7 +85,7 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {		
 		
-//commonsPo.tap(calendarPO.getEleCalendarClick());
+lauchNewApp("false");
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
