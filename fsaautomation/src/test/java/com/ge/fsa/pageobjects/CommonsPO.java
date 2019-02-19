@@ -487,7 +487,6 @@ public class CommonsPO {
 		if(wElement.toString().contains("->")) {
 		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
 		System.out.println("Waiting For Element : " + printElement);
-
 		}else {
 		System.out.println("Waiting For Element : " + wElement.toString());
 		}
