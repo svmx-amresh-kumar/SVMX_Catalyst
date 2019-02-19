@@ -146,10 +146,9 @@ public class LoginHomePO
 				getEleLoginBtn().click();
 				//Either click Allow or Skip it without an exception
 				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 2);
+					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
 				} catch (Exception e) {
-					System.out.println("Allow not present " + e);
 				}
 
 				//Check if username field is not displayed
@@ -161,12 +160,10 @@ public class LoginHomePO
 
 			} catch (Exception e) {
 				//The App may be already logged in so check directly for the Explore button to be visible
-
 				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 2);
+					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
 				} catch (Exception e1) {
-					System.out.println("Allow not present ");
 				}
 				commonsPo.switchContext("Webview");
 				//Check if username field is not displayed
@@ -194,8 +191,8 @@ public class LoginHomePO
 				getEleUserNameTxtFld().sendKeys(sUn);
 				getElePasswordTxtFld().sendKeys(sPwd);
 				getEleLoginBtn().click();
-				Thread.sleep(GenericLib.iLowSleep);
 				try {
+					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
 				} catch (Exception e) {
 				}
@@ -210,6 +207,11 @@ public class LoginHomePO
 			} catch (Exception e) {
 
 				//The App may be already logged in so check directly for the Explore button to be visible
+				try {
+					commonsPo.waitforElement(getEleAllowBtn(), 1);
+					getEleAllowBtn().click();
+				} catch (Exception e2) {
+				}
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
