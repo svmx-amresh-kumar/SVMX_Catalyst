@@ -109,6 +109,7 @@ public class BaseLib {
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
 
+		//Select the appropriate config file
 		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
 		//Check if jenkins is setting the Org_Name_Space else use local
 		if(System.getenv("Org_Name_Space") != null) {
@@ -138,13 +139,12 @@ public class BaseLib {
 			}
 
 		}
-		
-	
 
 		
 		System.out.println("Running On Machine : "+runMachine);
 		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
 		
+		//Select the OS from Run_On_Platform from jnekins or local
 		if(System.getenv("Run_On_Platform") != null) {
 			System.out.println("Runing on platform defined via jenkins parameter ${Run_On_Platform} : "+System.getenv("Run_On_Platform"));
 			sOSName = System.getenv("Run_On_Platform").toLowerCase();
