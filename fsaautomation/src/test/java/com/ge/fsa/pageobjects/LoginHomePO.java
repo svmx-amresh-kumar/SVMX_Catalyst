@@ -116,99 +116,85 @@ public class LoginHomePO
 		switch (BaseLib.sOSName) {
 		case "android":
 
+			//For Android
+			System.out.println("Login For Android");
 
-			try {//For Android
-				System.out.println("Login For Android");
+			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
+				System.out.println("Logged in Already");
 
-				//Login from Sign in Page
-				//commonsPO.switchContext("Webview");
+			}else {
 				try {
-					getEleSignInBtn().click();
-				}catch(Exception e) {
-					System.out.println("ByPassing 'Sign In' Button");
-				}
 
-				//Change to SandBox from native mode
-				commonsPo.switchContext("Native");
-				commonsPo.waitforElement(getEleMenuIcn(), 2);
-				getEleMenuIcn().click();
-				commonsPo.waitforElement(getEleSandBxRdBtn(), 2);
-				getEleSandBxRdBtn().click();
+					//Login from Sign in Page
+					//commonsPO.switchContext("Webview");
+					try {
+						getEleSignInBtn().click();
+					}catch(Exception e) {
+						System.out.println("ByPassing 'Sign In' Button");
+					}
 
-				touchAction = new TouchAction(driver);
-				touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
+					//Change to SandBox from native mode
+					commonsPo.switchContext("Native");
+					commonsPo.waitforElement(getEleMenuIcn(), 2);
+					getEleMenuIcn().click();
+					commonsPo.waitforElement(getEleSandBxRdBtn(), 2);
+					getEleSandBxRdBtn().click();
 
-				//Enter Credentials in Webview Mode
-				commonsPo.switchContext("Webview");
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				getEleUserNameTxtFld().sendKeys(sUn);
-				getElePasswordTxtFld().sendKeys(sPwd);
-				getEleLoginBtn().click();
+					touchAction = new TouchAction(driver);
+					touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
+
+					//Enter Credentials in Webview Mode
+					commonsPo.switchContext("Webview");
+					commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
+					getEleUserNameTxtFld().sendKeys(sUn);
+					getElePasswordTxtFld().sendKeys(sPwd);
+					getEleLoginBtn().click();
+
+
+				} catch (Exception e) {}
+
 				//Either click Allow or Skip it without an exception
 				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
-				} catch (Exception e) {
-				}
+				} catch (Exception e1) {}
 
-				//Check if username field is not displayed
-				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
-				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
-				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-				System.out.println("Logged in Successfully");
-
-			} catch (Exception e) {
-				//The App may be already logged in so check directly for the Explore button to be visible
-				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 1);
-					getEleAllowBtn().click();
-				} catch (Exception e1) {
-				}
 				commonsPo.switchContext("Webview");
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
 				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
-				ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-				System.out.println("Already installed and logged in");
+
 			}
+			ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+			System.out.println("Already installed and logged in");
 			break;
 
 		case "ios":
-			try {//For IOS
-				System.out.println("Login For IOS");
 
-				//Login from Sign in Page
+			System.out.println("Login For IOS");
+
+			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
+				System.out.println("Logged in Already");
+
+			}else {
+				try {//For IOS
+					//Login from Sign in Page
+					try {
+						getEleSignInBtn().click();
+					}catch(Exception e) {
+						System.out.println("ByPassing 'Sign In' Button");
+					}
+
+					//Enter Credentials
+					commonsPo.waitforElement(getEleUserNameTxtFld(), 1);
+					getEleUserNameTxtFld().sendKeys(sUn);
+					getElePasswordTxtFld().sendKeys(sPwd);
+					getEleLoginBtn().click();
+
+				} catch (Exception e) {}
+
+				//Either click Allow or Skip it without an exception
 				try {
-					getEleSignInBtn().click();
-				}catch(Exception e) {
-					System.out.println("ByPassing 'Sign In' Button");
-				}
-
-				//Enter Credentials
-				commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-				getEleUserNameTxtFld().sendKeys(sUn);
-				getElePasswordTxtFld().sendKeys(sPwd);
-				getEleLoginBtn().click();
-				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 1);
-					getEleAllowBtn().click();
-				} catch (Exception e) {
-				}
-				//Check if username field is not displayed
-				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
-				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
-				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-				System.out.println("Logged in Successfully");
-
-
-			} catch (Exception e) {
-
-				//The App may be already logged in so check directly for the Explore button to be visible
-				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
 				} catch (Exception e2) {
 				}
@@ -216,10 +202,10 @@ public class LoginHomePO
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
 				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
-				ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-				System.out.println("Logged in Successfully");
-
 			}
+
+			ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+			System.out.println("Logged in Successfully");
 			break;
 
 		default:
