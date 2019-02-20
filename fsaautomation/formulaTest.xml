@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="Formula">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_RS_10552" />			
+			<class name="com.ge.fsa.tests.SCN_Formula_RS_10552" />			
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

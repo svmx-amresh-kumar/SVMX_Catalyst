@@ -4,6 +4,7 @@
 package com.ge.fsa.tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
@@ -12,8 +13,12 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
+import com.sun.glass.events.KeyEvent;
 
-public class SCN_RS_10552 extends BaseLib {
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
+
+public class SCN_Formula_RS_10552 extends BaseLib {
 	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
@@ -43,6 +48,7 @@ public class SCN_RS_10552 extends BaseLib {
 	int iDay=0;
 	int iMonth=0;
 	int iYear=0;
+	boolean presence=false;
 	
 	public void preRequiste() throws Exception { 
 		
@@ -97,6 +103,8 @@ public class SCN_RS_10552 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		
 	}
+	
+	
 
 	@Test(retryAnalyzer=Retry.class)
 	public void SCN_RS_10552() throws Exception {
@@ -123,55 +131,41 @@ public class SCN_RS_10552 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		commonsPo.longPress(driver.findElement(By.xpath("//span[text()='RS_10552_AutoChkBx']/../..//div[@class = 'x-body-el x-widthed']/div/div[5]")));
-		
-		
+		commonsPo.longPress(workOrderPo.getEleAutoChkBxRdBtn());
+		//Validation of Next Scheduled date, Actual Onsite Response, Customer OFF button
 		Assert.assertTrue(sAutoDate.contains(workOrderPo.getEleDateTimeLst().get(2).getAttribute("value")),"Next Scheduled Date is not set to 1st day of the created month in next year.");
 		ExtentManager.logger.log(Status.PASS,"Next Scheduled Date is set to 1st day of the created month in next year.");
-		
+		System.out.println(workOrderPo.getEleDateTimeLst().get(3).getAttribute("value"));
 		Assert.assertTrue(( workOrderPo.getEleDateTimeLst().get(3).getAttribute("value")).contains(sOnsiteDate) || (workOrderPo.getEleDateTimeLst().get(3).getAttribute("value")).contains(sPreviousDate),"Actual Onsite Response is not set to current date.");
 		ExtentManager.logger.log(Status.PASS,"Actual Onsite Response is set to current date.");
-		
 		Assert.assertTrue(workOrderPo.getEleDateTimeLst().get(4).getAttribute("value").equals("2"),"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
 		ExtentManager.logger.log(Status.PASS,"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
-		
 		Assert.assertTrue(workOrderPo.getEleCustomerDownOffRdBtn().isDisplayed(), " Customer Down is not OFF for contract");
 		ExtentManager.logger.log(Status.PASS,"Order status is open and Customer down is OFF");
 		
-		//Validate for status is allways open when customer down is unchecked
-		workOrderPo.getEleOrderStatusCase2Lst().click();;
-		commonsPo.switchContext("Native");
-		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Open"), " Order status is not open.");
+		//Validation of Order status and change the status
+		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Closed"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is open.");
-		commonsPo.getElePickerWheelPopUp().sendKeys("Closed");
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.getEleDonePickerWheelBtn().click();
+		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Closed");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		
+		//Validation of Autocheck box off for Billing type contract
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Contract.");
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		//Validate for Billing type is contract and Auto check box is checked
-	try {workOrderPo.getEleWOBillingTypeCaseLst().click();}catch(Exception e) {workOrderPo.getEleBillingTypeCaseLst().click();}
-		commonsPo.switchContext("Native");
-		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Contract"), " Billing type is not contract.");
+		//Validation of Billing type not changed and changing the billing type
+		Assert.assertTrue(verifyListValue(workOrderPo.getEleWOBillingTypeCaseLst(),"Contract","Courtesy"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
-		commonsPo.getElePickerWheelPopUp().sendKeys("Courtesy");
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.getEleDonePickerWheelBtn().click();
+		commonsPo.setPickerWheelValue(workOrderPo.getEleWOBillingTypeCaseLst(), "Courtesy");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		
-		workOrderPo.getEleOrderStatusCase2Lst().click();
-		commonsPo.switchContext("Native");
-		Assert.assertTrue(commonsPo.getElePickerWheelPopUp().getText().equals("Open"), " Order status is not open.");
+		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Open"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is still open as customer down is OFF");
-		commonsPo.getEleDonePickerWheelBtn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		
@@ -187,7 +181,7 @@ public class SCN_RS_10552 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
 		
-		
+		//Addition of Parts
 		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
 		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
@@ -208,16 +202,16 @@ public class SCN_RS_10552 extends BaseLib {
 		//Set Start time for event
 		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateTxtFld(), 0, "0", "0");
 		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateTxtFld(), 1, "0", "0");
-				
-		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
+		//Save the parts details
 		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		commonsPo.tap(workOrderPo.getElePartsIcn(sProductName));
 		Thread.sleep(GenericLib.iMedSleep);
 		
+		//Validation of formula after adding parts
 		workOrderPo.getEleAutoActivityMonthTxtFld().click();
 		Assert.assertTrue(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals("2"), "Activity month is displayed ");
 		ExtentManager.logger.log(Status.PASS,"Activity month value is displayed as expected.");
@@ -229,6 +223,7 @@ public class SCN_RS_10552 extends BaseLib {
 		workOrderPo.getEleAutoDiscountLinePriceTxtFld().click();
 		Assert.assertTrue(workOrderPo.getEleAutoDiscountLinePriceTxtFld().getAttribute("value").equals("10.5"), "Auto Discount line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Auto Discount Line price is displayed as expected.");
+		
 		System.out.println(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value"));
 		workOrderPo.getEleAutoCalLinePriceTxtFld().click();
 		Assert.assertTrue(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value").equals("0"), "Auto call line price is not displayed.");
@@ -236,15 +231,6 @@ public class SCN_RS_10552 extends BaseLib {
 		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		Thread.sleep(GenericLib.iMedSleep);
-		
-		/*
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iLowSleep);
-		
-		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
-		*/
 			
 		//Validating for change of order status when customer down is on.
 		commonsPo.longPress(workOrderPo.getEleCustomerDownRdBtn());
@@ -252,11 +238,8 @@ public class SCN_RS_10552 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Customer down is set to ON");
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		workOrderPo.getEleOrderStatusCase2Lst().click();;
-		commonsPo.switchContext("Native");
-		commonsPo.getElePickerWheelPopUp().sendKeys("Completed");
-		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.getEleDonePickerWheelBtn().click();
+		//Update the WorkOrder and validate if the Order status is now changed
+		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Completed");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
@@ -268,7 +251,28 @@ public class SCN_RS_10552 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleThisRecorddoesnotMeetTxt().isDisplayed(), "WorkOrder status is changed after customer down is checked");
 		ExtentManager.logger.log(Status.PASS,"Order status is successfully changed once the customer down is checked");
 		
-		workOrderPo.getEleOKBtn().click();
+		
+		try {workOrderPo.getEleOKBtn().click();}catch(Exception e) {commonsPo.tap(workOrderPo.getEleOKBtn());}
+		
+	}
+	
+	public boolean verifyListValue(WebElement elePickerLst,String sStatus, String sSetlistTxt) throws InterruptedException {
+		
+		if(BaseLib.sOSName.equals("android")){
+			commonsPo.tap(elePickerLst);
+			commonsPo.switchContext("Native");
+			presence=commonsPo.getEleAndroidWheelPopUp().getText().equals(sStatus);
+			commonsPo.getElePicklistValue(sSetlistTxt).click();
+		}
+		else {
+			elePickerLst.click();
+			commonsPo.switchContext("Native");
+			presence=commonsPo.getElePickerWheelPopUp().getText().equals(sStatus);
+			commonsPo.getElePickerWheelPopUp().sendKeys(sSetlistTxt);
+			commonsPo.getEleDonePickerWheelBtn().click();
+		}
+		commonsPo.switchContext("webview");
+		return presence;
 	}
 
 }

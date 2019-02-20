@@ -1019,6 +1019,11 @@ public class CommonsPO {
 		return calendarPM;
 	}
 	
+	@FindBy(xpath = "//*[@class='android.widget.CheckedTextView'][@checked='true']")
+	private WebElement eleAndroidWheelPopUp;
+	public WebElement getEleAndroidWheelPopUp() {
+		return eleAndroidWheelPopUp;
+	}
 	public String getDate(WebElement wElement,String dateTime) throws InterruptedException {
 		String date="";
 		switch (BaseLib.sOSName) {
