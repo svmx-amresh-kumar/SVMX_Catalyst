@@ -69,10 +69,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		System.out.println(sIBName2);
 		
-		//sIBName1 ="IB_10542_19022019152503";
-		//sIBName2 = "IB_10542_19022019152508";
-		//sAccountName="IB_10542_19022019152508account";		
-	
+		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -119,31 +116,29 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Component is  displayed");
 		
 		//Set the schedule Date for future date by 2 days
-		try{
+		if(BaseLib.sOSName.equals("ios") ){
 			workOrderPo.getEleIBScheduledTxtFld().click();
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.setDatePicker(1, 2);
 			commonsPo.getEleDonePickerWheelBtn().click();
-		}
-		catch(Exception e) {
+			commonsPo.switchContext("Webview");}
+		else{
 			commonsPo.tap(workOrderPo.getEleIBScheduledTxtFld());
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsPo.setDatePicker(1, 2);
 			commonsPo.switchContext("native");
 			commonsPo.getCalendarDone().click();
-			commonsPo.switchContext("webview");
-		}
+			commonsPo.switchContext("Webview");
+			}
+		
 		Thread.sleep(GenericLib.iMedSleep);
-		//Save the case created byx IB
-		commonsPo.switchContext("Webview");
+		//Save the case created by IB
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
-		try {
-		//Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
-		ExtentManager.logger.log(Status.PASS,"Update process is successful");
-		}catch(Exception e) {}
+		driver.activateApp(GenericLib.sAppBundleID);
 		
+		//Config Sync
+		commonsPo.tap(toolsPo.getEleToolsIcn());
 		toolsPo.syncData(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
