@@ -149,6 +149,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		sJsonData="{\"SVMXC__Inventory_Location__c\":\""+sSerialNumber+"LocE"+"\"}";
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
+		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -199,6 +200,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		//Navigation to Search
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10545 SFM Search  is not displayed");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10545 Multi Field WO Search text is successfully displayed");
 	
@@ -219,15 +221,15 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Thread.sleep(GenericLib.iMedSleep); 
 		driver.activateApp(GenericLib.sAppBundleID);
 		
-		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
+		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders ("));
 		Thread.sleep(GenericLib.iMedSleep); 
-		validateSearch("WO");
+		validateSearch(sWOName3);
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName3).isDisplayed(), "Work Order3 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
-		
+		validateSearch(sWOName4);
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName4).isDisplayed(), "Work Order4 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
-		
+		validateSearch(sWOName5);
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order5 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
 		
