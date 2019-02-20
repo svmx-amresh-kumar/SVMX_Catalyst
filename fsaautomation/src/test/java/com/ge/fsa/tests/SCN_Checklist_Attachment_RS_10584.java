@@ -161,7 +161,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		System.out.println("Upload from Library completed");
 
 /*--------------------------------Take Video---------------------------------------*/
-				driver.activateApp(GenericLib.sAppBundleID);
+				lauchNewApp("true");
+				//driver.activateApp(GenericLib.sAppBundleID);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
@@ -231,6 +232,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				checklistPo.navigateBacktoWorkOrder(commonsPo);	
 
 				/*--------------------------Take Photo -----------------------*/
+				lauchNewApp("true");
+
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
