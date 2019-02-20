@@ -110,11 +110,36 @@ public class BaseLib {
 
 
 		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
-		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+		//Check if jenkins is setting the Org_Name_Space else use local
+		if(System.getenv("Org_Name_Space") != null) {
+			String runOrg = System.getenv("Org_Name_Space");
+			switch(runOrg) {
+			case "build" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
-		if(runMachine.equals("build")) {
-			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+				break;
+			case "FsaTrackBuild" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_fsaTrackBuild.properties";
+				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+
+				break;
+				
+			}
+				
+			System.out.println("Runing on platform defined via jenkins parameter ${Org_Name_Space} : "+runOrg);
+			
+		}else {
+			//Use local changes
+			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+
+			if(runMachine.equals("build")) {
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+			}
+
 		}
+		
+	
 
 		
 		System.out.println("Running On Machine : "+runMachine);
