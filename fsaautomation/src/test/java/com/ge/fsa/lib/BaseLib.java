@@ -3,6 +3,10 @@ package com.ge.fsa.lib;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -64,9 +68,28 @@ public class BaseLib {
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
 	public static String sTestName = null;
+	public static String sBaseTimeStamp =null;
+	public static long lInitTimeStartMilliSec;
+	public static long lInitTimeEndMilliSec;
+
+	
+	public long getDateDiffInMin(long lInitTimeStart , long lInitTimeEnd) {
+		
+		  long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		  long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS); 
+		  return sDiff;	 
+	}
+
+	public String getBaseTimeStamp() {
+		 sBaseTimeStamp =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+		// System.out.println(sBaseTimeStamp);
+		 return sBaseTimeStamp;
+	}
+	
 	@BeforeSuite
 	public void startServer(ITestContext context)
 	{
+		
 		//For report naming purpose, does not impact executions
 		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
 		sSuiteTestName = context.getSuite().getName();
@@ -251,11 +274,12 @@ public class BaseLib {
 
 	@BeforeMethod
 	public void startReport(ITestResult result,ITestContext context) {
+		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
 		if(sSuiteTestName != null) {
-		System.out.println(" -- RUNNING TEST SUITE : "+sSuiteTestName);
+		System.out.println(getBaseTimeStamp()+" -- RUNNING TEST SUITE : "+sSuiteTestName);
 		}
-		System.out.println(" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
+		System.out.println(getBaseTimeStamp()+" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName+ " : "+result.getMethod().getRealClass().getSimpleName());
 		
 		driver.rotate((ScreenOrientation.LANDSCAPE));
@@ -267,10 +291,14 @@ public class BaseLib {
 	@AfterMethod
 	public void endReport(ITestResult result,ITestContext context)
 	{
+		lInitTimeEndMilliSec = System.currentTimeMillis();
+		long sTimeDiff = getDateDiffInMin(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+		System.out.println("Last Context Exited From : "+driver.getContext());
+		System.out.println("Total time for execution : "+ sTimeDiff + " min");
+		
 		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
-		{
-			System.out.println("Last Context Exited From : "+driver.getContext());
-			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
+		{			
+			System.out.println(getBaseTimeStamp()+" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
 			if(sOSName.toLowerCase().equals("android")) {	
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -284,7 +312,8 @@ public class BaseLib {
 				e.printStackTrace();
 			}
 		}else {
-			System.out.println(" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+		
+			System.out.println(getBaseTimeStamp()+" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
 
 		}
 		
