@@ -128,7 +128,7 @@ public class BaseLib {
 				
 			}
 				
-			System.out.println("Runing on platform defined via jenkins parameter ${Org_Name_Space} : "+runOrg);
+			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Org_Name_Space} : "+runOrg);
 			
 		}else {
 			//Use local changes
