@@ -186,7 +186,7 @@ public class LoginHomePO
 					}
 
 					//Enter Credentials
-					commonsPo.waitforElement(getEleUserNameTxtFld(), 1);
+					commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
 					getEleUserNameTxtFld().sendKeys(sUn);
 					getElePasswordTxtFld().sendKeys(sPwd);
 					getEleLoginBtn().click();
