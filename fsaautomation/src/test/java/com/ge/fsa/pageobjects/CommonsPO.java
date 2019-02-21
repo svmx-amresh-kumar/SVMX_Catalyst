@@ -1562,7 +1562,7 @@ public class CommonsPO {
 			int count = 0;
 			if(obj instanceof WorkOrderPO) {
 				WorkOrderPO wO = (WorkOrderPO)obj;
-				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
 			}
 
 			return count;

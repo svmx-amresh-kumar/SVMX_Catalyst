@@ -93,8 +93,9 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
-//		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
+		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
 		if(sOSName.equals("android")) {
+			System.out.println(commonsPo.getHeaderCount(workOrderPo));
 			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
 		}
 		else {
