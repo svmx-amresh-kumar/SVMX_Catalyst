@@ -87,6 +87,8 @@ public void workBenchAnd() throws Exception
 {		
 		
 //lauchNewApp("false");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
+		commonsPo.verifySahiExecution();
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
