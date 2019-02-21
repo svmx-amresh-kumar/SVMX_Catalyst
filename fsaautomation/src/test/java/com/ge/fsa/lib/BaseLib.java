@@ -138,10 +138,8 @@ public class BaseLib {
 		}else {
 			//Use local changes
 			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
-
-			if(runMachine.equals("build")) {
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_local.properties";
-			}
+			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/"+runMachine+".properties";
+			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
 		}
 
