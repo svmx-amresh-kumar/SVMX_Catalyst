@@ -304,6 +304,8 @@ public class BaseLib {
 	public void startReport(ITestResult result,ITestContext context) {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
+		//Use after launch app as it will be null before this
+		commonsPo.injectJenkinsPropertiesForSahi();
 		if(sSuiteTestName != null) {
 		System.out.println(getBaseTimeStamp()+" -- RUNNING TEST SUITE : "+sSuiteTestName);
 		}
