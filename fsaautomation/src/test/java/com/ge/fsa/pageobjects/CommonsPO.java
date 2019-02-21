@@ -1357,19 +1357,22 @@ public class CommonsPO {
 				System.out.println("Attempting to Click on Always Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 				System.out.println("Sucessfully Clicked on Always Allow Pop up");
+				
 
 			} catch (Exception e) {
 				System.out.println("Attempting to Click on Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
+				System.out.println("Sucessfully Clicked on Allow Pop up");
+				
 			}
 
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
-		} finally {
+		} 
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-		}
+		
 	}
 
 	public void lookupSearchOnly(String value) throws InterruptedException {
