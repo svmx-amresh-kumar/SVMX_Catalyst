@@ -42,9 +42,9 @@ public class ExtentManager{
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-    public static String sReportName = BaseLib.sBuildNo+"_"+BaseLib.sSuiteTestName+"_"+LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_orgyType_"+BaseLib.sOrgType+"_orgNAmeSapce_"+BaseLib.sOrgNameSpace+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
+    public static String sReportName = BaseLib.sBuildNo+"_"+BaseLib.sSuiteTestName+"_"+LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_orgyType_"+BaseLib.sOrgType+"_orgNAmeSapce_"+BaseLib.sSelectConfigPropFile+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
 	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
-	public static String sDocTitle = "Build : " +BaseLib.sBuildNo+"|| Suite : "+BaseLib.sSuiteTestName+"|| OS Platform : "+BaseLib.sOSName+"|| Org Name Space : "+BaseLib.sOrgNameSpace+"|| Org Type Base/Dev : "+BaseLib.sOrgType+"|| SalesForce Version : "+BaseLib.sSalesforceServerVersion;
+	public static String sDocTitle = "Build : " +BaseLib.sBuildNo+"|| Suite : "+BaseLib.sSuiteTestName+"|| OS Platform : "+BaseLib.sOSName+"|| Org Name Space : "+BaseLib.sSelectConfigPropFile+"|| Org Type Base/Dev : "+BaseLib.sOrgType+"|| SalesForce Version : "+BaseLib.sSalesforceServerVersion;
 	/**
 	 * This will create return/get a instance of the ExtentReports and we pass the driver from baselib class here for screenshots
 	 * @param driver

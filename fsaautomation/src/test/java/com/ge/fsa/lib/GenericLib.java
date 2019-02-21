@@ -153,7 +153,7 @@ public class GenericLib
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
 			//Set the path  of sahi reports
 			
-			if(BaseLib.runMachine.equalsIgnoreCase("build")) {
+			if(BaseLib.runMachine.equalsIgnoreCase("automation_build") || BaseLib.runMachine.equalsIgnoreCase("fsa_track_build")) {
 				//first reference the log file name from local path ,then build a path for the build machine where we archive these logs
 				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 

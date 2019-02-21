@@ -71,7 +71,7 @@ public class BaseLib {
 	public static String sBaseTimeStamp =null;
 	public static long lInitTimeStartMilliSec;
 	public static long lInitTimeEndMilliSec;
-	public static String sOrgNameSpace =null;
+	public static String sSelectConfigPropFile =null;
 	public static String sOrgType =null;
 	
 	public long getDateDiffInMin(long lInitTimeStart , long lInitTimeEnd) {
@@ -115,32 +115,32 @@ public class BaseLib {
 			sOrgType = "base";
 		}
 		//Select the appropriate config file
-		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
-		//Check if jenkins is setting the Org_Name_Space else use local
-		if(System.getenv("Org_Name_Space") != null) {
-			 sOrgNameSpace = System.getenv("Org_Name_Space");
-			switch(sOrgNameSpace) {
-			case "build" : 
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+		//On setting RUN_MACHINE to "automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED
+		//Check if jenkins is setting the Select_Config_Properties_For_Build else use local
+		if(System.getenv("Select_Config_Properties_For_Build") != null) {
+			 sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build");
+			switch(sSelectConfigPropFile.toLowerCase()) {
+			case "config_automation_build" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_automation_build.properties";
 				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
 				break;
-			case "FsaTrackBuild" : 
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_fsaTrackBuild.properties";
+			case "config_fsa_track_build" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_fsa_track_build.properties";
 				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
 				break;
 				
 			}
 				
-			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Org_Name_Space} : "+sOrgNameSpace);
+			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Select_Config_Properties_For_Build} : "+sSelectConfigPropFile);
 			
 		}else {
 			//Use local changes
 			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
 			if(runMachine.equals("build")) {
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_local.properties";
 			}
 
 		}
