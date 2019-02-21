@@ -104,7 +104,7 @@ public class LoginHomePO
 
 
 	/**
-	 * Login to FSA app based on values from config.properties. (** For BUILD machine set the RUN_MACHINE=build , which will pick up the data from config_build.properties file)
+	 * Login to FSA app based on values from config.properties. (** For any other property file machine set the RUN_MACHINE=automation_build , which will pick up the data from config_automation_build.properties file)
 	 * @param commonsPo
 	 * @param exploreSearchPo
 	 * @throws InterruptedException

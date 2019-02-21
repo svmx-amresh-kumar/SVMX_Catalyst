@@ -71,7 +71,8 @@ public class BaseLib {
 	public static String sBaseTimeStamp =null;
 	public static long lInitTimeStartMilliSec;
 	public static long lInitTimeEndMilliSec;
-
+	public static String sSelectConfigPropFile =null;
+	public static String sOrgType =null;
 	
 	public long getDateDiffInMin(long lInitTimeStart , long lInitTimeEnd) {
 		
@@ -108,18 +109,45 @@ public class BaseLib {
 		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
+		if(System.getenv("Org_Type") != null) {
+		sOrgType = System.getenv("Org_Type");
+		}else {
+			sOrgType = "base";
+		}
+		//Select the appropriate config file
+		//On setting RUN_MACHINE to "automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED
+		//Check if jenkins is setting the Select_Config_Properties_For_Build else use local
+		if(System.getenv("Select_Config_Properties_For_Build") != null) {
+			 sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build");
+			switch(sSelectConfigPropFile.toLowerCase()) {
+			case "config_automation_build" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_automation_build.properties";
+				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
-		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
-		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+				break;
+			case "config_fsa_track_build" : 
+				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_fsa_track_build.properties";
+				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
-		if(runMachine.equals("build")) {
-			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
+				break;
+				
+			}
+				
+			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Select_Config_Properties_For_Build} : "+sSelectConfigPropFile);
+			
+		}else {
+			//Use local changes
+			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/"+runMachine+".properties";
+			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+
 		}
 
 		
 		System.out.println("Running On Machine : "+runMachine);
 		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
 		
+		//Select the OS from Run_On_Platform from jnekins or local
 		if(System.getenv("Run_On_Platform") != null) {
 			System.out.println("Runing on platform defined via jenkins parameter ${Run_On_Platform} : "+System.getenv("Run_On_Platform"));
 			sOSName = System.getenv("Run_On_Platform").toLowerCase();

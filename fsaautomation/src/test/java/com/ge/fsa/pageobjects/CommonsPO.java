@@ -483,6 +483,9 @@ public class CommonsPO {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
+		
+		String context=driver.getContext();
+		switchContext("native");
 		System.out.println("Time to Wait : " + lTime + " sec");
 		if(wElement.toString().contains("->")) {
 		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
@@ -490,11 +493,14 @@ public class CommonsPO {
 		}else {
 		System.out.println("Waiting For Element : " + wElement.toString());
 		}
+		switchContext(context);
+		
 		while (lElapsedTime != lTime) {
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
+					switchContext(context);
 					return true;
 				}
 			} catch (Exception ex) {
@@ -503,6 +509,7 @@ public class CommonsPO {
 			lElapsedTime++;
 		}
 		System.out.println("Element is not displayed");
+		switchContext(context);
 		return false;
 
 	}
@@ -1357,19 +1364,22 @@ public class CommonsPO {
 				System.out.println("Attempting to Click on Always Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 				System.out.println("Sucessfully Clicked on Always Allow Pop up");
+				
 
 			} catch (Exception e) {
 				System.out.println("Attempting to Click on Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
+				System.out.println("Sucessfully Clicked on Allow Pop up");
+				
 			}
 
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
-		} finally {
+		} 
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-		}
+		
 	}
 
 	public void lookupSearchOnly(String value) throws InterruptedException {
@@ -1552,7 +1562,7 @@ public class CommonsPO {
 			int count = 0;
 			if(obj instanceof WorkOrderPO) {
 				WorkOrderPO wO = (WorkOrderPO)obj;
-				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
 			}
 
 			return count;

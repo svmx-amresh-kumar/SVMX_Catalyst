@@ -11,7 +11,7 @@
 		
 	
 
-		<class name="com.ge.fsa.tests.workBench" />
+		<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
 		
 		
 		</classes>
