@@ -27,7 +27,7 @@ public class GenericLib
 	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
 	public static String sResources = sDirPath+"//resources";
-	public static String sConfigFile =  sResources+"//config.properties";
+	public static String sConfigFile =  sResources+"//config_local.properties";
 	public static String sTestDataFile = sResources + "//TestData.xlsx";
 	public static int iVHighSleep = 10000;
 	public static int i30SecSleep = 3000;
