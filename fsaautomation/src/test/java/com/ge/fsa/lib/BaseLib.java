@@ -71,7 +71,8 @@ public class BaseLib {
 	public static String sBaseTimeStamp =null;
 	public static long lInitTimeStartMilliSec;
 	public static long lInitTimeEndMilliSec;
-
+	public static String sOrgNameSpace =null;
+	public static String sOrgType =null;
 	
 	public long getDateDiffInMin(long lInitTimeStart , long lInitTimeEnd) {
 		
@@ -108,13 +109,17 @@ public class BaseLib {
 		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
 		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
-
+		if(System.getenv("Org_Type") != null) {
+		sOrgType = System.getenv("Org_Type");
+		}else {
+			sOrgType = "base";
+		}
 		//Select the appropriate config file
 		//On setting RUN_MACHINE to "build" the config_build.properties file will be used to get data and config.properties file will be IGNORED
 		//Check if jenkins is setting the Org_Name_Space else use local
 		if(System.getenv("Org_Name_Space") != null) {
-			String runOrg = System.getenv("Org_Name_Space");
-			switch(runOrg) {
+			 sOrgNameSpace = System.getenv("Org_Name_Space");
+			switch(sOrgNameSpace) {
 			case "build" : 
 				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_build.properties";
 				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
@@ -128,7 +133,7 @@ public class BaseLib {
 				
 			}
 				
-			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Org_Name_Space} : "+runOrg);
+			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Org_Name_Space} : "+sOrgNameSpace);
 			
 		}else {
 			//Use local changes
