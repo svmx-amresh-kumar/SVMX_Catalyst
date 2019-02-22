@@ -81,7 +81,7 @@ public class workBench extends BaseLib
 //	}
 
 
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 
 public void workBenchAnd() throws Exception
 {		

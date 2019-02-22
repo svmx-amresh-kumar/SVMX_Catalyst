@@ -1,5 +1,6 @@
 
 package com.ge.fsa.lib;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -52,12 +53,11 @@ public class BaseLib {
 	public CommonsPO commonsPo = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
-	public CreateNewPO createNewPO=null;
+	public CreateNewPO createNewPO = null;
 	public RecentItemsPO recenItemsPO = null;
 	public CalendarPO calendarPO = null;
 	public TasksPO tasksPo = null;
 	public InventoryPO inventoryPo = null;
-
 
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -68,101 +68,86 @@ public class BaseLib {
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
 	public static String sTestName = null;
-	public static String sBaseTimeStamp =null;
+	public static String sBaseTimeStamp = null;
 	public static long lInitTimeStartMilliSec;
 	public static long lInitTimeEndMilliSec;
-	public static String sSelectConfigPropFile =null;
-	public static String sOrgType =null;
+	public static String sSelectConfigPropFile = null;
+	public static String sOrgType = null;
 	
-	public long getDateDiffInMin(long lInitTimeStart , long lInitTimeEnd) {
-		
-		  long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
-		  long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS); 
-		  return sDiff;	 
+	//Execution legends
+	public static String sRunningSymbol = ">>";
+	public static String sCompletedSymbol = "^^";
+	public static String sRetrySymbol = "<<";
+
+	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		return sDiff;
 	}
 
 	public String getBaseTimeStamp() {
-		 sBaseTimeStamp =  LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+		sBaseTimeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		// System.out.println(sBaseTimeStamp);
-		 return sBaseTimeStamp;
+		return sBaseTimeStamp;
 	}
-	
+
 	@BeforeSuite
-	public void startServer(ITestContext context)
-	{
-		
-		//For report naming purpose, does not impact executions
+	public void startServer(ITestContext context) {
+
+		// For report naming purpose, does not impact executions
 		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
 		sSuiteTestName = context.getSuite().getName();
+
+		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default suite") ? sTestName : sSuiteTestName;
+		System.out.println("[BaseLib] Excuting SUITE : " + sSuiteTestName);
+		System.out.println("[BaseLib] Excuting Tests : " + sTestName);
+
+		// Get all jenkins parameters from env
 		
-		sSuiteTestName = sSuiteTestName.equalsIgnoreCase("Default suite")?sTestName:sSuiteTestName;
-		System.out.println("Excuting SUITE : "+sSuiteTestName);
-		System.out.println("Excuting Tests : "+sTestName);
+		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
+
+		// Select the appropriate config file
+		// On setting RUN_MACHINE to "config_automation_build" the
+		// config_automation_build.properties file will be used to get data and
+		// config_local.properties file will be IGNORED
+		// Check if jenkins is setting the Select_Config_Properties_For_Build else use
+		// local
+		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+		GenericLib.sConfigFile = System.getProperty("user.dir") + "/resources" + "/" + sSelectConfigPropFile + ".properties";
+		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+
+		System.out.println("[BaseLib] Running On Machine : " + runMachine);
+		System.out.println("[BaseLib] Reading Config Properties From : " + GenericLib.sConfigFile);
+
+		// Select the OS from Run_On_Platform from jenkins or local
+		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+		System.out.println("[BaseLib] OS Name = " + sOSName);
+
+		// Get the build number from jenkins
+		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
+		System.out.println("[BaseLib] BUILD_NUMBER : " + GenericLib.sConfigFile);
 
 	}
-	
-	//@BeforeClass
-	public void setAPP() throws Exception
-	{
-		File file = new File(System.getProperty("user.dir")+"/../Executable");
-		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating Executable directory for Sahi "+e);}
-		File file1 = new File(System.getProperty("user.dir")+"/ExtentReports");
-		try{file1.mkdir();}catch(Exception e) {System.out.println("Exception in creating ExtentReports directory for Reports "+e);}
 
-		if(System.getenv("Org_Type") != null) {
-		sOrgType = System.getenv("Org_Type");
-		}else {
-			sOrgType = "base";
+	// @BeforeClass
+	public void setAPP() throws Exception {
+		File file = new File(System.getProperty("user.dir") + "/../Executable");
+		try {
+			file.mkdir();
+		} catch (Exception e) {
+			System.out.println("[BaseLib] Exception in creating Executable directory for Sahi " + e);
 		}
-		//Select the appropriate config file
-		//On setting RUN_MACHINE to "automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED
-		//Check if jenkins is setting the Select_Config_Properties_For_Build else use local
-		if(System.getenv("Select_Config_Properties_For_Build") != null) {
-			 sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build");
-			switch(sSelectConfigPropFile.toLowerCase()) {
-			case "config_automation_build" : 
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_automation_build.properties";
-				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
-
-				break;
-			case "config_fsa_track_build" : 
-				GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/config_fsa_track_build.properties";
-				runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
-
-				break;
-				
-			}
-				
-			System.out.println("Runing on Org Name Space defined via jenkins parameter ${Select_Config_Properties_For_Build} : "+sSelectConfigPropFile);
-			
-		}else {
-			//Use local changes
-			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
-			GenericLib.sConfigFile = System.getProperty("user.dir")+"/resources"+"/"+runMachine+".properties";
-			runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
-
+		File file1 = new File(System.getProperty("user.dir") + "/ExtentReports");
+		try {
+			file1.mkdir();
+		} catch (Exception e) {
+			System.out.println("[BaseLib] Exception in creating ExtentReports directory for Reports " + e);
 		}
 
-		
-		System.out.println("Running On Machine : "+runMachine);
-		System.out.println("Reading Config Properties From : "+GenericLib.sConfigFile);
-		
-		//Select the OS from Run_On_Platform from jnekins or local
-		if(System.getenv("Run_On_Platform") != null) {
-			System.out.println("Runing on platform defined via jenkins parameter ${Run_On_Platform} : "+System.getenv("Run_On_Platform"));
-			sOSName = System.getenv("Run_On_Platform").toLowerCase();
-		}else {
-			sOSName = GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
-
-		}
-		System.out.println("OS Name = "+sOSName.toLowerCase());
-		
-		//Get the build number from jenkins
-		sBuildNo = System.getenv("BUILD_NUMBER") != null? System.getenv("BUILD_NUMBER"):"local" ;
-		
 		switch (sOSName) {
 		case "android":
-			try { //Android Drivers
+			try { // Android Drivers
 				sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
@@ -171,12 +156,12 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
 				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
-				//capabilities.setCapability("nativeWebTap", true);
+				// capabilities.setCapability("nativeWebTap", true);
 				capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
 				capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
-				capabilities.setCapability("locationServicesEnabled",true);
+				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("setWebContentsDebuggingEnabled", true);
@@ -185,24 +170,20 @@ public class BaseLib {
 				capabilities.setCapability("resetKeyboard", true);
 				capabilities.setCapability("autoAcceptAlerts", true);
 
-				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			
-				Thread.sleep(2000);	
+				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+				driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+				Thread.sleep(2000);
 			} catch (Exception e) {
-//				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-//				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
-//				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-//				ExtentManager.extent.flush();
 				throw e;
-			} 
+			}
 			break;
 
 		case "ios":
 
-			try { //IOS Drivers
+			try { // IOS Drivers
 
-				sAppPath = GenericLib.sResources+"//"+GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME")+".ipa";
+				sAppPath = GenericLib.sResources + "//" + GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME") + ".ipa";
 				app = new File(sAppPath);
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
@@ -212,8 +193,8 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
 				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-				capabilities.setCapability(MobileCapabilityType.NO_RESET,Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
-				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS,true);		
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
+				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
 				capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
 				capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
 				capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
@@ -221,34 +202,30 @@ public class BaseLib {
 				capabilities.setCapability("sendKeyStrategy", "grouped");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
-				capabilities.setCapability("locationServicesEnabled",true);
+				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
 
-
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			
-				Thread.sleep(2000);	
+				driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+				Thread.sleep(2000);
 			} catch (Exception e) {
-//				ExtentManager.createInstance(ExtentManager.sReportPath+ExtentManager.sReportName);
-//				ExtentManager.logger("BaseLib Failure : "+"Running On Machine : "+runMachine);
-//				ExtentManager.logger.fail("Failed to LAUNCH the App "+e);
-//				ExtentManager.extent.flush();
 				throw e;
-			} 
+			}
 
 			break;
 
 		}
 
-		genericLib=new GenericLib();
+		// Initialize all the page objects and libraries
+		genericLib = new GenericLib();
 		restServices = new RestServices();
 		loginHomePo = new LoginHomePO(driver);
-		exploreSearchPo = new ExploreSearchPO(driver);	
+		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
-		toolsPo = new ToolsPO(driver);	
+		toolsPo = new ToolsPO(driver);
 		commonsPo = new CommonsPO(driver);
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
@@ -265,26 +242,21 @@ public class BaseLib {
 			e.printStackTrace();
 		}
 		ExtentManager.getInstance(driver);
-		
-	}   
+
+	}
 
 	/**
-	 * Launch the APP either by re-installing (false) or by re-launching existing(true) APP, by passing the sResetMode parameter as "true" or "false"
+	 * Launch the APP either by re-installing (false) or by re-launching
+	 * existing(true) APP, by passing the sResetMode parameter as "true" or "false"
 	 * 
 	 * @param sResetMode
 	 * @throws Exception
 	 */
 	public void lauchNewApp(String sResetMode) {
-		//		System.out.println("App removed");
-		//		driver.removeApp(GenericLib.getCongigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
-		//		System.out.println("App removed");
-		//		driver.installApp(sAppPath);
-		//		System.out.println("App installed");
 
-		//Installing fresh
+		// Installing fresh by default
 		GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-		System.out.println("Initialized App Start mode to = "+GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
-
+		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
 
 		try {
 			setAPP();
@@ -293,47 +265,42 @@ public class BaseLib {
 			e.printStackTrace();
 		}
 
-		//Resetting to true always first for next execution
+		// Resetting to true always first for next execution
 		GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
-		System.out.println("Initialized Driver ** = "+driver.toString()+"** ");
+		System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
 	}
-	
-
 
 	@BeforeMethod
-	public void startReport(ITestResult result,ITestContext context) {
+	public void startReport(ITestResult result, ITestContext context) {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
-		//Use after launch app as it will be null before this
+		// Use after launch app as it will be null before this
 		commonsPo.injectJenkinsPropertiesForSahi();
-		if(sSuiteTestName != null) {
-		System.out.println(getBaseTimeStamp()+" -- RUNNING TEST SUITE : "+sSuiteTestName);
+		if (sSuiteTestName != null) {
+			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}
-		System.out.println(getBaseTimeStamp()+" >> RUNNING TEST CLASS : "+result.getMethod().getRealClass().getSimpleName());
-		ExtentManager.logger(sSuiteTestName+ " : "+result.getMethod().getRealClass().getSimpleName());
-		
+		System.out.println(getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
+		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
+
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
-		
 
 	}
 
 	@AfterMethod
-	public void endReport(ITestResult result,ITestContext context)
-	{
+	public void endReport(ITestResult result, ITestContext context) {
 		lInitTimeEndMilliSec = System.currentTimeMillis();
 		long sTimeDiff = getDateDiffInMin(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
-		System.out.println("Last Context Exited From : "+driver.getContext());
-		System.out.println("Total time for execution : "+ sTimeDiff + " min");
-		
-		if(result.getStatus()==ITestResult.FAILURE || result.getStatus()==ITestResult.SKIP)
-		{			
-			System.out.println(getBaseTimeStamp()+" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : FAILED");
-			if(sOSName.toLowerCase().equals("android")) {	
+		System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		System.out.println("[BaseLib] Total time for execution : " + sTimeDiff + " min");
+
+		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
+			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED");
+			if (sOSName.toLowerCase().equals("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
 			}
-			String temp= ExtentManager.getScreenshot();
+			String temp = ExtentManager.getScreenshot();
 
 			try {
 				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
@@ -341,32 +308,36 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else {
-		
-			System.out.println(getBaseTimeStamp()+" ^^ COMPLETED TEST CLASS : "+result.getMethod().getRealClass().getSimpleName()+" STATUS : PASSED");
+		} else {
+
+			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : PASSED");
 
 		}
-		
+
 		// Avoid duplicate test results in reports on retry
 		if (Retry.isRetryRun) {
 			// Reset the isRetryRun to false to accept the next run
 			Retry.isRetryRun = false;
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
+			sCompletedSymbol = sRetrySymbol +" "+ sCompletedSymbol;
 		} else {
 			// Add the retry log
 			ExtentManager.extent.flush();
 		}
-        
-		try{driver.quit();}catch(Exception e) {};
+
+		try {
+			driver.quit();
+		} catch (Exception e) {
+		}
+		;
 
 	}
 
 	@AfterClass
-	public void tearDownDriver()
-	{
+	public void tearDownDriver() {
 
-		//try{driver.quit();}catch(Exception e) {};
+		// try{driver.quit();}catch(Exception e) {};
 	}
 
 }
