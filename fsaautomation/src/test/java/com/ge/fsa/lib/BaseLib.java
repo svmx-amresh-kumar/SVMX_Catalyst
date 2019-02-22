@@ -106,6 +106,7 @@ public class BaseLib {
 		// Get all jenkins parameters from env
 		
 		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
+		System.out.println("[BaseLib] Server Org Type = " + sOrgType);
 
 		// Select the appropriate config file On setting RUN_MACHINE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
 		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
