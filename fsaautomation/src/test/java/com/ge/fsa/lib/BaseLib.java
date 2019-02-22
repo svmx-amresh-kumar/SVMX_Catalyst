@@ -107,12 +107,7 @@ public class BaseLib {
 		
 		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
 
-		// Select the appropriate config file
-		// On setting RUN_MACHINE to "config_automation_build" the
-		// config_automation_build.properties file will be used to get data and
-		// config_local.properties file will be IGNORED
-		// Check if jenkins is setting the Select_Config_Properties_For_Build else use
-		// local
+		// Select the appropriate config file On setting RUN_MACHINE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
 		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 		GenericLib.sConfigFile = System.getProperty("user.dir") + "/resources" + "/" + sSelectConfigPropFile + ".properties";
 		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
@@ -126,7 +121,7 @@ public class BaseLib {
 
 		// Get the build number from jenkins
 		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
-		System.out.println("[BaseLib] BUILD_NUMBER : " + GenericLib.sConfigFile);
+		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
 
 	}
 
@@ -256,7 +251,7 @@ public class BaseLib {
 
 		// Installing fresh by default
 		GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET"));
+		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
 
 		try {
 			setAPP();
