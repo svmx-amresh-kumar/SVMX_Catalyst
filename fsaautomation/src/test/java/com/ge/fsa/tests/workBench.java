@@ -90,7 +90,11 @@ public void workBenchAnd() throws Exception
 		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 //		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsPo.verifySahiExecution();
+		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+
 		lauchNewApp("false");
+		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
