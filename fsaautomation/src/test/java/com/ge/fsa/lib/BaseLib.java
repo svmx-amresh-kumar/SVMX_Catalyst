@@ -167,7 +167,6 @@ public class BaseLib {
 				capabilities.setCapability("autoAcceptAlerts", true);
 
 				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 				Thread.sleep(2000);
 			} catch (Exception e) {
@@ -204,7 +203,6 @@ public class BaseLib {
 				capabilities.setCapability("autoAcceptAlerts", true);
 
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 				Thread.sleep(2000);
 			} catch (Exception e) {
@@ -238,6 +236,8 @@ public class BaseLib {
 			e.printStackTrace();
 		}
 		ExtentManager.getInstance(driver);
+		ExtentManager.extent.flush();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 	}
 
