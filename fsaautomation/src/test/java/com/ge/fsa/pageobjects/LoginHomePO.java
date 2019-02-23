@@ -195,6 +195,7 @@ public class LoginHomePO
 
 				//Either click Allow or Skip it without an exception
 				try {
+					commonsPo.waitforElement(getEleAllowBtn(), 1);
 					getEleAllowBtn().click();
 				} catch (Exception e2) {
 				}
