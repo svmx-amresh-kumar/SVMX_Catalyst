@@ -236,7 +236,6 @@ public class BaseLib {
 			e.printStackTrace();
 		}
 		ExtentManager.getInstance(driver);
-		ExtentManager.extent.flush();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 	}
