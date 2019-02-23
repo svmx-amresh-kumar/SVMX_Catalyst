@@ -81,14 +81,15 @@ public class workBench extends BaseLib
 //	}
 
 
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
+	@Test
 
 public void workBenchAnd() throws Exception
 {		
 		
-//lauchNewApp("false");
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
-		commonsPo.verifySahiExecution();
+		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
+//		commonsPo.verifySahiExecution();
 		loginHomePo.login(commonsPo, exploreSearchPo);
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
