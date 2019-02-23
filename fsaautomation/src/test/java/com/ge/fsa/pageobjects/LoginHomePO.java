@@ -162,7 +162,7 @@ public class LoginHomePO
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000),"Login Failed");
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1000),"Login Failed");
 
 			}
 			ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
@@ -202,7 +202,7 @@ public class LoginHomePO
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1),"Login Failed");
+				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1000),"Login Failed");
 			}
 
 			ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
