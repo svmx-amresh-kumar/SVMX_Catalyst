@@ -118,7 +118,10 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
-//		System.out.println("The Res is "+workOrderPo.getCheckBoxAccount().isSelected());
+//		WebElement toTap=driver.findElement(By.xpath("//span[text()=' Account: ']/ancestor::div[2]"));
+//		commonsPo.tap(toTap);
+//		WebElement toTap1=driver.findElement(By.xpath("//span[text()=' Account: ']/ancestor::div[1]"));
+//		commonsPo.tap(toTap1);
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 		}        
@@ -169,8 +172,6 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		else {
 			Assert.assertEquals(Integer.parseInt(sLocCnt),locList1.size());
 		}
-		System.out.println("I Am Here");
-		Thread.sleep(50000);
 		
 //		System.out.println(locList1.size());
 //		for(WebElement w:locList1) {
@@ -181,8 +182,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		//******Validate 9th Case******
 		
 		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
-		System.out.println("Wait Here------------");
-		Thread.sleep(30000);
+		Thread.sleep(3000);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
 		commonsPo.tap(workOrderPo.getlblToLocation());
