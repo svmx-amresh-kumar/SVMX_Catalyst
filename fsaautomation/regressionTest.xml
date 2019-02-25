@@ -26,7 +26,6 @@
 		<suite-file path="zeroLinesTest.xml" /> <!-- 1 -->
 
 		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
-		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
 		
         <suite-file path="createNewRecordTest.xml" /> <!-- 1 --> 
         <suite-file path="customActionsTest.xml" /> <!-- 2 -->  
@@ -37,6 +36,7 @@
 		<suite-file path="calendarTest.xml" /> <!-- 8 -->
 		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
+		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
 
 
 	</suite-files>

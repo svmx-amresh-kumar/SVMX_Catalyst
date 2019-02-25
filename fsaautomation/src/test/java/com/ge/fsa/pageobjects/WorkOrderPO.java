@@ -1001,6 +1001,13 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCountry_Edit_Lst;
 		}
+		
+		@FindBy(xpath="//*[text()='Requested Country']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleRequestedCountry_Edit_Lst;
+		public WebElement getEleRequestedCountry_Edit_Lst()
+		{
+			return eleRequestedCountry_Edit_Lst;
+		}
 	
 		@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
 //		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='State']/following::input)[1]")
