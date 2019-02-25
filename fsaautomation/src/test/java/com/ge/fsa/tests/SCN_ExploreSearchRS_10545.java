@@ -281,10 +281,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		ExtentManager.logger.log(Status.PASS,sSerialNumber +"AccC -->No Records to display text is successfully displayed");
 		
 		//Navigation to Location Search
+		commonsPo.tap(exploreSearchPo.getEleExploreIcn());	
 		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 		commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		
@@ -544,12 +545,9 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	
 	private void validateSearch(String sObjectValue) throws InterruptedException
 	{
-		//commonsPo.tap(exploreSearchPo.getEleExploreSearchTxtFld());
-
-		try {commonsPo.tap(exploreSearchPo.getEleResetFilerBtn());Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		try {commonsPo.singleTap(exploreSearchPo.getEleResetFilerBtn().getLocation());Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		Thread.sleep(GenericLib.iMedSleep);	
-		exploreSearchPo.getEleExploreSearchTxtFld().click();
+		
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue);
 		commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
