@@ -137,7 +137,8 @@ public class GenericLib
 		
 		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
 		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
-		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("config_local") ? "offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
+		//If not triggered from jenkins use local path
+		String sActualLogPath = System.getenv("Run_On_Platform") == null ? "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" :  "offlineSahiLogs/" ;
 		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
