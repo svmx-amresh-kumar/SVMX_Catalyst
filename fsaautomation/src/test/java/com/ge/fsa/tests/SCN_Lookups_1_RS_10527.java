@@ -89,9 +89,9 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
-		for(WebElement we:contactList) {
-			System.out.println(we.getText());
-		}
+//		for(WebElement we:contactList) {
+//			System.out.println(we.getText());
+//		}
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
 		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
 		if(sOSName.equals("android")) {
@@ -118,8 +118,9 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
+		System.out.println("The Res is "+workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
-			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		commonsPo.lookupSearchOnly(sSearchTxt);
@@ -169,6 +170,9 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 			Assert.assertEquals(Integer.parseInt(sLocCnt),locList1.size());
 		}
 		
+		System.out.println("Assertion Successful------------");
+		Thread.sleep(50000);
+		
 //		System.out.println(locList1.size());
 //		for(WebElement w:locList1) {
 //			Assert.assertTrue(w.getText().contains(sLocName));
@@ -176,6 +180,8 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 9th Case******
 		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
+		System.out.println("Wait Here------------");
+		Thread.sleep(30000);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
 		commonsPo.tap(workOrderPo.getlblToLocation());
