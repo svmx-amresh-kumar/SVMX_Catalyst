@@ -315,11 +315,12 @@ public class BaseLib {
 			Retry.isRetryRun = false;
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
-			sCompletedSymbol = "^^";
+			sCompletedSymbol = "<<^^";
+
 		} else {
+			sCompletedSymbol = "^^";
 			// Add the retry log
 			ExtentManager.extent.flush();
-			sCompletedSymbol = "<<^^";
 		}
 
 		try {
