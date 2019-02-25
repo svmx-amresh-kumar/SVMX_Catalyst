@@ -119,6 +119,10 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
 		System.out.println("The Res is "+workOrderPo.getCheckBoxAccount().isSelected());
+//		WebElement toTap=driver.findElement(By.xpath("//span[text()=' Account: ']/ancestor::div[2]"));
+//		commonsPo.tap(toTap);
+//		WebElement toTap1=driver.findElement(By.xpath("//span[text()=' Account: ']/ancestor::div[1]"));
+//		commonsPo.tap(toTap1);
 		if(workOrderPo.getCheckBoxAccount().isSelected()) {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
 		}
