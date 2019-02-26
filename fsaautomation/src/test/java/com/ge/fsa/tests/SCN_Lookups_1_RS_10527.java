@@ -29,10 +29,10 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	String sProdName = "SampleProd";
 	String sSearchTxt = "HCSContact";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+//		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -122,9 +122,13 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		commonsPo.tap(toTap);
 //		WebElement toTap1=driver.findElement(By.xpath("//span[text()=' Account: ']/ancestor::div[1]"));
 //		commonsPo.tap(toTap1);
-		if(workOrderPo.getCheckBoxAccount().isSelected()) {
+		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
-		}        
+		}       
+		else {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount02());
+			Thread.sleep(50000);
+		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		commonsPo.lookupSearchOnly(sSearchTxt);
 		Thread.sleep(GenericLib.iHighSleep);
