@@ -191,11 +191,11 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
-				if(sDeviceType.equalsIgnoreCase("phone")) {
-				//Ignore the AutoWebview setting for phone
-				}else{
+//				if(sDeviceType.equalsIgnoreCase("phone")) {
+//				//Ignore the AutoWebview setting for phone
+//				}else{
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-				}
+			//	}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
 				capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
