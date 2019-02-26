@@ -118,9 +118,15 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		//******Validate 3rd Case******
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
-		System.out.println("The Res is "+workOrderPo.getCheckBoxAccount().isSelected());
-		if(workOrderPo.getCheckBoxAccount().isSelected()) {
-			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
+//		WebElement toTap=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[2]"));
+//		commonsPo.tap(toTap);
+//		WebElement toTap1=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[1]"));
+//		commonsPo.tap(toTap1);
+		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+		}       
+		else {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount02());
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		commonsPo.lookupSearchOnly(sSearchTxt);
@@ -170,18 +176,16 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 			Assert.assertEquals(Integer.parseInt(sLocCnt),locList1.size());
 		}
 		
-		System.out.println("Assertion Successful------------");
-		Thread.sleep(50000);
-		
 //		System.out.println(locList1.size());
 //		for(WebElement w:locList1) {
 //			Assert.assertTrue(w.getText().contains(sLocName));
 //		}
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
+		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		//******Validate 9th Case******
-		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
-		System.out.println("Wait Here------------");
-		Thread.sleep(30000);
+		
+		commonsPo.setPickerWheelValue(workOrderPo.getEleRequestedCountry_Edit_Lst(), "Qatar");
+		Thread.sleep(3000);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
 		commonsPo.tap(workOrderPo.getlblToLocation());
