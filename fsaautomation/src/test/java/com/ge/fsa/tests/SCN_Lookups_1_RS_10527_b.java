@@ -23,7 +23,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	String sSearchTxt = "HCSContact";
 	int getContactCount = 0;
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
 		
 		// Create Account
@@ -126,10 +126,11 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		commonsPo.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iMedSleep);
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
-		if(workOrderPo.getCheckBoxAccount().isSelected()) {
-			workOrderPo.getcheckBoxAccount01().click(); 
+		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
 			commonsPo.tap(workOrderPo.getcheckBoxAccount01(),20,20);
-//			commonsPo.tap(workOrderPo.getcheckBoxAccount01());
+		}       
+		else {
+			commonsPo.tap(workOrderPo.getcheckBoxAccount02());
 		}
 		commonsPo.tap(workOrderPo.getBtnApply());
 		commonsPo.lookupSearchOnly(sSearchTxt);
