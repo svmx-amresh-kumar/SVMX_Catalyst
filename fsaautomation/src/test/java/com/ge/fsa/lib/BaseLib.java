@@ -64,7 +64,7 @@ public class BaseLib {
 	File app = null;
 	public static String sOSName = null;
 	public static String sDeviceType =null;
-	public static String runProfile = null;
+	public static String sUsePropertyFile = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
@@ -109,12 +109,12 @@ public class BaseLib {
 		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
 		System.out.println("[BaseLib] Server Org Type = " + sOrgType);
 
-		// Select the appropriate config file On setting RUN_MACHINE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
-		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+		// Select the appropriate config file On setting USE_PROPERTY_FILE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
+		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
 		GenericLib.sConfigFile = System.getProperty("user.dir") + "/resources" + "/" + sSelectConfigPropFile + ".properties";
-		runProfile = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+		sUsePropertyFile = GenericLib.getConfigValue(GenericLib.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
 
-		System.out.println("[BaseLib] Running On Profile : " + runProfile);
+		System.out.println("[BaseLib] Running On Profile : " + sUsePropertyFile);
 		System.out.println("[BaseLib] Reading Config Properties From : " + GenericLib.sConfigFile);
 
 		// Select the OS from Run_On_Platform from jenkins or local
