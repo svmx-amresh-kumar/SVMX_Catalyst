@@ -63,7 +63,8 @@ public class BaseLib {
 	public String sAppPath = null;
 	File app = null;
 	public static String sOSName = null;
-	public static String runMachine = null;
+	public static String sDeviceType =null;
+	public static String runProfile = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
@@ -111,15 +112,18 @@ public class BaseLib {
 		// Select the appropriate config file On setting RUN_MACHINE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
 		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 		GenericLib.sConfigFile = System.getProperty("user.dir") + "/resources" + "/" + sSelectConfigPropFile + ".properties";
-		runMachine = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
+		runProfile = GenericLib.getConfigValue(GenericLib.sConfigFile, "RUN_MACHINE").toLowerCase();
 
-		System.out.println("[BaseLib] Running On Machine : " + runMachine);
+		System.out.println("[BaseLib] Running On Profile : " + runProfile);
 		System.out.println("[BaseLib] Reading Config Properties From : " + GenericLib.sConfigFile);
 
 		// Select the OS from Run_On_Platform from jenkins or local
 		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
 		System.out.println("[BaseLib] OS Name = " + sOSName);
 
+		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_TYPE").toLowerCase();
+		System.out.println("[BaseLib] Device Type = " + sDeviceType);
+		
 		// Get the build number from jenkins
 		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
@@ -187,7 +191,11 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
-				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				if(sDeviceType.equalsIgnoreCase("phone")) {
+				//Ignore the AutoWebview setting for phone
+				}else{
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
 				capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
