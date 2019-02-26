@@ -669,6 +669,7 @@ public class CommonsPO {
 			getAccessibleElement(selectDate).click();;
 			getCalendarDone().click();
 			//set current or specific time
+			Thread.sleep(1000);
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getCalendarDone().click();
 
@@ -777,6 +778,7 @@ public class CommonsPO {
 				getAccessibleElement(selectDate).click();
 				getCalendarDone().click();
 				// set current or specific time
+				Thread.sleep(1000);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
 					getCalendarDone().click();
 
@@ -1043,6 +1045,7 @@ public class CommonsPO {
 			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
 			getCalendarDone().click();
 			if(dateTime.equalsIgnoreCase("datetime")) {
+				Thread.sleep(1000);
 				String sHours=getCalendarHours().getText();
 				String sMinutes=getCalendarMinutes().getText();
 				String sAMPM;
