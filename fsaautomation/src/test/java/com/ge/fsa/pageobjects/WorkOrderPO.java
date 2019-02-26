@@ -890,7 +890,7 @@ import org.openqa.selenium.Rotatable;
 			return checkBoxAccount01;
 		}
 		
-		@FindBy(xpath="//span[text()=' Account:']/ancestor::div[1]")
+		@FindBy(xpath="//span[contains(text(),'Account:')]/ancestor::div[1]")
 		private WebElement checkBoxAccount02;
 		public WebElement getcheckBoxAccount02()
 		{
