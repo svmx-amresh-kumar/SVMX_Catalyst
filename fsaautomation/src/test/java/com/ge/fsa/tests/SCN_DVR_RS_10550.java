@@ -100,7 +100,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 				
 	}
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10550() throws Exception {
 		
 		prerequisites();
@@ -160,7 +160,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
+		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 		Thread.sleep(GenericLib.iLowSleep);

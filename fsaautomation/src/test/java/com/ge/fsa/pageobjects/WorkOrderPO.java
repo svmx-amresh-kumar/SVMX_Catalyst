@@ -2080,7 +2080,8 @@ import org.openqa.selenium.Rotatable;
 			return EleUpdateLnk;
 		}
 	
-		@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		//@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		@FindBy(xpath=("//div[contains(@id,'ext-svmx-toolbar') and .//div[@class='x-innerhtml'][text()='Problem Description']]//..//textarea"))
 		private WebElement eleProblemDesc_Edit_WorkOrder;
 		public WebElement geteleProblemDesc_Edit_WorkOrder()
 		{
