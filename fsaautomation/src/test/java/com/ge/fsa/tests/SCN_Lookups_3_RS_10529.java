@@ -106,10 +106,12 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonsPo.tap(workOrderPo.getLnkLookupCancel());
 		commonsPo.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(genericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
+//		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("HarryProd Desc");
+		Thread.sleep(3000);
 	//	workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 		commonsPo.tap(workOrderPo.getEleUpdateLnk()); 
+		Thread.sleep(3000);
 		Thread.sleep(genericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getElePartLnk());
 		commonsPo.tap(commonsPo.getElesearchTap());
@@ -135,7 +137,12 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		List<WebElement> locList = new ArrayList<WebElement>();
 		locList = workOrderPo.getLocListInLkp();
 		String sLocItaCount = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+='"+sCountry+"'", "totalSize");
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocItaCount));
+		}
+		else {
 		Assert.assertEquals(locList.size(), Integer.parseInt(sLocItaCount)); //Step 5
+		}
 //		commonsPo.tap(commonsPo.getElesearchTap()); 
 //		commonsPo.getElesearchTap().clear(); 
 //		commonsPo.getElesearchTap().sendKeys(sLocName01); 
@@ -151,8 +158,13 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("contactList "+contactList.size());
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
+		if(sOSName.equals("android")) {
+			Assert.assertEquals(commonsPo.getHeaderCount(workOrderPo),Integer.parseInt(sConWoAcc));
+		}
+		else {
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc),"Valid Failure: FSA-2528"); //Covers Step 7-Valid Failure: FSA-2528
-
+		}
+		
 	}
 
 }
