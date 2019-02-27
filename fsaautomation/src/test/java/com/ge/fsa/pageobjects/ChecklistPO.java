@@ -488,10 +488,10 @@ try {
 
 		System.out.println("Trying to click Attach");
 		geteleChecklistAttach(checklistq);
-		commonsPo.switchContext("Native");
-		driver.findElementByAccessibilityId("Attach").click();
-		Thread.sleep(3000);
-		driver.findElementByAccessibilityId(AttachmentAction).click();
+		//driver.findElementByAccessibilityId("Attach").click();
+		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+		//driver.findElementByAccessibilityId(AttachmentAction).click();
+		commonsPo.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
 		AllowCamerabutton(commonsPo);
 		
 		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
@@ -540,8 +540,8 @@ try {
 				e.get(0).click();
 				Thread.sleep(4000);
 				// sleeping for 4 seconds as recording is going on and clicing again to stop
-				e.get(0).click();
-				Thread.sleep(2000);
+//				e.get(0).click();
+//				Thread.sleep(2000);
 				driver.findElementByAccessibilityId("Done").click();
 			}
 			commonsPo.switchContext("Webview");
