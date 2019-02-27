@@ -131,7 +131,6 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		commonsPo.longPress(workOrderPo.getEleAutoChkBxRdBtn());
 		//Validation of Next Scheduled date, Actual Onsite Response, Customer OFF button
 		Assert.assertTrue(sAutoDate.contains(workOrderPo.getEleDateTimeLst().get(2).getAttribute("value")),"Next Scheduled Date is not set to 1st day of the created month in next year.");
 		ExtentManager.logger.log(Status.PASS,"Next Scheduled Date is set to 1st day of the created month in next year.");
@@ -146,7 +145,6 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		//Validation of Order status and change the status
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Closed"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is open.");
-		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Closed");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		
@@ -158,7 +156,6 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		//Validation of Billing type not changed and changing the billing type
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleWOBillingTypeCaseLst(),"Contract","Courtesy"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
-		commonsPo.setPickerWheelValue(workOrderPo.getEleWOBillingTypeCaseLst(), "Courtesy");
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.switchContext("Webview");
 		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
