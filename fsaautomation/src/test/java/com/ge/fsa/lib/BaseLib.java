@@ -79,6 +79,8 @@ public class BaseLib {
 	public static String sRunningSymbol = ">>";
 	public static String sCompletedSymbol = "^^";
 	public static String sRetrySymbol = "<<";
+	public static String sRetryState = "";
+
 
 	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
 
@@ -298,7 +300,7 @@ public class BaseLib {
 		System.out.println("[BaseLib] Total time for execution : " + sTimeDiff + " min");
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
-			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED");
+			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED"+" "+sRetryState);
 			if (sOSName.toLowerCase().equals("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -313,7 +315,7 @@ public class BaseLib {
 			}
 		} else {
 
-			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : PASSED");
+			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : PASSED"+" "+sRetryState);
 
 		}
 
@@ -324,9 +326,11 @@ public class BaseLib {
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
 			sCompletedSymbol = "<<^^";
+			sRetryState = "RETRY";
 
 		} else {
 			sCompletedSymbol = "^^";
+			sRetryState = "";
 			// Add the retry log
 			ExtentManager.extent.flush();
 		}
