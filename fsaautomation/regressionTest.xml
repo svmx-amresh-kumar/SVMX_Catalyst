@@ -8,7 +8,7 @@
 
 	<suite-files>
 		<!-- First Delivery -->
-		<suite-file path="sanityTest.xml" />
+		<!-- <suite-file path="sanityTest.xml" />-->
 		
 		
 		<suite-file path="selfDispatchTest.xml" /> <!-- 1 -->
