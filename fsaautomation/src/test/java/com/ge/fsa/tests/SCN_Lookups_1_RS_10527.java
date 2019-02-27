@@ -184,7 +184,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		//******Validate 9th Case******
 		
-		commonsPo.setPickerWheelValue(workOrderPo.getEleRequestedCountry_Edit_Lst(), "Qatar");
+		commonsPo.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
 		Thread.sleep(3000);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonsPo.tap(workOrderPo.getLblChildPart(sProdName));
