@@ -889,6 +889,13 @@ import org.openqa.selenium.Rotatable;
 		{
 			return checkBoxAccount01;
 		}
+		
+		@FindBy(xpath="//span[contains(text(),'Account:')]/ancestor::div[1]")
+		private WebElement checkBoxAccount02;
+		public WebElement getcheckBoxAccount02()
+		{
+			return checkBoxAccount02;
+		}
 	
 		@FindBy(xpath="//span[text()='Apply']")
 		private WebElement btnApply;
@@ -1000,6 +1007,13 @@ import org.openqa.selenium.Rotatable;
 		public WebElement geteleCountry_Edit_Lst()
 		{
 			return eleCountry_Edit_Lst;
+		}
+		
+		@FindBy(xpath="//*[text()='Requested Country']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleRequestedCountry_Edit_Lst;
+		public WebElement getEleRequestedCountry_Edit_Lst()
+		{
+			return eleRequestedCountry_Edit_Lst;
 		}
 	
 		@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
@@ -2066,7 +2080,8 @@ import org.openqa.selenium.Rotatable;
 			return EleUpdateLnk;
 		}
 	
-		@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		//@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		@FindBy(xpath=("//div[contains(@id,'ext-svmx-toolbar') and .//div[@class='x-innerhtml'][text()='Problem Description']]//..//textarea"))
 		private WebElement eleProblemDesc_Edit_WorkOrder;
 		public WebElement geteleProblemDesc_Edit_WorkOrder()
 		{

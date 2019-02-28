@@ -16,6 +16,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.CalendarPO;
 
 public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sTestCaseID= null;
@@ -177,7 +178,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
-		
+		commonsPo.tap(calendarPO.getEleCalendarIcn());	
 		 toolsPo.syncData(commonsPo);
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 

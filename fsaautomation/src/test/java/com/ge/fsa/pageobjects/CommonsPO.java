@@ -483,24 +483,24 @@ public class CommonsPO {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
-		
-		String context=driver.getContext();
-		switchContext("native");
-		System.out.println("Time to Wait : " + lTime + " sec");
-		if(wElement.toString().contains("->")) {
-		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-		System.out.println("Waiting For Element : " + printElement);
-		}else {
-		System.out.println("Waiting For Element : " + wElement.toString());
-		}
-		switchContext(context);
+		System.out.println("Waiting For : " + lTime + " sec");
+//		String context=driver.getContext();
+//		switchContext("native");
+//		System.out.println("Time to Wait : " + lTime + " sec");
+//		if(wElement.toString().contains("->")) {
+//		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+//		System.out.println("Waiting For Element : " + printElement);
+//		}else {
+//		System.out.println("Waiting For Element : " + wElement.toString());
+//		}
+//		switchContext(context);
 		
 		while (lElapsedTime != lTime) {
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
-					switchContext(context);
+					//switchContext(context);
 					return true;
 				}
 			} catch (Exception ex) {
@@ -509,7 +509,7 @@ public class CommonsPO {
 			lElapsedTime++;
 		}
 		System.out.println("Element is not displayed");
-		switchContext(context);
+		//switchContext(context);
 		return false;
 
 	}
@@ -669,6 +669,7 @@ public class CommonsPO {
 			getAccessibleElement(selectDate).click();;
 			getCalendarDone().click();
 			//set current or specific time
+			Thread.sleep(1000);
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getCalendarDone().click();
 
@@ -777,6 +778,7 @@ public class CommonsPO {
 				getAccessibleElement(selectDate).click();
 				getCalendarDone().click();
 				// set current or specific time
+				Thread.sleep(1000);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
 					getCalendarDone().click();
 
@@ -1043,6 +1045,7 @@ public class CommonsPO {
 			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
 			getCalendarDone().click();
 			if(dateTime.equalsIgnoreCase("datetime")) {
+				Thread.sleep(1000);
 				String sHours=getCalendarHours().getText();
 				String sMinutes=getCalendarMinutes().getText();
 				String sAMPM;
@@ -1562,7 +1565,7 @@ public class CommonsPO {
 			int count = 0;
 			if(obj instanceof WorkOrderPO) {
 				WorkOrderPO wO = (WorkOrderPO)obj;
-				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
 			}
 
 			return count;
@@ -1596,4 +1599,17 @@ public class CommonsPO {
 
 		}
 	
+		/**
+		 * Injecting properties set from jenkins build into sahi for consumption
+		 */
+		public void injectJenkinsPropertiesForSahi() {
+			String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+			try {
+				this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
+				System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
+
+			}catch(Exception e) {
+				
+			}
+		}
 }

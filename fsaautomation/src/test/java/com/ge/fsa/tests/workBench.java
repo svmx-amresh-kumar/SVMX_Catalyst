@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.openqa.selenium.By;
@@ -80,15 +81,27 @@ public class workBench extends BaseLib
 //	}
 
 
-	@Test()
+	//@Test(retryAnalyzer=Retry.class)
+	@Test
 
 public void workBenchAnd() throws Exception
 {		
 		
-lauchNewApp("false");
+		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
+//		commonsPo.verifySahiExecution();
+		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
+
+		lauchNewApp("false");
+		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
+
 		loginHomePo.login(commonsPo, exploreSearchPo);
+		ExtentManager.extent.flush();
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
 
         ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
