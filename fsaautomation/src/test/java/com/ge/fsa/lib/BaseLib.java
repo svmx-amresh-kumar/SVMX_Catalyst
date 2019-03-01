@@ -193,11 +193,14 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
-//				if(sDeviceType.equalsIgnoreCase("phone")) {
-//				//Ignore the AutoWebview setting for phone
-//				}else{
+				if(sDeviceType.equalsIgnoreCase("phone")) {
+				//Ignore the AutoWebview setting for phone
+					System.out.println("Setting AUTO_WEBVIEW to false");
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+
+				}else{
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-			//	}
+				}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
 				capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
@@ -211,7 +214,10 @@ public class BaseLib {
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
-
+				capabilities.setCapability("showXcodeLog", true);
+				capabilities.setCapability("useNewWDA",true);
+				capabilities.setCapability("waitForQuiescence",false);
+				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 				Thread.sleep(2000);
@@ -286,9 +292,12 @@ public class BaseLib {
 		}
 		System.out.println(getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
-
+		if(sDeviceType.equalsIgnoreCase("phone")) {
+			//Ignore rotation
+			}else{
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
+			}
 
 	}
 
