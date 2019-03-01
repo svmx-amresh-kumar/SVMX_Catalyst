@@ -8,6 +8,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Set;
 import org.json.JSONArray;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
@@ -79,7 +80,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 	String sSheetName =null;
 	String sScriptName="Scenario_RS10579_Checklist_Combo";
 	Boolean bProcessCheckResult  = false;
-	
+	String url = null;
 	public void prerequisites() throws Exception
 	{
 		sSheetName ="RS_10579";
@@ -304,10 +305,24 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			Set contextNames = driver.getContextHandles();
 			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println(driver.getContext());
-			driver.context(contextNames.toArray()[2].toString());
-			String url = driver.getCurrentUrl();
-	        System.out.println(url);
-			Assert.assertEquals(url, "https://www.ge.com/", "Help url validated sucessfully");
+			
+			if(sOSName.contains("android")) {
+				driver.context("NATIVE_APP");
+				Thread.sleep(5000);
+				url = driver.findElement(By.id("com.android.chrome:id/url_bar")).getText();
+				driver.context("WEBVIEW_com.servicemaxinc.svmxfieldserviceapp");
+			}
+			else {
+				driver.context(contextNames.toArray()[contextNames.size()-1].toString());
+				Thread.sleep(GenericLib.i30SecSleep);
+				url = driver.getCurrentUrl();
+			}
+			
+		//	driver.context(contextNames.toArray()[2].toString());
+		//	String url = driver.getCurrentUrl();
+	    //    System.out.println(url);
+			Assert.assertTrue(url.contains("www.ge.com"),"Help url validated sucessfully");
+			//Assert.assertEquals(url, "https://www.ge.com/", "Help url validated sucessfully");
 			ExtentManager.logger.log(Status.PASS,"Help URL validated sucessfully");
 	
 			//------------------SERVER SIDE VALIDATIONS

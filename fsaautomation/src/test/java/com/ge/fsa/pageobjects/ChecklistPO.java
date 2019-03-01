@@ -15,6 +15,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -484,67 +485,128 @@ try {
 	
 	public void checklistAttach(CommonsPO commonsPo, String AttachmentAction, String checklistq) throws Exception
 	{
+
 		System.out.println("Trying to click Attach");
 		geteleChecklistAttach(checklistq);
-		commonsPo.switchContext("Native");
-		driver.findElementByAccessibilityId("Attach").click();
-		Thread.sleep(10000);
-		driver.findElementByAccessibilityId(AttachmentAction).click();
+		//driver.findElementByAccessibilityId("Attach").click();
+		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+		//driver.findElementByAccessibilityId(AttachmentAction).click();
+		commonsPo.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
 		AllowCamerabutton(commonsPo);
-
 		
-		if (AttachmentAction=="Choose from Library"||AttachmentAction=="choose from library") {
-		
-			Thread.sleep(10000);
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			AllowCamerabutton(commonsPo);
-			commonsPo.switchContext("Native");
-			WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
-			el.click();
-			List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
-			int numPhotos = photos.size();
-			//commonsPo.switchContext("Native");
-			WebElement elem = null;
-			List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
-			int count = lsPhotoGrid.size();
-				if (count==0 || count ==1 ) {
-					 ExtentManager.logger.log(Status.FAIL,"PLease add photos to Device and reexecute tests");
-				} else {
-					count = lsPhotoGrid.size()-1;
-					elem =lsPhotoGrid.get(count);
-					driver.findElement(By.xpath("//*[contains(@label,'"+elem.getText()+"')]")).click();
-					System.out.println("finished Clicking");
-					Thread.sleep(10000);	
-					
+		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
+			if (AttachmentAction == "Choose from Library" || AttachmentAction == "choose from library") {
+				driver.context("NATIVE_APP");
+				Thread.sleep(5000);
+				MobileElement el2 = (MobileElement) driver.findElementByAccessibilityId("Show roots");
+				el2.click();
+				Thread.sleep(5000);
+				System.out.println("Attempting to click on Photos");
+				driver.context("NATIVE_APP");
+				WebElement sd = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Photos')]"));
+				commonsPo.tap(sd);
+				System.out.println("clicked photos");
+				Thread.sleep(3000);
+				driver.context("NATIVE_APP");
+				WebElement se = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Camera')]"));
+				commonsPo.tap(se);
+				System.out.println("Clicked on Camera");
+				driver.context("NATIVE_APP");
+				Thread.sleep(3000);
+				WebElement el5 = driver
+						.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'Photo taken')][1]");
+				commonsPo.tap(el5);
+				System.out.println("Finished clicking on the first image");
+			}
+			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+				commonsPo.switchContext("Native");
+				try {
+					Thread.sleep(3000);
+					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+					e.get(0).click();
+				} catch (Exception e) {
+					List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByAccessibilityId("Shutter");
+					els1.get(0).click();
 				}
-		} 
-		if(AttachmentAction=="Take Photo"||AttachmentAction=="take photo") {
-			Thread.sleep(GenericLib.iMedSleep);
-			AllowCamerabutton(commonsPo);
-			commonsPo.switchContext("Native");
-			driver.findElementByAccessibilityId("Take Picture").click();
-			Thread.sleep(3000);
-			driver.findElementByAccessibilityId("Use Photo").click();
-		}
-			
-		if(AttachmentAction=="Take Video"||AttachmentAction=="take video") {
-			Thread.sleep(GenericLib.iMedSleep);
-			AllowCamerabutton(commonsPo);;
-			//com.apple.camera
-			commonsPo.switchContext("Native");
-			driver.findElementByAccessibilityId("Record Video").click();
-			Thread.sleep(5000);
-			System.out.println("Recording 5 secs video");
-			driver.findElementByAccessibilityId("Stop Recording Video").click();
-			driver.findElementByAccessibilityId("Use Video").click();
-		}
-		
-		
+				Thread.sleep(2000);
+				driver.findElementByAccessibilityId("Done").click();
+			}
+
+			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+				Thread.sleep(GenericLib.iMedSleep);
+				commonsPo.switchContext("Native");
+				Thread.sleep(3000);
+				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+				e.get(0).click();
+				Thread.sleep(4000);
+				// sleeping for 4 seconds as recording is going on and clicing again to stop
+//				e.get(0).click();
+//				Thread.sleep(2000);
+				driver.findElementByAccessibilityId("Done").click();
+			}
 			commonsPo.switchContext("Webview");
 			Thread.sleep(GenericLib.i30SecSleep);
-	
-	
+		} else
+		// For IOS
+		{
+			if (AttachmentAction == "Choose from Library" || AttachmentAction == "choose from library") {
+
+				Thread.sleep(3000);
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				AllowCamerabutton(commonsPo);
+				commonsPo.switchContext("Native");
+				WebElement el = wait
+						.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
+				el.click();
+				List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
+				int numPhotos = photos.size();
+				// commonsPo.switchContext("Native");
+				WebElement elem = null;
+				Thread.sleep(5000);
+				List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView")
+						.findElements(By.xpath("//*[contains(@label,'Photo')]"));
+				int count = lsPhotoGrid.size();
+				if (count == 0 || count == 1) {
+					ExtentManager.logger.log(Status.FAIL, "PLease add photos to Device and reexecute tests");
+				} else {
+					count = lsPhotoGrid.size() - 1;
+					elem = lsPhotoGrid.get(count);
+					driver.findElement(By.xpath("//*[contains(@label,'" + elem.getText() + "')]")).click();
+					System.out.println("finished Clicking");
+					Thread.sleep(10000);
+
+				}
+			}
+			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+				Thread.sleep(GenericLib.iMedSleep);
+				AllowCamerabutton(commonsPo);
+				commonsPo.switchContext("Native");
+				Thread.sleep(5000);
+				driver.findElementByAccessibilityId("Take Picture").click();
+				Thread.sleep(3000);
+				driver.findElementByAccessibilityId("Use Photo").click();
+			}
+
+			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+				Thread.sleep(GenericLib.iMedSleep);
+				AllowCamerabutton(commonsPo);
+				;
+				// com.apple.camera
+				commonsPo.switchContext("Native");
+				driver.findElementByAccessibilityId("Record Video").click();
+				Thread.sleep(5000);
+				System.out.println("Recording 5 secs video");
+				driver.findElementByAccessibilityId("Stop Recording Video").click();
+				driver.findElementByAccessibilityId("Use Video").click();
+			}
+			commonsPo.switchContext("Webview");
+			Thread.sleep(GenericLib.i30SecSleep);
+		}
+		commonsPo.switchContext("Webview");
+		Thread.sleep(GenericLib.i30SecSleep);
 	}
+
+		
 	
 }
 

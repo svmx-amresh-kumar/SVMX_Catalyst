@@ -18,6 +18,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -123,39 +125,39 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit1.equals("3000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Line Price Per Unit 1:Expected Value is 3000 Actual Value is"+sLinePricePerUnit1);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is 3000 Actual Value is"+sLinePricePerUnit1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		
 		// Verifying the Discount 
 		if(sDiscount.equals("15"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Discount % is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Line Price Per Unit 1:Expected Value is 3000 Actual Value is"+sLinePricePerUnit1);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is 3000 Actual Value is"+sLinePricePerUnit1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty1.equals("1.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Quantity :Expected Value is 1.000 Actual Value is"+sBillableQty1);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Quantity:Expected Value is 1.000 Actual Value is"+sBillableQty1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice1.equals("2550.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Line Price:Expected Value is 2550.000 Actual Value is"+sBillableLinePrice1);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price:Expected Value is 2550.000 Actual Value is"+sBillableLinePrice1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
@@ -193,39 +195,39 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit2.equals("10000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Line Price Per Unit 1:Expected Value is 10000 Actual Value is"+sLinePricePerUnit2);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is 10000 Actual Value is"+sLinePricePerUnit2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		
 		// Verifying the Discount 
 		if(sCovered.equals("30"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Discount % is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Covered Percent:Expected Value is 30 Actual Value is"+sCovered);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Covered Percent:Expected Value is 30 Actual Value is"+sCovered, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty2.equals("1.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Quantity:Expected Value is 1.000 Actual Value is"+sBillableQty2);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Quantity:Expected Value is 1.000 Actual Value is"+sBillableQty2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice2.equals("7000.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Line Price:Expected Value is 7000.000 Actual Value is"+sBillableLinePrice2);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price:Expected Value is 7000.000 Actual Value is"+sBillableLinePrice2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		
 		// Verifying after sync the system

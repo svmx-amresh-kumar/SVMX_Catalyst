@@ -27,9 +27,9 @@ public class GenericLib
 	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
 	public static String sResources = sDirPath+"//resources";
-	public static String sConfigFile =  sResources+"//config.properties";
+	public static String sConfigFile =  sResources+"//config_local.properties";
 	public static String sTestDataFile = sResources + "//TestData.xlsx";
-	public static int iVHighSleep = 6000;
+	public static int iVHighSleep = 10000;
 	public static int i30SecSleep = 3000;
 	public static int iHighSleep = 8000;
 	public static int iMedSleep = 5000;
@@ -137,7 +137,8 @@ public class GenericLib
 		
 		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
 		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
-		String sActualLogPath = BaseLib.runMachine.equalsIgnoreCase("build") ? "offlineSahiLogs/" : "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" ;
+		//If not triggered from jenkins use local path
+		String sActualLogPath = System.getenv("Run_On_Platform") == null ? "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" :  "offlineSahiLogs/" ;
 		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
@@ -153,7 +154,7 @@ public class GenericLib
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
 			//Set the path  of sahi reports
 			
-			if(BaseLib.runMachine.equalsIgnoreCase("build")) {
+			if(BaseLib.sUsePropertyFile.equalsIgnoreCase("automation_build") || BaseLib.sUsePropertyFile.equalsIgnoreCase("fsa_track_build")) {
 				//first reference the log file name from local path ,then build a path for the build machine where we archive these logs
 				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 

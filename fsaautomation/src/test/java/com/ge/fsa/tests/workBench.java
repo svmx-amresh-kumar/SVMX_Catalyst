@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.openqa.selenium.By;
@@ -28,6 +29,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -79,16 +81,29 @@ public class workBench extends BaseLib
 //	}
 
 
-	@Test()
+	//@Test(retryAnalyzer=Retry.class)
+	@Test
 
 public void workBenchAnd() throws Exception
 {		
-		Thread.sleep(3000);
-commonsPo.tap(calendarPO.getEleCalendarClick());
-Thread.sleep(3000);
-commonsPo.tap(calendarPO.getElecalendarmonthtap());
-Thread.sleep(5000);
+		
+		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
+//		commonsPo.verifySahiExecution();
+		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
 
+		lauchNewApp("false");
+		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
+
+		loginHomePo.login(commonsPo, exploreSearchPo);
+		ExtentManager.extent.flush();
+
+		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+		ExtentManager.extent.flush();
+
+        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
 
 

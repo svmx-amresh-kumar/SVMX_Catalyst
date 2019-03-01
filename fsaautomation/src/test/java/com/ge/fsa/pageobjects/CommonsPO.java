@@ -19,13 +19,17 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -35,6 +39,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidElement;
@@ -144,22 +149,23 @@ public class CommonsPO {
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
-			// Since in android or IOS now has clicks and taps alternatively do a click then a tap
-			try {
-				wElement.click();	
-				clickPassed = true;
-				//System.out.println("Click passed");
-			} catch (Exception e) {
-				System.out.println("Click failed");
-				clickPassed = false;
-				tapExp = e;
-			}
+			
 			
 			
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
-
+				// Since in android or IOS now has clicks and taps alternatively do a click then a tap
+				try {
+					wElement.click();	
+					clickPassed = true;
+					//System.out.println("Click passed");
+				} catch (Exception e) {
+					System.out.println("Click failed");
+					clickPassed = false;
+					tapExp = e;
+				}
+				
 				try {
 					point = wElement.getLocation();
 				} catch (Exception e) {
@@ -176,12 +182,14 @@ public class CommonsPO {
 				}
 
 			}
+			try {
+				String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+				System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
+						+ wElement.getTagName() + " " + wElement.getLocation());
+			} catch (Exception e) {
+				System.out.println("Acting on element : " + e);
+			}
 
-			String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-			System.out.println("Acting on element : " + printElement + " " + wElement.getText() + " "
-					+ wElement.getTagName() + " " + wElement.getLocation());
-
-			
 			// Set the custom or default offsets to x & y
 			if (xNewOffset != null) {
 				x = point.getX() + xNewOffset;
@@ -241,7 +249,8 @@ public class CommonsPO {
 
 			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
-
+		
+		switchContext("Webview");
 	}
 
 	public void singleTap(Point point) throws InterruptedException {
@@ -346,7 +355,7 @@ public class CommonsPO {
 			switchContext("Native");
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 					.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-					.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+					.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
 			switchContext("webview");
 			break;
 
@@ -383,26 +392,32 @@ public class CommonsPO {
 	 */
 	public void switchContext(String sContext) {
 
-		Set contextNames = driver.getContextHandles();
+
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 		// global variable to access across
-		System.out.println("Available Contexts = " + contextNames);
-
-		sNativeApp = contextNames.toArray()[0].toString();
-		sWebView = contextNames.toArray()[1].toString();
 		try {
-			if (sContext.equalsIgnoreCase("Native")) {
-				driver.context(sNativeApp);
-				System.out.println("Setting Context = " + sNativeApp);
-			} else {
-				driver.context(sWebView);
-				System.out.println("Setting Context = " + sWebView);
+			Set<String> availableContextNames = driver.getContextHandles();
+			//System.out.println("Available Contexts = " + availableContextNames);
 
+			for (String retreivedContext : availableContextNames) {
+				if (sContext.toLowerCase().contains("chrome")) {
+					if (retreivedContext.toLowerCase().contains("chrome")) {
+						//System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+
+				} else {
+					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
+						//System.out.println("Setting Context = " + retreivedContext);
+						driver.context(retreivedContext);
+					}
+				}
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exceptions
-			System.out.println("Could not switch the context");
+			System.out.println("Could not switch the context" + e);
 		}
 
 	}
@@ -431,7 +446,15 @@ public class CommonsPO {
 			tap(wElement, 30, 36);
 			Thread.sleep(2000);
 			switchContext("Native");
-			getElePicklistValue(sValue).click();
+			try {
+				//if element is visible clicks it else throws error
+				getElePicklistValue(sValue).click();
+			}
+			catch(Exception e) {
+				//scroll till the element till element is visible
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
+				getElePicklistValue(sValue).click();
+			}
 			switchContext("WebView");
 			break;
 
@@ -458,24 +481,36 @@ public class CommonsPO {
 	 * @throws InterruptedException
 	 */
 
-	public void waitforElement(WebElement wElement, long lTime) throws InterruptedException {
-		long lElapsedTime = 0;
-		System.out.println("Time to Wait : " + lTime + " sec");
-		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-		System.out.println("Waiting For Element : " + printElement);
+	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
+		int lElapsedTime = 0;
+		System.out.println("Waiting For : " + lTime + " sec");
+//		String context=driver.getContext();
+//		switchContext("native");
+//		System.out.println("Time to Wait : " + lTime + " sec");
+//		if(wElement.toString().contains("->")) {
+//		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+//		System.out.println("Waiting For Element : " + printElement);
+//		}else {
+//		System.out.println("Waiting For Element : " + wElement.toString());
+//		}
+//		switchContext(context);
+		
 		while (lElapsedTime != lTime) {
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
-					break;
+					System.out.println("Element is displayed");
+					//switchContext(context);
+					return true;
 				}
 			} catch (Exception ex) {
 			}
 
 			lElapsedTime++;
-
-
 		}
+		System.out.println("Element is not displayed");
+		//switchContext(context);
+		return false;
 
 	}
 
@@ -634,6 +669,7 @@ public class CommonsPO {
 			getAccessibleElement(selectDate).click();;
 			getCalendarDone().click();
 			//set current or specific time
+			Thread.sleep(1000);
 			if (sTimeHrs == "0" && sTimeMin == "0") {
 				getCalendarDone().click();
 
@@ -742,6 +778,7 @@ public class CommonsPO {
 				getAccessibleElement(selectDate).click();
 				getCalendarDone().click();
 				// set current or specific time
+				Thread.sleep(1000);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
 					getCalendarDone().click();
 
@@ -760,7 +797,7 @@ public class CommonsPO {
 			if (sDateFormat == "0" && sTimeHrs == "0" && sTimeMin == "0") {
 				getEleDonePickerWheelBtn().click();
 				Thread.sleep(1000);
-				getEleDonePickerWheelBtn().click();
+				//getEleDonePickerWheelBtn().click();
 			} else {
 				getEleDatePickerPopUp().get(0).sendKeys(sDateFormat);
 				if (sTimeHrs == "0" && sTimeMin == "0") {
@@ -991,6 +1028,11 @@ public class CommonsPO {
 		return calendarPM;
 	}
 	
+	@FindBy(xpath = "//*[@class='android.widget.CheckedTextView'][@checked='true']")
+	private WebElement eleAndroidWheelPopUp;
+	public WebElement getEleAndroidWheelPopUp() {
+		return eleAndroidWheelPopUp;
+	}
 	public String getDate(WebElement wElement,String dateTime) throws InterruptedException {
 		String date="";
 		switch (BaseLib.sOSName) {
@@ -1003,10 +1045,16 @@ public class CommonsPO {
 			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
 			getCalendarDone().click();
 			if(dateTime.equalsIgnoreCase("datetime")) {
+				Thread.sleep(1000);
 				String sHours=getCalendarHours().getText();
 				String sMinutes=getCalendarMinutes().getText();
-				String sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
-				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
+				String sAMPM;
+				try{
+					sAMPM=getCalendarAM().isSelected()?getCalendarAM().getText():getCalendarPM().getText();
+				}
+				catch (Exception e) {
+					sAMPM=Integer.parseInt(sHours)>11?"PM":"AM";
+				}				date=date+" "+sHours+":"+sMinutes+" "+sAMPM;
 				getCalendarDone().click();
 			}
 			switchContext("webview");
@@ -1319,19 +1367,22 @@ public class CommonsPO {
 				System.out.println("Attempting to Click on Always Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 				System.out.println("Sucessfully Clicked on Always Allow Pop up");
+				
 
 			} catch (Exception e) {
 				System.out.println("Attempting to Click on Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
+				System.out.println("Sucessfully Clicked on Allow Pop up");
+				
 			}
 
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
-		} finally {
+		} 
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
-		}
+		
 	}
 
 	public void lookupSearchOnly(String value) throws InterruptedException {
@@ -1382,17 +1433,17 @@ public class CommonsPO {
 		boolean isDis = false;
 		switchContext("Webview");
 		try {
-			System.out.println("Element Is displayed ===== " + wElement.isDisplayed());
-			if (wElement.isDisplayed()) {
-				System.out.println("Element Is displayed returning true");
+			isDis = wElement.isDisplayed();
+			if (isDis) {
+				System.out.println("Element is visible");
 				return true;
 			} else {
-				System.out.println("Element Not displayed returning false");
+				System.out.println("Element is not visible");
 				return false;
 
 			}
 		} catch (Exception e) {
-			System.out.println("Element Not displayed returning false");
+			System.out.println("Element is not visible");
 			return false;
 		}
 
@@ -1497,5 +1548,68 @@ public class CommonsPO {
 			}
 			return filePath;
 		}
+		
+
+		public int getHeaderCount(Object obj) {
+			int count = 0;
+			if(obj instanceof WorkOrderPO) {
+				WorkOrderPO wO = (WorkOrderPO)obj;
+				count = Integer.parseInt(wO.getTxtFullNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+			}
+
+			return count;
+			
+		}
+		
+		public int getLocHeaderCount(Object obj) {
+			int count = 0;
+			if(obj instanceof WorkOrderPO) {
+				WorkOrderPO wO = (WorkOrderPO)obj;
+				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
+			}
+
+			return count;
+			
+		}
+
+		/**
+		 * Rotate the screen to Portrait
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenPortrait() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
+		}
+		
+		/**
+		 * Rotate the screen to Landscape
+		 * @throws InterruptedException
+		 */
+		public void custRotateScreenLandscape() throws InterruptedException {
+			switchContext("Native");
+			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+			Thread.sleep(3000);
+			switchContext("Webview");
+
+
+		}
 	
+		/**
+		 * Injecting properties set from jenkins build into sahi for consumption
+		 */
+		public void injectJenkinsPropertiesForSahi() {
+			String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+			try {
+				this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
+				System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
+
+			}catch(Exception e) {
+				
+			}
+		}
 }

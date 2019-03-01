@@ -341,6 +341,18 @@ public class RestServices
 		}
 
 
+	 /**
+	  * Method to delete the records based on record id
+	  * 
+	  * Usage:
+	  * 
+	  * sObjectApi = "SVMXC__SVMX_Event__c";
+	  *	restServices.restDeleterecord(sObjectApi,RecordId);
+	  *
+	  * @param sSoObjectName
+	  * @param RecordId
+	  * @throws IOException
+	  */
 	 public void restDeleterecord(String sSoObjectName, String RecordId  ) throws IOException
 		{
 		 getAccessToken();
@@ -385,7 +397,19 @@ public class RestServices
 	 
 	
 	
-	 
+	 /**
+	  * Method to update the records based on sSoObjectName, sWOJson, RecordId
+	  * 
+	  * Usage:
+	  * String sObjectApi = "SVMXC__SVMX_Event__c";
+	  * String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
+	  * restServices.restUpdaterecord(sObjectApi,sWOJson1,techID );
+	  * 
+	  * @param sSoObjectName
+	  * @param sWOJson
+	  * @param RecordId
+	  * @throws IOException
+	  */
 	 public  void restUpdaterecord(String sSoObjectName,String sWOJson,String RecordId) throws IOException
 	 {
 		 getAccessToken();

@@ -22,11 +22,11 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10559() throws Exception {
 		
-		//Running Pre-Req
-		 commonsPo.preReqSetup(genericLib);
-		// Resinstall the app
-		lauchNewApp("false");
-		//Execute Sahi
+//		//Running Pre-Req
+//		 commonsPo.preReqSetup(genericLib);
+//		// Resinstall the app
+//		lauchNewApp("false");
+//		//Execute Sahi
 		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
@@ -63,29 +63,39 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
-		workOrderPo.getEleActionsLnk().click();
 		commonsPo.tap(workOrderPo.getEleActionsLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
-		Thread.sleep(GenericLib.iMedSleep);
+	//	commonsPo.tap(workOrderPo.getEleLblStateName());
+		Thread.sleep(5000);
 //		System.out.println("State is "+workOrderPo.getEleLblStateName().getAttribute("innerText"));
 //		Thread.sleep(GenericLib.iHighSleep);
 //		System.out.println("Country is "+workOrderPo.getEleLblCountryName().getText());
 //		System.out.println("Country is 1111 "+workOrderPo.getEleLblCountryName().getAttribute("textContent"));
-		Assert.assertTrue(workOrderPo.getEleLblStateName().getAttribute("textContent").equals(sWebServiceState));
+		
+		Assert.assertTrue(workOrderPo.getEleLblStateName().getAttribute("innerText").equals(sWebServiceState));
 //		Assert.assertTrue(workOrderPo.getEleLblCountryName().getText().equals(sWebServiceCountry));
 //		System.out.println("Time is "+workOrderPo.getEleLblCompletedDateTime().getAttribute("innerText"));
 //		System.out.println("Build Up Time "+sCurrentDate);
 //		System.out.println(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent"));
 //		Assert.assertTrue(workOrderPo.getEleLblCompletedDateTime().getAttribute("textContent").contains(sCurrentDate));
-		workOrderPo.getelecancelbutton().click();
-		commonsPo.tap(workOrderPo.getelecancelbutton());
-		workOrderPo.geteleDiscardChangesbutton().click();
-		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
+		try{
+			workOrderPo.getelecancelbutton().click();
+			workOrderPo.geteleDiscardChangesbutton().click();
+		}
+		catch(Exception e){
+			commonsPo.tap(workOrderPo.getelecancelbutton());
+			commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
+		}
 		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 		Thread.sleep(GenericLib.i30SecSleep);
-		workOrderPo.getEleActionsLnk().click();
-		commonsPo.tap(workOrderPo.getEleActionsLnk());
+		try{
+			workOrderPo.getEleActionsLnk().click();
+		}
+		catch (Exception e) {
+			commonsPo.tap(workOrderPo.getEleActionsLnk());
+		}
+		
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		workOrderPo.getEleclickparts(sProductName).click();

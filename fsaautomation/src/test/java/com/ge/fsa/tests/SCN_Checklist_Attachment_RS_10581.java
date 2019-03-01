@@ -17,6 +17,10 @@ import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.ChecklistPO;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -120,7 +124,15 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		commonsPo.tap(checklistPo.eleChecklistImage(),20,20);
 		System.out.println("After attachment image");
 		commonsPo.switchContext("Native");
-		checklistPo.geteleDoneAttachment().click();
+		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android"))
+		{
+		     ((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+		}
+		else {
+			checklistPo.geteleDoneAttachment().click();
+		} 
+		
+		
 		//WebElement eleDoneButton = driver.findElement(By.xpath("//*[contains(@label,'Done')]"));
 	//	eleDoneButton.click();
 		ExtentManager.logger.log(Status.PASS,"done button was clicked below the image");

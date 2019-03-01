@@ -1,8 +1,11 @@
 package com.ge.fsa.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import com.ge.fsa.lib.GenericLib;
 
@@ -105,6 +108,16 @@ public class ExploreSearchPO
 		return eleCloudSymbol;
 	}
 	
+	private List<WebElement> eleExploreWOSearchLst;
+	public List<WebElement> getEleExploreWOSearchLst() {
+		eleExploreWOSearchLst=driver.findElements(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'Work Orders')]"));
+		return eleExploreWOSearchLst;
+	}
+	private List<WebElement> eleExploreAccSearchLst;
+	public List<WebElement> getEleExploreAccSearchLst() {
+		eleExploreAccSearchLst=driver.findElements(By.xpath("//div[@class='listitem-sfmsearch-lineup-list-item-name'][contains(text(),'Accounts')]"));
+		return eleExploreAccSearchLst;
+	}
 	
 	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
 	{		

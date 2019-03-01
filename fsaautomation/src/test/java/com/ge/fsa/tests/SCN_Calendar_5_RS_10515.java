@@ -62,7 +62,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 
 		 commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		 commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
-
+		 commonsPo.preReqSetup(genericLib);
 		// sahi
 
 		

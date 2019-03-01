@@ -889,6 +889,13 @@ import org.openqa.selenium.Rotatable;
 		{
 			return checkBoxAccount01;
 		}
+		
+		@FindBy(xpath="//span[contains(text(),'Account:')]/ancestor::div[1]")
+		private WebElement checkBoxAccount02;
+		public WebElement getcheckBoxAccount02()
+		{
+			return checkBoxAccount02;
+		}
 	
 		@FindBy(xpath="//span[text()='Apply']")
 		private WebElement btnApply;
@@ -1001,6 +1008,13 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleCountry_Edit_Lst;
 		}
+		
+		@FindBy(xpath="//*[text()='Requested Country']/../..//div[@class='x-input-body-el']/input")
+		private WebElement eleRequestedCountry_Edit_Lst;
+		public WebElement getEleRequestedCountry_Edit_Lst()
+		{
+			return eleRequestedCountry_Edit_Lst;
+		}
 	
 		@FindBy(xpath="//span[@class='x-label-text-el'][text()='State']/following::div[@class='sfm-delivery-textField-value']")
 //		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='State']/following::input)[1]")
@@ -1053,6 +1067,20 @@ import org.openqa.selenium.Rotatable;
 		public WebElement getChkBoxComplexFilter()
 		{
 			return chkBoxComplexFilter;
+		}
+		
+		@FindBy(xpath="//div[contains(text(),'Full Name')]")
+		private WebElement txtFullNameHeader;
+		public WebElement getTxtFullNameHeader()
+		{
+			return txtFullNameHeader;
+		}
+		
+		@FindBy(xpath="//div[contains(text(),'Location Name')]")
+		private WebElement txtLocNameHeader;
+		public WebElement getTxtLocNameHeader()
+		{
+			return txtLocNameHeader;
 		}
 		
 		//close---------
@@ -1730,8 +1758,6 @@ import org.openqa.selenium.Rotatable;
 	
 		}
 	
-	
-	
 		// get Account from header
 		@FindBy(xpath="//*[text()='Account']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement Accountvalue;
@@ -2054,7 +2080,8 @@ import org.openqa.selenium.Rotatable;
 			return EleUpdateLnk;
 		}
 	
-		@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		//@FindBy(xpath="(//*[contains(text(),'Description')][@class = 'x-label-text-el']/../..//textarea)[2]")
+		@FindBy(xpath=("//div[contains(@id,'ext-svmx-toolbar') and .//div[@class='x-innerhtml'][text()='Problem Description']]//..//textarea"))
 		private WebElement eleProblemDesc_Edit_WorkOrder;
 		public WebElement geteleProblemDesc_Edit_WorkOrder()
 		{
@@ -2207,8 +2234,14 @@ import org.openqa.selenium.Rotatable;
 			return eleCustomerDownOffRdBtn;
 		}
 		
+		@FindBy(xpath="//span[text()='Customer Down']/../..//div[@class='x-unsized x-component x-thumb x-size-monitored x-paint-monitored x-draggable x-thumb-toggle-on x-component-toggle-on']")
+		private WebElement eleCustomerDownOnRdBtn;
+		public WebElement getEleCustomerDownOnRdBtn()
+		{
+			return eleCustomerDownOnRdBtn;
+		}
 		
-		@FindBy(xpath="//div[@class='x-unsized x-toggleslider x-slider x-component x-size-monitored x-paint-monitored x-has-width x-widthed x-on']")
+		@FindBy(xpath="//span[text()='RS_10552_AutoChkBx']/../..//div[@class = 'x-body-el x-widthed']/div/div[5]")
 		private WebElement eleAutoChkBxRdBtn;
 		public WebElement getEleAutoChkBxRdBtn()
 		{
@@ -2257,6 +2290,68 @@ import org.openqa.selenium.Rotatable;
 		public WebElement getEleWOBillingTypeCaseLst()
 		{
 			return eleWOBillingTypeCaseLst;
+		}
+		
+		@FindBy(xpath="//span[text()='Customer Down']/../..//div[@class = 'x-body-el x-widthed']/div/div[5]")
+		private WebElement eleCustomerDownRdBtn;
+		public WebElement getEleCustomerDownRdBtn()
+		{
+			return eleCustomerDownRdBtn;
+		}
+		
+		@FindBy(xpath="//span[text()='Discount %']/../..//input")
+		private WebElement eleDiscountTxtFld;
+		public WebElement getEleDiscountTxtFld()
+		{
+			return eleDiscountTxtFld;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoActivityMonth']/../..//input")
+		private WebElement eleAutoActivityMonthTxtFld;
+		public WebElement getEleAutoActivityMonthTxtFld()
+		{
+			return eleAutoActivityMonthTxtFld;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoActivityYear']/../..//input")
+		private WebElement eleAutoActivityYearTxtFld;
+		public WebElement getEleAutoActivityYearTxtFld()
+		{
+			return eleAutoActivityYearTxtFld;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoDiscountLinePrice']/../..//input")
+		private WebElement eleAutoDiscountLinePriceTxtFld;
+		public WebElement getEleAutoDiscountLinePriceTxtFld()
+		{
+			return eleAutoDiscountLinePriceTxtFld;
+		}
+		
+		@FindBy(xpath="//span[text()='RS_10552_AutoCalLinePrice']/../..//input")
+		private WebElement eleAutoCalLinePriceTxtFld;
+		public WebElement getEleAutoCalLinePriceTxtFld()
+		{
+			return eleAutoCalLinePriceTxtFld;
+		}
+		
+		@FindBy(xpath="//div[text()='This record does not meet the qualification criteria for this SFM Transaction']")
+		private WebElement eleThisRecorddoesnotMeetTxt;
+		public WebElement getEleThisRecorddoesnotMeetTxt()
+		{
+			return eleThisRecorddoesnotMeetTxt;
+		}
+		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTxtFld;
+		public WebElement getEleStartDateTxtFld()
+		{
+			return eleStartDateTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTxtFld;
+		public WebElement getEleEndDateTxtFld()
+		{
+			return eleEndDateTxtFld;
 		}
 	}
 	

@@ -17,7 +17,11 @@ import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.CommonsPO;
 
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.offset.PointOption;
@@ -142,14 +146,23 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		Thread.sleep(GenericLib.iHighSleep);
 		commonsPo.tap(checklistPo.eleChecklistImage(), 20, 20);
 		commonsPo.switchContext("Native");
-		checklistPo.geteleDoneAttachment().click();
+		
+		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android"))
+		{
+		     ((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+		}
+		else {
+			checklistPo.geteleDoneAttachment().click();
+		} 
+		
 		ExtentManager.logger.log(Status.PASS, "done button was clicked below the image/video");
 		commonsPo.switchContext("WebView");
 		checklistPo.navigateBacktoWorkOrder(commonsPo);
 		System.out.println("Upload from Library completed");
 
 /*--------------------------------Take Video---------------------------------------*/
-				driver.activateApp(GenericLib.sAppBundleID);
+				lauchNewApp("true");
+				//driver.activateApp(GenericLib.sAppBundleID);
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
@@ -191,30 +204,36 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				commonsPo.tap(checklistPo.eleChecklistVideo(),20,20);
 				commonsPo.switchContext("Native");
 				Thread.sleep(GenericLib.iHighSleep);
-				try {
-				//	WebElement eleDoneButton1 =driver.findElementByAccessibilityId("Done");
-					//eleDoneButton1.click();
-					checklistPo.geteleDoneAccessibilityid().click();
+				
+		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
+			((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+		} else {
+			try {
+				// WebElement eleDoneButton1 =driver.findElementByAccessibilityId("Done");
+				// eleDoneButton1.click();
+				checklistPo.geteleDoneAccessibilityid().click();
 
-				} catch (Exception e) {
-					// TODO: handle exception
-					System.out.println("Did not get the fullscreen video mode.. proceeding with exection");
-				}
-				try {
-					checklistPo.geteleDoneAccessibilityid().click();
-					//WebElement eleDoneButton2 =driver.findElementByAccessibilityId("Done");
-					//eleDoneButton2.click();
-				} catch (Exception e) {
-					// TODO: handle exception				
-					System.out.println("Done button clicked below");
-
-				}
-			
-				ExtentManager.logger.log(Status.PASS,"done button was clicked below the video");
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Did not get the fullscreen video mode.. proceeding with exection");
+			}
+			try {
+				checklistPo.geteleDoneAccessibilityid().click();
+				System.out.println("Done button clicked below");
+				// WebElement eleDoneButton2 =driver.findElementByAccessibilityId("Done");
+				// eleDoneButton2.click();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Did not click done button");
+			}
+		}
+				ExtentManager.logger.log(Status.INFO,"done button was clicked below the video");
 				commonsPo.switchContext("WebView");
 				checklistPo.navigateBacktoWorkOrder(commonsPo);	
 
 				/*--------------------------Take Photo -----------------------*/
+				lauchNewApp("true");
+
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
 
@@ -246,7 +265,14 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				Thread.sleep(GenericLib.iHighSleep);
 				commonsPo.tap(checklistPo.eleChecklistImage(),20,20);
 				commonsPo.switchContext("Native");
-				checklistPo.geteleDoneAccessibilityid().click();
+				
+				if (com.ge.fsa.lib.BaseLib.sOSName.contains("android"))
+				{
+				     ((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+				}
+				else {
+					checklistPo.geteleDoneAccessibilityid().click();
+				} 
 				//WebElement eleDoneButton3 =driver.findElementByAccessibilityId("Done");
 				//eleDoneButton3.click();
 				ExtentManager.logger.log(Status.PASS,"done button was clicked below the photo");

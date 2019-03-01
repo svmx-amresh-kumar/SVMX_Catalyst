@@ -100,7 +100,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 				
 	}
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10550() throws Exception {
 		
 		prerequisites();
@@ -133,18 +133,18 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	    commonsPo.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
 	    
 	    //Setting up scheduled DAtetime to today.
-	    workOrderPo.getEleScheduledDateTimeTxt().click();	   
+	  /* workOrderPo.getEleScheduledDateTimeTxt().click();	   
 	    commonsPo.switchContext("Native");
 	    commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	    commonsPo.switchContext("WebView");	   
-	//    commonsPo.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(),"0", "0", "0");
+	    commonsPo.switchContext("WebView");	   */
+	   commonsPo.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(),"0", "0", "0");
 	    
 	   //Setting up Scheduled Date to today
-	    workOrderPo.getEleScheduledDateLst().click();
+	   /* workOrderPo.getEleScheduledDateLst().click();
 	    commonsPo.switchContext("Native");
 	   commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-	   commonsPo.switchContext("WebView");   
-	   //commonsPo.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
+	   commonsPo.switchContext("WebView");   */
+	   commonsPo.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
 	   
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.tap(workOrderPo.getEleSaveLnk());
@@ -160,7 +160,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		commonsPo.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
+		commonsPo.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 		Thread.sleep(GenericLib.iLowSleep);
@@ -259,7 +259,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	try {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Work Order Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
-	} catch (Exception e) {
+	} catch (AssertionError e) {
 		ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
 	}	
 		Thread.sleep(GenericLib.iLowSleep);
@@ -295,7 +295,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		try {
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
-		} catch (Exception e) {
+		} catch (AssertionError e) {
 			ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
 		}
 			

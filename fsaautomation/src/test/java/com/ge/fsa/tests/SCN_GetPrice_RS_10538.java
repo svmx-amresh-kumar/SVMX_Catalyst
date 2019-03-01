@@ -51,7 +51,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10538() throws Exception {
 		
-		commonsPo.preReqSetup(genericLib);
+		//commonsPo.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
 		
@@ -117,7 +117,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit.equals(sPLinePricePerUnit))
 		{
-			ExtentManager.logger.log(Status.PASS,"PARTS:Line Price Per Unit 1:Expected Value is"+sPLinePricePerUnit+"Actual Value is"+sLinePricePerUnit, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"PARTS:Line Price Per Unit 1:Expected Value is"+sPLinePricePerUnit+"Actual Value is"+sLinePricePerUnit);
 		}
 		else
 		{
@@ -126,7 +126,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		// Covered Percent Value verification
 		if(sCoveredPercent.equals(sPCoveredPercent))
 		{
-			ExtentManager.logger.log(Status.PASS,"PARTS:Covered Percent 1 :Expected Value is"+sPCoveredPercent+"Actual Value is"+sCoveredPercent, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"PARTS:Covered Percent 1 :Expected Value is"+sPCoveredPercent+"Actual Value is"+sCoveredPercent);
 		}
 		else
 		{
