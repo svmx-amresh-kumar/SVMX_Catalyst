@@ -126,7 +126,7 @@ public class LoginHomePO
 		case "android":
 
 			//For Android
-			System.out.println("Login For Android");
+			System.out.println("Login For Android UN = "+sUn+"PWD = "+sPwd);
 
 			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
 				System.out.println("Logged in Already");
@@ -180,7 +180,7 @@ public class LoginHomePO
 
 		case "ios":
 
-			System.out.println("Login For IOS");
+			System.out.println("Login For IOS UN = "+sUn+"PWD = "+sPwd);
 
 			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
 				System.out.println("Logged in Already");
