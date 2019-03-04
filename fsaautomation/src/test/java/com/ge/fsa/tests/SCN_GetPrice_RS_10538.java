@@ -150,14 +150,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
-		try
-		{
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
-		catch (Exception e)
-		{
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
+		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
