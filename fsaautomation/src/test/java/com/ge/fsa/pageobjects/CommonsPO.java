@@ -1552,7 +1552,7 @@ public class CommonsPO {
 			}
 			filePath = ExtentManager.getScreenshot();
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				switchContext("web_view");
+				switchContext("webview");
 			}
 			return filePath;
 		}
