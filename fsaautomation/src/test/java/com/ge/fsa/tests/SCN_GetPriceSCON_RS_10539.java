@@ -369,24 +369,19 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_Airfare.equals("1800.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"EXPENSE:Billable Line Price:Expected Value is 1800.000  Actual Value is"+sBillableLinePrice_Airfare);
+			ExtentManager.logger.log(Status.PASS,"EXPENSE:Billable Line Price:Expected Value is 1800.000  Actual Value is "+sBillableLinePrice_Airfare);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"EXPENSE:Billable Line Price:Expected Value is 1800.000  Actual Value is"+sBillableLinePrice_Airfare,MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"EXPENSE:Billable Line Price:Expected Value is 1800.000  Actual Value is "+sBillableLinePrice_Airfare,MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
-		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges()))
-		{
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
 			commonsPo.tap(workOrderPo.getEleDiscardChanges());
 		}
 		
-		else
-		{
-			System.out.println("Done button clicked successfully");
-		}
 		/**
 		 * TRAVEL - VERIFICATION OF THE FIELDS
 		 */
@@ -397,8 +392,20 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "03", sEndDate1);
 		
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1));
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1),10,10);
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");

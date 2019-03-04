@@ -219,14 +219,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
-		try
-		{
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
-		catch (Exception e)
-		{
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
+		
 		
 	// For Repair Labor Parts
 		
@@ -275,14 +270,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
-		try
-		{
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
-		catch (Exception e)
-		{
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
+		
 	/**
 	 * LABOR - END OF LABOR VERIFICATION
 	*/
@@ -329,14 +319,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
-		try
-		{
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
-		catch (Exception e)
-		{
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
-		}
+		
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
 		toolsPo.syncData(commonsPo);

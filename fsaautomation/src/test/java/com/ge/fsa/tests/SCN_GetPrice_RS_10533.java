@@ -18,6 +18,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -103,6 +105,10 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		// Tap on the Product and verify the field values after the Get Price of Parts
 		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10533));
 		
@@ -116,39 +122,39 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sEstimatedPricePerUnit.equals("700"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected - Part : Expected Value is 700 Actual Value is"+sEstimatedPricePerUnit, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected - Part : Expected Value is 700 Actual Value is"+sEstimatedPricePerUnit, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		
 		// Verifying the Discount 
 		if(sCoveredPercent.equals("30"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Covered % is as Expected - Part : Expected Value is 30 Actual Value is"+sCoveredPercent, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Covered %  is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Covered %  is not as Expected - Part : Expected Value is 30 Actual Value is"+sCoveredPercent, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableLinePrice1.equals("1960.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price Per Unit is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price Per Unit is as Expected - Part : Expected Value is 1960.000 Actual Value is"+sBillableLinePrice1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price Per Unit is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price Per Unit is not as Expected - Part : Expected Value is 1960.000 Actual Value is"+sBillableLinePrice1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableQty.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Qty is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Billable Qty is as Expected - Part : Expected Value is 4.000 Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Qty is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Billable Qty is not as Expected - Part : Expected Value is 4.000 Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
@@ -172,6 +178,10 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Calibration", "03", sEndDate, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Calibration"));
 		String sEstimatedPricePUnit_labor = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");
 		System.out.println(sEstimatedPricePUnit_labor);
@@ -182,37 +192,37 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		
 		if(sEstimatedPricePUnit_labor.equals("1500"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected : Expected Value is 1500 Actual Value is "+sEstimatedPricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected: Expected Value is 1500 Actual Value is "+sEstimatedPricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sCoveredPercent_Labor.equals("20"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Covered Percent is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Covered Percent is as Expected : Expected Value is 20 Actual Value is "+sCoveredPercent_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Covered Percent is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Covered Percent is not as Expected : Expected Value is 20 Actual Value is "+sCoveredPercent_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableQty_Labor.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected : Expected Value is 4.000 Actual Value is "+sBillableQty_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity  is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity  is not as Expected : Expected Value is 4.000 Actual Value is "+sBillableQty_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		if(sBillableLinePrice_Labor.equals("4800.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected  : Expected Value is 4800.000 Actual Value is "+sBillableLinePrice_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected  : Expected Value is 4800.000 Actual Value is "+sBillableLinePrice_Labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		//============================================================================================
@@ -224,6 +234,10 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		String sEndDate2 = Integer.toString(sEndDateint2);
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo, "Cleanup", "03", sEndDate, sProcessname);
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
+		
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Cleanup"));
 		String sEstimatedPricePUnit_labor2 = workOrderPo.getelechildlinefields("Estimated Price Per Unit").getAttribute("value");
 		System.out.println(sEstimatedPricePUnit_labor2);
@@ -234,37 +248,37 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		
 		if(sEstimatedPricePUnit_labor2.equals("3000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Estimated Price Per Unit is as Expected  : Expected Value is 3000 Actual Value is "+sEstimatedPricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Estimated Price Per Unit is not as Expected  : Expected Value is 3000 Actual Value is "+sEstimatedPricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sCoveredPercent_Labor2.equals("20"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Covered Percent is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Covered Percent is as Expected  : Expected Value is 20 Actual Value is "+sCoveredPercent_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Covered Percent is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Covered Percent is not as Expected  : Expected Value is 20 Actual Value is "+sCoveredPercent_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableQty_Labor2.equals("1"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected  : Expected Value is 1 Actual Value is "+sBillableQty_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity  is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity  is not as Expected  : Expected Value is 1 Actual Value is "+sBillableQty_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		if(sBillableLinePrice_Labor2.equals("2400.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected : Expected Value is 2400.000 Actual Value is "+sBillableLinePrice_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected : Expected Value is 2400.000 Actual Value is "+sBillableLinePrice_Labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
 		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
@@ -286,6 +300,10 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			//Verifying the fields of Expenses
 			
 			commonsPo.tap(workOrderPo.geteleGetPrice());
+			if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+				commonsPo.tap(workOrderPo.getEleDiscardChanges());
+			}
+			
 			commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
 			String sCoveredPercent_labor3 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 			String sBillableQty_labor3 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -294,31 +312,31 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			// Covered Percent Value verification
 			if(sCoveredPercent_labor3.equals("10"))
 			{
-				ExtentManager.logger.log(Status.PASS,"Covered % is as Expected");
+				ExtentManager.logger.log(Status.PASS,"Covered % is as Expected : Expected Value is 10 Actual Value is "+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
 			else
 			{
-				ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected");
+				ExtentManager.logger.log(Status.FAIL,"Covered % is not as Expected : Expected Value is 10 Actual Value is "+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
 			// Billable Quantity Value verification
 			if(sBillableQty_labor3.equals("5.000"))
 			{
-				ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected");
+				ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected : Expected Value is 5.000 Actual Value is "+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
 			else
 			{
-				ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected");
+				ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected : Expected Value is 5.000 Actual Value is "+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
 			// Billable Line Price Value verification
 			if(sBillableLinePrice_labor3.equals("450.000"))
 			{
-				ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected");
+				ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected : Expected Value is 450.000 Actual Value is "+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
 			else
 			{
-				ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
+				ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected : Expected Value is 450.000 Actual Value is "+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 			}
-			//commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			commonsPo.tap(workOrderPo.getEleClickSave());
 			// Verifying after sync the system
 			toolsPo.syncData(commonsPo);
@@ -327,7 +345,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
 			if(sChildlines.equals("4"))
 			{
-				ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlines);
+				ExtentManager.logger.log(Status.PASS,"The Childlines After Sync : Expected Value is 4 Actual Value is "+sChildlines, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
 			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
 
@@ -335,7 +353,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 			}
 			else
 			{
-				ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlines);
+				ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync  : Expected Value is 4 Actual Value is "+sChildlines, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 
 				//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
 				System.out.println("The Childlines After Sync is "+sChildlines);
