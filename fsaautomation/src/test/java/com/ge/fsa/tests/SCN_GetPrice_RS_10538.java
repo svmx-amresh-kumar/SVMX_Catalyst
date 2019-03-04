@@ -167,8 +167,17 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"),10,10);
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		System.out.println(sLinePricePUnit_labor);
 		String sCoveredPercent_labor = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
