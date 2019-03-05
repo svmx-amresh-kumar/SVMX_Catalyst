@@ -215,8 +215,8 @@ public class BaseLib {
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
 				capabilities.setCapability("showXcodeLog", true);
-				capabilities.setCapability("useNewWDA",true);
-				capabilities.setCapability("waitForQuiescence",false);
+				//capabilities.setCapability("useNewWDA",true);
+				//capabilities.setCapability("waitForQuiescence",false);
 				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
