@@ -210,7 +210,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			
 			//lauchNewApp("false");
 			//Login to tech2
-			loginHomePo.login_tech2(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsPo, exploreSearchPo,"TECH_USN_1");
 			Thread.sleep(8000);
 			commonsPo.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);

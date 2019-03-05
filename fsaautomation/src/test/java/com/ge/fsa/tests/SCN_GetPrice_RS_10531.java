@@ -130,39 +130,39 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// Verifying The Line Price Per Unit Value
 		if(sLinePricePerUnit1.equals("750"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Line Price Per Unit is as Expected - Part = 750");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Line Price Per Unit is not as Expected - Part = 750 Actual = "+sLinePricePerUnit1);
 		}
 		
 		// Verifying the Discount 
 		if(sCovered.equals("0"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Discount % is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Discount % is as Expected - Part = 0");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Discount %  is not as Expected - Part = 0 Actual = "+sCovered);
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty1.equals("1.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Billable Quantity is as Expected - Part = 1.000");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Billable Quantity is not as Expected - Part = 1.000 Actual = "+sBillableQty1);
 		}
 		 //Billable Line Price Value verification
 		if(sBillableLinePrice1.equals("750.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part");
+			ExtentManager.logger.log(Status.PASS,"Billable Line Price is as Expected - Part = 750.000");
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part");
+			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected - Part = 750.000 Actual = "+sBillableLinePrice1);
 		}		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		commonsPo.tap(workOrderPo.getEleClickSave());

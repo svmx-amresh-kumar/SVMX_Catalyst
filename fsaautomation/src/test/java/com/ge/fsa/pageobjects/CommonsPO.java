@@ -1,8 +1,14 @@
 package com.ge.fsa.pageobjects;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -12,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -55,6 +62,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -1544,7 +1552,7 @@ public class CommonsPO {
 			}
 			filePath = ExtentManager.getScreenshot();
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				switchContext("web_view");
+				switchContext("webview");
 			}
 			return filePath;
 		}
@@ -1612,4 +1620,72 @@ public class CommonsPO {
 				
 			}
 		}
+		public String getDeviceDate() throws ParseException{
+			String returnDate="";
+			if (BaseLib.sOSName.equalsIgnoreCase("Android")) {
+				switchContext("native");
+				Map<String, Object> args = new HashMap<>();
+				args.put("command", "date");
+				returnDate=(driver.executeScript("mobile: shell", args).toString());
+				switchContext("webview");
+			}
+			else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+				String value="";
+				String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/idevicedate").trim();
+				String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/ideviceinfo");
+				String[] IOBufferList = _cmd.split("\n"); 
+				for (String item: IOBufferList) { 
+		               String[] subItemList = item.split(":"); 
+		               if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
+		                    value=subItemList[1].trim();
+		                    break;
+		               } 
+		        }
+				String dateFormat="E MMM d HH:mm:ss z yyyy";
+				ZoneId defaultZoneId = TimeZone.getDefault().toZoneId();
+		        System.out.println("TimeZone : " + defaultZoneId);
+		        LocalDateTime ldt = LocalDateTime.parse(dateInString.replaceAll("  ", " 0"), DateTimeFormatter.ofPattern(dateFormat));
+		        ZonedDateTime fromDateTime = ldt.atZone(defaultZoneId);
+		        ZoneId toZoneId = ZoneId.of(value);
+		        ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);
+		        DateTimeFormatter format = DateTimeFormatter.ofPattern(dateFormat);
+		        System.out.println(format.format(toDateTime));
+			}
+			return returnDate;
+		}
+		public static String execCommand (String commands) { 
+	        Process p; 
+	        try { 
+	            ProcessBuilder pb = new ProcessBuilder(commands); 
+	            p = pb.start(); 
+	        } catch (IOException e) { 
+	            e.printStackTrace(); 
+	            return null; 
+	        } 
+	 
+	        byte[] b = new byte[1024]; 
+	        int readBytes; 
+	        StringBuilder sb = new StringBuilder(); 
+	        InputStream in = p.getInputStream(); 
+	        try { 
+	            while ((readBytes = in.read(b)) != -1) { 
+	                sb.append(new String(b, 0, readBytes)); 
+	            } 
+	 
+	        } catch (IOException e) { 
+	            e.printStackTrace(); 
+	        } finally { 
+	            try { 
+	                in.close(); 
+	            } catch (IOException e) { 
+	                e.printStackTrace(); 
+	            } 
+	            try { 
+	                p.destroy(); 
+	            }catch (IllegalThreadStateException e){ 
+	                e.printStackTrace(); 
+	            } 
+	        } 
+	        return sb.toString(); 
+	    }
 }
