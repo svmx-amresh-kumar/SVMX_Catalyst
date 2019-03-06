@@ -150,7 +150,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
@@ -165,8 +167,17 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 
 		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,"");
 		commonsPo.tap(workOrderPo.geteleGetPrice());
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"),10,10);
+		if(commonsPo.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		}
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		System.out.println(sLinePricePUnit_labor);
 		String sCoveredPercent_labor = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -208,7 +219,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
 		
 	// For Repair Labor Parts
 		
@@ -257,7 +270,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
 	/**
 	 * LABOR - END OF LABOR VERIFICATION
 	*/
@@ -304,7 +319,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
 		}
+		
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		
 		commonsPo.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
 		toolsPo.syncData(commonsPo);

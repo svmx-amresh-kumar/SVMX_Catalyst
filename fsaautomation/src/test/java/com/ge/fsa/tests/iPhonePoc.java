@@ -29,6 +29,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.iphone.pageobjects.ip_LoginHomePO;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
@@ -88,32 +89,32 @@ public void iphone() throws Exception
 //		int y = point.getY() + 5;
 //		commonsPo.switchContext("Webview");
 //		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
-		
-//		MobileElement el6 = (MobileElement) driver.findElementByAccessibilityId("Log In");
-//		el6.click();
-//		MobileElement el7 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
-//		el7.click();
+
 		
 		//Need to remove the autowebview capability, set it to false
 		Thread.sleep(4000);
-		MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
-		el1.click();
+		//MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
+		ip_LoginHomePo.getEleSignInBtn().click();
 		
-		MobileElement el2 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField");
-		el2.sendKeys("rkong@t.com");
+		//MobileElement el2 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField");
+		ip_LoginHomePo.getEleUserNameTxtFld().click();
+		ip_LoginHomePo.getEleUserNameTxtFld().sendKeys("rkong@t.com");
 		Thread.sleep(4000);
 
-		MobileElement el4 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField");
-		el4.click();
-		el4.sendKeys("servicemax1");
+		//MobileElement el4 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField");
+		ip_LoginHomePo.getElePasswordTxtFld().click();
+		ip_LoginHomePo.getElePasswordTxtFld().sendKeys("servicemax1");
 		MobileElement el5 = (MobileElement) driver.findElementByAccessibilityId("Log In");
 		el5.click();
-		MobileElement el6 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
-		el6.click();
+		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("Allow"), 20);
+
+		MobileElement el61 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
+		el61.click();
+		Thread.sleep(2000);
+
 	
-	
+		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("More"), 360);
 		MobileElement el14 = (MobileElement) driver.findElementByAccessibilityId("More");
-		commonsPo.waitforElement(el14, 60);
 		el14.click();
 		MobileElement el15 = (MobileElement) driver.findElementByAccessibilityId("Sync ");
 		el15.click();

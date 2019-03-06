@@ -164,7 +164,7 @@ String Location=null;
 			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
 			
 			commonsPo.tap(workOrderPo.openLaborontap());
-			String fetchedstartdateandtime =workOrderPo.getStartDateandTime().getAttribute("value");
+			String fetchedstartdateandtime =workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			String getscheduleddatetime= workOrderPo.getScheduledDatetimevalue().getAttribute("value");
@@ -228,7 +228,7 @@ String Location=null;
 			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
 			
 			commonsPo.tap(workOrderPo.getLaboronsecondprt());
-			  fetchedstartdateandtime = workOrderPo.getStartDateandTime().getAttribute("value");
+			  fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
 			commonsPo.tap(workOrderPo.getEleDoneBtn());
 			  getscheduleddatetime = workOrderPo.getScheduledDatetimevalue().getAttribute("value");

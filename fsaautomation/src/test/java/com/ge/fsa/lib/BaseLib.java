@@ -24,6 +24,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.iphone.pageobjects.ip_LoginHomePO;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
@@ -58,6 +59,10 @@ public class BaseLib {
 	public CalendarPO calendarPO = null;
 	public TasksPO tasksPo = null;
 	public InventoryPO inventoryPo = null;
+	
+	//iphone
+	
+	public ip_LoginHomePO ip_LoginHomePo = null;
 
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -197,6 +202,8 @@ public class BaseLib {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+					capabilities.setCapability("useNewWDA",true);
+					capabilities.setCapability("waitForQuiescence",false);
 
 				}else{
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
@@ -215,8 +222,7 @@ public class BaseLib {
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
 				capabilities.setCapability("showXcodeLog", true);
-				capabilities.setCapability("useNewWDA",true);
-				capabilities.setCapability("waitForQuiescence",false);
+				
 				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
@@ -252,7 +258,7 @@ public class BaseLib {
 			e.printStackTrace();
 		}
 		ExtentManager.getInstance(driver);
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 	}
 

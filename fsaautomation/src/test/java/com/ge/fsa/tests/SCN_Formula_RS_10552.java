@@ -197,8 +197,8 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDiscountTxtFld());
 		workOrderPo.getEleDiscountTxtFld().sendKeys("3");
 		//Set Start time for event
-		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateTxtFld(), 0, "0", "0");
-		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateTxtFld(), 1, "0", "0");
+		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateAndTimeTxtFld(), 0, "0", "0");
+		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 1, "0", "0");
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 		//Save the parts details

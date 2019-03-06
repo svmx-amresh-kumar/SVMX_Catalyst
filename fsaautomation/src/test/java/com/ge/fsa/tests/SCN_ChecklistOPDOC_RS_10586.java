@@ -361,7 +361,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 			// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 			// System.out.println(ans);
-			
+			commonsPo.tap(calendarPO.getEleCalendarIcn());
 			 toolsPo.syncData(commonsPo);
 			 Thread.sleep(GenericLib.iLowSleep);
 			 
