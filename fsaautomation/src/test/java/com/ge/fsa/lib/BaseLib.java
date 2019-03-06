@@ -24,7 +24,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.iphone.pageobjects.ip_LoginHomePO;
+import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
+import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
@@ -62,7 +63,8 @@ public class BaseLib {
 	
 	//iphone
 	
-	public ip_LoginHomePO ip_LoginHomePo = null;
+	public Ip_LoginHomePO ip_LoginHomePo = null;
+	public Ip_MorePO ip_MorePo = null;
 
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -250,6 +252,10 @@ public class BaseLib {
 		tasksPo = new TasksPO(driver);
 		checklistPo = new ChecklistPO(driver);
 		inventoryPo = new InventoryPO(driver);
+		
+		//iPhone
+		ip_LoginHomePo = new Ip_LoginHomePO(driver);
+		ip_MorePo = new Ip_MorePO(driver);
 
 		try {
 			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
