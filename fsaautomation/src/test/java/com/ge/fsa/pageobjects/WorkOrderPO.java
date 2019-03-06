@@ -6,7 +6,8 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Rotatable;
 	import org.openqa.selenium.ScreenOrientation;
 	import org.openqa.selenium.WebElement;
-	import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
 	import org.openqa.selenium.support.PageFactory;
 	import org.testng.Assert;
 	
@@ -234,18 +235,18 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleDescriptionTxtFld;
 		}
-		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTimeLst1;
-		public WebElement getEleStartDateTimeLst1()
-		{
-			return eleStartDateTimeLst1;
-		}
-		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTimeLst;
-		public WebElement getEleStartDateTimeLst()
-		{
-			return eleStartDateTimeLst;
-		}
+//		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleStartDateTimeLst1;
+//		public WebElement getEleStartDateTimeTxtFld()
+//		{
+//			return eleStartDateTimeLst1;
+//		}
+//		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleStartDateTimeLst;
+//		public WebElement getEleStartDateTimeTxtFld()
+//		{
+//			return eleStartDateTimeLst;
+//		}
 		
 	
 	
@@ -255,18 +256,18 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleDeadTimeLst;
 		}
-		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTimeLst1;
-		public WebElement getEleEndDateTimeLst1()
-		{
-			return eleEndDateTimeLst1;
-		}
-		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTimeLst;
-		public WebElement getEleEndDateTimeLst()
-		{
-			return eleEndDateTimeLst;
-		}
+//		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleEndDateTimeLst1;
+//		public WebElement getEleEndDateTimeTxtFld()
+//		{
+//			return eleEndDateTimeLst1;
+//		}
+//		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleEndDateTimeLst;
+//		public WebElement getEleEndDateTimeTxtFld()
+//		{
+//			return eleEndDateTimeLst;
+//		}
 		@FindBy(xpath="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")	
 		private List<WebElement> eleDatePickerPopup;
 		public  List<WebElement> getEleDatePickerPopUp()
@@ -1257,20 +1258,20 @@ import org.openqa.selenium.Rotatable;
 		}
 
 
-		@FindBy(xpath="//*[contains(text(),'StartDateandTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTimeTxtFld;
-		public WebElement getEleStartDateTimeTxtFld()
-		{
-			return eleStartDateTimeTxtFld;
-		}
+//		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleStartDateTimeTxtFld;
+//		public WebElement getEleStartDateTimeTxtFld()
+//		{
+//			return eleStartDateTimeTxtFld;
+//		}
 		
-		@FindBy(xpath="//*[contains(text(),'EndDateandTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTimeTxtFld;
-		public WebElement getEleEndDateTimeTxtFld()
-		{
-			return eleEndDateTimeTxtFld;
-		}
-		
+//		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleEndDateTimeTxtFld;
+//		public WebElement getEleEndDateTimeTxtFld()
+//		{
+//			return eleEndDateTimeTxtFld;
+//		}
+//		
 
 		@FindBy(xpath="//div[@class='x-label-el sfmsearch-include-online-label']/../div[@class = 'x-body-el']/div/div[5]")
 		private WebElement eleIncludeOnlineRdBtn;
@@ -1401,8 +1402,8 @@ import org.openqa.selenium.Rotatable;
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst1(), 0,"05", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst1(), 0,"06","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -1506,11 +1507,11 @@ import org.openqa.selenium.Rotatable;
 			commonsPo.setPickerWheelValue( getEleActivityTypeLst(), sActivityType);	
 	
 			Thread.sleep(2000);
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  1,"9","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"0", "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(),  1,"9","00"); //set end time
 	
-			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "6");  // Sets start date time
-			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "8");    // Sets end date time
+			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeTxtFld(), 1, "6");  // Sets start date time
+			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeTxtFld(), 1, "8");    // Sets end date time
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
@@ -1543,8 +1544,8 @@ import org.openqa.selenium.Rotatable;
 			{
 				sEndDate = "0"+sEndDate;
 			}	
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0, sStartDate, "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(),  0,sEndDate,"00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, sStartDate, "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(),  0,sEndDate,"00"); //set end time
 			commonsPo.tap(getEleDoneBtn());
 	
 		}
@@ -1554,10 +1555,10 @@ import org.openqa.selenium.Rotatable;
 		{	//Adding labor parts name
 			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
 	
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 1,"9","00"); //set end time
-			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeLst(), 1, "5");  // Sets start date time
-			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeLst(), 1, "9");    // Sets end date time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"0", "0"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 1,"9","00"); //set end time
+			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeTxtFld(), 1, "5");  // Sets start date time
+			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeTxtFld(), 1, "9");    // Sets end date time
 	
 			//Add the price and quantity
 			commonsPo.tap(getEleUsePriceToggleBtn());
@@ -1578,8 +1579,8 @@ import org.openqa.selenium.Rotatable;
 			{
 				sEndTime = "0"+sEndTime;
 			}
-			commonsPo.setDateTime24hrs(getEleStartDateTimeLst(), 0,sStartTime, "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeLst(), 0,sEndTime,"00"); //set end time			
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,sStartTime, "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,sEndTime,"00"); //set end time			
 			commonsPo.tap(getEleDoneBtn());
 		}
 	
@@ -1909,13 +1910,13 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 	
-		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
-		private WebElement StartDateandTime;
-		public WebElement getStartDateandTime()
-		{
-			return StartDateandTime;
-		}
-	
+//		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
+//		private WebElement StartDateandTime;
+//		public WebElement getStartDateandTime()
+//		{
+//			return StartDateandTime;
+//		}
+//	
 	
 		@FindBy(xpath="//*[text()='Record Type']/../..//div[@class='x-innerhtml']/../..//input")
 		private WebElement RecordType;
@@ -2050,12 +2051,12 @@ import org.openqa.selenium.Rotatable;
 		}
 	
 	
-		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
-		private WebElement elePart_StartDateTime_Edit_Input;
-		public WebElement getElePart_StartDateTime_Edit_Input()
-		{
-			return elePart_StartDateTime_Edit_Input;
-		}
+//		@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")
+//		private WebElement elePart_StartDateTime_Edit_Input;
+//		public WebElement getElePart_StartDateTime_Edit_Input()
+//		{
+//			return elePart_StartDateTime_Edit_Input;
+//		}
 	
 	
 		//VT: Need to update the xpath as index is not a viable solution-- for now proceeding
@@ -2340,19 +2341,40 @@ import org.openqa.selenium.Rotatable;
 		{
 			return eleThisRecorddoesnotMeetTxt;
 		}
-		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTxtFld;
-		public WebElement getEleStartDateTxtFld()
+//		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleStartDateTxtFld;
+//		public WebElement getEleStartDateTxtFld()
+//		{
+//			return eleStartDateTxtFld;
+//		}
+		
+//		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+//		private WebElement eleEndDateTxtFld;
+//		public WebElement getEleEndDateTimeTxtFld()
+//		{
+//			return eleEndDateTxtFld;
+//		}
+//		
+		@FindAll
+		 ({@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input"),
+			@FindBy(xpath="//*[contains(text(),'StartDateandTime')][@class = 'x-label-text-el']/../..//input"),
+			@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")})
+		
+		private WebElement eleStartDateTimeTxtFld;
+		public WebElement getEleStartDateTimeTxtFld()
 		{
-			return eleStartDateTxtFld;
+			return eleStartDateTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTxtFld;
-		public WebElement getEleEndDateTxtFld()
+		@FindAll
+		 ({@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input"),
+			@FindBy(xpath="//*[contains(text(),'EndDateandTime')][@class = 'x-label-text-el']/../..//input")})
+		private WebElement eleEndDateTimeTxtFld;
+		public WebElement getEleEndDateTimeTxtFld()
 		{
-			return eleEndDateTxtFld;
+			return eleEndDateTimeTxtFld;
 		}
+		
 	}
 	
 	

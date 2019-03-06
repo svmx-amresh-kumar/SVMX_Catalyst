@@ -382,7 +382,7 @@ public class CommonsPO {
 //		while(iWhileCnt<=7) 
 //		{	
 //			try {
-		waitforElement(wElement, GenericLib.iLowSleep);
+		waitforElement(wElement, 30);
 		Assert.assertTrue(wElement.isDisplayed(), "Failed to scroll to search");
 		ExtentManager.logger.log(Status.PASS, "Search is successfull");
 		System.out.println("Search is displayed");
