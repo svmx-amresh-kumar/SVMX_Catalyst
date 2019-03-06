@@ -98,8 +98,8 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 	
-		//genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
-		//Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
+		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		
 	}
@@ -119,7 +119,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		loginHomePo.login(commonsPo, exploreSearchPo);
 		
 		//Config Sync for process
-		//toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsPo);
 		Thread.sleep(GenericLib.iMedSleep);
 			
 		//Data Sync for WO's created
