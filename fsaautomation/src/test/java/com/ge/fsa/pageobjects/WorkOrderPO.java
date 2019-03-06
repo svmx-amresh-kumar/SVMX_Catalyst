@@ -1257,14 +1257,14 @@ import org.openqa.selenium.Rotatable;
 		}
 
 
-		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'StartDateandTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleStartDateTimeTxtFld;
 		public WebElement getEleStartDateTimeTxtFld()
 		{
 			return eleStartDateTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'EndDateandTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeTxtFld;
 		public WebElement getEleEndDateTimeTxtFld()
 		{
