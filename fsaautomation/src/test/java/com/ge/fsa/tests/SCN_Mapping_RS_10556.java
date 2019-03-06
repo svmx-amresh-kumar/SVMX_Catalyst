@@ -371,7 +371,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "DateRequired(Date) value mapping Failed ");
 		}
 
-		String fetchedstartdateandtime = workOrderPo.getEleStartDateTimeTxtFld().getAttribute("value");
+		String fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 		System.out.println(fetchedstartdateandtime);
 		try {
 			Assert.assertTrue(fetchedstartdateandtime.equals(SFMScheduledDate + " 00:00"));
@@ -934,7 +934,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "DateRequired value mapping Failed ");
 		}
 
-		fetchedstartdateandtime = workOrderPo.getEleStartDateTimeTxtFld().getAttribute("value");
+		fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 		System.out.println(fetchedstartdateandtime);
 		try {
 			Assert.assertTrue(fetchedstartdateandtime.equals(SFMScheduledDate + " 00:00"));
