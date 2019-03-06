@@ -29,7 +29,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
+import com.ge.fsa.iphone.pageobjects.ip_LoginHomePO;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
@@ -80,10 +80,7 @@ public class iPhonePoc extends BaseLib
 	@Test()
 
 public void iphone() throws Exception
-{	
-		
-		ip_LoginHomePo.login(commonsPo, ip_MorePo);
-		ip_MorePo.configSync(commonsPo);
+{		
 //		commonsPo.switchContext("Native");
 //		TouchAction touchAction2 = new TouchAction(driver);
 //		//Locating & clicking on the element
@@ -93,42 +90,42 @@ public void iphone() throws Exception
 //		commonsPo.switchContext("Webview");
 //		touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
 
-//		
-//		//Need to remove the autowebview capability, set it to false
-//		Thread.sleep(4000);
-//		//MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
-//		ip_LoginHomePo.getEleSignInBtn().click();
-//		
-//		//MobileElement el2 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField");
-//		ip_LoginHomePo.getEleUserNameTxtFld().click();
-//		ip_LoginHomePo.getEleUserNameTxtFld().sendKeys("rkong@t.com");
-//		Thread.sleep(4000);
-//
-//		//MobileElement el4 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField");
-//		ip_LoginHomePo.getElePasswordTxtFld().click();
-//		ip_LoginHomePo.getElePasswordTxtFld().sendKeys("servicemax1");
-//		MobileElement el5 = (MobileElement) driver.findElementByAccessibilityId("Log In");
-//		el5.click();
-//		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("Allow"), 20);
-//
-//		MobileElement el61 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
-//		el61.click();
-//		Thread.sleep(2000);
-//
-//	
-//		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("More"), 360);
-//		MobileElement el14 = (MobileElement) driver.findElementByAccessibilityId("More");
-//		el14.click();
-//		MobileElement el15 = (MobileElement) driver.findElementByAccessibilityId("Sync ");
-//		el15.click();
-//		MobileElement el16 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name='Run Config Sync Run Config Sync'])[3]");
-//		el16.click();
-//		MobileElement el17 = (MobileElement) driver.findElementByAccessibilityId("Perform Config Sync");
-//		el17.click();
-//		commonsPo.waitforElement(el14, 60);
-//		//Check if the test "Run Config Sync Run Config Sync" is not visible
-//		assertFalse(el16.isDisplayed(), "Sync not done");
-//		ExtentManager.logger.log(Status.PASS,"Sync Completed sucessfully");
+		
+		//Need to remove the autowebview capability, set it to false
+		Thread.sleep(4000);
+		//MobileElement el1 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]");
+		ip_LoginHomePo.getEleSignInBtn().click();
+		
+		//MobileElement el2 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField");
+		ip_LoginHomePo.getEleUserNameTxtFld().click();
+		ip_LoginHomePo.getEleUserNameTxtFld().sendKeys("rkong@t.com");
+		Thread.sleep(4000);
+
+		//MobileElement el4 = (MobileElement) driver.findElementByXPath("//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField");
+		ip_LoginHomePo.getElePasswordTxtFld().click();
+		ip_LoginHomePo.getElePasswordTxtFld().sendKeys("servicemax1");
+		MobileElement el5 = (MobileElement) driver.findElementByAccessibilityId("Log In");
+		el5.click();
+		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("Allow"), 20);
+
+		MobileElement el61 = (MobileElement) driver.findElementByAccessibilityId(" Allow ");
+		el61.click();
+		Thread.sleep(2000);
+
+	
+		commonsPo.waitforElement((MobileElement) driver.findElementByAccessibilityId("More"), 360);
+		MobileElement el14 = (MobileElement) driver.findElementByAccessibilityId("More");
+		el14.click();
+		MobileElement el15 = (MobileElement) driver.findElementByAccessibilityId("Sync ");
+		el15.click();
+		MobileElement el16 = (MobileElement) driver.findElementByXPath("(//XCUIElementTypeOther[@name='Run Config Sync Run Config Sync'])[3]");
+		el16.click();
+		MobileElement el17 = (MobileElement) driver.findElementByAccessibilityId("Perform Config Sync");
+		el17.click();
+		commonsPo.waitforElement(el14, 60);
+		//Check if the test "Run Config Sync Run Config Sync" is not visible
+		assertFalse(el16.isDisplayed(), "Sync not done");
+		ExtentManager.logger.log(Status.PASS,"Sync Completed sucessfully");
 
 }
 
