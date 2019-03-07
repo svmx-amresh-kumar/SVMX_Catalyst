@@ -12,18 +12,18 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-
+import com.ge.fsa.pageobjects.*;
+import com.ge.fsa.iphone.*;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ip_LoginHomePO
+public class Ip_LoginHomePO
 {
-	public ip_LoginHomePO(AppiumDriver driver)
+	public Ip_LoginHomePO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -60,14 +60,14 @@ public class ip_LoginHomePO
 		return elePasswordTxtFld;
 	}
 
-	@FindBy(id="Login")
+	@FindBy(id="Log In")
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
 		return eleLoginBtn;
 	}
 
-	@FindBy(id="oaapprove")
+	@FindBy(id=" Allow ")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
 	{
@@ -87,7 +87,7 @@ public class ip_LoginHomePO
 	public WebElement getEleMenuIcn() 
 	{
 		return eleMenuIcn;
-	}
+	} 
 
 	@FindBy(id="com.servicemaxinc.svmxfieldserviceapp:id/radio_sandbox")
 	private WebElement eleSandBxRdBtn;
@@ -105,7 +105,7 @@ public class ip_LoginHomePO
 	 * @param sUserTypeFromPropertiesFile
 	 * @throws InterruptedException
 	 */
-	public void login(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
+	public void login(CommonsPO commonsPo, Ip_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
 
 		String sUn = null;
 		String sPwd = null;
@@ -130,7 +130,7 @@ public class ip_LoginHomePO
 			//For Android
 			System.out.println("Login For Android UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
+			if(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -173,7 +173,7 @@ public class ip_LoginHomePO
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1000),"Login Failed");
+				Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
 			ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
@@ -182,44 +182,49 @@ public class ip_LoginHomePO
 
 		case "ios":
 
-			System.out.println("Login For IOS UN = "+sUn+" PWD = "+sPwd);
+			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1)){
+			if(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
 				try {//For IOS
 					//Login from Sign in Page
-					try {
-						getEleSignInBtn().click();
-					}catch(Exception e) {
-						System.out.println("ByPassing 'Sign In' Button");
-					}
+					
+					
+					Thread.sleep(4000);
+					getEleSignInBtn().click();
+					
+					getEleUserNameTxtFld().click();
+					getEleUserNameTxtFld().sendKeys("rkong@t.com");
+					Thread.sleep(4000);
 
-					//Enter Credentials
-					commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
-					getEleUserNameTxtFld().sendKeys(sUn);
-					getElePasswordTxtFld().sendKeys(sPwd);
+					getElePasswordTxtFld().click();
+					getElePasswordTxtFld().sendKeys("servicemax1");
+					
 					getEleLoginBtn().click();
+					//Either click Allow or Skip it without an exception
+					try {
+						commonsPo.waitforElement(getEleAllowBtn(), 5);
 
+						getEleAllowBtn().click();
+						} catch (Exception e1) {}
+
+				
+					Thread.sleep(2000);
+
+									
+					//Check if username field is not displayed
+					Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+					//Wait for the Explore button to be visible
+					Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+					
 				} catch (Exception e) {}
 
-				//Either click Allow or Skip it without an exception
-				try {
-					commonsPo.waitforElement(getEleAllowBtn(), 1);
-					getEleAllowBtn().click();
-				} catch (Exception e2) {
-				}
-				//Check if username field is not displayed
-				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
-				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 1000),"Login Failed");
-			}
-
-			ExtentManager.logger.log(Status.PASS, "Logged into IOS Ipad FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+			ExtentManager.logger.log(Status.PASS, "Logged into IOS iPhone FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 			System.out.println("Logged in Successfully");
 			break;
-
+			}
 		default:
 			System.out.println("OS Error");
 			break;
