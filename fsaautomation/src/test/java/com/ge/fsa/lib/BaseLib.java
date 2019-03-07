@@ -24,6 +24,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
 import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
 import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
 import com.ge.fsa.pageobjects.CalendarPO;
@@ -65,6 +66,7 @@ public class BaseLib {
 	
 	public Ip_LoginHomePO ip_LoginHomePo = null;
 	public Ip_MorePO ip_MorePo = null;
+	public Ip_CalendarPO ip_CalendarPo = null;
 
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -204,7 +206,7 @@ public class BaseLib {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
-					capabilities.setCapability("useNewWDA",true);
+					//capabilities.setCapability("useNewWDA",true);
 					capabilities.setCapability("waitForQuiescence",false);
 
 				}else{
@@ -256,7 +258,8 @@ public class BaseLib {
 		//iPhone
 		ip_LoginHomePo = new Ip_LoginHomePO(driver);
 		ip_MorePo = new Ip_MorePO(driver);
-
+		ip_CalendarPo = new Ip_CalendarPO(driver);
+		
 		try {
 			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {

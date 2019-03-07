@@ -4,6 +4,8 @@ package com.ge.fsa.iphone.pageobjects;
 import static org.testng.Assert.assertFalse;
 
 import java.util.Iterator;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -37,40 +39,50 @@ public class Ip_MorePO
 	Iterator<String> iterator =null;
 	
 
-	@FindBy(id="More")
+	@FindBy(id="More, tab, 4 of 4")
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()
 	{
 		return eleMoreBtn;
 	}
 	
-	@FindBy(id="Sync ")
+	//@FindBy(xpath="//XCUIElementTypeOther[@name='Sync']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
-		return eleMoreBtn;
+		return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
 	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name='Run Config Sync Run Config Sync'])[3]")
+	//@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']")
 	private WebElement eleRunConfigSync;
 	public WebElement getEleRunConfigSync()
 	{
-		return eleRunConfigSync;
+		return eleRunConfigSync = driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync:");
 	}
 	
-	@FindBy(id="Perform Config Sync")
+	//@FindBy(id="Perform Config Sync")
 	private WebElement elePerformConfigSync;
-	public WebElement getlePerformConfigSync()
+	public WebElement getElePerformConfigSync()
 	{
-		return elePerformConfigSync;
+		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
-	
-public void configSync(CommonsPO commonsPo) throws InterruptedException {
+
+	public void configSync(CommonsPO commonsPo, Ip_CalendarPO ip_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
+	commonsPo.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
+	commonsPo.waitforElement(getEleRunConfigSync(),2);
 	getEleRunConfigSync().click();
-	getlePerformConfigSync().click();
-	commonsPo.waitforElement(getEleMoreBtn(), 200);
+	System.out.println("###################");
+	//commonsPo.switchContext("NATIVE_APP");
+try {
+	getElePerformConfigSync().click();
+
+} catch (Exception e) {
+	System.out.println(e);}
+	//commonsPo.switchContext("NATIVE_APP");
+	System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
+	commonsPo.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
 	assertFalse(getEleRunConfigSync().isDisplayed(), "Sync not done");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }

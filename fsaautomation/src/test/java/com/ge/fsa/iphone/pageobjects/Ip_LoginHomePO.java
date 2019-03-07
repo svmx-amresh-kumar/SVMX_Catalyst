@@ -223,12 +223,9 @@ public class Ip_LoginHomePO
 
 			ExtentManager.logger.log(Status.PASS, "Logged into IOS iPhone FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 			System.out.println("Logged in Successfully");
-			break;
+		
 			}
-		default:
-			System.out.println("OS Error");
 			break;
-
 		}
 
 	}
