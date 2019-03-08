@@ -235,12 +235,7 @@ import org.openqa.selenium.support.FindBy;
 		{
 			return eleDescriptionTxtFld;
 		}
-		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTimeTxtFld;
-		public WebElement getEleStartDateTimeTxtFld()
-		{
-			return eleStartDateTimeTxtFld;
-		}
+	
 //		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
 //		private WebElement eleStartDateTimeLst;
 //		public WebElement getEleStartDateTimeTxtFld()
@@ -256,12 +251,7 @@ import org.openqa.selenium.support.FindBy;
 		{
 			return eleDeadTimeLst;
 		}
-		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTimeTxtFld;
-		public WebElement getEleEndDateTimeTxtFld()
-		{
-			return eleEndDateTimeTxtFld;
-		}
+		
 //		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
 //		private WebElement eleEndDateTimeLst;
 //		public WebElement getEleEndDateTimeTxtFld()
@@ -2373,6 +2363,20 @@ import org.openqa.selenium.support.FindBy;
 		public WebElement getEleEndDateAndTimeTxtFld()
 		{
 			return eleEndDateAndTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTimeTxtFld;
+		public WebElement getEleStartDateTimeTxtFld()
+		{
+			return eleStartDateTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTimeTxtFld;
+		public WebElement getEleEndDateTimeTxtFld()
+		{
+			return eleEndDateTimeTxtFld;
 		}
 		
 	}
