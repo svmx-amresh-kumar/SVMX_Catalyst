@@ -3,7 +3,6 @@
  */
 package com.ge.fsa.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -97,7 +96,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-	
+		
 		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
@@ -197,8 +196,8 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		commonsPo.tap(workOrderPo.getEleDiscountTxtFld());
 		workOrderPo.getEleDiscountTxtFld().sendKeys("3");
 		//Set Start time for event
-		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateAndTimeTxtFld(), 0, "0", "0");
-		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 1, "0", "0");
+		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateandTimeTxtFld(), 0, "0", "0");
+		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateandTimeTxtFld(), 1, "0", "0");
 		commonsPo.tap(workOrderPo.getEleDoneBtn());
 		
 		//Save the parts details
