@@ -488,9 +488,18 @@ try {
 
 		System.out.println("Trying to click Attach");
 		geteleChecklistAttach(checklistq);
-		//driver.findElementByAccessibilityId("Attach").click();
-		commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+		try {
+			driver.context("NATIVE_APP");
+			driver.findElementByAccessibilityId("Attach").click();
+		} catch (Exception e) {
+			commonsPo.switchContext("WebView");
+			commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+			// TODO: handle exception
+		}
+		
+		//commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
 		//driver.findElementByAccessibilityId(AttachmentAction).click();
+		commonsPo.switchContext("WebView");
 		commonsPo.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
 		AllowCamerabutton(commonsPo);
 		

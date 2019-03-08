@@ -254,7 +254,7 @@ public class CommonsPO {
 		Thread.sleep(3000);
 		if (clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
-
+			switchContext("Webview");
 			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
 		

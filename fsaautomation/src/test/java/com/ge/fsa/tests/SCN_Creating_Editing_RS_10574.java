@@ -238,7 +238,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //				Thread.sleep(GenericLib.iMedSleep);
 //				commonsPo.switchContext("Native");
 //				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
-				commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateAndTimeTxtFld(), 0,"0","0");
+				commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0,"0","0");
 				//Edit the subject
 				//commonsPo.switchContext("Webview");
 				workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
@@ -251,7 +251,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //				commonsPo.tap(commonsPo.getEleDonePickerWheelBtn());
 //				
 //				commonsPo.switchContext("Webview");
-				commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 0,"0","0");
+				commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 0,"0","0");
 				commonsPo.tap(workOrderPo.getEleSaveLnk());
 				Thread.sleep(GenericLib.iLowSleep);
 

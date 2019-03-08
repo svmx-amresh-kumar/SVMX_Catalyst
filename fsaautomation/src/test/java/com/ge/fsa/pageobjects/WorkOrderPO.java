@@ -235,12 +235,7 @@ import org.openqa.selenium.support.FindBy;
 		{
 			return eleDescriptionTxtFld;
 		}
-		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleStartDateTimeTxtFld;
-		public WebElement getEleStartDateTimeTxtFld()
-		{
-			return eleStartDateTimeTxtFld;
-		}
+	
 //		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
 //		private WebElement eleStartDateTimeLst;
 //		public WebElement getEleStartDateTimeTxtFld()
@@ -256,12 +251,7 @@ import org.openqa.selenium.support.FindBy;
 		{
 			return eleDeadTimeLst;
 		}
-		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
-		private WebElement eleEndDateTimeTxtFld;
-		public WebElement getEleEndDateTimeTxtFld()
-		{
-			return eleEndDateTimeTxtFld;
-		}
+		
 //		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
 //		private WebElement eleEndDateTimeLst;
 //		public WebElement getEleEndDateTimeTxtFld()
@@ -1402,8 +1392,8 @@ import org.openqa.selenium.support.FindBy;
 			selectAction(commonsPo, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"05", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,"06","00"); //set end time
+			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
+			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -2373,6 +2363,20 @@ import org.openqa.selenium.support.FindBy;
 		public WebElement getEleEndDateAndTimeTxtFld()
 		{
 			return eleEndDateAndTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateTimeTxtFld;
+		public WebElement getEleStartDateTimeTxtFld()
+		{
+			return eleStartDateTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleEndDateTimeTxtFld;
+		public WebElement getEleEndDateTimeTxtFld()
+		{
+			return eleEndDateTimeTxtFld;
 		}
 		
 	}
