@@ -196,11 +196,11 @@ public class Ip_LoginHomePO
 					getEleSignInBtn().click();
 					
 					getEleUserNameTxtFld().click();
-					getEleUserNameTxtFld().sendKeys("rkong@t.com");
+					getEleUserNameTxtFld().sendKeys(sUn);
 					Thread.sleep(4000);
 
 					getElePasswordTxtFld().click();
-					getElePasswordTxtFld().sendKeys("servicemax1");
+					getElePasswordTxtFld().sendKeys(sPwd);
 					
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
