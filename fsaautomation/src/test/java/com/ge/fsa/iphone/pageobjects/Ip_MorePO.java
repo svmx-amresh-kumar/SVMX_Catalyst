@@ -2,6 +2,7 @@ package com.ge.fsa.iphone.pageobjects;
 
 
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 import java.util.Iterator;
 
@@ -83,7 +84,7 @@ try {
 	//commonsPo.switchContext("NATIVE_APP");
 	System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
 	commonsPo.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
-	assertFalse(getEleRunConfigSync().isDisplayed(), "Sync not done");
+	assertTrue(commonsPo.isDisplayedCust(getEleRunConfigSync()), "Sync not done");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 

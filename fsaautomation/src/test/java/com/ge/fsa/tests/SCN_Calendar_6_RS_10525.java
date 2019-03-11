@@ -54,7 +54,8 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 	} 
 
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10525() throws Exception {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -314,7 +315,9 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 		
 		//if the diff is 779 then minus with 9 otherwise minus with 1
-		  diff = (Integer.parseInt(EndDateTimehr)- Integer.parseInt(StartDateTimehr))-16;//diff of start and end date//-16
+		
+				try {
+						diff = (Integer.parseInt(EndDateTimehr)- Integer.parseInt(StartDateTimehr))-16;//diff of start and end date//-16
 			System.out.println(diff);
 			
 			//verifing event is present at the rite location
@@ -324,7 +327,21 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			Thread.sleep(3000);
 			calendarPO.VerifyWOInCalender(commonsPo,sWOName);
 			calendarPO.validateeventlocation(sWOName,StartDateTimehr,EndDateTimehr,diff);
-			
+	}
+				catch (Exception e)
+	{
+	
+					diff = (Integer.parseInt(EndDateTimehr)- Integer.parseInt(StartDateTimehr))-1;//diff of start and end date//-16
+					System.out.println(diff);
+					
+					//verifing event is present at the rite location
+					commonsPo.tap(calendarPO.getEleCalendarClick());
+					Thread.sleep(3000);
+					commonsPo.tap(calendarPO.getEleCalendarClick());
+					Thread.sleep(3000);
+					calendarPO.VerifyWOInCalender(commonsPo,sWOName);
+					calendarPO.validateeventlocation(sWOName,StartDateTimehr,EndDateTimehr,diff);
+	}
 			
 			//verifing event is present at the rite location in Week view
 			commonsPo.tap(calendarPO.getElecalendarWeektap());

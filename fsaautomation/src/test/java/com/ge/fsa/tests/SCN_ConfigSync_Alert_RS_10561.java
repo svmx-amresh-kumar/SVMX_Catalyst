@@ -63,8 +63,7 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		System.out.println("Begining wait to check for config sync due is displayed after 5 minutes");
 		Thread.sleep(GenericLib.iMedSleep);
 		//need to wait for a minimum of 5 minutes for the pop up to show up
-		Thread.sleep(300000);
-		Thread.sleep(GenericLib.iVHighSleep);
+		Thread.sleep(400000);
 		System.out.println("wait ended to check for config sync due is displayed after 5 minutes");
 		String sConfigsyncduelbl = toolsPo.geteleConfigSyncDue().getText();
 		Assert.assertTrue(sConfigsyncduelbl.equals("Configuration sync is due"), "Config sync Due alert popup is not displayed");
@@ -83,7 +82,7 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		
 		Thread.sleep(GenericLib.i30SecSleep);
 		Thread.sleep(GenericLib.i30SecSleep);
-
+		Thread.sleep(40000);
 		//Getting the value of 1 in Tools icon as there is a config sync due
 		sConfigSyncDueBadge =  toolsPo.geeteleConflictBadge().getText();
 		Assert.assertTrue(sConfigSyncDueBadge.equals(sConfigSyncDueBadgevalidationvalue), "Config sync Due alert is not turned to 1");
