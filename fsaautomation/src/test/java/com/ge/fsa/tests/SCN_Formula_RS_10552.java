@@ -209,7 +209,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		
 		//Validation of formula after adding parts
 		workOrderPo.getEleAutoActivityMonthTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals("2"), "Activity month is displayed ");
+		Assert.assertTrue(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals("2")||workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals("3"), "Activity month is displayed ");
 		ExtentManager.logger.log(Status.PASS,"Activity month value is displayed as expected.");
 		
 		workOrderPo.getEleAutoActivityYearTxtFld().click();
