@@ -60,7 +60,7 @@ public class Ip_LoginHomePO
 		return elePasswordTxtFld;
 	}
 
-	@FindBy(id="Log In")
+	@FindBy(id="Log In to Sandbox")
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
@@ -96,7 +96,50 @@ public class Ip_LoginHomePO
 		return eleSandBxRdBtn;
 	}
 
+	
+	@FindBy(id="Production")
+	private WebElement eleProductionBtn;
+	public WebElement getEleProductionBtn() 
+	{
+		return eleProductionBtn;
+	}
+	
+	@FindBy(id="Sandbox")
+	private WebElement eleSandboxBtn;
+	public WebElement getEleSandboxBtn() 
+	{
+		return eleSandboxBtn;
+	}
+	
+	@FindBy(id="Sandbox https://test.salesforce.com")
+	private WebElement eleSandbocURlbtn;
+	public WebElement getEleSandbocURlbtn()
+	{
+		return eleSandbocURlbtn;
+	}
+	
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name='']")
+	private WebElement eleSettingsbtn;
+	public WebElement getEleSettingsbtn()
+	{
+		return eleSettingsbtn;
+	}
+	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name='Change Environment'])[3]/XCUIElementTypeOther[1]")
+	private WebElement eleChangeEnvironmentBackbtn;
+	public WebElement getEleChangeEnvironmentBackbtn()
+	{
+		return eleChangeEnvironmentBackbtn;
+	}
 
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sign In Settings\"])[7]/XCUIElementTypeOther[1]")
+	private WebElement eleSignInSettingsBackbtn;
+	public WebElement getEleSignInSettingsBackbtn()
+	{
+		return eleSignInSettingsBackbtn;
+	}
+	
+	
 	/**
 	 * Login to FSA app based on values from config.properties. (** For any other property file machine set the RUN_MACHINE=automation_build , which will pick up the data from config_automation_build.properties file)
 	 * Default is "TECH_USN"
@@ -194,6 +237,15 @@ public class Ip_LoginHomePO
 					
 					Thread.sleep(4000);
 					getEleSignInBtn().click();
+					Thread.sleep(4000);
+					if(!commonsPo.waitforElement(getEleLoginBtn(),1)) {
+						getEleSettingsbtn().click();
+						getEleProductionBtn().click();
+						getEleSandbocURlbtn().click();
+						getEleChangeEnvironmentBackbtn().click();
+						getEleSignInSettingsBackbtn().click();	
+					}
+									
 					
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
@@ -213,18 +265,21 @@ public class Ip_LoginHomePO
 				
 					Thread.sleep(2000);
 
-									
-					//Check if username field is not displayed
-					Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
-					//Wait for the Explore button to be visible
-					Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+					
 					
 				} catch (Exception e) {}
 
+
+				//Check if username field is not displayed
+				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+				//Wait for the Explore button to be visible
+				Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+
+			}
+			
 			ExtentManager.logger.log(Status.PASS, "Logged into IOS iPhone FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 			System.out.println("Logged in Successfully");
-		
-			}
+			
 			break;
 		}
 

@@ -206,7 +206,7 @@ public class BaseLib {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
-					//capabilities.setCapability("useNewWDA",true);
+					capabilities.setCapability("useNewWDA",true);
 					capabilities.setCapability("waitForQuiescence",false);
 
 				}else{

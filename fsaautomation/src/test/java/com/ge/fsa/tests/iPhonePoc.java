@@ -70,8 +70,43 @@ public void iphone() throws Exception
 {	
 		
 		ip_LoginHomePo.login(commonsPo, ip_MorePo);
-		ip_MorePo.configSync(commonsPo, ip_CalendarPo);
-
+		
+		//click on new icon
+		ip_CalendarPo.getEleCreateNew().click();
+		Thread.sleep(5000);
+		ip_CalendarPo.getEleselectprocess().click();
+		Thread.sleep(2000);
+		ip_CalendarPo.getEleAccountLookUp().click();
+		Thread.sleep(2000);
+		ip_CalendarPo.getElelookupsearch().click();
+		ip_CalendarPo.getElelookupsearch().sendKeys("05032019204015AccA");
+		ip_CalendarPo.getEleSearchListItem().click();
+		Thread.sleep(5000);
+		
+		
+		/*
+		 * ip_CalendarPo.getEleCalendarplus().click(); Thread.sleep(2000);
+		 * ip_CalendarPo.getEleCalendarEventSubject().click();
+		 * ip_CalendarPo.getEleCalendarEventSubject().sendKeys("ok");
+		 * ip_CalendarPo.getEleCalendarEventAllDayEvent().click();
+		 */
+//		ip_LoginHomePo.getEleSignInBtn().click();
+//		Thread.sleep(4000);
+//		ip_LoginHomePo.getEleSettingsbtn().click();
+//		ip_LoginHomePo.getEleProductionBtn().click();
+//		ip_LoginHomePo.getEleSandbocURlbtn().click();
+//		ip_LoginHomePo.getEleChangeEnvironmentBackbtn().click();
+//		ip_LoginHomePo.getEleSignInSettingsBackbtn().click();
+//		ip_LoginHomePo.getEleSignInBtn().click();
+//		
+//		ip_LoginHomePo.getEleUserNameTxtFld().click();
+//		ip_LoginHomePo.getEleUserNameTxtFld().sendKeys("auto-tech@svmx.com");
+//		Thread.sleep(4000);
+//
+//		ip_LoginHomePo.getElePasswordTxtFld().click();
+//		ip_LoginHomePo.getElePasswordTxtFld().sendKeys("Svmx1234");
+		
+		
 
 }
 	

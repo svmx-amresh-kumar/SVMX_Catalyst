@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -54,12 +55,18 @@ public class Ip_MorePO
 		return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
 	}
 	
-	//@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']")
+/*	@FindAll({@FindBy(xpath="//XCUIElementTypeOther[contains(.,'Run Configuration Sync']"),
+		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
+		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Run Configuration Sync Last successful sync:']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),
+		@FindBy(id="Run Configuration Sync Last successful sync:")})*/
 	private WebElement eleRunConfigSync;
 	public WebElement getEleRunConfigSync()
 	{
-		return eleRunConfigSync = driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync:");
+		return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
+	
 	
 	//@FindBy(id="Perform Config Sync")
 	private WebElement elePerformConfigSync;
@@ -72,9 +79,9 @@ public class Ip_MorePO
 	getEleMoreBtn().click();
 	commonsPo.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
+	Thread.sleep(2000);
 	commonsPo.waitforElement(getEleRunConfigSync(),2);
 	getEleRunConfigSync().click();
-	System.out.println("###################");
 	//commonsPo.switchContext("NATIVE_APP");
 try {
 	getElePerformConfigSync().click();
@@ -82,7 +89,6 @@ try {
 } catch (Exception e) {
 	System.out.println(e);}
 	//commonsPo.switchContext("NATIVE_APP");
-	System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
 	commonsPo.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
 	assertTrue(commonsPo.isDisplayedCust(getEleRunConfigSync()), "Sync not done");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
