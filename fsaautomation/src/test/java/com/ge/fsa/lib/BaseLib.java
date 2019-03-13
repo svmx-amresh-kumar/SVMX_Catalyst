@@ -159,7 +159,7 @@ public class BaseLib {
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
-				sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
+				sAppPath = GenericLib.sResources + "//" + GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME") + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
@@ -168,8 +168,8 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
-				capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
-				capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
+				capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
+				capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);

@@ -17,6 +17,7 @@ import com.ge.fsa.iphone.*;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -38,13 +39,16 @@ public class Ip_LoginHomePO
 	int yOffset = 18;
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
-
+	
+	@AndroidFindBy(xpath="//*[@text=\"SIGN IN WITH SALESFORCE\"]")
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
 		return eleSignInBtn;
 	}
+	
+
 
 	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")
 	private WebElement eleUserNameTxtFld;
