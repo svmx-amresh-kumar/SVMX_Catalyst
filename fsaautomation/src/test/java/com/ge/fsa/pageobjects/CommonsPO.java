@@ -1731,7 +1731,10 @@ public class CommonsPO {
 			for(i=0;i<10;i++)
 			{
 				swipeGeneric(webElement,"up");
-				webElement.click();
+				if(isDisplayedCust(webElement)) {
+					webElement.click();
+					break;
+				}
 			}
 			//
 			
