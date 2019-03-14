@@ -1695,22 +1695,30 @@ public class CommonsPO {
 		 * @param iNoOfTimes
 		 */
 		public void swipeGeneric(String sDirectionUpDown, int... iNoOfTimes) {
+		
 			
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			Map<String, Object> params = new HashMap<>();
-			if(sDirectionUpDown.equalsIgnoreCase("up")) {
-			params.put("direction", "up");
-			}else {
-				params.put("direction", "down");
+			
+			switch(BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				
+				break;
+			case "ios":
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				Map<String, Object> params = new HashMap<>();
+				if(sDirectionUpDown.equalsIgnoreCase("up")) {
+				params.put("direction", "up");
+				}else {
+					params.put("direction", "down");
 
-			}
+				}
 
 			js.executeScript("mobile: swipe", params);
 		
 			//FYI No need to pass element, the app window will be chosen
 			//params.put("element", ((RemoteWebElement) element).getId());
 			//action.scroll(element, 10, 100);
-			
+			break;
+			}
 			
 		}
 		
