@@ -90,7 +90,7 @@ public class Ip_WorkOrderPO extends BaseLib
 		return eleAddSelected;
 	}
 	
-	//XCUIElementTypeOther[@name="ADD SELECTED"]
+	
 	public void selectAction( String sActionsName) throws InterruptedException
 	{
 		Thread.sleep(5000);
@@ -133,6 +133,15 @@ public class Ip_WorkOrderPO extends BaseLib
 		return elePartcheckbox;}
 	
 
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"\"])[1]")
+	private WebElement elepartlookup;
+	public WebElement getElepartlookup()
+	{
+		return elepartlookup;
+		}
+	
+	
+	
 	public void addParts(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
 		getElePartLnk().click();
@@ -145,16 +154,18 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleAddSelected().click();
 	}
 
-	public void addLaborParts(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addLabor(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
 		getEleLaborLnk().click();
 		Thread.sleep(3000);
+		getElepartlookup().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		getElePartcheckbox().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		getEleAddSelected().click();
+		
 	}
 	
 	}	
