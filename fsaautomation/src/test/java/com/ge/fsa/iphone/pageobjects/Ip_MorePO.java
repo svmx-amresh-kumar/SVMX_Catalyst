@@ -6,6 +6,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Iterator;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -41,7 +42,8 @@ public class Ip_MorePO
 	Iterator<String> iterator =null;
 	
 
-	@FindBy(id="More, tab, 4 of 4")
+	@FindAll({@FindBy(xpath="//*[@text='More']"),
+	@FindBy(id="More, tab, 4 of 4")})
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()
 	{
@@ -49,12 +51,20 @@ public class Ip_MorePO
 	}
 	
 	//@FindBy(xpath="//XCUIElementTypeOther[@name='Sync']")
+	@FindBy(xpath="//*[@text='More']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
-		return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+		try {
+			return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+
+		} catch (Exception e)
+		{eleMoreBtn = driver.findElement(By.xpath("//*[@text='More']"));}
+		return eleMoreBtn;
+
 	}
-	
+//return 
+
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")
 	private WebElement eleSyncNow;
 	public WebElement getEleSyncNow()
@@ -89,16 +99,6 @@ public class Ip_MorePO
 	{
 		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
-	
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
-	private WebElement eleDataSynccompleted;
-	public WebElement getEleDataSynccompleted()
-	{
-		return eleDataSynccompleted;
-	}
-	
-	//XCUIElementTypeOther[@name="Sync completed Last sync time: a few seconds ago"]
-	
 
 	public void configSync(CommonsPO commonsPo, Ip_CalendarPO ip_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
@@ -119,24 +119,5 @@ try {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 
-	
-	public void syncData(CommonsPO commonsPo) throws InterruptedException
-	{
-		
-		
-		//Navigation to more screen
-		getEleMoreBtn().click();
-		getEleDataSync().click();
-		getEleSyncNow().click();
-		commonsPo.waitforElement(getEleDataSynccompleted(),2000);
-		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
-		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
-		Thread.sleep(5000);
-		getEleDataSync().click();
-		
-		
-	}
-	
-	
 	
 }
