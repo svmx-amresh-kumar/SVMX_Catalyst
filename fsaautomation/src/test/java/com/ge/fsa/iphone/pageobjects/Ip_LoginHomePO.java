@@ -3,6 +3,7 @@ package com.ge.fsa.iphone.pageobjects;
 
 import java.util.Iterator;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.iOSFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -40,8 +42,10 @@ public class Ip_LoginHomePO
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
 	
-	@AndroidFindBy(xpath="//*[@text=\"SIGN IN WITH SALESFORCE\"]")
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")
+	@FindAll({@FindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")})
+//	@AndroidFindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']")
+//		@iOSFindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
@@ -49,29 +53,34 @@ public class Ip_LoginHomePO
 	}
 	
 
-
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")
+	@FindAll({@FindBy(xpath="//*[@text='Username']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\\\"Login | Salesforce\\\"]/XCUIElementTypeTextField")})
 	private WebElement eleUserNameTxtFld;
 	public WebElement getEleUserNameTxtFld()
 	{
 		return eleUserNameTxtFld;
 	}
 
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")
+	
+	@FindAll({@FindBy(xpath="//*[@text='Password']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")})
 	private WebElement elePasswordTxtFld;
 	public WebElement getElePasswordTxtFld()
 	{
 		return elePasswordTxtFld;
 	}
-
-	@FindBy(id="Log In to Sandbox")
+	
+	@FindAll({@FindBy(xpath="//android.widget.Button[@content-desc=\"Log In to Sandbox\"]"),
+	@FindBy(id="Log In to Sandbox")})
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
 		return eleLoginBtn;
 	}
 
-	@FindBy(id=" Allow ")
+	@FindAll({@FindBy(xpath="//*[@content-desc=' Allow  Allow']"),
+	@FindBy(id=" Allow ")})
+	//@FindBy(xpath="//*[@content-desc=' Allow  Allow']")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
 	{
@@ -99,44 +108,49 @@ public class Ip_LoginHomePO
 	{
 		return eleSandBxRdBtn;
 	}
-
 	
-	@FindBy(id="Production")
+	@FindAll({@FindBy(xpath="//*[@text='Production']"),
+	@FindBy(id="Production")})
+	//@FindBy(xpath="//*[@text='Production']")
 	private WebElement eleProductionBtn;
 	public WebElement getEleProductionBtn() 
 	{
 		return eleProductionBtn;
 	}
-	
-	@FindBy(id="Sandbox")
+	@FindAll({@FindBy(xpath="//*[@text='Sandbox']"),
+	@FindBy(id="Sandbox")})
 	private WebElement eleSandboxBtn;
 	public WebElement getEleSandboxBtn() 
 	{
 		return eleSandboxBtn;
 	}
 	
-	@FindBy(id="Sandbox https://test.salesforce.com")
+	@FindAll({@FindBy(xpath="//*[@text='https://test.salesforce.com']"),
+	@FindBy(id="Sandbox https://test.salesforce.com")})
 	private WebElement eleSandbocURlbtn;
 	public WebElement getEleSandbocURlbtn()
 	{
 		return eleSandbocURlbtn;
 	}
 	
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name='']")
+	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='']"),
+		@FindBy(xpath="//*[@text='']")})
 	private WebElement eleSettingsbtn;
 	public WebElement getEleSettingsbtn()
 	{
 		return eleSettingsbtn;
 	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name='Change Environment'])[3]/XCUIElementTypeOther[1]")
+	@FindAll({@FindBy(xpath="//*[@text='']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name='Change Environment'])[3]/XCUIElementTypeOther[1]")})
 	private WebElement eleChangeEnvironmentBackbtn;
 	public WebElement getEleChangeEnvironmentBackbtn()
 	{
 		return eleChangeEnvironmentBackbtn;
 	}
 
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sign In Settings\"])[7]/XCUIElementTypeOther[1]")
+	@FindAll({@FindBy(xpath="//*[@text='']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sign In Settings\"])[7]/XCUIElementTypeOther[1]")})
 	private WebElement eleSignInSettingsBackbtn;
 	public WebElement getEleSignInSettingsBackbtn()
 	{
@@ -174,57 +188,61 @@ public class Ip_LoginHomePO
 		switch (BaseLib.sOSName) {
 		case "android":
 
-			//For Android
-			System.out.println("Login For Android UN = "+sUn+" PWD = "+sPwd);
-
+			System.out.println("Login For Iphone android UN = "+sUn+" PWD = "+sPwd);
+			System.out.println("TEST "+getEleSignInBtn().toString());
 			if(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
-				try {
-
+				try {//For Android
 					//Login from Sign in Page
-					//commonsPO.switchContext("Webview");
-					try {
-						getEleSignInBtn().click();
-					}catch(Exception e) {
-						System.out.println("ByPassing 'Sign In' Button");
+					
+					
+					Thread.sleep(4000);
+					getEleSignInBtn().click();
+					Thread.sleep(4000);
+					if(!commonsPo.waitforElement(getEleLoginBtn(),1)) {
+						getEleSettingsbtn().click();
+						getEleProductionBtn().click();
+						getEleSandbocURlbtn().click();
+						getEleChangeEnvironmentBackbtn().click();
+						getEleSignInSettingsBackbtn().click();	
 					}
-
-					//Change to SandBox from native mode
-					commonsPo.switchContext("Native");
-					commonsPo.waitforElement(getEleMenuIcn(), 2);
-					getEleMenuIcn().click();
-					commonsPo.waitforElement(getEleSandBxRdBtn(), 2);
-					getEleSandBxRdBtn().click();
-
-					touchAction = new TouchAction(driver);
-					touchAction.tap(new PointOption().withCoordinates(150, 150)).perform();
-
-					//Enter Credentials in Webview Mode
-					commonsPo.switchContext("Webview");
-					commonsPo.waitforElement(getEleUserNameTxtFld(), 2);
+									
+					
+					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
+					Thread.sleep(4000);
+
+					getElePasswordTxtFld().click();
 					getElePasswordTxtFld().sendKeys(sPwd);
+					
 					getEleLoginBtn().click();
+					//Either click Allow or Skip it without an exception
+					try {
+						commonsPo.waitforElement(getEleAllowBtn(), 5);
+						getEleAllowBtn().click();
+		
 
+						} catch (Exception e1){System.out.println(e1);}
 
+				
+					Thread.sleep(2000);
+
+					
+					
 				} catch (Exception e) {}
 
-				//Either click Allow or Skip it without an exception
-				try {
-					getEleAllowBtn().click();
-				} catch (Exception e1) {}
 
-				commonsPo.switchContext("Webview");
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
 				Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
-			ExtentManager.logger.log(Status.PASS, "Logged into Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
-			System.out.println("Already installed and logged in");
+			
+			ExtentManager.logger.log(Status.PASS, "Logged into IOS Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
+			System.out.println("Logged in Successfully");
 			break;
 
 		case "ios":

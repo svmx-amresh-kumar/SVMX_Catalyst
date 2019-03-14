@@ -6,6 +6,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Iterator;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -41,7 +42,8 @@ public class Ip_MorePO
 	Iterator<String> iterator =null;
 	
 
-	@FindBy(id="More, tab, 4 of 4")
+	@FindAll({@FindBy(xpath="//*[@text='More']"),
+	@FindBy(id="More, tab, 4 of 4")})
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()
 	{
@@ -49,12 +51,20 @@ public class Ip_MorePO
 	}
 	
 	//@FindBy(xpath="//XCUIElementTypeOther[@name='Sync']")
+	@FindBy(xpath="//*[@text='More']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
-		return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+		try {
+			return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+
+		} catch (Exception e)
+		{eleMoreBtn = driver.findElement(By.xpath("//*[@text='More']"));}
+		return eleMoreBtn;
+
 	}
-	
+//return 
+
 /*	@FindAll({@FindBy(xpath="//XCUIElementTypeOther[contains(.,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),

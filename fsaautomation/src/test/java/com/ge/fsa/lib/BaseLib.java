@@ -165,7 +165,13 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_PLATFORM_VERSION"));
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
-				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				if(sDeviceType.equalsIgnoreCase("phone")) {
+					//Ignore the AutoWebview setting for phone
+						System.out.println("Setting AUTO_WEBVIEW to false");
+						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+					}else{
+						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+					}
 				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
 				capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
