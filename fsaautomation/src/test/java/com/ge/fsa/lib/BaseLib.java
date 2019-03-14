@@ -83,6 +83,8 @@ public class BaseLib {
 	public static long lInitTimeEndMilliSec;
 	public static String sSelectConfigPropFile = null;
 	public static String sOrgType = null;
+	public static String sUDID = null;
+	public static String sAndroidDeviceName = null;
 	
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -138,6 +140,13 @@ public class BaseLib {
 		// Get the build number from jenkins
 		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
+		
+		//Get UDID
+		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID").toLowerCase();
+		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
+		
+		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME").toLowerCase();
+		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 
 	}
 
