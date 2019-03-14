@@ -54,7 +54,7 @@ public class Ip_LoginHomePO
 	
 
 	@FindAll({@FindBy(xpath="//*[@text='Username']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\\\"Login | Salesforce\\\"]/XCUIElementTypeTextField")})
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")})
 	private WebElement eleUserNameTxtFld;
 	public WebElement getEleUserNameTxtFld()
 	{
