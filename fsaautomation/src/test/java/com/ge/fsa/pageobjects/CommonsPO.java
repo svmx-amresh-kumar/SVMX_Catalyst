@@ -1694,13 +1694,13 @@ public class CommonsPO {
 		 * @param sDirectionUpDown
 		 * @param iNoOfTimes
 		 */
-		public void swipeGeneric(String sDirectionUpDown, int... iNoOfTimes) {
+		public void swipeGeneric(WebElement webElement , String sDirectionUpDown, int... iNoOfTimes) {
 		
-			
-			
+			String sValue = "";// webElement.getText();
+			System.out.println("Scrolling to : "+sValue);
 			switch(BaseLib.sOSName.toLowerCase()) {
 			case "android":
-				
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
 				break;
 			case "ios":
 				JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -1711,8 +1711,8 @@ public class CommonsPO {
 					params.put("direction", "down");
 
 				}
-
-			js.executeScript("mobile: swipe", params);
+				params.put("element", ((RemoteWebElement) webElement).getId());
+				js.executeScript("mobile: swipe", params);
 		
 			//FYI No need to pass element, the app window will be chosen
 			//params.put("element", ((RemoteWebElement) element).getId());
@@ -1725,8 +1725,8 @@ public class CommonsPO {
 		
 		public void custScrollToElement(WebElement el) {
 			
-			for(;;)
-			swipeGeneric("up");
+			//for(;;)
+			//swipeGeneric("up");
 			
 		}
 }
