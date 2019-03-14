@@ -176,6 +176,7 @@ public void iphone() throws Exception
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ip_WorkOrderPo.addParts(ip_CalendarPo ,"auto_product12032019181633");
+				ip_WorkOrderPo.addLabor(ip_CalendarPo ,"auto_product12032019181633");
 				Thread.sleep(10000);
 }
 	
