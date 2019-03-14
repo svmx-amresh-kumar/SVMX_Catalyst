@@ -1706,10 +1706,7 @@ public class CommonsPO {
 			}
 
 			js.executeScript("mobile: swipe", params);
-			TouchActions action = new TouchActions(driver);
-			action.scroll(10, 100);
-			action.perform();
-			
+		
 			//FYI No need to pass element, the app window will be chosen
 			//params.put("element", ((RemoteWebElement) element).getId());
 			//action.scroll(element, 10, 100);
