@@ -4,7 +4,10 @@ package com.ge.fsa.iphone.pageobjects;
 import static org.testng.Assert.assertFalse;
 
 import java.util.Iterator;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -84,7 +87,8 @@ public class Ip_CalendarPO
 ///////////////////////////////////////////////////////////////////////////////	create new PO
 	
 	//revisit
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]")
+	@FindAll({@FindBy(xpath="hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]")})
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
 	{
@@ -92,33 +96,92 @@ public class Ip_CalendarPO
 	}
 
 	//revisit
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")
+	
+	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
 		private WebElement eleselectprocess;
 		public WebElement getEleselectprocess()
 		{
 			return eleselectprocess;
 		}
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Account Account Lookup\"])[2]")
+		
+		@FindAll({@FindBy(xpath="//*[@text='Account Lookup']"),
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Account Account Lookup\"])[2]")})
 		private WebElement eleAccountLookUp;
 		public WebElement getEleAccountLookUp()
 		{
 			return eleAccountLookUp;
 		}
 		
+		
+		@FindBy(xpath="//*[@text='Search Keyword...']")
 		private WebElement elelookupsearch;
 		public WebElement getElelookupsearch()
 		{
-			return elelookupsearch = driver.findElementByAccessibilityId("Search Account Name, Account Phone");
+			try {
+				return elelookupsearch = driver.findElementByAccessibilityId("Search Account Name, Account Phone");
+
+			} catch (Exception e) {
+				return elelookupsearch = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
+			}
 		}
-	
+		
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Contact Contact Lookup\"])[2]")
+		private WebElement eleContactLookUp;
+		public WebElement getEleContactLookUp()
+		{
+			return eleContactLookUp;
+		}
+		
+		private WebElement eleContactlookupsearch;
+		public WebElement geteleContactlookupsearch()
+		{
+			return eleContactlookupsearch = driver.findElementByAccessibilityId("Search Full Name, Business Phone, Mobile Phone, Email");
+		}
+		
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Product Product Lookup\"])[2]")
+		private WebElement eleProductLookUp;
+		public WebElement getEleProductLookUp()
+		{
+			return eleProductLookUp;
+		}
+		
+		private WebElement eleProductlookupsearch;
+		public WebElement geteleProductlookupsearch()
+		{
+			return eleProductlookupsearch = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+		}
+		
+		@FindAll({@FindBy(xpath="//*[@text='--None--'][1]"),
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Priority --None--\"])[1]")})
+		private WebElement elePriority;
+		public WebElement getElePriority()
+		{
+			return elePriority;
+		}
+		
+	/*//	@FindAll({@FindBy(xpath="//*[@text='--None--'][1]"),
+		private WebElement eleMedium;
+		public WebElement geteleMedium()
+		{
+			return eleMedium = driver.findElementByAccessibilityId("Medium");
+		}*/
+		
+		@FindBy(xpath="//*[@text='Medium']")
+		private WebElement eleMedium;
+		public WebElement geteleMedium()
+		{
+			return eleMedium;
+		}
+		
 	/*
 	 * @FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Work Order\"]") private
 	 * WebElement elelookupsearch; public WebElement getElelookupsearch() { return
 	 * elelookupsearch; }
 	 */
 		
-
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")
+		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='05032019204015AccA']"),
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")})
 		private WebElement eleSearchListItem;
 		public WebElement getEleSearchListItem()
 		{
