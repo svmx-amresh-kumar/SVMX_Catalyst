@@ -153,33 +153,21 @@ public class Ip_CalendarPO
 		}
 		
 		@FindAll({@FindBy(xpath="//*[@text='--None--'][1]"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Priority --None--\"])[1]")})
+		@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Priority\"]/../XCUIElementTypeOther")})
 		private WebElement elePriority;
 		public WebElement getElePriority()
 		{
 			return elePriority;
 		}
 		
-	/*//	@FindAll({@FindBy(xpath="//*[@text='--None--'][1]"),
-		private WebElement eleMedium;
-		public WebElement geteleMedium()
-		{
-			return eleMedium = driver.findElementByAccessibilityId("Medium");
-		}*/
-		
+
 		@FindBy(xpath="//*[@text='Medium']")
 		private WebElement eleMedium;
 		public WebElement geteleMedium()
 		{
 			return eleMedium;
 		}
-		
-	/*
-	 * @FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Work Order\"]") private
-	 * WebElement elelookupsearch; public WebElement getElelookupsearch() { return
-	 * elelookupsearch; }
-	 */
-		
+
 		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='05032019204015AccA']"),
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")})
 		private WebElement eleSearchListItem;
@@ -188,5 +176,104 @@ public class Ip_CalendarPO
 			return eleSearchListItem;
 		}
 		
+		private WebElement eleContactLookuptap;
+		public WebElement getEleContactLookuptap()
+		{
+			return eleContactLookuptap = driver.findElementByAccessibilityId("Contact Contact Lookup");
+		}
 		
+		private WebElement elelookupsearchcontact;
+		public WebElement getElelookupsearchcontact()
+		{
+			return elelookupsearchcontact = driver.findElementByAccessibilityId("Search Full Name, Business Phone, Mobile Phone, Email");
+		}
+		
+		
+		private WebElement eleproductLookuptap;
+		public WebElement getEleproductLookuptap()
+		{
+			return eleproductLookuptap = driver.findElementByAccessibilityId("Product Product Lookup");
+		}
+
+		private WebElement elelookupsearhproduct;
+		public WebElement getElelookupsearhproduct()
+		{
+			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+		}	
+
+		
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Low\"]")
+		private WebElement eleCreatenewpriorityLow;
+		public WebElement getEleCreatenewpriorityLow()
+		{
+			return eleCreatenewpriorityLow;
+		}
+		
+		@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Billing Type\"]/../XCUIElementTypeOther")
+		private WebElement elebillingtype;
+		public WebElement getElebillingtype()
+		{
+			return elebillingtype;
+		}
+		
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Loan\"]")
+		private WebElement elebillingtypeloan;
+		public WebElement getElebillingtypeloan()
+		{
+			return elebillingtypeloan;
+		}
+		
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")
+		private WebElement eleProformaInvoice;
+		public WebElement getEleProformaInvoice()
+		{
+			return eleProformaInvoice;
+		}
+		
+		
+		private WebElement eleAdd;
+		public WebElement getEleAdd()
+		{
+			return eleAdd = driver.findElementByAccessibilityId("Add");
+		}	
+		
+		
+		private WebElement eleworkordernumonCalendar;
+		public WebElement getEleworkordernumonCalendar(String Subject)
+		{
+			
+			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+Subject+"'])[6]"));
+			return eleworkordernumonCalendar;
+		}
+		
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Work Order\"]")
+		private WebElement eleworkordernumontap;
+		public WebElement getEleworkordernumontap()
+		{
+			return eleworkordernumontap;
+		}
+
+
+		
+		public void openWoFromCalendar(String Subject) throws Exception 
+		{
+		
+		getEleCalendarBtn().click();
+			Thread.sleep(2000);
+			try
+			{
+				getEleworkordernumonCalendar(Subject).click();
+				getEleworkordernumontap().click();
+				
+			}
+			catch(Exception e)
+			{
+				System.out.println("unable to find the event");
+			}
+
+		}
+
 }
+
+
+

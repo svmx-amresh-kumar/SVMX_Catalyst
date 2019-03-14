@@ -65,6 +65,21 @@ public class Ip_MorePO
 	}
 //return 
 
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")
+	private WebElement eleSyncNow;
+	public WebElement getEleSyncNow()
+	{
+		return eleSyncNow;
+	}
+	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")
+	private WebElement eleDataSync;
+	public WebElement getEleDataSync()
+	{
+		return eleDataSync;
+	}
+	
+	
 /*	@FindAll({@FindBy(xpath="//XCUIElementTypeOther[contains(.,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),

@@ -15,6 +15,7 @@ import static org.testng.Assert.assertTrue;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -29,6 +30,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
 import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
@@ -69,45 +71,112 @@ public class iPhonePoc extends BaseLib
 public void iphone() throws Exception
 {	
 		
-		ip_LoginHomePo.login(commonsPo, ip_MorePo);
 		
+	/*	String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sProformainVoice = "Proforma"+sRandomNumber;
+		String sEventSubject = "EventName"+sRandomNumber;
+		
+		// Creating Account from API
+		sAccountName = "auto_account"+sRandomNumber;
+		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
+		System.out.println(sAccountName);
+		// Creating Product from API
+		sProductName = "auto_product"+sRandomNumber;
+		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+		System.out.println(sProductName);
+		
+		// Creating Contact from API
+		sFirstName = "auto_contact";
+		sLastName = sRandomNumber;
+		sContactName = sFirstName+" "+sLastName;
+		System.out.println(sContactName);
+		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
+		
+		*/
+		
+		//ip_LoginHomePo.login(commonsPo, ip_MorePo);
+	/*	
 		//click on new icon
 		ip_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(5000);
-		ip_CalendarPo.getEleselectprocess().click();
+		
+	ip_CalendarPo.getEleselectprocess().click();
+
 		Thread.sleep(2000);
+		
+		//Account lookup 
 		ip_CalendarPo.getEleAccountLookUp().click();
 		Thread.sleep(2000);
-		ip_CalendarPo.getElelookupsearch().click();
-		ip_CalendarPo.getElelookupsearch().sendKeys("05032019204015AccA");
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getElelookupsearchAcc().click();
+		ip_CalendarPo.getElelookupsearchAcc().sendKeys("auto_account12032019181633");
 		Thread.sleep(5000);
+		ip_CalendarPo.getEleSearchListItem().click();
+		Thread.sleep(2000);
 		
+		//contact lookup
+		ip_CalendarPo.getEleContactLookuptap().click();
+		ip_CalendarPo.getElelookupsearchcontact().click();
+		ip_CalendarPo.getElelookupsearchcontact().sendKeys("auto_contact 12032019181633");
+		ip_CalendarPo.getEleSearchListItem().click();
 		
-		/*
-		 * ip_CalendarPo.getEleCalendarplus().click(); Thread.sleep(2000);
-		 * ip_CalendarPo.getEleCalendarEventSubject().click();
-		 * ip_CalendarPo.getEleCalendarEventSubject().sendKeys("ok");
-		 * ip_CalendarPo.getEleCalendarEventAllDayEvent().click();
-		 */
-//		ip_LoginHomePo.getEleSignInBtn().click();
-//		Thread.sleep(4000);
-//		ip_LoginHomePo.getEleSettingsbtn().click();
-//		ip_LoginHomePo.getEleProductionBtn().click();
-//		ip_LoginHomePo.getEleSandbocURlbtn().click();
-//		ip_LoginHomePo.getEleChangeEnvironmentBackbtn().click();
-//		ip_LoginHomePo.getEleSignInSettingsBackbtn().click();
-//		ip_LoginHomePo.getEleSignInBtn().click();
-//		
-//		ip_LoginHomePo.getEleUserNameTxtFld().click();
-//		ip_LoginHomePo.getEleUserNameTxtFld().sendKeys("auto-tech@svmx.com");
-//		Thread.sleep(4000);
-//
-//		ip_LoginHomePo.getElePasswordTxtFld().click();
-//		ip_LoginHomePo.getElePasswordTxtFld().sendKeys("Svmx1234");
+		//product
 		
+		ip_CalendarPo.getEleproductLookuptap().click();
+		ip_CalendarPo.getElelookupsearhproduct().click();
+		ip_CalendarPo.getElelookupsearhproduct().sendKeys("auto_product12032019181633");
+		ip_CalendarPo.getEleSearchListItem().click();
 		
-
+		//priority
+		
+		ip_CalendarPo.getElePriority().click();
+		ip_CalendarPo.getEleCreatenewpriorityLow().click();
+		
+		//billing type
+		ip_CalendarPo.getElebillingtype().click();
+		ip_CalendarPo.getElebillingtypeloan().click();
+		Thread.sleep(5000);
+		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sProformainVoice = "Proforma"+sRandomNumber;
+		ip_CalendarPo.getEleProformaInvoice().getLocation();
+		ip_CalendarPo.getEleProformaInvoice().click();
+		ip_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
+		System.out.println(sProformainVoice);
+		ip_CalendarPo.getEleAdd().click();
+	
+		Thread.sleep(30000);
+	//datasync
+	
+	// Collecting the Work Order number from the Server.
+			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'Proforma13032019125705\'";
+			restServices.getAccessToken();
+			String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
+		
+			//open WO from recents
+		
+		ip_RecentsPo.clickonWorkOrderfromrecents("WO-WO-00012576");
+		
+		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sEventSubject = "EventName"+sRandomNumber;
+		
+		// To create a new Event for the given Work Order
+		ip_WorkOrderPo.createNewEvent(commonsPo,"EventName13032019171259");
+		//datasync
+		
+		*/
+		
+		// Open the Work Order from the calendar
+			ip_CalendarPo.openWoFromCalendar("EventName13032019171259");
+			
+		
+			//Adding parts to WO
+			
+		// To add Labor, Parts , Travel , Expense
+				String sProcessname = "EditWoAutoTimesstamp";
+				ip_WorkOrderPo.selectAction(sProcessname);
+				Thread.sleep(2000);
+				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
+				ip_WorkOrderPo.addParts(ip_CalendarPo ,"auto_product12032019181633");
+				Thread.sleep(10000);
 }
 	
 }
