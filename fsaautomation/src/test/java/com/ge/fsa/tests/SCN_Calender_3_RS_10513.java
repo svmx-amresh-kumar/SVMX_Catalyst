@@ -222,6 +222,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		Thread.sleep(3000);
 		commonsPo.switchContext("WebView");
         commonsPo.tap(workOrderPo.getEleSaveLnk(),20,20);
+        commonsPo.tap(workOrderPo.getEleSaveLnk(),20,20);
         commonsPo.tap(workOrderPo.getEleYesBtn(),20,20);
       
        toolsPo.syncData(commonsPo);

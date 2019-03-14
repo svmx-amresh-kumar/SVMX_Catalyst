@@ -55,6 +55,21 @@ public class Ip_MorePO
 		return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
 	}
 	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")
+	private WebElement eleSyncNow;
+	public WebElement getEleSyncNow()
+	{
+		return eleSyncNow;
+	}
+	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")
+	private WebElement eleDataSync;
+	public WebElement getEleDataSync()
+	{
+		return eleDataSync;
+	}
+	
+	
 /*	@FindAll({@FindBy(xpath="//XCUIElementTypeOther[contains(.,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),
@@ -74,6 +89,16 @@ public class Ip_MorePO
 	{
 		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
+	
+	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
+	private WebElement eleDataSynccompleted;
+	public WebElement getEleDataSynccompleted()
+	{
+		return eleDataSynccompleted;
+	}
+	
+	//XCUIElementTypeOther[@name="Sync completed Last sync time: a few seconds ago"]
+	
 
 	public void configSync(CommonsPO commonsPo, Ip_CalendarPO ip_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
@@ -94,5 +119,24 @@ try {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 
+	
+	public void syncData(CommonsPO commonsPo) throws InterruptedException
+	{
+		
+		
+		//Navigation to more screen
+		getEleMoreBtn().click();
+		getEleDataSync().click();
+		getEleSyncNow().click();
+		commonsPo.waitforElement(getEleDataSynccompleted(),2000);
+		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
+		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
+		Thread.sleep(5000);
+		getEleDataSync().click();
+		
+		
+	}
+	
+	
 	
 }

@@ -86,7 +86,8 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {		
-		
+		Thread.sleep(10000);
+		driver.findElementByTagName("auto_contact 05032019162444").click();
 		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
 //		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsPo.verifySahiExecution();
