@@ -1688,4 +1688,40 @@ public class CommonsPO {
 	        } 
 	        return sb.toString(); 
 	    }
+		
+		/**
+		 * Function to do a generic swipe up or down
+		 * @param sDirectionUpDown
+		 * @param iNoOfTimes
+		 */
+		public void swipeGeneric(String sDirectionUpDown, int... iNoOfTimes) {
+			
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Map<String, Object> params = new HashMap<>();
+			if(sDirectionUpDown.equalsIgnoreCase("up")) {
+			params.put("direction", "up");
+			}else {
+				params.put("direction", "down");
+
+			}
+
+			js.executeScript("mobile: swipe", params);
+			TouchActions action = new TouchActions(driver);
+			action.scroll(10, 100);
+			action.perform();
+			
+			//FYI No need to pass element, the app window will be chosen
+			//params.put("element", ((RemoteWebElement) element).getId());
+			//action.scroll(element, 10, 100);
+			
+			
+		}
+		
+		
+		public void custScrollToElement(WebElement el) {
+			
+			for(;;)
+			swipeGeneric("up");
+			
+		}
 }
