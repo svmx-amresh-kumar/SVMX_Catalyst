@@ -41,9 +41,9 @@ public class Ip_RecentsPO
 	TouchAction touchAction = null;
 	Iterator<String> iterator =null;
 	
-
 	
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Recents, tab, 3 of 4\"]")
+	@FindAll({@FindBy(xpath="//*[@text='Recents']"),
+	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Recents, tab, 3 of 4\"]")})
 	private WebElement eleClickRecentItems;
 	public WebElement getEleClickRecentItems()
 	{
@@ -53,9 +53,16 @@ public class Ip_RecentsPO
 	private WebElement eleWorkorderNumberClick;
 	public WebElement getEleWorkordernumberclick(String workordername)
 	{
-		
-		eleWorkorderNumberClick = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Recents\"])[12]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"));
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+		eleWorkorderNumberClick = driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
 		return eleWorkorderNumberClick;
+		case "ios":
+			eleWorkorderNumberClick = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Recents\"])[12]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"));
+			return eleWorkorderNumberClick;
+		}
+		return eleWorkorderNumberClick;
+		
 	}
 	
 	

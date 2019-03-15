@@ -39,8 +39,8 @@ public class Ip_CalendarPO
 	TouchAction touchAction = null;
 	Iterator<String> iterator =null;
 	
-
-	@FindBy(id="Calendar, tab, 1 of 4")
+	@FindAll({@FindBy(xpath="//*[@text='Calendar']"),
+	@FindBy(id="Calendar, tab, 1 of 4")})
 	private WebElement eleCalendarBtn;
 	public WebElement getEleCalendarBtn()
 	{
@@ -87,7 +87,7 @@ public class Ip_CalendarPO
 ///////////////////////////////////////////////////////////////////////////////	create new PO
 	
 	//revisit
-	@FindAll({@FindBy(xpath="hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup"),
+	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]")})
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
@@ -113,17 +113,12 @@ public class Ip_CalendarPO
 			return eleAccountLookUp;
 		}
 		
-		
-		@FindBy(xpath="//*[@text='Search Keyword...']")
+		@FindAll({@FindBy(id="Search Account Name, Account Phone"),
+		@FindBy(xpath="//*[@text='Search Keyword...']")})
 		private WebElement elelookupsearch;
 		public WebElement getElelookupsearch()
 		{
-			try {
-				return elelookupsearch = driver.findElementByAccessibilityId("Search Account Name, Account Phone");
-
-			} catch (Exception e) {
-				return elelookupsearch = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
-			}
+			return elelookupsearch;
 		}
 		
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Contact Contact Lookup\"])[2]")
@@ -152,7 +147,7 @@ public class Ip_CalendarPO
 			return eleProductlookupsearch = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
 		}
 		
-		@FindAll({@FindBy(xpath="//*[@text='--None--'][1]"),
+		@FindAll({@FindBy(xpath="//*[@text='Priority']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Priority\"]/../XCUIElementTypeOther")})
 		private WebElement elePriority;
 		public WebElement getElePriority()
@@ -168,7 +163,9 @@ public class Ip_CalendarPO
 			return eleMedium;
 		}
 
-		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='05032019204015AccA']"),
+		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_account12032019181633']"),
+		@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_contact 12032019181633']"),
+		@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_product12032019181633']"),
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")})
 		private WebElement eleSearchListItem;
 		public WebElement getEleSearchListItem()
@@ -199,31 +196,35 @@ public class Ip_CalendarPO
 		public WebElement getElelookupsearhproduct()
 		{
 			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
-		}	
-
+		}
 		
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Low\"]")
+		@FindAll({@FindBy(xpath="//*[@text='Low']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Low\"]")})
 		private WebElement eleCreatenewpriorityLow;
 		public WebElement getEleCreatenewpriorityLow()
 		{
 			return eleCreatenewpriorityLow;
 		}
 		
-		@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Billing Type\"]/../XCUIElementTypeOther")
+		
+		@FindAll({@FindBy(xpath="//*[@text='Billing Type']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Billing Type\"]/../XCUIElementTypeOther")})
 		private WebElement elebillingtype;
 		public WebElement getElebillingtype()
 		{
 			return elebillingtype;
 		}
 		
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Loan\"]")
+		@FindAll({@FindBy(xpath="//*[@text='Loan']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Loan\"]")})
 		private WebElement elebillingtypeloan;
 		public WebElement getElebillingtypeloan()
 		{
 			return elebillingtypeloan;
 		}
 		
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")
+		@FindAll({@FindBy(xpath="//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})
 		private WebElement eleProformaInvoice;
 		public WebElement getEleProformaInvoice()
 		{
@@ -234,16 +235,29 @@ public class Ip_CalendarPO
 		private WebElement eleAdd;
 		public WebElement getEleAdd()
 		{
-			return eleAdd = driver.findElementByAccessibilityId("Add");
-		}	
-		
-		
+			try {
+				return eleAdd = driver.findElementByAccessibilityId("Add");
+
+			} catch (Exception e) {
+				return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
+			}		}	
+			
 		private WebElement eleworkordernumonCalendar;
 		public WebElement getEleworkordernumonCalendar(String Subject)
 		{
 			
-			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+Subject+"'])[6]"));
-			return eleworkordernumonCalendar;
+			switch(BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				eleworkordernumonCalendar=driver.findElement(By.xpath("//*[@text='"+Subject+"']"));
+				return eleworkordernumonCalendar;
+			case "ios":
+				eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+Subject+"'])[6]"));
+				return eleworkordernumonCalendar;
+			}
+			return eleAccountLookUp;
+			
+			
+			
 		}
 		
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Work Order\"]")
