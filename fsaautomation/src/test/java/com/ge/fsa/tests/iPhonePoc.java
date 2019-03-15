@@ -98,6 +98,7 @@ public void iphone() throws Exception
 	
 		ip_MorePo.syncData(commonsPo);
 		
+		ip_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
 		ip_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(10000);
