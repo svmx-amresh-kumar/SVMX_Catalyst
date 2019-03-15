@@ -169,13 +169,12 @@ public class Ip_CalendarPO
 		}
 
 		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='05032019204015AccA']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")})
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther")})
 		private WebElement eleSearchListItem;
 		public WebElement getEleSearchListItem()
 		{
 			return eleSearchListItem;
 		}
-		
 		private WebElement eleContactLookuptap;
 		public WebElement getEleContactLookuptap()
 		{

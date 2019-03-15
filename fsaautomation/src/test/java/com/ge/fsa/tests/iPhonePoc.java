@@ -162,22 +162,35 @@ public void iphone() throws Exception
 		ip_WorkOrderPo.createNewEvent(commonsPo,"EventName13032019171259");
 		//datasync
 		
-		*/
+		
+		
 		
 		// Open the Work Order from the calendar
 			ip_CalendarPo.openWoFromCalendar("EventName13032019171259");
 			
-		
+			
 			//Adding parts to WO
 			
 		// To add Labor, Parts , Travel , Expense
+		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ip_WorkOrderPo.selectAction(sProcessname);
+				ip_WorkOrderPo.selectAction(commonsPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ip_WorkOrderPo.addParts(ip_CalendarPo ,"auto_product12032019181633");
-				ip_WorkOrderPo.addLabor(ip_CalendarPo ,"auto_product12032019181633");
+				Thread.sleep(5000);
+				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,"auto_product12032019181633");
+				ip_WorkOrderPo.getElesave().click();
 				Thread.sleep(10000);
+			
+		
+				sPrintReportSearch = "Work Order Service Report";
+				ip_WorkOrderPo.selectAction(commonsPo,sPrintReportSearch);
+				Thread.sleep(5000);
+				ip_WorkOrderPo.getEleFinalize().click();
+				Thread.sleep(10000);
+				*/
+				
 }
 	
 }
