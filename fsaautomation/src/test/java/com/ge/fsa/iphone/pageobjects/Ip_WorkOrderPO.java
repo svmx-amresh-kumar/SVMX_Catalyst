@@ -111,21 +111,27 @@ public class Ip_WorkOrderPO extends BaseLib
 		return eleFinalize;
 	}
 	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")
+	private WebElement eleselectprocesscreateevent;
+	public WebElement getEleselectprocesscreateevent()
+	{
+		return eleselectprocesscreateevent;
+	}
+
 	
-	
-	public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+	public void selectAction(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
 	{
 		getEleActionsLnk().click();	
 		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
 
-	public void createNewEvent(CommonsPO commonsPo,String sSubject) throws InterruptedException
+	public void createNewEvent(CommonsPO commonsPo,String sSubject,Ip_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
-		selectAction(commonsPo,"Create New Event From Work Order");
-		Thread.sleep(3000);
-		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
-		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
+		selectAction(commonsPo,ip_CalendarPo,"Create New Event From Work Order");
+		
+		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"00", "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"01","00"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
