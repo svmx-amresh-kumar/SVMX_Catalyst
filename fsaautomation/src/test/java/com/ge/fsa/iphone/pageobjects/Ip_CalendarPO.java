@@ -195,7 +195,15 @@ public class Ip_CalendarPO
 		private WebElement elelookupsearhproduct;
 		public WebElement getElelookupsearhproduct()
 		{
-			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+			switch(BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				elelookupsearhproduct = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
+			return elelookupsearhproduct;
+			case "ios":
+				return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+			}
+			
+			return elelookupsearhproduct; 
 		}
 		
 		@FindAll({@FindBy(xpath="//*[@text='Low']"),

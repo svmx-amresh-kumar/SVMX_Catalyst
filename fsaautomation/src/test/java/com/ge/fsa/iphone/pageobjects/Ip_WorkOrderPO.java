@@ -103,20 +103,28 @@ public class Ip_WorkOrderPO extends BaseLib
 	{
 		return eleAddSelected;
 	}
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Finalize\"])[3]")
+	private WebElement eleFinalize;
+	public WebElement getEleFinalize()
+	{
+		return eleFinalize;
+	}
 	
 	
-	public void selectAction( String sActionsName) throws InterruptedException
+	
+	public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
 	{
 		Thread.sleep(5000);
 		getEleActionsLnk().click();	
-		Thread.sleep(5000);
+		Thread.sleep(10000);
+		commonsPo.swipeGeneric(getEleActionsTxt(sActionsName),"up",2);
 		getEleActionsTxt(sActionsName).click();		
 		Thread.sleep(5000);
 	}
 
 	public void createNewEvent(CommonsPO commonsPo,String sSubject) throws InterruptedException
 	{
-		selectAction("Create New Event From Work Order");
+		selectAction(commonsPo,"Create New Event From Work Order");
 		Thread.sleep(3000);
 		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
 		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
@@ -147,14 +155,66 @@ public class Ip_WorkOrderPO extends BaseLib
 		return elePartcheckbox;}
 	
 
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"\"])[1]")
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Part Part Lookup\"])[2]")
 	private WebElement elepartlookup;
 	public WebElement getElepartlookup()
 	{
 		return elepartlookup;
 		}
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Activity Type\"]/../XCUIElementTypeOther")
+	private WebElement eleActivityType;
+	public WebElement getEleActivityType()
+	{
+		return eleActivityType;
+		}
 	
 	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Calibration\"])")
+	private WebElement eleCalibration;
+	public WebElement getEleCalibration()
+	{
+		return eleCalibration;
+		}
+	
+	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")
+	private WebElement eleLaborstartdatetime;
+	public WebElement getEleLaborstartdatetime()
+	{
+		return eleLaborstartdatetime;
+		}
+	
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")
+	private WebElement eleLaborenddatetime;
+	public WebElement getEleLaborenddatetime()
+	{
+		return eleLaborenddatetime;
+		}
+	
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Qty\"]/../XCUIElementTypeOther")
+	private WebElement eleLineQtyTxtFld;
+	public WebElement getEleLineQtyTxtFld()
+	{
+		return eleLineQtyTxtFld;
+		}
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Price Per Unit\"]/../XCUIElementTypeOther")
+	private WebElement eleLinePerUnitTxtFld;
+	public WebElement getEleLinePerUnitTxtFld()
+	{
+		return eleLinePerUnitTxtFld;
+		}
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\" RESULTS\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther")
+	private WebElement elelaborpartresult;
+	public WebElement getElelaborpartresult()
+	{
+		return elelaborpartresult;
+		}
+	
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")
+	private WebElement elesave;
+	public WebElement getElesave()
+	{
+		return elesave;
+		}
 	
 	public void addParts(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
@@ -168,17 +228,33 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleAddSelected().click();
 	}
 
-	public void addLabor(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addLabor(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
+		
 		getEleLaborLnk().click();
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		getElepartlookup().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
 		Thread.sleep(2000);
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
-		getElePartcheckbox().click();
+		Thread.sleep(3000);
+		ip_CalendarPo.getEleSearchListItem().click();
+		getElelaborpartresult().click();
 		Thread.sleep(2000);
-		getEleAddSelected().click();
+		
+		getEleActivityType().click();
+		getEleCalibration().click();
+		
+		commonsPo.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleLaborenddatetime(),  1,"9","00"); 
+		
+		getEleLineQtyTxtFld().click();
+		getEleLineQtyTxtFld().sendKeys("10");
+		
+		getEleLinePerUnitTxtFld().click();
+		getEleLinePerUnitTxtFld().sendKeys("1000");
+		ip_CalendarPo.getEleAdd().click();
+		
 		
 	}
 	
