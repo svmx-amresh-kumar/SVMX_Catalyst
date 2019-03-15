@@ -401,7 +401,10 @@ public class CommonsPO {
 	 */
 	public void switchContext(String sContext) {
 
-
+		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Do Nothing
+		}else {
+			
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 		// global variable to access across
@@ -428,7 +431,7 @@ public class CommonsPO {
 			// TODO: handle exceptions
 			System.out.println("Could not switch the context" + e);
 		}
-
+		}
 	}
 
 	private WebElement elePicklistValue;
@@ -1743,19 +1746,16 @@ public class CommonsPO {
 			for (i = 0; i < 5; i++) {
 				try {
 				webElement.click();
+				return;
+				}catch(Exception e){}
 				
-				}catch(Exception e){
-					
-				}
 				swipeGeneric("up");
 				
 				try {
 					Thread.sleep(1000);
 					webElement.click();
 					return;
-				}catch(Exception e){
-						
-					}
+				}catch(Exception e){}
 				
 			}
 			System.out.println("Element not found to click after scrolling");
