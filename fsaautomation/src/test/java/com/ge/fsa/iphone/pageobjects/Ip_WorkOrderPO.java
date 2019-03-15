@@ -121,11 +121,9 @@ public class Ip_WorkOrderPO extends BaseLib
 	
 	public void selectAction(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
 	{
-		Thread.sleep(5000);
 		getEleActionsLnk().click();	
 		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
-		Thread.sleep(5000);
 	}
 
 	public void createNewEvent(CommonsPO commonsPo,String sSubject,Ip_CalendarPO ip_CalendarPo) throws InterruptedException

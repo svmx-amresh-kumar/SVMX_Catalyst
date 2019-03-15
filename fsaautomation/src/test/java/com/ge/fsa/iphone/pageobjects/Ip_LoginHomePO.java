@@ -53,7 +53,7 @@ public class Ip_LoginHomePO
 	}
 	
 
-	@FindAll({@FindBy(xpath="//*[@text='Username']"),
+	@FindAll({@FindBy(xpath="//*[@resource-id='username']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")})
 	private WebElement eleUserNameTxtFld;
 	public WebElement getEleUserNameTxtFld()
@@ -62,7 +62,7 @@ public class Ip_LoginHomePO
 	}
 
 	
-	@FindAll({@FindBy(xpath="//*[@text='Password']"),
+	@FindAll({@FindBy(xpath="//*[@resource-id='password']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")})
 	private WebElement elePasswordTxtFld;
 	public WebElement getElePasswordTxtFld()
@@ -70,7 +70,7 @@ public class Ip_LoginHomePO
 		return elePasswordTxtFld;
 	}
 	
-	@FindAll({@FindBy(xpath="//android.widget.Button[@content-desc=\"Log In to Sandbox\"]"),
+	@FindAll({@FindBy(xpath="//*[@text='Log In to Sandbox']"),
 	@FindBy(id="Log In to Sandbox")})
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
@@ -79,7 +79,9 @@ public class Ip_LoginHomePO
 	}
 
 	@FindAll({@FindBy(xpath="//*[@content-desc=' Allow  Allow']"),
-	@FindBy(id=" Allow ")})
+	@FindBy(id=" Allow "),
+	@FindBy(xpath="//*[@resource-id='ooapprove']"),
+	@FindBy(id="ooapprove")})
 	//@FindBy(xpath="//*[@content-desc=' Allow  Allow']")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
@@ -198,10 +200,11 @@ public class Ip_LoginHomePO
 					//Login from Sign in Page
 					
 					
-					Thread.sleep(4000);
+					Thread.sleep(1000);
 					getEleSignInBtn().click();
-					Thread.sleep(4000);
-					if(!commonsPo.waitforElement(getEleLoginBtn(),1)) {
+					Thread.sleep(1000);
+					//Change to sandbox first if not already
+					if(!commonsPo.waitforElement(getEleLoginBtn(),2)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
@@ -209,10 +212,10 @@ public class Ip_LoginHomePO
 						getEleSignInSettingsBackbtn().click();	
 					}
 									
-					
+					commonsPo.waitforElement(getEleUserNameTxtFld(),2);
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
-					Thread.sleep(4000);
+					Thread.sleep(2000);
 
 					getElePasswordTxtFld().click();
 					getElePasswordTxtFld().sendKeys(sPwd);
@@ -220,7 +223,7 @@ public class Ip_LoginHomePO
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
-						commonsPo.waitforElement(getEleAllowBtn(), 5);
+						commonsPo.waitforElement(getEleAllowBtn(), 2);
 						getEleAllowBtn().click();
 		
 
@@ -231,7 +234,7 @@ public class Ip_LoginHomePO
 
 					
 					
-				} catch (Exception e) {}
+				} catch (Exception e) {System.out.println(e);}
 
 
 				//Check if username field is not displayed

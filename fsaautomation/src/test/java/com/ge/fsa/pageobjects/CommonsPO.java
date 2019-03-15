@@ -1741,7 +1741,8 @@ public class CommonsPO {
 
 		}
 
-		public void custScrollToElementAndClick(WebElement webElement) {
+		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
+			Thread.sleep(3000);
 			int i;
 			for (i = 0; i < 5; i++) {
 				try {
