@@ -92,6 +92,15 @@ public class Ip_MorePO
 		return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
 	
+	//@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")
+	private WebElement eleDataSynccompleted;
+	public WebElement getEleDataSynccompleted()
+	{
+		return eleDataSynccompleted;
+	}
+	
+	
 	
 	//@FindBy(id="Perform Config Sync")
 	private WebElement elePerformConfigSync;
@@ -119,5 +128,23 @@ try {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 
+	
+	public void syncData(CommonsPO commonsPo) throws InterruptedException
+	{
+		
+		
+		//Navigation to more screen
+		getEleMoreBtn().click();
+		getEleDataSync().click();
+		getEleSyncNow().click();
+		commonsPo.waitforElement(getEleDataSynccompleted(),2000);
+		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
+		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
+		Thread.sleep(5000);
+		commonsPo.tap(getEleMoreBtn(),20,20);
+		
+		
+	}
+	
 	
 }

@@ -85,7 +85,7 @@ public void iphone() throws Exception
 		System.out.println(sProformainVoice);
 		ip_CalendarPo.getEleAdd().click();
 		
-	/*	String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		
@@ -105,13 +105,15 @@ public void iphone() throws Exception
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
-		*/
 		
-		//ip_LoginHomePo.login(commonsPo, ip_MorePo);
-	/*	
+		
+		ip_LoginHomePo.login(commonsPo, ip_MorePo);
+	
+		ip_MorePo.syncData(commonsPo);
+		
 		//click on new icon
 		ip_CalendarPo.getEleCreateNew().click();
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		
 	ip_CalendarPo.getEleselectprocess().click();
 
@@ -120,8 +122,8 @@ public void iphone() throws Exception
 		//Account lookup 
 		ip_CalendarPo.getEleAccountLookUp().click();
 		Thread.sleep(2000);
-		ip_CalendarPo.getElelookupsearchAcc().click();
-		ip_CalendarPo.getElelookupsearchAcc().sendKeys("auto_account12032019181633");
+		ip_CalendarPo.getElelookupsearch().click();
+		ip_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
 		Thread.sleep(5000);
 		ip_CalendarPo.getEleSearchListItem().click();
 		Thread.sleep(2000);
@@ -129,14 +131,14 @@ public void iphone() throws Exception
 		//contact lookup
 		ip_CalendarPo.getEleContactLookuptap().click();
 		ip_CalendarPo.getElelookupsearchcontact().click();
-		ip_CalendarPo.getElelookupsearchcontact().sendKeys("auto_contact 12032019181633");
+		ip_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
 		ip_CalendarPo.getEleSearchListItem().click();
 		
 		//product
 		
 		ip_CalendarPo.getEleproductLookuptap().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
-		ip_CalendarPo.getElelookupsearhproduct().sendKeys("auto_product12032019181633");
+		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
 		ip_CalendarPo.getEleSearchListItem().click();
 		
 		//priority
@@ -148,16 +150,16 @@ public void iphone() throws Exception
 		ip_CalendarPo.getElebillingtype().click();
 		ip_CalendarPo.getElebillingtypeloan().click();
 		Thread.sleep(5000);
-		String sRandomNumber = commonsPo.generaterandomnumber("");
-		String sProformainVoice = "Proforma"+sRandomNumber;
+		
+		
 		ip_CalendarPo.getEleProformaInvoice().getLocation();
 		ip_CalendarPo.getEleProformaInvoice().click();
 		ip_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
 		ip_CalendarPo.getEleAdd().click();
 	
-		Thread.sleep(30000);
-	//datasync
+		Thread.sleep(3000);
+		ip_MorePo.syncData(commonsPo);
 	
 	// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'Proforma13032019125705\'";
@@ -166,31 +168,42 @@ public void iphone() throws Exception
 		
 			//open WO from recents
 		
-		ip_RecentsPo.clickonWorkOrderfromrecents("WO-WO-00012576");
+		ip_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
 		
-		String sRandomNumber = commonsPo.generaterandomnumber("");
-		String sEventSubject = "EventName"+sRandomNumber;
 		
 		// To create a new Event for the given Work Order
-		ip_WorkOrderPo.createNewEvent(commonsPo,"EventName13032019171259");
-		//datasync
+		ip_WorkOrderPo.createNewEvent(commonsPo,sEventSubject);
 		
-		*/
+		
+		
+		
 		
 		// Open the Work Order from the calendar
-			ip_CalendarPo.openWoFromCalendar("EventName13032019171259");
+			ip_CalendarPo.openWoFromCalendar(sEventSubject);
 			
-		
+			
 			//Adding parts to WO
 			
 		// To add Labor, Parts , Travel , Expense
+		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ip_WorkOrderPo.selectAction(sProcessname);
+				ip_WorkOrderPo.selectAction(commonsPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-				ip_WorkOrderPo.addParts(ip_CalendarPo ,"auto_product12032019181633");
-				ip_WorkOrderPo.addLabor(ip_CalendarPo ,"auto_product12032019181633");
+				ip_WorkOrderPo.addParts(ip_CalendarPo ,sProductName);
+				Thread.sleep(5000);
+				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,sProductName);
+				ip_WorkOrderPo.getElesave().click();
 				Thread.sleep(10000);
+			
+		
+				sPrintReportSearch = "Work Order Service Report";
+				ip_WorkOrderPo.selectAction(commonsPo,sPrintReportSearch);
+				Thread.sleep(5000);
+				ip_WorkOrderPo.getEleFinalize().click();
+				Thread.sleep(10000);
+				
+				//ip_MorePo.syncData(commonsPo);
 }
 	
 }
