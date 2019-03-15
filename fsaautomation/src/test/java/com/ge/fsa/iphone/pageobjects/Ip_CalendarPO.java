@@ -21,6 +21,7 @@ import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -87,7 +88,7 @@ public class Ip_CalendarPO
 ///////////////////////////////////////////////////////////////////////////////	create new PO
 	
 	//revisit
-	@FindAll({@FindBy(xpath="hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup"),
+	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]")})
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
@@ -97,12 +98,14 @@ public class Ip_CalendarPO
 
 	//revisit
 	
-	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
+//	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
+//		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
 		private WebElement eleselectprocess;
-		public WebElement getEleselectprocess()
+		public WebElement getEleselectprocess(String sProcessName)
 		{
-			return eleselectprocess;
+			
+			return eleselectprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]"));
+			
 		}
 		
 		@FindAll({@FindBy(xpath="//*[@text='Account Lookup']"),
@@ -223,8 +226,8 @@ public class Ip_CalendarPO
 			return elebillingtypeloan;
 		}
 		
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")
-		private WebElement eleProformaInvoice;
+		@FindAll({@FindBy(xpath="//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	          @FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})		private WebElement eleProformaInvoice;
 		public WebElement getEleProformaInvoice()
 		{
 			return eleProformaInvoice;

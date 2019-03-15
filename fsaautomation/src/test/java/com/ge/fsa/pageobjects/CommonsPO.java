@@ -1695,48 +1695,64 @@ public class CommonsPO {
 		 * @param sDirectionUpDown
 		 * @param iNoOfTimes
 		 */
-		public void swipeGeneric(WebElement webElement , String sDirectionUpDown, int... iNoOfTimes) {
-		
-			String sValue = "";// webElement.getText();
-			System.out.println("Scrolling to : "+sValue);
-			switch(BaseLib.sOSName.toLowerCase()) {
+		public void swipeGeneric(String sDirectionUpDown) {
+
+			System.out.println("Scrolling...");
+			switch (BaseLib.sOSName.toLowerCase()) {
 			case "android":
-				try {
-				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).scrollable(true)).scrollIntoView(new UiSelector().className(\"android.widget.ViewGroup\").enabled(true).instance(10))"));//"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
-				}catch(Exception e) {}
+
+				Dimension dim = driver.manage().window().getSize();
+				int height = dim.getHeight();
+				int width = dim.getWidth();
+				int x = width / 2;
+				int top_y;
+				int bottom_y;
+
+				if (sDirectionUpDown.equalsIgnoreCase("up")) {
+					top_y = (int) (height * 0.80);
+					bottom_y = (int) (height * 0.50);
+				} else {
+					// Reversing
+					top_y = (int) (height * 0.50);
+					bottom_y = (int) (height * 0.80);
+				}
+
+				System.out.println("coordinates :" + x + "  " + top_y + " " + bottom_y);
+				TouchAction ts = new TouchAction(driver);
+				ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
+
 				break;
 			case "ios":
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				Map<String, Object> params = new HashMap<>();
-				if(sDirectionUpDown.equalsIgnoreCase("up")) {
-				params.put("direction", "up");
-				}else {
+				if (sDirectionUpDown.equalsIgnoreCase("up")) {
+					params.put("direction", "up");
+				} else {
 					params.put("direction", "down");
 
 				}
-				//params.put("element", ((RemoteWebElement) webElement).getId());
 				js.executeScript("mobile: swipe", params);
-		
-			//FYI No need to pass element, the app window will be chosen
-			//params.put("element", ((RemoteWebElement) element).getId());
-			//action.scroll(element, 10, 100);
-			break;
+
+				break;
 			}
-			
+
 		}
-		
-		
+
 		public void custScrollToElementAndClick(WebElement webElement) {
 			int i;
-			for(i=0;i<10;i++)
-			{
-				swipeGeneric(webElement,"up");
-				if(isDisplayedCust(webElement)) {
+			for (i = 0; i < 5; i++) {
+				webElement.click();
+				swipeGeneric("up");
+				try {
+					Thread.sleep(1000);
 					webElement.click();
-					break;
-				}
+					return;
+				}catch(Exception e){
+						
+					}
+				
 			}
-			//
-			
+			System.out.println("Element not found to click after scrolling");
+
 		}
 }
