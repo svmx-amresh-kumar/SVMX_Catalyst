@@ -92,12 +92,14 @@ public class Ip_MorePO
 		return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
 	
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time:\"]")
+	//@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
 	{
 		return eleDataSynccompleted;
 	}
+	
 	
 	
 	//@FindBy(id="Perform Config Sync")
@@ -139,7 +141,7 @@ try {
 		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(5000);
-		getEleDataSync().click();
+		commonsPo.tap(getEleMoreBtn(),20,20);
 		
 		
 	}
