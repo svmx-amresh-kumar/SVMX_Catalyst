@@ -132,8 +132,8 @@ public class Ip_WorkOrderPO extends BaseLib
 	{
 		selectAction(commonsPo,ip_CalendarPo,"Create New Event From Work Order");
 		
-		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"00", "00"); //set start time to Today
-		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"01","00"); //set end time
+		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "0"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","0"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
