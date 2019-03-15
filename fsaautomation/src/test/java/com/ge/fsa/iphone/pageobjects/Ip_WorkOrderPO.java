@@ -117,7 +117,7 @@ public class Ip_WorkOrderPO extends BaseLib
 		Thread.sleep(5000);
 		getEleActionsLnk().click();	
 		Thread.sleep(10000);
-		commonsPo.swipeGeneric(getEleActionsTxt(sActionsName),"up");
+		commonsPo.swipeGeneric("up");
 		getEleActionsTxt(sActionsName).click();		
 		Thread.sleep(5000);
 	}

@@ -21,6 +21,7 @@ import com.ge.fsa.pageobjects.CommonsPO;
 import com.ge.fsa.pageobjects.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -97,12 +98,14 @@ public class Ip_CalendarPO
 
 	//revisit
 	
-	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
+//	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
+//		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
 		private WebElement eleselectprocess;
-		public WebElement getEleselectprocess()
+		public WebElement getEleselectprocess(String sProcessName)
 		{
-			return eleselectprocess;
+			
+			return eleselectprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]"));
+			
 		}
 		
 		@FindAll({@FindBy(xpath="//*[@text='Account Lookup']"),
@@ -195,16 +198,9 @@ public class Ip_CalendarPO
 		private WebElement elelookupsearhproduct;
 		public WebElement getElelookupsearhproduct()
 		{
-			switch(BaseLib.sOSName.toLowerCase()) {
-			case "android":
-				elelookupsearhproduct = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
-			return elelookupsearhproduct;
-			case "ios":
-				return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
-			}
-			
-			return elelookupsearhproduct; 
-		}
+			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+		}	
+
 		
 		@FindAll({@FindBy(xpath="//*[@text='Low']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Low\"]")})
@@ -232,8 +228,7 @@ public class Ip_CalendarPO
 		}
 		
 		@FindAll({@FindBy(xpath="//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})
-		private WebElement eleProformaInvoice;
+	          @FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})		private WebElement eleProformaInvoice;
 		public WebElement getEleProformaInvoice()
 		{
 			return eleProformaInvoice;

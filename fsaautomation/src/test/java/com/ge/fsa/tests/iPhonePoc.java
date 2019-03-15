@@ -71,6 +71,19 @@ public class iPhonePoc extends BaseLib
 public void iphone() throws Exception
 {	
 		
+		//ip_LoginHomePo.login(commonsPo, ip_MorePo);
+		Thread.sleep(3000);
+		ip_CalendarPo.getEleCreateNew().click();
+		Thread.sleep(3000);
+		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess("Create New Work Order"));
+		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sProformainVoice = "Proforma"+sRandomNumber;
+		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleProformaInvoice());
+//		ip_CalendarPo.getEleProformaInvoice().getLocation();
+//		ip_CalendarPo.getEleProformaInvoice().click();
+		ip_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
+		System.out.println(sProformainVoice);
+		ip_CalendarPo.getEleAdd().click();
 		
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
