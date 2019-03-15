@@ -140,7 +140,7 @@ try {
 		commonsPo.waitforElement(getEleDataSynccompleted(),2000);
 		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		commonsPo.tap(getEleMoreBtn(),20,20);
 		
 		

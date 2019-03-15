@@ -117,8 +117,8 @@ public class Ip_WorkOrderPO extends BaseLib
 	{
 		Thread.sleep(5000);
 		getEleActionsLnk().click();	
-		commonsPo.swipeGeneric("up");
-		getEleActionsTxt(sActionsName).click();		
+		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
+		//getEleActionsTxt(sActionsName).click();		
 		Thread.sleep(5000);
 	}
 
