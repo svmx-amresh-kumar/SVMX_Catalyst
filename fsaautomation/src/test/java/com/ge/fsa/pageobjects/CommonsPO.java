@@ -1741,8 +1741,14 @@ public class CommonsPO {
 		public void custScrollToElementAndClick(WebElement webElement) {
 			int i;
 			for (i = 0; i < 5; i++) {
+				try {
 				webElement.click();
+				
+				}catch(Exception e){
+					
+				}
 				swipeGeneric("up");
+				
 				try {
 					Thread.sleep(1000);
 					webElement.click();

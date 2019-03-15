@@ -231,7 +231,13 @@ public class Ip_CalendarPO
 	          @FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})		private WebElement eleProformaInvoice;
 		public WebElement getEleProformaInvoice()
 		{
-			return eleProformaInvoice;
+			try {
+				return eleProformaInvoice;
+
+			} catch (Exception e) {
+				
+			}
+			return null;
 		}
 		
 		
