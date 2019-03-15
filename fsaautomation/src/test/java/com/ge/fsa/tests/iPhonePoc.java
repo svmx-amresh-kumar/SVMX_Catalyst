@@ -70,7 +70,7 @@ public class iPhonePoc extends BaseLib
 
 public void iphone() throws Exception
 {	
-		
+		/*
 		String sRandomNumber = commonsPo.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
@@ -102,7 +102,7 @@ public void iphone() throws Exception
 		ip_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(3000);
 		
-	commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess("Create New Work Order"));
+	commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
 
 		Thread.sleep(2000);
 		
@@ -152,18 +152,18 @@ public void iphone() throws Exception
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 			restServices.getAccessToken();
 			String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
-		
+		*/
 			//open WO from recents
 		
-		ip_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
-		
+		ip_RecentsPo.clickonWorkOrderfromrecents("WO-00012587");
+		//ip_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
 		
 		// To create a new Event for the given Work Order
-		ip_WorkOrderPo.createNewEvent(commonsPo,sEventSubject);
+		//ip_WorkOrderPo.createNewEvent(commonsPo,sEventSubject,ip_CalendarPo);
 		
+		ip_WorkOrderPo.createNewEvent(commonsPo,"gvfhdcbdh",ip_CalendarPo);
 		
-		
-		
+		/*
 		
 		// Open the Work Order from the calendar
 			ip_CalendarPo.openWoFromCalendar(sEventSubject);
@@ -174,7 +174,7 @@ public void iphone() throws Exception
 		// To add Labor, Parts , Travel , Expense
 		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ip_WorkOrderPo.selectAction(commonsPo,sProcessname);
+				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ip_WorkOrderPo.addParts(ip_CalendarPo ,sProductName);
@@ -185,11 +185,11 @@ public void iphone() throws Exception
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
-				ip_WorkOrderPo.selectAction(commonsPo,sPrintReportSearch);
+				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sPrintReportSearch);
 				Thread.sleep(5000);
 				ip_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(10000);
-				
+	*/			
 }
 	
 }
