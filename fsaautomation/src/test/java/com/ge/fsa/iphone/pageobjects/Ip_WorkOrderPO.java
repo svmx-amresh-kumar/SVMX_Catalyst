@@ -42,8 +42,8 @@ public class Ip_WorkOrderPO extends BaseLib
 	Iterator<String> iterator =null;
 	
 
-	
-	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")
+	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")})
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
 	{
@@ -53,36 +53,50 @@ public class Ip_WorkOrderPO extends BaseLib
 	private WebElement eleActionsTxt;
 	public WebElement getEleActionsTxt(String sActionsName)
 	{
-		eleActionsTxt=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+sActionsName+"'])[3]"));
-		return eleActionsTxt;
-	}
-	
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther")
+		
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			eleActionsTxt = driver.findElement(By.xpath("//*[@text='"+sActionsName+"']"));
+			return eleActionsTxt;
+		case "ios":
+			eleActionsTxt=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+sActionsName+"'])[3]"));
+			return eleActionsTxt;
+
+		}
+		return eleActionsLnk;
+		}
+	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther")})
 	private WebElement eleStartDateTimeTxtFld;
 	public WebElement getEleStartDateTimeTxtFld()
 	{
 		return eleStartDateTimeTxtFld;
 	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[5]/XCUIElementTypeOther")
+	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[5]/XCUIElementTypeOther")})
 	private WebElement eleEndDateTimeTxtFld;
 	public WebElement getEleEndDateTimeTxtFld()
 	{
 		return eleEndDateTimeTxtFld;
 	}
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")
+	
+	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})
 	private WebElement eleSubjectTxtFld;
 	public WebElement getEleSubjectTxtFld()
 	{
 		return eleSubjectTxtFld;
 	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")
+	@FindAll({@FindBy(xpath="//*[@text='Save']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")})
 	private WebElement eleSaveLnk;
 	public WebElement getEleSaveLnk()
 	{
 		return eleSaveLnk;
 	}
+	
 	@FindBy(xpath="//XCUIElementTypeOther[@name=\"ADD SELECTED\"]")
 	private WebElement eleAddSelected;
 	public WebElement getEleAddSelected()
