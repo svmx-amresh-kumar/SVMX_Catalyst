@@ -64,15 +64,15 @@ public class Ip_MorePO
 
 	}
 //return 
-
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")
+	@FindAll({@FindBy(xpath="//*[@text='Sync Now']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")})
 	private WebElement eleSyncNow;
 	public WebElement getEleSyncNow()
 	{
 		return eleSyncNow;
 	}
-	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")
+	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")})
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()
 	{
@@ -92,8 +92,9 @@ public class Ip_MorePO
 		return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
 	
+	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
 	//@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")})
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
 	{
@@ -137,7 +138,7 @@ try {
 		getEleMoreBtn().click();
 		getEleDataSync().click();
 		getEleSyncNow().click();
-		commonsPo.waitforElement(getEleDataSynccompleted(),2000);
+		commonsPo.waitforElement(getEleDataSynccompleted(),900);
 		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(3000);

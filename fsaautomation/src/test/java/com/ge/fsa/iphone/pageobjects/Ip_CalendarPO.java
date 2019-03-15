@@ -189,26 +189,59 @@ public class Ip_CalendarPO
 		private WebElement eleContactLookuptap;
 		public WebElement getEleContactLookuptap()
 		{
+		switch (BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			eleContactLookuptap = driver.findElement(By.xpath("//*[@text='Contact Lookup']"));
+			return eleContactLookuptap;
+		case "ios":
 			return eleContactLookuptap = driver.findElementByAccessibilityId("Contact Contact Lookup");
 		}
+		return eleContactLookuptap;
+}
+		
 		
 		private WebElement elelookupsearchcontact;
 		public WebElement getElelookupsearchcontact()
 		{
+			switch (BaseLib.sOSName.toLowerCase()) {
+
+		case "android":
+			elelookupsearchcontact = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
+			return elelookupsearchcontact;
+		case "ios":
 			return elelookupsearchcontact = driver.findElementByAccessibilityId("Search Full Name, Business Phone, Mobile Phone, Email");
 		}
-		
+			return eleAccountLookUp;
+		}
 		
 		private WebElement eleproductLookuptap;
 		public WebElement getEleproductLookuptap()
 		{
+			switch (BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			eleproductLookuptap = driver.findElement(By.xpath("//*[@text='Product Lookup']"));
+			return eleproductLookuptap;
+		case "ios":
 			return eleproductLookuptap = driver.findElementByAccessibilityId("Product Product Lookup");
+		}
+		return eleproductLookuptap;
 		}
 
 		private WebElement elelookupsearhproduct;
 		public WebElement getElelookupsearhproduct()
 		{
-			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+			switch (BaseLib.sOSName.toLowerCase()) {
+
+			case "android":
+				elelookupsearhproduct = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
+				return elelookupsearhproduct;
+			case "ios":
+				return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
+			}
+				return elelookupsearhproduct;
+			
+			
+			
 		}	
 
 		
@@ -241,7 +274,13 @@ public class Ip_CalendarPO
 	          @FindBy(xpath="(//XCUIElementTypeOther[@name=\"Proforma Invoice\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})		private WebElement eleProformaInvoice;
 		public WebElement getEleProformaInvoice()
 		{
-			return eleProformaInvoice;
+			try {
+				return eleProformaInvoice;
+
+			} catch (Exception e) {
+				
+			}
+			return null;
 		}
 		
 		
