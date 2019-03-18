@@ -2379,6 +2379,21 @@ import org.openqa.selenium.support.FindBy;
 			return eleEndDateTimeTxtFld;
 		}
 		
+		@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input")
+		private WebElement eleStartDateandTimeTxtFld;
+		public WebElement getEleStartDateandTimeTxtFld()
+		{
+			return eleStartDateandTimeTxtFld;
+		}
+		
+		@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input")
+			
+		private WebElement eleEndDateandTimeTxtFld;
+		public WebElement getEleEndDateandTimeTxtFld()
+		{
+			return eleEndDateandTimeTxtFld;
+		}
+		
 	}
 	
 	

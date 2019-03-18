@@ -49,6 +49,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSElement;
@@ -400,7 +401,10 @@ public class CommonsPO {
 	 */
 	public void switchContext(String sContext) {
 
-
+		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Do Nothing
+		}else {
+			
 		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
 		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
 		// global variable to access across
@@ -427,7 +431,7 @@ public class CommonsPO {
 			// TODO: handle exceptions
 			System.out.println("Could not switch the context" + e);
 		}
-
+		}
 	}
 
 	private WebElement elePicklistValue;
@@ -1688,4 +1692,74 @@ public class CommonsPO {
 	        } 
 	        return sb.toString(); 
 	    }
+		
+		/**
+		 * Function to do a generic swipe up or down
+		 * @param sDirectionUpDown
+		 * @param iNoOfTimes
+		 */
+		public void swipeGeneric(String sDirectionUpDown) {
+
+			System.out.println("Scrolling...");
+			switch (BaseLib.sOSName.toLowerCase()) {
+			case "android":
+
+				Dimension dim = driver.manage().window().getSize();
+				int height = dim.getHeight();
+				int width = dim.getWidth();
+				int x = width / 2;
+				int top_y;
+				int bottom_y;
+
+				if (sDirectionUpDown.equalsIgnoreCase("up")) {
+					top_y = (int) (height * 0.80);
+					bottom_y = (int) (height * 0.50);
+				} else {
+					// Reversing
+					top_y = (int) (height * 0.50);
+					bottom_y = (int) (height * 0.80);
+				}
+
+				System.out.println("coordinates :" + x + "  " + top_y + " " + bottom_y);
+				TouchAction ts = new TouchAction(driver);
+				ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
+
+				break;
+			case "ios":
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				Map<String, Object> params = new HashMap<>();
+				if (sDirectionUpDown.equalsIgnoreCase("up")) {
+					params.put("direction", "up");
+				} else {
+					params.put("direction", "down");
+
+				}
+				js.executeScript("mobile: swipe", params);
+
+				break;
+			}
+
+		}
+
+		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
+			Thread.sleep(3000);
+			int i;
+			for (i = 0; i < 5; i++) {
+				try {
+				webElement.click();
+				return;
+				}catch(Exception e){}
+				
+				swipeGeneric("up");
+				
+				try {
+					Thread.sleep(1000);
+					webElement.click();
+					return;
+				}catch(Exception e){}
+				
+			}
+			System.out.println("Element not found to click after scrolling");
+
+		}
 }

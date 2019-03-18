@@ -27,6 +27,8 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
 import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
 import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
+import com.ge.fsa.iphone.pageobjects.Ip_RecentsPO;
+import com.ge.fsa.iphone.pageobjects.Ip_WorkOrderPO;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
 import com.ge.fsa.pageobjects.CommonsPO;
@@ -67,7 +69,10 @@ public class BaseLib {
 	public Ip_LoginHomePO ip_LoginHomePo = null;
 	public Ip_MorePO ip_MorePo = null;
 	public Ip_CalendarPO ip_CalendarPo = null;
-
+	
+	public Ip_RecentsPO ip_RecentsPo = null;
+	public Ip_WorkOrderPO ip_WorkOrderPo = null;
+	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
@@ -83,6 +88,8 @@ public class BaseLib {
 	public static long lInitTimeEndMilliSec;
 	public static String sSelectConfigPropFile = null;
 	public static String sOrgType = null;
+	public static String sUDID = null;
+	public static String sAndroidDeviceName = null;
 	
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -138,6 +145,13 @@ public class BaseLib {
 		// Get the build number from jenkins
 		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
+		
+		//Get UDID
+		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID").toLowerCase();
+		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
+		
+		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME").toLowerCase();
+		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 
 	}
 
@@ -159,17 +173,23 @@ public class BaseLib {
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
-				sAppPath = "/auto/SVMX_Catalyst/fsaautomation/resources/FSA_AND.apk";
+				sAppPath = GenericLib.sResources + "//" + GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME") + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_PLATFORM_VERSION"));
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
-				capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+				if(sDeviceType.equalsIgnoreCase("phone")) {
+					//Ignore the AutoWebview setting for phone
+						System.out.println("Setting AUTO_WEBVIEW to false");
+						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+					}else{
+						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+					}
 				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
-				capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
-				capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
+				capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
+				capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
@@ -206,11 +226,17 @@ public class BaseLib {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
-					//capabilities.setCapability("useNewWDA",true);
+					capabilities.setCapability("useNewWDA",true);
 					capabilities.setCapability("waitForQuiescence",false);
+					capabilities.setCapability("sendKeyStrategy", "setValue");
+
+
 
 				}else{
+					//Only For Ipad
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+					capabilities.setCapability("sendKeyStrategy", "grouped");
+
 				}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
@@ -218,7 +244,6 @@ public class BaseLib {
 				capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
 				capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
 				capabilities.setCapability("startIWDP", true);
-				capabilities.setCapability("sendKeyStrategy", "grouped");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
@@ -259,6 +284,8 @@ public class BaseLib {
 		ip_LoginHomePo = new Ip_LoginHomePO(driver);
 		ip_MorePo = new Ip_MorePO(driver);
 		ip_CalendarPo = new Ip_CalendarPO(driver);
+		ip_RecentsPo = new Ip_RecentsPO(driver);
+		ip_WorkOrderPo = new Ip_WorkOrderPO(driver);
 		
 		try {
 			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
