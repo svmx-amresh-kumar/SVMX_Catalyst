@@ -228,9 +228,15 @@ public class BaseLib {
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("useNewWDA",true);
 					capabilities.setCapability("waitForQuiescence",false);
+					capabilities.setCapability("sendKeyStrategy", "setValue");
+
+
 
 				}else{
+					//Only For Ipad
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+					capabilities.setCapability("sendKeyStrategy", "grouped");
+
 				}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
@@ -238,7 +244,6 @@ public class BaseLib {
 				capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
 				capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
 				capabilities.setCapability("startIWDP", true);
-				capabilities.setCapability("sendKeyStrategy", "grouped");
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
