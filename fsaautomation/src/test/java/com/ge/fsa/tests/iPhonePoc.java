@@ -1,7 +1,3 @@
-/*
-*@author MeghanaRao
- *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
- */
 package com.ge.fsa.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,13 +7,11 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
-
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -112,21 +106,21 @@ public void iphone() throws Exception
 		ip_CalendarPo.getElelookupsearch().click();
 		ip_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
 		Thread.sleep(5000);
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sAccountName).click();
 		Thread.sleep(2000);
 		
 		//contact lookup
 		ip_CalendarPo.getEleContactLookuptap().click();
 		ip_CalendarPo.getElelookupsearchcontact().click();
 		ip_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sContactName).click();
 		
 		//product
 		
 		ip_CalendarPo.getEleproductLookuptap().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sProductName).click();
 		
 		//priority
 		
@@ -160,28 +154,25 @@ public void iphone() throws Exception
 		
 		// To create a new Event for the given Work Order
 		ip_WorkOrderPo.createNewEvent(commonsPo,sEventSubject,ip_CalendarPo);
-		
-		
-		
-		
-		
 		// Open the Work Order from the calendar
-			ip_CalendarPo.openWoFromCalendar(sEventSubject);
-			
-			
+		ip_CalendarPo.openWoFromCalendar(sEventSubject);
+		ip_MorePo.syncData(commonsPo);
+		Thread.sleep(15000);
+		ip_CalendarPo.getEleCalendarBtn().click();
+
 			//Adding parts to WO
 			
 		// To add Labor, Parts , Travel , Expense
 		
-				String sProcessname = "EditWoAutoTimesstamp";
+				/*String sProcessname = "EditWoAutoTimesstamp";
 				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ip_WorkOrderPo.addParts(ip_CalendarPo ,sProductName);
 				Thread.sleep(5000);
-				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,sProductName);
+				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,sProductName,sProductName);
 				ip_WorkOrderPo.getElesave().click();
-				Thread.sleep(10000);
+				Thread.sleep(10000);*/
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
@@ -190,6 +181,75 @@ public void iphone() throws Exception
 				ip_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(10000);
 				
+				 // server validation   
+			      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////           
+			                       
+			                        // Verifying if the Attachment is NULL before Sync
+			                        String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+			                       
+			                        String sAttachmentidBefore = restServices.restGetSoqlValue(sSoqlQueryattachBefore, "Id");
+			                        // This will verify if the Id retrived from the Work Order's attachment is not null.
+			                        assertNull(sAttachmentidBefore); 
+			                        // Verifying the Childline values - Before the SYNC
+			                        String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+			                        String sChildlinesBefore = restServices.restGetSoqlValue(sSoqlquerychildlinesBefore, "totalSize");
+			                        if(sChildlinesBefore.equals("0"))
+			                                    {
+			                              ExtentManager.logger.log(Status.PASS,"The Childlines before Sync is "+sChildlinesBefore);
+			                                    //NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
+			 
+			                                    System.out.println("The attachment before Sync is "+sChildlinesBefore);
+			                                    }
+			                        else
+			                        {
+			                              ExtentManager.logger.log(Status.FAIL,"The Childlines before Sync is "+sChildlinesBefore);
+			 
+			                              //NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
+			                              System.out.println("The attachment before Sync is "+sChildlinesBefore);
+			                        }
+			                        // Syncing the Data
+			                        Thread.sleep(9000);
+			                        ip_MorePo.syncData(commonsPo);
+			                        Thread.sleep(genericLib.i30SecSleep);
+			                 
+			                        // Verifying the Work details and the service report
+			                        String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
+			                        restServices.getAccessToken();
+			                        String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id"); 
+			                        assertNotNull(sAttachmentIDAfter);
+			                       
+			                        // Verifying the childlines of the Same Work Order
+			                        String sSoqlQueryChildlineAfter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+			                        restServices.getAccessToken();
+			                        String sChildlinesAfter = restServices.restGetSoqlValue(sSoqlQueryChildlineAfter, "totalSize");  
+			                        if(sChildlinesAfter.equals("0"))
+			                        {
+			                              ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlinesAfter);
+			 
+			                        //NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
+			 
+			                        System.out.println("The Childlines After Sync is "+sChildlinesAfter);
+			                        }
+			                        else
+			                        {
+			                              ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlinesAfter);
+			 
+			                              //NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
+			                              System.out.println("The Childlines After Sync is "+sChildlinesAfter);
+			                        }
+			                       
+			                        Thread.sleep(1000);
+			                       
+			                        // Verification of the fields of the childlines of Type = Parts
+			                        JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
+			                        String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
+			                        String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
+			                       
+			                        String sProductName = restServices.restGetSoqlValue(sSoqlProductName,"Name");
+			                        String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
+			                        assertEquals(sProductName, sProductName);
+			                        assertEquals(sLineQtyParts, "1.0");
+			                        ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Parts match");
 }
 	
 }
