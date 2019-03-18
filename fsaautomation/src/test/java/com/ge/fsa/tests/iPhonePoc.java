@@ -164,7 +164,7 @@ public void iphone() throws Exception
 			
 		// To add Labor, Parts , Travel , Expense
 		
-				/*String sProcessname = "EditWoAutoTimesstamp";
+				String sProcessname = "EditWoAutoTimesstamp";
 				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
@@ -172,7 +172,7 @@ public void iphone() throws Exception
 				Thread.sleep(5000);
 				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,sProductName,sProductName);
 				ip_WorkOrderPo.getElesave().click();
-				Thread.sleep(10000);*/
+				Thread.sleep(10000);
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
