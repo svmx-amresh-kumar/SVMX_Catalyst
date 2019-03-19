@@ -29,14 +29,14 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sProcessName = "Auto_10530_Regression";
 //	String sProcessName = "Auto_Regression_10530";
 	String sScriptName = "Scenario_10530";
-	String sSearchTxt = "HarryProduct";
+	String sSearchTxt = "HarryProd";
 	
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+	//	commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
 		   
 		//**********Create Product1**********
 		String sProdName1 = "P1_10530";
@@ -179,6 +179,8 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonsPo.tap(workOrderPo.getLblProduct());
+		System.out.println("I am Here--------");
+		Thread.sleep(60000);
 		commonsPo.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
 		Thread.sleep(GenericLib.iMedSleep);
 		List<WebElement> prodList = new ArrayList<WebElement>();

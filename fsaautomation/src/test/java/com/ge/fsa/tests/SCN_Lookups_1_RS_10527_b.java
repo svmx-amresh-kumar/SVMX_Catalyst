@@ -20,10 +20,10 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	String sFieldProcessName = "Auto_Reg_10527";
 	String sAccountName = "AshwiniAutoAcc";
 	String sProdName = "SampleProd";
-	String sSearchTxt = "HCSContact";
+	String sSearchTxt = "Ronald Ross";
 	int getContactCount = 0;
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
 		
 		// Create Account

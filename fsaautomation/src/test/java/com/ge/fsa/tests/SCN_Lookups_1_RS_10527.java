@@ -27,7 +27,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	String sLocName = "Ricardo";
 	String sLocName1 = "Nashville";
 	String sProdName = "SampleProd";
-	String sSearchTxt = "HCSContact";
+	String sSearchTxt = "Ronald Ross";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
