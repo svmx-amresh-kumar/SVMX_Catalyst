@@ -264,7 +264,7 @@ public class Ip_WorkOrderPO extends BaseLib
 		Thread.sleep(2000);
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		Thread.sleep(3000);
-		ip_CalendarPo.getEleSearchListItem(sName).click();
+		ip_CalendarPo.getEleSearchListItem(sProductName1).click();
 		getElelaborpartresult(sProductName1).click();
 		Thread.sleep(2000);
 		
