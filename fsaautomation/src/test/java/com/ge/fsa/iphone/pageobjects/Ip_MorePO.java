@@ -142,7 +142,8 @@ try {
 		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(3000);
-		commonsPo.tap(getEleMoreBtn(),20,20);
+		//commonsPo.tap(getEleMoreBtn(),20,20);
+		commonsPo.longPress(getEleMoreBtn());
 		
 		
 	}

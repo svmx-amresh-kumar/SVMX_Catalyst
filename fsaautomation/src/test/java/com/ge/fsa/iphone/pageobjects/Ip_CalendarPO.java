@@ -112,8 +112,12 @@ public class Ip_CalendarPO
 		private WebElement eleselectprocessnewprocess;
 		public WebElement getEleselectprocessnewprocess(String sProcessName)
 		{
-			
-			return eleselectprocessnewprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]"));
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				return eleselectprocessnewprocess = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
+
+			}else {
+				return eleselectprocessnewprocess =  driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]"));
+			}
 			
 		}
 		
@@ -325,6 +329,7 @@ public class Ip_CalendarPO
 		{
 		
 		getEleCalendarBtn().click();
+		//getEleCalendarBtn().click();
 			Thread.sleep(2000);
 			try
 			{
@@ -334,7 +339,7 @@ public class Ip_CalendarPO
 			}
 			catch(Exception e)
 			{
-				System.out.println("unable to find the event");
+				//System.out.println("unable to find the event");
 			}
 
 			
