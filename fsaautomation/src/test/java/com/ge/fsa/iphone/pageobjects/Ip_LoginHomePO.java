@@ -78,10 +78,11 @@ public class Ip_LoginHomePO
 		return eleLoginBtn;
 	}
 
-	@FindAll({@FindBy(xpath="//*[@content-desc=' Allow  Allow']"),
+	@FindAll({@FindBy(id="//*[@content-desc=' Allow  Allow']"),
 	@FindBy(id=" Allow "),
-	@FindBy(xpath="//*[@resource-id='ooapprove']"),
-	@FindBy(id="ooapprove")})
+	@FindBy(xpath="//*[@resource-id='oaapprove']"),
+	@FindBy(id="oaapprove"),
+	@FindBy(xpath="//*[@text='Allow']")})
 	//@FindBy(xpath="//*[@content-desc=' Allow  Allow']")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
@@ -223,7 +224,7 @@ public class Ip_LoginHomePO
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
-						commonsPo.waitforElement(getEleAllowBtn(), 2);
+						commonsPo.waitforElement(getEleAllowBtn(), 5);
 						getEleAllowBtn().click();
 		
 

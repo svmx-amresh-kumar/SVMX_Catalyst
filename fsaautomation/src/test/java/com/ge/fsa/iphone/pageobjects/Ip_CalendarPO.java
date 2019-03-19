@@ -180,7 +180,7 @@ public class Ip_CalendarPO
 			return eleMedium;
 		}
 
-		@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_account12032019181633']"),
+		/*@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_account12032019181633']"),
 		@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_contact 12032019181633']"),
 		@FindBy(xpath="//*[@class='android.widget.TextView'][@text='auto_product12032019181633']"),
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]")})
@@ -188,7 +188,23 @@ public class Ip_CalendarPO
 		public WebElement getEleSearchListItem()
 		{
 			return eleSearchListItem;
+		}*/
+		
+		
+		private WebElement eleSearchListItem;
+		public WebElement getEleSearchListItem(String sName)
+		{
+			switch (BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+			case "ios":
+				return eleSearchListItem = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]"));
+			}
+			return eleSearchListItem;
+		
 		}
+		
+		
 		
 		private WebElement eleContactLookuptap;
 		public WebElement getEleContactLookuptap()

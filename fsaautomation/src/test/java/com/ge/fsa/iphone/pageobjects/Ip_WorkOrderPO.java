@@ -65,7 +65,8 @@ public class Ip_WorkOrderPO extends BaseLib
 		}
 		return eleActionsLnk;
 		}
-	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
+	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	//@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther")})
 	private WebElement eleStartDateTimeTxtFld;
 	public WebElement getEleStartDateTimeTxtFld()
@@ -104,7 +105,9 @@ public class Ip_WorkOrderPO extends BaseLib
 	{
 		return eleAddSelected;
 	}
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Finalize\"])[3]")
+	
+	@FindAll({@FindBy(xpath="//*[@text='Finalize']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Finalize\"])[3]")})
 	private WebElement eleFinalize;
 	public WebElement getEleFinalize()
 	{
@@ -163,67 +166,82 @@ public class Ip_WorkOrderPO extends BaseLib
 	{
 		return elePartcheckbox;}
 	
-
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Part Part Lookup\"])[2]")
+	@FindAll({@FindBy(xpath="//*[@text='Part']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Part Part Lookup\"])[2]")})
 	private WebElement elepartlookup;
 	public WebElement getElepartlookup()
 	{
 		return elepartlookup;
-		}
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Activity Type\"]/../XCUIElementTypeOther")
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@text='Activity Type']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Activity Type\"]/../XCUIElementTypeOther")})
 	private WebElement eleActivityType;
 	public WebElement getEleActivityType()
 	{
 		return eleActivityType;
 		}
 	
-	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Calibration\"])")
+	@FindAll({@FindBy(xpath="//*[@text='Calibration']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Calibration\"])")})
 	private WebElement eleCalibration;
 	public WebElement getEleCalibration()
 	{
 		return eleCalibration;
-		}
+	}
 	
-	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")
+	@FindAll({@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")})
 	private WebElement eleLaborstartdatetime;
 	public WebElement getEleLaborstartdatetime()
 	{
 		return eleLaborstartdatetime;
-		}
+	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")
+	@FindAll({@FindBy(xpath="//*[@text='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")})
 	private WebElement eleLaborenddatetime;
 	public WebElement getEleLaborenddatetime()
 	{
 		return eleLaborenddatetime;
-		}
+	}
 	
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Qty\"]/../XCUIElementTypeOther")
+	@FindAll({@FindBy(xpath="//*[@text='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Qty\"]/../XCUIElementTypeOther")})
 	private WebElement eleLineQtyTxtFld;
 	public WebElement getEleLineQtyTxtFld()
 	{
 		return eleLineQtyTxtFld;
-		}
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Price Per Unit\"]/../XCUIElementTypeOther")
+	}
+	@FindAll({@FindBy(xpath="//*[@text='Line Price Per Unit']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name=\"Line Price Per Unit\"]/../XCUIElementTypeOther")})
 	private WebElement eleLinePerUnitTxtFld;
 	public WebElement getEleLinePerUnitTxtFld()
 	{
 		return eleLinePerUnitTxtFld;
-		}
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\" RESULTS\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther")
-	private WebElement elelaborpartresult;
-	public WebElement getElelaborpartresult()
-	{
-		return elelaborpartresult;
-		}
+	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")
+	private WebElement elelaborpartresult;
+	public WebElement getElelaborpartresult(String sProductName1)
+	{
+		switch (BaseLib.sOSName.toLowerCase()) {
+
+		case "android":
+			elelaborpartresult = driver.findElement(By.xpath("//*[@text='"+sProductName1+"'][@class='android.widget.TextView']"));
+			return elelaborpartresult;
+		case "ios":
+			return elelaborpartresult = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\" RESULTS\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther"));
+		}
+			return elelaborpartresult;
+		
+	}
+	@FindAll({@FindBy(xpath="//*[@text='Save']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")})
 	private WebElement elesave;
 	public WebElement getElesave()
 	{
 		return elesave;
-		}
+	}
 	
 	public void addParts(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
@@ -246,8 +264,8 @@ public class Ip_WorkOrderPO extends BaseLib
 		Thread.sleep(2000);
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		Thread.sleep(3000);
-		ip_CalendarPo.getEleSearchListItem().click();
-		getElelaborpartresult().click();
+		ip_CalendarPo.getEleSearchListItem(sName).click();
+		getElelaborpartresult(sProductName1).click();
 		Thread.sleep(2000);
 		
 		getEleActivityType().click();

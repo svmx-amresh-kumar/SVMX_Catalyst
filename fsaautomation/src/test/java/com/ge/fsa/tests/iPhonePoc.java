@@ -1,7 +1,3 @@
-/*
-*@author MeghanaRao
- *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
- */
 package com.ge.fsa.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,13 +7,11 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
-
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -120,21 +114,21 @@ public void iphone() throws Exception
 		ip_CalendarPo.getElelookupsearch().click();
 		ip_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
 		
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sAccountName).click();
 		
 		
 		//contact lookup
 		ip_CalendarPo.getEleContactLookuptap().click();
 		ip_CalendarPo.getElelookupsearchcontact().click();
 		ip_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sContactName).click();
 		
 		//product
 		
 		ip_CalendarPo.getEleproductLookuptap().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
-		ip_CalendarPo.getEleSearchListItem().click();
+		ip_CalendarPo.getEleSearchListItem(sProductName).click();
 		
 		//priority
 		

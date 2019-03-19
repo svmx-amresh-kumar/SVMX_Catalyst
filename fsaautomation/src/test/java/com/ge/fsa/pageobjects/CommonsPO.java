@@ -586,7 +586,6 @@ public class CommonsPO {
 	
 	@FindBy(id = "android:id/date_picker_header_date")
 	private WebElement datePicker;
-
 	public WebElement getDatePicker() {
 		return datePicker;
 	}
@@ -657,8 +656,14 @@ public class CommonsPO {
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
-			tap(wElement, 30, 36);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				wElement.click();
+			}else {
+				tap(wElement, 30, 36);
+
+			}
 			switchContext("Native");
+			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
 			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
