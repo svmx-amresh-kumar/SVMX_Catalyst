@@ -1752,7 +1752,10 @@ public class CommonsPO {
 			for (i = 0; i < 5; i++) {
 				try {
 				webElement.click();
-				return;
+				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					return;
+				}
+				
 				}catch(Exception e){}
 				
 				swipeGeneric("up");

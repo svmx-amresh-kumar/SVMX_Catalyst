@@ -131,15 +131,12 @@ public class Ip_WorkOrderPO extends BaseLib
 
 	public void createNewEvent(CommonsPO commonsPo,String sSubject,Ip_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
-		
 		selectAction(commonsPo,ip_CalendarPo,"Create New Event From Work Order");
-		Thread.sleep(3000);
-		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "0"); //set start time to Today
-		Thread.sleep(3000);
-		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","0"); //set end time
+		
+		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
+		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
-		System.out.println("Enter date now");
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
 		Thread.sleep(5000);
@@ -154,7 +151,8 @@ public class Ip_WorkOrderPO extends BaseLib
 		return elePartLnk;
 	}
 	@FindAll({@FindBy(xpath="//*[@text='Add Labor']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]"),
+	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Labor\"]")})
 	private WebElement eleLaborLnk;
 	public WebElement getEleLaborLnk()
 	{
@@ -257,17 +255,16 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleAddSelected().click();
 	}
 
-	public void addLabor(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo,String sProductName1,String sName) throws InterruptedException 
+	public void addLabor(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
-		Thread.sleep(3000);
-		getEleLaborLnk().click();
+		commonsPo.custScrollToElementAndClick(getEleLaborLnk());
 		Thread.sleep(1000);
 		getElepartlookup().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
 		Thread.sleep(2000);
 		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		Thread.sleep(3000);
-		ip_CalendarPo.getEleSearchListItem(sName).click();
+		ip_CalendarPo.getEleSearchListItem(sProductName1).click();
 		getElelaborpartresult(sProductName1).click();
 		Thread.sleep(2000);
 		
@@ -275,7 +272,7 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleCalibration().click();
 		
 		commonsPo.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0"); //set start time to Today
-		commonsPo.setDateTime24hrs(getEleLaborenddatetime(),  1,"9","00"); 
+		commonsPo.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
 		
 		getEleLineQtyTxtFld().click();
 		getEleLineQtyTxtFld().sendKeys("10");
