@@ -6,7 +6,7 @@
     </listeners>
 <test name="ip_workBench">
 		<classes>
-			<class name="com.ge.fsa.tests.tablet.iPhonePoc" />
+			<class name="com.ge.fsa.tests.phone.Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179.java" />
 		</classes>
 	</test> <!-- Test -->
 

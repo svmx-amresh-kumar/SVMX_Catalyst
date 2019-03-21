@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_RecentsItemsPO
+public class Ph_RecentsItemsPO
 {
-	public ph_RecentsItemsPO(AppiumDriver driver)
+	public Ph_RecentsItemsPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

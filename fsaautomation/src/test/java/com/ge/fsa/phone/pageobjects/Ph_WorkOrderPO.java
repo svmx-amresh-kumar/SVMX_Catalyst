@@ -30,9 +30,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_WorkOrderPO extends BaseLib
+public class Ph_WorkOrderPO extends BaseLib
 {
-	public ph_WorkOrderPO(AppiumDriver driver)
+	public Ph_WorkOrderPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -123,14 +123,14 @@ public class ph_WorkOrderPO extends BaseLib
 	}
 
 	
-	public void selectAction(CommonUtility commonUtility,ph_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
+	public void selectAction(CommonUtility commonUtility,Ph_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
 	{
 		getEleActionsLnk().click();	
 		commonUtility.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
 
-	public void createNewEvent(CommonUtility commonUtility,String sSubject,ph_CalendarPO ip_CalendarPo) throws InterruptedException
+	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
 		selectAction(commonUtility,ip_CalendarPo,"Create New Event From Work Order");
 		
@@ -244,7 +244,7 @@ public class ph_WorkOrderPO extends BaseLib
 		return elesave;
 	}
 	
-	public void addParts(ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addParts(Ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
 		getElePartLnk().click();
 		Thread.sleep(3000);
@@ -256,7 +256,7 @@ public class ph_WorkOrderPO extends BaseLib
 		getEleAddSelected().click();
 	}
 
-	public void addLabor(CommonUtility commonUtility,ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addLabor(CommonUtility commonUtility,Ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		Thread.sleep(1000);

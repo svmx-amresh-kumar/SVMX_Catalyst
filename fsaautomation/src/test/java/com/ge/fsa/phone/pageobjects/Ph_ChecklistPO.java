@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_ChecklistPO
+public class Ph_ChecklistPO
 {
-	public ph_ChecklistPO(AppiumDriver driver)
+	public Ph_ChecklistPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

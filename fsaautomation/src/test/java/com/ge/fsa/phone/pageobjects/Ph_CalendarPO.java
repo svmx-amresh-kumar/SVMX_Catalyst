@@ -28,9 +28,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_CalendarPO
+public class Ph_CalendarPO
 {
-	public ph_CalendarPO(AppiumDriver driver)
+	public Ph_CalendarPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

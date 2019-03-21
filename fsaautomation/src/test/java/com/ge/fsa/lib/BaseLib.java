@@ -24,11 +24,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.phone.pageobjects.ph_CalendarPO;
-import com.ge.fsa.phone.pageobjects.ph_LoginHomePO;
-import com.ge.fsa.phone.pageobjects.ph_MorePO;
-import com.ge.fsa.phone.pageobjects.ph_RecentsItemsPO;
-import com.ge.fsa.phone.pageobjects.ph_WorkOrderPO;
+import com.ge.fsa.phone.pageobjects.Ph_CalendarPO;
+import com.ge.fsa.phone.pageobjects.Ph_LoginHomePO;
+import com.ge.fsa.phone.pageobjects.Ph_MorePO;
+import com.ge.fsa.phone.pageobjects.Ph_RecentsItemsPO;
+import com.ge.fsa.phone.pageobjects.Ph_WorkOrderPO;
 import com.ge.fsa.tablet.pageobjects.CalendarPO;
 import com.ge.fsa.tablet.pageobjects.ChecklistPO;
 import com.ge.fsa.tablet.pageobjects.CreateNewPO;
@@ -65,12 +65,12 @@ public class BaseLib {
 	
 	//iphone
 	
-	public ph_LoginHomePO ip_LoginHomePo = null;
-	public ph_MorePO ip_MorePo = null;
-	public ph_CalendarPO ip_CalendarPo = null;
+	public Ph_LoginHomePO ip_LoginHomePo = null;
+	public Ph_MorePO ip_MorePo = null;
+	public Ph_CalendarPO ip_CalendarPo = null;
 	
-	public ph_RecentsItemsPO ip_RecentsPo = null;
-	public ph_WorkOrderPO ip_WorkOrderPo = null;
+	public Ph_RecentsItemsPO ip_RecentsPo = null;
+	public Ph_WorkOrderPO ip_WorkOrderPo = null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -280,11 +280,11 @@ public class BaseLib {
 		inventoryPo = new InventoryPO(driver);
 		
 		//iPhone
-		ip_LoginHomePo = new ph_LoginHomePO(driver);
-		ip_MorePo = new ph_MorePO(driver);
-		ip_CalendarPo = new ph_CalendarPO(driver);
-		ip_RecentsPo = new ph_RecentsItemsPO(driver);
-		ip_WorkOrderPo = new ph_WorkOrderPO(driver);
+		ip_LoginHomePo = new Ph_LoginHomePO(driver);
+		ip_MorePo = new Ph_MorePO(driver);
+		ip_CalendarPo = new Ph_CalendarPO(driver);
+		ip_RecentsPo = new Ph_RecentsItemsPO(driver);
+		ip_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);

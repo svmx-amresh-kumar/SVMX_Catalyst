@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_ExploreSearchPO
+public class Ph_ExploreSearchPO
 {
-	public ph_ExploreSearchPO(AppiumDriver driver)
+	public Ph_ExploreSearchPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

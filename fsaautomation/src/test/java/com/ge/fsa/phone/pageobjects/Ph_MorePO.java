@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_MorePO
+public class Ph_MorePO
 {
-	public ph_MorePO(AppiumDriver driver)
+	public Ph_MorePO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -110,7 +110,7 @@ public class ph_MorePO
 		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
 
-	public void configSync(CommonUtility commonUtility, ph_CalendarPO ip_CalendarPo) throws InterruptedException {
+	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ip_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
 	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();

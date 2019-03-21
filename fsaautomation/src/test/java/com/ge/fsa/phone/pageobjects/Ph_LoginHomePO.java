@@ -25,9 +25,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class ph_LoginHomePO
+public class Ph_LoginHomePO
 {
-	public ph_LoginHomePO(AppiumDriver driver)
+	public Ph_LoginHomePO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -170,7 +170,7 @@ public class ph_LoginHomePO
 	 * @param sUserTypeFromPropertiesFile
 	 * @throws InterruptedException
 	 */
-	public void login(CommonUtility commonUtility, ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
+	public void login(CommonUtility commonUtility, Ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
 
 		String sUn = null;
 		String sPwd = null;
