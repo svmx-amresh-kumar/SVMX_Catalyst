@@ -50,6 +50,32 @@ public class Ph_ExploreSearchPO
 		return eleMoreBtn;
 	}
 	
+	@FindBy(xpath="//*[@text='Explore']")
+	private WebElement eleExploreIcn;
+	public WebElement geteleExploreIcn()
+	{
+		return eleExploreIcn;
+	}
 	
+	@FindBy(xpath="//*[@text='AUTOMATION SEARCH']")
+	private WebElement eleAutomationSearch;
+	public WebElement geteleAutomationSearch()
+	{
+		return eleAutomationSearch;
+	}
+	
+	@FindBy(xpath="//*[@text='Work Orders']")
+	private WebElement eleWorkOrdersChildSearch;
+	public WebElement geteleWorkOrdersChildSearch()
+	{
+		return eleWorkOrdersChildSearch;
+	}
+
+	@FindBy(xpath ="//*[@text='Search Keyword...']")
+	private WebElement eleSearchKeyword;
+	public WebElement geteleSearchKeyword()
+	{
+		return eleSearchKeyword;
+	}
 	
 }
