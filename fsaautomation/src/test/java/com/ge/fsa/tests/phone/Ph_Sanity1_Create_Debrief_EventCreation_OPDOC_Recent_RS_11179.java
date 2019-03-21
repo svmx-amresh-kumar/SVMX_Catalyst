@@ -42,7 +42,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.Point;
 
-public class iPhonePoc extends BaseLib
+public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends BaseLib
 {
 	
 	
