@@ -6,7 +6,7 @@
     </listeners>
 <test name="ip_workBench">
 		<classes>
-			<class name="com.ge.fsa.tests.iPhonePoc" />
+			<class name="com.ge.fsa.tests.tablet.iPhonePoc" />
 		</classes>
 	</test> <!-- Test -->
 

@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="CustomPicklist">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_CustomPicklist_RS_10547" />
+			<class name="com.ge.fsa.tests.tablet.SCN_CustomPicklist_RS_10547" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

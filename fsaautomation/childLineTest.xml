@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="ChildLine">
 		<classes>		
-			<class name="com.ge.fsa.tests.SCN_ChildLineAddandDelete_RS_10568" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ChildLineAddandDelete_RS_10568" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

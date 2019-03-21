@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="SourceObjectUpdate">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_SourceObjectUpdate_RS_10544" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SourceObjectUpdate_RS_10544" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

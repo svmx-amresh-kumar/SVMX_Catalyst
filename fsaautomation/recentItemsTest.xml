@@ -7,7 +7,7 @@
 	</listeners>
 <test name="RecentItems">
 		<classes>		
-			<class name="com.ge.fsa.tests.SCN_Recent_Items_RS_10565" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Recent_Items_RS_10565" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

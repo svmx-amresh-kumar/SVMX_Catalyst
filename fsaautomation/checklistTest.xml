@@ -6,16 +6,16 @@
     </listeners>
 <test name="Checklist">
 		<classes>
-			<class name="com.ge.fsa.tests.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
-			<class name="com.ge.fsa.tests.SCN_Checklist_1_RS_10577" />
-			<class name="com.ge.fsa.tests.SCN_Checklist_2_RS_10578" /><!-- fail work order not there in the screen and next clicking are reasons -->		
-			<class name="com.ge.fsa.tests.SCN_Checklist_4_RS_10580" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10585" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10586" />
-			<class name="com.ge.fsa.tests.SCN_ChecklistOPDOC_RS_10587" /><!-- fail -->	
-			<class name="com.ge.fsa.tests.SCN_Checklist_Attachment_RS_10581" />	
-			<class name="com.ge.fsa.tests.SCN_Checklist_Attachment_RS_10584" />			
-			<class name="com.ge.fsa.tests.SCN_Checklist_3_RS_10579" /> 
+			<class name="com.ge.fsa.tests.tablet.Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_1_RS_10577" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_2_RS_10578" /><!-- fail work order not there in the screen and next clicking are reasons -->		
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_4_RS_10580" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ChecklistOPDOC_RS_10585" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ChecklistOPDOC_RS_10586" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ChecklistOPDOC_RS_10587" /><!-- fail -->	
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10581" />	
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10584" />			
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_3_RS_10579" /> 
 		</classes>
 	</test> <!-- Test -->
 

@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="SefDispatch">
 		<classes>		
-			<class name="com.ge.fsa.tests.SCN_SelfDispatch_RS_10562" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SelfDispatch_RS_10562" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

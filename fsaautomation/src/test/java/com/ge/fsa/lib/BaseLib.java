@@ -27,7 +27,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
 import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
 import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
-import com.ge.fsa.iphone.pageobjects.Ip_RecentsPO;
+import com.ge.fsa.iphone.pageobjects.Ip_RecentsItemsPO;
 import com.ge.fsa.iphone.pageobjects.Ip_WorkOrderPO;
 import com.ge.fsa.pageobjects.CalendarPO;
 import com.ge.fsa.pageobjects.ChecklistPO;
@@ -70,7 +70,7 @@ public class BaseLib {
 	public Ip_MorePO ip_MorePo = null;
 	public Ip_CalendarPO ip_CalendarPo = null;
 	
-	public Ip_RecentsPO ip_RecentsPo = null;
+	public Ip_RecentsItemsPO ip_RecentsPo = null;
 	public Ip_WorkOrderPO ip_WorkOrderPo = null;
 	
 	DesiredCapabilities capabilities = null;
@@ -284,7 +284,7 @@ public class BaseLib {
 		ip_LoginHomePo = new Ip_LoginHomePO(driver);
 		ip_MorePo = new Ip_MorePO(driver);
 		ip_CalendarPo = new Ip_CalendarPO(driver);
-		ip_RecentsPo = new Ip_RecentsPO(driver);
+		ip_RecentsPo = new Ip_RecentsItemsPO(driver);
 		ip_WorkOrderPo = new Ip_WorkOrderPO(driver);
 		
 		try {

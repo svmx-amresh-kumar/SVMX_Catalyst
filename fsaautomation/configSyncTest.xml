@@ -7,8 +7,8 @@
 	</listeners>
 		<test name="ConfigSync">
 		<classes>	
-			<class name="com.ge.fsa.tests.SCN_ConfigSync_Alert_RS_10561" />
-			<class name="com.ge.fsa.tests.SCN_ConfigSync_RS_10563" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ConfigSync_Alert_RS_10561" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ConfigSync_RS_10563" />
 			
 		</classes>
 	</test> <!-- Test -->

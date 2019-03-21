@@ -7,7 +7,7 @@
 	</listeners>
 	<test name="CreatenewRecord">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_CreateNewRecord_RS_10570" />
+			<class name="com.ge.fsa.tests.tablet.SCN_CreateNewRecord_RS_10570" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

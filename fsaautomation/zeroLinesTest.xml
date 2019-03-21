@@ -7,7 +7,7 @@
 	</listeners>
 		<test name="ZeroLines">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_ZeroLines_RS_10516" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ZeroLines_RS_10516" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

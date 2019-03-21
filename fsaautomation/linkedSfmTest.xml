@@ -7,7 +7,7 @@
 	</listeners>
 	<test name="LinkedSfm">
 		<classes>
-			<class name="com.ge.fsa.tests.SCN_LinkedSFMProcess_RS_10553" />
+			<class name="com.ge.fsa.tests.tablet.SCN_LinkedSFMProcess_RS_10553" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
