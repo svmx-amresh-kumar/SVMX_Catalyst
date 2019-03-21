@@ -25,6 +25,8 @@ import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.phone.pageobjects.Ph_CalendarPO;
+import com.ge.fsa.phone.pageobjects.Ph_ChecklistPO;
+import com.ge.fsa.phone.pageobjects.Ph_ExploreSearchPO;
 import com.ge.fsa.phone.pageobjects.Ph_LoginHomePO;
 import com.ge.fsa.phone.pageobjects.Ph_MorePO;
 import com.ge.fsa.phone.pageobjects.Ph_RecentsItemsPO;
@@ -68,9 +70,10 @@ public class BaseLib {
 	public Ph_LoginHomePO ip_LoginHomePo = null;
 	public Ph_MorePO ip_MorePo = null;
 	public Ph_CalendarPO ip_CalendarPo = null;
-	
 	public Ph_RecentsItemsPO ip_RecentsPo = null;
 	public Ph_WorkOrderPO ip_WorkOrderPo = null;
+	public Ph_ExploreSearchPO ip_ExploreSearchPO = null;
+	public Ph_ChecklistPO ip_ChecklistPO = null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;

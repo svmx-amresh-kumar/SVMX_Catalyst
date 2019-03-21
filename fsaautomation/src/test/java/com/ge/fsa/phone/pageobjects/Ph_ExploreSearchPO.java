@@ -78,4 +78,11 @@ public class Ph_ExploreSearchPO
 		return eleSearchKeyword;
 	}
 	
+	private WebElement eleSearchListItem;
+	public WebElement getEleSearchListItem(String sName)
+	{
+			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+	
+	}
+	
 }

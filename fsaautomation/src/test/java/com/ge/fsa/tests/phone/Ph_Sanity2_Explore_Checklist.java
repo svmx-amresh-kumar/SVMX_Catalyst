@@ -106,9 +106,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ip_ExploreSearchPO.geteleExploreIcn().click();
 			ip_ExploreSearchPO.geteleAutomationSearch().click();
 			ip_ExploreSearchPO.geteleWorkOrdersChildSearch().click();
-			
-			
-			
+			ip_ExploreSearchPO.geteleSearchKeyword().click();
+			ip_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
+			ip_ExploreSearchPO.getEleSearchListItem(sWOName).click();;
+			String sProcessname = "Default title for Checklist";
+			ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sProcessname);
+
 			//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
