@@ -22,8 +22,8 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 /**
  * 
  * @author meghanarao
@@ -54,7 +54,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		System.out.println("SCN_GetPrice_RS_10534");
 		// To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10534_before.sah");
-		if(commonsPo.verifySahiExecution()) {
+		if(commonsUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
 		}
@@ -67,11 +67,11 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			assertEquals(0, 1);
 		}
 //		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		// Have a config Sync
-		//toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(genericLib.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
@@ -83,19 +83,19 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 	/** 
 	 * To enter the DOD of the Work Order	
 	 */
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sworkOrderName);
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		workOrderPo.downloadCriteriaDOD(commonsUtility, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
 			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 				{				
 				 Thread.sleep(2000);
-				 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
-				 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+				 commonsUtility.tap(exploreSearchPo.getEleOnlineBttn());
+				 commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 				 // If the Cloud button is Visible then need to Tap on it
 					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 						{
-						commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
-						commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName),10,10);
+						commonsUtility.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
+						commonsUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName),10,10);
 					
 						}
 					// If the cloud button is not visible then throw an Error in the Report
@@ -125,17 +125,17 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			String sProcessname = "Record T&M";
 		
 				Thread.sleep(2000);
-			commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName));
-			workOrderPo.selectAction(commonsPo,sProcessname);
-			workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
+			commonsUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName));
+			workOrderPo.selectAction(commonsUtility,sProcessname);
+			workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Warranty", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
-		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -180,18 +180,18 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
 		/**
 		 * EXPENSE - VERIFICATION OF THE FIELDS
 		 */
-			workOrderPo.addExpense(commonsPo, workOrderPo,"Food - Dinner",sProcessname,"5","100");
+			workOrderPo.addExpense(commonsUtility, workOrderPo,"Food - Dinner",sProcessname,"5","100");
 			//Verifying the fields of Expenses
 			
-			commonsPo.tap(workOrderPo.geteleGetPrice());
-			commonsPo.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
+			commonsUtility.tap(workOrderPo.geteleGetPrice());
+			commonsUtility.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
 			String sCoveredPercent_labor3 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 			String sBillableQty_labor3 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 			String sBillableLinePrice_labor3 = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
@@ -224,10 +224,10 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 				ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 			}
 			
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
-			commonsPo.tap(workOrderPo.getEleClickSave());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleClickSave());
 			// Verifying after sync the system
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 			restServices.getAccessToken();
 			String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
@@ -252,18 +252,18 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			/** 
 			 * To enter the DOD of the Work Order	
 			 */
-				commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-				workOrderPo.downloadCriteriaDOD(commonsPo, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sworkOrderName2);
+				commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+				workOrderPo.downloadCriteriaDOD(commonsUtility, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sworkOrderName2);
 				// If the value "Records not Displayed" is Visible then the Work Order is Online.
 					if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
 						{				
-						 commonsPo.tap(exploreSearchPo.getEleOnlineBttn());
-						 commonsPo.tap(exploreSearchPo.getEleExploreSearchBtn());
+						 commonsUtility.tap(exploreSearchPo.getEleOnlineBttn());
+						 commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 						 // If the Cloud button is Visible then need to Tap on it
 							if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
 								{
-								commonsPo.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
-								commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName2),10,10);
+								commonsUtility.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
+								commonsUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName2),10,10);
 							
 								}
 							// If the cloud button is not visible then throw an Error in the Report
@@ -287,8 +287,8 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 
 						
 						Thread.sleep(2000);
-					commonsPo.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName2));
-					workOrderPo.selectAction(commonsPo,sProcessname);
+					commonsUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sworkOrderName2));
+					workOrderPo.selectAction(commonsUtility,sProcessname);
 				// To verify if Billing Type = Contract
 				String sBillingTypeValue2 = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 				Assert.assertEquals("Contract", sBillingTypeValue2);
@@ -309,9 +309,9 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		int sEndDateint = Integer.parseInt("03") + 2;
 		String sEndDate = Integer.toString(sEndDateint);
 		
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Installation","03",sEndDate,sProcessname);
-		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName("Installation"));
+		workOrderPo.addLaborCustomizedDate(commonsUtility, workOrderPo,"Installation","03",sEndDate,sProcessname);
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Installation"));
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		System.out.println(sLinePricePUnit_labor);
 		String sBillableQty_labor = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -343,12 +343,12 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 		
 	// For Repair Labor Parts
-		workOrderPo.addLaborCustomizedDate(commonsPo, workOrderPo,"Repair","03",sEndDate,sProcessname);
-		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.getEleChildLineTapName("Repair"));
+		workOrderPo.addLaborCustomizedDate(commonsUtility, workOrderPo,"Repair","03",sEndDate,sProcessname);
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Repair"));
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent_labor2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty_labor2 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -380,7 +380,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 	/**
 	 * LABOR - END OF LABOR VERIFICATION
 	*/
@@ -400,10 +400,10 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 
 		int sEndDateint1 = Integer.parseInt("03") + 4;
 		String sEndDate1 = Integer.toString(sEndDateint1);
-		workOrderPo.addTravelwithTime(commonsPo, workOrderPo, sProcessname, "03", sEndDate1);
+		workOrderPo.addTravelwithTime(commonsUtility, workOrderPo, sProcessname, "03", sEndDate1);
 		
-		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap(workOrderPo.geteleTraveltap(sEndDate1));
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap(workOrderPo.geteleTraveltap(sEndDate1));
 		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
@@ -439,10 +439,10 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		/**
 		 * END OF TRAVEL VERIFICATION
 		 */
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		String sSoqlQueryChildlines2 = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName2+"\')";
 		restServices.getAccessToken();
 		String sChildlines2 = restServices.restGetSoqlValue(sSoqlQueryChildlines2, "totalSize");	
@@ -462,7 +462,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			System.out.println("The Childlines After Sync is "+sChildlines2);
 		}
 		genericLib.executeSahiScript("appium/Scenario_10534_after.sah");
-		if(commonsPo.verifySahiExecution()) {
+		if(commonsUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
 		}

@@ -21,7 +21,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.CalendarPO;
+import com.ge.fsa.tablet.pageobjects.CalendarPO;
 
 public class SCN_Calendar_2_RS_10512 extends BaseLib {
 
@@ -59,14 +59,14 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		String sTestCaseID="RS_10512_Calender_2";
 	
 		
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		//sahi
 		
 		
 		
 		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
-		  if(commonsPo.verifySahiExecution()) {
+		  if(commonsUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -85,22 +85,22 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		 sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
 		 sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		//config sync
-		//toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsUtility);
 		Thread.sleep(3000);
-		//toolsPo.syncData(commonsPo);
+		//toolsPo.syncData(commonsUtility);
 		Thread.sleep(3000);
 		
-		commonsPo.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(5000);
 		//verify the Event is displayed or not
 	
 		calendarPO.geteleWOendpoint("06:00").getLocation();
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_1);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_2);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_3);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonsPo,sWO_SVMX_4);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_1);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_2);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_3);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_4);
 		 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 		//verify color codes for events

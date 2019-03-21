@@ -68,12 +68,12 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	
 		String sTestCaseID="RS_10511_Calender_1";
 		
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
   		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
-  		if(commonsPo.verifySahiExecution()) {
+  		if(commonsUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
   		}
@@ -103,28 +103,28 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		String sTechname2 = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID1");
 	
 		//Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 	
 			//config sync
-			toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_3);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_3);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_3);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_1);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_3);
 			ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 			
@@ -146,14 +146,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			restServices.restDeleterecord(sObjectApi,sEventIdSVMX_1);
 			
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_1);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_1);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_1);
 			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,33 +194,33 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			 sWOJson="{\"SVMXC__Technician__c\":\""+sTechname2+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_2 );
 			
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 		
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_2);
 			
 		
-			commonsPo.tap(toolsPo.getEleToolsIcn());
-			commonsPo.tap(toolsPo.geteleSignOutBtn());
-			commonsPo.tap(toolsPo.getelepopSignOutBtn());
+			commonsUtility.tap(toolsPo.getEleToolsIcn());
+			commonsUtility.tap(toolsPo.geteleSignOutBtn());
+			commonsUtility.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(10000);
 			System.out.println("Sign out successfully");
 			
 			//lauchNewApp("false");
 			//Login to tech2
-			loginHomePo.login(commonsPo, exploreSearchPo,"TECH_USN_1");
+			loginHomePo.login(commonsUtility, exploreSearchPo,"TECH_USN_1");
 			Thread.sleep(8000);
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SFDC_2);
-			calendarPO.VerifyWOInCalender(commonsPo,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWO_SVMX_2);
 			
 			//Signout from Tech 2
-			commonsPo.tap(toolsPo.getEleToolsIcn());
-			commonsPo.tap(toolsPo.geteleSignOutBtn());
-			commonsPo.tap(toolsPo.getelepopSignOutBtn());
+			commonsUtility.tap(toolsPo.getEleToolsIcn());
+			commonsUtility.tap(toolsPo.geteleSignOutBtn());
+			commonsUtility.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(3000);
 			
 			ExtentManager.logger.log(Status.PASS,"Event Re-Assigned to tech2 is successful");

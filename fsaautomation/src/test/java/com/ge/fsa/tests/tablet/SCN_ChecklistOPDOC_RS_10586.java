@@ -103,7 +103,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 		//	String sEventName = "AUTO_10586Event";
 			//String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWORecordID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
-				bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+				bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 		//sWOName="WO-00002612";
 	}
@@ -146,18 +146,18 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	
 			prerequisites();
 			// Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);	
-		    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+			loginHomePo.login(commonsUtility, exploreSearchPo);	
+		    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
-			//toolsPo.configSync(commonsPo);
-			toolsPo.syncData(commonsPo);
+			//toolsPo.configSync(commonsUtility);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
 
 			//System.out.println("Going to Enter checklist");
-			commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
+			commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			String sNumberStaticAnsApp = checklistPo.geteleChecklistAnsNumber(sNumberStaticQ).getAttribute("value");
@@ -232,37 +232,37 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Dynamic response with textarea datatype Passed");		
 	
 		    // tapping the next button in checklist
-		 	commonsPo.tap(checklistPo.geteleNext());
+		 	commonsUtility.tap(checklistPo.geteleNext());
 	 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-			commonsPo.clickAllowPopUp();
-			commonsPo.switchContext("WebView");
-			commonsPo.tap(checklistPo.eleChecklistSubmit());	
+			commonsUtility.clickAllowPopUp();
+			commonsUtility.switchContext("WebView");
+			commonsUtility.tap(checklistPo.eleChecklistSubmit());	
 			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 			// tapping on the validation sucessfull checklist popup
-			commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+			commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 			
 			// Tapping on Show Completed Checklists
 			//System.out.println("going to tap on show completedchecklists");
-			commonsPo.tap(checklistPo.geteleShowCompletedChecklist());
+			commonsUtility.tap(checklistPo.geteleShowCompletedChecklist());
 			//System.out.println("tapped on completed checklist");
-			commonsPo.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
+			commonsUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			Thread.sleep(genericLib.iLowSleep);
 			//System.out.println("tapped on completed checklist");
 			
 			//-------------------OPDOC------------------------------ 
 			
 			//Navigating back to work Orders
-			checklistPo.navigateBacktoWorkOrder(commonsPo);
+			checklistPo.navigateBacktoWorkOrder(commonsUtility);
 
 			//Navigating to checklistOPDOC process
-			checklistPo.validateChecklistServiceReport(commonsPo, workOrderPo, sChecklistOpDocName,sWOName );
+			checklistPo.validateChecklistServiceReport(commonsUtility, workOrderPo, sChecklistOpDocName,sWOName );
 		  	checklistPo.geteleChecklistOPDOCRow();
 		
 		  	//Validating is checklist status in opdoc is completed and also if checklist name is displayed.	  	  	
@@ -344,7 +344,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 	 			 
 			// workOrderPo.getEleDoneLnk().click();
 			
-			commonsPo.tap(workOrderPo.getEleDoneLnk());
+			commonsUtility.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
 			Thread.sleep(GenericLib.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
@@ -361,17 +361,17 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 			// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 			// System.out.println(ans);
-			commonsPo.tap(calendarPO.getEleCalendarIcn());
-			 toolsPo.syncData(commonsPo);
+			commonsUtility.tap(calendarPO.getEleCalendarIcn());
+			 toolsPo.syncData(commonsUtility);
 			 Thread.sleep(GenericLib.iLowSleep);
 			 
-			/* commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			/* commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 			 Thread.sleep(genericLib.iLowSleep);
-			 commonsPo.tap(workOrderPo.geteleAttachedDocumentLeftPane());
-			 commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),20,20);
-			// commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName));
+			 commonsUtility.tap(workOrderPo.geteleAttachedDocumentLeftPane());
+			 commonsUtility.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),20,20);
+			// commonsUtility.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName));
 			// workOrderPo.getEleAttachedDocument(sChecklistOpDocName).click();
-			// commonsPo.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),5,5);
+			// commonsUtility.tap(workOrderPo.getEleAttachedDocument(sChecklistOpDocName),5,5);
 			 Thread.sleep(genericLib.iLowSleep);
 			 Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sTextDynamicAns), "Couldnt get the WorkOrder no populated through dynamic response");	 	
 			 ExtentManager.logger.log(Status.PASS,"After Sync Dynamic Text response validated sucessfully");

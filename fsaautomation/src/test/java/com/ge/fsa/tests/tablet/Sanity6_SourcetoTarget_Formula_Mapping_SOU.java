@@ -46,7 +46,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonsPo.generaterandomnumber("SAN6_");
+		sSerialNumber = commonsUtility.generaterandomnumber("SAN6_");
 		
 		//	sDeviceDate = driver.getDeviceTime().split(" ");
 
@@ -64,7 +64,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001147";
 	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 	*/	
 	}
@@ -87,18 +87,18 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
 		sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
 		System.out.println(Arrays.toString(sAppDate));
 		System.out.println(Arrays.toString(sDeviceDate));
@@ -106,22 +106,22 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the order status
-		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
+		commonsUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the billing type
-		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
+		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 	
 		try {
 			System.out.println("Need to be Handled successfully");
 			workOrderPo.getElePartsToggleBtn().click();
-			commonsPo.tap(workOrderPo.getElePartsToggleBtn());
+			commonsUtility.tap(workOrderPo.getElePartsToggleBtn());
 			
-			commonsPo.tap(workOrderPo.getEleRemoveItemLnk());
-			commonsPo.tap(workOrderPo.getEleYesBtn());
+			commonsUtility.tap(workOrderPo.getEleRemoveItemLnk());
+			commonsUtility.tap(workOrderPo.getEleYesBtn());
 			
-			commonsPo.tap(workOrderPo.getEleOKBtn());
+			commonsUtility.tap(workOrderPo.getEleOKBtn());
 			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
 		}catch(Exception e){
@@ -130,14 +130,14 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Add the workorder parts
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
-		commonsPo.tap(workOrderPo.getElePartsIcn(sProductName));
+		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
+		commonsUtility.tap(workOrderPo.getElePartsIcn(sProductName));
 		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 
 		//Save the workorder updates and validate
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
 	

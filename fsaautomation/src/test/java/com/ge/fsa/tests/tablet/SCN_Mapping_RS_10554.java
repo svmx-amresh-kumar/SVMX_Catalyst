@@ -62,14 +62,14 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 	
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
-		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
+		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10554_mapping";
 		String sID=sProformainVoice+"RS_10554_IB";
 	//sahi
 		
 		/*
 		 * genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah",
-		 * "sTestCaseID"); if(commonsPo.verifySahiExecution()) {
+		 * "sTestCaseID"); if(commonsUtility.verifySahiExecution()) {
 		 * 
 		 * System.out.println("PASSED"); } else { System.out.println("FAILED");
 		 * 
@@ -135,17 +135,17 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		
 		
 			//Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Navigation to SFM
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBname, sFieldServiceName);
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBname, sFieldServiceName);
 			
 			Thread.sleep(GenericLib.iHighSleep);
 			
@@ -180,7 +180,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			//ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
-			commonsPo.tap(workOrderPo.openpartsontap());
+			commonsUtility.tap(workOrderPo.openpartsontap());
 			//Thread.sleep(GenericLib.iHighSleep);
 			
 			String fetchedpart =workOrderPo.getElePartLaborLkUp().getAttribute("value");
@@ -193,12 +193,12 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			try{assertEquals(fetcheddaterequired,"8/29/2018");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed ");}
 			
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
 			
-			commonsPo.tap(workOrderPo.getEleSaveLnk());
+			commonsUtility.tap(workOrderPo.getEleSaveLnk());
 			
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.i30SecSleep);
 			
 			// Collecting the Work Order number from the Server.
@@ -269,8 +269,8 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			
 			//Validating after datasync
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders",sworkOrdername ,"EDIT_WORKORDER_MAPPING");
+			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Work Orders",sworkOrdername ,"EDIT_WORKORDER_MAPPING");
 
 			 fetchedaccount =workOrderPo.getAccountvalue().getAttribute("value");
 			System.out.println(fetchedaccount);
@@ -301,7 +301,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful After data sync");
 			
 			
-			commonsPo.tap(workOrderPo.openpartsontap());
+			commonsUtility.tap(workOrderPo.openpartsontap());
 			//Thread.sleep(GenericLib.iHighSleep);
 			
 			 fetchedpart =workOrderPo.getElePartLaborLkUp().getAttribute("value");
@@ -314,7 +314,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			try{assertEquals(fetcheddaterequired,"8/29/2018");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed ");}
 			
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After Data Sync");
 			
 			

@@ -1,4 +1,4 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
@@ -173,23 +174,23 @@ public class ToolsPO
 	
 	/**
 	 * Perform Data Sync and Wait for the Data sync to complete in 900 seconds/ 15 min, beyond which we fail it
-	 * @param commonsPo
+	 * @param commonsUtility
 	 * @throws InterruptedException
 	 */
-	public void syncData(CommonsPO commonsPo) throws InterruptedException
+	public void syncData(CommonUtility commonUtility) throws InterruptedException
 	{
 		GenericLib.lWaitTime=2000;
 		
 		//Navigation to Tools screen
-		commonsPo.tap(getEleToolsIcn());	
+		commonUtility.tap(getEleToolsIcn());	
 		Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 		
-		commonsPo.tap(getEleSyncDataNowLnk());
-		commonsPo.tap(getEleStartSyncBtn());
+		commonUtility.tap(getEleSyncDataNowLnk());
+		commonUtility.tap(getEleStartSyncBtn());
 		System.out.println("Begining Data Sync");
 
-		commonsPo.waitforElement(getEleRefreshingViewTxt(),240);
+		commonUtility.waitforElement(getEleRefreshingViewTxt(),240);
 
 //		//Verification of successful sync
 //		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
@@ -197,7 +198,7 @@ public class ToolsPO
 //		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Wait for the data sync to complete in 900 seconds/ 15 min, beyond which we fail it
-		if( commonsPo.waitForString(getEleSuccessTxt(), "Success", 900)) {
+		if( commonUtility.waitForString(getEleSuccessTxt(), "Success", 900)) {
 			System.out.println("Data Sync Completed Sucessfully");
 			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 		}else {
@@ -213,33 +214,33 @@ public class ToolsPO
 	
 	/**
 	 * Perform Config Sync and Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
-	 * @param commonsPo
+	 * @param commonsUtility
 	 * @throws InterruptedException
 	 */
-		public void configSync(CommonsPO commonsPo) throws InterruptedException
+		public void configSync(CommonUtility commonUtility) throws InterruptedException
 		{
 			GenericLib.lWaitTime=2000;
 			
 			//Navigation to Tools screen
-			commonsPo.tap(getEleToolsIcn());	
+			commonUtility.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 
 			
-			commonsPo.tap(geteleSyncConfigNowLnk());
+			commonUtility.tap(geteleSyncConfigNowLnk());
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(getEleOkBtn());
+			commonUtility.tap(getEleOkBtn());
 			Thread.sleep(GenericLib.iMedSleep);
 			//Canceling sync in order to reset the config sync status.
-			commonsPo.waitforElement(eleCancelConfigSyncBtn, 30);
-			commonsPo.tap(eleCancelConfigSyncBtn,20,20);
+			commonUtility.waitforElement(eleCancelConfigSyncBtn, 30);
+			commonUtility.tap(eleCancelConfigSyncBtn,20,20);
 			Thread.sleep(3000);
-			commonsPo.tap(geteleSyncConfigNowLnk());	
-			commonsPo.tap(getEleOkBtn());
+			commonUtility.tap(geteleSyncConfigNowLnk());	
+			commonUtility.tap(getEleOkBtn());
 			System.out.println("Begining config sync");
 	
 			//Wait for the config sync to complete in 2000 seconds/ 30 min, beyond which we fail it
-			if( commonsPo.waitForString(geteleConfigSyncStatusTxt(), "Success", 2000)) {
+			if( commonUtility.waitForString(geteleConfigSyncStatusTxt(), "Success", 2000)) {
 				System.out.println("Config Sync Completed Sucessfully");
 				ExtentManager.logger.log(Status.PASS,"Config Sync is successfull");
 			}else {
@@ -256,22 +257,22 @@ public class ToolsPO
 		
 		//reset app
 		
-		public void Resetapp(CommonsPO commonsPo,ExploreSearchPO exploreSearchPo) throws InterruptedException
+		public void Resetapp(CommonUtility commonUtility,ExploreSearchPO exploreSearchPo) throws InterruptedException
 		{
 			GenericLib.lWaitTime=2000;
-			commonsPo.tap(getEleToolsIcn());	
+			commonUtility.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
 			
 			
 			
-			commonsPo.tap(geteleResetAppLnkk());
-			commonsPo.longPress(geteleResetAppLnkk());	
+			commonUtility.tap(geteleResetAppLnkk());
+			commonUtility.longPress(geteleResetAppLnkk());	
 			getEleYesBtn().click();
-			commonsPo.longPress(getEleYesBtn());
+			commonUtility.longPress(getEleYesBtn());
 			System.out.println("begining Reset App");
 			
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
+			commonUtility.waitforElement(exploreSearchPo.getEleExploreIcn(), 2000);
 			
 //		wait = new WebDriverWait(driver, 40000);
 //		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[text()='Explore']")));
@@ -311,11 +312,11 @@ public class ToolsPO
 			return eleApply;
 		}
 		
-		public void OptionalConfigSync(ToolsPO toolsPo,CommonsPO commonsPo, Boolean bProcessCheckResult) throws InterruptedException
+		public void OptionalConfigSync(ToolsPO toolsPo,CommonUtility commonUtility, Boolean bProcessCheckResult) throws InterruptedException
 		{
 		if(bProcessCheckResult.booleanValue()== true)
 		{
-			toolsPo.configSync(commonsPo);
+			toolsPo.configSync(commonUtility);
 		}
 		else 
 		{

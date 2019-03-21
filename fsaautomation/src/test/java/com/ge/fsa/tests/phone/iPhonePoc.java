@@ -24,12 +24,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
-import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.phone.pageobjects.ph_CalendarPO;
+import com.ge.fsa.phone.pageobjects.ph_LoginHomePO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -67,13 +67,13 @@ public void iphone() throws Exception
 		
 		String sTestID = null;
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 
 		
 		
-		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sRandomNumber = commonsUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		
@@ -95,16 +95,16 @@ public void iphone() throws Exception
 		
 		
 		
-		ip_LoginHomePo.login(commonsPo, ip_MorePo);
+		ip_LoginHomePo.login(commonsUtility, ip_MorePo);
 	
-		ip_MorePo.syncData(commonsPo);
+		ip_MorePo.syncData(commonsUtility);
 		
 		ip_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
 		ip_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(2000);
 		
-	commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
+	commonsUtility.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
 
 		Thread.sleep(2000);
 		
@@ -141,14 +141,14 @@ public void iphone() throws Exception
 		Thread.sleep(2000);
 		
 		
-		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleProformaInvoice());
+		commonsUtility.custScrollToElementAndClick(ip_CalendarPo.getEleProformaInvoice());
 		
 		ip_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
 		ip_CalendarPo.getEleAdd().click();
 	
 		Thread.sleep(2000);
-		ip_MorePo.syncData(commonsPo);
+		ip_MorePo.syncData(commonsUtility);
 	
 	// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -161,10 +161,10 @@ public void iphone() throws Exception
 		Thread.sleep(2000);
 		
 		// To create a new Event for the given Work Order
-		ip_WorkOrderPo.createNewEvent(commonsPo,sEventSubject,ip_CalendarPo);
+		ip_WorkOrderPo.createNewEvent(commonsUtility,sEventSubject,ip_CalendarPo);
 		
 		
-		ip_MorePo.syncData(commonsPo);
+		ip_MorePo.syncData(commonsUtility);
 		Thread.sleep(2000);
 		
 		// Open the Work Order from the calendar
@@ -176,18 +176,18 @@ public void iphone() throws Exception
 		// To add Labor, Parts , Travel , Expense
 		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sProcessname);
+				ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ip_WorkOrderPo.addParts(ip_CalendarPo ,sProductName);
 				
-				ip_WorkOrderPo.addLabor(commonsPo,ip_CalendarPo ,sProductName);
+				ip_WorkOrderPo.addLabor(commonsUtility,ip_CalendarPo ,sProductName);
 				ip_WorkOrderPo.getElesave().click();
 				Thread.sleep(3000);
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
-				ip_WorkOrderPo.selectAction(commonsPo,ip_CalendarPo,sPrintReportSearch);
+				ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sPrintReportSearch);
 				Thread.sleep(2000);
 				ip_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(2000);
@@ -220,7 +220,7 @@ public void iphone() throws Exception
 				}
 				// Syncing the Data
 				Thread.sleep(genericLib.i30SecSleep);
-				ip_MorePo.syncData(commonsPo);
+				ip_MorePo.syncData(commonsUtility);
 				Thread.sleep(genericLib.i30SecSleep);
 			
 				// Verifying the Work details and the service report

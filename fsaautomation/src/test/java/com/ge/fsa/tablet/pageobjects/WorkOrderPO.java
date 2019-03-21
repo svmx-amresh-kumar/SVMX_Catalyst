@@ -1,4 +1,4 @@
-	package com.ge.fsa.pageobjects;
+	package com.ge.fsa.tablet.pageobjects;
 	
 	import java.util.List;
 	import org.openqa.selenium.By;
@@ -12,7 +12,8 @@ import org.openqa.selenium.support.FindBy;
 	import org.testng.Assert;
 	
 	import com.aventstack.extentreports.Status;
-	import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 	import com.ge.fsa.lib.GenericLib;
 	
 	import io.appium.java_client.AppiumDriver;
@@ -1358,49 +1359,49 @@ import org.openqa.selenium.support.FindBy;
 		
 	/**
 	 * Select the process name from the action menu in workorder page
-	 * @param commonsPo
+	 * @param commonsUtility
 	 * @param sActionsName
 	 * @throws InterruptedException
 	 */
-		public void selectAction(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+		public void selectAction(CommonUtility commonUtility, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsLnk());	
-			commonsPo.getSearch(getEleActionsTxt(sActionsName));		
+			commonUtility.tap(getEleActionsLnk());	
+			commonUtility.getSearch(getEleActionsTxt(sActionsName));		
 			Thread.sleep(5000);
 			driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='"+sActionsName+"']/../span)[4]")).getLocation();
 			Thread.sleep(5000);
-			commonsPo.tap(getEleActionsTxt(sActionsName),0,20);
+			commonUtility.tap(getEleActionsTxt(sActionsName),0,20);
 
 		}
 	
-		public void selectActionWithIcon(CommonsPO commonsPo, String sActionsName) throws InterruptedException
+		public void selectActionWithIcon(CommonUtility commonUtility, String sActionsName) throws InterruptedException
 		{
 			Thread.sleep(1000);
 			//getEleActionsLnk().click();
-			commonsPo.tap(getEleActionsLnk());	
-			commonsPo.getSearch(getEleActionsTxtWithIcon(sActionsName));
+			commonUtility.tap(getEleActionsLnk());	
+			commonUtility.getSearch(getEleActionsTxtWithIcon(sActionsName));
 			try {
-			commonsPo.tap(getEleActionsTxtWithIcon(sActionsName));
+			commonUtility.tap(getEleActionsTxtWithIcon(sActionsName));
 			}catch(Exception e)
-			{commonsPo.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
+			{commonUtility.tap(getEleActionsTxtWithIcon(sActionsName),20,20);
 			}
 		}
 	
-		public void createNewEvent(CommonsPO commonsPo, String sSubject, String sDescription) throws InterruptedException
+		public void createNewEvent(CommonUtility commonUtility, String sSubject, String sDescription) throws InterruptedException
 		{
-			selectAction(commonsPo, "Create New Event From Work Order");
+			selectAction(commonUtility, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
-			commonsPo.tap(getEleSaveLnk());
+			commonUtility.tap(getEleSaveLnk());
 			/*try {
 				if(getEleYesBtn() != null){
-					commonsPo.tap(getEleYesBtn());	
+					commonsUtility.tap(getEleYesBtn());	
 				}
 			}
 			catch(Exception e){
@@ -1409,9 +1410,9 @@ import org.openqa.selenium.support.FindBy;
 		//	Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		//	ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
 		}
-		public void validateServiceReport(CommonsPO commonsPo, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
+		public void validateServiceReport(CommonUtility commonUtility, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 		{	
-			selectAction(commonsPo, sPrintReportSearch);
+			selectAction(commonUtility, sPrintReportSearch);
 			Thread.sleep(GenericLib.iLowSleep);
 			Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
@@ -1419,7 +1420,7 @@ import org.openqa.selenium.support.FindBy;
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 			
 			Thread.sleep(GenericLib.iHighSleep);
-			//commonsPo.tap(getEleDoneLnk());
+			//commonsUtility.tap(getEleDoneLnk());
 			getEleDoneLnk().click();
 	
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
@@ -1433,161 +1434,161 @@ import org.openqa.selenium.support.FindBy;
 	
 		// To add Parts
 	
-		public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+		public void addParts(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 		{
-			commonsPo.tap(workOrderPo.getElePartLnk());
-			commonsPo.lookupSearch(sProductName1);
-			commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+			commonUtility.tap(workOrderPo.getElePartLnk());
+			commonUtility.lookupSearch(sProductName1);
+			commonUtility.tap(workOrderPo.getEleAddselectedbutton());
 	
 		}
 	
 		// Add parts for Manage Work Details
 	
-		public void addPartsManageWD(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+		public void addPartsManageWD(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 		{
-			commonsPo.tap(workOrderPo.getElePartLnk());
-			commonsPo.tap(getElePartLaborLkUp2());
-			commonsPo.lookupSearch(sProductName1);
-			//commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+			commonUtility.tap(workOrderPo.getElePartLnk());
+			commonUtility.tap(getElePartLaborLkUp2());
+			commonUtility.lookupSearch(sProductName1);
+			//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
 			//Thread.sleep(1000);
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.tap(getEleDoneBtn());
 	
 		}
 	
 	
 	
 		// To add PS Lines to the Work Order
-		public void addPSLines(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
+		public void addPSLines(CommonUtility commonUtility, WorkOrderPO workOrderPo,String sSerialNumber)throws InterruptedException
 		{
-			commonsPo.tap(workOrderPo.getEleAddPSLines());
-			commonsPo.lookupSearch(sSerialNumber);
-			commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+			commonUtility.tap(workOrderPo.getEleAddPSLines());
+			commonUtility.lookupSearch(sSerialNumber);
+			commonUtility.tap(workOrderPo.getEleAddselectedbutton());
 	
 		}
 	
 		// To multi Select the Parts for the Work Order ChildLines
 	
-		public void addParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
+		public void addParts(CommonUtility commonUtility, WorkOrderPO workOrderPo, String[] sProductName1) throws InterruptedException
 		{
-			commonsPo.tap(workOrderPo.getElePartLnk());
+			commonUtility.tap(workOrderPo.getElePartLnk());
 			for(int i=0;i<sProductName1.length ;i++) {
-				commonsPo.lookupSearch(sProductName1[i]);
+				commonUtility.lookupSearch(sProductName1[i]);
 			} 
-			commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+			commonUtility.tap(workOrderPo.getEleAddselectedbutton());
 	
 		}
 		//To add product to parts
-		public void addProductParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
+		public void addProductParts(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sProductName1) throws InterruptedException
 		{
-			commonsPo.tap(workOrderPo.getEleCasePartIcn());
-			commonsPo.tap(workOrderPo.getElePartLst());
-			commonsPo.lookupSearch(sProductName1);
-			commonsPo.tap(workOrderPo.getEleAddselectedbutton());
+			commonUtility.tap(workOrderPo.getEleCasePartIcn());
+			commonUtility.tap(workOrderPo.getElePartLst());
+			commonUtility.lookupSearch(sProductName1);
+			commonUtility.tap(workOrderPo.getEleAddselectedbutton());
 	
 		}
 		//To add labor parts
-		public void addLaborParts(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sProductName1, String sActivityType, String sprocessname) throws InterruptedException
+		public void addLaborParts(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sProductName1, String sActivityType, String sprocessname) throws InterruptedException
 		{	//Adding labor parts name
-			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
-			commonsPo.tap(getElePartLaborLkUp());
-			commonsPo.lookupSearch(sProductName1);
-			//commonsPo.tap(getEleProductNameTxt(sProductName1));
+			commonUtility.tap(workOrderPo.getEleAddLaborLnk());
+			commonUtility.tap(getElePartLaborLkUp());
+			commonUtility.lookupSearch(sProductName1);
+			//commonsUtility.tap(getEleProductNameTxt(sProductName1));
 	
 			//Selecting Activity Type
-			commonsPo.setPickerWheelValue( getEleActivityTypeLst(), sActivityType);	
+			commonUtility.setPickerWheelValue( getEleActivityTypeLst(), sActivityType);	
 	
 			Thread.sleep(2000);
-			commonsPo.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  1,"9","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  1,"9","00"); //set end time
 	
-			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeTxtFld(), 1, "6");  // Sets start date time
-			//		workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeTxtFld(), 1, "8");    // Sets end date time
+			//		workOrderPo.setTime(commonsUtility, workOrderPo.getEleStartDateTimeTxtFld(), 1, "6");  // Sets start date time
+			//		workOrderPo.setTime(commonsUtility, workOrderPo.getEleEndDateTimeTxtFld(), 1, "8");    // Sets end date time
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
-			commonsPo.tap(getEleLineQtyTxtFld());
+			commonUtility.tap(getEleUsePriceToggleBtn());
+			commonUtility.tap(getEleLineQtyTxtFld());
 			getEleLineQtyTxtFld().sendKeys("10");
-			commonsPo.tap(getEleLinePerUnitTxtFld());
+			commonUtility.tap(getEleLinePerUnitTxtFld());
 			getEleLinePerUnitTxtFld().sendKeys("1000");
 			Thread.sleep(1000);
-			commonsPo.tap(getEleDeadTimeLst());
+			commonUtility.tap(getEleDeadTimeLst());
 		
-				if(commonsPo.isDisplayedCust(getEleclickCancel()))
+				if(commonUtility.isDisplayedCust(getEleclickCancel()))
 				{
-					commonsPo.tap(getEleclickCancel());
+					commonUtility.tap(getEleclickCancel());
 					Thread.sleep(2000);
 				}
 				
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.tap(getEleDoneBtn());
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(),"Failed to add Labor parts");  
 			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");		
 		}
 		// Adding Labor for Customized Date entries into Labor
-		public void addLaborCustomizedDate(CommonsPO commonsPo, WorkOrderPO workOrderPo,String sActivityType, String sStartDate, String sEndDate, String sprocessname) throws InterruptedException
+		public void addLaborCustomizedDate(CommonUtility commonUtility, WorkOrderPO workOrderPo,String sActivityType, String sStartDate, String sEndDate, String sprocessname) throws InterruptedException
 		{	//Adding labor parts name
-			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
+			commonUtility.tap(workOrderPo.getEleAddLaborLnk());
 			//Selecting Activity Type
-			commonsPo.setPickerWheelValue(getEleActivityTypeLst(), sActivityType);	
+			commonUtility.setPickerWheelValue(getEleActivityTypeLst(), sActivityType);	
 			Thread.sleep(2000);
 			if(Integer.parseInt(sEndDate)< 10)
 			{
 				sEndDate = "0"+sEndDate;
 			}	
-			commonsPo.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0, sStartDate, "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  0,sEndDate,"00"); //set end time
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0, sStartDate, "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  0,sEndDate,"00"); //set end time
+			commonUtility.tap(getEleDoneBtn());
 	
 		}
 	
 		//To add Travel
-		public void addTravel(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
+		public void addTravel(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sprocessname) throws InterruptedException
 		{	//Adding labor parts name
-			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
+			commonUtility.tap(workOrderPo.getEleAddTravelLnk());
 	
-			commonsPo.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 1,"9","00"); //set end time
-			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleStartDateTimeTxtFld(), 1, "5");  // Sets start date time
-			//			workOrderPo.setTime(commonsPo, workOrderPo.getEleEndDateTimeTxtFld(), 1, "9");    // Sets end date time
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 1,"9","00"); //set end time
+			//			workOrderPo.setTime(commonsUtility, workOrderPo.getEleStartDateTimeTxtFld(), 1, "5");  // Sets start date time
+			//			workOrderPo.setTime(commonsUtility, workOrderPo.getEleEndDateTimeTxtFld(), 1, "9");    // Sets end date time
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			commonUtility.tap(getEleUsePriceToggleBtn());
 	
 			getEleLineQtyTxtFld().sendKeys("10");
 			getEleLinePerUnitTxtFld().sendKeys("1000");	
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.tap(getEleDoneBtn());
 	
 			//Verify to Manage WO lines
 			Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
 			ExtentManager.logger.log(Status.PASS,"Labor parts are added and saved successfully. ");	
 		}
 	
-		public void addTravelwithTime(CommonsPO commonsPo, WorkOrderPO workOrderPo, String sprocessname, String sStartTime , String sEndTime) throws InterruptedException
+		public void addTravelwithTime(CommonUtility commonUtility, WorkOrderPO workOrderPo, String sprocessname, String sStartTime , String sEndTime) throws InterruptedException
 		{	//Adding labor parts name
-			commonsPo.tap(workOrderPo.getEleAddTravelLnk());
+			commonUtility.tap(workOrderPo.getEleAddTravelLnk());
 			if(Integer.parseInt(sEndTime)< 10)
 			{
 				sEndTime = "0"+sEndTime;
 			}
-			commonsPo.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,sStartTime, "00"); //set start time to Today
-			commonsPo.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,sEndTime,"00"); //set end time			
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,sStartTime, "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,sEndTime,"00"); //set end time			
+			commonUtility.tap(getEleDoneBtn());
 		}
 	
 	
 		// To add Expense
 	
-		public void addExpense(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
+		public void addExpense(CommonUtility commonUtility, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sLineQty, String sLinepriceperUnit) throws InterruptedException
 		{	//Adding Expense name
-			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			//commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
+			commonUtility.tap(workOrderPo.getEleAddExpenseLnk());
+			//commonsUtility.tap(workOrderPo.getEleAddExpenseType());
+			commonUtility.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			//commonsPo.tap(getEleUsePriceToggleBtn(),20,20);
+			//commonsUtility.tap(getEleUsePriceToggleBtn(),20,20);
 			getEleLineQtyTxtFld().sendKeys(sLineQty);
 			getEleLinePerUnitTxtFld().sendKeys(sLinepriceperUnit);	
-			commonsPo.tap(getEleDoneBtn());
+			commonUtility.tap(getEleDoneBtn());
 	
 			//Verify to Manage WO lines
 			//Assert.assertTrue(getEleProcessName(sprocessname).isDisplayed(), "Failed to add Labor parts");   
@@ -1595,27 +1596,27 @@ import org.openqa.selenium.support.FindBy;
 		}
 		
 		// To add Expense Values to the Estimates
-		public void addExpenseEstimates(CommonsPO commonsPo, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sEstimatedQty, String sEstimatedpriceperUnit) throws InterruptedException
+		public void addExpenseEstimates(CommonUtility commonUtility, WorkOrderPO workOrderPo,String expenseType,String sprocessname, String sEstimatedQty, String sEstimatedpriceperUnit) throws InterruptedException
 		{	//Adding Expense name
-			commonsPo.tap(workOrderPo.getEleAddExpenseLnk());
-			commonsPo.tap(workOrderPo.getEleAddExpenseType());
-			commonsPo.setPickerWheelValue(getEleAddExpenseType(), expenseType);
+			commonUtility.tap(workOrderPo.getEleAddExpenseLnk());
+			commonUtility.tap(workOrderPo.getEleAddExpenseType());
+			commonUtility.setPickerWheelValue(getEleAddExpenseType(), expenseType);
 	
 			//Add the price and quantity
-			commonsPo.tap(getEleUsePriceToggleBtn());
+			commonUtility.tap(getEleUsePriceToggleBtn());
 			getEstimatedQtyTxtFld().sendKeys(sEstimatedQty);
 			getEstimatedPerUnitTxtFld().sendKeys(sEstimatedpriceperUnit);	
-			commonsPo.tap(getEleDoneBtn());	
+			commonUtility.tap(getEleDoneBtn());	
 		}
 	
 		// Delete the Childlines
-		public void deletechildlines(CommonsPO commonsPo, WorkOrderPO workOrderPo, String partname, String workordervalue, String schildtype) throws InterruptedException {
-			commonsPo.tap(workOrderPo.getEledeletepartchildline(partname));
-			commonsPo.tap(workOrderPo.getEleremoveitem());
-			commonsPo.tap(workOrderPo.getEleclickyesitem());
-			commonsPo.tap(workOrderPo.getEleclickOK());
+		public void deletechildlines(CommonUtility commonUtility, WorkOrderPO workOrderPo, String partname, String workordervalue, String schildtype) throws InterruptedException {
+			commonUtility.tap(workOrderPo.getEledeletepartchildline(partname));
+			commonUtility.tap(workOrderPo.getEleremoveitem());
+			commonUtility.tap(workOrderPo.getEleclickyesitem());
+			commonUtility.tap(workOrderPo.getEleclickOK());
 			Thread.sleep(10000);
-			commonsPo.tap(workOrderPo.getEleClickSave());
+			commonUtility.tap(workOrderPo.getEleClickSave());
 			Thread.sleep(10000);
 			if(workOrderPo.getEleworkordernameonUI(workordervalue) != null)
 			{
@@ -1631,37 +1632,37 @@ import org.openqa.selenium.support.FindBy;
 		}
 	
 		//Navigation to WorkOrder SFM without child search
-		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName, String sFieldServiceName ) throws InterruptedException
+		public void navigateToWOSFM(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			Thread.sleep(GenericLib.iMedSleep);
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
-			selectAction(commonsPo, sFieldServiceName);		
+			exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
+			selectAction(commonUtility, sFieldServiceName);		
 		}
 	
 	
 	
 		//Navigation to WorkOrder SFM with child search	
-		public void navigateToWOSFM(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+		public void navigateToWOSFM(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
 			try {
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
 			Thread.sleep(3000);
-			commonsPo.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
+			commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
+			commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
 	
 			// Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
 			if(sFieldServiceName!=null)
 			{
-				selectAction(commonsPo, sFieldServiceName);	
+				selectAction(commonUtility, sFieldServiceName);	
 			}
 			}catch(Exception e)
 			{
@@ -1670,27 +1671,27 @@ import org.openqa.selenium.support.FindBy;
 	
 		}
 	
-		public void navigateToWOSFMWithIcon(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+		public void navigateToWOSFMWithIcon(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 		{
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			Thread.sleep(GenericLib.iMedSleep);
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
 			if(sFieldServiceName!=null)
 			{
-				commonsPo.tap(getEleActionsLnk());
+				commonUtility.tap(getEleActionsLnk());
 				Thread.sleep(10000);
-//				commonsPo.swipeUp();
+//				commonsUtility.swipeUp();
 //				getTest().click();
-//				commonsPo.tap(getTest());
+//				commonsUtility.tap(getTest());
 //				System.out.println(sFieldServiceName);
 //				getEleActionsTxtWithIcon(sFieldServiceName).click();
-				commonsPo.tap(getEleActionsTxtWithIcon(sFieldServiceName));
-//				selectActionWithIcon(commonsPo, sFieldServiceName);	
+				commonUtility.tap(getEleActionsTxtWithIcon(sFieldServiceName));
+//				selectActionWithIcon(commonsUtility, sFieldServiceName);	
 			}
 	
 		}
@@ -1698,21 +1699,21 @@ import org.openqa.selenium.support.FindBy;
 	
 	
 		//Navigate to WorkOrder Screen with a child search present
-		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		public void navigatetoWO(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			Thread.sleep(GenericLib.iMedSleep);
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 			Thread.sleep(GenericLib.iMedSleep);
-			commonsPo.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
 	
 		}
 		/**
 		 * Author : Meghana Rao
-		 * @param commonsPo - Passing the objects
+		 * @param commonsUtility - Passing the objects
 		 * @param exploreSearchPo
 		 * @param sExploreSearch - Search Name from Explore
 		 * @param sExploreChildSearchTxt - WorkOrder object lookup
@@ -1720,17 +1721,17 @@ import org.openqa.selenium.support.FindBy;
 		 * @throws InterruptedException
 		 * this function will click on the Work Order button when the Work Order is there on DOD.
 		 */
-		public void downloadCriteriaDOD(CommonsPO commonsPo,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+		public void downloadCriteriaDOD(CommonUtility commonUtility,ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 	
-			commonsPo.tap(exploreSearchPO.getEleExploreIcn());
+			commonUtility.tap(exploreSearchPO.getEleExploreIcn());
 			//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
-			commonsPo.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
+			commonUtility.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
+			commonUtility.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 			exploreSearchPO.getEleExploreSearchTxtFld().click();
 			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 			exploreSearchPO.getEleExploreSearchTxtFld().clear();
 			exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
-			commonsPo.tap(exploreSearchPO.getEleExploreSearchBtn());
+			commonUtility.tap(exploreSearchPO.getEleExploreSearchBtn());
 	
 		}
 	
@@ -1739,13 +1740,13 @@ import org.openqa.selenium.support.FindBy;
 	
 	
 		//Navigate to WorkOrder Screen without child search.
-		public void navigatetoWO(CommonsPO commonsPo, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		public void navigatetoWO(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sWOName) throws InterruptedException {
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			commonsPo.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
-			exploreSearchPo.selectWorkOrder(commonsPo, sWOName);
+			exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
 	
 		}
 	

@@ -13,7 +13,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 
 public class SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sTestCaseID = null;
@@ -113,7 +113,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 				sWOName3 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 				System.out.println("WO no =" + sWOName3);
 		
-		bProcessCheckResult =commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 				
 		//sWOName1 = "WO-00001615";
@@ -126,35 +126,35 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		prerequisites();
 		
 		// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 
-	    toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		// toolsPo.configSync(commonsPo);
+		// toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsPo, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
 		// tapping next button
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));					 
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));					 
 		Assert.assertTrue(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation rule failed for number error");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Number Passed");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberSectionJumpAns);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
-		commonsPo.clickAllowPopUp();
-		commonsPo.switchContext("WebView");
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));	
+		commonsUtility.clickAllowPopUp();
+		commonsUtility.switchContext("WebView");
 		//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
@@ -162,110 +162,110 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		try {
 			
 			checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
-			//commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
-			//commonsPo.doubleTap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+			//commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+			//commonsUtility.doubleTap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
 		} catch (Exception e) {
 			// TODO: handle exception
 			ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 3");
 		}
 		
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		System.out.println("tapped on section one");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sSectionOneJump2);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
 		ExtentManager.logger.log(Status.PASS," Multiple Q same section jump --Exit Criteria for section passed");
 		try {
 			System.out.println("Entered Try");
 			checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
 
-		//	commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
-		//	commonsPo.isDisplayedCust(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		//	commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		//	commonsUtility.isDisplayedCust(checklistPo.geteleChecklistSectionNametab(sSection2Name));
 		} catch (Exception e) {
 			// TODO: handle exception
 			ExtentManager.logger.log(Status.PASS,"Multiple Q same section jump-Section two is not clickable as section was jumped");
 		}
 		
 		
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys("55");
 		checklistPo.geteleChecklistAnswerTextArea(sSectionOneQ1).sendKeys(sSectionOneQAns);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
-		commonsPo.tap(checklistPo.geteleChecklistOK());
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));	
+		commonsUtility.tap(checklistPo.geteleChecklistOK());
 
 		try {
 			checklistPo.geteleChecklistSectionNametab(sSection3Name).click();
-			//commonsPo.isDisplayedCust(checklistPo.geteleChecklistSectionNametab(sSection3Name));
-			//commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
+			//commonsUtility.isDisplayedCust(checklistPo.geteleChecklistSectionNametab(sSection3Name));
+			//commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		} catch (Exception e) {
 			// TODO: handle exception
 			ExtentManager.logger.log(Status.PASS,"Multiple Q same section jump-Section Three is not clickable as section was jumped from 1 to 4");
 		}
 		
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		checklistPo.geteleChecklistAnswerTextArea(sSectionOneQ1).sendKeys(sSectionOneQAnsNoJ);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));	
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(2));	
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));	
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(2));	
 
-		//commonsPo.tap(checklistPo.geteleChecklistOK());
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
+		//commonsUtility.tap(checklistPo.geteleChecklistOK());
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		//checklistPo.geteleChecklistSectionNametab(sSection3Name).click();		
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).sendKeys(sNumberDVRAns);
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));	
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));	
 		
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeConfirmationQ).sendKeys(sSectionThreeConfirmationAns);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));	
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));	
 		Assert.assertTrue(checklistPo.geteleChecklistDVRConfirmationtxt().isDisplayed(), "DataValidation rule failed for number confirmation");	 	
 		Assert.assertTrue(checklistPo.geteleDVRConfirmBtn().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
-		commonsPo.tap(checklistPo.geteleDVRConfirmBtn());
+		commonsUtility.tap(checklistPo.geteleDVRConfirmBtn());
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).clear();
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).sendKeys(sSectionThreeQ1ValidAns1);	
 
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(3));	
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		Thread.sleep(genericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberSectionwithoutjump2);
-		commonsPo.tap(checklistPo.geteleSectionNextBtn(1));
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));
 		
-		commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
 		//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
 	    checklistPo.geteleChecklistAnswerTextArea(sSectionTwoQ1).sendKeys(sSectionTwoQAns);
-	    commonsPo.tap(checklistPo.geteleSectionNextBtn(2));
-	    commonsPo.tap(checklistPo.geteleChecklistokPopUp());
+	    commonsUtility.tap(checklistPo.geteleSectionNextBtn(2));
+	    commonsUtility.tap(checklistPo.geteleChecklistokPopUp());
 	    ExtentManager.logger.log(Status.PASS,"You may loose previously entered data displayed ");
 	    
 	    
 	    //Section4
-	    commonsPo.tap(checklistPo.geteleChecklistSectionNametab(sSection4Name));
+	    commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection4Name));
 	   // checklistPo.geteleChecklistSectionNametab(sSection4Name).click();
 	    checklistPo.geteleChecklistAnswerTextArea(sSectionFourQ1).sendKeys(sSectionFourQ1Ans);
-	    commonsPo.tap(checklistPo.geteleSectionNextBtn(4));
+	    commonsUtility.tap(checklistPo.geteleSectionNextBtn(4));
 	    
 	    
 	    //All sections
-	    commonsPo.clickAllowPopUp();
-		commonsPo.switchContext("WebView");
-		commonsPo.tap(checklistPo.eleChecklistSubmit());			
+	    commonsUtility.clickAllowPopUp();
+		commonsUtility.switchContext("WebView");
+		commonsUtility.tap(checklistPo.eleChecklistSubmit());			
 		
 
 		// tapping on the validation successful checklist popup
-		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"Checklist Submitted");
-		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		
 			//------------------SERVER SIDE VALIDATIONS
 			
@@ -283,16 +283,16 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 			//Validating Work not satisfying checklist entry criteria		
 			System.out.println("Validating workorder not satisfying checklsit entry criteria");
 		
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
+			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 			
 			// Navigate to Field Service process
-			workOrderPo.selectAction(commonsPo, sFieldServiceName);
+			workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 			Thread.sleep(GenericLib.iLowSleep);
 			// Navigating to the checklist
-			commonsPo.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 							

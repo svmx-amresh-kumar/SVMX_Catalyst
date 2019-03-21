@@ -17,7 +17,6 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import com.ge.fsa.pageobjects.CommonsPO;
 
 import io.appium.java_client.AppiumDriver;
 

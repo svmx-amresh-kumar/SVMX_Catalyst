@@ -7,19 +7,19 @@ import io.appium.java_client.TouchAction;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.CreateNewPO;
+import com.ge.fsa.tablet.pageobjects.CreateNewPO;
 
 public class POC_AndroidTap extends BaseLib {
 	
 	@Test
 	public void dummyTest() throws InterruptedException {
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		Thread.sleep(5000);
-	  	commonsPo.tap(createNewPO.getEleCreateNew());
-		commonsPo.tap(createNewPO.getEleCreateNewWorkOrder());
-		commonsPo.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "Medium");
+	  	commonsUtility.tap(createNewPO.getEleCreateNew());
+		commonsUtility.tap(createNewPO.getEleCreateNewWorkOrder());
+		commonsUtility.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "Medium");
 		Thread.sleep(2000);
 //		System.out.println(calendarPO.geteleNewClick().isDisplayed());
 //		calendarPO.geteleNewClick().click();
@@ -29,7 +29,7 @@ public class POC_AndroidTap extends BaseLib {
 //		System.out.println("Clicked");
 		
 		
-//	commonsPo.tap(calendarPO.geteleNewClick());
+//	commonsUtility.tap(calendarPO.geteleNewClick());
 //		Thread.sleep(15000);
 		//*[text()='Priority']
 		

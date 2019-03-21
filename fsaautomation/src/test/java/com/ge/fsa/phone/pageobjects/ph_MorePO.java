@@ -1,4 +1,4 @@
-package com.ge.fsa.iphone.pageobjects;
+package com.ge.fsa.phone.pageobjects;
 
 
 import static org.testng.Assert.assertFalse;
@@ -17,10 +17,10 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class Ip_MorePO
+public class ph_MorePO
 {
-	public Ip_MorePO(AppiumDriver driver)
+	public ph_MorePO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -110,27 +110,27 @@ public class Ip_MorePO
 		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
 
-	public void configSync(CommonsPO commonsPo, Ip_CalendarPO ip_CalendarPo) throws InterruptedException {
+	public void configSync(CommonUtility commonUtility, ph_CalendarPO ip_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
-	commonsPo.waitforElement(getEleSyncBtn(),2);
+	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
 	Thread.sleep(2000);
-	commonsPo.waitforElement(getEleRunConfigSync(),2);
+	commonUtility.waitforElement(getEleRunConfigSync(),2);
 	getEleRunConfigSync().click();
-	//commonsPo.switchContext("NATIVE_APP");
+	//commonsUtility.switchContext("NATIVE_APP");
 try {
 	getElePerformConfigSync().click();
 
 } catch (Exception e) {
 	System.out.println(e);}
-	//commonsPo.switchContext("NATIVE_APP");
-	commonsPo.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
-	assertTrue(commonsPo.isDisplayedCust(getEleRunConfigSync()), "Sync not done");
+	//commonsUtility.switchContext("NATIVE_APP");
+	commonUtility.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
+	assertTrue(commonUtility.isDisplayedCust(getEleRunConfigSync()), "Sync not done");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 
 	
-	public void syncData(CommonsPO commonsPo) throws InterruptedException
+	public void syncData(CommonUtility commonUtility) throws InterruptedException
 	{
 		
 		
@@ -138,12 +138,12 @@ try {
 		getEleMoreBtn().click();
 		getEleDataSync().click();
 		getEleSyncNow().click();
-		commonsPo.waitforElement(getEleDataSynccompleted(),900);
-		assertTrue(commonsPo.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
+		commonUtility.waitforElement(getEleDataSynccompleted(),900);
+		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(3000);
-		//commonsPo.tap(getEleMoreBtn(),20,20);
-		commonsPo.longPress(getEleMoreBtn());
+		//commonsUtility.tap(getEleMoreBtn(),20,20);
+		commonUtility.longPress(getEleMoreBtn());
 		
 		
 	}

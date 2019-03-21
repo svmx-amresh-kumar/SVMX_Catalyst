@@ -36,7 +36,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-	//	commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+	//	commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		   
 		//**********Create Product1**********
 		String sProdName1 = "P1_10530";
@@ -165,23 +165,23 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		System.out.println("WO no ="+sWOName);
 		
 		//**********Login to FSA**********
-		loginHomePo.login(commonsPo, exploreSearchPo);	
+		loginHomePo.login(commonsUtility, exploreSearchPo);	
 		
 		//**********Perform a Data Sync**********
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//**********Perform a Config Sync**********
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//**********Launch Process**********
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(workOrderPo.getLblProduct());
+		commonsUtility.tap(workOrderPo.getLblProduct());
 		System.out.println("I am Here--------");
 		Thread.sleep(60000);
-		commonsPo.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
+		commonsUtility.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
 		Thread.sleep(GenericLib.iMedSleep);
 		List<WebElement> prodList = new ArrayList<WebElement>();
 		prodList = workOrderPo.getProductListInLkp();
@@ -190,12 +190,12 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		String sProdCount = restServices.restGetSoqlValue("SELECT+Count()+from+product2+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
 //		System.out.println(sProdCount);
 		Assert.assertEquals(prodList.size(),Integer.parseInt(sProdCount)); //Scenario 1
-		commonsPo.tap(workOrderPo.getBtnReset());
+		commonsUtility.tap(workOrderPo.getBtnReset());
 		Thread.sleep(GenericLib.iHighSleep);
-		commonsPo.tap(workOrderPo.getLnkFilters());
+		commonsUtility.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
-			commonsPo.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
-			commonsPo.tap(workOrderPo.getBtnApply());
+			commonsUtility.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
+			commonsUtility.tap(workOrderPo.getBtnApply());
 		    String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
 		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
 		    ArrayList<String> sArrOfProd = restServices.getJsonArr(jSonArr, "Name");
@@ -211,8 +211,8 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 2
-			commonsPo.tap(workOrderPo.getLnkLookupCancel());
-			commonsPo.tap(workOrderPo.getElePartLnk());
+			commonsUtility.tap(workOrderPo.getLnkLookupCancel());
+			commonsUtility.tap(workOrderPo.getElePartLnk());
 			soqlquery="select+SVMXC__Product_Name__c+from+SVMXC__Installed_Product__c+where+RecordType.name=\'IB002\'+and+SVMXC__Status__c=\'shipped\'";
 			jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
 		    sArrOfProd = restServices.getJsonArr(jSonArr, "SVMXC__Product_Name__c");
@@ -229,7 +229,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
 		    Thread.sleep(GenericLib.iHighSleep);
-			commonsPo.tap(workOrderPo.getLnkFilters());
+			commonsUtility.tap(workOrderPo.getLnkFilters());
 			Assert.assertTrue(workOrderPo.getChkBoxComplexFilter().isSelected()); //Scenario 5
 	}
 	

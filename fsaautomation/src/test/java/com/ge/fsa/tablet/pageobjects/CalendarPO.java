@@ -1,5 +1,5 @@
 
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 import java.awt.Color;
 import java.text.DateFormat;
@@ -12,6 +12,9 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import com.ge.fsa.lib.CommonUtility;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -265,29 +268,29 @@ public class CalendarPO
 	
 	/**
 	 * Author - Meghana Rao
-	 * @param commonsPo - Passing CommonsPO Function
+	 * @param commonsUtility - Passing CommonUtility Function
 	 * @param workordername - Passing the Work Order number
 	 * @throws Exception - Throwing Required Exception
 	 */
-	public void openWoFromCalendar(CommonsPO commonsPo, String workordername) throws Exception 
+	public void openWoFromCalendar(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 	
-		commonsPo.tap(getEleCalendarClick());
+		commonUtility.tap(getEleCalendarClick());
 		Thread.sleep(6000);
 		try
 		{
 		//geteleWOendpoint("07:00").getLocation();
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
+		commonUtility.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 		getEleworkordernumonCalendarWeek(workordername).getLocation();
-			commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
+			commonUtility.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
 			
 		}
 		catch(Exception e)
 		{
 			//geteleWOendpoint("07:00 AM").getLocation();
-			commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
+			commonUtility.waitforElement(getEleworkordernumonCalendarWeek(workordername), 3);
 			getEleworkordernumonCalendarWeek(workordername).getLocation();
-				commonsPo.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
+				commonUtility.tap(getEleworkordernumonCalendarWeek(workordername),15,60);
 		}
 
 	}
@@ -325,12 +328,12 @@ public class CalendarPO
 	
 	
 	
-	public void VerifyWOInCalender(CommonsPO commonsPo, String workordername) throws Exception 
+	public void VerifyWOInCalender(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
+		commonUtility.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
@@ -357,12 +360,12 @@ public class CalendarPO
 	
 	
 	
-	public void VerifyWOInCalenderException(CommonsPO commonsPo, String workordername) throws Exception 
+	public void VerifyWOInCalenderException(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 	
 		Thread.sleep(3000);
 		try {
-		commonsPo.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
+		commonUtility.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
 		
 	
 		if(getEleworkordernumonCalendarWeek(workordername) != null){
@@ -531,12 +534,12 @@ public class CalendarPO
 	
 	
 	
-	public void VerifyWOInCalenderafterconfchange(CommonsPO commonsPo, String workordername) throws Exception 
+	public void VerifyWOInCalenderafterconfchange(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 	
 		Thread.sleep(3000);
 
-		commonsPo.waitforElement(getelegetWOnum(workordername), 10);
+		commonUtility.waitforElement(getelegetWOnum(workordername), 10);
 		
 	
 		if(getelegetWOnum(workordername) != null){

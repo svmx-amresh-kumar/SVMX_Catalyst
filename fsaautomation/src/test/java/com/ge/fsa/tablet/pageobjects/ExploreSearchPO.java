@@ -1,4 +1,4 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
@@ -119,20 +121,20 @@ public class ExploreSearchPO
 		return eleExploreAccSearchLst;
 	}
 	
-	public void selectWorkOrder(CommonsPO commonsPo, String sWOName) throws InterruptedException
+	public void selectWorkOrder(CommonUtility commonUtility, String sWOName) throws InterruptedException
 	{		
-		commonsPo.tap(getEleExploreSearchTxtFld());
+		commonUtility.tap(getEleExploreSearchTxtFld());
 		//getEleExploreSearchTxtFld().click();;
 		//getEleExploreSearchTxtFld().click();
 			//getEleExploreSearchTxtFld().click();
 		Thread.sleep(3000);
 	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
-		commonsPo.tap(getEleExploreSearchTxtFld());
+		commonUtility.tap(getEleExploreSearchTxtFld());
 		getEleExploreSearchTxtFld().clear();
 		
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
-		commonsPo.tap(getEleExploreSearchBtn());
-		commonsPo.tap(getEleWorkOrderIDTxt(sWOName));
+		commonUtility.tap(getEleExploreSearchBtn());
+		commonUtility.tap(getEleWorkOrderIDTxt(sWOName));
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 	

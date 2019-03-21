@@ -24,7 +24,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.CreateNewPO;
+import com.ge.fsa.tablet.pageobjects.CreateNewPO;
 
 public class SCN_Mapping_RS_10557 extends BaseLib {
 
@@ -68,13 +68,13 @@ String Location=null;
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
+		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 	
 		//sahi
 				/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
-				if(commonsPo.verifySahiExecution()) {
+				if(commonsUtility.verifySahiExecution()) {
 					
 					System.out.println("PASSED");
 				}
@@ -121,60 +121,60 @@ String Location=null;
 		
 		
 			//Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 			//config sync
-			//toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 			//datasync
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			createNewPO.createInstalledProduct(commonsPo,sAccountName, sproductname, sInstalledproductID);
+			createNewPO.createInstalledProduct(commonsUtility,sAccountName, sproductname, sInstalledproductID);
 			
 			Thread.sleep(5000);
 			//navigate to sfm
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName);
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName);
 			//fill the values to to fields
-			commonsPo.setDateTime24hrs((workOrderPo.getEleScheduledDateTimeTxt()), 0,"0", "0");
+			commonsUtility.setDateTime24hrs((workOrderPo.getEleScheduledDateTimeTxt()), 0,"0", "0");
 			Thread.sleep(2000);
-			commonsPo.tap(createNewPO.getEleClicksite());
-			commonsPo.lookupSearch(Location);
+			commonsUtility.tap(createNewPO.getEleClicksite());
+			commonsUtility.lookupSearch(Location);
 			Thread.sleep(2000);
 			
-			//commonsPo.tap(createNewPO.getEleClickComponent());
-			commonsPo.tap(createNewPO.getEleClickComponent());
-			commonsPo.lookupSearch(sInstalledproductID);
+			//commonsUtility.tap(createNewPO.getEleClickComponent());
+			commonsUtility.tap(createNewPO.getEleClickComponent());
+			commonsUtility.lookupSearch(sInstalledproductID);
 			Thread.sleep(2000);
 			//add new line for parts
-			commonsPo.tap(workOrderPo.getElePartLnk());
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getElePartLnk());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			
 			//Add new line for labor
-			commonsPo.tap(workOrderPo.getEleAddLaborLnk());
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleAddLaborLnk());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			
 			//validating mapped values before save
-			commonsPo.tap(workOrderPo.openpartsontap());
+			commonsUtility.tap(workOrderPo.openpartsontap());
 			//Thread.sleep(GenericLib.iHighSleep);
 			String fetchedlocation =workOrderPo.getElePartsLocation().getAttribute("value");
 			System.out.println(fetchedlocation);
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			try{Assert.assertTrue(fetchedlocation.equals(Location));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
 			
-			commonsPo.tap(workOrderPo.openLaborontap());
+			commonsUtility.tap(workOrderPo.openLaborontap());
 			String fetchedstartdateandtime =workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			String getscheduleddatetime= workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			try{Assert.assertTrue(fetchedstartdateandtime.equals(getscheduleddatetime));ExtentManager.logger.log(Status.PASS,"date required(Date/time) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");}
 			
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
-			commonsPo.tap(workOrderPo.getEleSaveLnk());
+			commonsUtility.tap(workOrderPo.getEleSaveLnk());
 			
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			
@@ -215,22 +215,22 @@ String Location=null;
 
 			System.out.println("Validating mapping after data sync");
 			
-			commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );
+			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			commonsPo.tap(workOrderPo.openpartsontap());
+			commonsUtility.tap(workOrderPo.openpartsontap());
 			//Thread.sleep(GenericLib.iHighSleep);
 			  fetchedlocation = workOrderPo.getElePartsLocation().getAttribute("value");
 			System.out.println(fetchedlocation);
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			try{Assert.assertTrue(fetchedlocation.equals(Location));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
 			
-			commonsPo.tap(workOrderPo.getLaboronsecondprt());
+			commonsUtility.tap(workOrderPo.getLaboronsecondprt());
 			  fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 			System.out.println(fetchedstartdateandtime);
-			commonsPo.tap(workOrderPo.getEleDoneBtn());
+			commonsUtility.tap(workOrderPo.getEleDoneBtn());
 			  getscheduleddatetime = workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			try{Assert.assertTrue(fetchedstartdateandtime.equals(getscheduleddatetime));ExtentManager.logger.log(Status.PASS,"date required(Date/time) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");}

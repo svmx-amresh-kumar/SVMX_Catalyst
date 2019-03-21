@@ -32,24 +32,24 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sExploreSearch = "WO SEARCH";
 		
 		// Add Processes
-		commonsPo.execSahi(genericLib, sScriptName1, sTestCaseID);
+		commonsUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
 		
 		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		lauchNewApp("false");
-		loginHomePo.login(commonsPo, exploreSearchPo);	
-		toolsPo.configSync(commonsPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);	
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt(sExploreSearch).isDisplayed());
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sProcessName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
-		commonsPo.tap(workOrderPo.getEleCancelLink());
-		commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
+		commonsUtility.tap(workOrderPo.getEleCancelLink());
+		commonsUtility.tap(workOrderPo.geteleDiscardChangesbutton());
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
 		Thread.sleep(GenericLib.iMedSleep);
@@ -58,16 +58,16 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		
 		//Edit Processes
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
 		Assert.assertTrue(exploreSearchPo.getEleSearchItem("Cases").isDisplayed());
-		commonsPo.tap(exploreSearchPo.getEleSearchItem("Work Orders"));
-		commonsPo.tap(exploreSearchPo.getEleWOSearch(sWOName));
-		workOrderPo.selectAction(commonsPo, sProcessName);
+		commonsUtility.tap(exploreSearchPo.getEleSearchItem("Work Orders"));
+		commonsUtility.tap(exploreSearchPo.getEleWOSearch(sWOName));
+		workOrderPo.selectAction(commonsUtility, sProcessName);
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
 		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
 			

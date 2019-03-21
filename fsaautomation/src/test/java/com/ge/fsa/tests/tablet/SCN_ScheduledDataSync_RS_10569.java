@@ -56,7 +56,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
 		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah",sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
@@ -65,27 +65,27 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	{
 		// running the Sahi Script Post check - to reset scheduled data sync back to 1000
 		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah",sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		//lauchNewApp("true");
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 	}
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10569() throws Exception {
 		
-		commonsPo.preReqSetup(genericLib);
+		commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
 		
 		PreRequisites();
 		
 		// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		// Perform Config Sync
-		toolsPo.configSync(commonsPo);		
+		toolsPo.configSync(commonsUtility);		
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Create work Order
@@ -97,7 +97,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		
 	
 		// Wait for 5-8 minutes as scheduled data sync will need to start trigger
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
+		commonsUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
 		Thread.sleep(GenericLib.i30SecSleep);
 		//Verification of successful sync
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
@@ -105,18 +105,18 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		Thread.sleep(GenericLib.iHighSleep);
 
 		//Navigation to WO	
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					     
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					     
 		ExtentManager.logger.log(Status.PASS,"Work Order Created before scheduled sync is synced from server to FSA");
-		commonsPo.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
+		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.getEleSaveLnk());
-	    commonsPo.tap(toolsPo.getEleToolsIcn());	
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+	    commonsUtility.tap(toolsPo.getEleToolsIcn());	
 		Assert.assertTrue(toolsPo.getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");	
 		
 		
 	//waiting for 5 bare minimum as we need to see capture the refreshing view for scheduled Data Sync.
-		commonsPo.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
+		commonsUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
 		Thread.sleep(GenericLib.i30SecSleep);
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		restServices.getAccessToken();

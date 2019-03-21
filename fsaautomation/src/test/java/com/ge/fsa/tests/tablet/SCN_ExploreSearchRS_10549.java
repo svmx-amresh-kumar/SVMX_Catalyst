@@ -18,7 +18,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 	private void preRequiste() throws Exception  
 	{
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
 
@@ -32,18 +32,18 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 		preRequiste();
 
 		//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 
 		//Config Sync for process
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 
 		//Navigation to SFM
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt("Serial Number Search").isDisplayed(), "Serial Number Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Serial Number Search text is successfully displayed");
@@ -61,7 +61,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"RS_10549 Multi Field WO Search text is successfully displayed");
 		
 	
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10549 Multi Field WO Search text is successfully displayed");
 	

@@ -1,10 +1,13 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import com.ge.fsa.lib.CommonUtility;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -96,24 +99,24 @@ public class RecentItemsPO
 	
 	/**
 	 * Owner: Meghana Rao
-	 * @param commonsPo = This will pass the CommonsPO functions
+	 * @param commonsUtility = This will pass the CommonUtility functions
 	 * @throws InterruptedException 
 	 */
-	public void clickonWorkOrder(CommonsPO commonsPo, String workordername) throws InterruptedException 
+	public void clickonWorkOrder(CommonUtility commonUtility, String workordername) throws InterruptedException 
 	{
-		commonsPo.tap(getEleClickRecentItems());
+		commonUtility.tap(getEleClickRecentItems());
 		Thread.sleep(1000);
-		commonsPo.tap(getEleSearchtext());
+		commonUtility.tap(getEleSearchtext());
 		getEleSearchtext().sendKeys(workordername);
 		try
 		{
-			commonsPo.tap(getEleWorkordernumberclick(workordername));
+			commonUtility.tap(getEleWorkordernumberclick(workordername));
 	
 		}
 		catch(Exception e)
 		{
-			commonsPo.tap(getEleworkordertabtap());
-			commonsPo.tap(getEleWorkordernumberclick(workordername));
+			commonUtility.tap(getEleworkordertabtap());
+			commonUtility.tap(getEleWorkordernumberclick(workordername));
 			
 		}
 		Thread.sleep(1000);

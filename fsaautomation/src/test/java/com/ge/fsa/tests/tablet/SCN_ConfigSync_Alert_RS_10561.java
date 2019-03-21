@@ -36,28 +36,28 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 				
 				genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah");
-				Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+				Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
 	public void postscript() throws Exception
 	{
 		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah",sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 		
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10561() throws Exception {
 		
-		commonsPo.preReqSetup(genericLib);
+		commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");	
 		prerequisites();
 	// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		ExtentManager.logger.log(Status.PASS,"First Config sync is sucessfull after setting value");
 		System.out.println("First Config Sync sucessfull after setting value");
 		System.out.println("Begining wait to check for config sync due is displayed after 5 minutes");
@@ -74,7 +74,7 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		System.out.println("AppLaunchsettotrue");
 		/*//the config sync due pop up may thrown if 5 minutes has passed hence clicking on the popup in try block
 		try {
-			commonsPo.tap(toolsPo.getEleOkBtn());	
+			commonsUtility.tap(toolsPo.getEleOkBtn());	
 		} catch (Exception e) {
 			// TODO: handle exception 
 			System.out.println("Could not find the popup config sync pop up button this time");
@@ -87,25 +87,25 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		sConfigSyncDueBadge =  toolsPo.geeteleConflictBadge().getText();
 		Assert.assertTrue(sConfigSyncDueBadge.equals(sConfigSyncDueBadgevalidationvalue), "Config sync Due alert is not turned to 1");
 		ExtentManager.logger.log(Status.PASS,"Config Sync Alert 1 shown in Tools");
-		commonsPo.tap(toolsPo.getEleToolsIcn());
+		commonsUtility.tap(toolsPo.getEleToolsIcn());
 		
 		//Getting the value of 1 in Tools page besides Config Sync
 		stoolspageval=	toolsPo.geteleConfigSyncAlertBadge().getText();		
 		Assert.assertTrue(stoolspageval.equals(stoolsexpectedval), "Config sync Due alert is not turned to 1");
 		ExtentManager.logger.log(Status.PASS,"Config Sync Alert 1 shown besides ConfigSync");
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		
 		
 		// running the Sahi Script to set back value to 600
 		postscript();
 		
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		
 		//Performing config after resetting config sync setting back to 600 and validate if badge is still visible.
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		System.out.println("Second Config Sync sucessfull after resetting value");
 		
 		try {

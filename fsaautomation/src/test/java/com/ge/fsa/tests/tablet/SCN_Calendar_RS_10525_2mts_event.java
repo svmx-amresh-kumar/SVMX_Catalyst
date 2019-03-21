@@ -59,11 +59,11 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	public void RS_10525_2months_event() throws Exception {
 		sSheetName ="RS_10525";
 		
-		String sProformainVoice = commonsPo.generaterandomnumber("Proforma");
+		String sProformainVoice = commonsUtility.generaterandomnumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
 		String sTestIBID = sProformainVoice;
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	
 	//read from file
 		sExploreSearch = GenericLib.getExcelData(sTestIB,sSheetName, "ExploreSearch");
@@ -72,15 +72,15 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		String TechName = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
 		
 			//Pre Login to app
-			loginHomePo.login(commonsPo, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		
 		//config sync
-			//toolsPo.configSync(commonsPo);
+			//toolsPo.configSync(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			//toolsPo.syncData(commonsPo);
+			//toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -136,7 +136,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			//sProductName1="v1";
 			System.out.println(seventName);
 		
-			toolsPo.syncData(commonsPo);
+			toolsPo.syncData(commonsUtility);
 		
 		//String sWOName="WO-00002608";  String sObjectAWOID ="a2D0t000002Me4tEAC";
 			String sSoqlStartDateTime = "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
@@ -149,15 +149,15 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		
 		
 			//verifing event is present 
-			commonsPo.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getElecalendarmonthtap());
+			commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 			String convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getelemonthday(convertedstartday));
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
+			commonsUtility.tap(calendarPO.getelemonthday(convertedstartday));
+			commonsUtility.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
 			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
 				System.out.println("Found WO in day View " + sWOName);
 				}
@@ -173,19 +173,19 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 			String convertedendday =calendarPO.convertdatetimetoday(sSoqlQueryEndDateTime);
 			System.out.println(convertedendday);
 			Thread.sleep(3000);
-			commonsPo.tap(calendarPO.getElecalendarmonthtap());
+			commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 			
-			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
-			commonsPo.tap(calendarPO.getelenavigatetonextmonthcalender());
+			commonsUtility.tap(calendarPO.getelenavigatetonextmonthcalender());
+			commonsUtility.tap(calendarPO.getelenavigatetonextmonthcalender());
 			
 			Thread.sleep(3000);
 			calendarPO.getelemonthday(convertedendday).getLocation();
-			commonsPo.tap(calendarPO.getelemonthday(convertedendday));
-			//commonsPo.tap(calendarPO.geteletaponmonthdayindex());
+			commonsUtility.tap(calendarPO.getelemonthday(convertedendday));
+			//commonsUtility.tap(calendarPO.geteletaponmonthdayindex());
 			
 			Thread.sleep(3000);
-			commonsPo.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
+			commonsUtility.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sWOName), 30);
 			if(calendarPO.getEleworkordernumonCalendarWeek(sWOName) != null){
 				System.out.println("Found WO in day View " + sWOName);
 				}

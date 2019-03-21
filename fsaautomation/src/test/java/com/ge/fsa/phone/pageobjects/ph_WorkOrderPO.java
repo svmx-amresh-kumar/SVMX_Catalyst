@@ -1,4 +1,4 @@
-package com.ge.fsa.iphone.pageobjects;
+package com.ge.fsa.phone.pageobjects;
 
 
 import static org.testng.Assert.assertFalse;
@@ -17,11 +17,12 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -29,9 +30,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class Ip_WorkOrderPO extends BaseLib
+public class ph_WorkOrderPO extends BaseLib
 {
-	public Ip_WorkOrderPO(AppiumDriver driver)
+	public ph_WorkOrderPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -122,19 +123,19 @@ public class Ip_WorkOrderPO extends BaseLib
 	}
 
 	
-	public void selectAction(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
+	public void selectAction(CommonUtility commonUtility,ph_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
 	{
 		getEleActionsLnk().click();	
-		commonsPo.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
+		commonUtility.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
 
-	public void createNewEvent(CommonsPO commonsPo,String sSubject,Ip_CalendarPO ip_CalendarPo) throws InterruptedException
+	public void createNewEvent(CommonUtility commonUtility,String sSubject,ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
-		selectAction(commonsPo,ip_CalendarPo,"Create New Event From Work Order");
+		selectAction(commonUtility,ip_CalendarPo,"Create New Event From Work Order");
 		
-		commonsPo.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
-		commonsPo.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
@@ -243,7 +244,7 @@ public class Ip_WorkOrderPO extends BaseLib
 		return elesave;
 	}
 	
-	public void addParts(Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addParts(ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
 		getElePartLnk().click();
 		Thread.sleep(3000);
@@ -255,9 +256,9 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleAddSelected().click();
 	}
 
-	public void addLabor(CommonsPO commonsPo,Ip_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
+	public void addLabor(CommonUtility commonUtility,ph_CalendarPO ip_CalendarPo,String sProductName1) throws InterruptedException 
 	{
-		commonsPo.custScrollToElementAndClick(getEleLaborLnk());
+		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		Thread.sleep(1000);
 		getElepartlookup().click();
 		ip_CalendarPo.getElelookupsearhproduct().click();
@@ -271,8 +272,8 @@ public class Ip_WorkOrderPO extends BaseLib
 		getEleActivityType().click();
 		getEleCalibration().click();
 		
-		commonsPo.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0"); //set start time to Today
-		commonsPo.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
+		commonUtility.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0"); //set start time to Today
+		commonUtility.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
 		
 		getEleLineQtyTxtFld().click();
 		getEleLineQtyTxtFld().sendKeys("10");

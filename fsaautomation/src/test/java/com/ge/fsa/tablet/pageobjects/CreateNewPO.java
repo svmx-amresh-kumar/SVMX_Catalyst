@@ -1,10 +1,11 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.ge.fsa.lib.CommonUtility;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -190,66 +191,66 @@ public class CreateNewPO
 	
 	/**
 	 * Owner : Meghana Rao P
-	 * @param commonsPo = Passing the function CommonsPO
+	 * @param commonsUtility = Passing the function CommonUtility
 	 * @param accountName = Passing the Account Field
 	 * @param contactName = Passing the Contact
 	 * @param ProdutName = Passing the Product
 	 * @param priority = Passing the Priority
 	 * @param billingType = Passing the billingType
 	 */
-	public void createWorkOrder(CommonsPO commonsPo,String accountName, String contactName, String ProdutName, String priority, String billingType, String proformaInvoice) throws Exception
+	public void createWorkOrder(CommonUtility commonUtility,String accountName, String contactName, String ProdutName, String priority, String billingType, String proformaInvoice) throws Exception
 	{
 		
-		commonsPo.tap(getEleCreateNew());
-		commonsPo.tap(getEleCreateNewWorkOrder());
+		commonUtility.tap(getEleCreateNew());
+		commonUtility.tap(getEleCreateNewWorkOrder());
 		Thread.sleep(2000);
 		// Adding Value for Account
-		commonsPo.tap(getEleClickAccountfield());
-		commonsPo.lookupSearch(accountName);
+		commonUtility.tap(getEleClickAccountfield());
+		commonUtility.lookupSearch(accountName);
 	
 		// Adding Value for Contact
-		commonsPo.tap(getEleClickContactfield());
-		commonsPo.lookupSearch(contactName);
+		commonUtility.tap(getEleClickContactfield());
+		commonUtility.lookupSearch(contactName);
 		
 		// Adding Value for Product
-		commonsPo.tap(getEleClickProductfield());
-		commonsPo.lookupSearch(ProdutName);
+		commonUtility.tap(getEleClickProductfield());
+		commonUtility.lookupSearch(ProdutName);
 		
 		// Selecting the Priority Low
-		commonsPo.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
-		commonsPo.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
+		commonUtility.setPickerWheelValue(getEleClickPriorityPicklist(), priority);
+		commonUtility.setPickerWheelValue(getEleClickBillingTypePicklist(), billingType);
 		//getEleproformainvoicevalue().click();
-		//commonsPo.tap(getEleproformainvoicevalue());
-		//commonsPo.tap(getEleproformainvoicevalue());
+		//commonsUtility.tap(getEleproformainvoicevalue());
+		//commonsUtility.tap(getEleproformainvoicevalue());
 		getEleproformainvoicetextarea().sendKeys(proformaInvoice);
-		//commonsPo.tap(getEleupdatethetextfield());
+		//commonsUtility.tap(getEleupdatethetextfield());
 		Thread.sleep(1000);
-		commonsPo.tap(getEleSaveWorkOrdert());
+		commonUtility.tap(getEleSaveWorkOrdert());
 		
 	}
 	
 	
 	
-	public void createInstalledProduct(CommonsPO commonsPo,String accountName, String ProdutName,String InstalledProductID) throws Exception
+	public void createInstalledProduct(CommonUtility commonUtility,String accountName, String ProdutName,String InstalledProductID) throws Exception
 	{
 		
-		commonsPo.tap(getEleCreateNew());
-		commonsPo.tap(getEleCreateNewIB());
+		commonUtility.tap(getEleCreateNew());
+		commonUtility.tap(getEleCreateNewIB());
 		Thread.sleep(2000);
 		// Adding Value for Account
-		commonsPo.tap(getEleClickAccountfield());
-		commonsPo.lookupSearch(accountName);
+		commonUtility.tap(getEleClickAccountfield());
+		commonUtility.lookupSearch(accountName);
 	
 		
 		// Adding Value for Product
-		commonsPo.tap(getEleClickProductfield());
-		commonsPo.lookupSearch(ProdutName);
+		commonUtility.tap(getEleClickProductfield());
+		commonUtility.lookupSearch(ProdutName);
 		// Adding Value for InstalledproductID
-				commonsPo.tap(getClickInstalledProductID());
+				commonUtility.tap(getClickInstalledProductID());
 			getClickInstalledProductID().sendKeys(InstalledProductID);
 		
 		Thread.sleep(1000);
-		commonsPo.tap(getEleSaveWorkOrdert());
+		commonUtility.tap(getEleSaveWorkOrdert());
 		
 	}
 	

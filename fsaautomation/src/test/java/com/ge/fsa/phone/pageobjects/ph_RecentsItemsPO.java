@@ -1,4 +1,4 @@
-package com.ge.fsa.iphone.pageobjects;
+package com.ge.fsa.phone.pageobjects;
 
 
 import static org.testng.Assert.assertFalse;
@@ -17,10 +17,10 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -29,9 +29,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class Ip_RecentsItemsPO
+public class ph_RecentsItemsPO
 {
-	public Ip_RecentsItemsPO(AppiumDriver driver)
+	public ph_RecentsItemsPO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

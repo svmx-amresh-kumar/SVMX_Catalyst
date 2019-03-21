@@ -33,7 +33,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	private void preRequiste() throws Exception  
 	{
 		restServices.getAccessToken();
-		sSerialNumber = commonsPo.generaterandomnumber("");
+		sSerialNumber = commonsUtility.generaterandomnumber("");
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -60,7 +60,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		sContactName = sSerialNumber+" "+"RS_10546";
 		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
@@ -73,19 +73,19 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		preRequiste();
 
 		//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM search
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
-		commonsPo.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		
 		//Validation of WorkOrder object search and count
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed");
@@ -120,25 +120,25 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.");
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Work Orders", sWOName, null);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Work Orders", sWOName, null);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sWOName).isDisplayed(), sWOName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sWOName+" is successfully displayed");
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Contacts", sContactName, null);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Contacts", sContactName, null);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sContactName).isDisplayed(), sContactName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sContactName+" is successfully displayed");
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Products", sProductName, null);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Products", sProductName, null);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sProductName).isDisplayed(), sProductName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sProductName+" is successfully displayed");
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sSerialNumber+"AccA").isDisplayed(), sSerialNumber+"AccA is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccA is successfully displayed");

@@ -23,11 +23,11 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	public void RS_10559() throws Exception {
 		
 //		//Running Pre-Req
-//		 commonsPo.preReqSetup(genericLib);
+//		 commonsUtility.preReqSetup(genericLib);
 //		// Resinstall the app
 //		lauchNewApp("false");
 //		//Execute Sahi
-		commonsPo.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
@@ -35,7 +35,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		//	System.out.println("WO no ="+sWOName);
 		//**********Create Product from API**********
-		String sProductName = commonsPo.generaterandomnumber("Prod");
+		String sProductName = commonsUtility.generaterandomnumber("Prod");
 		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
 		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
 		//	System.out.println(sProductId);
@@ -56,17 +56,17 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		dateFormat.setTimeZone(gmtTime);
 		String sCurrentDate = dateFormat.format(date);
 		System.out.println(sCurrentDate);
-		loginHomePo.login(commonsPo, exploreSearchPo);	
-		toolsPo.syncData(commonsPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);	
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsPo); 
+		toolsPo.configSync(commonsUtility); 
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
+		workOrderPo.navigateToWOSFMWithIcon(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
-		commonsPo.tap(workOrderPo.getEleActionsLnk());
+		commonsUtility.tap(workOrderPo.getEleActionsLnk());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
-	//	commonsPo.tap(workOrderPo.getEleLblStateName());
+		commonsUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+	//	commonsUtility.tap(workOrderPo.getEleLblStateName());
 		Thread.sleep(5000);
 //		System.out.println("State is "+workOrderPo.getEleLblStateName().getAttribute("innerText"));
 //		Thread.sleep(GenericLib.iHighSleep);
@@ -84,22 +84,22 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 			workOrderPo.geteleDiscardChangesbutton().click();
 		}
 		catch(Exception e){
-			commonsPo.tap(workOrderPo.getelecancelbutton());
-			commonsPo.tap(workOrderPo.geteleDiscardChangesbutton());
+			commonsUtility.tap(workOrderPo.getelecancelbutton());
+			commonsUtility.tap(workOrderPo.geteleDiscardChangesbutton());
 		}
-		workOrderPo.navigateToWOSFMWithIcon(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
+		workOrderPo.navigateToWOSFMWithIcon(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 		Thread.sleep(GenericLib.i30SecSleep);
 		try{
 			workOrderPo.getEleActionsLnk().click();
 		}
 		catch (Exception e) {
-			commonsPo.tap(workOrderPo.getEleActionsLnk());
+			commonsUtility.tap(workOrderPo.getEleActionsLnk());
 		}
 		
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsPo.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+		commonsUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		workOrderPo.getEleclickparts(sProductName).click();
-		commonsPo.tap(workOrderPo.getEleclickparts(sProductName),20,20);
+		commonsUtility.tap(workOrderPo.getEleclickparts(sProductName),20,20);
 		Thread.sleep(5000);
 //		System.out.println("R city "+workOrderPo.getEleLblRequestedCity().getAttribute("innerText"));
 //		System.out.println(sRequestedCity);

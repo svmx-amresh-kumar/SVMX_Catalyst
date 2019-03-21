@@ -27,7 +27,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.CreateNewPO;
+import com.ge.fsa.tablet.pageobjects.CreateNewPO;
 
 public class SCN_Mapping_RS_10556 extends BaseLib {
 
@@ -88,11 +88,11 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";
 
-		String sProformainVoice = commonsPo.generaterandomnumber("AUTO");
+		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
 
 		
 		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah")
-		  ; if(commonsPo.verifySahiExecution()) { System.out.println("PASSED"); } else
+		  ; if(commonsUtility.verifySahiExecution()) { System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
@@ -107,21 +107,21 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sworkordernumber = GenericLib.getExcelData(sTestCaseID, sSheetName, "WorkOrder Number");
 
 		// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 
 		// config sync
-		// toolsPo.configSync(commonsPo);
+		// toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// datasync
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
-		// calendarPO.openWoFromCalendar(commonsPo, sworkordernumber);
-		commonsPo.tap(calendarPO.getEleCalendarClick());
-		commonsPo.tap(calendarPO.gettaponcalevent(sworkordernumber), 15, 60);
+		// calendarPO.openWoFromCalendar(commonsUtility, sworkordernumber);
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.gettaponcalevent(sworkordernumber), 15, 60);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.selectAction(commonsPo, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 
 		// to get orderstatus nd ordertype from workorder
 		restServices.getAccessToken();
@@ -285,8 +285,8 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String sProductName = "P10556_Auto";
 
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
-		commonsPo.tap(workOrderPo.openpartsontap());
+		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
+		commonsUtility.tap(workOrderPo.openpartsontap());
 
 		// Verifying mapping before save on child
 		System.out.println(
@@ -412,12 +412,12 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		}
 
 		ExtentManager.logger.log(Status.PASS, "Work details  Mapping is Successful before save");
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 
-		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 
 		// datasync
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// collecting data from server
@@ -695,7 +695,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		System.out.println("Validating mapping after data sync");
 
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,
 				sworkordernumber, "EDIT_WORKORDER_MAPPING");
 		Thread.sleep(GenericLib.iMedSleep);
 
@@ -847,8 +847,8 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		System.out.println("Validation of child after data sync ");
 
-		// commonsPo.tap(workOrderPo.geteletaponfirstpart(),20,20);
-		commonsPo.tap(workOrderPo.geteletaponfirstpart(), 30, 36);
+		// commonsUtility.tap(workOrderPo.geteletaponfirstpart(),20,20);
+		commonsUtility.tap(workOrderPo.geteletaponfirstpart(), 30, 36);
 		Thread.sleep(2000);
 
 		// Verifying mapping After data sync on child

@@ -21,7 +21,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.CalendarPO;
+import com.ge.fsa.tablet.pageobjects.CalendarPO;
 
 public class SCN_Calendar_5_RS_10515 extends BaseLib {
 
@@ -60,14 +60,14 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 
 		String sTestCaseID = "RS_10515_Calender_5";
 
-		 commonsPo.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		 commonsPo.deleteCalendarEvents(restServices,calendarPO,"Event");
-		 commonsPo.preReqSetup(genericLib);
+		 commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		 commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		 commonsUtility.preReqSetup(genericLib);
 		// sahi
 
 		
 		  genericLib.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
-		  if(commonsPo.verifySahiExecution()) {
+		  if(commonsUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -85,28 +85,28 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		sWO_SVMX_5 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_5");
 		sWO_SVMX_6 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_6");
 		// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 
 		// config sync
 		/*
-		 * //toolsPo.configSync(commonsPo); Thread.sleep(3000);
-		 * toolsPo.syncData(commonsPo); Thread.sleep(3000);
+		 * //toolsPo.configSync(commonsUtility); Thread.sleep(3000);
+		 * toolsPo.syncData(commonsUtility); Thread.sleep(3000);
 		 */
-		commonsPo.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 
 		// verify the Event is displayed or not
 
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_1);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_2);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_3);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_4);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_5);
-		calendarPO.VerifyWOInCalenderafterconfchange(commonsPo, sWO_SVMX_6);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_1);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_2);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_3);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_4);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_5);
+		calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility, sWO_SVMX_6);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		commonsPo.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(5000);
 		
 		// WO1

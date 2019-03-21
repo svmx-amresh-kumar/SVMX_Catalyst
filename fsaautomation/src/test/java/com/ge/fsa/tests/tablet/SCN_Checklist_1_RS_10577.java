@@ -18,12 +18,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
 
 public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sTestCaseID = null;
@@ -124,11 +124,11 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		// sWOName = "WO-00005043";
 
-		bProcessCheckResult = commonsPo.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
+		bProcessCheckResult = commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
 				sTestCaseID);
 		/*
 		 * genericLib.executeSahiScript("appium/Scenario_RS-10577_Checklist_SOU.sah",
-		 * sTestCaseID); Assert.assertTrue(commonsPo.verifySahiExecution(),
+		 * sTestCaseID); Assert.assertTrue(commonsUtility.verifySahiExecution(),
 		 * "Failed to execute Sahi script");
 		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
 		 * "Sahi verification is successful");
@@ -141,7 +141,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	public void RS_10577() throws Exception {
 
 		// Running Pre-Req
-		commonsPo.preReqSetup(genericLib);
+		commonsUtility.preReqSetup(genericLib);
 		
 		// Resinstall the app
 		lauchNewApp("false");
@@ -151,21 +151,21 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		prerequisites();
 		
 		// Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
-		toolsPo.OptionalConfigSync(toolsPo, commonsPo, bProcessCheckResult);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
+		toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsPo, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsPo.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// System.out.println("validating pre filled text question is showing up");
@@ -202,17 +202,17 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		 */
 
 		// tapping next button
-		commonsPo.tap(checklistPo.geteleNext());
+		commonsUtility.tap(checklistPo.geteleNext());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
-		commonsPo.clickAllowPopUp();
-		commonsPo.switchContext("WebView");
-		commonsPo.tap(checklistPo.eleChecklistSubmit());
-		commonsPo.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonsUtility.clickAllowPopUp();
+		commonsUtility.switchContext("WebView");
+		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 
 		// Navigating back to work Orders
-		commonsPo.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 
 		// Navigation back to Work Order
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -221,7 +221,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// Navigate to SFM processes
-		workOrderPo.selectAction(commonsPo, sEditProcessName);
+		workOrderPo.selectAction(commonsUtility, sEditProcessName);
 
 		// ------------------Validating the Source Object Updates------------------
 		// 1.Picklist
@@ -274,22 +274,22 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		// Checkbox Button validation
 
 		try {
-			commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+			commonsUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
 			ExtentManager.logger.log(Status.PASS, "Checkbox Source Object update with checkbox datatype Passed");
 		} catch (Exception e) {
 			ExtentManager.logger.log(Status.FAIL, "Checkbox Source Object update with checkbox datatype Failed");
 		}
 
-		commonsPo.tap(workOrderPo.getEleCancelLink());
-		commonsPo.tap(workOrderPo.getEleDiscardChanges());
+		commonsUtility.tap(workOrderPo.getEleCancelLink());
+		commonsUtility.tap(workOrderPo.getEleDiscardChanges());
 
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
-		workOrderPo.selectAction(commonsPo, sEditProcessName);
+		workOrderPo.selectAction(commonsUtility, sEditProcessName);
 
 		// ------------------Validating the Source Object Updates after data sync-------------------------
 
@@ -343,7 +343,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		// Checkbox Button validation
 
 		try {
-			commonsPo.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+			commonsUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
 			ExtentManager.logger.log(Status.PASS,
 					"Checkbox Source Object update with checkbox datatype Passed after datasync");
 		} catch (Exception e) {
@@ -351,7 +351,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 					"Checkbox Source Object update with checkbox datatype Failed after datasync");
 		}
 
-		// commonsPo.tap(exploreSearchPo.getEleExploreIcn());
+		// commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 
 		// validating in server after source object update and if prefilled values are
 		// syned to server

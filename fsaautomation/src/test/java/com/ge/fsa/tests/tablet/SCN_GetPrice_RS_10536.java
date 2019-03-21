@@ -25,8 +25,8 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		System.out.println("SCN_GetPriceSCON_RS_10536");
 		// To run the Sahi Script before the Execution of Appium - 10539
 		genericLib.executeSahiScript("appium/Scenario_10536.sah");
-		if(commonsPo.verifySahiExecution()) {
+		if(commonsUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
 		}
@@ -70,12 +70,12 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 			assertEquals(0, 1);
 	}
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		// Have a config Sync
 
-		//toolsPo.configSync(commonsPo);
+		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sProductName10539 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product2 Name");
@@ -95,25 +95,25 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		System.out.println(sworkOrderName);
 		
 		Thread.sleep(genericLib.iMedSleep);
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.selectAction(commonsUtility,sProcessname);
 		
 		
 	/**
 	 * PARTS - Verification of Fields
 	 */
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName10538);
+		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName10538);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Warranty", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
-		commonsPo.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName10538),10,10);
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName10538));
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName10538),10,10);
 		
 		// Verify Each field value after the Get Price
 		String sLinePricePerUnit1 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
@@ -129,7 +129,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is : 10000 Actual Value is"+sLinePricePerUnit1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is : 10000 Actual Value is"+sLinePricePerUnit1, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		
 		// Verifying the Discount 
@@ -139,7 +139,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Covered Percent:Expected Value is : 30 Actual Value is"+sCovered, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Covered Percent:Expected Value is : 30 Actual Value is"+sCovered, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty1.equals("1.000"))
@@ -148,7 +148,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Billing Quantity:Expected Value is :1.000 Actual Value is"+sBillableQty1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billing Quantity:Expected Value is :1.000 Actual Value is"+sBillableQty1, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice1.equals("7000.000"))
@@ -157,33 +157,33 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price:Expected Value is :7000.000 Actual Value is"+sBillableLinePrice1, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price:Expected Value is :7000.000 Actual Value is"+sBillableLinePrice1, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
 
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		
 		// To verify Linked SFM from the PS Lines
 		Thread.sleep(10000);
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname2 = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname2);
-		commonsPo.tap(workOrderPo.getEleLinkedSFM());
-		commonsPo.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
-		commonsPo.tap(workOrderPo.getEleOKBtn());
-		workOrderPo.addPartsManageWD(commonsPo, workOrderPo,sProductName10539);
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		workOrderPo.selectAction(commonsUtility,sProcessname2);
+		commonsUtility.tap(workOrderPo.getEleLinkedSFM());
+		commonsUtility.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
+		commonsUtility.tap(workOrderPo.getEleOKBtn());
+		workOrderPo.addPartsManageWD(commonsUtility, workOrderPo,sProductName10539);
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
-		commonsPo.tap(workOrderPo.geteleGetPrice());
-		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
-		commonsPo.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))),10,10);
+		workOrderPo.selectAction(commonsUtility,sProcessname);
+		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonsUtility.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))));
+		commonsUtility.tap((driver.findElement(By.xpath("(//div[text()='"+sProductName10539+"'])[2]"))),10,10);
 		
 		// To verify the values of the Next Addition of PArts
 		
@@ -200,7 +200,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS: Line Price Per Unit 1:Expected Value is : 3000 Actual Value is"+sLinePricePerUnit2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS: Line Price Per Unit 1:Expected Value is : 3000 Actual Value is"+sLinePricePerUnit2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		
 		// Verifying the Discount 
@@ -210,7 +210,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS: Discount Percent:Expected Value is : 15 Actual Value is"+sDiscount, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS: Discount Percent:Expected Value is : 15 Actual Value is"+sDiscount, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty2.equals("1.000"))
@@ -219,7 +219,7 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS: Billable Quantity:Expected Value is : 1.000 Actual Value is"+sBillableQty2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS: Billable Quantity:Expected Value is : 1.000 Actual Value is"+sBillableQty2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice2.equals("2550.000"))
@@ -228,13 +228,13 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS: Billable Line Price Value is :2550.000 Actual Value is"+sBillableLinePrice2, MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS: Billable Line Price Value is :2550.000 Actual Value is"+sBillableLinePrice2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 		
 		// Verifying after sync the system
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
-		commonsPo.tap(workOrderPo.getEleClickSave());
-			toolsPo.syncData(commonsPo);
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
+			toolsPo.syncData(commonsUtility);
 
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();

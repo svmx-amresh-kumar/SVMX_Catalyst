@@ -1,4 +1,4 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
@@ -82,20 +83,20 @@ public class TasksPO{
 	/**
 	 * Add task , if optional sDesc is not passed , default description value will be set.
 	 * 
-	 * @param commonsPo
+	 * @param commonsUtility
 	 * @param sDesc
 	 * @throws InterruptedException
 	 */
 
-	public String addTask(CommonsPO commonsPo, String...sDesc) throws InterruptedException {
-		String desc = sDesc.length > 0 ? sDesc[0] : commonsPo.generaterandomnumber("TaskDesc");
-		commonsPo.tap(getEleTasksIcn());	
+	public String addTask(CommonUtility commonUtility, String...sDesc) throws InterruptedException {
+		String desc = sDesc.length > 0 ? sDesc[0] : commonUtility.generaterandomnumber("TaskDesc");
+		commonUtility.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tasks screen is displayed successfully");
-		commonsPo.tap(getEleAddTasksBtn());
+		commonUtility.tap(getEleAddTasksBtn());
 		getEleDescriptionTxtArea().sendKeys(desc);
-		commonsPo.tap(getEleHighRadioBtn());
-		commonsPo.tap(getEleSaveBtn());
+		commonUtility.tap(getEleHighRadioBtn());
+		commonUtility.tap(getEleSaveBtn());
 		List<WebElement> tasksList = new ArrayList<WebElement>();
 		tasksList = getEleInTasksList();
 		int count = 0;

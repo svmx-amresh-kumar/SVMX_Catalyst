@@ -81,7 +81,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		restServices = new RestServices();
 		genericLib = new GenericLib();
 		restServices.getAccessToken();
-		sSerialNumber = commonsPo.generaterandomnumber("RS_10552_");
+		sSerialNumber = commonsUtility.generaterandomnumber("RS_10552_");
 		
 		//Creation of dynamic Work Order
 		sWOObejctApi="SVMXC__Service_Order__c?";
@@ -98,7 +98,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsPo.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		
 	}
@@ -115,19 +115,19 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		preRequiste();
 		
 		//Pre Login to app
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 			
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		sFieldServiceName="RS_10552Process";
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validation of Next Scheduled date, Actual Onsite Response, Customer OFF button
@@ -145,7 +145,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Closed"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is open.");
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Webview");
+		commonsUtility.switchContext("Webview");
 		
 		//Validation of Autocheck box off for Billing type contract
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
@@ -156,55 +156,55 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleWOBillingTypeCaseLst(),"Contract","Courtesy"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Webview");
-		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
+		commonsUtility.switchContext("Webview");
+		commonsUtility.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Open"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is still open as customer down is OFF");
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Webview");
+		commonsUtility.switchContext("Webview");
 		
 		//Validating for check box is OFF when Billing type is Coutesy
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
-		commonsPo.longPress(workOrderPo.getEleAutoChkBxRdBtn());
+		commonsUtility.longPress(workOrderPo.getEleAutoChkBxRdBtn());
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Billing Type Contract.");
-		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
+		commonsUtility.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		//Validating for check box is OFF when Billing type is Coutesy
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
 		
 		//Addition of Parts
-		workOrderPo.addParts(commonsPo, workOrderPo, sProductName);
-		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
+		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
+		commonsUtility.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Enter line price in parts
-		commonsPo.tap(workOrderPo.getElePartsIcn(sProductName));
-		commonsPo.tap(workOrderPo.getEleUsePriceToggleBtn());
-		commonsPo.tap(workOrderPo.getEleLineQtyTxtFld());
+		commonsUtility.tap(workOrderPo.getElePartsIcn(sProductName));
+		commonsUtility.tap(workOrderPo.getEleUsePriceToggleBtn());
+		commonsUtility.tap(workOrderPo.getEleLineQtyTxtFld());
 		workOrderPo.getEleLineQtyTxtFld().clear();
 		workOrderPo.getEleLineQtyTxtFld().sendKeys("10");
-		commonsPo.tap(workOrderPo.getEleLinePerUnitTxtFld());
+		commonsUtility.tap(workOrderPo.getEleLinePerUnitTxtFld());
 		workOrderPo.getEleLinePerUnitTxtFld().clear();
 		workOrderPo.getEleLinePerUnitTxtFld().sendKeys("10.5");
 		Thread.sleep(1000);
 		
-		commonsPo.tap(workOrderPo.getEleDiscountTxtFld());
+		commonsUtility.tap(workOrderPo.getEleDiscountTxtFld());
 		workOrderPo.getEleDiscountTxtFld().sendKeys("3");
 		//Set Start time for event
-		commonsPo.setDateTime24hrs(workOrderPo.getEleStartDateandTimeTxtFld(), 0, "0", "0");
-		commonsPo.setDateTime24hrs(workOrderPo.getEleEndDateandTimeTxtFld(), 1, "0", "0");
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.setDateTime24hrs(workOrderPo.getEleStartDateandTimeTxtFld(), 0, "0", "0");
+		commonsUtility.setDateTime24hrs(workOrderPo.getEleEndDateandTimeTxtFld(), 1, "0", "0");
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 		
 		//Save the parts details
-		commonsPo.tap(workOrderPo.getEleQuickSaveIcn());
+		commonsUtility.tap(workOrderPo.getEleQuickSaveIcn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		commonsPo.tap(workOrderPo.getElePartsIcn(sProductName));
+		commonsUtility.tap(workOrderPo.getElePartsIcn(sProductName));
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validation of formula after adding parts
@@ -225,49 +225,49 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value").equals("0"), "Auto call line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Auto Call Line price is displayed as expected.");
 		
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 			
 		//Validating for change of order status when customer down is on.
-		commonsPo.longPress(workOrderPo.getEleCustomerDownRdBtn());
+		commonsUtility.longPress(workOrderPo.getEleCustomerDownRdBtn());
 		Assert.assertTrue(workOrderPo.getEleCustomerDownOnRdBtn().isDisplayed(), " Customer Down is not ON");
 		ExtentManager.logger.log(Status.PASS,"Customer down is set to ON");
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Update the WorkOrder and validate if the Order status is now changed
-		commonsPo.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Completed");
+		commonsUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Completed");
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsPo.switchContext("Webview");
-		commonsPo.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.switchContext("Webview");
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsPo, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 		Assert.assertTrue(workOrderPo.getEleThisRecorddoesnotMeetTxt().isDisplayed(), "WorkOrder status is changed after customer down is checked");
 		ExtentManager.logger.log(Status.PASS,"Order status is successfully changed once the customer down is checked");
 		
 		
-		try {workOrderPo.getEleOKBtn().click();}catch(Exception e) {commonsPo.tap(workOrderPo.getEleOKBtn());}
+		try {workOrderPo.getEleOKBtn().click();}catch(Exception e) {commonsUtility.tap(workOrderPo.getEleOKBtn());}
 		
 	}
 	
 	public boolean verifyListValue(WebElement elePickerLst,String sStatus, String sSetlistTxt) throws InterruptedException {
 		
 		if(BaseLib.sOSName.equals("android")){
-			commonsPo.tap(elePickerLst);
-			commonsPo.switchContext("Native");
-			presence=commonsPo.getEleAndroidWheelPopUp().getText().equals(sStatus);
-			commonsPo.getElePicklistValue(sSetlistTxt).click();
+			commonsUtility.tap(elePickerLst);
+			commonsUtility.switchContext("Native");
+			presence=commonsUtility.getEleAndroidWheelPopUp().getText().equals(sStatus);
+			commonsUtility.getElePicklistValue(sSetlistTxt).click();
 		}
 		else {
 			elePickerLst.click();
-			commonsPo.switchContext("Native");
-			presence=commonsPo.getElePickerWheelPopUp().getText().equals(sStatus);
-			commonsPo.getElePickerWheelPopUp().sendKeys(sSetlistTxt);
-			commonsPo.getEleDonePickerWheelBtn().click();
+			commonsUtility.switchContext("Native");
+			presence=commonsUtility.getElePickerWheelPopUp().getText().equals(sStatus);
+			commonsUtility.getElePickerWheelPopUp().sendKeys(sSetlistTxt);
+			commonsUtility.getEleDonePickerWheelBtn().click();
 		}
-		commonsPo.switchContext("webview");
+		commonsUtility.switchContext("webview");
 		return presence;
 	}
 

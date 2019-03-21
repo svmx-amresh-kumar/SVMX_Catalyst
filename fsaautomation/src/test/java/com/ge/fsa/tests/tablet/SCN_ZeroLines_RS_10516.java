@@ -19,8 +19,8 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 
 /**
  * 
@@ -43,12 +43,12 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		System.out.println("SCN_RS10516_ZeroLines");
 		
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		System.out.println(LocalDate.now().plusDays(1L));
 		// Have a config Sync
-		toolsPo.configSync(commonsPo);
+		toolsPo.configSync(commonsUtility);
 		
-		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sRandomNumber = commonsUtility.generaterandomnumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -63,7 +63,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		String sContactId = restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		// Creating the Work Order using API
 		
 		String sWorkorderID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Company__c\": \""+sAccountId+"\", \"SVMXC__Contact__c\": \""+sContactId+"\", \"SVMXC__Priority__c\": \"High\"}");
@@ -82,22 +82,22 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		
 		// Syncing the Data of the Work Order
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		// Click on the Work Order
 		Thread.sleep(10000);
-		workOrderPo.navigatetoWO(commonsPo, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "SFMProcessforRS_10516";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.selectAction(commonsUtility,sProcessname);
 		Thread.sleep(2000);
 		
 		
 		
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		if(workOrderPo.getEleChildLine2IssuesFound().isDisplayed())
 		{
 		
-			commonsPo.tap(workOrderPo.getEleChildLine2IssuesFound());
+			commonsUtility.tap(workOrderPo.getEleChildLine2IssuesFound());
 			// Adding Labor - An Error must be thrown
 			assertEquals(workOrderPo.getEleNoLaborEntry().isDisplayed(), true);
 			// Adding Parts - Warning message must be thrown
@@ -106,10 +106,10 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 			Thread.sleep(1000);
 			workOrderPo.getElePartsIssueCheckbox().click();
 			Thread.sleep(3000);
-			commonsPo.tap(workOrderPo.getElePartsIssueCheckbox(),20,20);
+			commonsUtility.tap(workOrderPo.getElePartsIssueCheckbox(),20,20);
 			// Tap anywhere on the UI 
-			commonsPo.tap(workOrderPo.getEleNoPartsEntry());
-			commonsPo.tap(workOrderPo.getEleClickSave());
+			commonsUtility.tap(workOrderPo.getEleNoPartsEntry());
+			commonsUtility.tap(workOrderPo.getEleClickSave());
 			// Now only 1 Issue must be shown on the UI
 			Thread.sleep(2000);
 			try {
@@ -119,22 +119,22 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 			catch(Exception e) {
 				
 				//ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI");
-				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI",MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI",MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 
 			}
 			
 
-			commonsPo.tap(workOrderPo.getEleChildLine1IssueFound());
-			commonsPo.tap(workOrderPo.getEleNoLaborEntry());
+			commonsUtility.tap(workOrderPo.getEleChildLine1IssueFound());
+			commonsUtility.tap(workOrderPo.getEleNoLaborEntry());
 		
-			workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
-			commonsPo.tap(workOrderPo.getEleClickSave());
+			workOrderPo.addLaborParts(commonsUtility, workOrderPo, sProductName, "Calibration", sProcessname);
+			commonsUtility.tap(workOrderPo.getEleClickSave());
 			ExtentManager.logger.log(Status.PASS,"After Adding Labor No issues were Found");
 
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"2 Issues Found Error message is not Popped Up",MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"2 Issues Found Error message is not Popped Up",MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 		}
 
 		

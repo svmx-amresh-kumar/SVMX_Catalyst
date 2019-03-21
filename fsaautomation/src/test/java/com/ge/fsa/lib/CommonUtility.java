@@ -1,4 +1,4 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.lib;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,10 +41,9 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.lib.RestServices;
+import com.ge.fsa.tablet.pageobjects.CalendarPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -73,8 +72,8 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class CommonsPO {
-	public CommonsPO(AppiumDriver driver) {
+public class CommonUtility {
+	public CommonUtility(AppiumDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -1126,7 +1125,7 @@ public class CommonsPO {
 	 * @throws InterruptedException
 	 * @param sActualValues = Values sent to verify the picklist fields on the UI.
 	 */
-	public String[] getAllPicklistValues(CommonsPO commonsPo, WorkOrderPO workOrderPO, String[] sActualValues)
+	public String[] getAllPicklistValues(CommonUtility commonUtility, WorkOrderPO workOrderPO, String[] sActualValues)
 			throws InterruptedException {
 		String[] sVals = new String[sActualValues.length];
 		String sPrevVal = "";
@@ -1184,7 +1183,7 @@ public class CommonsPO {
 				sVals[i] = sPrevVal;
 
 				try {
-					commonsPo.scrollPickerWheel(i, 1);
+					commonUtility.scrollPickerWheel(i, 1);
 				} catch (Exception e) {
 					break;
 				}
@@ -1551,7 +1550,7 @@ public class CommonsPO {
 	 /**
 	  * Take screenshot and return the screenshot path to be consumed in Extent logger
 	  * 
-	  * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsPo.takeScreenShot()).build());
+	  * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
 	  * @return
 	  */
 		public String takeScreenShot() {

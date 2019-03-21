@@ -24,22 +24,21 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
-import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
-import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
-import com.ge.fsa.iphone.pageobjects.Ip_RecentsItemsPO;
-import com.ge.fsa.iphone.pageobjects.Ip_WorkOrderPO;
-import com.ge.fsa.pageobjects.CalendarPO;
-import com.ge.fsa.pageobjects.ChecklistPO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.CreateNewPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.InventoryPO;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.RecentItemsPO;
-import com.ge.fsa.pageobjects.TasksPO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.phone.pageobjects.ph_CalendarPO;
+import com.ge.fsa.phone.pageobjects.ph_LoginHomePO;
+import com.ge.fsa.phone.pageobjects.ph_MorePO;
+import com.ge.fsa.phone.pageobjects.ph_RecentsItemsPO;
+import com.ge.fsa.phone.pageobjects.ph_WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.CalendarPO;
+import com.ge.fsa.tablet.pageobjects.ChecklistPO;
+import com.ge.fsa.tablet.pageobjects.CreateNewPO;
+import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.tablet.pageobjects.InventoryPO;
+import com.ge.fsa.tablet.pageobjects.LoginHomePO;
+import com.ge.fsa.tablet.pageobjects.RecentItemsPO;
+import com.ge.fsa.tablet.pageobjects.TasksPO;
+import com.ge.fsa.tablet.pageobjects.ToolsPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -55,7 +54,7 @@ public class BaseLib {
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
 	public WorkOrderPO workOrderPo = null;
-	public CommonsPO commonsPo = null;
+	public CommonUtility commonsUtility = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
 	public CreateNewPO createNewPO = null;
@@ -66,12 +65,12 @@ public class BaseLib {
 	
 	//iphone
 	
-	public Ip_LoginHomePO ip_LoginHomePo = null;
-	public Ip_MorePO ip_MorePo = null;
-	public Ip_CalendarPO ip_CalendarPo = null;
+	public ph_LoginHomePO ip_LoginHomePo = null;
+	public ph_MorePO ip_MorePo = null;
+	public ph_CalendarPO ip_CalendarPo = null;
 	
-	public Ip_RecentsItemsPO ip_RecentsPo = null;
-	public Ip_WorkOrderPO ip_WorkOrderPo = null;
+	public ph_RecentsItemsPO ip_RecentsPo = null;
+	public ph_WorkOrderPO ip_WorkOrderPo = null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -271,7 +270,7 @@ public class BaseLib {
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);
-		commonsPo = new CommonsPO(driver);
+		commonsUtility = new CommonUtility(driver);
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
@@ -281,14 +280,14 @@ public class BaseLib {
 		inventoryPo = new InventoryPO(driver);
 		
 		//iPhone
-		ip_LoginHomePo = new Ip_LoginHomePO(driver);
-		ip_MorePo = new Ip_MorePO(driver);
-		ip_CalendarPo = new Ip_CalendarPO(driver);
-		ip_RecentsPo = new Ip_RecentsItemsPO(driver);
-		ip_WorkOrderPo = new Ip_WorkOrderPO(driver);
+		ip_LoginHomePo = new ph_LoginHomePO(driver);
+		ip_MorePo = new ph_MorePO(driver);
+		ip_CalendarPo = new ph_CalendarPO(driver);
+		ip_RecentsPo = new ph_RecentsItemsPO(driver);
+		ip_WorkOrderPo = new ph_WorkOrderPO(driver);
 		
 		try {
-			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
+			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -328,7 +327,7 @@ public class BaseLib {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
 		// Use after launch app as it will be null before this
-		commonsPo.injectJenkinsPropertiesForSahi();
+		commonsUtility.injectJenkinsPropertiesForSahi();
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}

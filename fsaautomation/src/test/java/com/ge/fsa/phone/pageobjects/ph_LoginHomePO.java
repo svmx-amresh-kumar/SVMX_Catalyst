@@ -1,4 +1,4 @@
-package com.ge.fsa.iphone.pageobjects;
+package com.ge.fsa.phone.pageobjects;
 
 
 import java.util.Iterator;
@@ -11,10 +11,11 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.*;
-import com.ge.fsa.iphone.*;
+import com.ge.fsa.tablet.pageobjects.*;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -24,9 +25,9 @@ import io.appium.java_client.touch.offset.PointOption;
 
 
 
-public class Ip_LoginHomePO
+public class ph_LoginHomePO
 {
-	public Ip_LoginHomePO(AppiumDriver driver)
+	public ph_LoginHomePO(AppiumDriver driver)
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -164,12 +165,12 @@ public class Ip_LoginHomePO
 	/**
 	 * Login to FSA app based on values from config.properties. (** For any other property file machine set the RUN_MACHINE=automation_build , which will pick up the data from config_automation_build.properties file)
 	 * Default is "TECH_USN"
-	 * @param commonsPo
+	 * @param commonsUtility
 	 * @param exploreSearchPo
 	 * @param sUserTypeFromPropertiesFile
 	 * @throws InterruptedException
 	 */
-	public void login(CommonsPO commonsPo, Ip_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
+	public void login(CommonUtility commonUtility, ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
 
 		String sUn = null;
 		String sPwd = null;
@@ -193,7 +194,7 @@ public class Ip_LoginHomePO
 
 			System.out.println("Login For Iphone android UN = "+sUn+" PWD = "+sPwd);
 			System.out.println("TEST "+getEleSignInBtn().toString());
-			if(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -205,7 +206,7 @@ public class Ip_LoginHomePO
 					getEleSignInBtn().click();
 					Thread.sleep(1000);
 					//Change to sandbox first if not already
-					if(!commonsPo.waitforElement(getEleLoginBtn(),2)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),2)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
@@ -213,7 +214,7 @@ public class Ip_LoginHomePO
 						getEleSignInSettingsBackbtn().click();	
 					}
 									
-					commonsPo.waitforElement(getEleUserNameTxtFld(),2);
+					commonUtility.waitforElement(getEleUserNameTxtFld(),2);
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
 					Thread.sleep(2000);
@@ -224,7 +225,7 @@ public class Ip_LoginHomePO
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
-						commonsPo.waitforElement(getEleAllowBtn(), 5);
+						commonUtility.waitforElement(getEleAllowBtn(), 5);
 						getEleAllowBtn().click();
 		
 
@@ -239,9 +240,9 @@ public class Ip_LoginHomePO
 
 
 				//Check if username field is not displayed
-				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+				Assert.assertTrue(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
 			
@@ -253,7 +254,7 @@ public class Ip_LoginHomePO
 
 			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -264,7 +265,7 @@ public class Ip_LoginHomePO
 					Thread.sleep(4000);
 					getEleSignInBtn().click();
 					Thread.sleep(4000);
-					if(!commonsPo.waitforElement(getEleLoginBtn(),1)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
@@ -283,7 +284,7 @@ public class Ip_LoginHomePO
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
-						commonsPo.waitforElement(getEleAllowBtn(), 5);
+						commonUtility.waitforElement(getEleAllowBtn(), 5);
 
 						getEleAllowBtn().click();
 						} catch (Exception e1) {}
@@ -297,9 +298,9 @@ public class Ip_LoginHomePO
 
 
 				//Check if username field is not displayed
-				Assert.assertTrue(!commonsPo.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
+				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonsPo.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+				Assert.assertTrue(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
 			

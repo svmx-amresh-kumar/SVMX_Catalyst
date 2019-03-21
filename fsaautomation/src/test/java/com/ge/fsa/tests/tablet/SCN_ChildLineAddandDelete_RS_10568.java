@@ -13,7 +13,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
 /**
  * 
  * @author meghanarao
@@ -38,12 +38,12 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		
-		loginHomePo.login(commonsPo, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 
 
 
 		// To create a Work Order for Editing 
-		String sRandomNumber = commonsPo.generaterandomnumber("");
+		String sRandomNumber = commonsUtility.generaterandomnumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -68,61 +68,61 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(genericLib.iMedSleep);
 		// Creating the Work Order - To create the Childlines
-		createNewPO.createWorkOrder(commonsPo,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
-		toolsPo.syncData(commonsPo);
+		createNewPO.createWorkOrder(commonsUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonsPo, sworkOrderName);
+		recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
 		String sProcessname = "EditWoAutoTimesstamp";
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.selectAction(commonsUtility,sProcessname);
 		Thread.sleep(20000);
 		// Single Adding the Labor by clicking on the +Add button
-		workOrderPo.addLaborParts(commonsPo, workOrderPo, sProductName, "Calibration", sProcessname);
-		commonsPo.tap(workOrderPo.getEleClickSave());
-		workOrderPo.selectAction(commonsPo,sProcessname);
+		workOrderPo.addLaborParts(commonsUtility, workOrderPo, sProductName, "Calibration", sProcessname);
+		commonsUtility.tap(workOrderPo.getEleClickSave());
+		workOrderPo.selectAction(commonsUtility,sProcessname);
 		Thread.sleep(2000);
 		// Adding a new Line by clicking on +New button
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
-		commonsPo.tap(workOrderPo.getEleclickNew());
-		commonsPo.tap(workOrderPo.getEleclickOK());
-		commonsPo.tap(workOrderPo.getElePartLaborLkUp());
-		commonsPo.lookupSearch(sProductName2);
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonsUtility.tap(workOrderPo.getEleclickNew());
+		commonsUtility.tap(workOrderPo.getEleclickOK());
+		commonsUtility.tap(workOrderPo.getElePartLaborLkUp());
+		commonsUtility.lookupSearch(sProductName2);
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 		
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
-		commonsPo.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		Thread.sleep(2000);
-		commonsPo.tap(workOrderPo.getEleremoveitem());
-		commonsPo.tap(workOrderPo.getEleclickyesitem());
-		commonsPo.tap(workOrderPo.getEleclickOK());
+		commonsUtility.tap(workOrderPo.getEleremoveitem());
+		commonsUtility.tap(workOrderPo.getEleclickyesitem());
+		commonsUtility.tap(workOrderPo.getEleclickOK());
 		Thread.sleep(2000);
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
-		workOrderPo.addParts(commonsPo, workOrderPo,sProductNamesArray );
+		workOrderPo.addParts(commonsUtility, workOrderPo,sProductNamesArray );
 		Thread.sleep(1000);
 		// Adding the Expenses to the Work Order
-		workOrderPo.addExpense(commonsPo, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
+		workOrderPo.addExpense(commonsUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		Thread.sleep(3000);
 		// Adding the Another Expense by clicking on New Button
-		commonsPo.tap(workOrderPo.getEleExpensestap(sExpenseType));
-		commonsPo.tap(workOrderPo.getEleclickNew());
-		commonsPo.tap(workOrderPo.getEleclickOK());
-		//commonsPo.tap(workOrderPo.getEleAddExpenseType());
-		commonsPo.setPickerWheelValue(workOrderPo.getEleAddExpenseType(), sExpenseType);
-		commonsPo.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleExpensestap(sExpenseType));
+		commonsUtility.tap(workOrderPo.getEleclickNew());
+		commonsUtility.tap(workOrderPo.getEleclickOK());
+		//commonsUtility.tap(workOrderPo.getEleAddExpenseType());
+		commonsUtility.setPickerWheelValue(workOrderPo.getEleAddExpenseType(), sExpenseType);
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
 		Thread.sleep(10000);
 		// Saving all the Childlines of the Work Order
-		commonsPo.tap(workOrderPo.getEleClickSave());
+		commonsUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
 		// Syncing this Data into the Server for the Work Order
-		toolsPo.syncData(commonsPo);
+		toolsPo.syncData(commonsUtility);
 		// Verifying the number of Child lines on the Server Side from API after the Sync
 	
 		String sSoqlQueryChildline = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";

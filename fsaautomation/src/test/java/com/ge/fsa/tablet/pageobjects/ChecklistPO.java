@@ -1,4 +1,4 @@
-package com.ge.fsa.pageobjects;
+package com.ge.fsa.tablet.pageobjects;
 
 
 import java.util.List;
@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
@@ -405,10 +406,10 @@ public class ChecklistPO{
 		
 	}
 	
-	public void validateChecklistServiceReport(CommonsPO commonsPo,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
+	public void validateChecklistServiceReport(CommonUtility commonUtility,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID ) throws InterruptedException
 	{	
 	
-		workOrderPo.selectAction(commonsPo, sPrintReportSearch);
+		workOrderPo.selectAction(commonUtility, sPrintReportSearch);
 		Thread.sleep(4000);
 		Assert.assertTrue(geteleChecklistReporttxt().isDisplayed(), "Checklist Report is not displayed in OPDOC.");
 		ExtentManager.logger.log(Status.PASS,"Checklist Report OPDOC is displayed successfully");
@@ -419,21 +420,21 @@ public class ChecklistPO{
 	}	
 	
 	
-	public void navigateBacktoWorkOrder(CommonsPO commonsPo) throws InterruptedException
+	public void navigateBacktoWorkOrder(CommonUtility commonUtility) throws InterruptedException
 	{
 		
 		
 		try {
 			System.out.println("Try block for back");
-			commonsPo.tap(geteleBacklnk());
-            commonsPo.tap(geteleBacktoChecklistslnk());
-            commonsPo.tap(geteleBacktoWorkOrderlnk());
+			commonUtility.tap(geteleBacklnk());
+            commonUtility.tap(geteleBacktoChecklistslnk());
+            commonUtility.tap(geteleBacktoWorkOrderlnk());
             
            
       } catch (Exception e) {
 			System.out.println("Catch block for back");
-            commonsPo.tap(geteleBacktoChecklistslnk());
-            commonsPo.tap(geteleBacktoWorkOrderlnk());
+            commonUtility.tap(geteleBacktoChecklistslnk());
+            commonUtility.tap(geteleBacktoWorkOrderlnk());
       }
 
 	
@@ -442,11 +443,11 @@ public class ChecklistPO{
 		/*Point point = geteleBacklnk().getLocation();
 		try {
 			System.out.println("***** USing Single Tap in TRY BLock*******");
-		commonsPo.singleTap(geteleBacklnk());
-		commonsPo.singleTap(geteleBacktoChecklistslnk());
+		commonsUtility.singleTap(geteleBacklnk());
+		commonsUtility.singleTap(geteleBacktoChecklistslnk());
 		
 		
-		commonsPo.singleTap(geteleBacktoWorkOrderlnk());
+		commonsUtility.singleTap(geteleBacktoWorkOrderlnk());
 		System.out.println("***** USing Single Tap in TRY BLock*******");
 		
 		}*/
@@ -466,16 +467,16 @@ public class ChecklistPO{
 	}
 	
 	
-	public void AllowCamerabutton(CommonsPO commonsPo) throws Exception
+	public void AllowCamerabutton(CommonUtility commonUtility) throws Exception
 	{
-		commonsPo.switchContext("Native");
+		commonUtility.switchContext("Native");
 		Thread.sleep(GenericLib.iHighSleep);
 try {
 	driver.findElementByAccessibilityId("OK").click();
 
 } catch (Exception e) {
 	System.out.println("Could not Find OK Popup for camera");
-	commonsPo.switchContext("WebView");
+	commonUtility.switchContext("WebView");
 
 }
 
@@ -483,7 +484,7 @@ try {
 	}
 	
 	
-	public void checklistAttach(CommonsPO commonsPo, String AttachmentAction, String checklistq) throws Exception
+	public void checklistAttach(CommonUtility commonUtility, String AttachmentAction, String checklistq) throws Exception
 	{
 
 		System.out.println("Trying to click Attach");
@@ -492,16 +493,16 @@ try {
 			driver.context("NATIVE_APP");
 			driver.findElementByAccessibilityId("Attach").click();
 		} catch (Exception e) {
-			commonsPo.switchContext("WebView");
-			commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+			commonUtility.switchContext("WebView");
+			commonUtility.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
 			// TODO: handle exception
 		}
 		
-		//commonsPo.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+		//commonsUtility.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
 		//driver.findElementByAccessibilityId(AttachmentAction).click();
-		commonsPo.switchContext("WebView");
-		commonsPo.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
-		AllowCamerabutton(commonsPo);
+		commonUtility.switchContext("WebView");
+		commonUtility.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
+		AllowCamerabutton(commonUtility);
 		
 		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
 			if (AttachmentAction == "Choose from Library" || AttachmentAction == "choose from library") {
@@ -513,22 +514,22 @@ try {
 				System.out.println("Attempting to click on Photos");
 				driver.context("NATIVE_APP");
 				WebElement sd = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Photos')]"));
-				commonsPo.tap(sd);
+				commonUtility.tap(sd);
 				System.out.println("clicked photos");
 				Thread.sleep(3000);
 				driver.context("NATIVE_APP");
 				WebElement se = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Camera')]"));
-				commonsPo.tap(se);
+				commonUtility.tap(se);
 				System.out.println("Clicked on Camera");
 				driver.context("NATIVE_APP");
 				Thread.sleep(3000);
 				WebElement el5 = driver
 						.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'Photo taken')][1]");
-				commonsPo.tap(el5);
+				commonUtility.tap(el5);
 				System.out.println("Finished clicking on the first image");
 			}
 			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
-				commonsPo.switchContext("Native");
+				commonUtility.switchContext("Native");
 				try {
 					Thread.sleep(3000);
 					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
@@ -543,7 +544,7 @@ try {
 
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
 				Thread.sleep(GenericLib.iMedSleep);
-				commonsPo.switchContext("Native");
+				commonUtility.switchContext("Native");
 				Thread.sleep(3000);
 				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
 				e.get(0).click();
@@ -553,7 +554,7 @@ try {
 //				Thread.sleep(2000);
 				driver.findElementByAccessibilityId("Done").click();
 			}
-			commonsPo.switchContext("Webview");
+			commonUtility.switchContext("Webview");
 			Thread.sleep(GenericLib.i30SecSleep);
 		} else
 		// For IOS
@@ -562,14 +563,14 @@ try {
 
 				Thread.sleep(3000);
 				WebDriverWait wait = new WebDriverWait(driver, 10);
-				AllowCamerabutton(commonsPo);
-				commonsPo.switchContext("Native");
+				AllowCamerabutton(commonUtility);
+				commonUtility.switchContext("Native");
 				WebElement el = wait
 						.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
 				el.click();
 				List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
 				int numPhotos = photos.size();
-				// commonsPo.switchContext("Native");
+				// commonsUtility.switchContext("Native");
 				WebElement elem = null;
 				Thread.sleep(5000);
 				List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView")
@@ -588,8 +589,8 @@ try {
 			}
 			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
 				Thread.sleep(GenericLib.iMedSleep);
-				AllowCamerabutton(commonsPo);
-				commonsPo.switchContext("Native");
+				AllowCamerabutton(commonUtility);
+				commonUtility.switchContext("Native");
 				Thread.sleep(5000);
 				driver.findElementByAccessibilityId("Take Picture").click();
 				Thread.sleep(3000);
@@ -598,20 +599,20 @@ try {
 
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
 				Thread.sleep(GenericLib.iMedSleep);
-				AllowCamerabutton(commonsPo);
+				AllowCamerabutton(commonUtility);
 				;
 				// com.apple.camera
-				commonsPo.switchContext("Native");
+				commonUtility.switchContext("Native");
 				driver.findElementByAccessibilityId("Record Video").click();
 				Thread.sleep(5000);
 				System.out.println("Recording 5 secs video");
 				driver.findElementByAccessibilityId("Stop Recording Video").click();
 				driver.findElementByAccessibilityId("Use Video").click();
 			}
-			commonsPo.switchContext("Webview");
+			commonUtility.switchContext("Webview");
 			Thread.sleep(GenericLib.i30SecSleep);
 		}
-		commonsPo.switchContext("Webview");
+		commonUtility.switchContext("Webview");
 		Thread.sleep(GenericLib.i30SecSleep);
 	}
 
