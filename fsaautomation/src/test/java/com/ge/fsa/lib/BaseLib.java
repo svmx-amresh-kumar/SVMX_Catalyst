@@ -182,13 +182,16 @@ public class BaseLib {
 					//Ignore the AutoWebview setting for phone
 						System.out.println("Setting AUTO_WEBVIEW to false");
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+						capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
+						capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
 					}else{
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+						capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
+						capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
 					}
 				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
-				capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
-				capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
+				
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
