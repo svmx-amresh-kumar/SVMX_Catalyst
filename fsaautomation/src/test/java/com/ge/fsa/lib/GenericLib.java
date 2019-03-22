@@ -302,7 +302,7 @@ public class GenericLib
 					break;
 				
 			}
-			fos = new FileOutputStream(sTestDataFile);
+			fos = new FileOutputStream(sFilePath);
 			wb.write(fos);
 			
 			wb.close();
