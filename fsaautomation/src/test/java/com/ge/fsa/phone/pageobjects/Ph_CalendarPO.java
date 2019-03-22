@@ -355,11 +355,44 @@ public class Ph_CalendarPO
 			}
 			catch(Exception e)
 			{
-				//System.out.println("unable to find the event");
+				System.out.println("unable to find the event");
 			}
 
+			}
+		
+		
+		public void VerifyWOInCalender(CommonUtility commonUtility, String Subject) throws Exception 
+		{
+		
+			Thread.sleep(3000);
+			try {
+			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
+			
+		
+			if(getEleworkordernumonCalendar(Subject) != null){
+				System.out.println("Found WO " + Subject);
+				
+				}
+					
+			else
+			{
+				System.out.println("Did not Find WO " + Subject);
+				throw new Exception("WorkOrder not found on the Calendar");	
 			
 		}
+		
+		}
+		
+		catch(Exception e){
+			System.out.println(e);
+			System.out.println("Did not Find WO " + Subject);
+			
+			
+		}
+		}
+		
+		
+		
 
 }
 
