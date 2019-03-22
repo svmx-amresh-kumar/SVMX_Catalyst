@@ -291,6 +291,8 @@ public class BaseLib {
 		ip_CalendarPo = new Ph_CalendarPO(driver);
 		ip_RecentsPo = new Ph_RecentsItemsPO(driver);
 		ip_WorkOrderPo = new Ph_WorkOrderPO(driver);
+		ip_ChecklistPO = new Ph_ChecklistPO(driver);
+		ip_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
 		
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
