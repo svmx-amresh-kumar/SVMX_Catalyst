@@ -23,7 +23,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
+import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
 public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sTestCaseID = null;

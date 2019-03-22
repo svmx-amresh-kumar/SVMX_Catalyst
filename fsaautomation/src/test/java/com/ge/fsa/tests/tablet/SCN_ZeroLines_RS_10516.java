@@ -19,8 +19,8 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.ExploreSearchPO;
-import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
+import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
+import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 /**
  * 
@@ -70,7 +70,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		System.out.println("Work Order Id"+sWorkorderID);
 		
 		// Getting the Technician ID
-		String sTech_Id = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_ID");
+		String sTech_Id = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sUsePropertyFile, "TECH_ID");
 		String sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 		restServices.getAccessToken();
 		String sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");

@@ -16,7 +16,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.CalendarPO;
+import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
 public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sTestCaseID= null;

@@ -15,7 +15,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.CalendarPO;
+import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
 
 public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {

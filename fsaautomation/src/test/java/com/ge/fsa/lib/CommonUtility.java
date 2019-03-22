@@ -41,8 +41,8 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.tablet.pageobjects.CalendarPO;
-import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
+import com.ge.fsa.pageobjects.tablet.CalendarPO;
+import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
