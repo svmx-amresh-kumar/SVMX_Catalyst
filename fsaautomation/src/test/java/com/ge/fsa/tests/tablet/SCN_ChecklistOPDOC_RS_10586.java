@@ -97,7 +97,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		
 		//Creating a servicemax event and assigning the work order to it.
 		
-		 sTech_Id = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sUsePropertyFile, "TECH_ID");
+		 sTech_Id = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 		 sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 			restServices.getAccessToken();
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");

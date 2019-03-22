@@ -99,8 +99,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
 		String sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		String sSalesforceuser= GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sUsePropertyFile, "SALESFORCE_ID");
-		String sTechname2 = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sUsePropertyFile, "TECH_ID_1");
+		String sSalesforceuser= GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
+		String sTechname2 = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
 	
 		//Pre Login to app
 			loginHomePo.login(commonsUtility, exploreSearchPo);
