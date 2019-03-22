@@ -21,7 +21,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.CalendarPO;
+import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
 public class SCN_Calendar_5_RS_10515 extends BaseLib {
 

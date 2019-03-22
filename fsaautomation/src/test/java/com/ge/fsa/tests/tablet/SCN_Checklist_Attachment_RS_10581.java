@@ -14,7 +14,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.ChecklistPO;
+import com.ge.fsa.pageobjects.tablet.ChecklistPO;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;

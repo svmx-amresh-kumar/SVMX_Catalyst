@@ -1,4 +1,4 @@
-package com.ge.fsa.tablet.pageobjects;
+package com.ge.fsa.pageobjects.tablet;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

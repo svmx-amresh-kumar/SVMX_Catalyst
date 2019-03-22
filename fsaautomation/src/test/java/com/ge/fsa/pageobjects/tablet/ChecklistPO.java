@@ -1,4 +1,4 @@
-package com.ge.fsa.tablet.pageobjects;
+package com.ge.fsa.pageobjects.tablet;
 
 
 import java.util.List;

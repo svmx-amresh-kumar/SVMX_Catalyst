@@ -1,4 +1,4 @@
-package com.ge.fsa.phone.pageobjects;
+package com.ge.fsa.pageobjects.phone;
 
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.tablet.pageobjects.*;
+import com.ge.fsa.pageobjects.tablet.*;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

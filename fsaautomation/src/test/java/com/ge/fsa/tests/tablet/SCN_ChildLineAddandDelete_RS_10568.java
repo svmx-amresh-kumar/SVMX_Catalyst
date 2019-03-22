@@ -13,7 +13,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.tablet.pageobjects.WorkOrderPO;
+import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 /**
  * 
  * @author meghanarao
