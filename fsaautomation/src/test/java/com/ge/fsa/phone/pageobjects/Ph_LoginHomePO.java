@@ -1,6 +1,7 @@
 package com.ge.fsa.phone.pageobjects;
 
 
+import java.io.IOException;
 import java.util.Iterator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -169,8 +170,9 @@ public class Ph_LoginHomePO
 	 * @param exploreSearchPo
 	 * @param sUserTypeFromPropertiesFile
 	 * @throws InterruptedException
+	 * @throws IOException 
 	 */
-	public void login(CommonUtility commonUtility, Ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException {
+	public void login(CommonUtility commonUtility, Ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException, IOException {
 
 		String sUn = null;
 		String sPwd = null;
@@ -178,15 +180,15 @@ public class Ph_LoginHomePO
 		String sUser = sUserTypeFromPropertiesFile.length>1?sUserTypeFromPropertiesFile[0]:"";
 		
 		if(sUser.equalsIgnoreCase("TECH_USN_1")) {
-			 sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN_1");
-			 sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD_1");
+			 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_USN_1");
+			 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_PWD_1");
 		}else if(sUser.equalsIgnoreCase("TECH_USN")){
-		 sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
-		 sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
+		 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_USN");
+		 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_PWD");
 		}else {
 			//default
-			 sUn = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_USN");
-			 sPwd = GenericLib.getConfigValue(GenericLib.sConfigFile, "TECH_PWD");
+			 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_USN");
+			 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sUsePropertyFile, "TECH_PWD");
 		}
 		
 		switch (BaseLib.sOSName) {
