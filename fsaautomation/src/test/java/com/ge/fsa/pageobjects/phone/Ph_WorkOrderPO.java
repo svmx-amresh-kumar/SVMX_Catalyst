@@ -222,6 +222,69 @@ public class Ph_WorkOrderPO extends BaseLib
 		return eleLinePerUnitTxtFld;
 	}
 	
+	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
+	private WebElement eleThisRecordDoesNotPopup;
+	public  WebElement getEleThisRecordDoesNotPopup()
+	{
+
+		return eleThisRecordDoesNotPopup;
+	}
+
+	@FindBy(xpath="//span[text()='OK']")
+	private WebElement eleOKBtn;
+	public  WebElement getEleOKBtn()
+	{
+
+		return eleOKBtn;
+	}
+	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
+	private WebElement eleBillingTypeLst;
+	public WebElement getEleBillingTypeLst()
+	{
+		return eleBillingTypeLst;
+	}
+
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Save']")
+	private WebElement eleClickSave;
+	public  WebElement getEleClickSave()
+	{
+
+		return eleClickSave;
+	}
+	@FindBy(xpath="//*[contains(text(),'Saved successfully')]")
+	private WebElement eleSavedSuccessTxt;
+	public WebElement getEleSavedSuccessTxt()
+	{
+		return eleSavedSuccessTxt;
+	}
+	@FindBy(xpath="//div[contains(text(),'Issue')]")
+	private WebElement eleIssueFoundTxt;
+	public WebElement getEleIssueFoundTxt()
+	{
+		return eleIssueFoundTxt;
+	}
+	
+	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
+	private WebElement eleDiscardBtn;
+	public  WebElement getEleDiscardBtn()
+	{
+		return eleDiscardBtn;
+	}
+	
+	private WebElement eleIssuePopupTxt;
+	public WebElement getEleIssuePopupTxt(String sIssueTxt)
+	{
+		eleIssuePopupTxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sIssueTxt+"']"));
+		return eleIssuePopupTxt;
+	}
+	@FindBy(xpath="//*[text() = 'Cancel']")
+	private WebElement eleCancelLnk;
+	public WebElement getEleCancelLink()
+	{
+		return eleCancelLnk;
+	}
+	
+
 	private WebElement elelaborpartresult;
 	public WebElement getElelaborpartresult(String sProductName1)
 	{
