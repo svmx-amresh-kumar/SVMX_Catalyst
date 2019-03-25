@@ -74,10 +74,10 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		//Pre Login to app
 		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 		
-		ip_ToolsPO.configSync(commonsUtility);
+		ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
 
-		ip_ToolsPO.syncData(commonsUtility);
+		ph_MorePo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Navigation to SFM
