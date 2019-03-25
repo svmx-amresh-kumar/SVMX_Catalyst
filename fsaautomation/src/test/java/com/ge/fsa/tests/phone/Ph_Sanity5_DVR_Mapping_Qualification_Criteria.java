@@ -72,7 +72,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 		
 		//Pre Login to app
-		ip_LoginHomePo.login(commonsUtility, ip_MorePo);
+		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 		
 		ip_ToolsPO.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -81,50 +81,50 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Navigation to SFM
-		ip_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		ph_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
-		Assert.assertTrue(ip_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
-		commonsUtility.tap(ip_WorkOrderPo.getEleOKBtn());
+		commonsUtility.tap(ph_WorkOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
 
 
 		//Navigation to SFM
-		ip_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+		ph_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonsUtility.setPickerWheelValue(ip_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
+		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
 
-		commonsUtility.tap(ip_WorkOrderPo.getEleClickSave());
+		commonsUtility.tap(ph_WorkOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of qualifying workorder with Issue found text error.
-		Assert.assertTrue(ip_WorkOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
 
 		//Validation of qualifying workorder with Issue found text popup.
-		commonsUtility.tap(ip_WorkOrderPo.getEleIssueFoundTxt());	
-		Assert.assertTrue(ip_WorkOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
+		commonsUtility.tap(ph_WorkOrderPo.getEleIssueFoundTxt());	
+		Assert.assertTrue(ph_WorkOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 
-		commonsUtility.tap(ip_WorkOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(ph_WorkOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(ip_WorkOrderPo.getEleCancelLink());
-		commonsUtility.tap(ip_WorkOrderPo.getEleDiscardBtn());
+		commonsUtility.tap(ph_WorkOrderPo.getEleCancelLink());
+		commonsUtility.tap(ph_WorkOrderPo.getEleDiscardBtn());
 
 		//Navigation to WO
-		ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo, sFieldServiceName);
+		ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonsUtility.setPickerWheelValue(ip_WorkOrderPo.getEleBillingTypeLst(), "Contract");
-		commonsUtility.tap(ip_WorkOrderPo.getEleSaveLnk());
+		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), "Contract");
+		commonsUtility.tap(ph_WorkOrderPo.getEleSaveLnk());
 
 		//Validation of qualifying workorder with Issue found text error.
-		Assert.assertTrue(ip_WorkOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 	}
 }

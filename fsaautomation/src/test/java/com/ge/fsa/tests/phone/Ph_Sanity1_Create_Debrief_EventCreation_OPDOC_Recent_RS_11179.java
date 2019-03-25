@@ -95,60 +95,60 @@ public void iphone() throws Exception
 		
 		
 		
-		ip_LoginHomePo.login(commonsUtility, ip_MorePo);
+		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 	
-		ip_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonsUtility);
 		
-		ip_CalendarPo.getEleCalendarBtn().click();
+		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
-		ip_CalendarPo.getEleCreateNew().click();
+		ph_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(2000);
 		
-	commonsUtility.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
+	commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
 
 		Thread.sleep(2000);
 		
 		//Account lookup 
-		ip_CalendarPo.getEleAccountLookUp().click();
+		ph_CalendarPo.getEleAccountLookUp().click();
 		
-		ip_CalendarPo.getElelookupsearch().click();
-		ip_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
+		ph_CalendarPo.getElelookupsearch().click();
+		ph_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
 		
-		ip_CalendarPo.getEleSearchListItem(sAccountName).click();
+		ph_CalendarPo.getEleSearchListItem(sAccountName).click();
 		
 		
 		//contact lookup
-		ip_CalendarPo.getEleContactLookuptap().click();
-		ip_CalendarPo.getElelookupsearchcontact().click();
-		ip_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
-		ip_CalendarPo.getEleSearchListItem(sContactName).click();
+		ph_CalendarPo.getEleContactLookuptap().click();
+		ph_CalendarPo.getElelookupsearchcontact().click();
+		ph_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
+		ph_CalendarPo.getEleSearchListItem(sContactName).click();
 		
 		//product
 		
-		ip_CalendarPo.getEleproductLookuptap().click();
-		ip_CalendarPo.getElelookupsearhproduct().click();
-		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
-		ip_CalendarPo.getEleSearchListItem(sProductName).click();
+		ph_CalendarPo.getEleproductLookuptap().click();
+		ph_CalendarPo.getElelookupsearhproduct().click();
+		ph_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
+		ph_CalendarPo.getEleSearchListItem(sProductName).click();
 		
 		//priority
 		
-		ip_CalendarPo.getElePriority().click();
-		ip_CalendarPo.getEleCreatenewpriorityLow().click();
+		ph_CalendarPo.getElePriority().click();
+		ph_CalendarPo.getEleCreatenewpriorityLow().click();
 		
 		//billing type
-		ip_CalendarPo.getElebillingtype().click();
-		ip_CalendarPo.getElebillingtypeloan().click();
+		ph_CalendarPo.getElebillingtype().click();
+		ph_CalendarPo.getElebillingtypeloan().click();
 		Thread.sleep(2000);
 		
 		
-		commonsUtility.custScrollToElementAndClick(ip_CalendarPo.getEleProformaInvoice());
+		commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleProformaInvoice());
 		
-		ip_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
+		ph_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
-		ip_CalendarPo.getEleAdd().click();
+		ph_CalendarPo.getEleAdd().click();
 	
 		Thread.sleep(2000);
-		ip_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonsUtility);
 	
 	// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -157,18 +157,18 @@ public void iphone() throws Exception
 		
 			//open WO from recents
 		
-		ip_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
+		ph_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
 		Thread.sleep(2000);
 		
 		// To create a new Event for the given Work Order
-		ip_WorkOrderPo.createNewEvent(commonsUtility,sEventSubject,ip_CalendarPo);
+		ph_WorkOrderPo.createNewEvent(commonsUtility,sEventSubject,ph_CalendarPo);
 		
 		
-		ip_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonsUtility);
 		Thread.sleep(2000);
 		
 		// Open the Work Order from the calendar
-			ip_CalendarPo.openWoFromCalendar(sEventSubject);
+			ph_CalendarPo.openWoFromCalendar(sEventSubject);
 			
 			
 			//Adding parts to WO
@@ -176,20 +176,20 @@ public void iphone() throws Exception
 		// To add Labor, Parts , Travel , Expense
 		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sProcessname);
+				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-				ip_WorkOrderPo.addParts(ip_CalendarPo ,sProductName);
+				ph_WorkOrderPo.addParts(ph_CalendarPo ,sProductName);
 				
-				ip_WorkOrderPo.addLabor(commonsUtility,ip_CalendarPo ,sProductName);
-				ip_WorkOrderPo.getElesave().click();
+				ph_WorkOrderPo.addLabor(commonsUtility,ph_CalendarPo ,sProductName);
+				ph_WorkOrderPo.getElesave().click();
 				Thread.sleep(3000);
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
-				ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sPrintReportSearch);
+				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sPrintReportSearch);
 				Thread.sleep(2000);
-				ip_WorkOrderPo.getEleFinalize().click();
+				ph_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(2000);
 				
 		// server validation 	
@@ -220,7 +220,7 @@ public void iphone() throws Exception
 				}
 				// Syncing the Data
 				Thread.sleep(genericLib.i30SecSleep);
-				ip_MorePo.syncData(commonsUtility);
+				ph_MorePo.syncData(commonsUtility);
 				Thread.sleep(genericLib.i30SecSleep);
 			
 				// Verifying the Work details and the service report
