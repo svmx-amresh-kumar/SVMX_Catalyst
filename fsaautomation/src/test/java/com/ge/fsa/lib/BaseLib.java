@@ -30,7 +30,6 @@ import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
 import com.ge.fsa.pageobjects.phone.Ph_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_MorePO;
 import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
-import com.ge.fsa.pageobjects.phone.Ph_ToolsPO;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 import com.ge.fsa.pageobjects.tablet.CalendarPO;
 import com.ge.fsa.pageobjects.tablet.ChecklistPO;
@@ -75,7 +74,6 @@ public class BaseLib {
 	public Ph_WorkOrderPO ip_WorkOrderPo = null;
 	public Ph_ExploreSearchPO ip_ExploreSearchPO = null;
 	public Ph_ChecklistPO ip_ChecklistPO = null;
-	public Ph_ToolsPO ip_ToolsPO=null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -293,7 +291,6 @@ public class BaseLib {
 		ip_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ip_ChecklistPO = new Ph_ChecklistPO(driver);
 		ip_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
-		ip_ToolsPO = new Ph_ToolsPO(driver);
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
