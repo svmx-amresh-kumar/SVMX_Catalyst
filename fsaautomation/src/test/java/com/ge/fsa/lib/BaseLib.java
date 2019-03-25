@@ -24,22 +24,24 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.ge.fsa.iphone.pageobjects.Ip_CalendarPO;
-import com.ge.fsa.iphone.pageobjects.Ip_LoginHomePO;
-import com.ge.fsa.iphone.pageobjects.Ip_MorePO;
-import com.ge.fsa.iphone.pageobjects.Ip_RecentsPO;
-import com.ge.fsa.iphone.pageobjects.Ip_WorkOrderPO;
-import com.ge.fsa.pageobjects.CalendarPO;
-import com.ge.fsa.pageobjects.ChecklistPO;
-import com.ge.fsa.pageobjects.CommonsPO;
-import com.ge.fsa.pageobjects.CreateNewPO;
-import com.ge.fsa.pageobjects.ExploreSearchPO;
-import com.ge.fsa.pageobjects.InventoryPO;
-import com.ge.fsa.pageobjects.LoginHomePO;
-import com.ge.fsa.pageobjects.RecentItemsPO;
-import com.ge.fsa.pageobjects.TasksPO;
-import com.ge.fsa.pageobjects.ToolsPO;
-import com.ge.fsa.pageobjects.WorkOrderPO;
+import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
+import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
+import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
+import com.ge.fsa.pageobjects.phone.Ph_LoginHomePO;
+import com.ge.fsa.pageobjects.phone.Ph_MorePO;
+import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
+import com.ge.fsa.pageobjects.phone.Ph_ToolsPO;
+import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
+import com.ge.fsa.pageobjects.tablet.CalendarPO;
+import com.ge.fsa.pageobjects.tablet.ChecklistPO;
+import com.ge.fsa.pageobjects.tablet.CreateNewPO;
+import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
+import com.ge.fsa.pageobjects.tablet.InventoryPO;
+import com.ge.fsa.pageobjects.tablet.LoginHomePO;
+import com.ge.fsa.pageobjects.tablet.RecentItemsPO;
+import com.ge.fsa.pageobjects.tablet.TasksPO;
+import com.ge.fsa.pageobjects.tablet.ToolsPO;
+import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -55,7 +57,7 @@ public class BaseLib {
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
 	public WorkOrderPO workOrderPo = null;
-	public CommonsPO commonsPo = null;
+	public CommonUtility commonsUtility = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
 	public CreateNewPO createNewPO = null;
@@ -66,19 +68,21 @@ public class BaseLib {
 	
 	//iphone
 	
-	public Ip_LoginHomePO ip_LoginHomePo = null;
-	public Ip_MorePO ip_MorePo = null;
-	public Ip_CalendarPO ip_CalendarPo = null;
-	
-	public Ip_RecentsPO ip_RecentsPo = null;
-	public Ip_WorkOrderPO ip_WorkOrderPo = null;
+	public Ph_LoginHomePO ip_LoginHomePo = null;
+	public Ph_MorePO ip_MorePo = null;
+	public Ph_CalendarPO ip_CalendarPo = null;
+	public Ph_RecentsItemsPO ip_RecentsPo = null;
+	public Ph_WorkOrderPO ip_WorkOrderPo = null;
+	public Ph_ExploreSearchPO ip_ExploreSearchPO = null;
+	public Ph_ChecklistPO ip_ChecklistPO = null;
+	public Ph_ToolsPO ip_ToolsPO=null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
 	public static String sOSName = null;
 	public static String sDeviceType =null;
-	public static String sUsePropertyFile = null;
+	public static String sSelectConfigPropFile = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
@@ -86,7 +90,6 @@ public class BaseLib {
 	public static String sBaseTimeStamp = null;
 	public static long lInitTimeStartMilliSec;
 	public static long lInitTimeEndMilliSec;
-	public static String sSelectConfigPropFile = null;
 	public static String sOrgType = null;
 	public static String sUDID = null;
 	public static String sAndroidDeviceName = null;
@@ -112,7 +115,7 @@ public class BaseLib {
 	}
 
 	@BeforeSuite
-	public void startServer(ITestContext context) {
+	public void startServer(ITestContext context) throws IOException {
 
 		// For report naming purpose, does not impact executions
 		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
@@ -123,23 +126,22 @@ public class BaseLib {
 		System.out.println("[BaseLib] Excuting Tests : " + sTestName);
 
 		// Get all jenkins parameters from env
+		//Check if jenkins is setting the Select_Config_Properties_For_Build else use local file
 		
 		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
 		System.out.println("[BaseLib] Server Org Type = " + sOrgType);
-
-		// Select the appropriate config file On setting USE_PROPERTY_FILE to "config_automation_build" the config_automation_build.properties file will be used to get data and config_local.properties file will be IGNORED Check if jenkins is setting the Select_Config_Properties_For_Build else uselocal
+		
+		// Select the appropriate config file On setting USE_PROPERTY_FILE to "config_automation_build" the config_automation_build excel sheet will be used to get data 
 		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : GenericLib.getConfigValue(GenericLib.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
-		GenericLib.sConfigFile = System.getProperty("user.dir") + "/resources" + "/" + sSelectConfigPropFile + ".properties";
-		sUsePropertyFile = GenericLib.getConfigValue(GenericLib.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
 
-		System.out.println("[BaseLib] Running On Profile : " + sUsePropertyFile);
+		System.out.println("[BaseLib] Running On Profile : " + sSelectConfigPropFile);
 		System.out.println("[BaseLib] Reading Config Properties From : " + GenericLib.sConfigFile);
 
 		// Select the OS from Run_On_Platform from jenkins or local
-		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME").toLowerCase();
+		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();//GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();
 		System.out.println("[BaseLib] OS Name = " + sOSName);
 
-		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : GenericLib.getConfigValue(GenericLib.sConfigFile, "DEVICE_TYPE").toLowerCase();
+		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "DEVICE_TYPE").toLowerCase();
 		System.out.println("[BaseLib] Device Type = " + sDeviceType);
 		
 		// Get the build number from jenkins
@@ -147,10 +149,10 @@ public class BaseLib {
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
 		
 		//Get UDID
-		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID").toLowerCase();
+		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
 		
-		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME").toLowerCase();
+		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 
 	}
@@ -173,23 +175,26 @@ public class BaseLib {
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
-				sAppPath = GenericLib.sResources + "//" + GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME") + ".apk";
+				sAppPath = GenericLib.sResources + "//" + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME") + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_PLATFORM_VERSION"));
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "ANDROID_DEVICE_NAME"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION"));
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME"));
 				if(sDeviceType.equalsIgnoreCase("phone")) {
 					//Ignore the AutoWebview setting for phone
 						System.out.println("Setting AUTO_WEBVIEW to false");
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+						capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
+						capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
 					}else{
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+						capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
+						capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
 					}
-				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
+				capabilities.setCapability("noReset", Boolean.parseBoolean(GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
-				capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
-				capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
+				
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
@@ -213,15 +218,15 @@ public class BaseLib {
 
 			try { // IOS Drivers
 
-				sAppPath = GenericLib.sResources + "//" + GenericLib.getConfigValue(GenericLib.sConfigFile, "APP_NAME") + ".ipa";
+				sAppPath = GenericLib.sResources + "//" + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME") + ".ipa";
 				app = new File(sAppPath);
 				capabilities = new DesiredCapabilities();
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "PLATFORM_NAME"));
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_PLATFORM_VERSION"));
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "IOS_DEVICE_NAME"));
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.getConfigValue(GenericLib.sConfigFile, "AUTOMATION_NAME"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION"));
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_DEVICE_NAME"));
+				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.getConfigValue(GenericLib.sConfigFile, "UDID"));
+				capabilities.setCapability(MobileCapabilityType.UDID, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID"));
 				if(sDeviceType.equalsIgnoreCase("phone")) {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
@@ -238,11 +243,11 @@ public class BaseLib {
 					capabilities.setCapability("sendKeyStrategy", "grouped");
 
 				}
-				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")));
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
-				capabilities.setCapability("xcodeOrgId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_ORGID"));
-				capabilities.setCapability("xcodeSigningId", GenericLib.getConfigValue(GenericLib.sConfigFile, "XCODE_SIGNID"));
-				capabilities.setCapability("updatedWDABundleId", GenericLib.getConfigValue(GenericLib.sConfigFile, "UPDATE_BUNDLEID"));
+				capabilities.setCapability("xcodeOrgId", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID"));
+				capabilities.setCapability("xcodeSigningId", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID"));
+				capabilities.setCapability("updatedWDABundleId", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID"));
 				capabilities.setCapability("startIWDP", true);
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
@@ -271,7 +276,7 @@ public class BaseLib {
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);
-		commonsPo = new CommonsPO(driver);
+		commonsUtility = new CommonUtility(driver);
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
@@ -281,14 +286,16 @@ public class BaseLib {
 		inventoryPo = new InventoryPO(driver);
 		
 		//iPhone
-		ip_LoginHomePo = new Ip_LoginHomePO(driver);
-		ip_MorePo = new Ip_MorePO(driver);
-		ip_CalendarPo = new Ip_CalendarPO(driver);
-		ip_RecentsPo = new Ip_RecentsPO(driver);
-		ip_WorkOrderPo = new Ip_WorkOrderPO(driver);
-		
+		ip_LoginHomePo = new Ph_LoginHomePO(driver);
+		ip_MorePo = new Ph_MorePO(driver);
+		ip_CalendarPo = new Ph_CalendarPO(driver);
+		ip_RecentsPo = new Ph_RecentsItemsPO(driver);
+		ip_WorkOrderPo = new Ph_WorkOrderPO(driver);
+		ip_ChecklistPO = new Ph_ChecklistPO(driver);
+		ip_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
+		ip_ToolsPO = new Ph_ToolsPO(driver);
 		try {
-			sSalesforceServerVersion = commonsPo.servicemaxServerVersion(restServices, genericLib);
+			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -303,13 +310,14 @@ public class BaseLib {
 	 * existing(true) APP, by passing the sResetMode parameter as "true" or "false"
 	 * 
 	 * @param sResetMode
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public void lauchNewApp(String sResetMode) {
+	public void lauchNewApp(String sResetMode) throws IOException {
 
 		// Installing fresh by default
-		GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", sResetMode);
-		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.getConfigValue(GenericLib.sConfigFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
+		GenericLib.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", sResetMode);
+		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
 
 		try {
 			setAPP();
@@ -319,16 +327,16 @@ public class BaseLib {
 		}
 
 		// Resetting to true always first for next execution
-		GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
+		GenericLib.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", "true");
 		System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
 	}
 
 	@BeforeMethod
-	public void startReport(ITestResult result, ITestContext context) {
+	public void startReport(ITestResult result, ITestContext context) throws IOException {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
 		// Use after launch app as it will be null before this
-		commonsPo.injectJenkinsPropertiesForSahi();
+		commonsUtility.injectJenkinsPropertiesForSahi();
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}

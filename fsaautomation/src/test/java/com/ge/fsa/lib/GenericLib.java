@@ -27,8 +27,9 @@ public class GenericLib
 	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
 	public static String sResources = sDirPath+"//resources";
-	public static String sConfigFile =  sResources+"//config_local.properties";
+	public static String sConfigFile =  sResources+"//select_config_file.properties";//sResources+"//config_local.properties";
 	public static String sTestDataFile = sResources + "//TestData.xlsx";
+	public static String sConfigPropertiesExcelFile = sResources + "//config_properties.xlsx";
 	public static int iVHighSleep = 10000;
 	public static int i30SecSleep = 10000;
 	public static int iHighSleep = 8000;
@@ -154,7 +155,7 @@ public class GenericLib
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
 			//Set the path  of sahi reports
 			
-			if(BaseLib.sUsePropertyFile.equalsIgnoreCase("automation_build") || BaseLib.sUsePropertyFile.equalsIgnoreCase("fsa_track_build")) {
+			if(BaseLib.sSelectConfigPropFile.equalsIgnoreCase("automation_build") || BaseLib.sSelectConfigPropFile.equalsIgnoreCase("fsa_track_build")) {
 				//first reference the log file name from local path ,then build a path for the build machine where we archive these logs
 				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 
@@ -239,4 +240,78 @@ public class GenericLib
 		return lastModifiedFile.getName().toString();
 	}
 	
+	
+	public static String readExcelData(String sFilePath, String sSheetName, String sKey) throws IOException {
+		String sData = null;
+		FileInputStream fis = new FileInputStream(sFilePath);
+		
+		try {
+
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet(sSheetName);
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 0; i <= iRowNum; i++) {
+				
+				//if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
+					int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{sData = sht.getRow(i+1).getCell(j).toString();
+							break;
+							}
+							
+					}
+					
+					break;
+				//}
+			}
+			wb.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		fis.close();
+		return sData;
+	}
+	
+	
+	public static void writeExcelData(String sFilePath, String sSheetName, String sKey, String sValue) throws IOException {
+		String sData = null;
+		FileInputStream fis = null;
+		FileOutputStream fos =null;
+		try {
+
+			fis = new FileInputStream(sFilePath);
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet(sSheetName);
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 0; i <= iRowNum; i++) {
+				int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
+							sht.getRow(i+1).createCell(j).setCellValue(sValue);
+							}
+					}
+					break;
+				
+			}
+			fos = new FileOutputStream(sFilePath);
+			wb.write(fos);
+			
+			wb.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		fos.close();
+		
+	}
 }
