@@ -348,19 +348,19 @@ public class Ph_WorkOrderPO extends BaseLib
 		
 	}
 	//Navigation to WorkOrder SFM with child search	
-	public void navigateToWOSFM(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+	public void navigateToWOSFM( Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
 	{
 		try {
-				commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+				ph_ExploreSearchPO.geteleExploreIcn().click();
 				//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(GenericLib.iLowSleep);
-				commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
+				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(3000);
-				commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
-				commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt),20,20);
+				//commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
+				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
-				exploreSearchPo.selectWorkOrder(commonUtility, sWOName);
+				ph_ExploreSearchPO.selectWorkOrder(sWOName);
 				if(sFieldServiceName!=null)
 				{
 					//selectAction(commonUtility, sFieldServiceName);	

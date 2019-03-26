@@ -85,4 +85,62 @@ public class Ph_ExploreSearchPO
 	
 	}
 	
+		
+	private WebElement eleSearchNameTxt;
+	public WebElement getEleSearchNameTxt(String sSearchTxt)
+	{
+		 eleSearchNameTxt=driver.findElement(By.xpath("//*[text()='"+sSearchTxt+"']"));
+		 return eleSearchNameTxt;
+	}
+	private WebElement eleExploreChildSearchTxt;
+	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
+	{
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(text(),'"+sExploreChildSearchTxt+"')]"));
+		return eleExploreChildSearchTxt;
+	}
+	@FindBy(xpath="//input[@name='keyWord']")
+	private WebElement eleExploreSearchTxtFld;
+	public WebElement getEleExploreSearchTxtFld()
+	{
+		return eleExploreSearchTxtFld;
+	}
+	@FindBy(xpath="//div[@class='x-component x-button x-button-button-sfmsearch-search x-component-button-sfmsearch-search x-button-no-icon x-stretched sfmsearch-search-button x-haslabel x-layout-box-item x-layout-hbox-item']//span[@class='x-button-label'][text()='Reset filter']")
+	//@FindBy(xpath="//span[text()='Reset filter']")
+	private WebElement eleResetFilerBtn;
+	public WebElement getEleResetFilerBtn()
+	{
+		return eleResetFilerBtn;
+	}
+	
+	
+	@FindBy(xpath="//*[text()='Search']")
+	private WebElement eleExploreSearchBtn;
+	public WebElement getEleExploreSearchBtn()
+	{
+		return eleExploreSearchBtn;
+	}
+	private WebElement eleWorkOrderIDTxt;
+	public WebElement getEleWorkOrderIDTxt(String sWorkOrderIDTxt)
+	{
+		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[text()='"+sWorkOrderIDTxt+"']"));
+		 return eleWorkOrderIDTxt;
+	}
+	public void selectWorkOrder(String sWOName) throws InterruptedException
+	{		
+		getEleExploreSearchTxtFld().click();
+		//getEleExploreSearchTxtFld().click();;
+		//getEleExploreSearchTxtFld().click();
+			//getEleExploreSearchTxtFld().click();
+		Thread.sleep(3000);
+	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+		getEleExploreSearchTxtFld().click();
+		getEleExploreSearchTxtFld().clear();
+		
+		getEleExploreSearchTxtFld().sendKeys(sWOName);
+		getEleExploreSearchBtn().click();
+		getEleWorkOrderIDTxt(sWOName).click();
+		Thread.sleep(GenericLib.iLowSleep);
+	}
+	
+	
 }
