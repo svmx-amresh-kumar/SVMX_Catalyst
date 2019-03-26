@@ -152,6 +152,24 @@ public class BaseLib {
 		
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
+		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
+		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
+		System.out.println("[BaseLib] OAUTH_URL : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
+		System.out.println("[BaseLib] CLIENT_ID : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
+		System.out.println("[BaseLib] CLIENT_SECRET : " + sAndroidDeviceName);
+	
+		sAndroidDeviceName = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
+		System.out.println("[BaseLib] CREATE_URL : " + sAndroidDeviceName);
 
 	}
 
