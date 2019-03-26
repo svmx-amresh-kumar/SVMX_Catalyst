@@ -185,10 +185,10 @@ public void Scenario1Test() throws Exception
 		Thread.sleep(1000);
 		// Verification of the fields of the childlines of Type = Expenses
 		JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Expenses'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
-		String sExpenseType = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
-		String sLineQty = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
-		assertEquals(sExpenseType, sExpenseType);
-		assertEquals(sLineQty, sLineQty);
+		String sExpenseType2 = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Expense_Type__c");
+		String sLineQty2 = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
+		assertEquals(sExpenseType, sExpenseType2);
+		assertEquals(sLineQty, sLineQty2);
 		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Expenses match");
 
 		//NXGReports.addStep("Testcase " + sTestCaseID + "The fields of Childlines of Type Expenses match", LogAs.PASSED, null);
@@ -199,9 +199,9 @@ public void Scenario1Test() throws Exception
 		String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
 		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
 		
-		String sProductName = restServices.restGetSoqlValue(sSoqlProductName,"Name");
+		String sProductName2 = restServices.restGetSoqlValue(sSoqlProductName,"Name");
 		String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
-		assertEquals(sProductName, sProductName);
+		assertEquals(sProductName, sProductName2);
 		assertEquals(sLineQtyParts, "1.0");
 		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Parts match");
 
