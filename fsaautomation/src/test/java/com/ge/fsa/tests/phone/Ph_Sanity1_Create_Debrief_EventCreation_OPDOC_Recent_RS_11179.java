@@ -66,8 +66,8 @@ public void iphone() throws Exception
 {	
 		
 		String sTestID = null;
-		//genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
-		//Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 
