@@ -2,22 +2,35 @@
 
 #Design Approach & Framework For FSA iPad Automation
 https://servicemax.atlassian.net/wiki/spaces/QS/pages/407404685
-
-#Org Setup:
-
 #Org Setup Server Side
 https://servicemax.atlassian.net/wiki/spaces/QS/pages/547619464/Org+Setup+Server+Side
-
 #Installation of Tools and Repositories:
-
 #Sahi-Pro
 https://servicemax.atlassian.net/wiki/spaces/QS/pages/328433832/Sahi-Pro
-
 #Appium Setup For IOS
 https://servicemax.atlassian.net/wiki/spaces/QS/pages/406257680/Appium+Setup+For+IOS
-
+#Appium Setup For Android (Recommended for MAC as we can automate both Appium & IOS Apps)
+https://servicemax.atlassian.net/wiki/spaces/QS/pages/509542742
 #Usage & Tips:
 https://servicemax.atlassian.net/wiki/spaces/QS/pages/411041824
 
-May The Force Be With You !!! :)
+May The Force Be With You !
+
+                c==o
+              _/____\_
+       _.,--'" ||^ || "`z._
+      /_/^ ___\||  || _/o\ "`-._
+    _/  ]. L_| || .||  \_/_  . _`--._
+   /_~7  _ . " ||. || /] \ ]. (_)  . "`--.
+  |__7~.(_)_ []|+--+|/____T_____________L|
+  |__|  _^(_) /^   __\____ _   _|
+  |__| (_){_) J ]K{__ L___ _   _]
+  |__| . _(_) \v     /__________|________
+  l__l_ (_). []|+-+-<\^   L  . _   - ---L|
+   \__\    __. ||^l  \Y] /_]  (_) .  _,--'
+     \~_]  L_| || .\ .\\/~.    _,--'"
+      \_\ . __/||  |\  \`-+-<'"
+        "`---._|J__L|X o~~|[\\     
+               \____/ \___|[//      
+                `--'   `--+-'
 
