@@ -30,7 +30,6 @@ import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
 import com.ge.fsa.pageobjects.phone.Ph_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_MorePO;
 import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
-import com.ge.fsa.pageobjects.phone.Ph_ToolsPO;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 import com.ge.fsa.pageobjects.tablet.CalendarPO;
 import com.ge.fsa.pageobjects.tablet.ChecklistPO;
@@ -68,14 +67,13 @@ public class BaseLib {
 	
 	//iphone
 	
-	public Ph_LoginHomePO ip_LoginHomePo = null;
-	public Ph_MorePO ip_MorePo = null;
-	public Ph_CalendarPO ip_CalendarPo = null;
-	public Ph_RecentsItemsPO ip_RecentsPo = null;
-	public Ph_WorkOrderPO ip_WorkOrderPo = null;
-	public Ph_ExploreSearchPO ip_ExploreSearchPO = null;
-	public Ph_ChecklistPO ip_ChecklistPO = null;
-	public Ph_ToolsPO ip_ToolsPO=null;
+	public Ph_LoginHomePO ph_LoginHomePo = null;
+	public Ph_MorePO ph_MorePo = null;
+	public Ph_CalendarPO ph_CalendarPo = null;
+	public Ph_RecentsItemsPO ph_RecentsPo = null;
+	public Ph_WorkOrderPO ph_WorkOrderPo = null;
+	public Ph_ExploreSearchPO ph_ExploreSearchPO = null;
+	public Ph_ChecklistPO ph_ChecklistPO = null;
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -154,6 +152,24 @@ public class BaseLib {
 		
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
+		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
+		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
+		System.out.println("[BaseLib] OAUTH_URL : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
+		System.out.println("[BaseLib] CLIENT_ID : " + sAndroidDeviceName);
+		
+		sAndroidDeviceName = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
+		System.out.println("[BaseLib] CLIENT_SECRET : " + sAndroidDeviceName);
+	
+		sAndroidDeviceName = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
+		System.out.println("[BaseLib] CREATE_URL : " + sAndroidDeviceName);
 
 	}
 
@@ -286,14 +302,13 @@ public class BaseLib {
 		inventoryPo = new InventoryPO(driver);
 		
 		//iPhone
-		ip_LoginHomePo = new Ph_LoginHomePO(driver);
-		ip_MorePo = new Ph_MorePO(driver);
-		ip_CalendarPo = new Ph_CalendarPO(driver);
-		ip_RecentsPo = new Ph_RecentsItemsPO(driver);
-		ip_WorkOrderPo = new Ph_WorkOrderPO(driver);
-		ip_ChecklistPO = new Ph_ChecklistPO(driver);
-		ip_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
-		ip_ToolsPO = new Ph_ToolsPO(driver);
+		ph_LoginHomePo = new Ph_LoginHomePO(driver);
+		ph_MorePo = new Ph_MorePO(driver);
+		ph_CalendarPo = new Ph_CalendarPO(driver);
+		ph_RecentsPo = new Ph_RecentsItemsPO(driver);
+		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
+		ph_ChecklistPO = new Ph_ChecklistPO(driver);
+		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {

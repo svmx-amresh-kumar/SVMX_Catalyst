@@ -98,19 +98,19 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String schecklistStatus = "Completed";		
 		
 		// Pre Login to app
-		 ip_LoginHomePo.login(commonsUtility, ip_MorePo);
+		 ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 			//toolsPo.configSync(commonsUtility);
-			ip_MorePo.syncData(commonsUtility);
+			ph_MorePo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println(sWOName);
-			ip_ExploreSearchPO.geteleExploreIcn().click();
-			ip_ExploreSearchPO.geteleAutomationSearch().click();
-			ip_ExploreSearchPO.geteleWorkOrdersChildSearch().click();
-			ip_ExploreSearchPO.geteleSearchKeyword().click();
-			ip_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
-			ip_ExploreSearchPO.getEleSearchListItem(sWOName).click();;
+			ph_ExploreSearchPO.geteleExploreIcn().click();
+			ph_ExploreSearchPO.geteleAutomationSearch().click();
+			ph_ExploreSearchPO.geteleWorkOrdersChildSearch().click();
+			ph_ExploreSearchPO.geteleSearchKeyword().click();
+			ph_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
+			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();;
 			String sProcessname = "Default title for Checklist";
-			ip_WorkOrderPo.selectAction(commonsUtility,ip_CalendarPo,sProcessname);
+			ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
 
 			//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					

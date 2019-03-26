@@ -83,7 +83,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		
 			//Pre Login to app
-		ip_LoginHomePo.login(commonsUtility, ip_MorePo);
+		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 	
 			//config sync
 			//toolsPo.configSync(commonsUtility);
@@ -97,11 +97,11 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
-			ip_CalendarPo.getEleCalendarBtn().click();
+			ph_CalendarPo.getEleCalendarBtn().click();
 			
 			Thread.sleep(3000);
-			ip_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event1");
-			ip_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event2");
+			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event1");
+			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event2");
 			
 			ExtentManager.logger.log(Status.PASS,"Two events are displayed in calendar");
 			

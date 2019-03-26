@@ -73,7 +73,8 @@ public class Ph_LoginHomePO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Log In to Sandbox']"),
-	@FindBy(id="Log In to Sandbox")})
+	@FindBy(id="Log In to Sandbox"),
+	@FindBy(xpath="//*[@content-desc='Log In to Sandbox']")})
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
