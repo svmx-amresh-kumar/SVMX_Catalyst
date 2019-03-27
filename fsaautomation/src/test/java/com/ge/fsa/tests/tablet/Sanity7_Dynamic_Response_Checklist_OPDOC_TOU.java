@@ -31,6 +31,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String OrderStatusVal =null;
 	String sSheetName =null;
+	Boolean bProcessCheckResult  = false;
 
 	
 	@Test(retryAnalyzer=Retry.class)
@@ -65,13 +66,15 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		String sChecklistPickListdynamicQuestionAns;
 		String sTargetObjectUpdateValue = "Target Object Update";
 		String sChecklistStatus = "Completed";
-		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+
 		//sWOName = "WO-00000415";
 							
 		//Pre Login to app
 		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
-		
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+
 		//Data Sync for WO's created
 		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
