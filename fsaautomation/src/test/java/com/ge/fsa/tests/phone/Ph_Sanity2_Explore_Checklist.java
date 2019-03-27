@@ -21,10 +21,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.TapOptions;
@@ -55,11 +57,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	String sSheetName =null;
 
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void scenario2_checklist() throws Exception {
 		//commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
-		lauchNewApp("false");
+		//lauchNewApp("false");
 		
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
@@ -80,7 +82,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no = "+sWOName);
-		//sWOName="WO-00000695";
+		//sWOName="WO-00011743";
 		
 		
 		String sradioQuestion ="RadioButton Question";
@@ -96,23 +98,55 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sdateTimeQuestion = "DateTime Question";
 		String sdateTimeAns = null;
 		String schecklistStatus = "Completed";		
-		
+		String sValue ="MultiOn, MultiTwo";
 		// Pre Login to app
+		
+		Thread.sleep(10000);
+		//driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
+
+		
 		 ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 			//toolsPo.configSync(commonsUtility);
-			ph_MorePo.syncData(commonsUtility);
+		 	ph_MorePo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println(sWOName);
+			System.out.println("Going to click explo9re");
 			ph_ExploreSearchPO.geteleExploreIcn().click();
 			ph_ExploreSearchPO.geteleAutomationSearch().click();
+			System.out.println("Clicked automation searhc");
 			ph_ExploreSearchPO.geteleWorkOrdersChildSearch().click();
+			System.out.println("Clicked workorder");
 			ph_ExploreSearchPO.geteleSearchKeyword().click();
+			System.out.println("Searched ekements");
 			ph_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
-			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();;
+			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();
 			String sProcessname = "Default title for Checklist";
 			ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
-
-			//sWOName="WO-00004920";
+			ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
+			System.out.println("clicked checklistname");
+			Thread.sleep(5000);			
+			ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
+			ph_ChecklistPO.geteleInProgress().click();
+			
+			ph_ChecklistPO.getelechecklistPickListQAns("1. Picklist Question", "PicklOne").click();
+			//passing "pickone" to be clicked basically a picklist
+			Thread.sleep(2000);
+			ph_ChecklistPO.geteleChecklistGenericText("PicklOne").click();
+			ph_ChecklistPO.elechecklistRadioButtonQAns("2. RadioButton Question", "RadioTwo").click();
+			Thread.sleep(5000);
+			ph_ChecklistPO.getelegenericscroll("CheckBoxOne");
+			ph_ChecklistPO.getelechecklistcheckboxQAns("3. Checkbox Question", "CheckBoxOne").click();;
+			ph_ChecklistPO.getelegenericscroll("5. Test Question");
+			ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question", "MultiOn, MultiTwo").click();
+			Thread.sleep(5000);
+			ph_ChecklistPO.geteleBackbutton().click();
+			ph_ChecklistPO.getelegenericscroll("5. Test Question");
+			ph_ChecklistPO.getelechecklistTextQAns("5. Test Question").sendKeys("Text Question Answered");
+			ph_ChecklistPO.getelegenericscroll("8. Number Question");
+			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question");
+			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys("Number Question Answered");
+			Thread.sleep(15000);			
+		/*	//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
 			commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
@@ -288,7 +322,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"checklist picklist question answer synced to server");
 			
 			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
-			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");
+			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");*/
 					
 	}
 

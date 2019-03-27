@@ -138,7 +138,7 @@ try {
 		getEleMoreBtn().click();
 		getEleDataSync().click();
 		getEleSyncNow().click();
-		commonUtility.waitforElement(getEleDataSynccompleted(),900);
+		commonUtility.waitforElement(getEleDataSynccompleted(),9000);
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(3000);
