@@ -1745,6 +1745,11 @@ public class CommonUtility {
 
 		}
 
+		/**
+		 * TO scroll fro IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
+		 * @param webElement
+		 * @throws InterruptedException
+		 */
 		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
 			Thread.sleep(3000);
 			int i;
@@ -1769,4 +1774,21 @@ public class CommonUtility {
 			System.out.println("Element not found to click after scrolling");
 
 		}
+		
+		/**
+		 * Fro Android elements to scroll we can pass the text directly to scroll, first try the overloaded method "custScrollToElementAndClick(WebElement webElement) " if it fails use this method fro android
+		 * @param androidTextInElement
+		 * @return
+		 * @throws InterruptedException
+		 */
+		public WebElement custScrollToElementAndClick(String androidTextInElement) throws InterruptedException {
+			Thread.sleep(3000);
+				System.out.println("Android scrolling");
+				String sString = androidTextInElement;
+				return driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))"));
+				
+			}
+			
+
 }
+
