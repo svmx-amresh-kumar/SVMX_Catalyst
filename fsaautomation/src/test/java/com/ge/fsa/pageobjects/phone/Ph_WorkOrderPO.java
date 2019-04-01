@@ -1,9 +1,5 @@
 package com.ge.fsa.pageobjects.phone;
 
-
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
@@ -13,20 +9,11 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
-import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
-import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
-
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -348,23 +335,18 @@ public class Ph_WorkOrderPO extends BaseLib
 		
 	}
 	//Navigation to WorkOrder SFM with child search	
-	public void navigateToWOSFM( Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+	public void navigateToWOSFM( Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException
 	{
 		try {
 				ph_ExploreSearchPO.geteleExploreIcn().click();
-				//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(GenericLib.iHighSleep);
 				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(3000);
-				//commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
 				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
 				ph_ExploreSearchPO.selectWorkOrder(sWOName);
-				if(sFieldServiceName!=null)
-				{
-					//selectAction(commonUtility, sFieldServiceName);	
-				}
+				
 				}catch(Exception e)
 				{
 					throw e;

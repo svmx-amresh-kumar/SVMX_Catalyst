@@ -89,16 +89,16 @@ public class Ph_ExploreSearchPO
 	private WebElement eleSearchNameTxt;
 	public WebElement getEleSearchNameTxt(String sSearchTxt)
 	{
-		 eleSearchNameTxt=driver.findElement(By.xpath("//*[text()='"+sSearchTxt+"']"));
+		 eleSearchNameTxt=driver.findElement(By.xpath("//*[@text='"+sSearchTxt+"']"));
 		 return eleSearchNameTxt;
 	}
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
-		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(text(),'"+sExploreChildSearchTxt+"')]"));
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
 		return eleExploreChildSearchTxt;
 	}
-	@FindBy(xpath="//input[@name='keyWord']")
+	@FindBy(xpath="//*[@text='Search Keyword...']")
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{
@@ -113,7 +113,7 @@ public class Ph_ExploreSearchPO
 	}
 	
 	
-	@FindBy(xpath="//*[text()='Search']")
+	@FindBy(xpath="//*[@text='Search']")
 	private WebElement eleExploreSearchBtn;
 	public WebElement getEleExploreSearchBtn()
 	{
@@ -122,22 +122,14 @@ public class Ph_ExploreSearchPO
 	private WebElement eleWorkOrderIDTxt;
 	public WebElement getEleWorkOrderIDTxt(String sWorkOrderIDTxt)
 	{
-		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[text()='"+sWorkOrderIDTxt+"']"));
+		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[@text='"+sWorkOrderIDTxt+"']"));
 		 return eleWorkOrderIDTxt;
 	}
 	public void selectWorkOrder(String sWOName) throws InterruptedException
 	{		
 		getEleExploreSearchTxtFld().click();
-		//getEleExploreSearchTxtFld().click();;
-		//getEleExploreSearchTxtFld().click();
-			//getEleExploreSearchTxtFld().click();
 		Thread.sleep(3000);
-	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
-		getEleExploreSearchTxtFld().click();
-		getEleExploreSearchTxtFld().clear();
-		
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
-		getEleExploreSearchBtn().click();
 		getEleWorkOrderIDTxt(sWOName).click();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
