@@ -59,7 +59,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 	String sWOName2 = null;
 	String sWOName1 = null;
 	String sWOName = null;
-	
+	Boolean bProcessCheckResult  = false;
+
 	//Attachment questions
 	
 	String sAttachmentQuestion1 = null;
@@ -98,7 +99,9 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		sWORecordID2 = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID2);
 		sWOName2= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID2 + "\'", "Name");
-		System.out.println("WO no =" + sWOName2);	
+		System.out.println("WO no =" + sWOName2);
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sFieldServiceName, sTestCaseID);		
+
 	
 	}
 	@Test(retryAnalyzer=Retry.class)
@@ -107,6 +110,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		// Pre Login to app
 		loginHomePo.login(commonsUtility, exploreSearchPo);
 		prereq();
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);

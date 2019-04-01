@@ -53,6 +53,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	Date dtempDate2;
 	Date dTempDate1;
 	String sSheetName =null;
+	Boolean bProcessCheckResult  = false;
 
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
@@ -87,8 +88,9 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
-		
-		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+
+
 		String sradioQuestion ="RadioButton Question";
 		String sradioAns = null;		
 		String stextQuestion = "Test Question";
@@ -102,9 +104,10 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sdateTimeQuestion = "DateTime Question";
 		String sdateTimeAns = null;
 		String schecklistStatus = "Completed";		
-		
+
 		// Pre Login to app
-			loginHomePo.login(commonsUtility, exploreSearchPo);					
+			loginHomePo.login(commonsUtility, exploreSearchPo);	
+		    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 			//toolsPo.configSync(commonsUtility);
 			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);

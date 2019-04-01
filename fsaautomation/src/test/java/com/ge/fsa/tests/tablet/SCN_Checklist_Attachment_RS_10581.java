@@ -44,7 +44,8 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 	String sSheetName =null;
 	String sWORecordID = null;
 	String sWOName = null;
-	
+	Boolean bProcessCheckResult  = false;
+
 	//Attachment questions
 	
 	String sAttachText ="AttachmentChecklistupload";
@@ -74,7 +75,8 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		sWOName= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);			
 		//sWOName = "WO-00004603";
-	
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sFieldServiceName, sTestCaseID);		
+
 	}
 	
 	@Test(retryAnalyzer=Retry.class)
@@ -82,7 +84,8 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		// Pre Login to app
 		loginHomePo.login(commonsUtility, exploreSearchPo);
 		prereq();
-		
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+
 		// Data Sync for WO's created
 		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
