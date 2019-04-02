@@ -25,9 +25,12 @@ import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.offset.ElementOption;
@@ -56,7 +59,8 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	Date dTempDate1;
 	String sSheetName =null;
 
-
+	
+	
 	@Test()
 	public void scenario2_checklist() throws Exception {
 		//commonsUtility.preReqSetup(genericLib);
@@ -77,13 +81,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
 		System.out.println("---------- "+ sChecklistName+"        &&&&&  ");
 		// Creation of dynamic Work Order
-		restServices.getAccessToken();
+		/*restServices.getAccessToken();
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
-		System.out.println("WO no = "+sWOName);
-		//sWOName="WO-00011743";
-		
+		System.out.println("WO no = "+sWOName);*/
+		sWOName="WO-00011743";
 		
 		String sradioQuestion ="RadioButton Question";
 		String sradioAns = null;		
@@ -97,17 +100,24 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sdateAns = null;
 		String sdateTimeQuestion = "DateTime Question";
 		String sdateTimeAns = null;
-		String schecklistStatus = "Completed";		
+		String schecklistStatus = "Completed";	
+		String sPicklistval="PicklOne";
+		String sPicklistAns = null;
+		String sTextQAns = null;
+		String sNumberQAns = null;
+		
+		
 		String sValue ="MultiOn, MultiTwo";
+		
+		
 		// Pre Login to app
 		
 		Thread.sleep(10000);
 		//driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
-
 		
 		 ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 			//toolsPo.configSync(commonsUtility);
-		 	ph_MorePo.syncData(commonsUtility);
+		// ph_MorePo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println(sWOName);
 			System.out.println("Going to click explo9re");
@@ -121,11 +131,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
 			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();
 			String sProcessname = "Default title for Checklist";
-			ph_WorkOrderPo.selectAction(commonsUtility,sProcessname);
+			ph_WorkOrderPo.selectAction(commonsUtility, sProcessname);
 			ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 			System.out.println("clicked checklistname");
 			Thread.sleep(5000);			
 			ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
+			Thread.sleep(2000);			
 			ph_ChecklistPO.geteleInProgress().click();
 			
 			ph_ChecklistPO.getelechecklistPickListQAns("1. Picklist Question", "PicklOne").click();
@@ -134,18 +145,53 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.geteleChecklistGenericText("PicklOne").click();
 			ph_ChecklistPO.elechecklistRadioButtonQAns("2. RadioButton Question", "RadioTwo").click();
 			Thread.sleep(5000);
-			ph_ChecklistPO.getelegenericscroll("CheckBoxOne");
-			ph_ChecklistPO.getelechecklistcheckboxQAns("3. Checkbox Question", "CheckBoxOne").click();;
-			ph_ChecklistPO.getelegenericscroll("5. Test Question");
+				
+			commonsUtility.custScrollToElementAndClick("4. MultiPicklist Question");
+			ph_ChecklistPO.getelechecklistcheckboxQAns("3. Checkbox Question", "CheckBoxTwo").click();;
+			commonsUtility.custScrollToElementAndClick("MultiOn, MultiTwo");
+			System.out.println("Scrolled");
 			ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question", "MultiOn, MultiTwo").click();
 			Thread.sleep(5000);
 			ph_ChecklistPO.geteleBackbutton().click();
-			ph_ChecklistPO.getelegenericscroll("5. Test Question");
+			
+			commonsUtility.custScrollToElementAndClick("5. Test Question");
 			ph_ChecklistPO.getelechecklistTextQAns("5. Test Question").sendKeys("Text Question Answered");
-			ph_ChecklistPO.getelegenericscroll("8. Number Question");
-			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question");
-			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys("Number Question Answered");
-			Thread.sleep(15000);			
+			
+			commonsUtility.custScrollToElementAndClick("8. Number Question");
+			commonsUtility.custScrollToElementAndClick("8. Number Question").click();
+			
+			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys(snumberAns);
+			driver.getKeyboard().pressKey((CharSequence) new KeyEvent(AndroidKey.ENTER));
+			
+			Thread.sleep(2000);	
+			ph_ChecklistPO.geteleSubmitbtn().click();
+			ph_ChecklistPO.geteleCompleted().click();
+			Thread.sleep(1000);	
+			ph_ChecklistPO.geteleName().click();
+			Thread.sleep(1000);	
+			ph_ChecklistPO.geteleInProgress().click();
+			sPicklistAns = ph_ChecklistPO.getelechecklistPickListQAns("1. Picklist Question", "PicklOne").getText();
+			Assert.assertTrue(sPicklistAns.equals(sPicklistval),
+					"Picklist answer --expected: " + sPicklistval + " actual: " + sPicklistAns + "");
+			ExtentManager.logger.log(Status.PASS,
+					"picklist answer sucessfull expected: " + sPicklistval + " actual: " + sPicklistAns + "");
+			
+			commonsUtility.custScrollToElementAndClick("6. DateTime Question");
+			sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("5. Test Question",stextAns).getText();
+			Assert.assertTrue(sTextQAns.equals(stextAns),
+					"Checklist Text answer --expected: " + stextAns + " actual: " + sTextQAns + "");
+			ExtentManager.logger.log(Status.PASS,
+					"Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
+			
+			
+			commonsUtility.custScrollToElementAndClick("8. Number Question");
+			Thread.sleep(3000);
+			sNumberQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("8. Number Question",snumberAns).getText();
+			Assert.assertTrue(sNumberQAns.equals(snumberAns),
+					"Checklist Text answer --expected: " + snumberAns + " actual: " + sNumberQAns + "");
+			ExtentManager.logger.log(Status.PASS,
+					"Checklist Text answer sucessfull expected: " + snumberAns + " actual: " + sNumberQAns + "");
+			
 		/*	//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
@@ -289,9 +335,9 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			checklistPo.navigateBacktoWorkOrder(commonsUtility);
 			
 			
-			
+			*/
 			// Sync the Data
-			 toolsPo.syncData(commonsUtility);		
+			 ph_MorePo.syncData(commonsUtility);
 			 Thread.sleep(GenericLib.iVHighSleep);
 			
 			 									//SERVER SIDE API VALIDATIONS
@@ -321,9 +367,9 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns), "checklist picklist answer was not sycned to server in checklist answer");
 			ExtentManager.logger.log(Status.PASS,"checklist picklist question answer synced to server");
 			
-			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
-			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");*/
-					
+/*			Assert.assertTrue(ChecklistAnsjson.contains(sradioAns), "radio picklist answer was not sycned to server in checklist answer");
+			ExtentManager.logger.log(Status.PASS,"checklist checkbox question answer synced to server");
+*/					
 	}
 
 	@AfterMethod

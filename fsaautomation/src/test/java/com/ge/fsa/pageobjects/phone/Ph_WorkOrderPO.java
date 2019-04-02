@@ -44,12 +44,10 @@ public class Ph_WorkOrderPO extends BaseLib
 	Iterator<String> iterator =null;
 	
 
-	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")})
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
 	{
-		return eleActionsLnk;
+		return eleActionsLnk = driver.findElementByAccessibilityId("SFM.HEADER_RIGHT.ACTIONS");
 	}
 	
 	private WebElement eleActionsTxt;
@@ -135,9 +133,10 @@ public class Ph_WorkOrderPO extends BaseLib
 	
 	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
+		Thread.sleep(2000);			
 		getEleActionsLnk().click();	
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
-		//getEleActionsTxt(sActionsName).click();		
+		getEleActionsTxt(sActionsName).click();		
 	}
 
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
@@ -523,6 +522,5 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	
-	
-	}	
+}
 
