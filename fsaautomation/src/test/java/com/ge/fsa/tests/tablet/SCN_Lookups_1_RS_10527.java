@@ -32,7 +32,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -77,15 +77,15 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
 //		System.out.println("WO no ="+sWOName);
 //		String sProdName = "a1";
-		loginHomePo.login(commonsUtility, exploreSearchPo);	
-		toolsPo.syncData(commonsUtility);
+		loginHomePo.login(commonUtility, exploreSearchPo);	
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		//******Validate 1st Case******
-		commonsUtility.tap(workOrderPo.getLblContact());
+		commonUtility.tap(workOrderPo.getLblContact());
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
@@ -95,63 +95,63 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
 		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
+			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
 		}
 		else {
 			Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
 		}
-		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
+		commonUtility.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 2nd Case******
-		commonsUtility.tap(workOrderPo.getLblAccount());
-		commonsUtility.lookupSearch(sAccountName);
-		commonsUtility.tap(workOrderPo.getLblContact());
+		commonUtility.tap(workOrderPo.getLblAccount());
+		commonUtility.lookupSearch(sAccountName);
+		commonUtility.tap(workOrderPo.getLblContact());
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("Contacts with Account Acme "+contactList.size());
 		String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
 //		System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWithAcme));
+			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWithAcme));
 		}
 		else {
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme));
 		}
 		//******Validate 3rd Case******
-		commonsUtility.tap(workOrderPo.getLnkFilters());
+		commonUtility.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iLowSleep);
 //		WebElement toTap=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[2]"));
 //		commonsUtility.tap(toTap);
 //		WebElement toTap1=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[1]"));
 //		commonsUtility.tap(toTap1);
 		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
-			commonsUtility.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+			commonUtility.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 		}       
 		else {
-			commonsUtility.tap(workOrderPo.getcheckBoxAccount02());
+			commonUtility.tap(workOrderPo.getcheckBoxAccount02());
 		}
-		commonsUtility.tap(workOrderPo.getBtnApply());
-		commonsUtility.lookupSearchOnly(sSearchTxt);
+		commonUtility.tap(workOrderPo.getBtnApply());
+		commonUtility.lookupSearchOnly(sSearchTxt);
 		Thread.sleep(GenericLib.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Contacts displayed on FSA "+contactList.size());
 //		System.out.println("All Contacts fetched from Database ="+sAllCon);
 //		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
+			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
 		}
 		else {
 		Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));
 		}
-		commonsUtility.tap(workOrderPo.getBtnReset());
-		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
+		commonUtility.tap(workOrderPo.getBtnReset());
+		commonUtility.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 7th Case******
-		commonsUtility.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "France");
-		commonsUtility.tap(workOrderPo.getlblSite());
+		commonUtility.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "France");
+		commonUtility.tap(workOrderPo.getlblSite());
 		List<WebElement> locList = new ArrayList<WebElement>();
 		locList = workOrderPo.getLocListInLkp();
 //		System.out.println(locList.size());
 		String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'France\'", "totalSize");
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt));
+			Assert.assertEquals(commonUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt));
 		}
 		else {
 			Assert.assertEquals(Integer.parseInt(sLocCnt),locList.size());
@@ -160,17 +160,17 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //			System.out.println("Test is "+w.getText());
 //			Assert.assertTrue(w.getText().contains(sLocName));
 //		}
-		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
+		commonUtility.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 8th Case******
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProdName);
+		workOrderPo.addParts(commonUtility, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
-		commonsUtility.tap(workOrderPo.getLblChildPart(sProdName));
+		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(workOrderPo.getlblToLocation());
+		commonUtility.tap(workOrderPo.getlblToLocation());
 		List<WebElement> locList1 = new ArrayList<WebElement>();
 		locList1 = workOrderPo.getLocListInLkp();
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt));
+			Assert.assertEquals(commonUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt));
 		}
 		else {
 			Assert.assertEquals(Integer.parseInt(sLocCnt),locList1.size());
@@ -180,20 +180,20 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		for(WebElement w:locList1) {
 //			Assert.assertTrue(w.getText().contains(sLocName));
 //		}
-		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getLnkLookupCancel());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		//******Validate 9th Case******
 		
-		commonsUtility.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
+		commonUtility.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), "Qatar");
 		Thread.sleep(3000);
 		workOrderPo.getLblChildPart(sProdName).click();
-		commonsUtility.tap(workOrderPo.getLblChildPart(sProdName));
-		commonsUtility.tap(workOrderPo.getlblToLocation());
+		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
+		commonUtility.tap(workOrderPo.getlblToLocation());
 		List<WebElement> locList2 = new ArrayList<WebElement>();
 		locList2 = workOrderPo.getLocListInLkp();
 		String sLocCnt2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Qatar\'", "totalSize");
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonsUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt2));
+			Assert.assertEquals(commonUtility.getLocHeaderCount(workOrderPo),Integer.parseInt(sLocCnt2));
 		}
 		else {
 		Assert.assertEquals(Integer.parseInt(sLocCnt2),locList2.size());

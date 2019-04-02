@@ -62,7 +62,7 @@ public class BaseLib {
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
 	public WorkOrderPO workOrderPo = null;
-	public CommonUtility commonsUtility = null;
+	public CommonUtility commonUtility = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
 	public CreateNewPO createNewPO = null;
@@ -326,7 +326,7 @@ public class BaseLib {
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);
-		commonsUtility = new CommonUtility(driver);
+		commonUtility = new CommonUtility(driver);
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
@@ -350,7 +350,7 @@ public class BaseLib {
 
 		
 		try {
-			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
+			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -411,7 +411,7 @@ public class BaseLib {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
 		// Use after launch app as it will be null before this
-		commonsUtility.injectJenkinsPropertiesForSahi();
+		commonUtility.injectJenkinsPropertiesForSahi();
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}

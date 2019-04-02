@@ -46,7 +46,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 //		iValToIncrease = Integer.parseInt(GenericLib.getExcelData(sTestID,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
-		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");
@@ -55,33 +55,33 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		System.out.println("WO no ="+sWOName);
 
 		//************Login to FSA************
-		loginHomePo.login(commonsUtility, exploreSearchPo);	
+		loginHomePo.login(commonUtility, exploreSearchPo);	
 		
 		//************Perform Data Sync************
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Perform Config Sync************
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Navigate to SFM************
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"");
 		Assert.assertEquals(workOrderPo.getScheduledDatetimevalue().getAttribute("value"),"");
 		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),null);
 		iValNoOfTimesAssigned = Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value"));
 		Assert.assertEquals(workOrderPo.getTxtNumber().getAttribute("value"),"10");
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.selectAction(commonsUtility, "Auto_Regression_10571");
+		workOrderPo.selectAction(commonUtility, "Auto_Regression_10571");
 		workOrderPo.getEleDoneLnk().click();
 //		commonsUtility.tap(workOrderPo.getEleDoneLnk());
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 //		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		DateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
 		Date date = new Date();
 		String sCurrentDate = dateFormat.format(date);

@@ -41,12 +41,12 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
 		
 		
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		System.out.println(LocalDate.now().plusDays(1L));
 		// Have a config Sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		
-		String sRandomNumber = commonsUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generaterandomnumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -77,36 +77,36 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		
 		// Syncing the Data of the Work Order
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		// Click on the Work Order
 		Thread.sleep(10000);
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
-		workOrderPo.addPSLines(commonsUtility, workOrderPo,sIBName);
-		commonsUtility.tap(workOrderPo.getEleLinkedSFM());
-		commonsUtility.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
-		commonsUtility.tap(workOrderPo.getEleOKBtn());
-		workOrderPo.addPartsManageWD(commonsUtility, workOrderPo,sProductName);
-		commonsUtility.tap(workOrderPo.getEleSFMfromLinkedSFM(sProcessname));
+		workOrderPo.addPSLines(commonUtility, workOrderPo,sIBName);
+		commonUtility.tap(workOrderPo.getEleLinkedSFM());
+		commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
+		commonUtility.tap(workOrderPo.getEleOKBtn());
+		workOrderPo.addPartsManageWD(commonUtility, workOrderPo,sProductName);
+		commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM(sProcessname));
 		//Discard the Changes by clicking on it
-		commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		//Click on Cancel Button and verify the Changes of the ChildLines
-		commonsUtility.tap(workOrderPo.getEleCancelLink());
-		commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		commonUtility.tap(workOrderPo.getEleCancelLink());
+		commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		if(workOrderPo.getEleeleIBId(sIBName).isDisplayed()== true)
 		{
 			ExtentManager.logger.log(Status.PASS,"The PS Lines are Added ");
-			commonsUtility.tap(workOrderPo.getEleLinkedSFM());
-			commonsUtility.tap(workOrderPo.getEleSFMfromLinkedSFM2("Manage Work Details for Products Serviced"));
+			commonUtility.tap(workOrderPo.getEleLinkedSFM());
+			commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM2("Manage Work Details for Products Serviced"));
 			Thread.sleep(1000);
-			commonsUtility.tap(workOrderPo.getEleOKBtn());
+			commonUtility.tap(workOrderPo.getEleOKBtn());
 			try
 			{
 			workOrderPo.getEleeleIBId(sProductName).isDisplayed();
@@ -124,13 +124,13 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 		}
 		
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
-		workOrderPo.addPartsManageWD(commonsUtility, workOrderPo,sProductName);
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		workOrderPo.addPartsManageWD(commonUtility, workOrderPo,sProductName);
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(1000);
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		// Sync the Data and verify in the Server end if both the data are present
 		Thread.sleep(20000);
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(20000);
 		// Verify the Queries
 

@@ -36,7 +36,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	private void preRequiste() throws Exception { 
 		
 		restServices.getAccessToken();
-		sSerialNumber = commonsUtility.generaterandomnumber("IB_10541_");
+		sSerialNumber = commonUtility.generaterandomnumber("IB_10541_");
 		
 		//Create a Account
 		sObjectApi = "Account?";
@@ -61,7 +61,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		System.out.println(sIBName1);
 
 		//Creation of dynamic IB2
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonsUtility.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonsUtility.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonUtility.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonUtility.generaterandomnumber("IB_10541_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
@@ -72,7 +72,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		//sIBName2 = "IB_10541_22102018144716";
 		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 		}
@@ -87,35 +87,35 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		
 		preRequiste();
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		//Config Sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Data Sync
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(workOrderPo.getElePopupTxt().getText().equals("Country should be Italy"), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
 		
-		commonsUtility.tap(workOrderPo.getEleOKBtn());
+		commonUtility.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
 	
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"IB Account is displayed successfully");
 		
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of auto update process
@@ -123,7 +123,7 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Update process is successful");
 		Thread.sleep(GenericLib.iLowSleep);
 		
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iHighSleep);
 		
 		//Validation of created Case object from IB

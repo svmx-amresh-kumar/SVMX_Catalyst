@@ -115,7 +115,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		Thread.sleep(10000);
 		//driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
 		
-		 ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		 ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			//toolsPo.configSync(commonsUtility);
 		// ph_MorePo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
@@ -131,7 +131,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
 			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();
 			String sProcessname = "Default title for Checklist";
-			ph_WorkOrderPo.selectAction(commonsUtility, sProcessname);
+			ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 			ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 			System.out.println("clicked checklistname");
 			Thread.sleep(5000);			
@@ -146,19 +146,19 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.elechecklistRadioButtonQAns("2. RadioButton Question", "RadioTwo").click();
 			Thread.sleep(5000);
 				
-			commonsUtility.custScrollToElementAndClick("4. MultiPicklist Question");
+			commonUtility.custScrollToElementAndClick("4. MultiPicklist Question");
 			ph_ChecklistPO.getelechecklistcheckboxQAns("3. Checkbox Question", "CheckBoxTwo").click();;
-			commonsUtility.custScrollToElementAndClick("MultiOn, MultiTwo");
+			commonUtility.custScrollToElementAndClick("MultiOn, MultiTwo");
 			System.out.println("Scrolled");
 			ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question", "MultiOn, MultiTwo").click();
 			Thread.sleep(5000);
 			ph_ChecklistPO.geteleBackbutton().click();
 			
-			commonsUtility.custScrollToElementAndClick("5. Test Question");
+			commonUtility.custScrollToElementAndClick("5. Test Question");
 			ph_ChecklistPO.getelechecklistTextQAns("5. Test Question").sendKeys("Text Question Answered");
 			
-			commonsUtility.custScrollToElementAndClick("8. Number Question");
-			commonsUtility.custScrollToElementAndClick("8. Number Question").click();
+			commonUtility.custScrollToElementAndClick("8. Number Question");
+			commonUtility.custScrollToElementAndClick("8. Number Question").click();
 			
 			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys(snumberAns);
 			driver.getKeyboard().pressKey((CharSequence) new KeyEvent(AndroidKey.ENTER));
@@ -176,7 +176,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,
 					"picklist answer sucessfull expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 			
-			commonsUtility.custScrollToElementAndClick("6. DateTime Question");
+			commonUtility.custScrollToElementAndClick("6. DateTime Question");
 			sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("5. Test Question",stextAns).getText();
 			Assert.assertTrue(sTextQAns.equals(stextAns),
 					"Checklist Text answer --expected: " + stextAns + " actual: " + sTextQAns + "");
@@ -184,7 +184,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 					"Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
 			
 			
-			commonsUtility.custScrollToElementAndClick("8. Number Question");
+			commonUtility.custScrollToElementAndClick("8. Number Question");
 			Thread.sleep(3000);
 			sNumberQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("8. Number Question",snumberAns).getText();
 			Assert.assertTrue(sNumberQAns.equals(snumberAns),
@@ -337,7 +337,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			
 			*/
 			// Sync the Data
-			 ph_MorePo.syncData(commonsUtility);
+			 ph_MorePo.syncData(commonUtility);
 			 Thread.sleep(GenericLib.iVHighSleep);
 			
 			 									//SERVER SIDE API VALIDATIONS

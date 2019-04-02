@@ -74,33 +74,33 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 		
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(workOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
-		commonsUtility.tap(workOrderPo.getEleOKBtn());
+		commonUtility.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
 
 
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
+		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
 
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of qualifying workorder with Issue found text error.
@@ -108,22 +108,22 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
 
 		//Validation of qualifying workorder with Issue found text popup.
-		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());	
+		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());	
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 
-		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(workOrderPo.getEleCancelLink());
-		commonsUtility.tap(workOrderPo.getEleDiscardBtn());
+		commonUtility.tap(workOrderPo.getEleCancelLink());
+		commonUtility.tap(workOrderPo.getEleDiscardBtn());
 
 		//Navigation to WO
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), "Contract");
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), "Contract");
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");

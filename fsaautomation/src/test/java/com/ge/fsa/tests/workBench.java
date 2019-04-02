@@ -89,24 +89,25 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {	
 		
-		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
-br_LoginHomePO.login(commonsUtility, exploreSearchPo);
+//br_LoginHomePO.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
 
 
 		//lauchNewApp("false");
-		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
 
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		ExtentManager.extent.flush();
 
-		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
 
-        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 
 
 
@@ -179,37 +180,37 @@ public void DateFormatTests() throws Exception {
 	String sTestCaseID="RS_11859_Calender_3";
 
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		//config sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("First time");
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 		
 		
-		 toolsPo.configSync(commonsUtility);
+		 toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("second time");
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		commonUtility.tap(calendarPO.getEleCalendarClick());
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 		
 		
-		 toolsPo.configSync(commonsUtility);
+		 toolsPo.configSync(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println("third time");
-			commonsUtility.tap(calendarPO.getEleCalendarClick());
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+			commonUtility.tap(calendarPO.getEleCalendarClick());
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 			
 			
 
-			 toolsPo.configSync(commonsUtility);
+			 toolsPo.configSync(commonUtility);
 				Thread.sleep(GenericLib.iMedSleep);
 				System.out.println("forth time");
-				commonsUtility.tap(calendarPO.getEleCalendarClick());
-				workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+				commonUtility.tap(calendarPO.getEleCalendarClick());
+				workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 				
 
     System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
@@ -220,7 +221,7 @@ public void AttachmentTests() throws Exception
 {		
 
 
-	loginHomePo.login(commonsUtility, exploreSearchPo);
+	loginHomePo.login(commonUtility, exploreSearchPo);
 	//String sworkOrderName = "WO-00001744";
 	Thread.sleep(30000);
 	//commonsUtility.switchContext("Webview");
@@ -314,7 +315,7 @@ try {
 //	touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
 	
 	
-	commonsUtility.switchContext("Native");
+	commonUtility.switchContext("Native");
 	List<WebElement> mel = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
 for(int i =0;i<mel.size();i++) {
 	try {
@@ -445,7 +446,7 @@ for(int i =0;i<mel.size();i++) {
 
 }
 
-commonsUtility.switchContext("Native");
+commonUtility.switchContext("Native");
 
 
 //List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeOther[@name='RemoteViewBridge']"));
