@@ -96,9 +96,10 @@ public class Ph_ExploreSearchPO
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(@text,'"+sExploreChildSearchTxt+"')]"));
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
 		return eleExploreChildSearchTxt;
 	}
-	@FindBy(xpath="//input[@name='keyWord']")
+	@FindBy(xpath="//*[@text='Search Keyword...']")
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{
@@ -113,7 +114,7 @@ public class Ph_ExploreSearchPO
 	}
 	
 	
-	@FindBy(xpath="//*[text()='Search']")
+	@FindBy(xpath="//*[@text='Search']")
 	private WebElement eleExploreSearchBtn;
 	public WebElement getEleExploreSearchBtn()
 	{
@@ -122,7 +123,7 @@ public class Ph_ExploreSearchPO
 	private WebElement eleWorkOrderIDTxt;
 	public WebElement getEleWorkOrderIDTxt(String sWorkOrderIDTxt)
 	{
-		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[text()='"+sWorkOrderIDTxt+"']"));
+		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[@text='"+sWorkOrderIDTxt+"']"));
 		 return eleWorkOrderIDTxt;
 	}
 	public void selectWorkOrder(String sWOName) throws InterruptedException

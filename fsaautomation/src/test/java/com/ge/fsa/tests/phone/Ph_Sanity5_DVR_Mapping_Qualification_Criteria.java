@@ -54,7 +54,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	/*	genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		//Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-*/
+    */
 	}
 
 	@Test(retryAnalyzer=Retry.class)
@@ -67,17 +67,18 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
-		preRequiste();
-
+		//preRequiste();
+		sWOName1="WO-00013308";
+		sWOName2="WO-00013309";	
 		//Pre Login to app
 		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 		/*
 		ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		 */
+		
 		ph_MorePo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-
+		 */
 		//Navigation to SFM
 		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName,commonsUtility);
 
