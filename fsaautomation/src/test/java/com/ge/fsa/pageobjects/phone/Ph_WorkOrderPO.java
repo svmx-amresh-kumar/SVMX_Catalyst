@@ -24,6 +24,7 @@ import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -121,18 +122,27 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		return eleselectprocesscreateevent;
 	}
-
+//	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
+//	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
+	private WebElement eleselectprocess;
+	public WebElement getEleselectprocess(String sProcessName)
+	{
+		
+		return eleselectprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\""+sProcessName+"\"])[3]"));
+		
+	}
 	
-	public void selectAction(CommonUtility commonUtility,Ph_CalendarPO ip_CalendarPo ,String sActionsName) throws InterruptedException
+	
+	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
 		getEleActionsLnk().click();	
-		commonUtility.custScrollToElementAndClick(ip_CalendarPo.getEleselectprocess(sActionsName));
+		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
 
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
-		selectAction(commonUtility,ip_CalendarPo,"Create New Event From Work Order");
+		selectAction(commonUtility,"Create New Event From Work Order");
 		
 		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
 		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
@@ -348,9 +358,10 @@ public class Ph_WorkOrderPO extends BaseLib
 		
 	}
 	//Navigation to WorkOrder SFM with child search	
-	public void navigateToWOSFM( Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName ) throws InterruptedException
+	public void navigateToWOSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
 	{
 		try {
+				ph_ExploreSearchPO.geteleExploreIcn().click();
 				ph_ExploreSearchPO.geteleExploreIcn().click();
 				//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(GenericLib.iLowSleep);
@@ -363,7 +374,7 @@ public class Ph_WorkOrderPO extends BaseLib
 				ph_ExploreSearchPO.selectWorkOrder(sWOName);
 				if(sFieldServiceName!=null)
 				{
-					//selectAction(commonUtility, sFieldServiceName);	
+					selectAction(commonUtility,sFieldServiceName);	
 				}
 				}catch(Exception e)
 				{
@@ -371,6 +382,147 @@ public class Ph_WorkOrderPO extends BaseLib
 				}
 		
 			}
+	
+	
+	@FindBy(xpath="//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleAccount;
+	public WebElement getEleAccount()
+	{
+		return eleAccount;
+	}
+	
+	@FindBy(xpath="//*[@text='Product']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleProduct;
+	public WebElement getEleProduct()
+	{
+		return eleProduct;
+	}
+	
+	@FindBy(xpath="//*[@text='Scheduled Date Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleScheduledDateTime;
+	public WebElement getEleScheduledDateTime()
+	{
+		return eleScheduledDateTime;
+	}
+	
+	@FindBy(xpath="//*[@text='Scheduled Date']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleScheduledDate;
+	public WebElement getEleScheduledDate()
+	{
+		return eleScheduledDate;
+	}
+	
+	@FindBy(xpath="//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleComponent;
+	public WebElement getEleComponent()
+	{
+		return eleComponent;
+	}
+	
+	
+	@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleInstalledProduct ;
+	public WebElement getEleInstalledProduct()
+	{
+		return eleInstalledProduct;
+	}
+	
+	
+	@FindBy(xpath="(//*[@text='Parts (1)']//..//following-sibling::*[@class='android.view.ViewGroup'])[1]")
+	private WebElement eletabonpart;
+	public WebElement getEletabonpart()
+	{
+		return eletabonpart;
+	}
+	
+	@FindBy(xpath="//*[@text='Part']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement elePart;
+	public WebElement getPart()
+	{
+		return elePart;
+	}
+	
+
+	@FindBy(xpath="//*[@text='Date Required']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleDateRequired;
+	public WebElement getleDateRequired()
+	{
+		return eleDateRequired;
+	}
+	
+	
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"Back\"]/android.view.ViewGroup")
+	private WebElement eleXsymbol;
+	public WebElement geteleXsymbol()
+	{
+		return eleXsymbol;
+	}
+	
+	
+		
+	
+	
+	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleProductstar;
+	public WebElement getEleProductstar()
+	{
+		return eleProductstar;
+	}
+	
+	@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	private WebElement eleInstalledProductstar;
+	public WebElement getEleInstalledProductstar()
+	{
+		return eleInstalledProductstar;
+	}
+	
+	@FindBy(xpath="//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleAccountstar;
+	public WebElement getAccountstar()
+	{
+		return eleAccountstar;
+	}
+	
+	public void createInstalledProduct(CommonUtility commonsUtility,Ph_CalendarPO ph_CalendarPo,String accountName, String ProdutName,String InstalledProductID,Ph_ExploreSearchPO ph_ExploreSearchPO ) throws Exception
+	{
+		ph_CalendarPo.getEleCalendarBtn().click();
+		//click on new icon
+		ph_CalendarPo.getEleCreateNew().click();
+		Thread.sleep(2000);
+	ph_CalendarPo.getEleselectprocessnewprocess("Create New Installed Product Automation sahi").click();
+
+		Thread.sleep(2000);
+		
+		// Adding Value for Product
+		//commonsUtility.custScrollToElement(getEleProduct());
+		getEleProductstar().click();
+		ph_ExploreSearchPO.commonlookupsearch(ProdutName);
+		
+		// Adding Value for InstalledproductID
+		//commonsUtility.custScrollToElement(getEleInstalledProduct());
+		getEleInstalledProductstar().click();
+		getEleInstalledProductstar().sendKeys(InstalledProductID);
+		
+		// Adding Value for Account
+		commonsUtility.custScrollToElement(getAccountstar());
+		getAccountstar().click();
+		ph_ExploreSearchPO.commonlookupsearch(accountName);
+	
+		
+		Thread.sleep(1000);
+		
+		ph_CalendarPo.getEleAdd().click();
+	}
+	
+	
+	@FindBy(xpath="//*[@text='Site']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleSite;
+	public WebElement getEleSite()
+	{
+		return eleSite;
+	}
+	
+	
 	
 	}	
 

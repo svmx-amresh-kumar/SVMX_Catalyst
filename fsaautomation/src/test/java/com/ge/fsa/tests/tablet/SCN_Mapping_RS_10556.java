@@ -83,7 +83,9 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10556() throws Exception {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";
@@ -91,13 +93,16 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
 
 		
-		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah")
-		  ; if(commonsUtility.verifySahiExecution()) { System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
+		
+		
+		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		  if(commonsUtility.verifySahiExecution()) { System.out.println("PASSED"); }
+		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  lauchNewApp("false"); System.out.println("RS_10556");
-		  
+		 
+		 
 		 
 
 		// read from file

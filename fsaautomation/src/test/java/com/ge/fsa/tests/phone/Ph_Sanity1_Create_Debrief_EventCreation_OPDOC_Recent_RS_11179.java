@@ -176,7 +176,7 @@ public void iphone() throws Exception
 		// To add Labor, Parts , Travel , Expense
 		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
+				ph_WorkOrderPo.selectAction(commonsUtility,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ph_WorkOrderPo.addParts(ph_CalendarPo ,sProductName);
@@ -187,7 +187,7 @@ public void iphone() throws Exception
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
-				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sPrintReportSearch);
+				ph_WorkOrderPo.selectAction(commonsUtility,sPrintReportSearch);
 				Thread.sleep(2000);
 				ph_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(2000);

@@ -56,14 +56,17 @@ public class Ph_CalendarPO
 	}
 
 	//to revisit
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"S M T W T F S\"])[2]/XCUIElementTypeOther[3]")
+	
+	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"S M T W T F S\"])[2]/XCUIElementTypeOther[3]")})
 	private WebElement eleCalendarplus;
 	public WebElement getEleCalendarplus()
 	{
 		return eleCalendarplus;
 	}
 
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")
+	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")})
 	private WebElement eleCalendarEventSubject;
 	public WebElement getEleCalendarEventSubject()
 	{
@@ -98,16 +101,7 @@ public class Ph_CalendarPO
 
 	//revisit
 	
-//	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
-//		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
-		private WebElement eleselectprocess;
-		public WebElement getEleselectprocess(String sProcessName)
-		{
-			
-			return eleselectprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\""+sProcessName+"\"])[3]"));
-			
-		}
-		
+
 		
 		private WebElement eleselectprocessnewprocess;
 		public WebElement getEleselectprocessnewprocess(String sProcessName)
@@ -392,8 +386,28 @@ public class Ph_CalendarPO
 		}
 		
 		
-		
+		@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
+		private WebElement eleStartDateTimecal;
+		public WebElement geteleStartDateTimecal()
+		{
+			return eleStartDateTimecal;
+		}	
 
+		@FindBy(xpath="//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
+		private WebElement eleEndDateTimecal;
+		public WebElement geteleEndDateTimecal()
+		{
+			return eleEndDateTimecal;
+		}	
+		
+		
+		private WebElement eleWOendpoint;
+		public WebElement getEleWOendpoint(String hour)
+		{
+			eleWOendpoint = driver.findElement(By.xpath("//*[@text='"+hour+"']"));
+			return eleWOendpoint;
+		}
+		
 }
 
 

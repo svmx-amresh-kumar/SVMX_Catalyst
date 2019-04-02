@@ -89,13 +89,13 @@ public class Ph_ExploreSearchPO
 	private WebElement eleSearchNameTxt;
 	public WebElement getEleSearchNameTxt(String sSearchTxt)
 	{
-		 eleSearchNameTxt=driver.findElement(By.xpath("//*[text()='"+sSearchTxt+"']"));
+		 eleSearchNameTxt=driver.findElement(By.xpath("//*[@text='"+sSearchTxt+"']"));
 		 return eleSearchNameTxt;
 	}
 	private WebElement eleExploreChildSearchTxt;
 	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
 	{
-		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(text(),'"+sExploreChildSearchTxt+"')]"));
+		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(@text,'"+sExploreChildSearchTxt+"')]"));
 		return eleExploreChildSearchTxt;
 	}
 	@FindBy(xpath="//input[@name='keyWord']")
@@ -127,20 +127,35 @@ public class Ph_ExploreSearchPO
 	}
 	public void selectWorkOrder(String sWOName) throws InterruptedException
 	{		
-		getEleExploreSearchTxtFld().click();
-		//getEleExploreSearchTxtFld().click();;
-		//getEleExploreSearchTxtFld().click();
-			//getEleExploreSearchTxtFld().click();
+		getEleExploreSearchTxt().click();
 		Thread.sleep(3000);
 	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
-		getEleExploreSearchTxtFld().click();
-		getEleExploreSearchTxtFld().clear();
+		getEleExploreSearchTxt().click();
+		getEleExploreSearchTxt().clear();
 		
-		getEleExploreSearchTxtFld().sendKeys(sWOName);
-		getEleExploreSearchBtn().click();
-		getEleWorkOrderIDTxt(sWOName).click();
+		getEleExploreSearchTxt().sendKeys(sWOName);
+		Thread.sleep(3000);
+		getEleSearchListItem(sWOName).click();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 	
+	
+	@FindBy(xpath="//*[@text='Search Keyword...']")
+	private WebElement eleExploreSearchTxt;
+	public WebElement getEleExploreSearchTxt()
+	{
+		return eleExploreSearchTxt;
+	}
+	
+	
+	public void commonlookupsearch(String Record) throws InterruptedException
+	{
+		getEleExploreSearchTxt().click();
+		Thread.sleep(3000);			
+		getEleExploreSearchTxt().sendKeys(Record);
+		getEleSearchListItem(Record).click();
+
+		
+	}
 	
 }

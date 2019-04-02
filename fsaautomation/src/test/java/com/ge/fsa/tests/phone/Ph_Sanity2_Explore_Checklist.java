@@ -121,7 +121,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ExploreSearchPO.geteleSearchKeyword().sendKeys(sWOName);
 			ph_ExploreSearchPO.getEleSearchListItem(sWOName).click();
 			String sProcessname = "Default title for Checklist";
-			ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
+			ph_WorkOrderPo.selectAction(commonsUtility,sProcessname);
 			ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 			System.out.println("clicked checklistname");
 			Thread.sleep(5000);			

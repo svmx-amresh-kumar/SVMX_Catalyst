@@ -79,7 +79,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName,commonsUtility);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
@@ -88,7 +88,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName,commonsUtility);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
@@ -113,7 +113,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		ph_WorkOrderPo.getEleDiscardBtn().click();
 
 		//Navigation to WO
-		ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo, sFieldServiceName);
+		ph_WorkOrderPo.selectAction(commonsUtility, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
