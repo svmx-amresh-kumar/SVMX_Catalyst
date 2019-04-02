@@ -70,13 +70,13 @@ public class ExtentManager{
 	 * @return
 	 * @throws IOException 
 	 */
-	public static ExtentReports getInstance(ChromeDriver driver) throws IOException {
+	public static ExtentReports getInstance(WebDriver chromeDriver) throws IOException {
 		System.out.println("Initializing Extent Reports");
 		File file = new File(sReportPath);
 		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for reports : "+e);}
 		if (extent == null)
 			createInstance(sReportPath+sReportName);
-		WebLocalDriver = driver;
+		WebLocalDriver = chromeDriver;
 		return extent;
 	}
 	/**

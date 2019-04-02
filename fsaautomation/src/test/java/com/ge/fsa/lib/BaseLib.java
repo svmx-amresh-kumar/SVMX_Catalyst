@@ -26,6 +26,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.pageobjects.browser.Br_CalendarPO;
+import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
@@ -53,7 +55,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class BaseLib {
 
 	public AppiumDriver driver = null;
-	public ChromeDriver chromeDriver = null;
+	public WebDriver chromeDriver = null;
 
 	public GenericLib genericLib = null;
 	public RestServices restServices = null;
@@ -78,6 +80,11 @@ public class BaseLib {
 	public Ph_WorkOrderPO ph_WorkOrderPo = null;
 	public Ph_ExploreSearchPO ph_ExploreSearchPO = null;
 	public Ph_ChecklistPO ph_ChecklistPO = null;
+	
+	//browser
+	public Br_CalendarPO br_CalendarPO =null;
+	public Br_LoginHomePO br_LoginHomePO =null;
+
 	
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
@@ -337,6 +344,11 @@ public class BaseLib {
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
 		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
 		
+		//browser
+		br_CalendarPO = new Br_CalendarPO(chromeDriver);
+		br_LoginHomePO = new Br_LoginHomePO(chromeDriver);
+
+		
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
@@ -465,7 +477,10 @@ public class BaseLib {
 			driver.quit();
 		} catch (Exception e) {
 		}
-		;
+		try {
+			chromeDriver.quit();
+		} catch (Exception e) {
+		}
 
 	}
 
