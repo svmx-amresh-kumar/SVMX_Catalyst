@@ -117,6 +117,7 @@ public class Br_LoginHomePO
 					getEleUserNameTxtFld().sendKeys(sUn);
 					getElePasswordTxtFld().sendKeys(sPwd);
 					getEleLoginBtn().click();
+					Thread.sleep(3000);
 
 		
 
