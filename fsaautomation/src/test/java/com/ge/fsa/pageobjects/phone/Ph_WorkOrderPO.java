@@ -1,33 +1,23 @@
 package com.ge.fsa.pageobjects.phone;
 
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
 import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
-import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -44,10 +34,12 @@ public class Ph_WorkOrderPO extends BaseLib
 	Iterator<String> iterator =null;
 	
 
+	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.HEADER_RIGHT.ACTIONS\"]"),
+	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")})
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
 	{
-		return eleActionsLnk = driver.findElementByAccessibilityId("SFM.HEADER_RIGHT.ACTIONS");
+		return eleActionsLnk;
 	}
 	
 	private WebElement eleActionsTxt;
@@ -133,10 +125,9 @@ public class Ph_WorkOrderPO extends BaseLib
 	
 	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
-		Thread.sleep(2000);			
 		getEleActionsLnk().click();	
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
-		getEleActionsTxt(sActionsName).click();		
+		//getEleActionsTxt(sActionsName).click();		
 	}
 
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
@@ -362,11 +353,9 @@ public class Ph_WorkOrderPO extends BaseLib
 		try {
 				ph_ExploreSearchPO.geteleExploreIcn().click();
 				ph_ExploreSearchPO.geteleExploreIcn().click();
-				//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				Thread.sleep(GenericLib.iLowSleep);
+				
 				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(3000);
-				//commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
 				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
@@ -450,7 +439,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"Back\"]/android.view.ViewGroup")
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.BACK_BUTTON\"]/android.view.ViewGroup")
 	private WebElement eleXsymbol;
 	public WebElement geteleXsymbol()
 	{
@@ -520,7 +509,164 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		return eleSite;
 	}
+	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Product Lookup']")
+	public WebElement productLookup;
+	public WebElement getProductLookup() {
+		return productLookup;
+	}
+	public WebElement getChildLineAddItem(String value) {
+		return driver.findElement(By.xpath("//*[./*[@class='android.widget.TextView'][@text='"+value+"']][@class='android.view.ViewGroup']"));
+	}
 	
+	public WebElement getChildLineAddedItem(String value) {
+		return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+value+"')]][@class='android.widget.ScrollView'])[last()]"));
+	}
 	
-}
+	@FindBy(xpath="//*[@class='android.view.ViewGroup'][contains(@content-desc,'ADD SELECTED')]")
+	private WebElement eleAddSelectedButton;
+	public WebElement getEleAddSelectedButton()
+	{
+		return eleAddSelectedButton;
+	}
+	
+	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='IB Serial Number Lookup']")
+	private WebElement eleIBSerialNumber;
+	public WebElement getEleIBSerialNumber() {
+		return eleIBSerialNumber;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView'][contains(@text,'IB')]")})
+	public List<WebElement> IBLookup;
+	public List<WebElement> getIBLookup(){
+		return IBLookup;
+	}
+
+	@FindBy(xpath="//*[@text='Add']")
+	private WebElement eleAddButton;
+	public WebElement getEleAddButton() {
+		return eleAddButton;
+	}
+	
+	@FindBy(xpath="//*[./*[@text='Remove']]")
+	private WebElement eleRemoveButton;
+	public WebElement getEleRemoveButton() {
+		return eleRemoveButton;
+	}
+	
+	@FindBy(xpath="//*[./*[@text='Discard Changes']]")
+	private WebElement eleDiscardChangesButton;
+	public WebElement getEleDiscardChangesButton() {
+		return eleDiscardChangesButton;
+	}
+	
+	@FindBy(xpath="//*[@content-desc='Back']")
+	private WebElement eleBackButton;
+	public WebElement getEleBackButton() {
+		return eleBackButton;
+	}
+	
+	public WebElement getEleChildLineItem(String childLine) {
+		return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+childLine+"')]][@class='android.widget.ScrollView'])[last()]"));
+	}
+	
+	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Expense Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']")
+	private WebElement eleExpenseTypeField;
+	public WebElement getEleExpenseTypeField() {
+		return eleExpenseTypeField;
+	}
+	
+	public WebElement getEleDropDownValue(String value) {
+		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+value+"']"));
+	}
+	
+	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Qty']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	private WebElement eleLineQtyField;
+	public WebElement getEleLineQtyField() {
+		return eleLineQtyField;
+	}
+	
+	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Price Per Unit']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	private WebElement eleLinePriceField;
+	public WebElement getEleLinePriceField() {
+		return eleLinePriceField;
+	}
+	
+	@FindBy(xpath="//*[./*[@text='More']][@class='android.view.ViewGroup']")
+	private WebElement eleMore;
+	public WebElement getEleMore() {
+		return eleMore;
+	}
+	
+	@FindBy(xpath="//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']")
+	private WebElement eleManageWorkDetails;
+	public WebElement getEleManageWorkDetails() {
+		return eleManageWorkDetails;
+	}
+	
+	public WebElement getEleeleIBId(String sProductName) {
+		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
+	}
+	public void addParts(CommonUtility commonsUtility,String[] productNames) throws InterruptedException {
+		getElePartLnk().click();
+		for(String productName : productNames) {
+			commonsUtility.ph_lookupSearch(productName);
+			commonsUtility.getSearchLookupWithText(productName).clear();
+		}
+		getEleAddSelectedButton().click();
+	}
+	
+	public void addPartsManageWD(CommonUtility commonUtility, String sProductName1) throws InterruptedException
+	{
+		commonUtility.custScrollToElementAndClick(getElePartLnk());;
+		getProductLookup().click();
+		commonUtility.ph_lookupSearch(sProductName1);
+		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
+		//Thread.sleep(1000);
+		getEleAddButton().click();
+
+	}
+public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
+		
+		exploreSearchPO.geteleExploreIcn().click();;
+		//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+		exploreSearchPO.getEleSearchListItem(sExploreSearch).click();;
+		exploreSearchPO.getEleSearchListItem(sExploreChildSearchTxt).click();;
+		exploreSearchPO.geteleSearchKeyword().click();
+		exploreSearchPO.geteleSearchKeyword().clear();
+		exploreSearchPO.geteleSearchKeyword().sendKeys(sWoName);
+
+	}
+	
+	public void addExpense(CommonUtility commonsUtility, String sExpenseType,String sLineQty,String slinepriceperunit) {
+		getChildLineAddItem("Add Expense").click();
+		getEleExpenseTypeField().click();
+		getEleDropDownValue(sExpenseType).click();;
+		getEleLineQtyField().sendKeys(sLineQty);
+		getEleLinePriceField().sendKeys(slinepriceperunit);
+		getEleAddButton().click();
+		
+		
+	}
+
+	public void navigatetoWO(CommonUtility commonUtility, Ph_ExploreSearchPO ph_ExploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
+		ph_ExploreSearchPo.geteleExploreIcn().click();
+		Thread.sleep(GenericLib.iMedSleep);
+		//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch));
+		Thread.sleep(GenericLib.iMedSleep);
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
+
+		// Select the Work Order
+		ph_ExploreSearchPo.selectWorkOrder(sWOName);
+	}
+	
+	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException
+	{
+		getChildLineAddItem("Add Products Serviced").click();
+		commonUtility.ph_lookupSearch(sSerialNumber);
+		getEleAddSelectedButton().click();
+
+	}
+	
+	}	
 

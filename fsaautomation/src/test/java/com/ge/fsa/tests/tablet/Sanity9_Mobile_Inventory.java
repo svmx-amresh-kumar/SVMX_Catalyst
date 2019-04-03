@@ -15,12 +15,12 @@ public class Sanity9_Mobile_Inventory extends BaseLib {
 public void Scenario9Test() throws Exception
 {
 	
-	commonsUtility.preReqSetup(genericLib);
+	commonUtility.preReqSetup(genericLib);
 	// Resinstall the app
 	lauchNewApp("false");
 	
 			//Pre Login to app
-			loginHomePo.login(commonsUtility, exploreSearchPo);
+			loginHomePo.login(commonUtility, exploreSearchPo);
 			//toolsPo.configSync(commonsUtility);
 			
 			Thread.sleep(GenericLib.iMedSleep);
@@ -29,7 +29,7 @@ public void Scenario9Test() throws Exception
 			ExtentManager.logger.log(Status.PASS,"Parts icon Mobile Inventory is visible");
 
 			System.out.println("mobile inventory tab is visible....");
-			commonsUtility.tap(inventoryPo.geteleInventoryIcn());
+			commonUtility.tap(inventoryPo.geteleInventoryIcn());
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			Assert.assertTrue(inventoryPo.geteleMyStockTab().isDisplayed(), "My Stock tab is not dipslayed");		
@@ -40,7 +40,7 @@ public void Scenario9Test() throws Exception
 			//NXGReports.addStep("Catalog tab is visible", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"Catalog tab is visible");
 
-			commonsUtility.tap(inventoryPo.geteleCatalogTab());
+			commonUtility.tap(inventoryPo.geteleCatalogTab());
 			
 			
 }

@@ -1,27 +1,14 @@
-  package com.ge.fsa.tests.tablet;
+package com.ge.fsa.tests.phone;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-
-import org.json.JSONArray;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
-/**
- * 
- * @author meghanarao
- *
- */
 
+public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 
-public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
@@ -38,7 +25,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 
 
@@ -68,61 +55,51 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
-		toolsPo.syncData(commonUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(genericLib.iMedSleep);
 		// Creating the Work Order - To create the Childlines
-		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
-		toolsPo.syncData(commonUtility);
+		ph_CreateNewPo.createWorkOrder(commonUtility, sAccountName, sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		Thread.sleep(2000);
+		ph_MorePo.syncData(commonUtility);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		restServices.getAccessToken();
-		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
+		//restServices.getAccessToken();
+		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonUtility, sworkOrderName);
+		ph_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
+		Thread.sleep(2000);
 		String sProcessname = "EditWoAutoTimesstamp";
-		workOrderPo.selectAction(commonUtility,sProcessname);
-		Thread.sleep(20000);
+		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		Thread.sleep(4000);
 		// Single Adding the Labor by clicking on the +Add button
-		workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
-		commonUtility.tap(workOrderPo.getEleClickSave());
-		workOrderPo.selectAction(commonUtility,sProcessname);
-		Thread.sleep(2000);
-		// Adding a new Line by clicking on +New button
-		commonUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
-		commonUtility.tap(workOrderPo.getEleclickNew());
-		commonUtility.tap(workOrderPo.getEleclickOK());
-		commonUtility.tap(workOrderPo.getElePartLaborLkUp());
-		commonUtility.lookupSearch(sProductName2);
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		
+		//workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
+		ph_WorkOrderPo.addLabor(commonUtility, ph_CalendarPo, sProductName);
+		ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		Thread.sleep(4000);
+		ph_WorkOrderPo.addLabor(commonUtility, ph_CalendarPo, sProductName2);
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
-		commonUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		ph_WorkOrderPo.getEleChildLineItem(sProductName).click();
 		Thread.sleep(2000);
-		commonUtility.tap(workOrderPo.getEleremoveitem());
-		commonUtility.tap(workOrderPo.getEleclickyesitem());
-		commonUtility.tap(workOrderPo.getEleclickOK());
+		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleRemoveButton());
+		ph_WorkOrderPo.getEleRemoveButton().click();
 		Thread.sleep(2000);
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
-		workOrderPo.addParts(commonUtility, workOrderPo,sProductNamesArray );
-		Thread.sleep(1000);
+		ph_WorkOrderPo.addParts(commonUtility, sProductNamesArray);
+		Thread.sleep(2000);
 		// Adding the Expenses to the Work Order
-		workOrderPo.addExpense(commonUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
+		//workOrderPo.addExpense(commonUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
+		ph_WorkOrderPo.addExpense(commonUtility, sExpenseType, sLineQty, slinepriceperunit);
 		Thread.sleep(3000);
 		// Adding the Another Expense by clicking on New Button
-		commonUtility.tap(workOrderPo.getEleExpensestap(sExpenseType));
-		commonUtility.tap(workOrderPo.getEleclickNew());
-		commonUtility.tap(workOrderPo.getEleclickOK());
-		//commonsUtility.tap(workOrderPo.getEleAddExpenseType());
-		commonUtility.setPickerWheelValue(workOrderPo.getEleAddExpenseType(), sExpenseType);
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		Thread.sleep(10000);
+		ph_WorkOrderPo.addExpense(commonUtility, sExpenseType, sLineQty, slinepriceperunit);
+		Thread.sleep(2000);
 		// Saving all the Childlines of the Work Order
-		commonUtility.tap(workOrderPo.getEleClickSave());
-		Thread.sleep(1000);
+		ph_WorkOrderPo.getElesave().click();
+		Thread.sleep(2000);
 		// Syncing this Data into the Server for the Work Order
-		toolsPo.syncData(commonUtility);
+		ph_MorePo.syncData(commonUtility);
 		// Verifying the number of Child lines on the Server Side from API after the Sync
 	
 		String sSoqlQueryChildline = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
@@ -142,5 +119,6 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		}
 
 	}
+
 
 }

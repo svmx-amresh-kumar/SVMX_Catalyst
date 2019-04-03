@@ -59,12 +59,12 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		//Thread.sleep(50000);
 		System.out.println("SCN_GetPrice_RS_10538");
 		
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		Thread.sleep(50000);
 
 	//	 To run the Sahi Script before the Execution of Appium
 		genericLib.executeSahiScript("appium/Scenario_10538.sah");
-		if(commonsUtility.verifySahiExecution()) {
+		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
 		}
@@ -81,30 +81,30 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		// Have a config Sync
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(genericLib.iMedSleep);
 //		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPrice_RS_10538";
 		String sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Work Order Number");
 		String sProductName = GenericLib.getExcelData(sTestDataValue,sSheetName, "Product Name ");
 		System.out.println(sworkOrderName);
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		
 		
 	/**
 	 * PARTS - Verification of Fields
 	 */
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
+		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Warranty", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonUtility.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		//commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName),10,10);
 		Thread.sleep(10000);
 		// Verify Each field value after the Get Price
@@ -121,7 +121,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is"+sPLinePricePerUnit+"Actual Value is"+sLinePricePerUnit, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Line Price Per Unit 1:Expected Value is"+sPLinePricePerUnit+"Actual Value is"+sLinePricePerUnit, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Covered Percent Value verification
 		if(sCoveredPercent.equals(sPCoveredPercent))
@@ -130,28 +130,28 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Covered Percent 1 :Expected Value is"+sPCoveredPercent+"Actual Value is"+sCoveredPercent, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Covered Percent 1 :Expected Value is"+sPCoveredPercent+"Actual Value is"+sCoveredPercent, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty.equals(sPBillingQty))
 		{
-			ExtentManager.logger.log(Status.PASS,"PARTS:Billing Qty :Expected Value is"+sPBillingQty+"Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billing Qty :Expected Value is"+sPBillingQty+"Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Billing Qty :Expected Value is"+sPBillingQty+"Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billing Qty :Expected Value is"+sPBillingQty+"Actual Value is"+sBillableQty, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice.equals(sPBillableLinePrice))
 		{
-			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"PARTS:Billable Line Price :Expected Value is"+sPBillableLinePrice+"Actual Value is"+sBillableLinePrice, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
@@ -165,18 +165,18 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		String sEndDate = Integer.toString(sEndDateint);
 		System.out.println(sEndDate);
 
-		workOrderPo.addLaborCustomizedDate(commonsUtility, workOrderPo,"Installation","03",sEndDate,"");
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
-		if(commonsUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		workOrderPo.addLaborCustomizedDate(commonUtility, workOrderPo,"Installation","03",sEndDate,"");
+		commonUtility.tap(workOrderPo.geteleGetPrice());
+		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		}
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Installation"));
-		if(commonsUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		commonUtility.tap(workOrderPo.getEleChildLineTapName("Installation"));
+		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		}
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Installation"),10,10);
-		if(commonsUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		commonUtility.tap(workOrderPo.getEleChildLineTapName("Installation"),10,10);
+		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
+			commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		}
 		String sLinePricePUnit_labor = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		System.out.println(sLinePricePUnit_labor);
@@ -186,49 +186,49 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		if(sLinePricePUnit_labor.equals("1000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Labor : Line Price Per Unit: Expected Value :1000 Actual Value:"+sLinePricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Labor : Line Price Per Unit: Expected Value :1000 Actual Value:"+sLinePricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Labor : Line Price Per Unit: Expected Value :1000 Actual Value:"+sLinePricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Labor : Line Price Per Unit: Expected Value :1000 Actual Value:"+sLinePricePUnit_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Covered Percent Value verification
 		if(sCoveredPercent_labor.equals("20"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Labor : Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Labor : Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Labor : Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Labor : Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor.equals("4.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Labor : Billable Qty: Expected Value :4.000 Actual Value:"+sBillableQty_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Labor : Billable Qty: Expected Value :4.000 Actual Value:"+sBillableQty_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Qty: Expected Value :4.000 Actual Value:"+sBillableQty_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Qty: Expected Value :4.000 Actual Value:"+sBillableQty_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor.equals("3200.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Labor : Billable Line Price: Expected Value :3200.000 Actual Value:"+sBillableLinePrice_labor, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
 		
 	// For Repair Labor Parts
 		
 
-		workOrderPo.addLaborCustomizedDate(commonsUtility, workOrderPo,"Repair","03",sEndDate,sProcessname);
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Repair"));
+		workOrderPo.addLaborCustomizedDate(commonUtility, workOrderPo,"Repair","03",sEndDate,sProcessname);
+		commonUtility.tap(workOrderPo.geteleGetPrice());
+		commonUtility.tap(workOrderPo.getEleChildLineTapName("Repair"));
 	//	commonsUtility.tap(workOrderPo.getEleChildLineTapName("Repair"),10,10);
 		String sLinePricePUnit_labor2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent_labor2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -237,41 +237,41 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		if(sLinePricePUnit_labor2.equals("2000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Lobor :Line Price Per Unit: Expected Value :2000 Actual Value:"+sLinePricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Lobor :Line Price Per Unit: Expected Value :2000 Actual Value:"+sLinePricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Lobor :Line Price Per Unit: Expected Value :2000 Actual Value:"+sLinePricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Lobor :Line Price Per Unit: Expected Value :2000 Actual Value:"+sLinePricePUnit_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Covered Percent Value verification
 		if(sCoveredPercent_labor2.equals("20"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Lobor :Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Lobor :Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Lobor :Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Lobor :Covered Percent: Expected Value :20 Actual Value:"+sCoveredPercent_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor2.equals("1"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Lobor :Billable Qty: Expected Value :1 Actual Value:"+sBillableQty_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Lobor :Billable Qty: Expected Value :1 Actual Value:"+sBillableQty_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Qty: Expected Value :1 Actual Value:"+sBillableQty_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Qty: Expected Value :1 Actual Value:"+sBillableQty_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor2.equals("1600.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Lobor :Billable Line: Expected Value :1600.000 Actual Value:"+sBillableLinePrice_labor2, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
 	/**
 	 * LABOR - END OF LABOR VERIFICATION
@@ -281,12 +281,12 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	 */
 		Thread.sleep(20000);	
 		
-		workOrderPo.addExpense(commonsUtility, workOrderPo,"Food - Dinner",sProcessname,"5","100");
+		workOrderPo.addExpense(commonUtility, workOrderPo,"Food - Dinner",sProcessname,"5","100");
 
 		//Verifying the fields of Expenses
 		
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
+		commonUtility.tap(workOrderPo.geteleGetPrice());
+		commonUtility.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"));
 		//commonsUtility.tap(workOrderPo.getEleChildLineTapName("Food - Dinner"),10,10);
 		String sCoveredPercent_labor3 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
 		String sBillableQty_labor3 = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
@@ -295,36 +295,36 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		// Covered Percent Value verification
 		if(sCoveredPercent_labor3.equals("10"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Expense :Billable Line: Expected Value :10 Actual Value:"+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Expense :Billable Line: Expected Value :10 Actual Value:"+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line: Expected Value :10 Actual Value:"+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line: Expected Value :10 Actual Value:"+sCoveredPercent_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor3.equals("5.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Expense :Billable Qty: Expected Value :5.000 Actual Value:"+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Expense :Billable Qty: Expected Value :5.000 Actual Value:"+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Qty: Expected Value :5.000 Actual Value:"+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Qty: Expected Value :5.000 Actual Value:"+sBillableQty_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
 		if(sBillableLinePrice_labor3.equals("450.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.PASS,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"Expense :Billable Line Price: Expected Value :450.000 Actual Value:"+sBillableLinePrice_labor3, MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	

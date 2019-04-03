@@ -1807,4 +1807,32 @@ public class CommonUtility {
 		}
 			System.out.println("Element not  after scrolling");
 		}
+		
+		@FindBy(xpath="//*[@class='android.widget.EditText'][@text='Search Keyword...']")
+		private WebElement searchLookup;
+		public WebElement getSearchLookup() {
+			return searchLookup;
+		}
+		
+		private WebElement pheleSearchListItem;
+		public WebElement getEleSearchListItem(String sName)
+		{
+				return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+		
+		}
+		
+		public WebElement getSearchLookupWithText(String sName)
+		{
+				return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.EditText'][@text='"+sName+"']"));
+		
+		}
+		
+		public void ph_lookupSearch(String value) throws InterruptedException {
+			getSearchLookup().click();
+			getSearchLookup().clear();
+			getSearchLookup().sendKeys(value);
+			Thread.sleep(5000);
+			getEleSearchListItem(value).click();
+			getSearchLookupWithText(value).clear();
+		}
 }

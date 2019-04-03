@@ -12,13 +12,11 @@ public class Ph_SCN_10527 extends BaseLib {
 	
 	public void RS_10527() throws Exception {
 	
-	ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+	ph_LoginHomePo.login(commonUtility, ph_MorePo);
+	
+	ph_MorePo.syncData(commonUtility);
 	
 
-	Thread.sleep(GenericLib.iMedSleep);
-	
-
-	Thread.sleep(GenericLib.iMedSleep);
 	
 }
 

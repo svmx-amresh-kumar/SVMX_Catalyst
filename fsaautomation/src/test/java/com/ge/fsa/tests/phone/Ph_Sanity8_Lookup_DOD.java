@@ -1,10 +1,7 @@
-/*
- *  @author MeghanaRao
- *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/AUT-62"
- */
-package com.ge.fsa.tests.tablet;
+package com.ge.fsa.tests.phone;
 import static org.testng.Assert.assertEquals;
 
+import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,7 +11,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
 
 
-public class Sanity8_Lookup_DOD extends BaseLib
+public class Ph_Sanity8_Lookup_DOD extends BaseLib
 {
 	
 	
@@ -33,13 +30,13 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		
 		System.out.println("Scenario 8");
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		// Syncing after the Pre-Requisite is done
-		toolsPo.syncData(commonUtility);
+		ph_MorePo.syncData(commonUtility);
 		//Create a Work Order to verify the Download Criteria
 		restServices.getAccessToken();
 		sWOJsonData = "{\"SVMXC__City__c\":\"Bangalore\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -49,21 +46,23 @@ public class Sanity8_Lookup_DOD extends BaseLib
 		String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
 		restServices.getAccessToken();
 		String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
-		toolsPo.syncData(commonUtility);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-		workOrderPo.downloadCriteriaDOD(commonUtility, exploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+		ph_MorePo.syncData(commonUtility);
+		ph_ExploreSearchPO.geteleExploreIcn().click();;
+		ph_WorkOrderPo.downloadCriteriaDOD(commonUtility, ph_ExploreSearchPO,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+		Thread.sleep(3000);
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
-			if(exploreSearchPo.getEleNorecordsToDisplay().isDisplayed())
-				{				
-				 commonUtility.tap(exploreSearchPo.getEleOnlineBttn());
-				 commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+			if(ph_ExploreSearchPO.getSearchListItems().size()<=1)
+			{				
+				 ph_ExploreSearchPO.getEleOnline().click();
+				 Thread.sleep(5000);
 				 // If the Cloud button is Visible then need to Tap on it
 				 
 				 
-					if(exploreSearchPo.getEleCloudSymbol().isDisplayed())
+					if(ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).isDisplayed())
 						{
-						commonUtility.tap(exploreSearchPo.getEleCloudSymbol(),20,20);
-						commonUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName),10,10);
+						ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).click();
+						Thread.sleep(10000);
+						ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
 					
 						}
 					// If the cloud button is not visible then throw an Error in the Report
@@ -92,10 +91,10 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				String sProductNameA = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductAId+"\'", "Name");
 				System.out.println(sProductNameA);
 	// Creating Product B
-				String sProductBName = commonUtility.generaterandomnumber("ProdB");
-				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
-				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
-				System.out.println(sProductNameB);
+//				String sProductBName = commonUtility.generaterandomnumber("ProdB");
+//				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
+//				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
+//				System.out.println(sProductNameB);
 				
 	// Creating Installed Base A 
 				String sInstalledBaseAName = commonUtility.generaterandomnumber("IBA");
@@ -104,48 +103,49 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				
 
 		// Syncing the Data
-				toolsPo.syncData(commonUtility);
+				ph_MorePo.syncData(commonUtility);
 				
 		// Config Sync
-				//toolsPo.configSync(commonsUtility);
+				//toolsPo.configSync(commonUtility);
 				
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
-				commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+				ph_ExploreSearchPO.geteleExploreIcn().click();
 			try
 			{
-				workOrderPo.selectAction(commonUtility,sProcessname);
+				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 				
 			}
 			catch(Exception e)
 			{
-				commonUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWorkOrderName));
-				workOrderPo.selectAction(commonUtility,sProcessname);
+				ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
+				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 				
 			}
 				
 		// Adding Product A to the Header and verifying the child values
-				commonUtility.tap(workOrderPo.getEleProductLookup());
-				commonUtility.lookupSearch(sProductNameA);
+				ph_WorkOrderPo.getProductLookup().click();
+				commonUtility.ph_lookupSearch(sProductNameA);
 		// Coming to the Childlines and Verifying on the IB Serial Number
-				commonUtility.tap(workOrderPo.getElePartLnk());
-				commonUtility.lookupSearch(sProductNameA);
-				commonUtility.tap(workOrderPo.getEleAddselectedbutton());
+				ph_WorkOrderPo.getChildLineAddItem("Add Parts").click();
+				Thread.sleep(3000);
+				commonUtility.ph_lookupSearch(sProductNameA);
+				ph_WorkOrderPo.getEleAddSelectedButton().click();
+				Thread.sleep(3000);
 		// Tapping on the Parts added and checking the IB Serial Number
-				commonUtility.tap(workOrderPo.getEleTaponParts(sProductNameA));
-				commonUtility.tap(workOrderPo.getEleIbSerialnumTap());
-				
+				ph_WorkOrderPo.getChildLineAddedItem(sProductNameA).click();
+				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleIBSerialNumber());
 				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
-				assertEquals(workOrderPo.getEleIBSerialNumber().size(), 1);
+				assertEquals(ph_WorkOrderPo.getIBLookup().size(), 1);
 				//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1");
 
-				if(workOrderPo.getEleIBSerialNumber().size() == 1)
+				if(ph_WorkOrderPo.getIBLookup().size() == 1)
 				{
-					commonUtility.tap(workOrderPo.getEleeleIBId(sInstalledProductAName));
-					commonUtility.tap(workOrderPo.getEleDoneBtn());
-					commonUtility.tap(workOrderPo.getEleClickSave());
+					ph_WorkOrderPo.getChildLineAddItem(sInstalledProductAName).click();;
+					ph_WorkOrderPo.getElesave().click();
+					ph_WorkOrderPo.getElesave().click();
 					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
 					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");
 
@@ -167,7 +167,15 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				}
 
 				
-				toolsPo.syncData(commonUtility);
+				ph_MorePo.syncData(commonUtility);
+				JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sWorkOrderName+"\')");
+				String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
+				String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
+				
+				String sProductName2 = restServices.restGetSoqlValue(sSoqlProductName,"Name");
+				String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
+				assertEquals(sProductNameA, sProductName2);
+				assertEquals(sLineQtyParts, "1.0");
 	
 	}
 	

@@ -54,22 +54,22 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10547() throws Exception {
 		System.out.println("SCN_CustomPicklist_RS_10547");
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		Thread.sleep(10000);
 		
 		// Create Installed Product
-		sIBName = commonsUtility.generaterandomnumber("IB");
-		sIbSerialNum = commonsUtility.generaterandomnumber("IBNum");
+		sIBName = commonUtility.generaterandomnumber("IB");
+		sIbSerialNum = commonUtility.generaterandomnumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sIBName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbSerialNum+"\",\"SVMXC__Country__c\": \"India\"}");
 		System.out.println("IB id is "+sIbId);
 		Thread.sleep(1000);
 		// To sync the Data
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(genericLib.iMedSleep);
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Installed Products", sIBName);	
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Installed Products", sIBName);	
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		String[] sContollingPicklist_WO_001 = {"--None--","CP-011", "CP-012"};
 		System.out.println(sContollingPicklist_WO_001.length);
 		String[] sDependentPicklist_CP_001 = {"--None--","DP-0111"};
@@ -77,16 +77,16 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 	
 // ==========================================================================================================================================
 		// To click the Record Type button and choosing the values
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleeleRecordTypeLst(), "WO_001");
+		commonUtility.setPickerWheelValue(workOrderPo.getEleeleRecordTypeLst(), "WO_001");
 		if(BaseLib.sOSName.toLowerCase().equals("android")) {
-			commonsUtility.tap(workOrderPo.getEleeleControllingPicklist());
+			commonUtility.tap(workOrderPo.getEleeleControllingPicklist());
 		}else {
 			workOrderPo.getEleeleControllingPicklist().click();
 		}	
 		
 //==============================================================================================
 	
-		String[] sExpectedValues = commonsUtility.getAllPicklistValues(commonsUtility, workOrderPo, sContollingPicklist_WO_001);
+		String[] sExpectedValues = commonUtility.getAllPicklistValues(commonUtility, workOrderPo, sContollingPicklist_WO_001);
 		for(int i=0;i<sContollingPicklist_WO_001.length;i++) {
 			if(sExpectedValues[i].equals(sContollingPicklist_WO_001[i]))
 					{
@@ -102,22 +102,22 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //==============================================================================================
 		// To click on the Controlling picklist value to the Dependent Picklist value
 				Thread.sleep(10000);
-				commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
-				commonsUtility.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-011");
+				commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+				commonUtility.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-011");
 
 				
 	// For Dependent Picklist clicking and verifying the values
 				
 				if(BaseLib.sOSName.toLowerCase().equals("android")) 
 				{
-					commonsUtility.tap(workOrderPo.getEleeleDependentPicklist());
+					commonUtility.tap(workOrderPo.getEleeleDependentPicklist());
 				}
 				else {
 					workOrderPo.getEleeleDependentPicklist().click();
 				}		
 //==============================================================================================
 			
-				String[] sExpectedValues2 = commonsUtility.getAllPicklistValues(commonsUtility, workOrderPo, sDependentPicklist_CP_001);
+				String[] sExpectedValues2 = commonUtility.getAllPicklistValues(commonUtility, workOrderPo, sDependentPicklist_CP_001);
 				for(int i=0;i<sDependentPicklist_CP_001.length;i++) {
 					if(sExpectedValues2[i].equals(sDependentPicklist_CP_001[i]))
 							{
@@ -131,12 +131,12 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 //=======================================================================================================
 			// To select the Dependent Picklist value
 					Thread.sleep(10000);
-					commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
-					commonsUtility.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0111");	
+					commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+					commonUtility.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0111");	
 					
 					Thread.sleep(20000);
-					commonsUtility.tap(workOrderPo.getEleClickSave());
-					toolsPo.syncData(commonsUtility);
+					commonUtility.tap(workOrderPo.getEleClickSave());
+					toolsPo.syncData(commonUtility);
 //==============================================================================================================					
 					
 // To update the Work Order Order status
@@ -147,35 +147,35 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 					System.out.println(sWOId);
 					String sWOJson="{\"SVMXC__Order_Status__c\":\"Open\"}";
 					restServices.restUpdaterecord(sObjectApi,sWOJson,sWOId);
-					toolsPo.syncData(commonsUtility);
+					toolsPo.syncData(commonUtility);
 //===============================================================================================================
 		// To Edit the Work Order value and to verify in the Data Sync
 		// To save the Work Order and verify the Values after the Edit Work Order is Selected
-			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
 			Thread.sleep(2000);
-			workOrderPo.selectAction(commonsUtility,sProcessname2);	
+			workOrderPo.selectAction(commonUtility,sProcessname2);	
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {
-				commonsUtility.tap(workOrderPo.getEleeleControllingPicklist());
+				commonUtility.tap(workOrderPo.getEleeleControllingPicklist());
 			}else {
 				workOrderPo.getEleeleControllingPicklist().click();
 			}	
 			Thread.sleep(10000);
-			commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
-			commonsUtility.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-012");
+			commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+			commonUtility.setPickerWheelValue(workOrderPo.getEleeleControllingPicklist(), "CP-012");
 
 
 //======================================================================================================
 		// To verify the values at the Dependent Picklist
 			String[] sDependentPicklist_CP_012 = {"--None--","DP-0112"};
 			if(BaseLib.sOSName.toLowerCase().equals("android")) {
-				commonsUtility.tap(workOrderPo.getEleeleDependentPicklist());
+				commonUtility.tap(workOrderPo.getEleeleDependentPicklist());
 			}else {
 				workOrderPo.getEleeleDependentPicklist().click();
 			}	
 			
 			
-			String[] sExpectedValues3 = commonsUtility.getAllPicklistValues(commonsUtility, workOrderPo, sDependentPicklist_CP_012);
+			String[] sExpectedValues3 = commonUtility.getAllPicklistValues(commonUtility, workOrderPo, sDependentPicklist_CP_012);
 			for(int i1=0;i1<sDependentPicklist_CP_012.length;i1++) {
 				if(sExpectedValues3[i1].equals(sDependentPicklist_CP_012[i1]))
 						{
@@ -188,10 +188,10 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 			}
 			
 			Thread.sleep(10000);
-			commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
-			commonsUtility.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0112");	
+			commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+			commonUtility.setPickerWheelValue(workOrderPo.getEleeleDependentPicklist(), "DP-0112");	
 
-			commonsUtility.tap(workOrderPo.getEleClickSave());
+			commonUtility.tap(workOrderPo.getEleClickSave());
 
 		
 		}

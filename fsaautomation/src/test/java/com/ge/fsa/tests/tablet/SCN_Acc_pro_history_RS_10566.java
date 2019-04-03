@@ -61,7 +61,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		//sahi
 		
 		  genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
-		  if(commonsUtility.verifySahiExecution()) {
+		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -111,16 +111,16 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 			//Pre Login to app
-			loginHomePo.login(commonsUtility, exploreSearchPo);
+			loginHomePo.login(commonUtility, exploreSearchPo);
 			//config sync
-			toolsPo.configSync(commonsUtility);
+			toolsPo.configSync(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//datasync
-			toolsPo.syncData(commonsUtility);
+			toolsPo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname1, null);
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname1, null);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			String fetchedProducthistory =workOrderPo.getProductHistory().getText();
@@ -131,12 +131,12 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			System.out.println(fetchedAccounthistory);
 			assertTrue(fetchedAccounthistory.contains("( 0 )"));
 			
-			workOrderPo.selectAction(commonsUtility, sFieldServiceName2);
+			workOrderPo.selectAction(commonUtility, sFieldServiceName2);
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsUtility.tap(workOrderPo.getEleSaveLnk());
+			commonUtility.tap(workOrderPo.getEleSaveLnk());
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname2, null);
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname2, null);
 
 			String fetchedProducthistory1 =workOrderPo.getProductHistory().getText();
 			System.out.println(fetchedProducthistory1);
@@ -155,12 +155,12 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			System.out.println(AccHisWO1);
 			assertEquals(AccHisWO1,WOname1 );
 			
-			workOrderPo.selectAction(commonsUtility, sFieldServiceName2);
+			workOrderPo.selectAction(commonUtility, sFieldServiceName2);
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsUtility.tap(workOrderPo.getEleSaveLnk());
+			commonUtility.tap(workOrderPo.getEleSaveLnk());
 			Thread.sleep(GenericLib.iMedSleep);
 			
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname3, null);
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname3, null);
 
 			String fetchedProducthistory2 =workOrderPo.getProductHistory().getText();
 			System.out.println(fetchedProducthistory2);

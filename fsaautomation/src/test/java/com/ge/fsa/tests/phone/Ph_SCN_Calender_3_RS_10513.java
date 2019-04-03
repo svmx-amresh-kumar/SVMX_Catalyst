@@ -55,16 +55,16 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
 		String sTestCaseID="RS_10513_Calender_3";
-		/*	
-		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		String sRandomNumber = commonsUtility.generaterandomnumber("");
+		
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "EventName"+sRandomNumber;
 		//sahi
 		
 	
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		  if(commonsUtility.verifySahiExecution()) {
+		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -82,21 +82,21 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
-	*/	
+	
 	
 		
 			//Pre Login to app
-		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-/*		//verify WO event is present or not
+		//verify WO event is present or not
 			ph_CalendarPo.getEleCalendarBtn().click();
 			
 			Thread.sleep(3000);
-			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event1");
-			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event2");
+			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10513_SVMX_Event1");
+			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10513_SVMX_Event2");
 			
 			ExtentManager.logger.log(Status.PASS,"Two events are displayed in calendar");
 			
@@ -108,12 +108,12 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 			ph_CalendarPo.getEleCalendarEventSubject().click();
 			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
 			
-			commonsUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0,"05", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0,"05", "00");
 			
-			commonsUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0,"07", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0,"07", "00");
 			ph_CalendarPo.getEleAdd().click();
 			Thread.sleep(3000);
-			ph_MorePo.syncData(commonsUtility);
+			ph_MorePo.syncData(commonUtility);
 			
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='"+sEventSubject+"'";				
@@ -126,7 +126,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		//	On server/DC, edit one of the events created
-			
+	/*		
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event1\'";				
 			 sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
@@ -153,19 +153,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		*/		
 			
 			//commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleWOendpoint("10 AM"));
-			Thread.sleep(3000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("10 AM").getLocation());
-			Thread.sleep(3000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("11 AM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("12 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("1 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("2 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println("Before Pencil icon enable");
-			Thread.sleep(3000);
+		
 	
 			/*
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
