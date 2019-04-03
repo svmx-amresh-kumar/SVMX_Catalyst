@@ -124,7 +124,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		// sWOName = "WO-00005043";
 
-		bProcessCheckResult = commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
 				sTestCaseID);
 		/*
 		 * genericLib.executeSahiScript("appium/Scenario_RS-10577_Checklist_SOU.sah",
@@ -141,7 +141,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	public void RS_10577() throws Exception {
 
 		// Running Pre-Req
-		commonsUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup(genericLib);
 		
 		// Resinstall the app
 		lauchNewApp("false");
@@ -151,21 +151,21 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		prerequisites();
 		
 		// Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-		toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+		loginHomePo.login(commonUtility, exploreSearchPo);
+		toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// System.out.println("validating pre filled text question is showing up");
@@ -202,17 +202,17 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		 */
 
 		// tapping next button
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
-		commonsUtility.clickAllowPopUp();
-		commonsUtility.switchContext("WebView");
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.clickAllowPopUp();
+		commonUtility.switchContext("WebView");
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 
 		// Navigating back to work Orders
-		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 
 		// Navigation back to Work Order
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -221,7 +221,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// Navigate to SFM processes
-		workOrderPo.selectAction(commonsUtility, sEditProcessName);
+		workOrderPo.selectAction(commonUtility, sEditProcessName);
 
 		// ------------------Validating the Source Object Updates------------------
 		// 1.Picklist
@@ -274,22 +274,22 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		// Checkbox Button validation
 
 		try {
-			commonsUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+			commonUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
 			ExtentManager.logger.log(Status.PASS, "Checkbox Source Object update with checkbox datatype Passed");
 		} catch (Exception e) {
 			ExtentManager.logger.log(Status.FAIL, "Checkbox Source Object update with checkbox datatype Failed");
 		}
 
-		commonsUtility.tap(workOrderPo.getEleCancelLink());
-		commonsUtility.tap(workOrderPo.getEleDiscardChanges());
+		commonUtility.tap(workOrderPo.getEleCancelLink());
+		commonUtility.tap(workOrderPo.getEleDiscardChanges());
 
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
-		workOrderPo.selectAction(commonsUtility, sEditProcessName);
+		workOrderPo.selectAction(commonUtility, sEditProcessName);
 
 		// ------------------Validating the Source Object Updates after data sync-------------------------
 
@@ -343,7 +343,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		// Checkbox Button validation
 
 		try {
-			commonsUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
+			commonUtility.tap(workOrderPo.geteleIsEntitlementPerformed_Switch_On());
 			ExtentManager.logger.log(Status.PASS,
 					"Checkbox Source Object update with checkbox datatype Passed after datasync");
 		} catch (Exception e) {

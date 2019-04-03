@@ -129,7 +129,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		System.out.println("WO no =" + sWOName4);				
 		//sWOName1 = "WO-00001615";		
 		
-		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 		
 	}
@@ -138,22 +138,22 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 	public void RS_10579() throws Exception {
 		prerequisites();
 		// Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+		loginHomePo.login(commonUtility, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
+		commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		
@@ -164,77 +164,77 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 //	   	//commonsUtility.getEleDonePickerWheelBtn().click();
 //	    commonsUtility.switchContext("WebView");
 //	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");
-		sDateAns=commonsUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateq), "date");
+		sDateAns=commonUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateq), "date");
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
 		
 		
-		commonsUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
+		commonUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"February", "3", "2018");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
 		// tapping next button
-		commonsUtility.tap(checklistPo.geteleNext());					 
+		commonUtility.tap(checklistPo.geteleNext());					 
 		Assert.assertTrue(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation rule failed for number confirmation");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Number Passed");
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberSectionJumpAns);
-		commonsUtility.tap(checklistPo.geteleNext());	
+		commonUtility.tap(checklistPo.geteleNext());	
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	 	
 		ExtentManager.logger.log(Status.PASS,"Exit Criteria for section passed");
 		//checklistPo.geteleChecklistSectionNametab(sSection3Name).click();	
-		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
+		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).sendKeys(sSectionThreeq1Ans);
-		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));	
+		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
 		Thread.sleep(genericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(snumberwithoutjump);
-		commonsUtility.tap(checklistPo.geteleNext());	
+		commonUtility.tap(checklistPo.geteleNext());	
 		//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
-		commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
+		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.tap(checklistPo.geteleSectionNextBtn(2));
+		commonUtility.tap(checklistPo.geteleSectionNextBtn(2));
 		Thread.sleep(GenericLib.iLowSleep);
 		String sTempVal = checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).getAttribute("value");
 		Assert.assertEquals(sTempVal, sSectionThreeq1Ans, "Section switch has caused data loss");
 		ExtentManager.logger.log(Status.PASS,"There is no data loss in switching sections");
 
 		//commonsUtility.tap(checklistPo.geteleNext());
-		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));
+		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));
 		
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.clickAllowPopUp();
-		commonsUtility.switchContext("WebView");
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());			
+		commonUtility.clickAllowPopUp();
+		commonUtility.switchContext("WebView");
+		commonUtility.tap(checklistPo.eleChecklistSubmit());			
 				
 
 		// tapping on the validation successful checklist popup
-		commonsUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		
 		
 		//Navigating back to work Orders
-		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		Thread.sleep(GenericLib.iMedSleep);		
 		Assert.assertEquals(workOrderPo.geteleProblemDescriptionlbl().getText(), sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for Problem Description");
 
 		Assert.assertEquals(workOrderPo.geteleBillingTypelbl().getText(), sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for billing type in Work Order");
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		//-------------Validating work order not satisfying Qualification Criteria---------------- 
 		System.out.println("Validating work order not satisfying Qualification Criteria");
 		
 		// Navigation to WO
-			workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2);
+			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2);
 
 			// Navigate to Field Service process
-			workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+			workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 			// Navigating to the checklist
 			
@@ -252,17 +252,17 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			System.out.println("Validating workorder not satisfying checklsit entry criteria");
 			
 			//Navigating back to work Orders
-			commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
-			commonsUtility.tap(calendarPO.getEleCalendarClick());
+			commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 			
 			// Navigate to Field Service process
-			workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+			workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			Thread.sleep(GenericLib.iLowSleep);
 			// Navigating to the checklist
-			commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 							
@@ -278,27 +278,27 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 
 			//Navigating back to work Orders
-			commonsUtility.tap(checklistPo.geteleSubmitLnk());
-			commonsUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
+			commonUtility.tap(checklistPo.geteleSubmitLnk());
+			commonUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
 			
 			//Navigating back to work Orders
-			commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());		
+			commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());		
 			
-			toolsPo.syncData(commonsUtility);
+			toolsPo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 
-			commonsUtility.tap(calendarPO.getEleCalendarClick());
+			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(GenericLib.iLowSleep);
-			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName4);
-			workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName4);
+			workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 			// Navigating to the checklist
-			commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
-			commonsUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
-			commonsUtility.tap(checklistPo.geteleSectionNextBtn(1));
+			commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
+			commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
+			commonUtility.tap(checklistPo.geteleSectionNextBtn(1));
 			//checklistPo.geteleChecklistHelpIcn().click();
-			commonsUtility.tap(checklistPo.geteleChecklistHelpIcn(sAttachmentQ));
+			commonUtility.tap(checklistPo.geteleChecklistHelpIcn(sAttachmentQ));
 			Thread.sleep(GenericLib.iLowSleep);
 			Thread.sleep(GenericLib.i30SecSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());

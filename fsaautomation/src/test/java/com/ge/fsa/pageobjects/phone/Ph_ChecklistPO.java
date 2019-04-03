@@ -73,18 +73,40 @@ public class Ph_ChecklistPO
 		return eleStartNew;
 	}*/
 	
-	@FindBy(xpath="//*[@content-desc='Back']")
+	
+	@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']")
 	private WebElement eleBackbutton;
 	public WebElement geteleBackbutton()
 	{
 		return eleBackbutton;
 	}
 	
-	@FindBy(xpath="//*[@text='In Progress']")
+	@FindBy(xpath="//*[@text='IN PROGRESS']")
 	private WebElement eleInProgress;
 	public WebElement geteleInProgress()
 	{
 		return eleInProgress;
+	}
+	
+	@FindBy(xpath="//*[@text='Submit']")
+	private WebElement eleSubmitbtn;
+	public WebElement geteleSubmitbtn()
+	{
+		return eleSubmitbtn;
+	}
+	
+	@FindBy(xpath="//*[@text='Completed']")
+	private WebElement eleCompleted;
+	public WebElement geteleCompleted()
+	{
+		return eleCompleted;
+	}
+	
+	@FindBy(xpath="//*[@text='[Name]']")
+	private WebElement eleName;
+	public WebElement geteleName()
+	{
+		return eleName;
 	}
 	
 	private WebElement elechecklistinprogress;
@@ -133,6 +155,17 @@ public class Ph_ChecklistPO
 
 	}
 	
+	private WebElement elechecklistTextQAnsValue;
+	public WebElement getelechecklistTextQAnsValue(String sTextQuestion,String sTextAnswer)
+	{
+		
+		 //*[@text='5. Test Question']/../*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='Text Question Answered']
+		
+		return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sTextAnswer+"']"));
+
+	}
+	
+	
 	private WebElement elechecklistNumberQAns;
 	public WebElement getelechecklistNumberQAns(String sNumberQuestion)
 	{
@@ -140,12 +173,8 @@ public class Ph_ChecklistPO
 
 	}
 	
-	private WebElement elegenericscroll;
-	public WebElement getelegenericscroll(String sString)
-	{
-		return elegenericscroll = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))"));
-
-	}
+	
+	
 	
 	
 	

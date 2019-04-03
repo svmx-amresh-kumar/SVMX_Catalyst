@@ -63,8 +63,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		String sTestCaseID="RS_11859_Calender_3";
 		
-	commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
 		
@@ -72,7 +72,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
-		  if(commonsUtility.verifySahiExecution()) {
+		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -94,16 +94,16 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		
 		  //Pre Login to app 
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		  
 	
 		  
 		  /////////////////////////////////////////////////////////////////////////////
 		  //////////////////////////////////////////////// //verify WO event is presentor not 
-		  commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		  commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		  calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_1);
-		  calendarPO.VerifyWOInCalender(commonsUtility,sWO_SFDC_2);
+		  commonUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
+		  commonUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
+		  calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_1);
+		  calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_2);
 		  
 		  ExtentManager.logger.log(Status.
 		  PASS,"Two SFDC events are displayed in calendar");
@@ -113,19 +113,19 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  );
 		  /////////////////////////////////////////////////////////////////////////////
 		  /////////////////////////////// //Create SFDC event from Create New Option
-		  commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		  commonsUtility.tap(calendarPO.geteleNewClick());
+		  commonUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
+		  commonUtility.tap(calendarPO.geteleNewClick());
 		  
-		  commonsUtility.tap(calendarPO.getelesubjectSFDCtap(),20,20);
+		  commonUtility.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 		  
 		  calendarPO.getelesubjectcal().sendKeys("Create SFDC event from new button");
-		  commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10",
+		  commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10",
 		  "00"); //set start time to Today
-		  commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
+		  commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
 		  
-		  commonsUtility.tap(workOrderPo.getEleClickSave());
+		  commonUtility.tap(workOrderPo.getEleClickSave());
 		  
-		  toolsPo.syncData(commonsUtility);
+		  toolsPo.syncData(commonUtility);
 		  
 		  sObjectApi = "Event"; restServices.getAccessToken(); sSqlEventQuery
 		  ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";
@@ -153,26 +153,26 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  String sWOJson="{\"EndDateTime\":\""+endtimezero+"\"}";
 		  restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
 		  
-		 toolsPo.syncData(commonsUtility);
+		 toolsPo.syncData(commonUtility);
 		
 	
 		  String stempDate=calendarPO.convertedformate(endtimezero);
 		   
-		  commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
+		  commonUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
 		   
 		  calendarPO.geteleWOendpoint("09:00").getLocation(); 
 		  Thread.sleep(3000);
 		  System.out.println("Before Pencil icon enable"); try {
-		  commonsUtility.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1)); //tap onpencil icon 
+		  commonUtility.Enablepencilicon(calendarPO.getelegetsubject(sWO_SFDC_1)); //tap onpencil icon 
 		  System.out.println("tap on pencil icon");
-		  commonsUtility.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20); String
+		  commonUtility.tap(calendarPO.getelepenciliconcal(sWO_SFDC_1),20,20); String
 		  EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");//dummy 
 		  }
 		  catch (Exception e) {
 			  Thread.sleep(3000);
 			  calendarPO.geteleWOendpoint3("09:00").getLocation();  
-		  commonsUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
-		  commonsUtility.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
+		  commonUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_1));
+		  commonUtility.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_1),20,20);
 		  Thread.sleep(3000); }
 		  
 		  
@@ -180,7 +180,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  System.out.println(EndDateTimecal);
 		  
 		  Assert.assertEquals(stempDate,EndDateTimecal,"End Date time value mapped is not displayed");
-		  commonsUtility.tap(workOrderPo.getEleCancelLink());
+		  commonUtility.tap(workOrderPo.getEleCancelLink());
 		  ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful"); 
 		  System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////" );
 		
@@ -189,42 +189,42 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	//	On client, edit one of the events created 
 		
 	
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 		calendarPO.geteleWOendpoint("09:00").getLocation();
 		Thread.sleep(3000);
 		System.out.println("before");
-		commonsUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_2));//getsubjectformultidaysfdc
+		commonUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SFDC_2));//getsubjectformultidaysfdc
 		System.out.println("tap on pencil icon");
-		commonsUtility.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_2),20,20);//getelepenciliconcalmultidaysfdc
+		commonUtility.tap(calendarPO.getelepenciliconcalmultiday(sWO_SFDC_2),20,20);//getelepenciliconcalmultidaysfdc
 
 			Thread.sleep(10000);
 		//commonsUtility.tap(calendarPO.geteleEndDateTime());
-		commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTime(), -1,"15","00");
+		commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTime(), -1,"15","00");
 	if(BaseLib.sOSName=="ios") {
-		commonsUtility.switchContext("Native");
-		commonsUtility.getEleDonePickerWheelBtn().click();
-		commonsUtility.switchContext("Webview");
+		commonUtility.switchContext("Native");
+		commonUtility.getEleDonePickerWheelBtn().click();
+		commonUtility.switchContext("Webview");
 	}
 		
 		String EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
 		System.out.println(EndDateTimevalidate);
         
 		Thread.sleep(3000);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
-	try {commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
+	try {commonUtility.tap(workOrderPo.getEleSaveLnk());
 	}
 	catch (Exception e) {
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 	}
 	
         System.out.println("#####################");
-        commonsUtility.tap(workOrderPo.getEleYesBtn());
+        commonUtility.tap(workOrderPo.getEleYesBtn());
         Thread.sleep(3000);
     
         
         
-        toolsPo.syncData(commonsUtility);
+        toolsPo.syncData(commonUtility);
         
        
        sObjectApi = "Event"; 
@@ -249,24 +249,24 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  ////////////////////// //On client, create an SFDC event longer than 14 days.
 		  
 		  
-		  commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		  commonsUtility.tap(calendarPO.geteleNewClick());
+		  commonUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
+		  commonUtility.tap(calendarPO.geteleNewClick());
 		  //commonsUtility.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 		  
 		  calendarPO.getelesubjectSFDCtap().sendKeys("SFDC Event for more than 14 days");
 		  //commonsUtility.tap(calendarPO.geteleclickupdate());
-		  commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10","00"); //set start time to Today
-		  commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 18,"10","00");
+		  commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10","00"); //set start time to Today
+		  commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 18,"10","00");
 		  
-		  commonsUtility.tap(workOrderPo.getEleClickSave());
+		  commonUtility.tap(workOrderPo.getEleClickSave());
 		  
-		  commonsUtility.tap(toolsPo.getEleToolsIcn());
+		  commonUtility.tap(toolsPo.getEleToolsIcn());
 		 // toolsPo.getEleSyncDataNowLnk().click();
-		  commonsUtility.tap(toolsPo.getEleSyncDataNowLnk());
-		  commonsUtility.tap(toolsPo.getEleStartSyncBtn());
-		  commonsUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(), 120);
+		  commonUtility.tap(toolsPo.getEleSyncDataNowLnk());
+		  commonUtility.tap(toolsPo.getEleStartSyncBtn());
+		  commonUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(), 120);
 		  
-		  commonsUtility.tap(toolsPo.geteleResolve()); String
+		  commonUtility.tap(toolsPo.geteleResolve()); String
 		  errormsg=toolsPo.getelesyncconflicterror().getText();
 		  System.out.println(errormsg); 
 		 // Assert.assertEquals(errormsg,"An event can't last longer than 14 days.: Duration");
@@ -274,9 +274,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  ExtentManager.logger.log(Status.
 		  PASS," On client, create an SVMX event longer than 14 days is successful");
 		  
-		  commonsUtility.tap(toolsPo.geteleResolveissue());
-		  commonsUtility.tap(toolsPo.geteleApply()); commonsUtility.tap(toolsPo.getEleOkBtn());
-		  toolsPo.syncData(commonsUtility);
+		  commonUtility.tap(toolsPo.geteleResolveissue());
+		  commonUtility.tap(toolsPo.geteleApply()); commonUtility.tap(toolsPo.getEleOkBtn());
+		  toolsPo.syncData(commonUtility);
 		  
 		  
 		  sObjectApi = "Event"; 
