@@ -42,14 +42,6 @@ public class Ph_ChecklistPO
 	TouchAction touchAction = null;
 	Iterator<String> iterator =null;
 	
-
-	@FindAll({@FindBy(xpath="//*[@text='More']"),
-	@FindBy(id="More, tab, 4 of 4")})
-	private WebElement eleMoreBtn;
-	public WebElement getEleMoreBtn()
-	{
-		return eleMoreBtn;
-	}
 	
 	//*[@text='Sanity2_Checklist']
 	private WebElement eleChecklistName;

@@ -34,8 +34,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	Iterator<String> iterator =null;
 	
 
-	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.HEADER_RIGHT.ACTIONS\"]"),
-	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")})
+	@FindBy(xpath="//*[@*='SFM.HEADER_RIGHT.ACTIONS']")
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
 	{

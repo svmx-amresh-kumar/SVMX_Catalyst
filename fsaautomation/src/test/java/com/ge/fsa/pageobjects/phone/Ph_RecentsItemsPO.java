@@ -42,8 +42,7 @@ public class Ph_RecentsItemsPO
 	Iterator<String> iterator =null;
 	
 	
-	@FindAll({@FindBy(xpath="//*[@text='Recents']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Recents, tab, 3 of 4\"]")})
+	@FindBy(xpath="//*[@*='Recents']")
 	private WebElement eleClickRecentItems;
 	public WebElement getEleClickRecentItems()
 	{

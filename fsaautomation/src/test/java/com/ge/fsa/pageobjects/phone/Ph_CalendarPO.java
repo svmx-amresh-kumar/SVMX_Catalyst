@@ -40,8 +40,7 @@ public class Ph_CalendarPO
 	TouchAction touchAction = null;
 	Iterator<String> iterator =null;
 	
-	@FindAll({@FindBy(xpath="//*[@text='Calendar']"),
-	@FindBy(id="Calendar, tab, 1 of 4")})
+	@FindBy(xpath="//*[@*='TAB_BAR.CALENDAR_TAB']")
 	private WebElement eleCalendarBtn;
 	public WebElement getEleCalendarBtn()
 	{

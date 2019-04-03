@@ -31,36 +31,30 @@ public class Ph_ExploreSearchPO
 	Iterator<String> iterator =null;
 	
 
-	@FindAll({@FindBy(xpath="//*[@text='More']"),
-	@FindBy(id="More, tab, 4 of 4")})
-	private WebElement eleMoreBtn;
-	public WebElement getEleMoreBtn()
-	{
-		return eleMoreBtn;
-	}
+
 	
-	@FindBy(xpath="//*[@text='Explore']")
+	@FindBy(xpath="//*[@*='Explore']")
 	private WebElement eleExploreIcn;
 	public WebElement geteleExploreIcn()
 	{
 		return eleExploreIcn;
 	}
 	
-	@FindBy(xpath="//*[@text='AUTOMATION SEARCH']")
+	@FindBy(xpath="//*[@*='AUTOMATION SEARCH']")
 	private WebElement eleAutomationSearch;
 	public WebElement geteleAutomationSearch()
 	{
 		return eleAutomationSearch;
 	}
 	
-	@FindBy(xpath="//*[@text='Work Orders']")
+	@FindBy(xpath="//*[@*='Work Orders']")
 	private WebElement eleWorkOrdersChildSearch;
 	public WebElement geteleWorkOrdersChildSearch()
 	{
 		return eleWorkOrdersChildSearch;
 	}
 
-	@FindBy(xpath ="//*[@text='Search Keyword...']")
+	@FindBy(xpath ="//*[@*='Search Keyword...']")
 	private WebElement eleSearchKeyword;
 	public WebElement geteleSearchKeyword()
 	{
@@ -88,7 +82,7 @@ public class Ph_ExploreSearchPO
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
 		return eleExploreChildSearchTxt;
 	}
-	@FindBy(xpath="//*[@text='Search Keyword...']")
+	@FindBy(xpath="//*[@*='Search Keyword...']")
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{

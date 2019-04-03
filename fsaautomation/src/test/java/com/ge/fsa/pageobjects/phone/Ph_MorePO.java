@@ -44,8 +44,7 @@ public class Ph_MorePO
 	Iterator<String> iterator =null;
 	
 
-	@FindAll({@FindBy(xpath="//*[@text='More']"),
-	@FindBy(id="More, tab, 4 of 4")})
+	@FindBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()
 	{
@@ -100,7 +99,7 @@ public class Ph_MorePO
 		public String getEleConfigSyncSuccessText()
 		{
 			if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("name");
+				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("label");
 
 			}else {
 				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("text");
@@ -143,6 +142,7 @@ public class Ph_MorePO
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button and waiting...");
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+	System.out.println("Sync Status = "+getEleConfigSyncSuccessText());
 	if(getEleConfigSyncSuccessText().contains("successful sync")) {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }else {
@@ -160,6 +160,7 @@ public class Ph_MorePO
 		getEleMoreBtn().click();
 		getEleDataSync().click();
 		getEleSyncNow().click();
+		System.out.println("Clicked on Sync Now and waiting...");
 		commonUtility.waitforElement(getEleDataSynccompleted(),200);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
