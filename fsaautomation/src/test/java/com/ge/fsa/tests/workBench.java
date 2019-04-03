@@ -91,7 +91,7 @@ public void workBenchAnd() throws Exception
 	
 //br_LoginHomePO.login(commonsUtility, exploreSearchPo);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-
+		ph_MorePo.syncData(commonUtility);
 		
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();

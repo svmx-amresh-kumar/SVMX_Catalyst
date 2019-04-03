@@ -66,8 +66,7 @@ public class Ph_MorePO
 
 	}
 //return 
-	@FindAll({@FindBy(xpath="//*[@text='Sync Now']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sync Now\"])[2]")})
+	@FindBy(xpath="//*[@*='Sync Now']")
 	private WebElement eleSyncNow;
 	public WebElement getEleSyncNow()
 	{
@@ -139,7 +138,8 @@ public class Ph_MorePO
 	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
 	getEleSyncBtn().click();
-	System.out.println("Clicked on Sync button");
+	System.out.println("Clicked on Sync button and waiting...");
+	commonUtility.waitforElement(geteleconfigsyncsucess(), 1);
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 	assertTrue(commonUtility.isDisplayedCust(geteleconfigsyncsucess()), "Sync not done");
 	System.out.println("Validated and done!!!!!");
