@@ -89,14 +89,12 @@ public class Ph_CalendarPO
 	
 	
 ///////////////////////////////////////////////////////////////////////////////	create new PO
-	
-	//revisit
-	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc='APP.TOOLBAR.CREATE_NEW.BUTTON']/android.view.ViewGroup"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]")})
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew()
 	{
-		return eleCreateNew;
+		
+		return eleCreateNew = driver.findElementByAccessibilityId("CALENDAR.ADD.FAB_BUTTON");
+
 	}
 
 	//revisit
@@ -407,6 +405,8 @@ public class Ph_CalendarPO
 			eleWOendpoint = driver.findElement(By.xpath("//*[@text='"+hour+"']"));
 			return eleWOendpoint;
 		}
+		
+		
 		
 }
 
