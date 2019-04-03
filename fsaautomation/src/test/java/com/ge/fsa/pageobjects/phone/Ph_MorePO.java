@@ -50,12 +50,18 @@ public class Ph_MorePO
 		return eleMoreBtn;
 	}
 	
-	//@FindBy(xpath="//XCUIElementTypeOther[@name='Sync']")
-	//@FindBy(xpath="//*[@text='Sync']")
+	@FindBy(id="SETTINGS.SYNC']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
-		return eleSyncBtn = driver.findElementByAccessibilityId("SETTINGS.SYNC");
+//		return eleSyncBtn = driver.findElementByAccessibilityId("SETTINGS.SYNC");
+//		try {
+//			return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+//
+//		} catch (Exception e)
+//		{eleMoreBtn = driver.findElement(By.xpath("//*[@text='More']"));}
+		return eleSyncBtn;
+
 	}
 //return 
 	@FindAll({@FindBy(xpath="//*[@text='Sync Now']"),
@@ -66,7 +72,7 @@ public class Ph_MorePO
 		return eleSyncNow;
 	}
 	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.TOOLBAR.SYNC_STATUS.BUTTON\"]/android.view.ViewGroup"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")})
+	@FindBy(id="SETTINGS.SYNC")})
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()
 	{
@@ -78,9 +84,9 @@ public class Ph_MorePO
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Run Configuration Sync Last successful sync:']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),
-		@FindBy(id="Run Configuration Sync Last successful sync:")})*/
-	@FindBy(xpath="//*[text='Last successful sync: a few seconds ago']")
+		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),*/
+		@FindBy(id="SETTING.SYNC.CONFIG.ITEM_BUTTON")
+	//@FindBy(xpath="//*[text='Last successful sync: a few seconds ago']")
 	private WebElement eleRunConfigSync;
 	public WebElement getEleRunConfigSync()
 	{
@@ -112,12 +118,12 @@ public class Ph_MorePO
 		return eleconfigsyncsucess;
 		}
 		
-		@FindBy(xpath="//*[@text='Perform Config Sync']")
-		private WebElement elePerformConfigSync;
-		public WebElement getElePerformConfigSync()
-		{
-		return elePerformConfigSync;
-		}
+//		@FindBy(xpath="//*[@text='Perform Config Sync']")
+//		private WebElement elePerformConfigSync;
+//		public WebElement getElePerformConfigSync()
+//		{
+//		return elePerformConfigSync;
+//		}
 		
 		@FindBy(xpath="//*[@text='Cancel']")
 		private WebElement eleCancel;
@@ -125,8 +131,16 @@ public class Ph_MorePO
 		{
 		return eleCancel;
 		}
+	
+	
+	@FindBy(id="Perform Config Sync")
+	private WebElement elePerformConfigSync;
+	public WebElement getElePerformConfigSync()
+	{
+		return elePerformConfigSync;// = driver.findElementByAccessibilityId("Perform Config Sync");
+	}
 
-	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ip_CalendarPo) throws InterruptedException {
+	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
 	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
@@ -138,7 +152,7 @@ public class Ph_MorePO
 	System.out.println("Clicked on run config button");
 	getElePerformConfigSync().click();
 	System.out.println("clicking perform config sync now waiting for calandar new");
-	commonUtility.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
+	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
 	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
