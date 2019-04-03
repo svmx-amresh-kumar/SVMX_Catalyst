@@ -67,13 +67,13 @@ public void iphone() throws Exception
 		
 		String sTestID = null;
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 
 		
 		
-		String sRandomNumber = commonsUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		
@@ -95,16 +95,16 @@ public void iphone() throws Exception
 		
 		
 		
-		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
-		ph_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 		
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
 		ph_CalendarPo.getEleCreateNew().click();
 		Thread.sleep(2000);
 		
-	commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
+	commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleselectprocessnewprocess("Create New Work Order"));
 
 		Thread.sleep(2000);
 		
@@ -141,14 +141,14 @@ public void iphone() throws Exception
 		Thread.sleep(2000);
 		
 		
-		commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleProformaInvoice());
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleProformaInvoice());
 		
 		ph_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
 		ph_CalendarPo.getEleAdd().click();
 	
 		Thread.sleep(2000);
-		ph_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 	
 	// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -161,10 +161,10 @@ public void iphone() throws Exception
 		Thread.sleep(2000);
 		
 		// To create a new Event for the given Work Order
-		ph_WorkOrderPo.createNewEvent(commonsUtility,sEventSubject,ph_CalendarPo);
+		ph_WorkOrderPo.createNewEvent(commonUtility,sEventSubject,ph_CalendarPo);
 		
 		
-		ph_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(2000);
 		
 		// Open the Work Order from the calendar
@@ -176,18 +176,18 @@ public void iphone() throws Exception
 		// To add Labor, Parts , Travel , Expense
 		
 				String sProcessname = "EditWoAutoTimesstamp";
-				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sProcessname);
+				ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
 				Thread.sleep(2000);
 				// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 				ph_WorkOrderPo.addParts(ph_CalendarPo ,sProductName);
 				
-				ph_WorkOrderPo.addLabor(commonsUtility,ph_CalendarPo ,sProductName);
+				ph_WorkOrderPo.addLabor(commonUtility,ph_CalendarPo ,sProductName);
 				ph_WorkOrderPo.getElesave().click();
 				Thread.sleep(3000);
 			
 		
 				sPrintReportSearch = "Work Order Service Report";
-				ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo,sPrintReportSearch);
+				ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
 				Thread.sleep(2000);
 				ph_WorkOrderPo.getEleFinalize().click();
 				Thread.sleep(2000);
@@ -220,7 +220,7 @@ public void iphone() throws Exception
 				}
 				// Syncing the Data
 				Thread.sleep(genericLib.i30SecSleep);
-				ph_MorePo.syncData(commonsUtility);
+				ph_MorePo.syncData(commonUtility);
 				Thread.sleep(genericLib.i30SecSleep);
 			
 				// Verifying the Work details and the service report

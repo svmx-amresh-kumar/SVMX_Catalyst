@@ -92,7 +92,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 
-		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistNameLastVersion, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistNameLastVersion, sScriptName, sTestCaseID);		
 
 		//sWOName = "WO-00002005";
 	}
@@ -103,37 +103,37 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		prerequisites();
 		
 		// Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+		loginHomePo.login(commonUtility, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		//toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 		//=============================First Version Checklist Submissions===================================
 		
 		// Navigating to the checklist and entering first version checklist first time
-		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistNameFirstVersion));
+		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameFirstVersion));
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("FirstAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		commonsUtility.clickAllowPopUp();
-		commonsUtility.switchContext("WebView");
+		commonUtility.clickAllowPopUp();
+		commonUtility.switchContext("WebView");
 		System.out.println("completed allow triess..now will go to submit");
 		
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
 	//	try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");	
 		ExtentManager.logger.log(Status.PASS,"FirstVersion First Attempt Submitted sucessfully");
 
@@ -141,35 +141,35 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		
 		// First version checklist second time
 		
-		commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
+		commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("SecondAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		//checklistPo.Allowlocationbutton();
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+		commonUtility.tap(checklistPo.eleChecklistSubmit());		
 					
 		
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"FirstVersion second Attempt Submitted sucessfully");
 		
 		
 		//First Version checklist Third time
-		commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
+		commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sFirstversionQuestion1).sendKeys("ThirdAttemptOnFirstQuestion");
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
-		commonsUtility.clickAllowPopUp();
-		commonsUtility.switchContext("WebView");
+		commonUtility.clickAllowPopUp();
+		commonUtility.switchContext("WebView");
 		//checklistPo.Allowlocationbutton();
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
 		Thread.sleep(genericLib.iHighSleep);
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"FirstVersion Third Attempt Submitted sucessfully");
 
@@ -178,114 +178,114 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 
 
 		// Navigating to the checklist and entering last version checklist first time
-		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistNameLastVersion));
+		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameLastVersion));
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans1);
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
 		//checklistPo.Allowlocationbutton();
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+		commonUtility.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");	
 		ExtentManager.logger.log(Status.PASS,"LastVersion First Attempt Submitted sucessfully");
 
 		Thread.sleep(genericLib.iLowSleep);
 		
 		// Last version checklist second time
-		commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
+		commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans2);
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		//checklistPo.Allowlocationbutton();
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+		commonUtility.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Second Attempt Submitted sucessfully");
 
 		//Last Version checklist Third time
-		commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
+		commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersion),20,20);
 		checklistPo.geteleChecklistAnswerTextArea(sLastVersionQuestion1).sendKeys(sLastVersionQ1Ans3);
 		Thread.sleep(genericLib.iHighSleep);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iHighSleep);
 		//checklistPo.Allowlocationbutton();
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+		commonUtility.tap(checklistPo.eleChecklistSubmit());		
 		// tapping on the validation successful checklist popup
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 		ExtentManager.logger.log(Status.PASS,"LastVersion Third Attempt Submitted sucessfully");
 	
 		
 		//=============================All Version Checklist Submissions===================================	
 		// Navigating to the checklist and entering all version checklist first time
-				commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
+				commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
 				Thread.sleep(GenericLib.iLowSleep);
 				checklistPo.geteleChecklistAnswerTextArea(sAllVersionQuestion1).sendKeys(sAllVersionQ1Ans1);
 				Thread.sleep(genericLib.iHighSleep);
-				commonsUtility.tap(checklistPo.geteleNext());
+				commonUtility.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
 				//checklistPo.Allowlocationbutton();
-				commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+				commonUtility.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+				commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");	
 				ExtentManager.logger.log(Status.PASS,"AllVersion First Attempt Submitted sucessfully");
 
 				Thread.sleep(genericLib.iLowSleep);
 				
 				// All version checklist second time
-				commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20);
+				commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20);
 				checklistPo.geteleChecklistAnswerTextArea(sAllVersionQuestion1).sendKeys(sAllVersionQ1Ans2);
 				Thread.sleep(genericLib.iHighSleep);
-				commonsUtility.tap(checklistPo.geteleNext());
+				commonUtility.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
 				//checklistPo.Allowlocationbutton();
 				Thread.sleep(GenericLib.iLowSleep);
-				commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+				commonUtility.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+				commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");
 				ExtentManager.logger.log(Status.PASS,"AllVersion Second Attempt Submitted sucessfully");
 				
 				//all Version checklist Third time
-				commonsUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20);
+				commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20);
 				checklistPo.geteleChecklistAnswerTextArea(sAllVersionQuestion1).sendKeys(sAllVersionQ1Ans3);
 				Thread.sleep(genericLib.iHighSleep);
-				commonsUtility.tap(checklistPo.geteleNext());
+				commonUtility.tap(checklistPo.geteleNext());
 				// submitting the checklist
 				Thread.sleep(GenericLib.iHighSleep);
 				//checklistPo.Allowlocationbutton();
-				commonsUtility.tap(checklistPo.eleChecklistSubmit());		
+				commonUtility.tap(checklistPo.eleChecklistSubmit());		
 				// tapping on the validation successful checklist popup
-				commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+				commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 				System.out.println("finished clicking on checklist submit popup.");
 				ExtentManager.logger.log(Status.PASS,"AllVersion third Attempt Submitted sucessfully");
 			
-				commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
-				toolsPo.syncData(commonsUtility);
+				commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+				toolsPo.syncData(commonUtility);
 				Thread.sleep(genericLib.iLowSleep);
-				commonsUtility.tap(calendarPO.getEleCalendarClick());
+				commonUtility.tap(calendarPO.getEleCalendarClick());
 				Thread.sleep(GenericLib.iLowSleep);
-				commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+				commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
 				// Navigation to WO
-				workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+				workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 				// Navigate to Field Service process
 				//workOrderPo.selectAction(commonsUtility, sChecklistOpDocName);
 				//workOrderPo.selectAction(commonsUtility, sChecklistOpDocName);
 				Thread.sleep(genericLib.iLowSleep);
 				//Navigating to checklistOPDOC process
-				checklistPo.validateChecklistServiceReport(commonsUtility, workOrderPo, sChecklistOpDocName,sWOName);
+				checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo, sChecklistOpDocName,sWOName);
 			  	checklistPo.geteleChecklistOPDOCRow();	
 			  	
 			  	
@@ -341,7 +341,7 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 			 
 			// workOrderPo.getEleDoneLnk().click();
 					
-			commonsUtility.tap(workOrderPo.getEleDoneLnk());
+			commonUtility.tap(workOrderPo.getEleDoneLnk());
 			Thread.sleep(GenericLib.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 			Thread.sleep(GenericLib.i30SecSleep);
@@ -357,11 +357,11 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 			//Post Done button sometimes Actions is extended and we will
 			// need to click calendar
 			
-				commonsUtility.tap(calendarPO.getEleCalendarClick());
+				commonUtility.tap(calendarPO.getEleCalendarClick());
 				/*commonsUtility.tap(workOrderPo.getelecancelbutton());
 				Thread.sleep(GenericLib.iLowSleep);		
 				commonsUtility.tap(workOrderPo.getEleDiscardChanges());*/
-			toolsPo.syncData(commonsUtility);
+			toolsPo.syncData(commonUtility);
 			   Thread.sleep(GenericLib.iHighSleep);
 		   Thread.sleep(GenericLib.iHighSleep);
 			Thread.sleep(GenericLib.i30SecSleep);

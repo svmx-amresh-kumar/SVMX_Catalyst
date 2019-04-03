@@ -40,7 +40,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonsUtility.generaterandomnumber("RS_10548_");
+		sSerialNumber = commonUtility.generaterandomnumber("RS_10548_");
 		
 		//create Account
 		sObjectApi = "Account?";
@@ -127,7 +127,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
@@ -141,27 +141,27 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		preRequiste();
 		
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 			
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		commonsUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
+		commonUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		
 		//Validation of WO with invalid country
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Srilanka");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
@@ -173,7 +173,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccC");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
@@ -185,7 +185,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO-354300000");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
@@ -197,7 +197,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleWoOrderNumberTxt().isDisplayed(), "Display field WO number is not displayed.");
@@ -256,7 +256,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName5);
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName5).isDisplayed(), "Work Order5 with WO-number search is not displayed");
@@ -268,7 +268,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Germany");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName4).isDisplayed(), "Work Order4 with country-site search is not displayed");
@@ -280,7 +280,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys("in");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName1).isDisplayed(), "Work Order1 with country-site is not displayed");
@@ -295,7 +295,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccA");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 				
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName4).isDisplayed(), "Work Order4 with account search is not displayed");
@@ -307,7 +307,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccB");
-		commonsUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
 		Thread.sleep(GenericLib.iMedSleep);
 				
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sWOName2).isDisplayed(), "Work Order2 with account search is not displayed");
