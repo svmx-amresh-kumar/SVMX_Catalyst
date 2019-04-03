@@ -544,6 +544,7 @@ public class CommonUtility {
 		return searchLookup;
 	}
 	
+	private WebElement pheleSearchListItem;
 	public WebElement getEleSearchListItem(String sName)
 	{
 			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
@@ -562,6 +563,7 @@ public class CommonUtility {
 		getSearchLookup().sendKeys(value);
 		Thread.sleep(5000);
 		getEleSearchListItem(value).click();
+		getSearchLookupWithText(value).clear();
 	}
 
 	/*
@@ -1779,7 +1781,7 @@ public class CommonUtility {
 		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
 			Thread.sleep(3000);
 			int i;
-			for (i = 0; i < 5; i++) {
+			for (i = 0; i < 10; i++) {
 				try {
 				webElement.click();
 				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -1816,5 +1818,21 @@ public class CommonUtility {
 			}
 			
 
-}
+		public void custScrollToElement(WebElement webElement) throws InterruptedException {
+			Thread.sleep(3000);
+			int i;
+			for (i = 0; i < 5; i++) {
+				try {
+				webElement.isDisplayed();
+				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					return;
+				}
+				
+				}catch(Exception e){}
+				
+				swipeGeneric("up");
 
+		}
+			System.out.println("Element not  after scrolling");
+		}
+}
