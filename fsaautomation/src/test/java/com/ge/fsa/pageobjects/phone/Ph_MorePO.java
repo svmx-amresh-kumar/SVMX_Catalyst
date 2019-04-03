@@ -89,7 +89,7 @@ public class Ph_MorePO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")})
+	@FindBy(xpath="(//*[contains(@name,'Sync completed Last sync time')])")})
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
 	{
@@ -97,12 +97,15 @@ public class Ph_MorePO
 	}
 	
 	
-		
-		@FindBy(xpath="//*[contains(@text,'successful')]")
-		private WebElement eleconfigsyncsucess;
-		public WebElement geteleconfigsyncsucess()
+		public String getEleConfigSyncSuccessText()
 		{
-		return eleconfigsyncsucess;
+			if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("name");
+
+			}else {
+				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("text");
+
+			}
 		}
 		
 //		@FindBy(xpath="//*[@text='Perform Config Sync']")
@@ -139,11 +142,13 @@ public class Ph_MorePO
 	getEleMoreBtn().click();
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button and waiting...");
-	commonUtility.waitforElement(geteleconfigsyncsucess(), 1);
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-	assertTrue(commonUtility.isDisplayedCust(geteleconfigsyncsucess()), "Sync not done");
-	System.out.println("Validated and done!!!!!");
+	if(getEleConfigSyncSuccessText().contains("successful sync")) {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
+}else {
+	ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
+}
+
 }
 
 	
@@ -155,7 +160,7 @@ public class Ph_MorePO
 		getEleMoreBtn().click();
 		getEleDataSync().click();
 		getEleSyncNow().click();
-		commonUtility.waitforElement(getEleDataSynccompleted(),9000);
+		commonUtility.waitforElement(getEleDataSynccompleted(),200);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
