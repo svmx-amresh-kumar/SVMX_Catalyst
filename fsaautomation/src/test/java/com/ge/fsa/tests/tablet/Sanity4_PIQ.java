@@ -19,22 +19,22 @@ public class Sanity4_PIQ extends BaseLib{
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario4Test() throws Exception {
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		// Create Account
-		String sAccName = commonUtility.generaterandomnumber("Acc");
+		String sAccName = commonsUtility.generaterandomnumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
 		System.out.println("Account Id Is "+sAccId);
 		//String accName1 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sAccId+"\'", "name");
 		
 		// Create Location
-		String sLocName = commonUtility.generaterandomnumber("Loc");
+		String sLocName = commonsUtility.generaterandomnumber("Loc");
 		String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"SVMXC__Account__c\": \""+sAccId+"\", \"Name\": \""+sLocName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
 		System.out.println("Loc Id IS "+sLocId);
 		
 		// Create Installed Product
-		String sIbName = commonUtility.generaterandomnumber("IB");
-		String sIbNum = commonUtility.generaterandomnumber("IBNum");
+		String sIbName = commonsUtility.generaterandomnumber("IB");
+		String sIbNum = commonsUtility.generaterandomnumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum+"\",\"SVMXC__Country__c\": \"India\", \"SVMXC__Site__c\": \""+sLocId+"\" }");
 		System.out.println("IB id is "+sIbId);
 		
@@ -44,11 +44,11 @@ public class Sanity4_PIQ extends BaseLib{
 		String woName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
 		System.out.println("Work Order Name Is "+ woName);
 		
-		loginHomePo.login(commonUtility, exploreSearchPo);
-		toolsPo.configSync(commonUtility);
-		toolsPo.syncData(commonUtility);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
+		toolsPo.configSync(commonsUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iLowSleep);
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");
 		ExtentManager.logger.log(Status.PASS,"Account displayed on Tree View");

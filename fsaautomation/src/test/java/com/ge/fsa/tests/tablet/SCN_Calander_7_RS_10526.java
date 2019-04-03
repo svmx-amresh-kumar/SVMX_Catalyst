@@ -36,15 +36,15 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 public void RS_10526() throws Exception
 {		
 		lauchNewApp("false");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonsUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";
 		// Login to the Application.
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		// Creating Account from API
 		sAccountName = "RS_10526_Account";
@@ -63,24 +63,24 @@ public void RS_10526() throws Exception
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
 		// Need to sync the data
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		// Creating the Work Order
-		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
-		toolsPo.syncData(commonUtility);
+		createNewPO.createWorkOrder(commonsUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonUtility, sworkOrderName);
+		recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
 		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
+		workOrderPo.createNewEvent(commonsUtility,sEventSubject, "Test Description");
 
 		// Syncing the Data
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(5000);
-		calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
+		calendarPO.VerifyWOInCalender(commonsUtility,sworkOrderName);
 		
 		 sSoqlQuery = "SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		 sworkOrderID= restServices.restGetSoqlValue(sSoqlQuery,"Id");

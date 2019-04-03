@@ -60,11 +60,11 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		sSheetName ="RS_10525";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		String sTestCaseID="RS_10525_Calender_6";
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
 		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
-  		if(commonUtility.verifySahiExecution()) {
+  		if(commonsUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
   		}
@@ -87,7 +87,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
 		String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			//Pre Login to app
-			loginHomePo.login(commonUtility, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 			
 		//config sync
@@ -95,7 +95,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 		
 		
@@ -123,29 +123,29 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			
 			//verifing event is present at the rite location in day view
 			//Navigation to calender and search for WO
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sworkOrderName);
 			calendarPO.geteleWOendpoint("09:00").getLocation();
 			calendarPO.validateeventlocation(sworkOrderName,StartDateTimehr,EndDateTimehr,diff);
 			
 			//verifing event is present at the rite location in Week view
-			commonUtility.tap(calendarPO.getElecalendarWeektap());
+			commonsUtility.tap(calendarPO.getElecalendarWeektap());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sworkOrderName);
 			
 			//verifing event is present at the rite location in month view
 			
 			
-			commonUtility.tap(calendarPO.getElecalendarmonthtap());
+			commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			
 			///////commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 			String convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
-			calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
+			commonsUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
+			calendarPO.VerifyWOInCalender(commonsUtility,sworkOrderName);
 			
 			ExtentManager.logger.log(Status.PASS,"one hour event verification is successful in day,week,month view");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////");
@@ -202,7 +202,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			//sProductName1="v1";
 			System.out.println(seventName);
 		
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
 			//String	sWOName="WO-00002656";String sObjectAWOID="a2D0t000002MeezEAC";
 				 sSoqlStartDateTime= "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
@@ -222,27 +222,27 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			System.out.println(diff);
 			
 			//verifing event is present at the rite location
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			calendarPO.validateeventlocation(sWOName,StartDateTimehr,EndDateTimehr,diff);
 			
 			//verifing event is present at the rite location in Week view
-			commonUtility.tap(calendarPO.getElecalendarWeektap());
+			commonsUtility.tap(calendarPO.getElecalendarWeektap());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			
 			//verifing event is present at the rite location in month view
 			
-			commonUtility.tap(calendarPO.getElecalendarmonthtap());
+			commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 				  convertedstartday = calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			commonsUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			
 			
 			
@@ -299,7 +299,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			//sProductName1="v1";
 			System.out.println(seventName);
 		
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
 				 sSoqlStartDateTime= "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+WOIDoverlapping+"\'";
 				 sSoqlQueryStartDateTime = restServices.restGetSoqlValue(sSoqlStartDateTime, "SVMXC__StartDateTime__c");
@@ -321,11 +321,11 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 			System.out.println(diff);
 			
 			//verifing event is present at the rite location
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			calendarPO.validateeventlocation(sWOName,StartDateTimehr,EndDateTimehr,diff);
 	}
 				catch (Exception e)
@@ -335,27 +335,27 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 					System.out.println(diff);
 					
 					//verifing event is present at the rite location
-					commonUtility.tap(calendarPO.getEleCalendarClick());
+					commonsUtility.tap(calendarPO.getEleCalendarClick());
 					Thread.sleep(3000);
-					commonUtility.tap(calendarPO.getEleCalendarClick());
+					commonsUtility.tap(calendarPO.getEleCalendarClick());
 					Thread.sleep(3000);
-					calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+					calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 					calendarPO.validateeventlocation(sWOName,StartDateTimehr,EndDateTimehr,diff);
 	}
 			
 			//verifing event is present at the rite location in Week view
-			commonUtility.tap(calendarPO.getElecalendarWeektap());
+			commonsUtility.tap(calendarPO.getElecalendarWeektap());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			
 			//verifing event is present at the rite location in month view
-			commonUtility.tap(calendarPO.getElecalendarmonthtap());
+			commonsUtility.tap(calendarPO.getElecalendarmonthtap());
 			Thread.sleep(3000);
 				 convertedstartday =calendarPO.convertdatetimetoday(sSoqlQueryStartDateTime);
 			System.out.println(convertedstartday);
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
-			calendarPO.VerifyWOInCalender(commonUtility,sWOName);
+			commonsUtility.tap(calendarPO.getelemonthday(convertedstartday));//check
+			calendarPO.VerifyWOInCalender(commonsUtility,sWOName);
 			
 			
 			

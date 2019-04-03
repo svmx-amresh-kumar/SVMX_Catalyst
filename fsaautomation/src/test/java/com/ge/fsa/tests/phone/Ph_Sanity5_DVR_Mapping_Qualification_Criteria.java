@@ -54,7 +54,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	/*	genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		//Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-    */
+*/
 	}
 
 	@Test(retryAnalyzer=Retry.class)
@@ -67,20 +67,19 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
-		//preRequiste();
-		sWOName1="WO-00013308";
-		sWOName2="WO-00013309";	
+		preRequiste();
+
 		//Pre Login to app
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
 		/*
 		ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
-		
+		 */
 		ph_MorePo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		 */
+
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName,commonUtility);
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
@@ -89,10 +88,10 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName,commonUtility);
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
+		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
 
@@ -114,11 +113,11 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		ph_WorkOrderPo.getEleDiscardBtn().click();
 
 		//Navigation to WO
-		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
+		ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), "Contract");
+		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), "Contract");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 
 		//Validation of qualifying workorder with Issue found text error.

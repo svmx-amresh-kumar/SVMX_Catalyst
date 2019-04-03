@@ -96,7 +96,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 				sProductName = "RS10550Product";
 				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");	
 				
-				bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+				bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
 		
 				
 	}
@@ -105,73 +105,73 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 		prerequisites();
 		//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);		
-	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+		loginHomePo.login(commonsUtility, exploreSearchPo);		
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
 		//Config sync for the process to come in FSA.
 		//toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iLowSleep);
 		//Data Sync for WO's created
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 					
 		//Navigation to WO	
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);				
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);				
 		
 		//number no of times assigned
-		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
+		commonsUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("302");
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
 		workOrderPo.geteleWorkOrderLeftPane_View();
 		
 		//Setting up Data for DVR billing type picklist
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
+		commonsUtility.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
 		
 		//Setting up Auto_date1 greater than Auto_date2		
-	    commonUtility.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2019");
-	    commonUtility.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
+	    commonsUtility.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2019");
+	    commonsUtility.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");		
 	    
 	    //Setting up scheduled DAtetime to today.
 	  /* workOrderPo.getEleScheduledDateTimeTxt().click();	   
 	    commonsUtility.switchContext("Native");
 	    commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 	    commonsUtility.switchContext("WebView");	   */
-	   commonUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(),"0", "0", "0");
+	   commonsUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(),"0", "0", "0");
 	    
 	   //Setting up Scheduled Date to today
 	   /* workOrderPo.getEleScheduledDateLst().click();
 	    commonsUtility.switchContext("Native");
 	   commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 	   commonsUtility.switchContext("WebView");   */
-	   commonUtility.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
+	   commonsUtility.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
 	   
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 		
 		Thread.sleep(GenericLib.iLowSleep);		
 		//Required Field Validation
 		Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());	
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());	
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sProbDescRequired).isDisplayed(), "Required field message did not show up. Problem Description is empty");
 		ExtentManager.logger.log(Status.PASS,"Required Field Problem Description message displayed- the field problem description is required");	
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.longPress(workOrderPo.getProblemDescription());
+		commonsUtility.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
+		commonsUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
 		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleUpdateLnk());
+		commonsUtility.tap(workOrderPo.getEleUpdateLnk());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 				
 		//Validation of the DVR's
 		Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());	
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());	
 		
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sBillingDVR).isDisplayed(), "picklist billing type did not display DVR");
 		ExtentManager.logger.log(Status.PASS,"Picklist DVR passed Billing Type cannot be loan");	
@@ -197,41 +197,41 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		//Removing off the DVRS
 		
 		//Account Lookup
-		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
+		commonsUtility.tap(workOrderPo.getEleAccount_Edit_Input());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
-		commonUtility.lookupSearch(sAccountName);
+		commonsUtility.tap(workOrderPo.getEleAccount_Edit_Input());
+		commonsUtility.lookupSearch(sAccountName);
 		
 
 
 		//setting ScehduledDatetime to other than today		
-		commonUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(), 2, "5", "5");
+		commonsUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(), 2, "5", "5");
 		//commonsUtility.setSpecificDateYear(workOrderPo.getEleScheduledDateTimeTxt(),"February", "3", "2019");
 	
 		//setting scheduled date other than today
-		commonUtility.setSpecificDate(workOrderPo.getEleScheduledDateLst(),"February", "3", "2019");
+		commonsUtility.setSpecificDate(workOrderPo.getEleScheduledDateLst(),"February", "3", "2019");
 	
 		//Setting up Auto_date2 greater than Auto_date1		
-	    commonUtility.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2017");
-	    commonUtility.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");
+	    commonsUtility.setSpecificDate(workOrderPo.getEleAutoDate1_Edit_Input(),"February", "3", "2017");
+	    commonsUtility.setSpecificDate(workOrderPo.getEleAutoDate2_Edit_Input(),"February", "3", "2018");
 		
 		//Setting up billing Type
-		commonUtility.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), "Contract");		
+		commonsUtility.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), "Contract");		
 		
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
 		
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sNoDVR).isDisplayed(), "Number DVR did not display,Number cannot be 302");
 		ExtentManager.logger.log(Status.PASS,"Number 302 displayed DVR Message ");
 		
 		//Trying with no150 - sohuld throw DVR again.
-		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
+		commonsUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
 		
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sNoDVR).isDisplayed(), "Number DVR did not display,Number cannot be 302");
 		ExtentManager.logger.log(Status.PASS,"Number 150 displayed DVR Message ");
 				
@@ -245,17 +245,17 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		}
 		
 		//Confirming IsEntitmenet
-		commonUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
+		commonsUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
 		System.out.println("tapped 20");
 		//Thread.sleep(10000);
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());		
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());		
 		
-		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
+		commonsUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("20");
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
 		
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 	try {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Work Order Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
@@ -263,33 +263,33 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
 	}	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		workOrderPo.addParts(commonUtility, workOrderPo,sProductName);
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.addParts(commonsUtility, workOrderPo,sProductName);
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.openpartsontap());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.openpartsontap());
 		workOrderPo.getEleLineQtyTxtFld().clear();
 		workOrderPo.getEleLineQtyTxtFld().sendKeys("3");
 		workOrderPo.getEleLinePerUnitTxtFld().sendKeys("100");
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
+		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLinePriceDVR).isDisplayed(), "Line Price Confirmation displayed");
 		ExtentManager.logger.log(Status.PASS,"Line Price Confirmation displayed");
 		
-		commonUtility.tap(workOrderPo.getEleLinePriceLessthanConfirmation(), 20,20);
+		commonsUtility.tap(workOrderPo.getEleLinePriceLessthanConfirmation(), 20,20);
 		System.out.println("tapped 20");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
+		commonsUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());
 		//commonsUtility.waitforElement(workOrderPo.getEleSavedSuccessTxt(), 3);
 		//
 		try {

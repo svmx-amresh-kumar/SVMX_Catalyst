@@ -55,12 +55,12 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	
 		String sTestCaseID="RS_10514_Calender_4";
 	
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
 		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
-  		if(commonUtility.verifySahiExecution()) {
+  		if(commonsUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
   		}
@@ -76,11 +76,11 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
   		System.out.println("RS_10514");
 	
   	//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		//config sync
-		toolsPo.configSync(commonUtility);
+		toolsPo.configSync(commonsUtility);
 		
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 		
 		
@@ -92,7 +92,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
-  		if(commonUtility.verifySahiExecution()) {
+  		if(commonsUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
   		}
@@ -107,13 +107,13 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
   		lauchNewApp("true");
   		System.out.println("RS_10514");
 		
-  		loginHomePo.login(commonUtility, exploreSearchPo);
+  		loginHomePo.login(commonsUtility, exploreSearchPo);
   		
 	
   	//config sync
-  			toolsPo.configSync(commonUtility);
+  			toolsPo.configSync(commonsUtility);
   			
-  			commonUtility.tap(calendarPO.getEleCalendarClick());
+  			commonsUtility.tap(calendarPO.getEleCalendarClick());
   			Thread.sleep(3000);
   			try {
   	  			 calendarPO.geteleNewdisabled().click();
@@ -121,18 +121,18 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
   	  			catch(Exception e){
   	  				System.out.println(e);
   	  			}
-  			commonUtility.tap(calendarPO.geteleNewClick());
+  			commonsUtility.tap(calendarPO.geteleNewClick());
   			calendarPO.getvalidatecreatenew().isDisplayed();
   			ExtentManager.logger.log(Status.PASS," Test case passed successfully");
 
   		//Create SVMX event from Create New Option
 			
 			calendarPO.getelesubjectcal().sendKeys("CreateEventRS_10514");
-			commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
-			commonUtility.tap(workOrderPo.getEleClickSave());
+			commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
+			commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
+			commonsUtility.tap(workOrderPo.getEleClickSave());
 			
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'CreateEventRS_10514\'";				
@@ -160,29 +160,29 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				lauchNewApp("false");
 				
 			
-				loginHomePo.login(commonUtility, exploreSearchPo,"TECH_USN_1");
+				loginHomePo.login(commonsUtility, exploreSearchPo,"TECH_USN_1");
 			
 
-				commonUtility.tap(calendarPO.getEleCalendarClick());
+				commonsUtility.tap(calendarPO.getEleCalendarClick());
 				Thread.sleep(3000);
-				commonUtility.tap(calendarPO.geteleNewClick());
+				commonsUtility.tap(calendarPO.geteleNewClick());
 				
 			calendarPO.getelesubjectcal().sendKeys("CreateEvent");
-				commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
-				commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"12","00");
-				commonUtility.tap(workOrderPo.getEleClickSave());
+				commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
+				commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"12","00");
+				commonsUtility.tap(workOrderPo.getEleClickSave());
 		        
 			String	gettextonsave=calendarPO.getvalidationmsgonsave().getText();
 			System.out.println(gettextonsave);
 			assertEquals(gettextonsave, "Unable to create event since there is no technician associated.");
-			commonUtility.tap(toolsPo.getEleOkBtn());
+			commonsUtility.tap(toolsPo.getEleOkBtn());
 			
-			commonUtility.tap(workOrderPo.getelecancelbutton());
-			commonUtility.tap(workOrderPo.geteleDiscardChangesbutton());
+			commonsUtility.tap(workOrderPo.getelecancelbutton());
+			commonsUtility.tap(workOrderPo.geteleDiscardChangesbutton());
 			
-			commonUtility.tap(toolsPo.getEleToolsIcn());
-			commonUtility.tap(toolsPo.geteleSignOutBtn());
-			commonUtility.tap(toolsPo.getelepopSignOutBtn());
+			commonsUtility.tap(toolsPo.getEleToolsIcn());
+			commonsUtility.tap(toolsPo.geteleSignOutBtn());
+			commonsUtility.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(5000);
 			System.out.println(sSalesforceuser);
 				 String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
@@ -191,7 +191,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		
 			genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
-	  		if(commonUtility.verifySahiExecution()) {
+	  		if(commonsUtility.verifySahiExecution()) {
 	  			
 	  			System.out.println("PASSED");
 	  		}
@@ -206,26 +206,26 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	  		lauchNewApp("true");
 	  		System.out.println("RS_10514");	
 	  		
-	  		loginHomePo.login(commonUtility, exploreSearchPo);
-	  		toolsPo.configSync(commonUtility);
+	  		loginHomePo.login(commonsUtility, exploreSearchPo);
+	  		toolsPo.configSync(commonsUtility);
 	  		
 	 
 	  		
 	  	//Create SFDC event from Create New Option
-			commonUtility.tap(calendarPO.getEleCalendarClick());
+			commonsUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			commonUtility.tap(calendarPO.geteleNewClick());
+			commonsUtility.tap(calendarPO.geteleNewClick());
 			
 			//commonsUtility.tap(calendarPO.getelesubjectSFDCtap(),20,20);
 			
 			calendarPO.getelesubjectSFDCtap().sendKeys("SFDC event RS-10514");
 			//commonsUtility.tap(calendarPO.geteleclickupdate());
-			commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
+			commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimecal(), 0,"10", "00"); //set start time to Today
+			commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimecal(), 0,"15","00");
 			
-			commonUtility.tap(workOrderPo.getEleClickSave());
+			commonsUtility.tap(workOrderPo.getEleClickSave());
 			
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
 			sObjectApi = "Event";
 			restServices.getAccessToken();

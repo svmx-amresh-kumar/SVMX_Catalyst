@@ -64,7 +64,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
 		
@@ -88,7 +88,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
 
 
 		String sradioQuestion ="RadioButton Question";
@@ -106,32 +106,32 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String schecklistStatus = "Completed";		
 
 		// Pre Login to app
-			loginHomePo.login(commonUtility, exploreSearchPo);	
-		    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+			loginHomePo.login(commonsUtility, exploreSearchPo);	
+		    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 			//toolsPo.configSync(commonsUtility);
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println(sWOName);
 			//sWOName="WO-00004920";
-			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
 			Thread.sleep(GenericLib.iMedSleep);
-			commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+			commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 			//commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
 			Thread.sleep(GenericLib.iLowSleep);
 			
 			//System.out.println("Entering Text Question Answer");
-			commonUtility.tap(checklistPo.geteleChecklistAnswerTextArea(stextQuestion));
+			commonsUtility.tap(checklistPo.geteleChecklistAnswerTextArea(stextQuestion));
 		
 			System.out.println("-------------"+stextAns);
 			checklistPo.geteleChecklistAnswerTextArea(stextQuestion).sendKeys(stextAns);
 			
 			//System.out.println("Entering Number Question Answer");
-			commonUtility.tap(checklistPo.geteleChecklistAnsNumber(snumberQuestion));
+			commonsUtility.tap(checklistPo.geteleChecklistAnsNumber(snumberQuestion));
 			checklistPo.geteleChecklistAnsNumber(snumberQuestion).sendKeys(snumberAns);;
 			
 			//System.out.println("Selecting Picklist Question Answer");
-			commonUtility.setPickerWheelValue(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
-		    commonUtility.switchContext("WebView");
+			commonsUtility.setPickerWheelValue(checklistPo.geteleChecklistAnsPicklist(spicklistQuestion), spicklistAns);
+		    commonsUtility.switchContext("WebView");
 //			try {
 //			checklistPo.geteleChecklistAnsDate(sdateQuestion).click();
 //			System.out.println("*** USed normal click ******");
@@ -145,9 +145,9 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 //			commonsUtility.switchContext("Native");
 //			commonsUtility.getEleDonePickerWheelBtn().click();
 //		    commonsUtility.switchContext("WebView");
-		    commonUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sdateQuestion),"0","0","0");
+		    commonsUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sdateQuestion),"0","0","0");
 			//sdateAns = checklistPo.geteleChecklistAnsDate(sdateQuestion).getAttribute("value");
-		    commonUtility.switchContext("Webview");
+		    commonsUtility.switchContext("Webview");
 		    sdateAns = driver.findElement(By.xpath("//div[contains(@class,'checklisteditview')][not(contains(@class,'hidden'))]//div[text()='Date Question'][@class='x-innerhtml']/../following-sibling::div//div[@class='x-innerhtml']")).getAttribute("innerHTML");
 		    System.out.println("dateANS is "+sdateAns);
 		    SimpleDateFormat parser = new SimpleDateFormat("MM/dd/yy");
@@ -155,8 +155,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	        formattedDate = formatter.format(dTempDate1);
 		    System.out.println("formateed date"+formattedDate);    	    	    	    
-			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
-			commonUtility.switchContext("Webview");
+			try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
+			commonsUtility.switchContext("Webview");
 			
 			
 		    //System.out.println("Setting dateTime Question Answer");
@@ -165,8 +165,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 //		    commonsUtility.switchContext("Native");
 //		   // commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 //			commonsUtility.getEleDonePickerWheelBtn().click();
-			commonUtility.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion), 0, "0", "0");
-		    commonUtility.switchContext("WebView");
+			commonsUtility.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sdateTimeQuestion), 0, "0", "0");
+		    commonsUtility.switchContext("WebView");
 		    //sdateTimeAns = checklistPo.geteleChecklistAnsDate(sdateTimeQuestion).getAttribute("innerHTML");	    
 		    sdateTimeAns=driver.findElement(By.xpath("//div[contains(@class,'checklisteditview')][not(contains(@class,'hidden'))]//div[text()='DateTime Question'][@class='x-innerhtml']/../following-sibling::div//div[@class='x-innerhtml']")).getAttribute("innerHTML");
 		    System.out.println("direct sdatetime"+sdateTimeAns);	    
@@ -187,42 +187,42 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	        sformattedDatetime = formatter1.format((dTempDate1));  
 	        System.out.println("formateed dateTime"+sformattedDatetime);
 	    
-			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
-		   commonUtility.switchContext("WebView");
+			try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
+		   commonsUtility.switchContext("WebView");
 		    //System.out.println("Setting Radio button  Question Answer");
 	        
 	        
-		    commonUtility.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
+		    commonsUtility.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		  //  commonsUtility.tap(checklistPo.geteleChecklistAnsradio(sradioQuestion));
 		    sradioAns = checklistPo.geteleChecklistAnsradio(sradioQuestion).getText();
-			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
-		   commonUtility.switchContext("WebView");
+			try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
+		   commonsUtility.switchContext("WebView");
 	    // tapping the next button in checklist
-		 	commonUtility.tap(checklistPo.geteleNext());
+		 	commonsUtility.tap(checklistPo.geteleNext());
 
 		 	
 			// submitting the checklist
 			Thread.sleep(GenericLib.iHighSleep);
-			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
+			try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
 			Thread.sleep(GenericLib.iLowSleep);
 			System.out.println(driver.getContext());
-			commonUtility.tap(checklistPo.eleChecklistSubmit());	
+			commonsUtility.tap(checklistPo.eleChecklistSubmit());	
 			Thread.sleep(GenericLib.iHighSleep);
 			
-			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
-			commonUtility.switchContext("WebView");
+			try{commonsUtility.clickAllowPopUp();}catch(Exception e) {}
+			commonsUtility.switchContext("WebView");
 			// tapping on the validation sucessfull checklist popup
-			commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+			commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
 			Thread.sleep(GenericLib.iLowSleep);
 
 			
 			// Tapping on Show Completed Checklists
 			//System.out.println("going to tap on show completedchecklists");
-			commonUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
+			commonsUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
 			//System.out.println("tapped on completed checklist");
 			//System.out.println("going to tap on the completedchecklist");
-			commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
+			commonsUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			//System.out.println("tapped on completed checklist");
 			Thread.sleep(GenericLib.iMedSleep);
 			
@@ -252,12 +252,12 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			//Navigating back to Work Orders
 			System.out.println("Going to navigate back to work Order");
-			checklistPo.navigateBacktoWorkOrder(commonUtility);
+			checklistPo.navigateBacktoWorkOrder(commonsUtility);
 			
 			
 			
 			// Sync the Data
-			 toolsPo.syncData(commonUtility);		
+			 toolsPo.syncData(commonsUtility);		
 			 Thread.sleep(GenericLib.iVHighSleep);
 			
 			 									//SERVER SIDE API VALIDATIONS
