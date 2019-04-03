@@ -88,11 +88,11 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {	
-		
-		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
+	
 //br_LoginHomePO.login(commonsUtility, exploreSearchPo);
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+
+		
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
 
