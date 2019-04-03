@@ -268,11 +268,9 @@ public class BaseLib {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
-					capabilities.setCapability("useNewWDA",true);
-					capabilities.setCapability("waitForQuiescence",false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
-
-
+					//Use this capability for fixing slow launch of app
+					capabilities.setCapability("wdaEventloopIdleDelay",3);
 
 				}else{
 					//Only For Ipad

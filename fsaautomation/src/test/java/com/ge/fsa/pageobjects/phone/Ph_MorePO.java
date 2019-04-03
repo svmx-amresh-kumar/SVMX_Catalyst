@@ -43,7 +43,7 @@ public class Ph_MorePO
 	
 
 	@FindAll({@FindBy(xpath="//*[@text='More']"),
-	@FindBy(id="More, tab, 4 of 4")})
+	@FindBy(id="TAB_BAR.MORE_TAB")})
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()
 	{
@@ -51,16 +51,16 @@ public class Ph_MorePO
 	}
 	
 	//@FindBy(xpath="//XCUIElementTypeOther[@name='Sync']")
-	@FindBy(xpath="//*[@text='More']")
+	@FindBy(id="SETTINGS.SYNC']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
-		try {
-			return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
-
-		} catch (Exception e)
-		{eleMoreBtn = driver.findElement(By.xpath("//*[@text='More']"));}
-		return eleMoreBtn;
+//		try {
+//			return eleMoreBtn = driver.findElementByAccessibilityId("Sync");
+//
+//		} catch (Exception e)
+//		{eleMoreBtn = driver.findElement(By.xpath("//*[@text='More']"));}
+		return eleSyncBtn;
 
 	}
 //return 
@@ -72,7 +72,7 @@ public class Ph_MorePO
 		return eleSyncNow;
 	}
 	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.TOOLBAR.SYNC_STATUS.BUTTON\"]/android.view.ViewGroup"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")})
+	@FindBy(id="SETTINGS.SYNC")})
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()
 	{
@@ -84,12 +84,12 @@ public class Ph_MorePO
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Run Configuration Sync Last successful sync:']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),
-		@FindBy(id="Run Configuration Sync Last successful sync:")})*/
+		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),*/
+		@FindBy(id="SETTING.SYNC.CONFIG.ITEM_BUTTON")
 	private WebElement eleRunConfigSync;
 	public WebElement getEleRunConfigSync()
 	{
-		return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
+		return eleRunConfigSync;//= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
@@ -103,14 +103,14 @@ public class Ph_MorePO
 	
 	
 	
-	//@FindBy(id="Perform Config Sync")
+	@FindBy(id="Perform Config Sync")
 	private WebElement elePerformConfigSync;
 	public WebElement getElePerformConfigSync()
 	{
-		return elePerformConfigSync = driver.findElementByAccessibilityId("Perform Config Sync");
+		return elePerformConfigSync;// = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
 
-	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ip_CalendarPo) throws InterruptedException {
+	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
 	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
@@ -124,7 +124,7 @@ try {
 } catch (Exception e) {
 	System.out.println(e);}
 	//commonsUtility.switchContext("NATIVE_APP");
-	commonUtility.waitforElement(ip_CalendarPo.getEleCalendarViewMenu(), 200);
+	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	assertTrue(commonUtility.isDisplayedCust(getEleRunConfigSync()), "Sync not done");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }

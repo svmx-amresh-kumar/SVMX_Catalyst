@@ -88,16 +88,18 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {	
-		
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
-//br_LoginHomePO.login(commonsUtility, exploreSearchPo);
+		//br_LoginHomePO.login(commonUtility, exploreSearchPo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
 
 
-		//lauchNewApp("false");
+		lauchNewApp("false");
 		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
 

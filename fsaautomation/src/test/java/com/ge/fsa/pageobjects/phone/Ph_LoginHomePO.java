@@ -173,7 +173,7 @@ public class Ph_LoginHomePO
 	 * @throws InterruptedException
 	 * @throws IOException 
 	 */
-	public void login(CommonUtility commonUtility, Ph_MorePO ip_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException, IOException {
+	public void login(CommonUtility commonUtility, Ph_MorePO ph_MorePo, String... sUserTypeFromPropertiesFile) throws InterruptedException, IOException {
 
 		String sUn = null;
 		String sPwd = null;
@@ -197,7 +197,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone android UN = "+sUn+" PWD = "+sPwd);
 			System.out.println("TEST "+getEleSignInBtn().toString());
-			if(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -245,7 +245,7 @@ public class Ph_LoginHomePO
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+				Assert.assertTrue(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
 			
@@ -257,7 +257,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -303,7 +303,7 @@ public class Ph_LoginHomePO
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
-				Assert.assertTrue(commonUtility.waitforElement(ip_MorePo.getEleMoreBtn(), 1000),"Login Failed");
+				Assert.assertTrue(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
 			
