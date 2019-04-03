@@ -26,6 +26,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
+import com.ge.fsa.pageobjects.phone.Ph_CreateNewPO;
 import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
 import com.ge.fsa.pageobjects.phone.Ph_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_MorePO;
@@ -74,7 +75,7 @@ public class BaseLib {
 	public Ph_WorkOrderPO ph_WorkOrderPo = null;
 	public Ph_ExploreSearchPO ph_ExploreSearchPO = null;
 	public Ph_ChecklistPO ph_ChecklistPO = null;
-	
+	public Ph_CreateNewPO ph_CreateNewPo = null;
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
@@ -309,6 +310,7 @@ public class BaseLib {
 		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
 		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
+		ph_CreateNewPo = new Ph_CreateNewPO(driver);
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
