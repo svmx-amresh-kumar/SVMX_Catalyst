@@ -50,7 +50,7 @@ public class Ph_MorePO
 		return eleMoreBtn;
 	}
 	
-	@FindBy(id="SETTINGS.SYNC']")
+	@FindBy(xpath="//*[@*='SETTINGS.SYNC']")
 	private WebElement eleSyncBtn;
 	public WebElement getEleSyncBtn()
 	{
@@ -71,8 +71,8 @@ public class Ph_MorePO
 	{
 		return eleSyncNow;
 	}
-	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.TOOLBAR.SYNC_STATUS.BUTTON\"]/android.view.ViewGroup"),
-	@FindBy(id="SETTINGS.SYNC")})
+	
+	@FindBy(id="SETTINGS.SYNC")
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()
 	{
@@ -80,22 +80,14 @@ public class Ph_MorePO
 	}
 	
 	
-/*	@FindAll({@FindBy(xpath="//XCUIElementTypeOther[contains(.,'Run Configuration Sync']"),
-		@FindBy(xpath="//XCUIElementTypeOther[contains(@name,'Run Configuration Sync']"),
-		@FindBy(xpath="//XCUIElementTypeOther[contains(@label,'Run Configuration Sync']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@label='Run Configuration Sync Last successful sync:']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name='Run Configuration Sync Last successful sync:']"),*/
-		@FindBy(id="SETTING.SYNC.CONFIG.ITEM_BUTTON")
-	//@FindBy(xpath="//*[text='Last successful sync: a few seconds ago']")
+	@FindBy(xpath="//*[@*='SETTING.SYNC.CONFIG.ITEM_BUTTON']")
 	private WebElement eleRunConfigSync;
 	public WebElement getEleRunConfigSync()
 	{
 		return eleRunConfigSync	;	
-		//return eleRunConfigSync= driver.findElementByAccessibilityId("Run Configuration Sync Last successful sync: ");
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
-	//@FindBy(xpath="//XCUIElementTypeOther[@name=\"Sync completed Last sync time: a few seconds ago\"]")
 	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")})
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
@@ -103,13 +95,7 @@ public class Ph_MorePO
 		return eleDataSynccompleted;
 	}
 	
-		//@FindAll({@FindBy(xpath="//*[@text='Run Configuration Sync']"),
-		//@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Sync completed Last sync time:\")])[8]")})
-		private WebElement eleRunConfigSycnlbl;
-		public WebElement geteleRunConfigSycnlbl()
-		{
-			return eleRunConfigSycnlbl = driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON");
-		}
+	
 		
 		@FindBy(xpath="//*[@text='Last successful sync: a few seconds ago']")
 		private WebElement eleconfigsyncsucess;
@@ -133,7 +119,7 @@ public class Ph_MorePO
 		}
 	
 	
-	@FindBy(id="Perform Config Sync")
+	@FindBy(xpath="//*[@*='Perform Config Sync']")
 	private WebElement elePerformConfigSync;
 	public WebElement getElePerformConfigSync()
 	{
@@ -142,22 +128,16 @@ public class Ph_MorePO
 
 	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException {
 	getEleMoreBtn().click();
-	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button");
-	Thread.sleep(2000);
-	commonUtility.waitforElement(geteleRunConfigSycnlbl(),2);
-	geteleRunConfigSycnlbl().click();
-	Thread.sleep(2000);
+	getEleRunConfigSync().click();
 	System.out.println("Clicked on run config button");
 	getElePerformConfigSync().click();
 	System.out.println("clicking perform config sync now waiting for calandar new");
 	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
-	commonUtility.waitforElement(getEleSyncBtn(),2);
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button");
-	Thread.sleep(2000);
 	assertTrue(commonUtility.isDisplayedCust(geteleconfigsyncsucess()), "Sync not done");
 	System.out.println("Validated and donE!!!!!");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");

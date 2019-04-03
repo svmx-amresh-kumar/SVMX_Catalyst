@@ -48,7 +48,7 @@ public class Ph_CalendarPO
 		return eleCalendarBtn;
 	}
 	
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"March 2019 \"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
+	@FindBy(xpath="//*[@*='CALENDAR.SELECT_VIEW']")
 	private WebElement eleCalendarViewMenu;
 	public WebElement getEleCalendarViewMenu()
 	{
@@ -56,9 +56,9 @@ public class Ph_CalendarPO
 	}
 
 	//to revisit
-	
-	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.ADD.FAB_BUTTON\"]"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"S M T W T F S\"])[2]/XCUIElementTypeOther[3]")})
+//	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.ADD.FAB_BUTTON\"]"),
+//	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"S M T W T F S\"])[2]/XCUIElementTypeOther[3]")})
+	@FindBy(xpath="//*[@*='CALENDAR.ADD.FAB_BUTTON']")
 	private WebElement eleCalendarplus;
 	public WebElement getEleCalendarplus()
 	{
