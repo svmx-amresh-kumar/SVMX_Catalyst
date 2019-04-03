@@ -75,58 +75,58 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		sWOName= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);			
 		//sWOName = "WO-00004603";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sFieldServiceName, sTestCaseID);		
 
 	}
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10581() throws Exception {
 		// Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		prereq();
-	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Navigation to WO
-	    workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);							
+	    workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);							
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 		// Navigating to the checklist
-		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
-		assertFalse(commonUtility.isDisplayedCust(checklistPo.eleAttachNew()));
+		assertFalse(commonsUtility.isDisplayedCust(checklistPo.eleAttachNew()));
 		ExtentManager.logger.log(Status.PASS,"Attach New link is not displayed");
-		checklistPo.checklistAttach(commonUtility, "Choose from Library",sAttachmentQ);
+		checklistPo.checklistAttach(commonsUtility, "Choose from Library",sAttachmentQ);
 		assertEquals(checklistPo.eleAttachNew().isDisplayed(),true);
 		ExtentManager.logger.log(Status.PASS,"Attachment New link is displayed post attaching image");
 		//commonsUtility.isDisplayedCust(wElement)
-		commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
+		commonsUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
 		checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
-		commonUtility.tap(checklistPo.geteleNext());
-		commonUtility.tap(checklistPo.eleChecklistSubmit());
-		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonsUtility.tap(checklistPo.geteleNext());
+		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		ExtentManager.logger.log(Status.PASS,"Checklist is submitted sucessfully for Work Order"+sWOName);
 
 		//Navigating back to work Orders
-		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
-		workOrderPo.selectAction(commonUtility, sFieldServiceName);
+		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 		System.out.println("Tapped on default title for checklist");
 		// Navigating to the checklist
 		//commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
-		commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
+		commonsUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
+		commonsUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 		
 		Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"), sAttachText, "Attachment Text is displayed");
 		ExtentManager.logger.log(Status.PASS,"Attachment text is visible in completed Checklist:"+sChecklistName);
 		Thread.sleep(GenericLib.iHighSleep);
-		commonUtility.tap(checklistPo.eleChecklistImage(),20,20);
+		commonsUtility.tap(checklistPo.eleChecklistImage(),20,20);
 		System.out.println("After attachment image");
-		commonUtility.switchContext("Native");
+		commonsUtility.switchContext("Native");
 		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android"))
 		{
 		     ((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -139,11 +139,11 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		//WebElement eleDoneButton = driver.findElement(By.xpath("//*[contains(@label,'Done')]"));
 	//	eleDoneButton.click();
 		ExtentManager.logger.log(Status.PASS,"done button was clicked below the image");
-		commonUtility.switchContext("WebView");
+		commonsUtility.switchContext("WebView");
 		
 		//Navigating back to WorkOrder Screen as Tools button will not be visible from checklists
-		checklistPo.navigateBacktoWorkOrder(commonUtility);
-		toolsPo.syncData(commonUtility);
+		checklistPo.navigateBacktoWorkOrder(commonsUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.i30SecSleep);
 

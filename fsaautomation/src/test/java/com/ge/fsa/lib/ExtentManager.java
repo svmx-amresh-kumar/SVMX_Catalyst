@@ -11,8 +11,6 @@ import java.time.format.DateTimeFormatter;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -42,8 +40,6 @@ public class ExtentManager{
 	public static ExtentReports extent = null;
 	public static ExtentTest logger = null;
 	public static AppiumDriver localDriver = null;
-	public static WebDriver WebLocalDriver = null;
-
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
     public static String sReportName = BaseLib.sBuildNo+"_"+BaseLib.sSuiteTestName+"_"+LocalDateTime.now().format(formatter)+ "_os_"+BaseLib.sOSName+"_orgyType_"+BaseLib.sOrgType+"_orgNAmeSapce_"+BaseLib.sSelectConfigPropFile+"_sfv_"+BaseLib.sSalesforceServerVersion+"_report.html";
 	public static String sReportPath = System.getProperty("user.dir") + "/ExtentReports/";
@@ -64,21 +60,6 @@ public class ExtentManager{
 		return extent;
 	}
 
-	/**
-	 * This will create return/get a instance of the ExtentReports and we pass the chromeDriver from baselib class here for screenshots
-	 * @param driver
-	 * @return
-	 * @throws IOException 
-	 */
-	public static ExtentReports getInstance(WebDriver chromeDriver) throws IOException {
-		System.out.println("Initializing Extent Reports");
-		File file = new File(sReportPath);
-		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for reports : "+e);}
-		if (extent == null)
-			createInstance(sReportPath+sReportName);
-		WebLocalDriver = chromeDriver;
-		return extent;
-	}
 	/**
 	 * Create instance of Extent Reports
 	 * @param fileName
@@ -117,16 +98,9 @@ public class ExtentManager{
 	 * @return
 	 */
 	public static String getScreenshot() {
-		
 		File file = new File( sReportPath + "Screenshot/");
 		try{file.mkdir();}catch(Exception e) {System.out.println("Exception in creating directory for screenshots : "+e);}
-		TakesScreenshot ts=null;
-		if(BaseLib.sOSName.equalsIgnoreCase("browser")) {
-			 ts = (TakesScreenshot) WebLocalDriver;
-		}else {
-			 ts = (TakesScreenshot) localDriver;
-
-		}
+		TakesScreenshot ts = (TakesScreenshot) localDriver;
 
 		File src = ts.getScreenshotAs(OutputType.FILE);
 		//This will be the actual path that the reports html file will have reference to for the screenshots

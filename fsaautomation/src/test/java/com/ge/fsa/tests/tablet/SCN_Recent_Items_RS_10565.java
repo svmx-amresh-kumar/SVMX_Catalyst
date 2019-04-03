@@ -56,7 +56,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		sSheetName ="RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS_10565_Recent_Items";
 		
 		//sahi
@@ -84,30 +84,30 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		String sFieldServiceName2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "CreateNewCustomrecord");
 		//String WOname1=GenericLib.getExcelData(sTestCaseID, "WorkOrder");
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonsUtility.generaterandomnumber("");
 	    sProformainVoice = sRandomNumber;
 		
 	 
 	    
 		//Pre Login to app
-			loginHomePo.login(commonUtility, exploreSearchPo);
+			loginHomePo.login(commonsUtility, exploreSearchPo);
 			
 		
 			Thread.sleep(GenericLib.iMedSleep);
-			toolsPo.Resetapp(commonUtility,exploreSearchPo);
+			toolsPo.Resetapp(commonsUtility,exploreSearchPo);
 			Thread.sleep(GenericLib.iMedSleep);
 	
 			//crete a wo
-			commonUtility.tap(createNewPO.getEleCreateNew());
-			commonUtility.tap(createNewPO.getEleCreateNewWorkOrder());
-			commonUtility.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "High");
-			commonUtility.setPickerWheelValue(createNewPO.getEleClickBillingTypePicklist(), "Loan");
+			commonsUtility.tap(createNewPO.getEleCreateNew());
+			commonsUtility.tap(createNewPO.getEleCreateNewWorkOrder());
+			commonsUtility.setPickerWheelValue(createNewPO.getEleClickPriorityPicklist(), "High");
+			commonsUtility.setPickerWheelValue(createNewPO.getEleClickBillingTypePicklist(), "Loan");
 			//createNewPO.getEleproformainvoicevalue().click();
 			//commonsUtility.tap(createNewPO.getEleproformainvoicevalue());
 			createNewPO.getEleproformainvoicetextarea().sendKeys(sProformainVoice);
 		//	commonsUtility.tap(createNewPO.getEleupdatethetextfield());
 			Thread.sleep(1000);
-			commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+			commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
 //create one case
 			sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Recent_Item\", \"Priority\": \"High\", \"Description\": \"Description of Recent_item \",\"Status\": \"Escalated\"}";
 			sObjectApi = "Case?";
@@ -117,7 +117,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			
 			
 			
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
 			// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -127,7 +127,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			
 		
 			//recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
-			commonUtility.tap(recenItemsPO.getEleClickRecentItems());
+			commonsUtility.tap(recenItemsPO.getEleClickRecentItems());
 			Thread.sleep(1000);
 			String fetchedWOfromrecents =recenItemsPO.getEleworkorderrecentused().getText();
 			System.out.println(fetchedWOfromrecents);
@@ -135,9 +135,9 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Workorder valaditation in recent item is successful");
 			
 			//open case
-			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Cases", sCaseID, null);//case to be changed to global create case        
+			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Cases", sCaseID, null);//case to be changed to global create case        
 			Thread.sleep(2000);
-			commonUtility.tap(recenItemsPO.getEleClickRecentItems());
+			commonsUtility.tap(recenItemsPO.getEleClickRecentItems());
 			Thread.sleep(1000);
 			//commonsUtility.tap(recenItemsPO.gettaponobject("Case ("));
 			String fetchedcasefromrecents =recenItemsPO.geteleChecklistName("Case (").getText();
@@ -147,16 +147,16 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 			
 			Thread.sleep(5000);
 			//create new custom record
-			commonUtility.tap(createNewPO.getEleCreateNew());
-			commonUtility.tap(createNewPO.getEleCreateNew());
-			commonUtility.tap(createNewPO.getEleCreateNewcustomrecord());
+			commonsUtility.tap(createNewPO.getEleCreateNew());
+			commonsUtility.tap(createNewPO.getEleCreateNew());
+			commonsUtility.tap(createNewPO.getEleCreateNewcustomrecord());
 			(workOrderPo.geteleAuto_TextBox_c()).sendKeys(sProformainVoice);	
-			commonUtility.tap(createNewPO.getEleSaveWorkOrdert());
+			commonsUtility.tap(createNewPO.getEleSaveWorkOrdert());
 			Thread.sleep(3000);
 			
-			toolsPo.syncData(commonUtility);
+			toolsPo.syncData(commonsUtility);
 			
-			commonUtility.tap(recenItemsPO.getEleClickRecentItems());
+			commonsUtility.tap(recenItemsPO.getEleClickRecentItems());
 			//commonsUtility.tap(recenItemsPO.gettaponobject("Auto_Custom_Object2 ("));
 			String fetchedCustom_Objectfromrecents =recenItemsPO.geteleChecklistName("Auto_Custom_Object2 (").getText();
 			System.out.println(fetchedCustom_Objectfromrecents);
@@ -168,10 +168,10 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 				Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName), "Custom object  value  is not displayed");
 				ExtentManager.logger.log(Status.PASS," Custom object valaditation in recent item is successful");
 			
-			toolsPo.Resetapp(commonUtility,exploreSearchPo);
+			toolsPo.Resetapp(commonsUtility,exploreSearchPo);
 			Thread.sleep(2000);
 			
-			commonUtility.tap(recenItemsPO.getEleClickRecentItems());
+			commonsUtility.tap(recenItemsPO.getEleClickRecentItems());
 			recenItemsPO.getelecheckrecentitemisempty().isDisplayed();
 			
 			ExtentManager.logger.log(Status.PASS,"Recent Items validation is successful");

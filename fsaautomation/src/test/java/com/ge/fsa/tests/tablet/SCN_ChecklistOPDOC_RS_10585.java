@@ -88,7 +88,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		
 		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 
 		//sWOName1 = "WO-00001615";
@@ -100,26 +100,26 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	
 		prerequisites();
 		// Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
-	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 
 		// Data Sync for WO's created
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		//toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sSection1Q2).sendKeys(sNumberSectionJumpAns);
-		commonUtility.tap(checklistPo.geteleNext());	
+		commonsUtility.tap(checklistPo.geteleNext());	
 		Assert.assertTrue(checklistPo.geteleChecklistSectionNametab(sSection3Name).isDisplayed(), "Exit Criteria in Checklist Failed");	
 		ExtentManager.logger.log(Status.PASS,"Exit Criteria for section passed");
 		
@@ -130,21 +130,21 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Section two is not displayed");
 		}
 		
-		commonUtility.tap(checklistPo.geteleBacktoChecklistslnk());	
-		commonUtility.tap(checklistPo.geteleSavePopUp());
+		commonsUtility.tap(checklistPo.geteleBacktoChecklistslnk());	
+		commonsUtility.tap(checklistPo.geteleSavePopUp());
 		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("checklistname is"+sChecklistName);
 		String wAppChecklistStatus = checklistPo.getEleChecklistStatusLbl(sChecklistName).getText();				
 		System.out.println("printing wappcheckliststatus"+wAppChecklistStatus);	
 		Assert.assertEquals(wAppChecklistStatus,"In Progress", "checklist is in In Progress Status");		
 		ExtentManager.logger.log(Status.PASS,"In Progress Checklist is displayed");		
-		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 	
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(genericLib.iLowSleep);
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
 		//Validating in the server if checklist status is synced as inprogress
 		System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
@@ -154,29 +154,29 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Checklist In Progress status is displayed in Salesforce after sync");
 	
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
 
 		// Navigating to the checklist
-		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));		
+		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));		
 		checklistPo.geteleChecklistAnswerTextArea(sSection3q1).sendKeys("ok");
 
-		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));
+		commonsUtility.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		
-		commonUtility.clickAllowPopUp();
-		commonUtility.switchContext("WebView");
-		commonUtility.tap(checklistPo.eleChecklistSubmit());		
+		commonsUtility.clickAllowPopUp();
+		commonsUtility.switchContext("WebView");
+		commonsUtility.tap(checklistPo.eleChecklistSubmit());		
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 		// tapping on the validation successful checklist popup
-		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		System.out.println("finished clicking on checklist submit popup.");
 	
 		//Navigating back to work Orders
-		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(genericLib.iMedSleep);
 		
 		//Validating in the server if checklist status is synced as completed
@@ -191,17 +191,17 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Section One Answer is synced to server");
 	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());		
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());		
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
 		//workOrderPo.selectAction(commonsUtility, sChecklistOpDocName);
 		Thread.sleep(GenericLib.iLowSleep);
 		//Navigating to checklistOPDOC process
-		checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo, sChecklistOpDocName,sWOName);
+		checklistPo.validateChecklistServiceReport(commonsUtility, workOrderPo, sChecklistOpDocName,sWOName);
 	  	checklistPo.geteleChecklistOPDOCRow();
 	
 	  	//Validating is checklist status in opdoc is completed and also if checklist name is displayed.	  	  	
@@ -217,25 +217,25 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		 ExtentManager.logger.log(Status.PASS,"Section two question two is not displayed in the OPDOC as it is a skipped section");
 
 		//workOrderPo.getEleDoneLnk().click();
-		commonUtility.tap(workOrderPo.getEleDoneLnk());
-		commonUtility.custRotateScreenPortrait();
+		commonsUtility.tap(workOrderPo.getEleDoneLnk());
+		commonsUtility.custRotateScreenPortrait();
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
 		
-		checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo, "Auto_RS10585_ChecklistOPDOC_InProgOP2",sWOName);
+		checklistPo.validateChecklistServiceReport(commonsUtility, workOrderPo, "Auto_RS10585_ChecklistOPDOC_InProgOP2",sWOName);
 	  	checklistPo.geteleChecklistOPDOCRow();
 	  	Assert.assertTrue(checklistPo.geteleChecklistAnswerOPDOCtbl().getText().toString().contains(sSection2Q1), "Section 2 answer is not displayed in OPDOC");
 		ExtentManager.logger.log(Status.PASS,"Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
 	//	commonsUtility.tap(workOrderPo.getEleCancelLink());
-		commonUtility.tap(workOrderPo.geteleOPDOCCancelLnk());
+		commonsUtility.tap(workOrderPo.geteleOPDOCCancelLnk());
 		Thread.sleep(GenericLib.i30SecSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(GenericLib.i30SecSleep);
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		Thread.sleep(GenericLib.iMedSleep);
 		

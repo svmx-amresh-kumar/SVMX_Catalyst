@@ -74,10 +74,10 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard
 		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		
-		 sRandomNumber = commonUtility.generaterandomnumber("");
+		 sRandomNumber = commonsUtility.generaterandomnumber("");
 		 sProformainVoice = "Proforma"+sRandomNumber;
 		 sEventSubject = "EventName_RS10574_1";
 		// sEventSubject2 = "EventName_RS10574_2";
@@ -146,28 +146,28 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 	
 	{
 		//Navigation to Tools screen
-		commonUtility.tap(toolsPo.getEleToolsIcn());	
+		commonsUtility.tap(toolsPo.getEleToolsIcn());	
 		Assert.assertTrue(toolsPo.getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");
-		commonUtility.tap(toolsPo.getEleSyncDataNowLnk());
+		commonsUtility.tap(toolsPo.getEleSyncDataNowLnk());
 		//getEleSyncDataNowLnk().click();
 		//commonsUtility.tap(toolsPo.getEleSyncDataNowLnk());	
 		//toolsPo.getEleStartSyncBtn().click();
-		commonUtility.tap(toolsPo.getEleStartSyncBtn());
-		commonUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),180);
+		commonsUtility.tap(toolsPo.getEleStartSyncBtn());
+		commonsUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),180);
 	try {
 			//Verification of successful sync
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 		} catch (Exception e) {
-			commonUtility.tap(toolsPo.geteleResolve());
-			commonUtility.tap(toolsPo.geteleResolveissue());
-			commonUtility.tap(toolsPo.geteleApply());
-			commonUtility.tap(toolsPo.getEleOkBtn());
-			commonUtility.tap(toolsPo.getEleSyncDataNowLnk());	
+			commonsUtility.tap(toolsPo.geteleResolve());
+			commonsUtility.tap(toolsPo.geteleResolveissue());
+			commonsUtility.tap(toolsPo.geteleApply());
+			commonsUtility.tap(toolsPo.getEleOkBtn());
+			commonsUtility.tap(toolsPo.getEleSyncDataNowLnk());	
 			toolsPo.getEleStartSyncBtn().click();
-			commonUtility.tap(toolsPo.getEleStartSyncBtn());
-			commonUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),240);
+			commonsUtility.tap(toolsPo.getEleStartSyncBtn());
+			commonsUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),240);
 			Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
 		}
@@ -191,45 +191,45 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		
 		PreRequisites1();	
 		//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		// Perform Config Sync
 		//toolsPo.configSync(commonsUtility);		
 		Thread.sleep(GenericLib.iMedSleep);
 		// Need to sync the data
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iHighSleep);
 		// Creating the Work Order
-		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
-		toolsPo.syncData(commonUtility);
+		createNewPO.createWorkOrder(commonsUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
-		recenItemsPO.clickonWorkOrder(commonUtility, sworkOrderName);
+		recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
 		ExtentManager.logger.log(Status.PASS,"Picked up work Order from Recent items");
 
 		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
-		commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
+		workOrderPo.createNewEvent(commonsUtility,sEventSubject, "Test Description");
+		commonsUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 			// Open the Work Order from the calendar
-		calendarPO.openWoFromCalendar(commonUtility, sworkOrderName);
+		calendarPO.openWoFromCalendar(commonsUtility, sworkOrderName);
 		ExtentManager.logger.log(Status.PASS,"Validated event from Calendar");
 
 		System.out.println("Sucessfully validated Create Event from WorkOrder after creating workOrder from FSA App");
 		
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iHighSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-		toolsPo.syncData(commonUtility);
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iHighSleep);
 //------------------Script to read a work Order and create an Event for it.----------------		
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Create New Event From Work Order");
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Create New Event From Work Order");
 		//------------------------------------------------------
 		//Navigation to SFM
 				
@@ -238,7 +238,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //				Thread.sleep(GenericLib.iMedSleep);
 //				commonsUtility.switchContext("Native");
 //				commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
-				commonUtility.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0,"0","0");
+				commonsUtility.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0,"0","0");
 				//Edit the subject
 				//commonsUtility.switchContext("Webview");
 				workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
@@ -251,15 +251,15 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //				commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 //				
 //				commonsUtility.switchContext("Webview");
-				commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 0,"0","0");
-				commonUtility.tap(workOrderPo.getEleSaveLnk());
+				commonsUtility.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 0,"0","0");
+				commonsUtility.tap(workOrderPo.getEleSaveLnk());
 				Thread.sleep(GenericLib.iLowSleep);
 
 				//Validation of auto update process
 				Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 				ExtentManager.logger.log(Status.PASS,"Event saved successfully.");
 				
-				commonUtility.tap(calendarPO.getEleCalendarIcn());
+				commonsUtility.tap(calendarPO.getEleCalendarIcn());
 				Thread.sleep(GenericLib.iLowSleep);
 				//toolsPo.syncData(commonsUtility);
 				syncwithConflict();
@@ -276,9 +276,9 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 			
 				syncwithConflict();
 					//workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
-					commonUtility.tap(calendarPO.getEleCalendarClick());
+					commonsUtility.tap(calendarPO.getEleCalendarClick());
 					Thread.sleep(3000);
-					calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
+					calendarPO.VerifyWOInCalender(commonsUtility,sworkOrderName);
 					ExtentManager.logger.log(Status.PASS,"WorkOrder not found as deleted from server.");
 
 					//ExtentManager.logger.log(Status.PASS,"Event is no longer displayed in calendar");

@@ -78,35 +78,35 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
 //		System.out.println("WO no ="+sWOName);
 		List<WebElement> contactList = new ArrayList<WebElement>();
-		loginHomePo.login(commonUtility, exploreSearchPo);	
-		toolsPo.syncData(commonUtility);
+		loginHomePo.login(commonsUtility, exploreSearchPo);	
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonUtility);
+		toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, "WO-00008012", sFieldProcessName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, "WO-00008012", sFieldProcessName);
 		//******Validate 4th Case******
-		workOrderPo.addParts(commonUtility, workOrderPo, sProdName);
+		workOrderPo.addParts(commonsUtility, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
-		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
+		commonsUtility.tap(workOrderPo.getLblChildPart(sProdName));
 		Thread.sleep(GenericLib.iMedSleep);
-		commonUtility.tap(workOrderPo.getLblPartContact());
+		commonsUtility.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
 		String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
 		System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
 		if(sOSName.equals("android")) {
-			System.out.println(commonUtility.getHeaderCount(workOrderPo));
-			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
+			System.out.println(commonsUtility.getHeaderCount(workOrderPo));
+			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sConWoAcc));
 		}
 		else {
 			Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc));
 		}
-		commonUtility.tap(workOrderPo.getLnkLookupCancel());
+		commonsUtility.tap(workOrderPo.getLnkLookupCancel());
 		//******Validate 5th Case******
-		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
-		commonUtility.tap(workOrderPo.getLblPartAccount());
-		commonUtility.lookupSearch(sAccountName);
-		commonUtility.tap(workOrderPo.getLblPartContact());
+		commonsUtility.tap(workOrderPo.getLblChildPart(sProdName));
+		commonsUtility.tap(workOrderPo.getLblPartAccount());
+		commonsUtility.lookupSearch(sAccountName);
+		commonsUtility.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("Contacts with Account "+contactList.size());
 //		for(WebElement we:contactList) {
@@ -116,24 +116,24 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 //		System.out.println("Contacts with Account fetched from Database ="+sContactWithAcc);
 		if(sOSName.equals("android")) {
 //			getContactCount = Integer.parseInt(workOrderPo.getTxtFullNameHeader().getText().substring(workOrderPo.getTxtFullNameHeader().getText().indexOf('(')+1,workOrderPo.getTxtFullNameHeader().getText().indexOf(')')));
-			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sContactWithAcc));
+			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sContactWithAcc));
 		}
 		else {
 			Assert.assertEquals(contactList.size(), Integer.parseInt(sContactWithAcc));
 		}
 		
 		//******Validate 6th Case******
-		commonUtility.tap(workOrderPo.getLnkFilters());
+		commonsUtility.tap(workOrderPo.getLnkFilters());
 		Thread.sleep(GenericLib.iMedSleep);
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
-			commonUtility.tap(workOrderPo.getcheckBoxAccount01(),20,20);
+			commonsUtility.tap(workOrderPo.getcheckBoxAccount01(),20,20);
 		}       
 		else {
-			commonUtility.tap(workOrderPo.getcheckBoxAccount02());
+			commonsUtility.tap(workOrderPo.getcheckBoxAccount02());
 		}
-		commonUtility.tap(workOrderPo.getBtnApply());
-		commonUtility.lookupSearchOnly(sSearchTxt);
+		commonsUtility.tap(workOrderPo.getBtnApply());
+		commonsUtility.lookupSearchOnly(sSearchTxt);
 		Thread.sleep(GenericLib.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Accounts "+contactList.size());
@@ -141,7 +141,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
 //		System.out.println("All Accounts fetched from DB "+sAllCon);
 		if(sOSName.equals("android")) {
-			Assert.assertEquals(commonUtility.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
+			Assert.assertEquals(commonsUtility.getHeaderCount(workOrderPo), Integer.parseInt(sAllCon));
 		}
 		else {
 			Assert.assertEquals(contactList.size(), Integer.parseInt(sAllCon));

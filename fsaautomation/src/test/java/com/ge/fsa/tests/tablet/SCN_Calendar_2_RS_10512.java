@@ -59,14 +59,14 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		String sTestCaseID="RS_10512_Calender_2";
 	
 		
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		//sahi
 		
 		
 		
 		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
-		  if(commonUtility.verifySahiExecution()) {
+		  if(commonsUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -85,22 +85,22 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		 sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
 		 sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		//config sync
 		//toolsPo.configSync(commonsUtility);
 		Thread.sleep(3000);
 		//toolsPo.syncData(commonsUtility);
 		Thread.sleep(3000);
 		
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(5000);
 		//verify the Event is displayed or not
 	
 		calendarPO.geteleWOendpoint("06:00").getLocation();
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonUtility,sWO_SVMX_1);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonUtility,sWO_SVMX_2);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonUtility,sWO_SVMX_3);
-		  calendarPO.VerifyWOInCalenderafterconfchange(commonUtility,sWO_SVMX_4);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_1);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_2);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_3);
+		  calendarPO.VerifyWOInCalenderafterconfchange(commonsUtility,sWO_SVMX_4);
 		 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 		//verify color codes for events

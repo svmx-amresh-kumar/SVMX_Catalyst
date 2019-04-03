@@ -79,7 +79,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 				sSheetName ="RS_10544";
 				System.out.println("SCN_SourceObject_UPDATE_RS10544");
 				
-				sProformainVoice = commonUtility.generaterandomnumber("Account");
+				sProformainVoice = commonsUtility.generaterandomnumber("Account");
 				sTestIB="RS-10544_SOU";
 				sTestIBID = sProformainVoice;
 
@@ -140,7 +140,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 					
 			//	sWOName = "WO-00002177";
 			
-			bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+			bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
 
 			}
 			
@@ -149,31 +149,31 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 		prerequisites();					
 		//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonsUtility, exploreSearchPo);
 		
 		//Optional config based on process check
-	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
 		
 		//Data Sync for WO's created
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		//toolsPo.configSync(commonsUtility);			
 		
 		//Navigation to WO	
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 
 		Thread.sleep(GenericLib.iLowSleep);
 		//Set the order status
 		
 		System.out.println("Waiting to set order status");
-		commonUtility.setPickerWheelValue(workOrderPo.geteleOrderStatusEditMandatoryValue(), sOrderStatus);
+		commonsUtility.setPickerWheelValue(workOrderPo.geteleOrderStatusEditMandatoryValue(), sOrderStatus);
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//SEtting Account
-		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
+		commonsUtility.tap(workOrderPo.getEleAccount_Edit_Input());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.lookupSearch(sAccountName);
-		commonUtility.tap(workOrderPo.getEleSaveLnk());	
+		commonsUtility.lookupSearch(sAccountName);
+		commonsUtility.tap(workOrderPo.getEleSaveLnk());	
 		
 		try {
 			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
@@ -184,11 +184,11 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
+		commonsUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 		
 		ExtentManager.logger.log(Status.PASS,"Data Sync sucessfull after Source object Update process invoking");
 
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
 		
 		Assert.assertEquals(workOrderPo.getEleBillingTypeCaseLst().getAttribute("value").toString(), sBillingTypeSOU, "Picklist source object update failed billing type not set to warranty");
 		ExtentManager.logger.log(Status.PASS,"Picklist Source Object Update  Header sucessful in Client");
@@ -242,11 +242,11 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	    System.out.println("StartDateTime   "+sStartDateTime);  
 	    
 	    commonsUtility.tap(workOrderPo.getEleDoneBtn()); */ 
-	    commonUtility.tap(workOrderPo.getEleClickSave());
+	    commonsUtility.tap(workOrderPo.getEleClickSave());
 	    Thread.sleep(genericLib.iMedSleep);
 		//commonsUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 
-		toolsPo.syncData(commonUtility);
+		toolsPo.syncData(commonsUtility);
 
 		restServices.getAccessToken();
 		
@@ -292,10 +292,10 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 		//Validation of SOURCE OBJECT UPDATE AFTER SERVER Verification back in client
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		commonsUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
+		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
 		
 		Assert.assertEquals(workOrderPo.getEleBillingTypeCaseLst().getAttribute("value").toString(), sBillingTypeSOU, "Picklist source object update failed billing type not set to warranty");
 		ExtentManager.logger.log(Status.PASS,"After Data Sync-Picklist Source Object Update  Header sucessful in Client");
