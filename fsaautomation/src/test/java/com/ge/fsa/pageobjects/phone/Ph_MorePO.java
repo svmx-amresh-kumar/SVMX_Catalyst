@@ -97,7 +97,7 @@ public class Ph_MorePO
 	
 	
 		
-		@FindBy(xpath="//*[@text='Last successful sync: a few seconds ago']")
+		@FindBy(xpath="//*[contains(@text,'successful')]")
 		private WebElement eleconfigsyncsucess;
 		public WebElement geteleconfigsyncsucess()
 		{
@@ -132,14 +132,14 @@ public class Ph_MorePO
 	System.out.println("Clicked on Sync button");
 	getEleRunConfigSync().click();
 	System.out.println("Clicked on run config button");
-	getElePerformConfigSync().click();
-	System.out.println("clicking perform config sync now waiting for calandar new");
+	try {getElePerformConfigSync().click();}catch(Exception e) {}
+	//System.out.println("clicking perform config sync now waiting for calandar new");
 	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button");
 	assertTrue(commonUtility.isDisplayedCust(geteleconfigsyncsucess()), "Sync not done");
-	System.out.println("Validated and donE!!!!!");
+	System.out.println("Validated and done!!!!!");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 

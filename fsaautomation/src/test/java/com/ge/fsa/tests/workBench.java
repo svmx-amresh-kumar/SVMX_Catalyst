@@ -101,7 +101,7 @@ public void workBenchAnd() throws Exception
 		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.extent.flush();
 
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		//loginHomePo.login(commonUtility, exploreSearchPo);
 		ExtentManager.extent.flush();
 
 		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
