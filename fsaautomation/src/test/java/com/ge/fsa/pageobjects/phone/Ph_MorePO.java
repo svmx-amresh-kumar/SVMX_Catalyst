@@ -4,6 +4,7 @@ package com.ge.fsa.pageobjects.phone;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import org.openqa.selenium.By;
@@ -15,6 +16,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
@@ -72,7 +74,7 @@ public class Ph_MorePO
 		return eleSyncNow;
 	}
 	
-	@FindBy(id="SETTINGS.SYNC")
+	@FindBy(xpath="//*[@*='APP.TOOLBAR.SYNC_STATUS.BUTTON']")
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()
 	{
@@ -126,7 +128,7 @@ public class Ph_MorePO
 		return elePerformConfigSync;// = driver.findElementByAccessibilityId("Perform Config Sync");
 	}
 
-	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException {
+	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException, IOException {
 	getEleMoreBtn().click();
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button");
@@ -138,13 +140,14 @@ public class Ph_MorePO
 	getEleMoreBtn().click();
 	getEleSyncBtn().click();
 	System.out.println("Clicked on Sync button");
+	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 	assertTrue(commonUtility.isDisplayedCust(geteleconfigsyncsucess()), "Sync not done");
 	System.out.println("Validated and done!!!!!");
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }
 
 	
-	public void syncData(CommonUtility commonUtility) throws InterruptedException
+	public void syncData(CommonUtility commonUtility) throws InterruptedException, IOException
 	{
 		
 		
@@ -153,6 +156,7 @@ public class Ph_MorePO
 		getEleDataSync().click();
 		getEleSyncNow().click();
 		commonUtility.waitforElement(getEleDataSynccompleted(),9000);
+		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
 		Thread.sleep(3000);
