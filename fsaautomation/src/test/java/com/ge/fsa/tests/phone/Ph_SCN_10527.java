@@ -14,11 +14,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
-//	ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
-//	Thread.sleep(GenericLib.iMedSleep);
-
-	ph_MorePo.syncData(commonsUtility);
-	Thread.sleep(GenericLib.iMedSleep);
+	ph_MorePo.syncData(commonUtility);
 	
 
 	
