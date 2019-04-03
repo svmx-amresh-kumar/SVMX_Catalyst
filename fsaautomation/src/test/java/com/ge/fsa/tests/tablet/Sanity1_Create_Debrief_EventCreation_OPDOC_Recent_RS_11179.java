@@ -47,11 +47,11 @@ public void Scenario1Test() throws Exception
 //	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 //	Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
-		String sRandomNumber = commonsUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 //		toolsPo.syncData(commonsUtility);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
@@ -70,11 +70,11 @@ public void Scenario1Test() throws Exception
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
 		// Need to sync the data
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(5000);
 		// Creating the Work Order
-		createNewPO.createWorkOrder(commonsUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
-		toolsPo.syncData(commonsUtility);
+		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -82,16 +82,16 @@ public void Scenario1Test() throws Exception
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 	//	 Select the Work Order from the Recent items
 		
-		recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
+		recenItemsPO.clickonWorkOrder(commonUtility, sworkOrderName);
 
 //		// To create a new Event for the given Work Order
-		workOrderPo.createNewEvent(commonsUtility,sEventSubject, "Test Description");
+		workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 		
 		// Open the Work Order from the calendar
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		Thread.sleep(3000);
 		
-		calendarPO.openWoFromCalendar(commonsUtility, sworkOrderName);
+		calendarPO.openWoFromCalendar(commonUtility, sworkOrderName);
 		// This is to Tap the Date value near the Event to get it's location.
 //		calendarPO.geteleWOendpoint("04:00").getLocation();
 //		commonsUtility.waitforElement(calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName), 3);
@@ -110,21 +110,21 @@ public void Scenario1Test() throws Exception
 //	}
 		// To add Labor, Parts , Travel , Expense
 		String sProcessname = "EditWoAutoTimesstamp";
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		Thread.sleep(2000);
 		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-		workOrderPo.addParts(commonsUtility, workOrderPo,sProductName);
-		workOrderPo.addLaborParts(commonsUtility, workOrderPo, sProductName, "Calibration", sProcessname);
-		workOrderPo.addTravel(commonsUtility, workOrderPo, sProcessname);
-		workOrderPo.addExpense(commonsUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		workOrderPo.addParts(commonUtility, workOrderPo,sProductName);
+		workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
+		workOrderPo.addTravel(commonUtility, workOrderPo, sProcessname);
+		workOrderPo.addExpense(commonUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(10000);
 		
 		
 		// Creating the Service Report.
 		//sPrintReportSearch = GenericLib.getExcelData(sTestDataValue,sSheetName,"Service Report Name");
 	 	sPrintReportSearch = "Work Order Service Report";
-		workOrderPo.validateServiceReport(commonsUtility,sPrintReportSearch, sworkOrderName);
+		workOrderPo.validateServiceReport(commonUtility,sPrintReportSearch, sworkOrderName);
 		Thread.sleep(10000);
 
 //		
@@ -153,9 +153,9 @@ public void Scenario1Test() throws Exception
 		}
 		// Syncing the Data
 		Thread.sleep(genericLib.i30SecSleep);
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(genericLib.i30SecSleep);
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();

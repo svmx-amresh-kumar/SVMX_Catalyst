@@ -23,17 +23,17 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
-		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 //		System.out.println("WO no ="+sWOName);
 		
-		loginHomePo.login(commonsUtility, exploreSearchPo);	
-		toolsPo.syncData(commonsUtility);
+		loginHomePo.login(commonUtility, exploreSearchPo);	
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
+		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 //		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, "10558_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());

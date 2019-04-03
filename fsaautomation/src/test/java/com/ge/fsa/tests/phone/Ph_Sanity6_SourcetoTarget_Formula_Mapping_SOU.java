@@ -46,7 +46,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonsUtility.generaterandomnumber("SAN6_");
+		sSerialNumber = commonUtility.generaterandomnumber("SAN6_");
 		
 		//	sDeviceDate = driver.getDeviceTime().split(" ");
 
@@ -87,18 +87,18 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
 		sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
 		System.out.println(Arrays.toString(sAppDate));
 		System.out.println(Arrays.toString(sDeviceDate));
@@ -106,22 +106,22 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the order status
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
+		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the billing type
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
+		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 	
 		try {
 			System.out.println("Need to be Handled successfully");
 			workOrderPo.getElePartsToggleBtn().click();
-			commonsUtility.tap(workOrderPo.getElePartsToggleBtn());
+			commonUtility.tap(workOrderPo.getElePartsToggleBtn());
 			
-			commonsUtility.tap(workOrderPo.getEleRemoveItemLnk());
-			commonsUtility.tap(workOrderPo.getEleYesBtn());
+			commonUtility.tap(workOrderPo.getEleRemoveItemLnk());
+			commonUtility.tap(workOrderPo.getEleYesBtn());
 			
-			commonsUtility.tap(workOrderPo.getEleOKBtn());
+			commonUtility.tap(workOrderPo.getEleOKBtn());
 			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
 		}catch(Exception e){
@@ -130,14 +130,14 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Add the workorder parts
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
-		commonsUtility.tap(workOrderPo.getElePartsIcn(sProductName));
+		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
+		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
 		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 
 		//Save the workorder updates and validate
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
 	

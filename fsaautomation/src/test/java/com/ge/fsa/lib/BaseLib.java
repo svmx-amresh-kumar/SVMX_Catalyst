@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -54,12 +56,14 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class BaseLib {
 
 	public AppiumDriver driver = null;
+	public WebDriver chromeDriver = null;
+
 	public GenericLib genericLib = null;
 	public RestServices restServices = null;
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
 	public WorkOrderPO workOrderPo = null;
-	public CommonUtility commonsUtility = null;
+	public CommonUtility commonUtility = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
 	public CreateNewPO createNewPO = null;
@@ -79,7 +83,10 @@ public class BaseLib {
 	public Ph_ChecklistPO ph_ChecklistPO = null;
 
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 4116c47... Revert "Revert "Merge branch 'master' of https://github.com/yadavsvmx/SVMX_Catalyst""
 	//browser
 	public Br_CalendarPO br_CalendarPO =null;
 	public Br_LoginHomePO br_LoginHomePO =null;
@@ -88,7 +95,10 @@ public class BaseLib {
 
 	public Ph_CreateNewPO ph_CreateNewPo = null;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 4116c47... Revert "Revert "Merge branch 'master' of https://github.com/yadavsvmx/SVMX_Catalyst""
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
@@ -105,6 +115,7 @@ public class BaseLib {
 	public static String sOrgType = null;
 	public static String sUDID = null;
 	public static String sAndroidDeviceName = null;
+	public static String sURL = null;
 	
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -184,7 +195,10 @@ public class BaseLib {
 	
 		sAndroidDeviceName = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
 		System.out.println("[BaseLib] CREATE_URL : " + sAndroidDeviceName);
-
+		
+		sURL = System.getenv("URL") != null ? System.getenv("URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
+		System.out.println("[BaseLib] URL : " + sURL);
+		
 	}
 
 	// @BeforeClass
@@ -230,7 +244,7 @@ public class BaseLib {
 				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
-				capabilities.setCapability("setWebContentsDebuggingEnabled", true);
+				//capabilities.setCapability("setWebContentsDebuggingEnabled", true);
 				capabilities.setCapability("automationName", "uiautomator2");
 				capabilities.setCapability("unicodeKeyboard", true);
 				capabilities.setCapability("resetKeyboard", true);
@@ -285,7 +299,7 @@ public class BaseLib {
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
-				capabilities.setCapability("showXcodeLog", true);
+				//capabilities.setCapability("showXcodeLog", true);
 				
 				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
@@ -296,7 +310,26 @@ public class BaseLib {
 			}
 
 			break;
+			
+		case "browser":
+			
+			System.out.println("OS type = "+System.getProperty("os.name"));
+			
+			if(//For Mac OS X
+				System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
+				System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver/");
+			}else {
+				//For Windows
+				System.setProperty("webdriver.chrome.driver","C:/List_of_Jar/chromedriver.exe");
 
+			}
+
+			// Initialize browser
+			chromeDriver= new ChromeDriver();
+			 
+			// Initialize the driver
+			chromeDriver.get(sURL);
+			break;
 		}
 
 		// Initialize all the page objects and libraries
@@ -306,7 +339,7 @@ public class BaseLib {
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);
-		commonsUtility = new CommonUtility(driver);
+		commonUtility = new CommonUtility(driver);
 		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
@@ -323,15 +356,33 @@ public class BaseLib {
 		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
 		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
+<<<<<<< HEAD
+=======
+
+		//browser
+		br_CalendarPO = new Br_CalendarPO(chromeDriver);
+		br_LoginHomePO = new Br_LoginHomePO(chromeDriver);
+
+		
+
+		ph_CreateNewPo = new Ph_CreateNewPO(driver);
+>>>>>>> parent of 4116c47... Revert "Revert "Merge branch 'master' of https://github.com/yadavsvmx/SVMX_Catalyst""
 
 		try {
-			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
+			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ExtentManager.getInstance(driver);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
+		if(sOSName.equalsIgnoreCase("browser")) {
+			ExtentManager.getInstance(chromeDriver);
+			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}else{
+			ExtentManager.getInstance(driver);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
 
 	}
 
@@ -345,6 +396,18 @@ public class BaseLib {
 	 */
 	public void lauchNewApp(String sResetMode) throws IOException {
 
+		switch(sOSName) {
+		case "browser":
+			try {
+				setAPP();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		default:
+			
 		// Installing fresh by default
 		GenericLib.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", sResetMode);
 		System.out.println("[BaseLib] Initialized App Start mode to = " + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
@@ -359,6 +422,7 @@ public class BaseLib {
 		// Resetting to true always first for next execution
 		GenericLib.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", "true");
 		System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
+		}
 	}
 
 	@BeforeMethod
@@ -366,26 +430,30 @@ public class BaseLib {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
 		// Use after launch app as it will be null before this
-		commonsUtility.injectJenkinsPropertiesForSahi();
+		commonUtility.injectJenkinsPropertiesForSahi();
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}
 		System.out.println(getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
+		
+		if(sOSName.equalsIgnoreCase("browser")) {
+			//do nothing
+		}else{
 		if(sDeviceType.equalsIgnoreCase("phone")) {
 			//Ignore rotation
 			}else{
 		driver.rotate((ScreenOrientation.LANDSCAPE));
 		driver.rotate((ScreenOrientation.PORTRAIT));
 			}
-
+		}
 	}
 
 	@AfterMethod
 	public void endReport(ITestResult result, ITestContext context) {
 		lInitTimeEndMilliSec = System.currentTimeMillis();
 		long sTimeDiff = getDateDiffInMin(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
-		System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
 		System.out.println("[BaseLib] Total time for execution : " + sTimeDiff + " min");
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
@@ -428,7 +496,10 @@ public class BaseLib {
 			driver.quit();
 		} catch (Exception e) {
 		}
-		;
+		try {
+			chromeDriver.quit();
+		} catch (Exception e) {
+		}
 
 	}
 
