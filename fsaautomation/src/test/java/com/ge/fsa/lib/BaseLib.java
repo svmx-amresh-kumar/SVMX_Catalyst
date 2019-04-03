@@ -24,6 +24,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.ge.fsa.pageobjects.browser.Br_CalendarPO;
+import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 import com.ge.fsa.pageobjects.phone.Ph_CreateNewPO;
@@ -77,7 +79,7 @@ public class BaseLib {
 	public Ph_ChecklistPO ph_ChecklistPO = null;
 
 	
-<<<<<<< HEAD
+
 	//browser
 	public Br_CalendarPO br_CalendarPO =null;
 	public Br_LoginHomePO br_LoginHomePO =null;
@@ -86,8 +88,7 @@ public class BaseLib {
 
 	public Ph_CreateNewPO ph_CreateNewPo = null;
 
-=======
->>>>>>> parent of e30cef9... Revert "Merge branch 'master' of https://github.com/yadavsvmx/SVMX_Catalyst"
+
 	DesiredCapabilities capabilities = null;
 	public String sAppPath = null;
 	File app = null;
@@ -322,18 +323,7 @@ public class BaseLib {
 		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
 		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
-<<<<<<< HEAD
 
-		//browser
-		br_CalendarPO = new Br_CalendarPO(chromeDriver);
-		br_LoginHomePO = new Br_LoginHomePO(chromeDriver);
-
-		
-
-		ph_CreateNewPo = new Ph_CreateNewPO(driver);
-
-=======
->>>>>>> parent of e30cef9... Revert "Merge branch 'master' of https://github.com/yadavsvmx/SVMX_Catalyst"
 		try {
 			sSalesforceServerVersion = commonsUtility.servicemaxServerVersion(restServices, genericLib);
 		} catch (Exception e) {
