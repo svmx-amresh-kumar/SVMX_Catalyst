@@ -139,12 +139,20 @@ public class Ph_LoginHomePO
 		return eleSandbocURlbtn;
 	}
 	
-	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='']"),
-		@FindBy(xpath="//*[@text='']")})
+//	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='']"),
+//		@FindBy(xpath="//*[@text='']")})
+	@FindBy(id="")
 	private WebElement eleSettingsbtn;
 	public WebElement getEleSettingsbtn()
 	{
 		return eleSettingsbtn;
+	}
+	
+	@FindBy(id="APP.BACK_BUTTON")
+	private WebElement eleBackbtn;
+	public WebElement getEleBackbtn()
+	{
+		return eleBackbtn;
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='']"),
@@ -214,7 +222,7 @@ public class Ph_LoginHomePO
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
 						getEleChangeEnvironmentBackbtn().click();
-						getEleSignInSettingsBackbtn().click();	
+						getEleBackbtn().click();	
 					}
 									
 					commonUtility.waitforElement(getEleUserNameTxtFld(),2);

@@ -270,7 +270,7 @@ public class BaseLib {
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
 					//Use this capability for fixing slow launch of app
-					capabilities.setCapability("wdaEventloopIdleDelay",3);
+					capabilities.setCapability("wdaEventloopIdleDelay",1);
 
 				}else{
 					//Only For Ipad
