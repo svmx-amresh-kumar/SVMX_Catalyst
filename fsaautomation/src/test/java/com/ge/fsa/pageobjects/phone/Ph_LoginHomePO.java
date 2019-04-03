@@ -46,8 +46,6 @@ public class Ph_LoginHomePO
 	
 	@FindAll({@FindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")})
-//	@AndroidFindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']")
-//		@iOSFindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
@@ -115,23 +113,23 @@ public class Ph_LoginHomePO
 		return eleSandBxRdBtn;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Production']"),
-	@FindBy(id="Production")})
-	//@FindBy(xpath="//*[@text='Production']")
+//	@FindAll({@FindBy(xpath="//*[@text='Production']"),
+//	@FindBy(id="Production")})
+	@FindBy(xpath="//*[@*='Production']")
 	private WebElement eleProductionBtn;
 	public WebElement getEleProductionBtn() 
 	{
 		return eleProductionBtn;
 	}
-	@FindAll({@FindBy(xpath="//*[@text='Sandbox']"),
-	@FindBy(id="Sandbox")})
+
+	@FindBy(xpath="//*[@*='Sandbox']")
 	private WebElement eleSandboxBtn;
 	public WebElement getEleSandboxBtn() 
 	{
 		return eleSandboxBtn;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='https://test.salesforce.com']"),
+	@FindAll({@FindBy(xpath="//*[@*='Sandbox']"),
 	@FindBy(id="Sandbox https://test.salesforce.com")})
 	private WebElement eleSandbocURlbtn;
 	public WebElement getEleSandbocURlbtn()
@@ -139,37 +137,21 @@ public class Ph_LoginHomePO
 		return eleSandbocURlbtn;
 	}
 	
-//	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='']"),
-//		@FindBy(xpath="//*[@text='']")})
-	@FindBy(id="")
+	@FindBy(xpath="//*[@*='SETTINGS']")
 	private WebElement eleSettingsbtn;
 	public WebElement getEleSettingsbtn()
 	{
 		return eleSettingsbtn;
 	}
 	
-	@FindBy(id="APP.BACK_BUTTON")
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement eleBackbtn;
 	public WebElement getEleBackbtn()
 	{
 		return eleBackbtn;
 	}
-	
-	@FindAll({@FindBy(xpath="//*[@text='']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name='Change Environment'])[3]/XCUIElementTypeOther[1]")})
-	private WebElement eleChangeEnvironmentBackbtn;
-	public WebElement getEleChangeEnvironmentBackbtn()
-	{
-		return eleChangeEnvironmentBackbtn;
-	}
 
-	@FindAll({@FindBy(xpath="//*[@text='']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Sign In Settings\"])[7]/XCUIElementTypeOther[1]")})
-	private WebElement eleSignInSettingsBackbtn;
-	public WebElement getEleSignInSettingsBackbtn()
-	{
-		return eleSignInSettingsBackbtn;
-	}
+
 	
 	
 	/**
@@ -205,7 +187,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone android UN = "+sUn+" PWD = "+sPwd);
 			System.out.println("TEST "+getEleSignInBtn().toString());
-			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 0)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -217,11 +199,11 @@ public class Ph_LoginHomePO
 					getEleSignInBtn().click();
 					Thread.sleep(1000);
 					//Change to sandbox first if not already
-					if(!commonUtility.waitforElement(getEleLoginBtn(),2)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),0)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
-						getEleChangeEnvironmentBackbtn().click();
+						getEleBackbtn().click();
 						getEleBackbtn().click();	
 					}
 									
@@ -265,7 +247,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 0)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -273,21 +255,21 @@ public class Ph_LoginHomePO
 					//Login from Sign in Page
 					
 					
-					Thread.sleep(4000);
+					Thread.sleep(1000);
 					getEleSignInBtn().click();
-					Thread.sleep(4000);
-					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
+					Thread.sleep(1000);
+					if(!commonUtility.waitforElement(getEleLoginBtn(),0)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
-						getEleChangeEnvironmentBackbtn().click();
-						getEleSignInSettingsBackbtn().click();	
+						getEleBackbtn().click();
+						getEleBackbtn().click();	
 					}
 									
 					
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
-					Thread.sleep(4000);
+					Thread.sleep(2000);
 
 					getElePasswordTxtFld().click();
 					getElePasswordTxtFld().sendKeys(sPwd);
