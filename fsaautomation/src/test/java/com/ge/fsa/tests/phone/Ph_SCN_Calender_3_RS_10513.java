@@ -56,15 +56,15 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		String sTestCaseID="RS_10513_Calender_3";
 		
-		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		String sRandomNumber = commonsUtility.generaterandomnumber("");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "EventName"+sRandomNumber;
 		//sahi
 		
 	
 		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		  if(commonsUtility.verifySahiExecution()) {
+		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  
@@ -95,8 +95,8 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 			ph_CalendarPo.getEleCalendarBtn().click();
 			
 			Thread.sleep(3000);
-			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event1");
-			ph_CalendarPo.VerifyWOInCalender(commonsUtility,"A10513_SVMX_Event2");
+			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10513_SVMX_Event1");
+			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10513_SVMX_Event2");
 			
 			ExtentManager.logger.log(Status.PASS,"Two events are displayed in calendar");
 			
@@ -108,12 +108,12 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 			ph_CalendarPo.getEleCalendarEventSubject().click();
 			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
 			
-			commonsUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0,"05", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0,"05", "00");
 			
-			commonsUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0,"07", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0,"07", "00");
 			ph_CalendarPo.getEleAdd().click();
 			Thread.sleep(3000);
-			ph_MorePo.syncData(commonsUtility);
+			ph_MorePo.syncData(commonUtility);
 			
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='"+sEventSubject+"'";				
