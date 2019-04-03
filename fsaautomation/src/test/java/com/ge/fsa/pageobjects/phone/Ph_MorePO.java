@@ -71,7 +71,7 @@ public class Ph_MorePO
 	{
 		return eleSyncNow;
 	}
-	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup"),
+	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.TOOLBAR.SYNC_STATUS.BUTTON\"]/android.view.ViewGroup"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Settings\"])[4]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]")})
 	private WebElement eleDataSync;
 	public WebElement getEleDataSync()

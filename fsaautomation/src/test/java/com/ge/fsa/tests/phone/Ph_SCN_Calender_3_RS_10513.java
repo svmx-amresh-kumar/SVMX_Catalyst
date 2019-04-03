@@ -55,7 +55,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
 		String sTestCaseID="RS_10513_Calender_3";
-		/*	
+		
 		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonsUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonsUtility.generaterandomnumber("");
@@ -82,16 +82,16 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
-	*/	
+	
 	
 		
 			//Pre Login to app
-		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 			Thread.sleep(GenericLib.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-/*		//verify WO event is present or not
+		//verify WO event is present or not
 			ph_CalendarPo.getEleCalendarBtn().click();
 			
 			Thread.sleep(3000);
@@ -126,7 +126,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		//	On server/DC, edit one of the events created
-			
+	/*		
 			sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event1\'";				
 			 sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
@@ -153,19 +153,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		*/		
 			
 			//commonsUtility.custScrollToElementAndClick(ph_CalendarPo.getEleWOendpoint("10 AM"));
-			Thread.sleep(3000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("10 AM").getLocation());
-			Thread.sleep(3000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("11 AM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("12 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("1 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println(ph_CalendarPo.getEleWOendpoint("2 PM").getLocation());
-			Thread.sleep(1000);
-			System.out.println("Before Pencil icon enable");
-			Thread.sleep(3000);
+		
 	
 			/*
 		String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");

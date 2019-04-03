@@ -44,7 +44,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	Iterator<String> iterator =null;
 	
 
-	@FindAll({@FindBy(xpath="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.HEADER_RIGHT.ACTIONS\"]"),
 	@FindBy(xpath="((//XCUIElementTypeOther[contains(@name,\"Work Order\")])/../../../../../XCUIElementTypeOther[2])[4]")})
 	private WebElement eleActionsLnk;
 	public WebElement getEleActionsLnk()
@@ -363,11 +363,9 @@ public class Ph_WorkOrderPO extends BaseLib
 		try {
 				ph_ExploreSearchPO.geteleExploreIcn().click();
 				ph_ExploreSearchPO.geteleExploreIcn().click();
-				//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-				Thread.sleep(GenericLib.iLowSleep);
+				
 				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 				Thread.sleep(3000);
-				//commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
 				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
@@ -451,7 +449,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"Back\"]/android.view.ViewGroup")
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.BACK_BUTTON\"]/android.view.ViewGroup")
 	private WebElement eleXsymbol;
 	public WebElement geteleXsymbol()
 	{

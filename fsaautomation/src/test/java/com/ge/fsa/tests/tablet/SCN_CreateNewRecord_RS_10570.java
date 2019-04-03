@@ -21,11 +21,11 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		String sContactName = "Stuart Law";
 		String sProductName = "SampleProd";
 		
-		String sCoName = commonsUtility.generaterandomnumber("customAction");
-		String sCaseSubject = commonsUtility.generaterandomnumber("caseSub");
-		String sLocName = commonsUtility.generaterandomnumber("Loc");
-		String sIBName = commonsUtility.generaterandomnumber("IB");
-		String sEmailDomain = commonsUtility.generaterandomnumber("Auto");
+		String sCoName = commonUtility.generaterandomnumber("customAction");
+		String sCaseSubject = commonUtility.generaterandomnumber("caseSub");
+		String sLocName = commonUtility.generaterandomnumber("Loc");
+		String sIBName = commonUtility.generaterandomnumber("IB");
+		String sEmailDomain = commonUtility.generaterandomnumber("Auto");
 		String sEmail = sEmailDomain+"@svmx.com";
 		
 		// Create Account
@@ -43,57 +43,57 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 //		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//********Login to FSA********
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		//********Perform Data Sync********
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//********Perform Config Sync********
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//********Creating Work Order from FSA********
-		commonsUtility.tap(createNewPO.getEleCreateNew());
+		commonUtility.tap(createNewPO.getEleCreateNew());
 		Thread.sleep(3000);
-		commonsUtility.tap(createNewPO.getEleItemNameTxt("SFM_10570"),30,36);
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), "Open");
+		commonUtility.tap(createNewPO.getEleItemNameTxt("SFM_10570"),30,36);
+		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), "Open");
 		workOrderPo.getEmailvalue().sendKeys(sEmail);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		
 		//********Creating Location from FSA********
-		commonsUtility.tap(createNewPO.getEleCreateNew());
+		commonUtility.tap(createNewPO.getEleCreateNew());
 		Thread.sleep(3000);
-		commonsUtility.tap(createNewPO.getEleItemNameTxt("SFM_Loc_10570"),30,36);
+		commonUtility.tap(createNewPO.getEleItemNameTxt("SFM_Loc_10570"),30,36);
 		createNewPO.getEleLocNameTxt().sendKeys(sLocName);
-		commonsUtility.tap(workOrderPo.getEleIBAccountIDTxt());
-		commonsUtility.lookupSearch(sAccountName);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleIBAccountIDTxt());
+		commonUtility.lookupSearch(sAccountName);
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		
 		//********Creating Case from FSA********
-		commonsUtility.tap(createNewPO.getEleCreateNew());
-		commonsUtility.tap(createNewPO.getEleItemNameTxt("SFM_Case_10570"),30,36);
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleStatusCaseLst(), "New");
-		commonsUtility.tap(workOrderPo.getEleContactIDTxt());
-		commonsUtility.lookupSearch(sContactName);
+		commonUtility.tap(createNewPO.getEleCreateNew());
+		commonUtility.tap(createNewPO.getEleItemNameTxt("SFM_Case_10570"),30,36);
+		commonUtility.setPickerWheelValue(workOrderPo.getEleStatusCaseLst(), "New");
+		commonUtility.tap(workOrderPo.getEleContactIDTxt());
+		commonUtility.lookupSearch(sContactName);
 		workOrderPo.getEleSubjectTxtFld().sendKeys(sCaseSubject);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		
 		//********Creating IB from FSA********
-		commonsUtility.tap(createNewPO.getEleCreateNew());
-		commonsUtility.tap(createNewPO.getEleItemNameTxt("SFM_IB_10570"),30,36);
-		commonsUtility.tap(workOrderPo.getProductvalue());
-		commonsUtility.lookupSearch(sProductName);
-		commonsUtility.tap(workOrderPo.getEleIBAccountIDTxt());
-		commonsUtility.lookupSearch(sAccountName);
+		commonUtility.tap(createNewPO.getEleCreateNew());
+		commonUtility.tap(createNewPO.getEleItemNameTxt("SFM_IB_10570"),30,36);
+		commonUtility.tap(workOrderPo.getProductvalue());
+		commonUtility.lookupSearch(sProductName);
+		commonUtility.tap(workOrderPo.getEleIBAccountIDTxt());
+		commonUtility.lookupSearch(sAccountName);
 		workOrderPo.getEleIBIDTxt().sendKeys(sIBName);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		
 		//********Creating Custom Object from FSA********
-		commonsUtility.tap(createNewPO.getEleCreateNew());
-		commonsUtility.tap(createNewPO.getEleItemNameTxt("SFM_CO_10570"),30,36);
+		commonUtility.tap(createNewPO.getEleCreateNew());
+		commonUtility.tap(createNewPO.getEleItemNameTxt("SFM_CO_10570"),30,36);
 		createNewPO.getEleCustomObjNameTxt().sendKeys(sCoName);
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(10000);
 		
 		//********Check if Records are present in DB before Sync********
@@ -109,7 +109,7 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		Assert.assertEquals(0, Integer.parseInt(sWoCountBeforeSync));
 		
 		//********Perform Data Sync********
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//********Check if Records are present in DB after Sync********

@@ -59,7 +59,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
-		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10554_mapping";
 		String sID=sProformainVoice+"RS_10554_IB";
 	//sahi
@@ -135,21 +135,21 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		
 		
 			//Pre Login to app
-				ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
 			//config sync
 			//toolsPo.configSync(commonsUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
-			ph_MorePo.syncData(commonsUtility);
+			ph_MorePo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Navigation to SFM
 
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sIBname, sFieldServiceName,commonsUtility );	
+			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sIBname, sFieldServiceName,commonUtility );	
 			Thread.sleep(3000);
-			ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
+			//ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
 			Thread.sleep(3000);
 			
 			
@@ -183,7 +183,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
-			commonsUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
 			Thread.sleep(3000);
 			
 			String fetchedpart =ph_WorkOrderPo.getPart().getAttribute("text");
@@ -202,7 +202,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			ph_WorkOrderPo.getElesave().click();
 			Thread.sleep(3000);
-			ph_MorePo.syncData(commonsUtility);
+			ph_MorePo.syncData(commonUtility);
 			Thread.sleep(10000);
 			
 			// Collecting the Work Order number from the Server.
@@ -273,30 +273,30 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			
 			//Validating after datasync
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonsUtility );	
+			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
 ////////////////////////////////////////////////////////////////////////////////////////////////
-			ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
+			//ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
 			
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getEleAccount());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAccount());
 			 fetchedaccount = ph_WorkOrderPo.getEleAccount().getAttribute("text");
 			System.out.println(fetchedaccount);
 			try{Assert.assertTrue(fetchedaccount.equals(sAccountName));ExtentManager.logger.log(Status.PASS,"Account value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"Account value mapping Failed after datasync");}
 			
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getEleProduct());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleProduct());
 			  fetchedproduct = ph_WorkOrderPo.getEleProduct().getAttribute("text");
 			System.out.println(fetchedproduct);
 			try{Assert.assertTrue(fetchedproduct.equals(sproductname));ExtentManager.logger.log(Status.PASS,"product value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"product value mapping Failed after datasync");}
 			
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getEleComponent());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleComponent());
 			  fetchedcomponent = ph_WorkOrderPo.getEleComponent().getAttribute("text");
 			System.out.println(fetchedcomponent);
 			try{Assert.assertTrue(fetchedcomponent.equals(sIBname));ExtentManager.logger.log(Status.PASS,"component value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"component value mapping Failed after datasync");}
 			
 
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDate());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDate());
 			  fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getAttribute("text");
 			System.out.println(fetchedScheduledDate);
 			try{assertEquals(fetchedScheduledDate,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
@@ -311,16 +311,16 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful After data sync");
 			
 			
-			commonsUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
 			//Thread.sleep(GenericLib.iHighSleep);
 			
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getPart());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getPart());
 			  fetchedpart = ph_WorkOrderPo.getPart().getAttribute("text");
 			System.out.println(fetchedpart);
 			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,"part value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"part value mapping Failed after datasync");}
 			
-			commonsUtility.custScrollToElement(ph_WorkOrderPo.getleDateRequired());
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getleDateRequired());
 			  fetcheddaterequired = ph_WorkOrderPo.getleDateRequired().getAttribute("text");
 			System.out.println(fetcheddaterequired);
 			try{assertEquals(fetcheddaterequired,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
@@ -338,15 +338,15 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	
 	
 	
-	/*
-	 * @AfterClass(enabled = true) public void deletedata() throws Exception {
-	 * //Deleting data created
-	 * 
-	 * restServices.restDeleterecord("Account",sObjectAccID);
-	 * restServices.restDeleterecord("Product2",sObjectProID);
-	 * restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
-	 * 
-	 * }
-	 */
+	
+	  @AfterClass(enabled = true) public void deletedata() throws Exception {
+	  //Deleting data created
+	  
+	  restServices.restDeleterecord("Account",sObjectAccID);
+	  restServices.restDeleterecord("Product2",sObjectProID);
+	  restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
+	  
+	  }
+	 
 	
 }

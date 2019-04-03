@@ -81,7 +81,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 		
-		bProcessCheckResult =commonsUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
 
 
 		// sWOName = "WO-00001266";
@@ -93,21 +93,21 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		//Prerequisite script
 		prerequisites();
 		// Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-	    toolsPo.OptionalConfigSync(toolsPo, commonsUtility, bProcessCheckResult);
+		loginHomePo.login(commonUtility, exploreSearchPo);
+	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 		// Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 		// Navigation to WO
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		// Navigating to the checklist
-		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		Thread.sleep(GenericLib.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("5");
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed");
 		Assert.assertEquals(checklistPo.geteleChecklistErrorBadge().getText(),"1");
@@ -120,11 +120,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 //	   // commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn2());
 //	    commonsUtility.switchContext("WebView");
 //	    sDateAns = checklistPo.geteleChecklistAnsDate(sDateq).getAttribute("value");
-		sDateAns=commonsUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateq),"date");
+		sDateAns=commonUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateq),"date");
 	    System.out.println("direct sdatetime"+sDateAns);	    
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		
 		
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("300");
@@ -137,7 +137,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 //	    commonsUtility.getEleDonePickerWheelBtn().click();
 //	    commonsUtility.switchContext("WebView");
 //	    sDateTimeAns = checklistPo.geteleChecklistAnsDate(sDateTimeq).getAttribute("value");
-		sDateTimeAns=commonsUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateTimeq), "dateTime");
+		sDateTimeAns=commonUtility.getDate(checklistPo.geteleChecklistAnsDate(sDateTimeq), "dateTime");
 	    System.out.println("direct sdatetime"+sDateTimeAns);	
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed");
@@ -145,26 +145,26 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		
 		checklistPo.geteleChecklistAnsNumber(sConfirmationDVRq).sendKeys(sConfirmationDVRAns);
 		// tapping next button
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		
 		Assert.assertTrue(checklistPo.geteleChecklistDVRConfirmationtxt().isDisplayed(), "DataValidation rule failed for number confirmation");	 	
 		Assert.assertTrue(checklistPo.geteleDVRConfirmBtn().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for confirmation Passed");
 		
-		commonsUtility.tap(checklistPo.geteleDVRConfirmBtn());
+		commonUtility.tap(checklistPo.geteleDVRConfirmBtn());
 	    //checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
-		commonsUtility.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), -3, "05", "05");
+		commonUtility.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), -3, "05", "05");
 		Thread.sleep(GenericLib.iLowSleep);
 	    //commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 	  
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
-	    commonsUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
-		commonsUtility.tap(checklistPo.geteleNext());
+	    commonUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"June", "8", "2018");
+		commonUtility.tap(checklistPo.geteleNext());
 
 	    Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for date");	 	
 		ExtentManager.logger.log(Status.PASS,"8th June DVR passed date");
-	    commonsUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
+	    commonUtility.setSpecificDate(checklistPo.geteleChecklistAnsDate(sDateq),"March", "8", "2018");
 
 		// checklistPo.geteleChecklistAnsDate(sDateq).click();
 		// commonsUtility.setSpecificDateYear(checklistPo.geteleChecklistAnsDate(sDateq),"February", "1", "2018");
@@ -176,13 +176,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// DVR BOUNDARY validations
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("9");
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 		
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("101");
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 	  
@@ -190,7 +190,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Thread.sleep(3000);
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("15");
 		Thread.sleep(3000);
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 	//	Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
 	//	ExtentManager.logger.log(Status.PASS,"DataValidation rule for Advanced DVR Passed- Boundary test");
 		
@@ -202,13 +202,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// submitting of checklist
-		commonsUtility.clickAllowPopUp();
-		commonsUtility.switchContext("WebView");
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
-		commonsUtility.tap(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.clickAllowPopUp();
+		commonUtility.switchContext("WebView");
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 
 		// Navigating back to work Orders
-		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 
 		// Navigation back to Work Order
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
@@ -216,13 +216,13 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 
 		Thread.sleep(GenericLib.iLowSleep);
 
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
+		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 
 		// Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sEditProcessName);
+		workOrderPo.selectAction(commonUtility, sEditProcessName);
 
 	}
 

@@ -57,7 +57,7 @@ String Location=null;
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonsUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 	
@@ -110,22 +110,22 @@ String Location=null;
 		
 		
 			//Pre Login to app
-		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 			//datasync
-		ph_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		ph_WorkOrderPo.createInstalledProduct(commonsUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPO);
+		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPO);
 			
 			
 			Thread.sleep(5000);
 			//navigate to sfm
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName,commonsUtility );	
+			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName,commonUtility );	
 			ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
 			
 			
 			//fill the values to to fields
-			commonsUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
+			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
 			Thread.sleep(2000);
 			ph_WorkOrderPo.getEleSite().click();
 			ph_ExploreSearchPO.commonlookupsearch(Location);
