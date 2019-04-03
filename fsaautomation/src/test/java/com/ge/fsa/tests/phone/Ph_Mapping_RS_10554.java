@@ -149,7 +149,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 
 			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sIBname, sFieldServiceName,commonsUtility );	
 			Thread.sleep(3000);
-			ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
+			//ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
 			Thread.sleep(3000);
 			
 			
@@ -275,7 +275,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			//Validating after datasync
 			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonsUtility );	
 ////////////////////////////////////////////////////////////////////////////////////////////////
-			ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
+			//ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
 			
 			commonsUtility.custScrollToElement(ph_WorkOrderPo.getEleAccount());
 			 fetchedaccount = ph_WorkOrderPo.getEleAccount().getAttribute("text");
@@ -338,15 +338,15 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	
 	
 	
-	/*
-	 * @AfterClass(enabled = true) public void deletedata() throws Exception {
-	 * //Deleting data created
-	 * 
-	 * restServices.restDeleterecord("Account",sObjectAccID);
-	 * restServices.restDeleterecord("Product2",sObjectProID);
-	 * restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
-	 * 
-	 * }
-	 */
+	
+	  @AfterClass(enabled = true) public void deletedata() throws Exception {
+	  //Deleting data created
+	  
+	  restServices.restDeleterecord("Account",sObjectAccID);
+	  restServices.restDeleterecord("Product2",sObjectProID);
+	  restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
+	  
+	  }
+	 
 	
 }
