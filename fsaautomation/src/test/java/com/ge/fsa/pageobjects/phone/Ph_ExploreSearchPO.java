@@ -1,31 +1,20 @@
 package com.ge.fsa.pageobjects.phone;
 
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
 import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import com.aventstack.extentreports.Status;
-import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -113,6 +102,22 @@ public class Ph_ExploreSearchPO
 		return eleResetFilerBtn;
 	}
 	
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']")})
+	private List<WebElement> searchListItems;
+	public List<WebElement> getSearchListItems(){
+		return searchListItems;
+	}
+	
+	@FindBy(xpath="//*[@class='android.widget.Switch'][@text='OFF']")
+	private WebElement EleOnline;
+	public WebElement getEleOnline() {
+		return EleOnline;
+	}
+	
+	public WebElement getDownloadIcon(String workOrder) {
+		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
+	}
+	
 	
 	@FindBy(xpath="//*[@text='Search']")
 	private WebElement eleExploreSearchBtn;
@@ -128,16 +133,12 @@ public class Ph_ExploreSearchPO
 	}
 	public void selectWorkOrder(String sWOName) throws InterruptedException
 	{		
-		getEleExploreSearchTxt().click();
-		Thread.sleep(3000);
-	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
-		getEleExploreSearchTxt().click();
-		getEleExploreSearchTxt().clear();
+		geteleSearchKeyword().click();
+		geteleSearchKeyword().clear();
 		
-		getEleExploreSearchTxt().sendKeys(sWOName);
-		Thread.sleep(3000);
+		geteleSearchKeyword().sendKeys(sWOName);
+		Thread.sleep(4000);
 		getEleSearchListItem(sWOName).click();
-		Thread.sleep(GenericLib.iLowSleep);
 	}
 	
 	
