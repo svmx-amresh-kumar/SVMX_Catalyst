@@ -54,12 +54,20 @@ public class Ph_CalendarPO
 		return eleCalendarViewMenu;
 	}
 
+	@FindBy(xpath="//*[@*='APP.TOOLBAR.CREATE_NEW.BUTTON']")
+	private WebElement eleCreateNewBtn;
+	public WebElement getEleCreateNewBtn()
+	{
+		return eleCreateNewBtn;
+	}
+	
 	@FindBy(xpath="//*[@*='CALENDAR.ADD.FAB_BUTTON']")
 	private WebElement eleCreateNewEvent;
 	public WebElement getEleCreateNewEvent()
 	{
 		return eleCreateNewEvent;
 	}
+
 
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")})

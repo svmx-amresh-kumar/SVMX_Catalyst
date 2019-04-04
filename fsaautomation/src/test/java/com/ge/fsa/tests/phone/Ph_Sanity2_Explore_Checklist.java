@@ -158,7 +158,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.getelechecklistTextQAns("5. Test Question").sendKeys("Text Question Answered");
 			
 			commonUtility.custScrollToElementAndClick("8. Number Question");
-			commonUtility.custScrollToElementAndClick("8. Number Question").click();
+			commonUtility.custScrollToElementAndClick("8. Number Question");
 			
 			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys(snumberAns);
 			driver.getKeyboard().pressKey((CharSequence) new KeyEvent(AndroidKey.ENTER));
