@@ -531,7 +531,7 @@ public class CommonUtility {
 		
 		while (lElapsedTime != lTime) {
 			Thread.sleep(1000);
-		
+			try {
 				if (wElement.isDisplayed()) {// If element is not displayed break
 					
 				}else {
@@ -539,7 +539,11 @@ public class CommonUtility {
 					//switchContext(context);
 					return true;
 				}
-			
+			} catch (Exception ex) {
+				System.out.println("Element is not displayed anymore");
+				//switchContext(context);
+				return true;
+			}
 
 			lElapsedTime++;
 		}
