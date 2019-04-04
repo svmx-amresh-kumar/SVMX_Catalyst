@@ -95,12 +95,12 @@ public class Ph_CalendarPO
 		
 		private WebElement eleSelectProcessNewProcess;
 		public WebElement getEleSelectProcessNewProcess(String sProcessName) throws InterruptedException
-		{
+		{				Thread.sleep(1000);
+
 			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 				return eleSelectProcessNewProcess = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
 
 			}else {
-				Thread.sleep(1000);
 				return eleSelectProcessNewProcess =  driver.findElement(By.xpath("//*[contains(@label,'"+sProcessName+"')]/../*[contains(@name,'Item')]"));
 			}
 			
@@ -179,13 +179,10 @@ public class Ph_CalendarPO
 		private WebElement eleSearchListItem;
 		public WebElement getEleSearchListItem(String sName)
 		{
-			switch (BaseLib.sOSName.toLowerCase()) {
-			case "android":
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 				return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
-			case "ios":
-				return eleSearchListItem = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\" Clear text RESULTS\"])[3]/XCUIElementTypeOther[2]"));
-			}
-			return eleSearchListItem;
+			}else {
+				return eleSelectProcessNewProcess =  driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')][contains(@name,'SFM.LAYOUT.LOOKUP')]"));			}
 		
 		}
 		
@@ -194,30 +191,16 @@ public class Ph_CalendarPO
 		private WebElement eleContactLookuptap;
 		public WebElement getEleContactLookuptap()
 		{
-		switch (BaseLib.sOSName.toLowerCase()) {
-		case "android":
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			eleContactLookuptap = driver.findElement(By.xpath("//*[@text='Contact Lookup']"));
 			return eleContactLookuptap;
-		case "ios":
+			}else {
 			return eleContactLookuptap = driver.findElementByAccessibilityId("Contact Contact Lookup");
+			}
 		}
-		return eleContactLookuptap;
-}
 		
 		
-		private WebElement elelookupsearchcontact;
-		public WebElement getElelookupsearchcontact()
-		{
-			switch (BaseLib.sOSName.toLowerCase()) {
-
-		case "android":
-			elelookupsearchcontact = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
-			return elelookupsearchcontact;
-		case "ios":
-			return elelookupsearchcontact = driver.findElementByAccessibilityId("Search Full Name, Business Phone, Mobile Phone, Email");
-		}
-			return eleAccountLookUp;
-		}
+	
 		
 		private WebElement eleproductLookuptap;
 		public WebElement getEleproductLookuptap()
