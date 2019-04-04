@@ -166,7 +166,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		return elePartcheckbox;}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Part']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindAll({@FindBy(xpath="//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Part Part Lookup\"])[2]")})
 	private WebElement elepartlookup;
 	public WebElement getElepartlookup()
@@ -558,7 +558,7 @@ public class Ph_WorkOrderPO extends BaseLib
 		return eleDiscardChangesButton;
 	}
 	
-	@FindBy(xpath="//*[@content-desc='Back']")
+	@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']")
 	private WebElement eleBackButton;
 	public WebElement getEleBackButton() {
 		return eleBackButton;
@@ -614,14 +614,14 @@ public class Ph_WorkOrderPO extends BaseLib
 		getEleAddSelectedButton().click();
 	}
 	
-	public void addPartsManageWD(CommonUtility commonUtility, String sProductName1) throws InterruptedException
+	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
-		commonUtility.custScrollToElementAndClick(getElePartLnk());;
-		getProductLookup().click();
-		commonUtility.ph_lookupSearch(sProductName1);
+		commonUtility.custScrollToElementAndClick(getElePartLnk());
+		getElepartlookup().click();
+		commonUtility.ph_lookupSearch(sPartName1);
 		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
 		//Thread.sleep(1000);
-		getEleAddButton().click();
+		ph_ExploreSearchPo.getEleSearchListItem(sPartName1).click();
 
 	}
 public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
@@ -636,8 +636,10 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 
 	}
 	
-	public void addExpense(CommonUtility commonsUtility, String sExpenseType,String sLineQty,String slinepriceperunit) {
-		getChildLineAddItem("Add Expense").click();
+	public void addExpense(CommonUtility commonsUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
+		//commonsUtility.custScrollToElementAndClick("Add Expense").click();
+		//commonsUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
+		commonsUtility.custScrollToElementAndClick("Add Expense").click();
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);

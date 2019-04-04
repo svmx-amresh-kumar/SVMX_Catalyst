@@ -86,29 +86,30 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
+		Thread.sleep(3000);
 		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
 		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
 		new TouchAction(driver).press(new PointOption().withCoordinates(coordinates.getX()+1000,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
 					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
 		ph_WorkOrderPo.getEleMore().click();
 		ph_WorkOrderPo.getEleManageWorkDetails().click();
-		ph_WorkOrderPo.addPartsManageWD(commonUtility, sProductName);
+		Thread.sleep(3000);
+		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPO, sProductName);
+		ph_WorkOrderPo.getEleAddButton().click();
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Discard the Changes by clicking on it
 		ph_WorkOrderPo.getEleDiscardChangesButton().click();
 		// Click on Cancel Button and verify the Changes of the ChildLines
 		ph_WorkOrderPo.getEleBackButton().click();
-		ph_WorkOrderPo.getEleDiscardChangesButton().click();
 
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
-		workOrderPo.selectAction(commonUtility, sProcessname);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		if (ph_WorkOrderPo.getChildLineAddedItem(sIBName).isDisplayed() == true) {
 			ExtentManager.logger.log(Status.PASS, "The PS Lines are Added ");
 			new TouchAction(driver).press(new PointOption().withCoordinates(coordinates.getX()+1000,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
 			.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
 			ph_WorkOrderPo.getEleMore().click();
-			ph_WorkOrderPo.getEleManageWorkDetails().click();
+			ph_WorkOrderPo.getEleManageWorkDetails().click();Thread.sleep(3000);
 			try {
 				ph_WorkOrderPo.getEleeleIBId(sProductName).isDisplayed();
 				ExtentManager.logger.log(Status.FAIL, "The Product from Parts is Saved - Not Expected Scenario");
@@ -122,16 +123,16 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		}
 
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
-		ph_WorkOrderPo.addPartsManageWD(commonUtility, sProductName);
+		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPO, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
 		Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.getEleBackButton().click();
 		// Sync the Data and verify in the Server end if both the data are present
-		Thread.sleep(20000);
+		Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(20000);
+		Thread.sleep(2000);
 		// Verify the Queries
-
 		restServices.getAccessToken();
 		String sSoqlquerychildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"
 				+ sworkOrderName + "\')";
@@ -151,8 +152,12 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 						ExtentManager.logger.log(Status.PASS, "Products Serviced is added to WO ");
 						System.out.println(value);
 					}
-					if (value.equals("Usage/Consumption")) {
+					else if (value.equals("Usage/Consumption")) {
 						ExtentManager.logger.log(Status.PASS, "Work Detail is added to WO");
+						System.out.println(value);
+					}
+					else {
+						ExtentManager.logger.log(Status.FAIL, value+" is wrongly added to WO");
 						System.out.println(value);
 					}
 				}

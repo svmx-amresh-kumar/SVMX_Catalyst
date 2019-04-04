@@ -18,7 +18,7 @@ public class Ph_CreateNewPO {
 	}
 	AppiumDriver driver = null;
 	
-	@FindBy(xpath="(/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[1])[last()]")
+	@FindBy(xpath="//*[@content-desc='APP.TOOLBAR.CREATE_NEW.BUTTON']")
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew() {
 		return eleCreateNew;
