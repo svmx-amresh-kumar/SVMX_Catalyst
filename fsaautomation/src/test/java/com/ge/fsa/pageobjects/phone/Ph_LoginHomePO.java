@@ -187,7 +187,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone android UN = "+sUn+" PWD = "+sPwd);
 			System.out.println("TEST "+getEleSignInBtn().toString());
-			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 0)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -199,7 +199,7 @@ public class Ph_LoginHomePO
 					getEleSignInBtn().click();
 					Thread.sleep(1000);
 					//Change to sandbox first if not already
-					if(!commonUtility.waitforElement(getEleLoginBtn(),0)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
@@ -247,7 +247,7 @@ public class Ph_LoginHomePO
 
 			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
 
-			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 0)){
+			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 
 			}else {
@@ -258,7 +258,7 @@ public class Ph_LoginHomePO
 					Thread.sleep(1000);
 					getEleSignInBtn().click();
 					Thread.sleep(1000);
-					if(!commonUtility.waitforElement(getEleLoginBtn(),0)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();

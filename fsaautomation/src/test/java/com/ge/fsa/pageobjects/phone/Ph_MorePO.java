@@ -88,7 +88,7 @@ public class Ph_MorePO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
-	@FindBy(xpath="(//*[contains(@name,'Sync completed Last sync time')])")})
+	@FindBy(xpath="(//*[contains(@label,'Sync completed Last sync time')])")})
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
 	{
