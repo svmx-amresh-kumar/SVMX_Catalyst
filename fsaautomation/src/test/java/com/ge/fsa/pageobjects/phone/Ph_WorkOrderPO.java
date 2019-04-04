@@ -521,7 +521,7 @@ public class Ph_WorkOrderPO extends BaseLib
 		return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+value+"')]][@class='android.widget.ScrollView'])[last()]"));
 	}
 	
-	@FindBy(xpath="//*[@class='android.view.ViewGroup'][contains(@content-desc,'ADD SELECTED')]")
+	@FindBy(xpath="//*[@class='android.widget.TextView'][contains(@text,'ADD SELECTED')]")
 	private WebElement eleAddSelectedButton;
 	public WebElement getEleAddSelectedButton()
 	{

@@ -1833,6 +1833,5 @@ public class CommonUtility {
 			getSearchLookup().sendKeys(value);
 			Thread.sleep(5000);
 			getEleSearchListItem(value).click();
-			getSearchLookupWithText(value).clear();
 		}
 }
