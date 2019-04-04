@@ -52,15 +52,14 @@ public class Ph_RecentsItemsPO
 	private WebElement eleWorkorderNumberClick;
 	public WebElement getEleWorkordernumberclick(String workordername)
 	{
-		switch(BaseLib.sOSName.toLowerCase()) {
-		case "android":
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		
 		eleWorkorderNumberClick = driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
 		return eleWorkorderNumberClick;
-		case "ios":
-			eleWorkorderNumberClick = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Recents\"])[12]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"));
+		}else {
+			eleWorkorderNumberClick = driver.findElement(By.xpath("//*[contains(@label,'"+workordername+"')]"));
 			return eleWorkorderNumberClick;
 		}
-		return eleWorkorderNumberClick;
 		
 	}
 	
