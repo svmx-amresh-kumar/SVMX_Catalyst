@@ -115,8 +115,8 @@ public class Ph_CalendarPO
 			return eleAccountLookUp;
 		}
 		
-		@FindAll({@FindBy(id="Search Account Name, Account Phone"),
-		@FindBy(xpath="//*[@text='Search Keyword...']")})
+		
+		@FindBy(xpath="//*[@*='SFM_LAYOUT.LOOKUP.SEARCH_BAR']")
 		private WebElement elelookupsearch;
 		public WebElement getElelookupsearch()
 		{
