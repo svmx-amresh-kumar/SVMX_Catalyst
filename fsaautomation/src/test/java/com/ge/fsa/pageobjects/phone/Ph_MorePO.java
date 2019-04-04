@@ -65,11 +65,18 @@ public class Ph_MorePO
 
 	}
 //return 
-	@FindBy(xpath="//*[@*='Sync Now']")
+	@FindBy(xpath="//*[@*='Sync Now']/*")
 	private WebElement eleSyncNow;
 	public WebElement getEleSyncNow()
 	{
 		return eleSyncNow;
+	}
+	
+	@FindBy(xpath="//*[@*='Syncing...']")
+	private WebElement eleSyncing;
+	public WebElement getEleSyncing()
+	{
+		return eleSyncing;
 	}
 	
 	@FindBy(xpath="//*[@*='APP.TOOLBAR.SYNC_STATUS.BUTTON']")
@@ -159,10 +166,11 @@ public class Ph_MorePO
 		//Navigation to more screen
 		getEleMoreBtn().click();
 		getEleDataSync().click();
+		Thread.sleep(1000);
 		getEleSyncNow().click();
 		System.out.println("Clicked on Sync Now and waiting...");
 		Thread.sleep(2000);
-		commonUtility.waitforElement(getEleDataSynccompleted(),500);
+		commonUtility.waitUntilElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");

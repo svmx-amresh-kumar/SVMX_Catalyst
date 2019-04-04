@@ -525,6 +525,40 @@ public class CommonUtility {
 
 	}
 
+	public boolean waitUntilElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
+		int lElapsedTime = 0;
+		System.out.println("Waiting For : " + lTime + " sec");
+//		String context=driver.getContext();
+//		switchContext("native");
+//		System.out.println("Time to Wait : " + lTime + " sec");
+//		if(wElement.toString().contains("->")) {
+//		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+//		System.out.println("Waiting For Element : " + printElement);
+//		}else {
+//		System.out.println("Waiting For Element : " + wElement.toString());
+//		}
+//		switchContext(context);
+		
+		while (lElapsedTime != lTime) {
+			Thread.sleep(1000);
+			try {
+				if (!wElement.isDisplayed()) {// If element is displayed break
+					System.out.println("Element is displayed");
+					//switchContext(context);
+					return true;
+				}
+			} catch (Exception ex) {
+			}
+
+			lElapsedTime++;
+		}
+		System.out.println("Element is not displayed");
+		//switchContext(context);
+		return false;
+
+	}
+	
+	
 	// This method will search the required value and then click on it
 	public void lookupSearch(String value) throws InterruptedException {
 
