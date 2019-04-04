@@ -115,7 +115,7 @@ public void iphone() throws Exception
 		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
 
 		//product
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleproductLookuptap(), sProductName);
+		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleProductLookuptap(), sProductName);
 
 		//priority
 		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElePriority(), "Low");

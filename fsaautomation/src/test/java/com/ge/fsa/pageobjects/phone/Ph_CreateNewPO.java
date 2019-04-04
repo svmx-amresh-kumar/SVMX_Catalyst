@@ -130,16 +130,16 @@ public class Ph_CreateNewPO {
 
 	}
 
-	public void selectPickListValue(CommonUtility commonUtility,WebElement el, String sValue) throws InterruptedException {
-		commonUtility.custScrollToElementAndClick(el);
+	public void selectPickListValue(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
 		getEleSearchListItem(sValue).click();
 	}
 
-	public void selectSelectionlistValue(CommonUtility commonUtility,WebElement el, String sValue) throws InterruptedException {
+	public void selectSelectionlistValue(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
 		
-		commonUtility.custScrollToElementAndClick(el);
+		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			driver.findElement(By.xpath("//*[@text='"+sValue+"']")).click();
 		}else{
@@ -168,7 +168,7 @@ public class Ph_CreateNewPO {
 
 
 	private WebElement eleproductLookuptap;
-	public WebElement getEleproductLookuptap()
+	public WebElement getEleProductLookuptap()
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			eleproductLookuptap = driver.findElement(By.xpath("//*[@text='Product Lookup']"));
@@ -179,7 +179,7 @@ public class Ph_CreateNewPO {
 	}
 
 	@FindAll({@FindBy(xpath="//*[@text='Billing Type']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-		@FindBy(xpath="//XCUIElementTypeStaticText[@name='Billing Type]/../XCUIElementTypeOther")})
+		@FindBy(xpath="//XCUIElementTypeStaticText[@name='Billing Type']/../XCUIElementTypeOther")})
 	private WebElement elebillingtype;
 	public WebElement getElebillingtype()
 	{
