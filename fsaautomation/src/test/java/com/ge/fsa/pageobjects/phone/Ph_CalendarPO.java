@@ -107,7 +107,8 @@ public class Ph_CalendarPO
 		}
 		
 		
-		@FindBy(xpath="//*[@*='SFM_LAYOUT.LOOKUP.SEARCH_BAR']")
+		@FindAll({@FindBy(xpath="//*[@text='Account Lookup']"),
+		@FindBy(id="Account Account Lookup")})
 		private WebElement eleAccountLookUp;
 		public WebElement getEleAccountLookUp()
 		{
