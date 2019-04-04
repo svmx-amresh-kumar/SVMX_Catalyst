@@ -101,7 +101,7 @@ public void iphone() throws Exception
 		
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
-		ph_CalendarPo.getEleCreateNewEvent().click();
+		ph_CalendarPo.getEleCreateNewBtn().click();
 		Thread.sleep(2000);
 		
 	commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("Create New Work Order"));
