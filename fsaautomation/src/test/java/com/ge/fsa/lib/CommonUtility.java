@@ -527,7 +527,7 @@ public class CommonUtility {
 
 	public boolean waitUntilElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
-		System.out.println("Waiting For : " + lTime + " sec");
+		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
 		
 		while (lElapsedTime != lTime) {
 			Thread.sleep(1000);
@@ -1657,6 +1657,7 @@ public class CommonUtility {
 				
 			}
 		}
+		
 		public String getDeviceDate() throws ParseException{
 			String returnDate="";
 			if (BaseLib.sOSName.equalsIgnoreCase("Android")) {

@@ -66,7 +66,7 @@ public void iphone() throws Exception
 {	
 		
 		String sTestID = null;
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -109,40 +109,25 @@ public void iphone() throws Exception
 		Thread.sleep(2000);
 		
 		//Account lookup 
-		ph_CalendarPo.getEleAccountLookUp().click();
-		
-		ph_CalendarPo.getElelookupsearch().click();
-		ph_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
-		ph_CalendarPo.getEleSearchListItem(sAccountName).click();
-		
+		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 		
 		//contact lookup
-		ph_CalendarPo.getEleContactLookuptap().click();
-		ph_CalendarPo.getElelookupsearch().click();
-		ph_CalendarPo.getElelookupsearch().sendKeys(sContactName);
-		ph_CalendarPo.getEleSearchListItem(sContactName).click();
-		
+		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
+
 		//product
-		
-		ph_CalendarPo.getEleproductLookuptap().click();
-		ph_CalendarPo.getElelookupsearch().click();
-		ph_CalendarPo.getElelookupsearch().sendKeys(sProductName);
-		ph_CalendarPo.getEleSearchListItem(sProductName).click();
-		
+		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleproductLookuptap(), sProductName);
+
 		//priority
-		
-		ph_CalendarPo.getElePriority().click();
-		ph_CalendarPo.getEleCreatenewpriorityLow().click();
-		
+		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElePriority(), "Low");
+
 		//billing type
-		ph_CalendarPo.getElebillingtype().click();
-		ph_CalendarPo.getElebillingtypeloan().click();
+		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
+
 		Thread.sleep(2000);
 		
+		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleProformaInvoice());
 		
-		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleProformaInvoice());
-		
-		ph_CalendarPo.getEleProformaInvoice().sendKeys(sProformainVoice);
+		ph_CreateNewPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
 		ph_CalendarPo.getEleAdd().click();
 	
