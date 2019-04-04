@@ -86,12 +86,13 @@ public class Ph_CalendarPO
 
 		
 		private WebElement eleSelectProcessNewProcess;
-		public WebElement getEleSelectProcessNewProcess(String sProcessName)
+		public WebElement getEleSelectProcessNewProcess(String sProcessName) throws InterruptedException
 		{
 			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 				return eleSelectProcessNewProcess = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
 
 			}else {
+				Thread.sleep(1000);
 				return eleSelectProcessNewProcess =  driver.findElement(By.xpath("//*[contains(@label,'"+sProcessName+"')]/../*[contains(@name,'Item')]"));
 			}
 			

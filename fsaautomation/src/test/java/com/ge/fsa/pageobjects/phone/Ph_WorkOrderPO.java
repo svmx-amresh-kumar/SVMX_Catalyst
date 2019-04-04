@@ -639,7 +639,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void addExpense(CommonUtility commonsUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
 		//commonsUtility.custScrollToElementAndClick("Add Expense").click();
 		//commonsUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonsUtility.custScrollToElementAndClick("Add Expense").click();
+		commonsUtility.custScrollToElementAndClick("Add Expense");
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);

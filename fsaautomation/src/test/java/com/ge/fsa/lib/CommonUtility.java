@@ -1781,11 +1781,11 @@ public class CommonUtility {
 		 * @return
 		 * @throws InterruptedException
 		 */
-		public WebElement custScrollToElementAndClick(String androidTextInElement) throws InterruptedException {
+		public void custScrollToElementAndClick(String androidTextInElement) throws InterruptedException {
 			Thread.sleep(3000);
 				System.out.println("Android scrolling");
 				String sString = androidTextInElement;
-				return driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))"));
+			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
 				
 			}
 			
