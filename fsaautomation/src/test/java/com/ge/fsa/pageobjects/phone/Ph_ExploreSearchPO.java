@@ -33,7 +33,7 @@ public class Ph_ExploreSearchPO
 
 
 	
-	@FindBy(xpath="//*[@*='Explore']")
+	@FindBy(xpath="//*[@*='TAB_BAR.EXPLORE_TAB']")
 	private WebElement eleExploreIcn;
 	public WebElement geteleExploreIcn()
 	{

@@ -42,7 +42,7 @@ public class Ph_RecentsItemsPO
 	Iterator<String> iterator =null;
 	
 	
-	@FindBy(xpath="//*[@*='Recents']")
+	@FindBy(xpath="//*[@*='TAB_BAR.RECENTS_TAB']")
 	private WebElement eleClickRecentItems;
 	public WebElement getEleClickRecentItems()
 	{
