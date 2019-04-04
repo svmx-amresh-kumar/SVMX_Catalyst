@@ -170,7 +170,7 @@ public class Ph_MorePO
 		getEleSyncNow().click();
 		System.out.println("Clicked on Sync Now and waiting...");
 		Thread.sleep(2000);
-		commonUtility.waitUntilElementNotVisible(getEleSyncing(), 300);
+		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
 		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");

@@ -525,7 +525,7 @@ public class CommonUtility {
 
 	}
 
-	public boolean waitUntilElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
+	public boolean waitForElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
 		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
 		
