@@ -58,7 +58,7 @@ public class Ph_WorkOrderPO extends BaseLib
 		}
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	//@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
 	private WebElement eleStartDateTimeTxtFld;
 	public WebElement getEleStartDateTimeTxtFld()
 	{
@@ -66,7 +66,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@name,\"Information\")])/XCUIElementTypeOther[5]/XCUIElementTypeOther")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']")})
 	private WebElement eleEndDateTimeTxtFld;
 	public WebElement getEleEndDateTimeTxtFld()
 	{
@@ -74,7 +74,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])[3]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='Subject*']")})
 	private WebElement eleSubjectTxtFld;
 	public WebElement getEleSubjectTxtFld()
 	{
@@ -111,13 +111,15 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		return eleselectprocesscreateevent;
 	}
-//	@FindAll({@FindBy(xpath="//*[@text='Create New Work Order']"),
-//	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]")})
+
 	private WebElement eleselectprocess;
 	public WebElement getEleselectprocess(String sProcessName)
 	{
-		
-		return eleselectprocess = BaseLib.sOSName.equalsIgnoreCase("android")?driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))")):driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\""+sProcessName+"\"])[3]"));
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
+		}else {
+			return driver.findElement(By.xpath("//*[@label='"+sProcessName+"']"));
+		}
 		
 	}
 	
@@ -167,7 +169,7 @@ public class Ph_WorkOrderPO extends BaseLib
 		return elePartcheckbox;}
 	
 	@FindAll({@FindBy(xpath="//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Part Part Lookup\"])[2]")})
+	@FindBy(xpath="//*[@label='Part Part Lookup']")})
 	private WebElement elepartlookup;
 	public WebElement getElepartlookup()
 	{

@@ -370,7 +370,7 @@ public class BaseLib {
 			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else{
 			ExtentManager.getInstance(driver);
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		}
 
 	}
