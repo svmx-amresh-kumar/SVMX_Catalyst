@@ -302,7 +302,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			try{assertEquals(fetchedScheduledDate,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed after datasync");}
 			
-			ph_CalendarPo.getEleselectprocessnewprocess("Scheduled Date Time");
+			ph_CalendarPo.getEleSelectProcessNewProcess("Scheduled Date Time");
 			  fetchedScheduledDatetime = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 			System.out.println(fetchedScheduledDatetime);
 		

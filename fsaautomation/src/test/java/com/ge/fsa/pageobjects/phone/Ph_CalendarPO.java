@@ -54,14 +54,11 @@ public class Ph_CalendarPO
 		return eleCalendarViewMenu;
 	}
 
-	//to revisit
-//	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.ADD.FAB_BUTTON\"]"),
-//	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"S M T W T F S\"])[2]/XCUIElementTypeOther[3]")})
 	@FindBy(xpath="//*[@*='CALENDAR.ADD.FAB_BUTTON']")
-	private WebElement eleCalendarplus;
-	public WebElement getEleCalendarplus()
+	private WebElement eleCreateNewEvent;
+	public WebElement getEleCreateNewEvent()
 	{
-		return eleCalendarplus;
+		return eleCreateNewEvent;
 	}
 
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
@@ -86,28 +83,16 @@ public class Ph_CalendarPO
 		return eleCalendarEventDescription;
 	}
 	
-	
-///////////////////////////////////////////////////////////////////////////////	create new PO
-	private WebElement eleCreateNew;
-	public WebElement getEleCreateNew()
-	{
-		
-		return eleCreateNew = driver.findElementByAccessibilityId("CALENDAR.ADD.FAB_BUTTON");
-
-	}
-
-	//revisit
-	
 
 		
-		private WebElement eleselectprocessnewprocess;
-		public WebElement getEleselectprocessnewprocess(String sProcessName)
+		private WebElement eleSelectProcessNewProcess;
+		public WebElement getEleSelectProcessNewProcess(String sProcessName)
 		{
 			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-				return eleselectprocessnewprocess = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
+				return eleSelectProcessNewProcess = driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sProcessName+"\"))"));
 
 			}else {
-				return eleselectprocessnewprocess =  driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Create New\"])[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[15]"));
+				return eleSelectProcessNewProcess =  driver.findElement(By.xpath("//*[contains(@label,'"+sProcessName+"')]/../*[contains(@name,'Item')]"));
 			}
 			
 		}

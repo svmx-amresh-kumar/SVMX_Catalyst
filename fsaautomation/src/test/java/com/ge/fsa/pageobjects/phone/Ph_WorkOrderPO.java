@@ -474,9 +474,9 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
-		ph_CalendarPo.getEleCreateNew().click();
+		ph_CalendarPo.getEleCreateNewEvent().click();
 		Thread.sleep(2000);
-	ph_CalendarPo.getEleselectprocessnewprocess("Create New Installed Product Automation sahi").click();
+	ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi").click();
 
 		Thread.sleep(2000);
 		
