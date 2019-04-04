@@ -66,7 +66,7 @@ public void iphone() throws Exception
 {	
 		
 		String sTestID = null;
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
+	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -113,21 +113,20 @@ public void iphone() throws Exception
 		
 		ph_CalendarPo.getElelookupsearch().click();
 		ph_CalendarPo.getElelookupsearch().sendKeys(sAccountName);
-		
 		ph_CalendarPo.getEleSearchListItem(sAccountName).click();
 		
 		
 		//contact lookup
 		ph_CalendarPo.getEleContactLookuptap().click();
-		ph_CalendarPo.getElelookupsearchcontact().click();
-		ph_CalendarPo.getElelookupsearchcontact().sendKeys(sContactName);
+		ph_CalendarPo.getElelookupsearch().click();
+		ph_CalendarPo.getElelookupsearch().sendKeys(sContactName);
 		ph_CalendarPo.getEleSearchListItem(sContactName).click();
 		
 		//product
 		
 		ph_CalendarPo.getEleproductLookuptap().click();
-		ph_CalendarPo.getElelookupsearhproduct().click();
-		ph_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName);
+		ph_CalendarPo.getElelookupsearch().click();
+		ph_CalendarPo.getElelookupsearch().sendKeys(sProductName);
 		ph_CalendarPo.getEleSearchListItem(sProductName).click();
 		
 		//priority
