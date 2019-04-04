@@ -104,7 +104,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			//Create SVMX event from Create New Option
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.getEleCalendarplus().click();
+			ph_CalendarPo.getEleCreateNewEvent().click();
 			ph_CalendarPo.getEleCalendarEventSubject().click();
 			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
 			
