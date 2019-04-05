@@ -65,7 +65,8 @@ public class Ph_MorePO
 
 	}
 //return 
-	@FindBy(xpath="//*[@*='Sync Now']/*")
+	@FindAll({@FindBy(xpath="//*[@text='Sync Now']"),
+	@FindBy(xpath="//*[@*='Sync Now']/*")})
 	private WebElement eleSyncNow;
 	public WebElement getEleSyncNow()
 	{

@@ -1001,7 +1001,11 @@ public class CommonUtility {
 			} else {
 			getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
 			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
-			getAccessibleElement(Integer.valueOf(sTimeAMPM).toString()).click();
+			if(sTimeAMPM.equalsIgnoreCase("am")) {
+			driver.findElement(By.id("android:id/am_label")).click();
+			}else {
+				driver.findElement(By.id("android:id/pm_label")).click();
+			}
 
 			getCalendarDone().click();
 			}

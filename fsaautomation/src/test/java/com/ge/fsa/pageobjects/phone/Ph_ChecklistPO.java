@@ -66,7 +66,7 @@ public class Ph_ChecklistPO
 	}*/
 	
 	
-	@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']")
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement eleBackbutton;
 	public WebElement geteleBackbutton()
 	{
@@ -165,7 +165,11 @@ public class Ph_ChecklistPO
 
 	}
 	
-	
+	private WebElement elechecklistinstance;
+	public WebElement getelechecklistinstance() 
+	{
+		return elechecklistinstance = driver.findElementByAccessibilityId("CHECKLIST.INSTANCE.ITEM.0");
+	}
 	
 	
 	
