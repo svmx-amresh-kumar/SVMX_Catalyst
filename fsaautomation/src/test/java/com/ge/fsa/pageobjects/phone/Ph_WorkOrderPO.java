@@ -128,7 +128,7 @@ public class Ph_WorkOrderPO extends BaseLib {
 		// getEleActionsTxt(sActionsName).click();
 	}
 
-	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
+	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ph_CalendarPo)
 			throws InterruptedException {
 		selectAction(commonUtility, "Create New Event From Work Order");
 
@@ -318,25 +318,25 @@ public class Ph_WorkOrderPO extends BaseLib {
 		return elesave;
 	}
 
-	public void addParts(Ph_CalendarPO ip_CalendarPo, String sProductName1) throws InterruptedException {
+	public void addParts(Ph_CalendarPO ph_CalendarPo, String sProductName1) throws InterruptedException {
 		getElePartLnk().click();
 		Thread.sleep(3000);
-		ip_CalendarPo.getElelookupsearhproduct().click();
+		ph_CalendarPo.getElelookupsearhproduct().click();
 		Thread.sleep(3000);
-		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
+		ph_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		getElePartcheckbox().click();
 		Thread.sleep(3000);
 		getEleAddSelected().click();
 	}
 
-	public void addLabor(CommonUtility commonUtility, Ph_CalendarPO ip_CalendarPo, String sProductName1)
+	public void addLabor(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo, String sProductName1)
 			throws InterruptedException {
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		Thread.sleep(1000);
 		getElepartlookup().click();
-		ip_CalendarPo.getElelookupsearhproduct().click();
+		ph_CalendarPo.getElelookupsearhproduct().click();
 		Thread.sleep(2000);
-		ip_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
+		ph_CalendarPo.getElelookupsearhproduct().sendKeys(sProductName1);
 		Thread.sleep(3000);
 		ph_CreateNewPo.getEleSearchListItem(sProductName1).click();
 		getElelaborpartresult(sProductName1).click();
@@ -345,15 +345,15 @@ public class Ph_WorkOrderPO extends BaseLib {
 		getEleActivityType().click();
 		getEleCalibration().click();
 
-		commonUtility.setDateTime24hrs(getEleLaborstartdatetime(), 0, "0", "0"); // set start time to Today
-		commonUtility.setDateTime24hrs(getEleLaborenddatetime(), 1, "09", "00");
+		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0, "0", "0","AM"); // set start time to Today
+		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 1, "9", "00","AM");
 
 		getEleLineQtyTxtFld().click();
 		getEleLineQtyTxtFld().sendKeys("10");
 
 		getEleLinePerUnitTxtFld().click();
 		getEleLinePerUnitTxtFld().sendKeys("1000");
-		ip_CalendarPo.getEleAdd().click();
+		ph_CalendarPo.getEleAdd().click();
 
 	}
 
