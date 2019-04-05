@@ -86,7 +86,7 @@ public class Ph_WorkOrderPO extends BaseLib {
 		return eleSaveLnk;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='ADD SELECTED']"),
+	@FindAll({ @FindBy(xpath = "//*[contains(@text,'ADD SELECTED']"),
 			@FindBy(xpath = "//XCUIElementTypeOther[@name=\"ADD SELECTED\"]") })
 	private WebElement eleAddSelected;
 
