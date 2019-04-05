@@ -32,6 +32,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -99,7 +100,7 @@ public class CommonUtility {
 		return elePickerWheelPopUp;
 	}
 
-	@FindBy(xpath = "//*[@name='Done']")
+	@FindAll({@FindBy(xpath = "//*[@name='Done']"),@FindBy(id="SFM.LAYOUT.DATETIMEFIELD.DATEPICKER_DONE")})
 	private WebElement eleDonePickerWheelBtn;
 
 	public WebElement getEleDonePickerWheelBtn() {
@@ -685,7 +686,7 @@ public class CommonUtility {
 		case "android":
 			switchContext("Webview");
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				wElement.click();
+				custScrollToElementAndClick(wElement);
 			}else {
 				tap(wElement, 30, 36);
 
@@ -726,6 +727,10 @@ public class CommonUtility {
 			switchContext("Webview");
 			break;
 		case "ios":
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}
+			
 			switchContext("Webview");
 			wElement.click();
 			setDatePicker(0, iDaysToScroll);
@@ -955,19 +960,76 @@ public class CommonUtility {
 	 */
 	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
 			String sTimeAMPM) throws InterruptedException {
-		wElement.click();
-		switchContext("Native");
-		setDatePicker(0, iDaysToScroll);
-		if (sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
-			getEleDonePickerWheelBtn().click();
+		
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}else {
+				tap(wElement, 30, 36);
 
-		} else {
-			timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
-			getEleDonePickerWheelBtn().click();
+			}
+			switchContext("Native");
+			Thread.sleep(3000);
+			String date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(currentDate);
+			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
+			Date newDate = cal.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();;
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//selecting the date, hour and minutes 
+			getAccessibleElement(selectDate).click();;
+			getCalendarDone().click();
+			//set current or specific time
+			Thread.sleep(1000);
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+
+			} else {
+			getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+			getAccessibleElement(Integer.valueOf(sTimeAMPM).toString()).click();
+
+			getCalendarDone().click();
+			}
+			switchContext("Webview");
+			break;
+		case "ios":
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}
+			
+			switchContext("Webview");
+			wElement.click();
+			setDatePicker(0, iDaysToScroll);
+			switchContext("Native");
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getEleDonePickerWheelBtn().click();
+
+			} else {
+				timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
+				getEleDonePickerWheelBtn().click();
+			}
+
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
 		}
-
 		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
+		
 
 	}
 
@@ -1126,13 +1188,22 @@ public class CommonUtility {
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
 			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+
 		}
 		if (sTimeMin != "0") {
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+
 		}
 		if (is24hrs == false) {
 			if (sTimeAMPM != "0") {
 				getEleDatePickerPopUp().get(3).sendKeys(sTimeAMPM);
+				
 			}
 		}
 
