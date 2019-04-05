@@ -166,6 +166,7 @@ public class Ph_MorePO
 		
 		//Navigation to more screen
 		getEleMoreBtn().click();
+		System.out.println("Begining Data Sync");
 		getEleDataSync().click();
 		Thread.sleep(1000);
 		getEleSyncNow().click();

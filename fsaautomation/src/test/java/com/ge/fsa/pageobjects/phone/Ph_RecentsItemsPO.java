@@ -54,11 +54,9 @@ public class Ph_RecentsItemsPO
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		
-		eleWorkorderNumberClick = driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
-		return eleWorkorderNumberClick;
+			return driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
 		}else {
-			eleWorkorderNumberClick = driver.findElement(By.xpath("//*[contains(@label,'"+workordername+"')]"));
-			return eleWorkorderNumberClick;
+			return  driver.findElement(By.xpath("//*[contains(@label,'"+workordername+"')]/*"));
 		}
 		
 	}
