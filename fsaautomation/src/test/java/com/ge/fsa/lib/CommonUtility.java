@@ -1304,6 +1304,32 @@ public class CommonUtility {
 		
 		return sVals;
 	}
+	
+	public String[] ph_getAllPicklistValues(CommonUtility commonUtility, String[] sActualValues) throws InterruptedException {
+		String[] sVals = new String[sActualValues.length];
+		String sCurrVal = "";
+		List<WebElement> listElemets = driver.findElements(By.xpath("//*[@*='FORM.PICKLIST.SCROLLVIEW']//*[@class='android.widget.TextView']"));
+		  
+		System.out.println("Size of pl = "+listElemets.size());
+		for (int i = 0; i < listElemets.size(); i++) {
+			WebElement listItem = listElemets.get(i);
+			sCurrVal = listItem.getText();
+			Thread.sleep(1000);
+			try {
+				System.out.println("-----------" + listItem);
+
+				System.out.println("sCurrVal -----------" + sCurrVal);
+
+			} catch (Exception e) {
+				System.out.println("The picklist Values couldn't be fetched" + e);
+			}
+			sVals[i] = sCurrVal;
+		}
+		for (String string : sVals) {
+			System.out.println("Array read = " + string);
+		}
+		return sVals;
+	}
 
 	/**
 	 * Wait until the string is displayed or time elapsed in seconds and returns

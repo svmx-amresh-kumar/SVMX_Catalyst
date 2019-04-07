@@ -166,6 +166,7 @@ public class Ph_MorePO
 		
 		//Navigation to more screen
 		getEleMoreBtn().click();
+		System.out.println("Begining Data Sync");
 		getEleDataSync().click();
 		Thread.sleep(1000);
 		getEleSyncNow().click();
@@ -173,10 +174,17 @@ public class Ph_MorePO
 		Thread.sleep(2000);
 		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		assertTrue(commonUtility.isDisplayedCust(getEleDataSynccompleted()), "Sync not done");
-		ExtentManager.logger.log(Status.PASS,"Data Sync Completed sucessfully");
-		Thread.sleep(3000);
-		//commonsUtility.tap(getEleMoreBtn(),20,20);
+		
+		if(commonUtility.isDisplayedCust(getEleDataSynccompleted())) {
+			System.out.println("Data Sync Completed Sucessfully");
+			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+		}else {
+			System.out.println("Data Sync Failed");
+			//Verification of successful sync
+			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
+			Assert.assertTrue(2<1, "Data Sync Failed");
+		}
+		
 		commonUtility.longPress(getEleMoreBtn());
 		
 		

@@ -109,7 +109,13 @@ public class BaseLib {
 	public static String sUDID = null;
 	public static String sAndroidDeviceName = null;
 	public static String sURL = null;
-	
+	public static String sXcode_SigninID = null;
+	public static String sXcode_OrgID = null;
+	public static String sAutomation_Name = null;
+	public static String sUpdate_BundleID = null;
+	public static String sApp_BundleID = null;
+	public static String sNo_Reset = null;
+
 	//Execution legends
 	public static String sRunningSymbol = ">>";
 	public static String sCompletedSymbol = "^^";
@@ -192,6 +198,25 @@ public class BaseLib {
 		sURL = System.getenv("URL") != null ? System.getenv("URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
 		System.out.println("[BaseLib] URL : " + sURL);
 		
+		sXcode_SigninID = System.getenv("XCODE_SIGNID") != null ? System.getenv("XCODE_SIGNID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID").toLowerCase();
+		System.out.println("[BaseLib] XCODE_SIGNID : " + sXcode_SigninID);
+		
+		sXcode_OrgID = System.getenv("XCODE_ORGID") != null ? System.getenv("XCODE_ORGID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID").toLowerCase();
+		System.out.println("[BaseLib] XCODE_ORGID : " + sXcode_OrgID);
+		
+		sAutomation_Name = System.getenv("AUTOMATION_NAME") != null ? System.getenv("AUTOMATION_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME").toLowerCase();
+		System.out.println("[BaseLib] AUTOMATION_NAME : " + sAutomation_Name);
+		
+		sUpdate_BundleID = System.getenv("UPDATE_BUNDLEID") != null ? System.getenv("UPDATE_BUNDLEID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID").toLowerCase();
+		System.out.println("[BaseLib] UPDATE_BUNDLEID : " + sUpdate_BundleID);
+		
+		
+		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
+		System.out.println("[BaseLib] APP_BUNDLEID : " + sUpdate_BundleID);
+		
+		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET").toLowerCase();
+		System.out.println("[BaseLib] NO_RESET : " + sNo_Reset);
+		
 	}
 
 	// @BeforeClass
@@ -269,8 +294,8 @@ public class BaseLib {
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
-					//Use this capability for fixing slow launch of app
-					capabilities.setCapability("wdaEventloopIdleDelay",1);
+					capabilities.setCapability("useNewWDA",true);
+					capabilities.setCapability("shouldWaitForQuiescence",false);
 
 				}else{
 					//Only For Ipad
@@ -291,6 +316,9 @@ public class BaseLib {
 				capabilities.setCapability("newCommandTimeout", 5000);
 				capabilities.setCapability("autoAcceptAlerts", true);
 				//capabilities.setCapability("showXcodeLog", true);
+				//Use this capability for fixing slow launch of app
+				capabilities.setCapability("wdaEventloopIdleDelay",1);
+
 				
 				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
