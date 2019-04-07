@@ -213,7 +213,7 @@ String Location=null;
 			ExtentManager.logger.log(Status.PASS,"Mapping is Successful from Server");
 
 			System.out.println("Validating mapping after data sync");
-			
+			/*
 			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );
 			Thread.sleep(GenericLib.iMedSleep);
