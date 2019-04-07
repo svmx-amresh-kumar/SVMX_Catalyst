@@ -266,8 +266,22 @@ public class Ph_CalendarPO
 		return eleWOendpoint;
 	}
 
+	@FindBy(xpath="//*[@*='APP.TOOLBAR.SYNC_STATUS.BUTTON']")
+	private WebElement eleDataSync;
+	public WebElement getEleDataSync()
+	{
+		return eleDataSync;
+	}
 
-
+	
+	
+	
+	private WebElement elenewprocess;
+	public WebElement getElenewprocess(String Process)
+	{
+		elenewprocess = driver.findElement(By.xpath("//*[@text='"+Process+"']"));
+		return elenewprocess;
+	}
 }
 
 

@@ -111,7 +111,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		//converting to GMT to PST
 			    SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate1 = parser1.parse(sIBLastModifiedBy);
-		        SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/y H:m");
+		        SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/y H:mm aa");
 		        String stempDate =  formatter1.format(dTempDate1);
 		        System.out.println("formatter1.format value   "+stempDate);
 		        dTempDate1 = formatter1.parse(stempDate);
@@ -239,7 +239,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 			 SimpleDateFormat parser2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate2 = parser2.parse(sScheduledDatetime);
-		        SimpleDateFormat formatter2 = new SimpleDateFormat("M/d/y H:m");
+		        SimpleDateFormat formatter2 = new SimpleDateFormat("M/d/y H:mm aa");
 		        String stempDate1 =  formatter2.format(dTempDate2);
 		        System.out.println("formatter1.format value   "+stempDate1);
 		        dTempDate1 = formatter2.parse(stempDate1);
@@ -339,6 +339,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	
 	
 	
+	
 	  @AfterClass(enabled = true) public void deletedata() throws Exception {
 	  //Deleting data created
 	  
@@ -347,6 +348,6 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	  restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
 	  
 	  }
-	 
-	
+	  
+	 	
 }

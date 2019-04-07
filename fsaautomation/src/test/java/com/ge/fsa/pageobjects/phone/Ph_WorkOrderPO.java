@@ -472,13 +472,20 @@ public class Ph_WorkOrderPO extends BaseLib
 		return eleAccountstar;
 	}
 	
+	@FindBy(xpath="//*[@text='To Location']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	private WebElement eleToLocation;
+	public WebElement getEleToLocation()
+	{
+		return eleToLocation;
+	}
+	
 	public void createInstalledProduct(CommonUtility commonsUtility,Ph_CalendarPO ph_CalendarPo,String accountName, String ProdutName,String InstalledProductID,Ph_ExploreSearchPO ph_ExploreSearchPO ) throws Exception
 	{
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
-		ph_CalendarPo.getEleCreateNewEvent().click();
+		ph_CalendarPo.getEleCreateNewBtn().click();
 		Thread.sleep(2000);
-	ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi").click();
+	ph_CalendarPo.getElenewprocess("Create New Installed Product Automation sahi").click();
 
 		Thread.sleep(2000);
 		
@@ -670,6 +677,30 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		getEleAddSelectedButton().click();
 
 	}
+	
+	
+	@FindBy(xpath="//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup")
+	private WebElement eleOntoppart;
+	public WebElement getEleOntoppart()
+	{
+		return eleOntoppart;
+	}
+	
+	
+	@FindBy(xpath="(//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"])[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup")
+	private WebElement eleOntoplabor;
+	public WebElement getEleOntoplabor()
+	{
+		return eleOntoplabor;
+	}
+	
+	@FindBy(xpath="//*[@text='DiscardChanges']")
+		private WebElement eleDiscardChanges;
+		public WebElement getEleDiscardChanges()
+		{
+			return eleDiscardChanges;
+		}
+	
 	
 	}	
 
