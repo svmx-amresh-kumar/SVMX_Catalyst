@@ -1919,6 +1919,15 @@ public class CommonUtility {
 			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
 				
 			}
+		
+		
+		public void custScrollToElement(String androidTextInElement) throws InterruptedException {
+			Thread.sleep(3000);
+				System.out.println("Android scrolling");
+				String sString = androidTextInElement;
+			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
+				
+			}
 			
 
 		public void custScrollToElement(WebElement webElement) throws InterruptedException {
