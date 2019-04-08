@@ -1897,10 +1897,8 @@ public class CommonUtility {
 			for (i = 0; i < 10; i++) {
 				swipeGeneric("up");
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(200);
 					if(isDisplayedCust(wElement)) {
-						point = wElement.getLocation();
-						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 						wElement.click();
 						System.out.println("Element found and clicked after scrolling");
 						return;

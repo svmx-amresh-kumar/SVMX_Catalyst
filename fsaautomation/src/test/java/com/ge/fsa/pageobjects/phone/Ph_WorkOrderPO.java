@@ -58,7 +58,8 @@ public class Ph_WorkOrderPO extends BaseLib
 		}
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	//@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']")})
 	private WebElement eleStartDateTimeTxtFld;
 	public WebElement getEleStartDateTimeTxtFld()
 	{
@@ -66,7 +67,8 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
 	private WebElement eleEndDateTimeTxtFld;
 	public WebElement getEleEndDateTimeTxtFld()
 	{
@@ -135,8 +137,8 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		selectAction(commonUtility,"Create New Event From Work Order");
 		
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
+		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"05", "00","AM"); //set start time to Today
+		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 0,"06","00","AM"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
