@@ -1885,11 +1885,11 @@ public class CommonUtility {
 			Thread.sleep(200);
 			//If element clicked then return immediately
 			try {
+				if(isDisplayedCust(wElement)) {
 				wElement.click();
-				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				System.out.println("Element found and clicked after scrolling");
 					return;
 				}
-				
 				}catch(Exception e){}
 			
 			//Try to scroll and click element
@@ -1898,14 +1898,14 @@ public class CommonUtility {
 				swipeGeneric("up");
 				try {
 					Thread.sleep(1000);
-					
+					if(isDisplayedCust(wElement)) {
 						point = wElement.getLocation();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 						wElement.click();
-						System.out.println("Element found and click after scrolling");
+						System.out.println("Element found and clicked after scrolling");
 						return;
 						//break;
-					
+					}
 					
 					
 				}catch(Exception e){}
