@@ -1,9 +1,8 @@
 package com.ge.fsa.pageobjects.phone;
 
 
-import static org.testng.Assert.assertFalse;
-
 import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,20 +10,13 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -281,6 +273,11 @@ public class Ph_CalendarPO
 	{
 		elenewprocess = driver.findElement(By.xpath("//*[@text='"+Process+"']"));
 		return elenewprocess;
+	}
+	
+	private List<WebElement> eleWOEventTitleTxt;
+	public List<WebElement> getEleWOEventTitleTxt(){
+		return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]//*[@*='android.widget.TextView'][1]"));
 	}
 }
 

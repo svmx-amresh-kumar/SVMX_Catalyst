@@ -700,6 +700,35 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleDiscardChanges;
 		}
+	@FindBy(xpath = "//*[@*='StartDateTime*']//following::*[@class='android.widget.TextView']")
+	private WebElement eleStartDateTimeField;
+
+	public WebElement getEleStartDateTimeField() {
+		return eleStartDateTimeField;
+	}
+
+	@FindBy(xpath = "//*[@*='EndDateTime*']//following::*[@class='android.widget.TextView']")
+	private WebElement eleEndDateTimeField;
+
+	public WebElement getEleEndDateTimeField() {
+		return eleEndDateTimeField;
+	}
+	
+	@FindBy(xpath="//*[@*='Record Type ID']/following-sibling::*[1]")
+	private WebElement eleRecordTypeID;
+	public WebElement getEleRecordTypeID() {
+		return eleRecordTypeID;
+	}
+	@FindBy(xpath="//*[@*='controlling picklist']/following-sibling::*[1]")
+	private WebElement eleControllingPicklist;
+	public WebElement getEleControllingPicklist() {
+		return eleControllingPicklist;
+	}
+	@FindBy(xpath="//*[@*='dependent picklist']/following-sibling::*[1]")
+	private WebElement eleDependentPicklist;
+	public WebElement getEleDependentPicklist() {
+		return eleDependentPicklist;
+	}
 	
 	
 	}	
