@@ -1877,7 +1877,7 @@ public class CommonUtility {
 		}
 
 		/**
-		 * TO scroll fro IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
+		 * TO scroll for IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
 		 * @param wElement
 		 * @throws InterruptedException
 		 */
@@ -1897,21 +1897,15 @@ public class CommonUtility {
 			for (i = 0; i < 10; i++) {
 				swipeGeneric("up");
 				try {
-					Thread.sleep(200);
+					Thread.sleep(1000);
 					
-					point = wElement.getLocation();
-					if (point.getX() == 0 || point.getY() == 0) {
-						System.out
-								.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
-						Thread.sleep(200);
-
-					} else {
+						point = wElement.getLocation();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 						wElement.click();
 						System.out.println("Element found and click after scrolling");
 						return;
 						//break;
-					}
+					
 					
 					
 				}catch(Exception e){}
