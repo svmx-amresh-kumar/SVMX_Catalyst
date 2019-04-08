@@ -84,7 +84,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Save']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Save\"])[3]")})
+	@FindBy(xpath="(//XCUIElementTypeOther[@label=\"Save\"])")})
 	private WebElement eleSaveLnk;
 	public WebElement getEleSaveLnk()
 	{
@@ -137,8 +137,8 @@ public class Ph_WorkOrderPO extends BaseLib
 	{
 		selectAction(commonUtility,"Create New Event From Work Order");
 		
-		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"05", "00","AM"); //set start time to Today
-		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 0,"06","00","AM"); //set end time
+		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"5", "00","AM"); //set start time to Today
+		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
 		getEleSubjectTxtFld().click();
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
