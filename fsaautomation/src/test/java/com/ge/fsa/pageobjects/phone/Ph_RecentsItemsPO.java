@@ -64,7 +64,7 @@ public class Ph_RecentsItemsPO
 	
 
 
-	public void clickonWorkOrderfromrecents(String workordername) throws InterruptedException 
+	public void clickOnWorkOrderFromRecents(String workordername) throws InterruptedException 
 	{
 		getEleClickRecentItems().click();
 		Thread.sleep(1000);

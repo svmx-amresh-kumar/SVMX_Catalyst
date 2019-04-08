@@ -1878,27 +1878,42 @@ public class CommonUtility {
 
 		/**
 		 * TO scroll fro IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
-		 * @param webElement
+		 * @param wElement
 		 * @throws InterruptedException
 		 */
-		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
-			Thread.sleep(3000);
-			int i;
-			for (i = 0; i < 10; i++) {
-				try {
-				webElement.click();
+		public void custScrollToElementAndClick(WebElement wElement) throws InterruptedException {
+			Thread.sleep(200);
+			//If element clicked then return immediately
+			try {
+				wElement.click();
 				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 					return;
 				}
 				
 				}catch(Exception e){}
-				
+			
+			//Try to scroll and click element
+			int i;
+			for (i = 0; i < 10; i++) {
 				swipeGeneric("up");
-				
 				try {
-					Thread.sleep(1000);
-					webElement.click();
-					return;
+					Thread.sleep(200);
+					
+					point = wElement.getLocation();
+					if (point.getX() == 0 || point.getY() == 0) {
+						System.out
+								.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+						Thread.sleep(200);
+
+					} else {
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						wElement.click();
+						System.out.println("Element found and click after scrolling");
+						return;
+						//break;
+					}
+					
+					
 				}catch(Exception e){}
 				
 			}
@@ -1913,7 +1928,7 @@ public class CommonUtility {
 		 * @throws InterruptedException
 		 */
 		public void custScrollToElementAndClick(String androidTextInElement) throws InterruptedException {
-			Thread.sleep(3000);
+			Thread.sleep(200);
 				System.out.println("Android scrolling");
 				String sString = androidTextInElement;
 			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
@@ -1922,7 +1937,7 @@ public class CommonUtility {
 			
 
 		public void custScrollToElement(WebElement webElement) throws InterruptedException {
-			Thread.sleep(3000);
+			Thread.sleep(200);
 			int i;
 			for (i = 0; i < 5; i++) {
 				try {

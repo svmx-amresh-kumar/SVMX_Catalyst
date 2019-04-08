@@ -88,27 +88,34 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {	
-	
+		Thread.sleep(5000);
+		ph_RecentsPo.clickOnWorkOrderFromRecents("WO-00013496");
+		Thread.sleep(2000);
+
+		// To create a new Event for the given Work Order
+		ph_WorkOrderPo.createNewEvent(commonUtility,"super",ph_CalendarPo);
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0,"5", "30","AM"); //set start time to Today
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
 //br_LoginHomePO.login(commonsUtility, exploreSearchPo);
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		ph_MorePo.syncData(commonUtility);
+		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		//ph_MorePo.syncData(commonUtility);
 		
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
 
 
 		//lauchNewApp("false");
-		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
-
-		//loginHomePo.login(commonUtility, exploreSearchPo);
-		ExtentManager.extent.flush();
-
-		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
-
-        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-
+//		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//		//loginHomePo.login(commonUtility, exploreSearchPo);
+//		ExtentManager.extent.flush();
+//
+//		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//
 
 
 //String convertedstartday="31-01-2019";
