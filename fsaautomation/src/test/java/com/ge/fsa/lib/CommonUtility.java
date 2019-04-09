@@ -1192,17 +1192,28 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
-			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				//Phone needs mltiple calls to date picker to set the correct date
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			}
+			else {
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+
+			}
 
 		}
 		if (sTimeMin != "0") {
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}else {
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}
 
 		}
 		if (is24hrs == false) {
