@@ -1478,13 +1478,13 @@ public class CommonUtility {
 			if (sProcessCheck.equals("Incomplete")) {
 				System.out.println("Process in InComplete Status");
 				ExtentManager.logger.log(Status.FAIL,
-						"SFM PROCESS in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
+						"SFM PROCESS :'"+sProcessName+"':is in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
 				Assert.assertFalse(sProcessCheck.equals("Incomplete"), "Status is in Incomplete State");
 				return false;
 
 			} else if (sProcessCheck.equals("Complete")) {
-				System.out.println("Process already exists:Proceeding to FSA Automation");
-				ExtentManager.logger.log(Status.PASS, "SFM PROCESS Already Exists and hence proceeding to FSA Client");
+				System.out.println(" SFM Process '"+sProcessName+"' already exists:Proceeding to FSA Automation:");
+				ExtentManager.logger.log(Status.PASS, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
 				return false;
 
 			}
