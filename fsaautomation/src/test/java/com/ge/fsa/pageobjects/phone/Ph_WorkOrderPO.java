@@ -794,8 +794,11 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
-		getElelookupsearch().sendKeys(sValue+"\n");
-		//getElelookupsearch().sendKeys(Keys.RETURN);
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			getElelookupsearch().sendKeys(sValue);
+		}else {
+			getElelookupsearch().sendKeys(sValue+"\n");
+		}
 		getEleSearchListItem(sValue).click();
 
 	}

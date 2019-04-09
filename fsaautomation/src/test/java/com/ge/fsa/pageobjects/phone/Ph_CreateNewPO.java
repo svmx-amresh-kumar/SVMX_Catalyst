@@ -133,7 +133,11 @@ public class Ph_CreateNewPO {
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
-		getElelookupsearch().sendKeys(sValue);
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			getElelookupsearch().sendKeys(sValue);
+		}else {
+			getElelookupsearch().sendKeys(sValue+"\n");
+		}
 		getEleSearchListItem(sValue).click();
 	}
 
