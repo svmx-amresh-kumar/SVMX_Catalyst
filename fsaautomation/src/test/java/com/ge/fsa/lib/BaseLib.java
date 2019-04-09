@@ -294,7 +294,7 @@ public class BaseLib {
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
-					capabilities.setCapability("useNewWDA",true);
+					//capabilities.setCapability("useNewWDA",true);
 					capabilities.setCapability("shouldWaitForQuiescence",false);
 
 				}else{
