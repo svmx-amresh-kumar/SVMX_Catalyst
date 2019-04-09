@@ -147,14 +147,14 @@ public class Ph_WorkOrderPO extends BaseLib
 	
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='Add Parts']"),
+	@FindAll({@FindBy(xpath="//*[@text='Add Parts']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Parts\"]")})
 	private WebElement elePartLnk;
 	public WebElement getElePartLnk()
 	{
 		return elePartLnk;
 	}
-	@FindAll({@FindBy(xpath="//*[@* ='Add Labor']"),
+	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]"),
 	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Labor\"]")})
 	private WebElement eleLaborLnk;
