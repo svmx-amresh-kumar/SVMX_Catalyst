@@ -616,11 +616,11 @@ public class Ph_WorkOrderPO
 	public WebElement getEleeleIBId(String sProductName) {
 		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
 	}
-	public void addParts(CommonUtility commonsUtility,String[] productNames) throws InterruptedException {
+	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
 		getElePartLnk().click();
 		for(String productName : productNames) {
-			commonsUtility.ph_lookupSearch(productName);
-			commonsUtility.getSearchLookupWithText(productName).clear();
+			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
+			commonUtility.getSearchLookupWithText(productName).clear();
 		}
 		getEleAddSelectedButton().click();
 	}
@@ -628,8 +628,8 @@ public class Ph_WorkOrderPO
 	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
 		commonUtility.custScrollToElementAndClick(getElePartLnk());
-		getElepartlookup().click();
-		commonUtility.ph_lookupSearch(sPartName1);
+		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
+
 		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
 		//Thread.sleep(1000);
 		ph_ExploreSearchPo.getEleSearchListItem(sPartName1).click();
@@ -674,8 +674,8 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	
 	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException
 	{
-		getChildLineAddItem("Add Products Serviced").click();
-		commonUtility.ph_lookupSearch(sSerialNumber);
+		
+		selectFromlookupSearchList(commonUtility, getChildLineAddItem("Add Products Serviced"), sSerialNumber);
 		getEleAddSelectedButton().click();
 
 	}

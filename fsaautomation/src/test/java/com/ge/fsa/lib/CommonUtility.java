@@ -2140,11 +2140,11 @@ public class CommonUtility {
 	 * @param value
 	 * @throws InterruptedException
 	 */
-	public void ph_lookupSearch(String value) throws InterruptedException {
-		getSearchLookup().click();
-		getSearchLookup().clear();
-		getSearchLookup().sendKeys(value);
-		Thread.sleep(5000);
-		getEleSearchListItem(value).click();
-	}
+//	public void ph_lookupSearch(String value) throws InterruptedException {
+//		getSearchLookup().click();
+//		getSearchLookup().clear();
+//		getSearchLookup().sendKeys(value);
+//		Thread.sleep(5000);
+//		getEleSearchListItem(value).click();
+//	}
 }

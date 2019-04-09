@@ -124,18 +124,18 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 			}
 				
 		// Adding Product A to the Header and verifying the child values
-				ph_WorkOrderPo.getProductLookup().click();
-				commonUtility.ph_lookupSearch(sProductNameA);
+				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getProductLookup(), sProductNameA);
+
 		// Coming to the Childlines and Verifying on the IB Serial Number
-				ph_WorkOrderPo.getChildLineAddItem("Add Parts").click();
-				Thread.sleep(3000);
-				commonUtility.ph_lookupSearch(sProductNameA);
+				
+				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getChildLineAddItem("Add Parts"), sProductNameA);
+
 				ph_WorkOrderPo.getEleAddSelectedButton().click();
-				Thread.sleep(3000);
+				Thread.sleep(300);
 		// Tapping on the Parts added and checking the IB Serial Number
 				ph_WorkOrderPo.getChildLineAddedItem(sProductNameA).click();
 				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleIBSerialNumber());
-				Thread.sleep(2000);
+				Thread.sleep(200);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(ph_WorkOrderPo.getIBLookup().size(), 1);
 				//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);

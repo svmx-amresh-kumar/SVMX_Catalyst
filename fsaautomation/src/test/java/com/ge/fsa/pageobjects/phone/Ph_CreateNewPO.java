@@ -86,28 +86,17 @@ public class Ph_CreateNewPO {
 		commonUtility.custScrollToElementAndClick(getEleCreateNewWorkOrder());
 		Thread.sleep(2000);
 		// Adding Value for Account
-		getEleAccountFied().click();;
-		commonUtility.ph_lookupSearch(accountName);
-	
+		selectFromlookupSearchList(commonUtility, getEleAccountFied(), accountName);
 		// Adding Value for Contact
-		getEleContactFied().click();
-		commonUtility.ph_lookupSearch(contactName);
-		
+		selectFromlookupSearchList(commonUtility, getEleContactFied(), contactName);
 		// Adding Value for Product
-		getEleProductFied().click();
-		commonUtility.ph_lookupSearch(ProdutName);
-		
+		selectFromlookupSearchList(commonUtility, getEleProductFied(), ProdutName);
 		// Selecting the Priority Low
-		getElePriorityField().click();
-		getEleDropDownValue(priority).click();
-		getEleBillingTypeField().click();
-		getEleDropDownValue(billingType).click();
-		//getEleproformainvoicevalue().click();
-		//commonsUtility.tap(getEleproformainvoicevalue());
-		//commonsUtility.tap(getEleproformainvoicevalue());
+		selectFromPickList(commonUtility, getElePriorityField(), priority);
+		selectFromPickList(commonUtility, getEleBillingTypeField(), billingType);
+
 		commonUtility.custScrollToElementAndClick(getEleProformaInvoiceField());
 		getEleProformaInvoiceField().sendKeys(proformaInvoice);
-		//commonsUtility.tap(getEleupdatethetextfield());
 		Thread.sleep(1000);
 		getEleAddWorkOrder().click();
 		
