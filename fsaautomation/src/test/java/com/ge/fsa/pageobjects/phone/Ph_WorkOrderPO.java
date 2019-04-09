@@ -794,7 +794,9 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
+		driver.hideKeyboard();
 		getEleSearchListItem(sValue).click();
+
 	}
 	
 	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
