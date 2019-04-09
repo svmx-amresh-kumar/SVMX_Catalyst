@@ -115,7 +115,7 @@ public class Ph_CreateNewPO {
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return eleSearchListItem =  driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')][contains(@name,'SFM.LAYOUT.LOOKUP')]"));			}
+			return eleSearchListItem =  driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')][contains(@name,'ITEM')]"));			}
 
 	}
 
