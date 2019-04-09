@@ -145,7 +145,7 @@ String Location=null;
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
-			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("Text");
 			Assert.assertNotNull(startdatetimeWO);
 			//try{Assert.assertTrue(Location.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ph_WorkOrderPo.getEleAdd().click();
@@ -163,7 +163,7 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleLaborLnk());
 			ph_WorkOrderPo.getEleOntoplabor();
 			Thread.sleep(2000);
-			 LocationWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			 LocationWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("Text");
 			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
 			ph_WorkOrderPo.geteleXsymbol().click();
 			Thread.sleep(2000);

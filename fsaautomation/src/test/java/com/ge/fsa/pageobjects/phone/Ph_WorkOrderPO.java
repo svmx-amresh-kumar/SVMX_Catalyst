@@ -200,21 +200,21 @@ public class Ph_WorkOrderPO
 		return eleCalibration;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="((//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")})
-	private WebElement eleLaborstartdatetime;
-	public WebElement getEleLaborstartdatetime()
-	{
-		return eleLaborstartdatetime;
-	}
+//	@FindAll({@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+//	@FindBy(xpath="((//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")})
+//	private WebElement eleLaborstartdatetime;
+//	public WebElement getEleLaborstartdatetime()
+//	{
+//		return eleLaborstartdatetime;
+//	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")})
-	private WebElement eleLaborenddatetime;
-	public WebElement getEleLaborenddatetime()
-	{
-		return eleLaborenddatetime;
-	}
+//	@FindAll({@FindBy(xpath="//*[@*='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+//	@FindBy(xpath="(//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")})
+//	private WebElement eleLaborenddatetime;
+//	public WebElement getEleLaborenddatetime()
+//	{
+//		return eleLaborenddatetime;
+//	}
 	
 	@FindAll({@FindBy(xpath="//*[@*='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Qty\"]/../XCUIElementTypeOther")})
@@ -330,8 +330,8 @@ public class Ph_WorkOrderPO
 		getEleCalibration().click();
 		
 			try {
-				commonUtility.setDateTime12Hrs(getEleLaborstartdatetime(), 0,"0", "0","AM");
-				commonUtility.setDateTime12Hrs(getEleLaborenddatetime(),  1,"09","00","AM"); 
+				commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"0", "0","AM");
+				commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(),  1,"09","00","AM"); 
 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
