@@ -212,7 +212,7 @@ public class BaseLib {
 		
 		
 		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
-		System.out.println("[BaseLib] APP_BUNDLEID : " + sUpdate_BundleID);
+		System.out.println("[BaseLib] APP_BUNDLEID : " + sApp_BundleID);
 		
 		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET").toLowerCase();
 		System.out.println("[BaseLib] NO_RESET : " + sNo_Reset);
