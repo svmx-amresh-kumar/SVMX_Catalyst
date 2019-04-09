@@ -318,14 +318,14 @@ public class Ph_WorkOrderPO extends BaseLib
 	
 	public void addParts(String sProductName1) 
 	{	
-	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
+	selectFromlookupSearchList(getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
 
 	public void addLabor(String sProductName1)
 	{
 		
-		selectFromlookupSearchList(commonUtility, getEleLaborLnk(), sProductName1);
+		selectFromlookupSearchList(getEleLaborLnk(), sProductName1);
 		getEleAddSelected().click();
 		
 //		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
@@ -341,8 +341,14 @@ public class Ph_WorkOrderPO extends BaseLib
 		getEleActivityType().click();
 		getEleCalibration().click();
 		
-		commonUtility.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0"); //set start time to Today
-		commonUtility.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
+		try {
+			commonUtility.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0");
+			commonUtility.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //set start time to Today
 		
 		getEleLineQtyTxtFld().click();
 		getEleLineQtyTxtFld().sendKeys("10");
@@ -794,7 +800,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		}		
 		}	
 
-	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
+	public void selectFromlookupSearchList(WebElement eleToSetValue, String sValue){
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
