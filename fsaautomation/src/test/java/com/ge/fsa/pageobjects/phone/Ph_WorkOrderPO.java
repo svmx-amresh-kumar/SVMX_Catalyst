@@ -177,7 +177,7 @@ public class Ph_WorkOrderPO
 
 	}
 	
-	@FindAll({@FindBy(xpath="//*[contains(@*,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindAll({@FindBy(xpath="//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//*[@label='Part Part Lookup']")})
 	private WebElement elepartlookup;
 	public WebElement getElepartlookup()
@@ -185,7 +185,7 @@ public class Ph_WorkOrderPO
 		return elepartlookup;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='Activity Type']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindAll({@FindBy(xpath="//*[@text='Activity Type']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Activity Type\"]/../XCUIElementTypeOther")})
 	private WebElement eleActivityType;
 	public WebElement getEleActivityType()
@@ -217,14 +217,14 @@ public class Ph_WorkOrderPO
 //		return eleLaborenddatetime;
 //	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindAll({@FindBy(xpath="//*[@text='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Qty\"]/../XCUIElementTypeOther")})
 	private WebElement eleLineQtyTxtFld;
 	public WebElement getEleLineQtyTxtFld()
 	{
 		return eleLineQtyTxtFld;
 	}
-	@FindAll({@FindBy(xpath="//*[@*='Line Price Per Unit']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindAll({@FindBy(xpath="//*[@text='Line Price Per Unit']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Price Per Unit\"]/../XCUIElementTypeOther")})
 	private WebElement eleLinePerUnitTxtFld;
 	public WebElement getEleLinePerUnitTxtFld()

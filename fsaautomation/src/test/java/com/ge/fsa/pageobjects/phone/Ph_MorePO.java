@@ -23,6 +23,7 @@ import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
+import com.ge.fsa.pageobjects.tablet.ToolsPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -113,6 +114,21 @@ public class Ph_MorePO
 				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("text");
 
 			}
+		}
+		
+		
+		public void OptionalConfigSync(ToolsPO toolsPo,CommonUtility commonUtility, Boolean bProcessCheckResult) throws InterruptedException
+		{
+		if(bProcessCheckResult.booleanValue()== true)
+		{
+			toolsPo.configSync(commonUtility);
+		}
+		else 
+		{
+			ExtentManager.logger.log(Status.INFO,"SFM process check return false: SFM Process exists");
+			System.out.println("skipping config sync as SFM process check return false: SFM Process exists");
+		}
+		
 		}
 		
 //		@FindBy(xpath="//*[@text='Perform Config Sync']")

@@ -42,7 +42,9 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	String[] sAppDate = null;
 	String sSerialNumber = null;
 	String sSheetName =null;
+	boolean bProcessCheckResult = false;
 
+	
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
@@ -87,14 +89,14 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Pre Login to app
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonUtility);
+		ph_MorePo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
-		toolsPo.syncData(commonUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
