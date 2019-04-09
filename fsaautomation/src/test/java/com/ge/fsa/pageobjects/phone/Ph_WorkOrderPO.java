@@ -164,11 +164,11 @@ public class Ph_WorkOrderPO
 	}
 	
 	
-	private WebElement eleLitsItem;
+	private WebElement eleListItem;
 	public WebElement getEleSearchListItem(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-		return driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')]//*[contains(@name,'ITEM')]"));
+		return eleListItem=driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')][@class='android.widget.TextView']"));
 		}else {
 		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM')]"));
 
@@ -192,7 +192,7 @@ public class Ph_WorkOrderPO
 		return eleActivityType;
 		}
 	
-	@FindAll({@FindBy(xpath="//*[@*='Calibration']"),
+	@FindAll({@FindBy(xpath="//*[@text='Calibration']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@label=\"Calibration\"])")})
 	private WebElement eleCalibration;
 	public WebElement getEleCalibration()
@@ -200,7 +200,7 @@ public class Ph_WorkOrderPO
 		return eleCalibration;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindAll({@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="((//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")})
 	private WebElement eleLaborstartdatetime;
 	public WebElement getEleLaborstartdatetime()
