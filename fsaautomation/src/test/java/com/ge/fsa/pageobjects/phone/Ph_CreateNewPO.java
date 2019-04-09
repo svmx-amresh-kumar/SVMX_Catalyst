@@ -130,14 +130,14 @@ public class Ph_CreateNewPO {
 
 	}
 
-	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
 		getEleSearchListItem(sValue).click();
 	}
 
-	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
