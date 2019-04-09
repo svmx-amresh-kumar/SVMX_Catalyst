@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -170,7 +171,7 @@ public class Ph_WorkOrderPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		return eleListItem=driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')][@class='android.widget.TextView']"));
 		}else {
-		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM0')]"));
+		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM')]"));
 
 		}
 
@@ -326,8 +327,8 @@ public class Ph_WorkOrderPO
 	{
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
-		getEleActivityType().click();
-		getEleCalibration().click();
+		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
+		
 		
 			try {
 				commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"0", "0","AM");
@@ -793,13 +794,8 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
-		getElelookupsearch().sendKeys(sValue);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getElelookupsearch().sendKeys(sValue+"\n");
+		//getElelookupsearch().sendKeys(Keys.RETURN);
 		getEleSearchListItem(sValue).click();
 
 	}
