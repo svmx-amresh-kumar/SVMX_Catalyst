@@ -794,9 +794,13 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getEleSearchListItem(sValue).click();
-		getEleSearchListItem(sValue).click();
-
 
 	}
 	
