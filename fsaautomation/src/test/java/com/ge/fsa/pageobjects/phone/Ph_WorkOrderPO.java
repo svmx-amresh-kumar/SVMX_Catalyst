@@ -794,7 +794,12 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
-		driver.hideKeyboard();
+		try {
+			commonUtility.tap(eleToSetValue, 100,200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getEleSearchListItem(sValue).click();
 
 	}
