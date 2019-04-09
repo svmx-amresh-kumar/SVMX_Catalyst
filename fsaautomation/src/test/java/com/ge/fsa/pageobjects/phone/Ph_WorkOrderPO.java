@@ -325,7 +325,7 @@ public class Ph_WorkOrderPO
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
-		selectFromPickList(commonUtility, getElepartlookup(), sProductName1);
+		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		getEleAddSelected().click();
 		getEleActivityType().click();
 		getEleCalibration().click();
