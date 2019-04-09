@@ -149,10 +149,14 @@ public class Ph_ChecklistPO
 	private WebElement elechecklistTextQAnsValue;
 	public WebElement getelechecklistTextQAnsValue(String sTextQuestion,String sTextAnswer)
 	{
-		
-		 //*[@text='5. Test Question']/../*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='Text Question Answered']
-		
 		return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sTextAnswer+"']"));
+
+	}
+	
+	private WebElement elechecklistDateQAnsValue;
+	public WebElement getelechecklistDateQAnsValue(String sTextQuestion,String sDateAnswer)
+	{
+		return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sDateAnswer+"']"));
 
 	}
 	

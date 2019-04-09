@@ -33,6 +33,8 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sSheetName =null;
 	Boolean bProcessCheckResult  = false;
 
+	//For SFM Process Sahi Script name
+		String sScriptName="scenario7_preRequisite";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario7() throws Exception {
