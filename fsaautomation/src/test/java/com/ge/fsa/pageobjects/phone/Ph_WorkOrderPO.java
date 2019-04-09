@@ -342,8 +342,8 @@ public class Ph_WorkOrderPO extends BaseLib
 		getEleCalibration().click();
 		
 		try {
-			commonUtility.setDateTime24hrs(getEleLaborstartdatetime(), 0,"0", "0");
-			commonUtility.setDateTime24hrs(getEleLaborenddatetime(),  1,"09","00"); 
+			commonUtility.setDateTime12Hrs(getEleLaborstartdatetime(), 0,"0", "0","AM");
+			commonUtility.setDateTime12Hrs(getEleLaborenddatetime(),  1,"09","00","AM"); 
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
