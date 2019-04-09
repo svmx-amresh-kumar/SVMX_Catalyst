@@ -106,19 +106,19 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("Create New Work Order"));
 
 		//Account lookup 
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 
 		//contact lookup
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
 
 		//product
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleProductLookuptap(), sProductName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleProductLookuptap(), sProductName);
 
 		//priority
-		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElePriority(), "Low");
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElePriority(), "Low");
 
 		//billing type
-		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleProformaInvoice());
 
