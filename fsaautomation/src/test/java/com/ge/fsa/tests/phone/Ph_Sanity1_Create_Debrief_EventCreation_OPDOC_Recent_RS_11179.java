@@ -154,9 +154,9 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
 		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-		ph_WorkOrderPo.addParts(sProductName);
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 
-		ph_WorkOrderPo.addLabor(sProductName);
+		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
 
 
