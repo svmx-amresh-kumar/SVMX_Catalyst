@@ -326,7 +326,6 @@ public class Ph_WorkOrderPO
 	{
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
-		getEleAddSelected().click();
 		getEleActivityType().click();
 		getEleCalibration().click();
 		
