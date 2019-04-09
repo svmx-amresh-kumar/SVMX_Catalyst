@@ -134,8 +134,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 
 		//open WO from recents
-		Thread.sleep(1000);
-		ph_RecentsPo.selectRecentsItem(sworkOrderName);
+		ph_RecentsPo.selectRecentsItem(commonUtility, sworkOrderName);
 		//Thread.sleep(2000);
 
 		// To create a new Event for the given Work Order

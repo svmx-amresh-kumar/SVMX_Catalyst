@@ -63,11 +63,11 @@ public class Ph_RecentsItemsPO
 	
 
 
-	public void selectRecentsItem(String sValue) throws InterruptedException 
+	public void selectRecentsItem(CommonUtility commonUtility, String sValue) throws InterruptedException 
 	{
 		getEleClickRecentItems().click();
 		Thread.sleep(1000);
-		getEleWorkorder(sValue).click();
+		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
 	}
 
