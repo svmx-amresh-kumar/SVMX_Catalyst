@@ -21,7 +21,7 @@ import io.appium.java_client.TouchAction;
 
 
 
-public class Ph_WorkOrderPO extends BaseLib
+public class Ph_WorkOrderPO
 {
 	public Ph_WorkOrderPO(AppiumDriver driver)
 	{
@@ -316,16 +316,16 @@ public class Ph_WorkOrderPO extends BaseLib
 		return elesave;
 	}
 	
-	public void addParts(String sProductName1) 
+	public void addParts(CommonUtility commonUtility,String sProductName1) 
 	{	
-	selectFromlookupSearchList(getElePartLnk(), sProductName1);
+	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
 
-	public void addLabor(String sProductName1)
+	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		
-		selectFromlookupSearchList(getEleLaborLnk(), sProductName1);
+		selectFromlookupSearchList(commonUtility, getEleLaborLnk(), sProductName1);
 		getEleAddSelected().click();
 		
 //		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
@@ -341,14 +341,16 @@ public class Ph_WorkOrderPO extends BaseLib
 		getEleActivityType().click();
 		getEleCalibration().click();
 		
-		try {
-			commonUtility.setDateTime12Hrs(getEleLaborstartdatetime(), 0,"0", "0","AM");
-			commonUtility.setDateTime12Hrs(getEleLaborenddatetime(),  1,"09","00","AM"); 
+			try {
+				commonUtility.setDateTime12Hrs(getEleLaborstartdatetime(), 0,"0", "0","AM");
+				commonUtility.setDateTime12Hrs(getEleLaborenddatetime(),  1,"09","00","AM"); 
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} //set start time to Today
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		
 		
 		getEleLineQtyTxtFld().click();
 		getEleLineQtyTxtFld().sendKeys("10");
@@ -800,7 +802,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		}		
 		}	
 
-	public void selectFromlookupSearchList(WebElement eleToSetValue, String sValue){
+	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
