@@ -2074,7 +2074,7 @@ public class CommonUtility {
 	}
 
 	/**
-	 * 
+	 * Scroll to a element
 	 * @param wElement
 	 * @throws InterruptedException
 	 */
@@ -2124,6 +2124,11 @@ public class CommonUtility {
 
 	}
 
+	/**
+	 * Search for a element from lookup fields
+	 * @param value
+	 * @throws InterruptedException
+	 */
 	public void ph_lookupSearch(String value) throws InterruptedException {
 		getSearchLookup().click();
 		getSearchLookup().clear();
