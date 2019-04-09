@@ -168,10 +168,10 @@ public class Ph_MorePO
 		getEleMoreBtn().click();
 		System.out.println("Begining Data Sync");
 		getEleDataSync().click();
-		Thread.sleep(1000);
+		Thread.sleep(200);
 		getEleSyncNow().click();
 		System.out.println("Clicked on Sync Now and waiting...");
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		

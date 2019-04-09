@@ -141,14 +141,14 @@ String Location=null;
 			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("Text");
 			Assert.assertNotNull(LocationWO);
 			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
 			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
 			Assert.assertNotNull(startdatetimeWO);
 			//try{Assert.assertTrue(Location.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			
 			//validating mapped values before save

@@ -111,7 +111,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0,"05", "00");
 			
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0,"07", "00");
-			ph_CalendarPo.getEleAdd().click();
+			ph_WorkOrderPo.getEleAdd().click();
 			Thread.sleep(3000);
 			ph_MorePo.syncData(commonUtility);
 			

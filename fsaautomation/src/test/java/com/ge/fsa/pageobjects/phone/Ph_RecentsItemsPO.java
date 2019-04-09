@@ -49,14 +49,13 @@ public class Ph_RecentsItemsPO
 		return eleClickRecentItems;
 	}
 	
-	private WebElement eleWorkorderNumberClick;
-	public WebElement getEleWorkordernumberclick(String workordername)
+	public WebElement getEleWorkorder(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		
-			return driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
+			return driver.findElement(By.xpath("//*[@text='"+sValue+"']"));
 		}else {
-			return  driver.findElement(By.xpath("//*[contains(@label,'"+workordername+"')]/*"));
+			return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*"));
 		}
 		
 	}
@@ -64,20 +63,11 @@ public class Ph_RecentsItemsPO
 	
 
 
-	public void clickOnWorkOrderFromRecents(String workordername) throws InterruptedException 
+	public void selectRecentsItem(String sValue) throws InterruptedException 
 	{
 		getEleClickRecentItems().click();
 		Thread.sleep(1000);
-		try
-		{
-			getEleWorkordernumberclick(workordername).click();
-	
-		}
-		catch(Exception e)
-		{
-			System.out.println("unable to find the workorder");
-		}
-		
+		getEleWorkorder(sValue).click();
 
 	}
 
