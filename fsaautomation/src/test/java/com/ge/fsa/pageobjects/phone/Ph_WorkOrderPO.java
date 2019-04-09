@@ -316,13 +316,13 @@ public class Ph_WorkOrderPO extends BaseLib
 		return elesave;
 	}
 	
-	public void addParts(String sProductName1) throws InterruptedException 
+	public void addParts(String sProductName1) 
 	{	
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
 
-	public void addLabor(String sProductName1) throws InterruptedException 
+	public void addLabor(String sProductName1)
 	{
 		
 		selectFromlookupSearchList(commonUtility, getEleLaborLnk(), sProductName1);
@@ -794,14 +794,14 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		}		
 		}	
 
-	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		getElelookupsearch().sendKeys(sValue);
 		getEleSearchListItem(sValue).click();
 	}
 	
-	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
 		
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
