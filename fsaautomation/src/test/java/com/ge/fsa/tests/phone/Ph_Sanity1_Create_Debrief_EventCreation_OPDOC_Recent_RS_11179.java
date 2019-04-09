@@ -141,7 +141,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 
 		//open WO from recents
 
-		ph_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
+		ph_RecentsPo.clickOnWorkOrderFromRecents(sworkOrderName);
 		Thread.sleep(2000);
 
 		// To create a new Event for the given Work Order

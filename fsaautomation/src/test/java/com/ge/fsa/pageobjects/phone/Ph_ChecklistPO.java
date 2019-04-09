@@ -17,7 +17,6 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
@@ -171,7 +170,12 @@ public class Ph_ChecklistPO
 		return elechecklistinstance = driver.findElementByAccessibilityId("CHECKLIST.INSTANCE.ITEM.0");
 	}
 	
-	
+	private WebElement elechecklistdate;
+	public WebElement getelechecklistdate(String sdates)
+	{
+		return driver.findElement(By.xpath("//*[@text='"+sdates+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"));
+		
+	}
 	
 	
 }

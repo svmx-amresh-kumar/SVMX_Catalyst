@@ -64,6 +64,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -1881,10 +1882,11 @@ public class CommonUtility {
 		 * @param wElement
 		 * @throws InterruptedException
 		 */
-		public void custScrollToElementAndClick(WebElement wElement) throws InterruptedException {
-			Thread.sleep(200);
+		public void custScrollToElementAndClick(WebElement wElement){
+			
 			//If element clicked then return immediately
 			try {
+				Thread.sleep(200);
 				if(isDisplayedCust(wElement)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
@@ -1910,10 +1912,12 @@ public class CommonUtility {
 					
 				}catch(Exception e){}
 				
+			
 			}
 			System.out.println("Element not found to click after scrolling");
 
 		}
+		
 		
 		/**
 		 * Fro Android elements to scroll we can pass the text directly to scroll, first try the overloaded method "custScrollToElementAndClick(WebElement webElement) " if it fails use this method fro android
@@ -1921,40 +1925,215 @@ public class CommonUtility {
 		 * @return
 		 * @throws InterruptedException
 		 */
-		public void custScrollToElementAndClick(String androidTextInElement) throws InterruptedException {
-			Thread.sleep(200);
-				System.out.println("Android scrolling");
-				String sString = androidTextInElement;
-			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
-				
-			}
-		
-		
-		public void custScrollToElement(String androidTextInElement) throws InterruptedException {
-			Thread.sleep(3000);
-				System.out.println("Android scrolling");
-				String sString = androidTextInElement;
-			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sString+"\"))")).click();
-				
-			}
+		public void custScrollToElementAndClick(String androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
 			
+			boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
+			switch(BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				Thread.sleep(200);
+				WebElement wElement = null;
+				System.out.println("Android scrolling");
+				if(isXpathOrNot == true) {
+					
 
-		public void custScrollToElement(WebElement webElement) throws InterruptedException {
-			Thread.sleep(200);
-			int i;
-			for (i = 0; i < 5; i++) {
+					try {
+						Thread.sleep(200);
+						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+						if(isDisplayedCust(wElement)) {
+							wElement.click();
+							System.out.println("Element found after scrolling");
+							return;
+						}
+					}catch(Exception e1){}
+
+					//Try to scroll and click element
+					int i;
+					for (i = 0; i < 10; i++) {
+						swipeGeneric("up");
+						try {
+							Thread.sleep(200);
+							wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+							if(isDisplayedCust(wElement)) {
+								point = wElement.getLocation();
+								wElement.click();
+								System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+								System.out.println("Element found and clicked after scrolling");
+								return;
+								//break;
+							}
+
+
+						}catch(Exception e2){};
+
+
+
+						System.out.println("Element not found and clicked after scrolling");
+					}
+
+				}else {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+androidTextInElementOrXpath+"\"))")).click();
+				
+				}
+				break;
+			case "ios":
+
+				String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
+
 				try {
-				webElement.isDisplayed();
-				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					Thread.sleep(200);
+					wElement = driver.findElement(By.xpath(xpathString));
+					if(isDisplayedCust(wElement)) {
+						wElement.click();
+						System.out.println("Element found and clicked after scrolling");
+						return;
+					}
+				}catch(Exception e1){}
+
+				//Try to scroll and click element
+				int i;
+				for (i = 0; i < 10; i++) {
+					swipeGeneric("up");
+					try {
+						Thread.sleep(200);
+						wElement = driver.findElement(By.xpath(xpathString));
+						if(isDisplayedCust(wElement)) {
+							point = wElement.getLocation();
+							wElement.click();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found and clicked after scrolling");
+							return;
+							//break;
+						}
+
+
+					}catch(Exception e2){};
+
+
+
+					System.out.println("Element not found to click after scrolling");
+				}
+			}
+		}
+		
+		
+		public void custScrollToElement(String androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
+			boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
+
+			switch(BaseLib.sOSName.toLowerCase()) {
+			case "android":
+				Thread.sleep(200);
+				WebElement wElement = null;
+				System.out.println("Android scrolling");
+				if(isXpathOrNot== true) {
+					
+
+					try {
+						Thread.sleep(200);
+						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+						if(isDisplayedCust(wElement)) {
+							System.out.println("Element found after scrolling");
+							return;
+						}
+					}catch(Exception e1){}
+
+					//Try to scroll and click element
+					int i;
+					for (i = 0; i < 10; i++) {
+						swipeGeneric("up");
+						try {
+							Thread.sleep(200);
+							wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+							if(isDisplayedCust(wElement)) {
+								point = wElement.getLocation();
+								System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+								System.out.println("Element found after scrolling");
+								return;
+								//break;
+							}
+
+
+						}catch(Exception e2){};
+
+
+
+						System.out.println("Element not found after scrolling");
+					}
+
+				}else {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+androidTextInElementOrXpath+"\"))"));
+				
+				}
+				break;
+			case "ios":
+
+				String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
+
+				try {
+					Thread.sleep(200);
+					wElement = driver.findElement(By.xpath(xpathString));
+					if(isDisplayedCust(wElement)) {
+						System.out.println("Element found after scrolling");
+						return;
+					}
+				}catch(Exception e1){}
+
+				//Try to scroll and click element
+				int i;
+				for (i = 0; i < 10; i++) {
+					swipeGeneric("up");
+					try {
+						Thread.sleep(200);
+						wElement = driver.findElement(By.xpath(xpathString));
+						if(isDisplayedCust(wElement)) {
+							point = wElement.getLocation();
+							wElement.click();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found after scrolling");
+							return;
+							//break;
+						}
+
+
+					}catch(Exception e2){};
+
+
+
+					System.out.println("Element not found after scrolling");
+				}
+			}
+		}
+		
+
+		public void custScrollToElement(WebElement wElement) throws InterruptedException {
+			try {
+				Thread.sleep(200);
+				if(isDisplayedCust(wElement)) {
+				System.out.println("Element found and clicked after scrolling");
 					return;
 				}
-				
+				}catch(Exception e){}
+			
+			//Try to scroll and click element
+			int i;
+			for (i = 0; i < 10; i++) {
+				swipeGeneric("up");
+				try {
+					Thread.sleep(1000);
+					if(isDisplayedCust(wElement)) {
+						point = wElement.getLocation();
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						System.out.println("Element found aafter scrolling");
+						return;
+						//break;
+					}
+					
+					
 				}catch(Exception e){}
 				
-				swipeGeneric("up");
+			
+			}
+			System.out.println("Element not found to click after scrolling");
 
-		}
-			System.out.println("Element not  after scrolling");
 		}
 		
 		@FindBy(xpath="//*[@class='android.widget.EditText'][@text='Search Keyword...']")

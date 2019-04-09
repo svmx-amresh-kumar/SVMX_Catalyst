@@ -1,41 +1,18 @@
 /*
  *  @author Vinod Tharavath
- *  Date/dateTime validaitons are commented/removed to revisit later.
  */
 package com.ge.fsa.tests.phone;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
+
 import java.util.Date;
-import java.util.Locale;
-import java.util.SimpleTimeZone;
-import java.util.TimeZone;
-import org.apache.http.client.utils.DateUtils;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.ios.IOSTouchAction;
-import io.appium.java_client.touch.TapOptions;
-import io.appium.java_client.touch.offset.ElementOption;
-import io.appium.java_client.touch.offset.PointOption;
 
 public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
@@ -105,7 +82,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String snumberAns ="200";		
 		String spicklistQuestion = "Picklist Question";
 		String spicklistAns = "PicklOne";
-		String sdateQuestion = "Date Question";
+		String sdateQuestion = "7. Date Question";
 		String sdateAns = null;
 		String sdateTimeQuestion = "DateTime Question";
 		String sdateTimeAns = null;
@@ -114,22 +91,19 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sPicklistAns = null;
 		String sTextQAns = null;
 		String sNumberQAns = null;
-		
-		
 		String sValue ="MultiOn, MultiTwo";
 		String sProcessname = "Default title for Checklist";
 
-			// Pre Login to app
-			Thread.sleep(10000);
 			prereq();
-			
+			// Pre Login to app
 		 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		 
 			//toolsPo.configSync(commonsUtility);
+		 	
+		 	//Data Sync
 		 	ph_MorePo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println(sWOName);
-			System.out.println("Going to click explo9re");
 
 			//Navigating to Checklist 
 			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, "AUTOMATION SEARCH", "Work Orders", sWOName, sProcessname, commonUtility);
@@ -144,50 +118,85 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			Thread.sleep(2000);			
 			ph_ChecklistPO.geteleInProgress().click();
 			
+			//Entering Picklist Question
 			ph_ChecklistPO.getelechecklistPickListQAns("1. Picklist Question", "PicklOne").click();
-			//passing "pickone" to be clicked basically a picklist
 			Thread.sleep(2000);
 			ph_ChecklistPO.geteleChecklistGenericText("PicklOne").click();
 			ph_ChecklistPO.elechecklistRadioButtonQAns("2. RadioButton Question", "RadioTwo").click();
-			Thread.sleep(5000);
-				
+			
+			//Entering Checkbox Question
 			commonUtility.custScrollToElementAndClick("4. MultiPicklist Question");
 			ph_ChecklistPO.getelechecklistcheckboxQAns("3. Checkbox Question", "CheckBoxTwo").click();;
+		
+			//Selecting MultiPicklist Question
 			commonUtility.custScrollToElementAndClick("MultiOn, MultiTwo");
-			System.out.println("Scrolled");
-		//	ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question", "MultiOn, MultiTwo").click();
+			//ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question", "MultiOn, MultiTwo").click();
 			Thread.sleep(2000);
 			ph_ChecklistPO.geteleBackbutton().click();
 			Thread.sleep(1000);
 
+			//Entering Text question
 			commonUtility.custScrollToElementAndClick("5. Test Question");
 			ph_ChecklistPO.getelechecklistTextQAns("5. Test Question").sendKeys("Text Question Answered");
 			
-			commonUtility.custScrollToElementAndClick("8. Number Question");
-			commonUtility.custScrollToElementAndClick("8. Number Question");
+			//Entering DateTime question
+			//commonUtility.custScrollToElement("6. DateTime Question");
+			commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate("6. DateTime Question"), 0,"5", "30","AM");
+
+			//Entering Date question
+			//commonUtility.custScrollToElementAndClick("5. Date Question");
+		    commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate("7. Date Question"),"JAN","01","1971");
+
 			
+			//Entering Number Question
+			commonUtility.custScrollToElementAndClick("8. Number Question");			
 			ph_ChecklistPO.getelechecklistNumberQAns("8. Number Question").sendKeys(snumberAns);
 			
-			Thread.sleep(2000);	
+			//Submitting Checklist
 			ph_ChecklistPO.geteleSubmitbtn().click();
+			
+			//Opening Completed Checklist
 			ph_ChecklistPO.geteleCompleted().click();
 			Thread.sleep(1000);	
 			ph_ChecklistPO.geteleName().click();
 			Thread.sleep(1000);	
 			ph_ChecklistPO.geteleInProgress().click();
+			
+			
+			
+			//------------------------validating values after submitting---------
+			
+			//picklist validation
 			sPicklistAns = ph_ChecklistPO.getelechecklistPickListQAns("1. Picklist Question", "PicklOne").getText();
 			Assert.assertTrue(sPicklistAns.equals(sPicklistval),
 					"Picklist answer --expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 			ExtentManager.logger.log(Status.PASS,
 					"picklist answer sucessfull expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 			
+			//Text question
 			commonUtility.custScrollToElementAndClick("6. DateTime Question");
 			sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("5. Test Question",stextAns).getText();
 			Assert.assertTrue(sTextQAns.equals(stextAns),
 					"Checklist Text answer --expected: " + stextAns + " actual: " + sTextQAns + "");
 			ExtentManager.logger.log(Status.PASS,
 					"Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
+			
+			
+			sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("5. Test Question",stextAns).getText();
+			Assert.assertTrue(sTextQAns.equals(stextAns),
+					"Checklist Text answer --expected: " + stextAns + " actual: " + sTextQAns + "");
+			ExtentManager.logger.log(Status.PASS,
+					"Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
+			
+/*			commonUtility.custScrollToElementAndClick("8. Number Question");
+			Thread.sleep(3000);
+			sNumberQAns = ph_ChecklistPO.getelechecklistTextQAnsValue("8. Number Question",snumberAns).getText();
+			Assert.assertTrue(sNumberQAns.equals(snumberAns),
+					"Checklist Text answer --expected: " + snumberAns + " actual: " + sNumberQAns + "");
+			ExtentManager.logger.log(Status.PASS,
+					"Checklist Text answer sucessfull expected: " + snumberAns + " actual: " + sNumberQAns + "");
 
+*/			
 			// Sync the Data
 			 ph_MorePo.syncData(commonUtility);
 			 Thread.sleep(GenericLib.iVHighSleep);
