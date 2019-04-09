@@ -170,7 +170,7 @@ public class Ph_WorkOrderPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		return eleListItem=driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')][@class='android.widget.TextView']"));
 		}else {
-		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM')]"));
+		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM0')]"));
 
 		}
 
