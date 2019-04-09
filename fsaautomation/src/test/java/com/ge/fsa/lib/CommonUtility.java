@@ -1897,7 +1897,7 @@ public class CommonUtility {
 
 		//If element clicked then return immediately
 		try {
-			Thread.sleep(200);
+			Thread.sleep(500);
 			if(isDisplayedCust(wElement)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
@@ -1910,7 +1910,7 @@ public class CommonUtility {
 		for (i = 0; i < 10; i++) {
 			swipeGeneric("up");
 			try {
-				Thread.sleep(200);
+				Thread.sleep(500);
 				if(isDisplayedCust(wElement)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
@@ -1935,12 +1935,12 @@ public class CommonUtility {
 		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
-			Thread.sleep(200);
+			Thread.sleep(500);
 			WebElement wElement = null;
 			System.out.println("Android scrolling");
 			if(isXpathOrNot == true) {
 				try {
-					Thread.sleep(200);
+					Thread.sleep(500);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
 					if(isDisplayedCust(wElement)) {
 						wElement.click();
@@ -1954,7 +1954,7 @@ public class CommonUtility {
 				for (i = 0; i < 10; i++) {
 					swipeGeneric("up");
 					try {
-						Thread.sleep(200);
+						Thread.sleep(500);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
 						if(isDisplayedCust(wElement)) {
 							point = wElement.getLocation();
@@ -1975,7 +1975,7 @@ public class CommonUtility {
 		case "ios":
 			String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
 			try {
-				Thread.sleep(200);
+				Thread.sleep(500);
 				wElement = driver.findElement(By.xpath(xpathString));
 				if(isDisplayedCust(wElement)) {
 					wElement.click();
@@ -1989,7 +1989,7 @@ public class CommonUtility {
 			for (i = 0; i < 10; i++) {
 				swipeGeneric("up");
 				try {
-					Thread.sleep(200);
+					Thread.sleep(500);
 					wElement = driver.findElement(By.xpath(xpathString));
 					if(isDisplayedCust(wElement)) {
 						point = wElement.getLocation();
@@ -2016,12 +2016,12 @@ public class CommonUtility {
 
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
-			Thread.sleep(200);
+			Thread.sleep(500);
 			WebElement wElement = null;
 			System.out.println("Android scrolling");
 			if(isXpathOrNot== true) {
 				try {
-					Thread.sleep(200);
+					Thread.sleep(500);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
 					if(isDisplayedCust(wElement)) {
 						System.out.println("Element found after scrolling");
@@ -2034,7 +2034,7 @@ public class CommonUtility {
 				for (i = 0; i < 10; i++) {
 					swipeGeneric("up");
 					try {
-						Thread.sleep(200);
+						Thread.sleep(500);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
 						if(isDisplayedCust(wElement)) {
 							point = wElement.getLocation();
@@ -2054,7 +2054,7 @@ public class CommonUtility {
 		case "ios":
 			String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
 			try {
-				Thread.sleep(200);
+				Thread.sleep(500);
 				wElement = driver.findElement(By.xpath(xpathString));
 				if(isDisplayedCust(wElement)) {
 					System.out.println("Element found after scrolling");
@@ -2067,7 +2067,7 @@ public class CommonUtility {
 			for (i = 0; i < 10; i++) {
 				swipeGeneric("up");
 				try {
-					Thread.sleep(200);
+					Thread.sleep(500);
 					wElement = driver.findElement(By.xpath(xpathString));
 					if(isDisplayedCust(wElement)) {
 						point = wElement.getLocation();
@@ -2091,7 +2091,7 @@ public class CommonUtility {
 	 */
 	public void custScrollToElement(WebElement wElement) throws InterruptedException {
 		try {
-			Thread.sleep(200);
+			Thread.sleep(500);
 			if(isDisplayedCust(wElement)) {
 				System.out.println("Element found and clicked after scrolling");
 				return;
