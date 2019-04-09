@@ -86,11 +86,9 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String snumberQuestion = "8. Number Question";
 		String sdateQuestion = "7. Date Question";
 		String sdateTimeQuestion = "6. DateTime Question";
-
 		String stextAns = "Text Question Answered";
 		String snumberAns = "200";
 		String sradioAns = null;
-
 		String spicklistAns = "PicklOne";
 		String sdateAns = null;
 		String sdateTimeAns = null;
@@ -104,11 +102,15 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sDateExpected = "1/1/1971";
 
 		prereq();
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
+
+		
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
-
+		ph_MorePo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 		// toolsPo.configSync(commonsUtility);
 
 		// Data Sync
