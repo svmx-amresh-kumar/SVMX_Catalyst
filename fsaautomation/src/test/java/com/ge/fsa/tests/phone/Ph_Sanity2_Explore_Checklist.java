@@ -35,11 +35,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	Date dtempDate2;
 	Date dTempDate1;
 	String sSheetName = null;
-	String sScriptName = null;
 	String sEditProcessName = null;
 	String sWORecordID = null;
 	boolean bProcessCheckResult = false;
-
+	//For SFM Process Sahi Script name
+	String sScriptName="scenario2_preRequisite";
+	
 	public void prereq() throws Exception {
 
 		sSheetName = "RS_2389";

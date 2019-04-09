@@ -60,6 +60,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 	String sWOName1 = null;
 	String sWOName = null;
 	Boolean bProcessCheckResult  = false;
+	//For SFM Process Sahi Script name
+	String sScriptName="Scenario_RS10584_Checklist_Attachments";
 
 	//Attachment questions
 	
