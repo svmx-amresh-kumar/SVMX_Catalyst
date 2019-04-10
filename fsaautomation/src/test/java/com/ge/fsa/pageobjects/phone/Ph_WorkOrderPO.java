@@ -361,6 +361,7 @@ public class Ph_WorkOrderPO extends BaseLib
 		
 				// Select the Work Order
 				ph_ExploreSearchPO.selectWorkOrder(sWOName);
+				Thread.sleep(5000);
 				if(sFieldServiceName!=null)
 				{
 					selectAction(commonUtility,sFieldServiceName);	
@@ -440,7 +441,7 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.BACK_BUTTON\"]/android.view.ViewGroup")
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement eleXsymbol;
 	public WebElement geteleXsymbol()
 	{
@@ -448,7 +449,6 @@ public class Ph_WorkOrderPO extends BaseLib
 	}
 	
 	
-		
 	
 	
 	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
@@ -687,7 +687,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 	
 	
-	@FindBy(xpath="(//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"])[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup")
+	@FindBy(xpath="(//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"])[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup")
 	private WebElement eleOntoplabor;
 	public WebElement getEleOntoplabor()
 	{
@@ -700,7 +700,15 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleDiscardChanges;
 		}
+		//android.view.ViewGroup[@content-desc="SFM.LAYOUT.ADD.0"]/android.view.ViewGroup
 	
-	
+		
+		
+		@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.LAYOUT.ADD.0\"]/android.view.ViewGroup")
+		private WebElement eleclickonaddparts;
+		public WebElement getEleclickonaddparts()
+		{
+			return eleclickonaddparts;
+		}
 	}	
 

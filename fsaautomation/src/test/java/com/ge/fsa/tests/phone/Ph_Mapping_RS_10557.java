@@ -60,7 +60,7 @@ String Location=null;
 		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
-	
+		
 		//sahi
 				/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
 				if(commonsUtility.verifySahiExecution()) {
@@ -78,6 +78,12 @@ String Location=null;
 				lauchNewApp("true");
 				System.out.println("RS_10557");
 		*/
+		
+		
+		//read from file
+				sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		
 		
 		sObjectApi = "Account?";
@@ -103,14 +109,9 @@ String Location=null;
 		//sProductName1="v1";
 		System.out.println(Location);
 		
-		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		
 		
 			//Pre Login to app
-		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 			//datasync
 		ph_MorePo.syncData(commonUtility);
@@ -128,55 +129,59 @@ String Location=null;
 			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
 			commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0","0"); //set start time to Today
 
-			Thread.sleep(2000);
-			ph_WorkOrderPo.getEleSite().click();
-			ph_ExploreSearchPO.commonlookupsearch(Location);
 		
-			ph_WorkOrderPo.getEleComponent().click();
-			ph_ExploreSearchPO.commonlookupsearch(sproductname);
-			Thread.sleep(2000);
+		  Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
+		  ph_ExploreSearchPO.commonlookupsearch(Location);
+		  
+		  ph_WorkOrderPo.getEleComponent().click();
+		  ph_ExploreSearchPO.commonlookupsearch(sproductname); Thread.sleep(2000);
+		 
 			
 			//add new line for parts
-			ph_WorkOrderPo.getElePartLnk();
-			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("Text");
+			ph_WorkOrderPo.getElePartLnk().click();
+			Thread.sleep(4000);
+			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+			System.out.println(LocationWO);
 			Assert.assertNotNull(LocationWO);
 			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ph_CalendarPo.getEleAdd().click();
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
-			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("text");
+			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
 			//try{Assert.assertTrue(Location.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
 			ph_CalendarPo.getEleAdd().click();
 			
-			
 			//validating mapped values before save
 			//Part
-			ph_WorkOrderPo.getEleOntoppart();
+			ph_WorkOrderPo.getEleOntoppart().click();
 			Thread.sleep(2000);
-			 LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("Text");
-			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
+			  LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+			 System.out.println(LocationWO);
+		//	try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			 
 			 //Labor
-			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleLaborLnk());
-			ph_WorkOrderPo.getEleOntoplabor();
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
+			ph_WorkOrderPo.getEleOntoplabor().click();
 			Thread.sleep(2000);
-			 LocationWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
-			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
+			 startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			 System.out.println(startdatetimeWO);
+			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			Thread.sleep(2000);
-			ph_WorkOrderPo.getEleDiscardChanges().click();
 			
 			ph_WorkOrderPo.getElesave().click();
-			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");}
+			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");
 			
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
+			Thread.sleep(4000);
 			ph_MorePo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
-			
-			
+			Thread.sleep(15000);
+///////////////////////validation from server//////////////////////////////////////////////////	
 		//	String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+SVMXC__Company__c+=\'"+sObjectAccID+"\'+AND+SVMXC__Product__c+=\'"+sObjectProID+"\'";
 			String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sInstalledproductID+"\'";
 			restServices.getAccessToken();
@@ -201,9 +206,10 @@ String Location=null;
 			String sLocationid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Requested_Location__c");
 			System.out.println("****************"+sLocationid);
 			String LocationQuery = "SELECT+Name+from+SVMXC__Site__c+where+id=\'"+sLocationid+"\'";
-			String soqlpartName  =restServices.restGetSoqlValue(LocationQuery,"Name"); 
-			try{assertEquals(Location, soqlpartName);ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
+			String soqllocationName  =restServices.restGetSoqlValue(LocationQuery,"Name"); 
+			try{assertEquals(Location, soqllocationName);ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);}
+			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");
+			
 			//Collecting the labor from the Server.
 			JSONArray sJsonArraylabor = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Start_Date_and_Time__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Requested_Location__c+ = null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
 			String sstartdatetime = restServices.getJsonValue(sJsonArraylabor, "SVMXC__Start_Date_and_Time__c");
