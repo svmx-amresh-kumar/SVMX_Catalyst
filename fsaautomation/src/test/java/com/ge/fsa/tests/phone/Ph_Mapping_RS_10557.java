@@ -144,15 +144,15 @@ String Location=null;
 			System.out.println(LocationWO);
 			Assert.assertNotNull(LocationWO);
 			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
-			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("text");
+			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
 			//try{Assert.assertTrue(Location.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			//validating mapped values before save
 			//Part
@@ -167,7 +167,7 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
 			ph_WorkOrderPo.getEleOntoplabor().click();
 			Thread.sleep(2000);
-			 startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("Text");
 			 System.out.println(startdatetimeWO);
 			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);}
 			ph_WorkOrderPo.geteleXsymbol().click();
