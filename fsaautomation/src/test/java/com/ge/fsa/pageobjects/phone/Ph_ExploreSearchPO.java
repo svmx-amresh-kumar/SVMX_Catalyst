@@ -102,7 +102,8 @@ public class Ph_ExploreSearchPO
 		return searchListItems;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.Switch'][@text='OFF']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.Switch'][@text='OFF']"),
+			@FindBy(xpath="//*[@name='EXPLORE.SEARCH.INCLUDE_ONLINE_SWITCH']")})	
 	private WebElement EleOnline;
 	public WebElement getEleOnline() {
 		return EleOnline;
