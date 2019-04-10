@@ -92,7 +92,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
-		ph_MorePo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created

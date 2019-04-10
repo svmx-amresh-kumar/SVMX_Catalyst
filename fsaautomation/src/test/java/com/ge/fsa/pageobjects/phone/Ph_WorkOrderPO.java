@@ -369,7 +369,7 @@ public class Ph_WorkOrderPO
 				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
-				ph_ExploreSearchPO.selectWorkOrder(sWOName);
+				ph_ExploreSearchPO.selectFromLookupSearchList(sWOName);
 				if(sFieldServiceName!=null)
 				{
 					selectAction(commonUtility,sFieldServiceName);	
@@ -501,7 +501,7 @@ public class Ph_WorkOrderPO
 		// Adding Value for Product
 		//commonsUtility.custScrollToElement(getEleProduct());
 		getEleProductstar().click();
-		ph_ExploreSearchPO.commonlookupsearch(ProdutName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(ProdutName);
 		
 		// Adding Value for InstalledproductID
 		//commonsUtility.custScrollToElement(getEleInstalledProduct());
@@ -511,7 +511,7 @@ public class Ph_WorkOrderPO
 		// Adding Value for Account
 		commonsUtility.custScrollToElement(getAccountstar());
 		getAccountstar().click();
-		ph_ExploreSearchPO.commonlookupsearch(accountName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(accountName);
 	
 		
 		Thread.sleep(1000);
@@ -676,7 +676,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
 
 		// Select the Work Order
-		ph_ExploreSearchPo.selectWorkOrder(sWOName);
+		ph_ExploreSearchPo.selectFromLookupSearchList(sWOName);
 	}
 	
 	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException

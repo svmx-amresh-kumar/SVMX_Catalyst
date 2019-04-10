@@ -131,10 +131,10 @@ String Location=null;
 
 		
 		  Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
-		  ph_ExploreSearchPO.commonlookupsearch(Location);
+		  ph_ExploreSearchPO.selectFromLookupSearchList(Location);
 		  
 		  ph_WorkOrderPo.getEleComponent().click();
-		  ph_ExploreSearchPO.commonlookupsearch(sproductname); Thread.sleep(2000);
+		  ph_ExploreSearchPO.selectFromLookupSearchList(sproductname); Thread.sleep(2000);
 		 
 			
 			//add new line for parts
