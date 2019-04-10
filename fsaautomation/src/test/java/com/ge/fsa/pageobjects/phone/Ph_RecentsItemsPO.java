@@ -55,7 +55,8 @@ public class Ph_RecentsItemsPO
 		
 			return driver.findElement(By.xpath("//*[@text='"+sValue+"']"));
 		}else {
-			return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'Item')]"));
+			//return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'I')]"));
+			return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')][contains(@name,'I')]/*[contains(@name,'I')]//*[contains(@label,'"+sValue+"')][contains(@name,'I')]"));
 		}
 		
 	}

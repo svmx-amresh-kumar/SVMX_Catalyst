@@ -169,9 +169,9 @@ public class Ph_WorkOrderPO
 	public WebElement getEleSearchListItem(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-		return eleListItem=driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')][@class='android.widget.TextView']"));
+		return eleListItem=driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')]/../..//*[contains(@content-desc,'I')]"));
 		}else {
-		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'ITEM')]"));
+		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'I')]"));
 
 		}
 
