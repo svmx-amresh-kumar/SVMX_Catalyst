@@ -110,9 +110,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		ph_MorePo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
 		// toolsPo.configSync(commonsUtility);
 
+		
+		
 		// Data Sync
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);

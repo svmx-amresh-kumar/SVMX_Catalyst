@@ -20,11 +20,12 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
+
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.ToolsPO;
-
+import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -117,11 +118,12 @@ public class Ph_MorePO
 		}
 		
 		
-		public void OptionalConfigSync(ToolsPO toolsPo,CommonUtility commonUtility, Boolean bProcessCheckResult) throws InterruptedException
+		public void OptionalConfigSync(CommonUtility commonUtility,Ph_CalendarPO ph_CalendarPo, Boolean bProcessCheckResult) throws InterruptedException, IOException
 		{
 		if(bProcessCheckResult.booleanValue()== true)
 		{
-			toolsPo.configSync(commonUtility);
+			configSync(commonUtility, ph_CalendarPo);
+			
 		}
 		else 
 		{
