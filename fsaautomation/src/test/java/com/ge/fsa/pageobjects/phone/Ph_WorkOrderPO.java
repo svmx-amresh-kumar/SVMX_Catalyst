@@ -800,7 +800,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			getElelookupsearch().sendKeys(sValue);
+			getElelookupsearch().sendKeys(sValue+"\\n");
 		}else {
 			getElelookupsearch().sendKeys(sValue+"\n");
 		}
