@@ -17,7 +17,6 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
@@ -150,10 +149,14 @@ public class Ph_ChecklistPO
 	private WebElement elechecklistTextQAnsValue;
 	public WebElement getelechecklistTextQAnsValue(String sTextQuestion,String sTextAnswer)
 	{
-		
-		 //*[@text='5. Test Question']/../*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='Text Question Answered']
-		
 		return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sTextAnswer+"']"));
+
+	}
+	
+	private WebElement elechecklistDateQAnsValue;
+	public WebElement getelechecklistDateQAnsValue(String sTextQuestion,String sDateAnswer)
+	{
+		return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sDateAnswer+"']"));
 
 	}
 	
@@ -171,7 +174,12 @@ public class Ph_ChecklistPO
 		return elechecklistinstance = driver.findElementByAccessibilityId("CHECKLIST.INSTANCE.ITEM.0");
 	}
 	
-	
+	private WebElement elechecklistdate;
+	public WebElement getelechecklistdate(String sdates)
+	{
+		return driver.findElement(By.xpath("//*[@text='"+sdates+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"));
+		
+	}
 	
 	
 }

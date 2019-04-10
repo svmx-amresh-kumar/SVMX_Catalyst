@@ -49,14 +49,14 @@ public class Ph_RecentsItemsPO
 		return eleClickRecentItems;
 	}
 	
-	private WebElement eleWorkorderNumberClick;
-	public WebElement getEleWorkordernumberclick(String workordername)
+	public WebElement getEleWorkorder(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		
-			return driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
+			return driver.findElement(By.xpath("//*[@text='"+sValue+"']"));
 		}else {
-			return  driver.findElement(By.xpath("//*[contains(@label,'"+workordername+"')]/*"));
+			//return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'I')]"));
+			return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'Item')]//*[contains(@label,'"+sValue+"')][contains(@name,'Item')]"));
 		}
 		
 	}
@@ -64,20 +64,12 @@ public class Ph_RecentsItemsPO
 	
 
 
-	public void clickonWorkOrderfromrecents(String workordername) throws InterruptedException 
+	public void selectRecentsItem(CommonUtility commonUtility, String sValue) throws InterruptedException 
 	{
+		System.out.println("Select From Recent Items");
 		getEleClickRecentItems().click();
-		Thread.sleep(1000);
-		try
-		{
-			getEleWorkordernumberclick(workordername).click();
-	
-		}
-		catch(Exception e)
-		{
-			System.out.println("unable to find the workorder");
-		}
-		
+		Thread.sleep(500);
+		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
 	}
 

@@ -86,28 +86,17 @@ public class Ph_CreateNewPO {
 		commonUtility.custScrollToElementAndClick(getEleCreateNewWorkOrder());
 		Thread.sleep(2000);
 		// Adding Value for Account
-		getEleAccountFied().click();;
-		commonUtility.ph_lookupSearch(accountName);
-	
+		selectFromlookupSearchList(commonUtility, getEleAccountFied(), accountName);
 		// Adding Value for Contact
-		getEleContactFied().click();
-		commonUtility.ph_lookupSearch(contactName);
-		
+		selectFromlookupSearchList(commonUtility, getEleContactFied(), contactName);
 		// Adding Value for Product
-		getEleProductFied().click();
-		commonUtility.ph_lookupSearch(ProdutName);
-		
+		selectFromlookupSearchList(commonUtility, getEleProductFied(), ProdutName);
 		// Selecting the Priority Low
-		getElePriorityField().click();
-		getEleDropDownValue(priority).click();
-		getEleBillingTypeField().click();
-		getEleDropDownValue(billingType).click();
-		//getEleproformainvoicevalue().click();
-		//commonsUtility.tap(getEleproformainvoicevalue());
-		//commonsUtility.tap(getEleproformainvoicevalue());
+		selectFromPickList(commonUtility, getElePriorityField(), priority);
+		selectFromPickList(commonUtility, getEleBillingTypeField(), billingType);
+
 		commonUtility.custScrollToElementAndClick(getEleProformaInvoiceField());
 		getEleProformaInvoiceField().sendKeys(proformaInvoice);
-		//commonsUtility.tap(getEleupdatethetextfield());
 		Thread.sleep(1000);
 		getEleAddWorkOrder().click();
 		
@@ -126,19 +115,24 @@ public class Ph_CreateNewPO {
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return eleSearchListItem =  driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')][contains(@name,'SFM.LAYOUT.LOOKUP')]"));			}
+			return eleSearchListItem =  driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')][contains(@name,'ITEM')]"));			}
 
 	}
 
-	public void selectPickListValue(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
+	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
+		System.out.println("Select From Lookup List");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
-		getElelookupsearch().sendKeys(sValue);
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			getElelookupsearch().sendKeys(sValue);
+		}else {
+			getElelookupsearch().sendKeys(sValue+"\n");
+		}
 		getEleSearchListItem(sValue).click();
 	}
 
-	public void selectSelectionlistValue(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) throws InterruptedException {
-		
+	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
+		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			driver.findElement(By.xpath("//*[@text='"+sValue+"']")).click();

@@ -54,7 +54,8 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	Date dTempDate1;
 	String sSheetName =null;
 	Boolean bProcessCheckResult  = false;
-
+	//For SFM Process Sahi Script name
+	String sScriptName="scenario2_preRequisite";
 	@BeforeMethod
 	public void initializeObject() throws Exception { // Initialization of objects
 

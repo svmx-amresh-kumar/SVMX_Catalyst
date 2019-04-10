@@ -102,36 +102,30 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
 		ph_CalendarPo.getEleCreateNewBtn().click();
-		Thread.sleep(2000);
 
 		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("Create New Work Order"));
 
-		Thread.sleep(2000);
-
 		//Account lookup 
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 
 		//contact lookup
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleContactLookuptap(), sContactName);
 
 		//product
-		ph_CreateNewPo.selectPickListValue(commonUtility, ph_CreateNewPo.getEleProductLookuptap(), sProductName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleProductLookuptap(), sProductName);
 
 		//priority
-		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElePriority(), "Low");
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElePriority(), "Low");
 
 		//billing type
-		ph_CreateNewPo.selectSelectionlistValue(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
-
-		Thread.sleep(2000);
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleProformaInvoice());
 
 		ph_CreateNewPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
-		ph_CalendarPo.getEleAdd().click();
+		ph_WorkOrderPo.getEleAdd().click();
 
-		Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
 
 		// Collecting the Work Order number from the Server.
@@ -140,16 +134,14 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 
 		//open WO from recents
-
-		ph_RecentsPo.clickonWorkOrderfromrecents(sworkOrderName);
-		Thread.sleep(2000);
+		ph_RecentsPo.selectRecentsItem(commonUtility, sworkOrderName);
+		//Thread.sleep(2000);
 
 		// To create a new Event for the given Work Order
 		ph_WorkOrderPo.createNewEvent(commonUtility,sEventSubject,ph_CalendarPo);
 
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(2000);
 
 		// Open the Work Order from the calendar
 		ph_CalendarPo.openWoFromCalendar(sEventSubject);
@@ -161,20 +153,16 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
-		Thread.sleep(2000);
 		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-		ph_WorkOrderPo.addParts(ph_CalendarPo ,sProductName);
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 
-		ph_WorkOrderPo.addLabor(commonUtility,ph_CalendarPo ,sProductName);
+		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
-		Thread.sleep(3000);
 
 
 		sPrintReportSearch = "Work Order Service Report";
 		ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
-		Thread.sleep(2000);
 		ph_WorkOrderPo.getEleFinalize().click();
-		Thread.sleep(2000);
 
 		// server validation 	
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		

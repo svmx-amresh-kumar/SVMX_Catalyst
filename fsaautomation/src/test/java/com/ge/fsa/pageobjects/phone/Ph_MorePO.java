@@ -23,6 +23,7 @@ import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
+import com.ge.fsa.pageobjects.tablet.ToolsPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -115,6 +116,21 @@ public class Ph_MorePO
 			}
 		}
 		
+		
+		public void OptionalConfigSync(ToolsPO toolsPo,CommonUtility commonUtility, Boolean bProcessCheckResult) throws InterruptedException
+		{
+		if(bProcessCheckResult.booleanValue()== true)
+		{
+			toolsPo.configSync(commonUtility);
+		}
+		else 
+		{
+			ExtentManager.logger.log(Status.INFO,"SFM process check return false: SFM Process exists");
+			System.out.println("skipping config sync as SFM process check return false: SFM Process exists");
+		}
+		
+		}
+		
 //		@FindBy(xpath="//*[@text='Perform Config Sync']")
 //		private WebElement elePerformConfigSync;
 //		public WebElement getElePerformConfigSync()
@@ -168,10 +184,10 @@ public class Ph_MorePO
 		getEleMoreBtn().click();
 		System.out.println("Begining Data Sync");
 		getEleDataSync().click();
-		Thread.sleep(1000);
+		Thread.sleep(200);
 		getEleSyncNow().click();
 		System.out.println("Clicked on Sync Now and waiting...");
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		

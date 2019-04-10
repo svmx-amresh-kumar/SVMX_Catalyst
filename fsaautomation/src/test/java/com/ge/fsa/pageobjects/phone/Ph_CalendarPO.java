@@ -1,9 +1,8 @@
 package com.ge.fsa.pageobjects.phone;
 
 
-import static org.testng.Assert.assertFalse;
-
 import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,20 +10,13 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
-import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 
 
 
@@ -106,72 +98,6 @@ public class Ph_CalendarPO
 
 	}
 
-
-
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Contact Contact Lookup\"])[2]")
-	private WebElement eleContactLookUp;
-	public WebElement getEleContactLookUp()
-	{
-		return eleContactLookUp;
-	}
-
-	private WebElement eleContactlookupsearch;
-	public WebElement geteleContactlookupsearch()
-	{
-		return eleContactlookupsearch = driver.findElementByAccessibilityId("Search Full Name, Business Phone, Mobile Phone, Email");
-	}
-
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Product Product Lookup\"])[2]")
-	private WebElement eleProductLookUp;
-	public WebElement getEleProductLookUp()
-	{
-		return eleProductLookUp;
-	}
-
-	private WebElement eleProductlookupsearch;
-	public WebElement geteleProductlookupsearch()
-	{
-		return eleProductlookupsearch = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
-	}
-
-
-	private WebElement elelookupsearhproduct;
-	public WebElement getElelookupsearhproduct()
-	{
-		switch (BaseLib.sOSName.toLowerCase()) {
-
-		case "android":
-			elelookupsearhproduct = driver.findElement(By.xpath("//*[@text='Search Keyword...']"));
-			return elelookupsearhproduct;
-		case "ios":
-			return elelookupsearhproduct = driver.findElementByAccessibilityId("Search Product Name, Product Code, Product Family, Product Line");
-		}
-		return elelookupsearhproduct;
-
-
-
-	}	
-
-
-	@FindAll({@FindBy(xpath="//*[@text='Low']"),
-		@FindBy(xpath="//*[@label='Low']")})
-	private WebElement eleCreatenewpriorityLow;
-	public WebElement getEleCreatenewpriorityLow()
-	{
-		return eleCreatenewpriorityLow;
-	}
-
-
-
-	private WebElement eleAdd;
-	public WebElement getEleAdd()
-	{
-		try {
-			return eleAdd = driver.findElementByAccessibilityId("Add");
-
-		} catch (Exception e) {
-			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
-		}		}	
 
 	private WebElement eleworkordernumonCalendar;
 	public WebElement getEleworkordernumonCalendar(String Subject)
@@ -281,6 +207,11 @@ public class Ph_CalendarPO
 	{
 		elenewprocess = driver.findElement(By.xpath("//*[@text='"+Process+"']"));
 		return elenewprocess;
+	}
+	
+	private List<WebElement> eleWOEventTitleTxt;
+	public List<WebElement> getEleWOEventTitleTxt(){
+		return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]//*[@*='android.widget.TextView'][1]"));
 	}
 }
 

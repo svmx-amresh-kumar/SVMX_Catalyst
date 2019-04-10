@@ -88,27 +88,38 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {	
-	
+		Thread.sleep(10000);
+		String sProductName = "auto_product";
+		String  sProcessname = "EditWoAutoTimesstamp";
+		ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
+		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
+		//ph_WorkOrderPo.addParts(commonUtility, sProductName);
+
+		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
+		ph_WorkOrderPo.getElesave().click();
+
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0,"5", "30","AM"); //set start time to Today
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
 //br_LoginHomePO.login(commonsUtility, exploreSearchPo);
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		ph_MorePo.syncData(commonUtility);
+		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		//ph_MorePo.syncData(commonUtility);
 		
 		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
 
 
 		//lauchNewApp("false");
-		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
-
-		//loginHomePo.login(commonUtility, exploreSearchPo);
-		ExtentManager.extent.flush();
-
-		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
-
-        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-
+//		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//		//loginHomePo.login(commonUtility, exploreSearchPo);
+//		ExtentManager.extent.flush();
+//
+//		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//
 
 
 //String convertedstartday="31-01-2019";

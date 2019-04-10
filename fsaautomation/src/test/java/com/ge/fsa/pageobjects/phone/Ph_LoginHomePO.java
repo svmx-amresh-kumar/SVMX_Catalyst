@@ -43,15 +43,15 @@ public class Ph_LoginHomePO
 	int yOffset = 18;
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
-	
+
 	@FindAll({@FindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']"),
-	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")})
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")})
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
 		return eleSignInBtn;
 	}
-	
+
 
 	@FindAll({@FindBy(xpath="//*[@resource-id='username']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")})
@@ -61,7 +61,7 @@ public class Ph_LoginHomePO
 		return eleUserNameTxtFld;
 	}
 
-	
+
 	@FindAll({@FindBy(xpath="//*[@resource-id='password']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")})
 	private WebElement elePasswordTxtFld;
@@ -69,10 +69,10 @@ public class Ph_LoginHomePO
 	{
 		return elePasswordTxtFld;
 	}
-	
+
 	@FindAll({@FindBy(xpath="//*[@text='Log In to Sandbox']"),
-	@FindBy(id="Log In to Sandbox"),
-	@FindBy(xpath="//*[@content-desc='Log In to Sandbox']")})
+		@FindBy(id="Log In to Sandbox"),
+		@FindBy(xpath="//*[@content-desc='Log In to Sandbox']")})
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
@@ -80,10 +80,10 @@ public class Ph_LoginHomePO
 	}
 
 	@FindAll({@FindBy(id="//*[@content-desc=' Allow  Allow']"),
-	@FindBy(id=" Allow "),
-	@FindBy(xpath="//*[@resource-id='oaapprove']"),
-	@FindBy(id="oaapprove"),
-	@FindBy(xpath="//*[@text='Allow']")})
+		@FindBy(id=" Allow "),
+		@FindBy(xpath="//*[@resource-id='oaapprove']"),
+		@FindBy(id="oaapprove"),
+		@FindBy(xpath="//*[@text='Allow']")})
 	//@FindBy(xpath="//*[@content-desc=' Allow  Allow']")
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
@@ -112,9 +112,9 @@ public class Ph_LoginHomePO
 	{
 		return eleSandBxRdBtn;
 	}
-	
-//	@FindAll({@FindBy(xpath="//*[@text='Production']"),
-//	@FindBy(id="Production")})
+
+	//	@FindAll({@FindBy(xpath="//*[@text='Production']"),
+	//	@FindBy(id="Production")})
 	@FindBy(xpath="//*[@*='Production']")
 	private WebElement eleProductionBtn;
 	public WebElement getEleProductionBtn() 
@@ -128,22 +128,22 @@ public class Ph_LoginHomePO
 	{
 		return eleSandboxBtn;
 	}
-	
+
 	@FindAll({@FindBy(xpath="//*[@*='Sandbox']"),
-	@FindBy(id="Sandbox https://test.salesforce.com")})
+		@FindBy(id="Sandbox https://test.salesforce.com")})
 	private WebElement eleSandbocURlbtn;
 	public WebElement getEleSandbocURlbtn()
 	{
 		return eleSandbocURlbtn;
 	}
-	
+
 	@FindBy(xpath="//*[@*='SETTINGS']")
 	private WebElement eleSettingsbtn;
 	public WebElement getEleSettingsbtn()
 	{
 		return eleSettingsbtn;
 	}
-	
+
 	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement eleBackbtn;
 	public WebElement getEleBackbtn()
@@ -152,8 +152,8 @@ public class Ph_LoginHomePO
 	}
 
 
-	
-	
+
+
 	/**
 	 * Login to FSA app based on values from config.properties. (** For any other property file machine set the RUN_MACHINE=automation_build , which will pick up the data from config_automation_build.properties file)
 	 * Default is "TECH_USN"
@@ -167,21 +167,21 @@ public class Ph_LoginHomePO
 
 		String sUn = null;
 		String sPwd = null;
-		
+
 		String sUser = sUserTypeFromPropertiesFile.length>1?sUserTypeFromPropertiesFile[0]:"";
-		
+
 		if(sUser.equalsIgnoreCase("TECH_USN_1")) {
-			 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN_1");
-			 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD_1");
+			sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN_1");
+			sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD_1");
 		}else if(sUser.equalsIgnoreCase("TECH_USN")){
-		 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
-		 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
+			sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
+			sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
 		}else {
 			//default
-			 sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
-			 sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
+			sUn = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
+			sPwd = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
 		}
-		
+
 		switch (BaseLib.sOSName) {
 		case "android":
 
@@ -193,11 +193,9 @@ public class Ph_LoginHomePO
 			}else {
 				try {//For Android
 					//Login from Sign in Page
-					
-					
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					getEleSignInBtn().click();
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					//Change to sandbox first if not already
 					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
@@ -206,31 +204,21 @@ public class Ph_LoginHomePO
 						getEleBackbtn().click();
 						getEleBackbtn().click();	
 					}
-									
 					commonUtility.waitforElement(getEleUserNameTxtFld(),2);
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
-					Thread.sleep(2000);
-
+					Thread.sleep(500);
 					getElePasswordTxtFld().click();
 					getElePasswordTxtFld().sendKeys(sPwd);
-					
+
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
 						commonUtility.waitforElement(getEleAllowBtn(), 5);
 						getEleAllowBtn().click();
-		
-
-						} catch (Exception e1){System.out.println(e1);}
-
-				
-					Thread.sleep(2000);
-
-					
-					
+					} catch (Exception e1){System.out.println(e1);}
+					Thread.sleep(500);
 				} catch (Exception e) {System.out.println(e);}
-
 
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
@@ -238,7 +226,7 @@ public class Ph_LoginHomePO
 				Assert.assertTrue(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1000),"Login Failed");
 
 			}
-			
+
 			ExtentManager.logger.log(Status.PASS, "Logged into IOS Android FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 			System.out.println("Logged in Successfully");
 			break;
@@ -253,11 +241,9 @@ public class Ph_LoginHomePO
 			}else {
 				try {//For IOS
 					//Login from Sign in Page
-					
-					
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					getEleSignInBtn().click();
-					Thread.sleep(1000);
+					Thread.sleep(500);
 					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
@@ -265,45 +251,32 @@ public class Ph_LoginHomePO
 						getEleBackbtn().click();
 						getEleBackbtn().click();	
 					}
-									
-					
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
-					Thread.sleep(2000);
-
+					Thread.sleep(500);
 					getElePasswordTxtFld().click();
 					getElePasswordTxtFld().sendKeys(sPwd);
-					
 					getEleLoginBtn().click();
 					//Either click Allow or Skip it without an exception
 					try {
 						commonUtility.waitforElement(getEleAllowBtn(), 5);
 
 						getEleAllowBtn().click();
-						} catch (Exception e1) {}
-
-				
-					Thread.sleep(2000);
-
-					
-					
+					} catch (Exception e1) {}
+					Thread.sleep(500);
 				} catch (Exception e) {}
-
 
 				//Check if username field is not displayed
 				Assert.assertTrue(!commonUtility.waitforElement(getEleUserNameTxtFld(), 1),"Login Failed");
 				//Wait for the Explore button to be visible
 				Assert.assertTrue(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1000),"Login Failed");
-
 			}
-			
 			ExtentManager.logger.log(Status.PASS, "Logged into IOS iPhone FSA app successfully for : UN = "+ sUn +" : PWD = "+sPwd);
 			System.out.println("Logged in Successfully");
-			
 			break;
 		}
 
 	}
 
-	
+
 }

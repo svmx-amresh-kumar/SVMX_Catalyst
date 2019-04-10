@@ -208,7 +208,7 @@ public class ToolsPO
 			Assert.assertTrue(2<1, "Data Sync Failed");
 		}
 		
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 	}
 	
@@ -250,7 +250,7 @@ public class ToolsPO
 				Assert.assertTrue(2<1, "Config Sync Failed");
 			}
 																	
-			driver.activateApp(GenericLib.sAppBundleID);
+			//driver.activateApp(GenericLib.sAppBundleID);
 			
 		}
 	
