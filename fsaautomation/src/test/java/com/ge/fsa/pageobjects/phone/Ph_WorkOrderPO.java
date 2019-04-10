@@ -133,6 +133,7 @@ public class Ph_WorkOrderPO
 	{
 		System.out.println("Selecting Action");
 		getEleActionsLnk().click();	
+		Thread.sleep(3000);
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
@@ -828,5 +829,17 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleclickonaddparts;
 		}
+		
+		@FindAll({@FindBy(xpath="//*[@text='Order Status']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+			@FindBy(xpath="//*[@text='Order Status*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Order Status']/../XCUIElementTypeOther"),
+			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Order Status*']/../XCUIElementTypeOther")})
+		private WebElement eleOrderStatus;
+		public WebElement geteleOrderStatus()
+		{
+			return eleOrderStatus;
+		}
+		
+		
 	}	
 
