@@ -66,8 +66,9 @@ public class Ph_RecentsItemsPO
 
 	public void selectRecentsItem(CommonUtility commonUtility, String sValue) throws InterruptedException 
 	{
+		System.out.println("Select From Recent Items");
 		getEleClickRecentItems().click();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
 	}

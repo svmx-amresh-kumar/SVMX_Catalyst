@@ -129,6 +129,7 @@ public class Ph_WorkOrderPO
 	
 	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
+		System.out.println("Selecting Action");
 		getEleActionsLnk().click();	
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
@@ -136,6 +137,8 @@ public class Ph_WorkOrderPO
 
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
+		System.out.println("Creating New Event");
+
 		selectAction(commonUtility,"Create New Event From Work Order");
 		
 		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"5", "00","AM"); //set start time to Today
@@ -317,13 +320,15 @@ public class Ph_WorkOrderPO
 	}
 	
 	public void addParts(CommonUtility commonUtility,String sProductName1) 
-	{	
+	{
+	System.out.println("Adding Parts");
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
 
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
+		System.out.println("Adding Labor");
 		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
@@ -791,6 +796,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		}	
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
+		System.out.println("Select From Lookup List");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -803,7 +809,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 	
 	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
-		
+		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			driver.findElement(By.xpath("//*[@text='"+sValue+"']")).click();

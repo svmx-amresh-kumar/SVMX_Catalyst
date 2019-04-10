@@ -120,6 +120,7 @@ public class Ph_CreateNewPO {
 	}
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue) {
+		System.out.println("Select From Lookup List");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		getElelookupsearch().click();
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -131,7 +132,7 @@ public class Ph_CreateNewPO {
 	}
 
 	public void selectFromPickList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
-		
+		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			driver.findElement(By.xpath("//*[@text='"+sValue+"']")).click();
