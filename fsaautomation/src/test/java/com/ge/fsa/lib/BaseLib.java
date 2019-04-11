@@ -77,7 +77,7 @@ public class BaseLib {
 	public Ph_LoginHomePO ph_LoginHomePo = null;
 	public Ph_MorePO ph_MorePo = null;
 	public Ph_CalendarPO ph_CalendarPo = null;
-	public Ph_RecentsItemsPO ph_RecentsPo = null;
+	public Ph_RecentsItemsPO ph_RecentsItemsPo = null;
 	public Ph_WorkOrderPO ph_WorkOrderPo = null;
 	public Ph_ExploreSearchPO ph_ExploreSearchPO = null;
 	public Ph_ChecklistPO ph_ChecklistPO = null;
@@ -371,7 +371,7 @@ public class BaseLib {
 		ph_LoginHomePo = new Ph_LoginHomePO(driver);
 		ph_MorePo = new Ph_MorePO(driver);
 		ph_CalendarPo = new Ph_CalendarPO(driver);
-		ph_RecentsPo = new Ph_RecentsItemsPO(driver);
+		ph_RecentsItemsPo = new Ph_RecentsItemsPO(driver);
 		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
 		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
