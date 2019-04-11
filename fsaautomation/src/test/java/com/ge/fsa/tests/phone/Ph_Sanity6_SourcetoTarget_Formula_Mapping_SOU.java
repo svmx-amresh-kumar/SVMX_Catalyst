@@ -14,7 +14,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -123,10 +122,10 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		try {
 			System.out.println("Removing part as default part is displayed which will help us validate mapped child line");
 			
-		//	commonUtility.s
-			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
-			ph_WorkOrderPo.geteleRemove().click();
-			ph_WorkOrderPo.geteleRemovePopUp().click();
+			commonUtility.tap(workOrderPo.getEleRemoveItemLnk());
+			commonUtility.tap(workOrderPo.getEleYesBtn());
+			
+			commonUtility.tap(workOrderPo.getEleOKBtn());
 			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
 		}catch(Exception e){

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
@@ -64,8 +65,12 @@ public class Ph_ExploreSearchPO
 	private WebElement eleSearchListItem;
 	public WebElement getEleSearchListItem(String sName)
 	{
+
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
-	
+		}else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sName+"']"));
+		}
 	}
 	
 		
@@ -82,7 +87,9 @@ public class Ph_ExploreSearchPO
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
 		return eleExploreChildSearchTxt;
 	}
-	@FindBy(xpath="//*[@*='Search Keyword...']")
+	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
+		@FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
+	})
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{
@@ -96,7 +103,8 @@ public class Ph_ExploreSearchPO
 		return eleResetFilerBtn;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']")})
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//XCUIElementTypeScrollView//*[contains(@name,'Item')]")})
 	private List<WebElement> searchListItems;
 	public List<WebElement> getSearchListItems(){
 		return searchListItems;
@@ -110,46 +118,24 @@ public class Ph_ExploreSearchPO
 	}
 	
 	public WebElement getDownloadIcon(String workOrder) {
-		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
+		}else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+workOrder+"']/..//../XCUIElementTypeOther/XCUIElementTypeOther"));
+		}
 	}
 	
 	
-	@FindBy(xpath="//*[@text='Search']")
-	private WebElement eleExploreSearchBtn;
-	public WebElement getEleExploreSearchBtn()
+	/**
+	 * Search and select any element from explore search list
+	 * @param Record
+	 * @throws InterruptedException
+	 */
+	public void selectFromLookupSearchList(String Record) throws InterruptedException
 	{
-		return eleExploreSearchBtn;
-	}
-	private WebElement eleWorkOrderIDTxt;
-	public WebElement getEleWorkOrderIDTxt(String sWorkOrderIDTxt)
-	{
-		eleWorkOrderIDTxt=driver.findElement(By.xpath("//*[@text='"+sWorkOrderIDTxt+"']"));
-		 return eleWorkOrderIDTxt;
-	}
-	public void selectWorkOrder(String sWOName) throws InterruptedException
-	{		
-		geteleSearchKeyword().click();
-		geteleSearchKeyword().clear();
-		
-		geteleSearchKeyword().sendKeys(sWOName);
-		Thread.sleep(4000);
-		getEleSearchListItem(sWOName).click();
-	}
-	
-	
-	@FindBy(xpath="//*[@text='Search Keyword...']")
-	private WebElement eleExploreSearchTxt;
-	public WebElement getEleExploreSearchTxt()
-	{
-		return eleExploreSearchTxt;
-	}
-	
-	
-	public void commonlookupsearch(String Record) throws InterruptedException
-	{
-		getEleExploreSearchTxt().click();
-		Thread.sleep(3000);			
-		getEleExploreSearchTxt().sendKeys(Record);
+		getEleExploreSearchTxtFld().click();
+		Thread.sleep(300);			
+		getEleExploreSearchTxtFld().sendKeys(Record);
 		getEleSearchListItem(Record).click();
 
 		
