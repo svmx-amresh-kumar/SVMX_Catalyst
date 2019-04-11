@@ -639,18 +639,18 @@ public class Ph_WorkOrderPO
 
 		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
 		//Thread.sleep(1000);
-		ph_ExploreSearchPo.getEleSearchListItem(sPartName1).click();
+		ph_ExploreSearchPo.getEleSearchName(sPartName1).click();
 
 	}
 public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 		
 		exploreSearchPO.geteleExploreIcn().click();;
 		//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-		exploreSearchPO.getEleSearchListItem(sExploreSearch).click();;
-		exploreSearchPO.getEleSearchListItem(sExploreChildSearchTxt).click();;
-		exploreSearchPO.geteleSearchKeyword().click();
-		exploreSearchPO.geteleSearchKeyword().clear();
-		exploreSearchPO.geteleSearchKeyword().sendKeys(sWoName);
+		exploreSearchPO.getEleSearchName(sExploreSearch).click();;
+		exploreSearchPO.getEleSearchSubListName(sExploreChildSearchTxt).click();;
+		exploreSearchPO.getEleExploreSearchTxtFld().click();
+		exploreSearchPO.getEleExploreSearchTxtFld().clear();
+		exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
 
 	}
 	
@@ -671,9 +671,9 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch));
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchName(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep);
-		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchName(sExploreChildSearchTxt));
 
 		// Select the Work Order
 		ph_ExploreSearchPo.selectFromLookupSearchList(sWOName);

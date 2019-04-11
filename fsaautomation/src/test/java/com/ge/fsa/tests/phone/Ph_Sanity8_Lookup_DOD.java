@@ -62,7 +62,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 						{
 						ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).click();
 						Thread.sleep(10000);
-						ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
+						ph_ExploreSearchPO.getEleSearchName(sWorkOrderName).click();
 					
 						}
 					// If the cloud button is not visible then throw an Error in the Report
@@ -118,7 +118,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 			}
 			catch(Exception e)
 			{
-				ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
+				ph_ExploreSearchPO.getEleSearchName(sWorkOrderName).click();
 				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 				
 			}

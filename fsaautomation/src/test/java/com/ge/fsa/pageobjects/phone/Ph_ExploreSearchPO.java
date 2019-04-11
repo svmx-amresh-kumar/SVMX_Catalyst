@@ -55,24 +55,26 @@ public class Ph_ExploreSearchPO
 		return eleWorkOrdersChildSearch;
 	}
 
-	@FindBy(xpath ="//*[@*='Search Keyword...']")
-	private WebElement eleSearchKeyword;
-	public WebElement geteleSearchKeyword()
-	{
-		return eleSearchKeyword;
-	}
-	
 	private WebElement eleSearchListItem;
-	public WebElement getEleSearchListItem(String sName)
+	public WebElement getEleSearchName(String sName)
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sName+"']"));
+			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[2]"));
 		}
 	}
 	
+	public WebElement getEleSearchSubListName(String sName)
+	{
+
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+		}else {
+			return driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')]"));
+		}
+	}
 		
 	private WebElement eleSearchNameTxt;
 	public WebElement getEleSearchNameTxt(String sSearchTxt)
@@ -136,7 +138,7 @@ public class Ph_ExploreSearchPO
 		getEleExploreSearchTxtFld().click();
 		Thread.sleep(300);			
 		getEleExploreSearchTxtFld().sendKeys(Record);
-		getEleSearchListItem(Record).click();
+		getEleSearchName(Record).click();
 
 		
 	}
