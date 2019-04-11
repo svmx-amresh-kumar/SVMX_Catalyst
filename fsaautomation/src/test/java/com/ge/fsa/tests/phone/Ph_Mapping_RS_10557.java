@@ -132,10 +132,10 @@ String Location=null;
 			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 		
 		  Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
-		  ph_ExploreSearchPO.commonlookupsearch(Location);
+		  ph_ExploreSearchPO.selectFromLookupSearchList(Location);
 		  
 		  ph_WorkOrderPo.getEleComponent().click();
-		  ph_ExploreSearchPO.commonlookupsearch(sproductname); Thread.sleep(2000);
+		  ph_ExploreSearchPO.selectFromLookupSearchList(sproductname); Thread.sleep(2000);
 		 
 			
 			//add new line for parts
@@ -150,7 +150,7 @@ String Location=null;
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
-			String startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
+			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
 			
@@ -173,7 +173,7 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
 			ph_WorkOrderPo.getEleOntoplabor().click();
 			Thread.sleep(2000);
-			 startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
+			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			 System.out.println(startdatetimeWO);
 			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed before save ");}
@@ -245,8 +245,8 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
 			ph_WorkOrderPo.getEleOntoplabor().click();
 			Thread.sleep(2000);
-			commonUtility.custScrollToElement(ph_WorkOrderPo.getElelaborStartDateTimeField());
-			 startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleStartDateTimeTxtFld());
+			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			 System.out.println(startdatetimeWO);
 			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime mapped Successful after data sync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed after data sync ");}

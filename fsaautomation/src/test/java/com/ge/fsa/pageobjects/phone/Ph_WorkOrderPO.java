@@ -709,20 +709,20 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleDiscardChanges;
 		}
-		//android.view.ViewGroup[@content-desc="SFM.LAYOUT.ADD.0"]/android.view.ViewGroup
-	@FindBy(xpath = "//*[@*='StartDateTime*']//following::*[@class='android.widget.TextView']")
-	private WebElement eleStartDateTimeField;
+//		//android.view.ViewGroup[@content-desc="SFM.LAYOUT.ADD.0"]/android.view.ViewGroup
+//	@FindBy(xpath = "//*[@*='StartDateTime*']//following::*[@class='android.widget.TextView']")
+//	private WebElement eleStartDateTimeField;
+//
+//	public WebElement getEleStartDateTimeField() {
+//		return eleStartDateTimeField;
+//	}
 
-	public WebElement getEleStartDateTimeField() {
-		return eleStartDateTimeField;
-	}
-
-	@FindBy(xpath = "//*[@*='EndDateTime*']//following::*[@class='android.widget.TextView']")
-	private WebElement eleEndDateTimeField;
-
-	public WebElement getEleEndDateTimeField() {
-		return eleEndDateTimeField;
-	}
+//	@FindBy(xpath = "//*[@*='EndDateTime*']//following::*[@class='android.widget.TextView']")
+//	private WebElement eleEndDateTimeField;
+//
+//	public WebElement getEleEndDateTimeField() {
+//		return eleEndDateTimeField;
+//	}
 	
 	@FindBy(xpath="//*[@*='Record Type ID']/following-sibling::*[1]")
 	private WebElement eleRecordTypeID;
