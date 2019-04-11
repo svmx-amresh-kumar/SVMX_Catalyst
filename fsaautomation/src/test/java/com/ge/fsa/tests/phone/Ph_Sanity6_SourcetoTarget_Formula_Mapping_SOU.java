@@ -1,5 +1,5 @@
 /*
- *  @author lakshmibs
+ *  @author 
  */
 package com.ge.fsa.tests.phone;
 
@@ -9,7 +9,6 @@ import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.Arrays;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
@@ -138,7 +137,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 		
 		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
-		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWODesMappedTxt().isDisplayed(),"Work description is not Mapped");
+		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 /*
 		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
 		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
