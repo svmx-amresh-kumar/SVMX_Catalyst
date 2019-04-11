@@ -14,9 +14,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
 
 public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
@@ -71,7 +73,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	*/	
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -92,7 +95,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
-		ph_MorePo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
@@ -100,36 +103,36 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
-		sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
-		System.out.println(Arrays.toString(sAppDate));
-		System.out.println(Arrays.toString(sDeviceDate));
+		
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName,commonUtility);
+		//sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
+		//System.out.println(Arrays.toString(sAppDate));
+		//System.out.println(Arrays.toString(sDeviceDate));
 		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Set the order status
-		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
+		
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
 		Thread.sleep(GenericLib.iLowSleep);
 
-		//Set the billing type
-		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
+		//billing type
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 		Thread.sleep(GenericLib.iLowSleep);
 	
 		try {
-			System.out.println("Need to be Handled successfully");
-			workOrderPo.getElePartsToggleBtn().click();
-			commonUtility.tap(workOrderPo.getElePartsToggleBtn());
+			System.out.println("Removing part as default part is displayed which will help us validate mapped child line");
 			
-			commonUtility.tap(workOrderPo.getEleRemoveItemLnk());
-			commonUtility.tap(workOrderPo.getEleYesBtn());
-			
-			commonUtility.tap(workOrderPo.getEleOKBtn());
+		//	commonUtility.s
+			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
+			ph_WorkOrderPo.geteleRemove().click();
+			ph_WorkOrderPo.geteleRemovePopUp().click();
 			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
 		}catch(Exception e){
 			
 		}
-		
+		/*
 		
 		//Add the workorder parts
 		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
@@ -143,7 +146,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
 	
-	
+	*/
 	}
 
 }

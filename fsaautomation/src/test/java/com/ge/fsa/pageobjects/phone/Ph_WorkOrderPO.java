@@ -791,13 +791,13 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	private WebElement eleAdd;
 	public WebElement getEleAdd()
 	{
-		try {
-			return eleAdd = driver.findElementByAccessibilityId("Add");
 
-		} catch (Exception e) {
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleAdd = driver.findElementByAccessibilityId("Add");
+		}else {
 			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
-		}		
-		}	
+		}
+	}	
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
 		System.out.println("Select From Lookup List");
@@ -838,6 +838,32 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		public WebElement geteleOrderStatus()
 		{
 			return eleOrderStatus;
+		}
+		
+		
+		@FindBy(xpath="//*[@text='[Part]'][@class='android.widget.TextView']")
+		private WebElement eleRemoveablePart;
+		public WebElement geteleRemoveablePart()
+		{
+			return eleRemoveablePart;
+		}
+		
+		@FindBy(xpath="//*[@*='Remove']")
+		private WebElement eleRemovePopUp;
+		public WebElement geteleRemovePopUp()
+		{
+			return eleRemovePopUp;
+		}
+		
+		private WebElement eleRemove;
+		public WebElement geteleRemove()
+		{
+
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				return eleRemove = driver.findElementByAccessibilityId("SFM.DELETE_CHILD_LINE.BUTTON");
+			}else {
+				return eleRemove =driver.findElement(By.xpath("//*[@label='Remove']"));
+			}
 		}
 		
 		
