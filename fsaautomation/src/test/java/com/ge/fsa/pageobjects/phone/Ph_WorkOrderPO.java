@@ -237,6 +237,15 @@ public class Ph_WorkOrderPO
 		return eleLinePerUnitTxtFld;
 	}
 	
+	@FindAll({@FindBy(xpath="//*[@text='Discount %']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Discount %\"]/../XCUIElementTypeOther")})
+		private WebElement eleDiscountPercentage;
+		public WebElement getEleDiscountPercentage()
+		{
+			return eleDiscountPercentage;
+		}
+	
+	
 	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
@@ -883,5 +892,21 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 			{
 				return EleWODesMappedTxt;
 			}
+			
+			@FindBy(xpath="//*[@text='Save'][@class='android.widget.TextView']")
+			private WebElement eleSaveButton;
+			public WebElement geteleSaveButton()
+			{
+				return eleSaveButton;
+			}
+			
+			@FindAll({@FindBy(xpath="//*[@text='Billable Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+				@FindBy(xpath="//XCUIElementTypeOther[@name='Billable Qty']")})
+				private WebElement eleBillableQty;
+				public WebElement geteleBillableQty()
+				{
+					return eleBillableQty;
+				}
+			
 	}	
 
