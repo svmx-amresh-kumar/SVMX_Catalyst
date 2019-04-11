@@ -122,21 +122,12 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 		Thread.sleep(GenericLib.iLowSleep);
 	
-		try {
-			System.out.println("Removing part as default part is displayed which will help us validate mapped child line");
-			
 		//	commonUtility.s
 			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
-			System.out.println("Swift left manually as of now!!!");
-			Thread.sleep(10000);
 			ph_WorkOrderPo.geteleRemove().click();
+			Thread.sleep(2000);
 			ph_WorkOrderPo.geteleRemovePopUp().click();
-			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
-		}catch(Exception e){
-			
-		}
-		
 		
 		//Add the workorder parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
@@ -144,27 +135,32 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//Thread.sleep(3000);
 		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
 		
-		/*ph_WorkOrderPo.getEleLinePerUnitTxtFld().sendKeys("300\\n");
-		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys(Keys.ENTER);
-
-		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys("100\n");
-		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys(Keys.ENTER);*/
-
+		//Validating Mapping for text. 
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleWODesMappedTxt());
 		Assert.assertTrue(ph_WorkOrderPo.getEleWODesMappedTxt().isDisplayed(),"Work description is not Mapped");
 		ph_WorkOrderPo.getEleWODesMappedTxt().click();
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 		
-		
+		//Validating Mapping for Number. 
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQty());
 		String billableQfeed = "2";
 		String billableQtyapp=ph_WorkOrderPo.geteleBillableQty().getText();
 		Assert.assertTrue(billableQtyapp.equals(billableQfeed), "Billable Quantity mapped right!");
 		ExtentManager.logger.log(Status.PASS,"Billing Quantity Mapped successfully");
+		
 		ph_WorkOrderPo.geteleXsymbol().click();
 		commonUtility.isDisplayedCust(ph_WorkOrderPo.getElesave());
 		ph_WorkOrderPo.getElesave().click();
+		Thread.sleep(2000);
+		
+		//Validating sounrce object update.
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName,commonUtility);
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleDescriptiontext());
+		String ssouClientValue =ph_WorkOrderPo.geteleDescriptiontext().getText();
+		String ssouExpectedValue = "Source Object Updated";
+		Assert.assertTrue(ssouClientValue.equals(ssouExpectedValue), "Source Object Not updated");
 
+		
 		/*
 
 		//Save the workorder updates and validate

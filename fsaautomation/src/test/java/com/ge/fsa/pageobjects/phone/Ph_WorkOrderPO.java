@@ -906,6 +906,21 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 				{
 					return eleBillableQty;
 				}
-			
+				
+	@FindBy(xpath="//*[@text='[Use Price From Pricebook/Contract]'][@class='android.widget.TextView']")
+	private WebElement eleusePriceBookcontract;
+	public WebElement geteleusePriceBookcontract()
+		{
+					return eleusePriceBookcontract;
+		}
+				
+		@FindAll({@FindBy(xpath="//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//		*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Description']")})
+		private WebElement eleDescriptiontext;
+		public WebElement geteleDescriptiontext()
+		{
+		return eleDescriptiontext;
+		}
+		
 	}	
 
