@@ -87,14 +87,14 @@ String Location=null;
 		
 		
 		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sTestCaseID+""+"account\"}";
+		sJsonData = "{\"Name\": \""+sProformainVoice+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
 		//sProductName1="v1";
 		System.out.println(sAccountName);
 		// Create product
-		sJsonData = "{\"Name\": \""+sTestCaseID+""+"product\", \"IsActive\": \"true\"}";
+		sJsonData = "{\"Name\": \""+sProformainVoice+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
@@ -102,7 +102,7 @@ String Location=null;
 		System.out.println(sproductname);
 		//create location
 		sObjectApi = "SVMXC__Site__c?";
-		sJsonData = "{\"Name\": \""+sTestCaseID+""+"Location\", \"SVMXC__Street__c\": \"#4566\", \"SVMXC__Country__c\": \"India\", \"SVMXC__Zip__c\": \"560008\"}";
+		sJsonData = "{\"Name\": \""+sProformainVoice+""+"Location\", \"SVMXC__Street__c\": \"#4566\", \"SVMXC__Country__c\": \"India\", \"SVMXC__Zip__c\": \"560008\"}";
 		sObjectlocationID=restServices.restCreate(sObjectApi,sJsonData);
 		String sSqllocQuery = "SELECT+name+from+SVMXC__Site__c+Where+id+=\'"+sObjectlocationID+"\'";				
 		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
@@ -129,6 +129,7 @@ String Location=null;
 			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
 			commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0","0"); //set start time to Today
 
+			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 		
 		  Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
 		  ph_ExploreSearchPO.commonlookupsearch(Location);
@@ -143,16 +144,20 @@ String Location=null;
 			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
 			System.out.println(LocationWO);
 			Assert.assertNotNull(LocationWO);
-			//try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful  ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
-			String startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("text");
+			String startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
-			//try{Assert.assertTrue(Location.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ph_CalendarPo.getEleAdd().click();
+			
+			
+			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed ");}
+			ph_WorkOrderPo.getEleAdd().click();
 			
 			//validating mapped values before save
 			//Part
@@ -160,21 +165,23 @@ String Location=null;
 			Thread.sleep(2000);
 			  LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
 			 System.out.println(LocationWO);
-		//	try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);}
+			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed before save ");}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			 
 			 //Labor
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
 			ph_WorkOrderPo.getEleOntoplabor().click();
 			Thread.sleep(2000);
-			 startdatetimeWO = ph_WorkOrderPo.getEleLaborstartdatetime().getAttribute("Text");
+			 startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
 			 System.out.println(startdatetimeWO);
-			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);}
+			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed before save ");}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			Thread.sleep(2000);
 			
 			ph_WorkOrderPo.getElesave().click();
-			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");
+	
 			
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
 			Thread.sleep(4000);
@@ -198,59 +205,69 @@ String Location=null;
 		
 		String sSoqlscheduleddatewo= "SELECT+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrdername+"\'";
 		String sSoqlQueryscheduleddatewo = restServices.restGetSoqlValue(sSoqlscheduleddatewo, "SVMXC__Scheduled_Date_Time__c");
-		
+		System.out.println(sSoqlQueryscheduleddatewo);
 	
 		
 			//Collecting the parts from the Server.
-			JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Requested_Location__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Start_Date_and_Time__c+ = null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
+			JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Requested_Location__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Start_Date_and_Time__c+ = null+and+SVMXC__Requested_Location__c!=null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
 			String sLocationid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Requested_Location__c");
 			System.out.println("****************"+sLocationid);
 			String LocationQuery = "SELECT+Name+from+SVMXC__Site__c+where+id=\'"+sLocationid+"\'";
 			String soqllocationName  =restServices.restGetSoqlValue(LocationQuery,"Name"); 
-			try{assertEquals(Location, soqllocationName);ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);}
-			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");
+			try{assertEquals(Location, soqllocationName);ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful from server ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed from server ");}
+	
 			
 			//Collecting the labor from the Server.
-			JSONArray sJsonArraylabor = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Start_Date_and_Time__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Requested_Location__c+ = null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
+			JSONArray sJsonArraylabor = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Start_Date_and_Time__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Requested_Location__c+ = null+and+SVMXC__Start_Date_and_Time__c!=null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
 			String sstartdatetime = restServices.getJsonValue(sJsonArraylabor, "SVMXC__Start_Date_and_Time__c");
 			System.out.println("****************"+sstartdatetime);
-			try{assertEquals(sSoqlQueryscheduleddatewo, sstartdatetime);ExtentManager.logger.log(Status.PASS,"Date required(Date/time) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Date required(Date/time) value mapping Failed ");}
+			try{assertEquals(sSoqlQueryscheduleddatewo, sstartdatetime);ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful from server ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed from server ");}
 			ExtentManager.logger.log(Status.PASS,"Mapping is Successful from Server");
 
-			System.out.println("Validating mapping after data sync");
-			/*
-			commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );
-			Thread.sleep(GenericLib.iMedSleep);
-			
-			commonsUtility.tap(workOrderPo.openpartsontap());
-			//Thread.sleep(GenericLib.iHighSleep);
-			  fetchedlocation = workOrderPo.getElePartsLocation().getAttribute("value");
-			System.out.println(fetchedlocation);
-			commonsUtility.tap(workOrderPo.getEleDoneBtn());
-			try{Assert.assertTrue(fetchedlocation.equals(Location));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
-			
-			commonsUtility.tap(workOrderPo.getLaboronsecondprt());
-			  fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
-			System.out.println(fetchedstartdateandtime);
-			commonsUtility.tap(workOrderPo.getEleDoneBtn());
-			  getscheduleddatetime = workOrderPo.getScheduledDatetimevalue().getAttribute("value");
-			try{Assert.assertTrue(fetchedstartdateandtime.equals(getscheduleddatetime));ExtentManager.logger.log(Status.PASS,"date required(Date/time) value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"date required(Date/time) value mapping Failed ");}
-			
-			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After save(Lookup and datetime fields covered using SVMX.CURRENTRECORDHEADER)");
 		
-	*/
+			
+			System.out.println("Validating mapping after data sync");
+		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
+			Thread.sleep(GenericLib.iMedSleep);
+		
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+			Thread.sleep(GenericLib.iLowSleep);
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleToLocation());
+			String fetchedlocation = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+		System.out.println(fetchedlocation);
+			try{Assert.assertTrue(Location.equals(fetchedlocation));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful after data sync ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed after data sync ");}
+			ph_WorkOrderPo.geteleXsymbol().click();
+			 
+			 //Labor
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
+			ph_WorkOrderPo.getEleOntoplabor().click();
+			Thread.sleep(2000);
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getElelaborStartDateTimeField());
+			 startdatetimeWO = ph_WorkOrderPo.getElelaborStartDateTimeField().getAttribute("text");
+			 System.out.println(startdatetimeWO);
+			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime mapped Successful after data sync");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed after data sync ");}
+			Thread.sleep(2000);
+			ph_WorkOrderPo.geteleXsymbol().click();
+			Thread.sleep(2000);
+			
+	
+	ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After save(Lookup and datetime fields covered using SVMX.CURRENTRECORDHEADER)");
+
+			
+			
+		
 	
 	}
 
-	/*
-	 * @AfterClass(enabled = true) public void deletedata() throws Exception {
-	 * //Deleting data created
-	 * restServices.restDeleterecord("Account",sObjectAccID);
-	 * restServices.restDeleterecord("Product2",sObjectProID);
-	 * restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
-	 */
+	
+	  @AfterClass(enabled = true) public void deletedata() throws Exception {
+	  //Deleting data created
+	  restServices.restDeleterecord("Account",sObjectAccID);
+	  restServices.restDeleterecord("Product2",sObjectProID);
+	  restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
+	 
 }

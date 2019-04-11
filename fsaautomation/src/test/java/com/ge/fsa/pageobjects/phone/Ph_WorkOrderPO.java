@@ -826,5 +826,17 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleclickonaddparts;
 		}
-	}	
+	
+
+		@FindBy(xpath = "//*[@*='Start Date and Time']//following::*[@class='android.widget.TextView']")
+		private WebElement elelaborStartDateTimeField;
+
+		public WebElement getElelaborStartDateTimeField (){
+			return elelaborStartDateTimeField;
+		}
+
+}
+
+
+
 
