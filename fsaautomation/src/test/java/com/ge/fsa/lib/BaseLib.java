@@ -295,7 +295,7 @@ public class BaseLib {
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
 					//capabilities.setCapability("useNewWDA",true);
-					capabilities.setCapability("shouldWaitForQuiescence",false);
+					capabilities.setCapability("waitForQuiescence",false);
 
 				}else{
 					//Only For Ipad

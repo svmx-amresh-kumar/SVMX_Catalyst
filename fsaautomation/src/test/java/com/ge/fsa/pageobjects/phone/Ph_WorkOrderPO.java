@@ -59,6 +59,7 @@ public class Ph_WorkOrderPO
 		}
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	//@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
+	@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']")})
 	private WebElement eleStartDateTimeTxtFld;
@@ -68,6 +69,7 @@ public class Ph_WorkOrderPO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
+	@FindBy(xpath="//*[@text='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
 	private WebElement eleEndDateTimeTxtFld;
@@ -131,6 +133,7 @@ public class Ph_WorkOrderPO
 	{
 		System.out.println("Selecting Action");
 		getEleActionsLnk().click();	
+		Thread.sleep(3000);
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
 		//getEleActionsTxt(sActionsName).click();		
 	}
@@ -366,7 +369,7 @@ public class Ph_WorkOrderPO
 				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
 		
 				// Select the Work Order
-				ph_ExploreSearchPO.selectWorkOrder(sWOName);
+				ph_ExploreSearchPO.selectFromLookupSearchList(sWOName);
 				if(sFieldServiceName!=null)
 				{
 					selectAction(commonUtility,sFieldServiceName);	
@@ -498,7 +501,7 @@ public class Ph_WorkOrderPO
 		// Adding Value for Product
 		//commonsUtility.custScrollToElement(getEleProduct());
 		getEleProductstar().click();
-		ph_ExploreSearchPO.commonlookupsearch(ProdutName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(ProdutName);
 		
 		// Adding Value for InstalledproductID
 		//commonsUtility.custScrollToElement(getEleInstalledProduct());
@@ -508,7 +511,7 @@ public class Ph_WorkOrderPO
 		// Adding Value for Account
 		commonsUtility.custScrollToElement(getAccountstar());
 		getAccountstar().click();
-		ph_ExploreSearchPO.commonlookupsearch(accountName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(accountName);
 	
 		
 		Thread.sleep(1000);
@@ -673,7 +676,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
 
 		// Select the Work Order
-		ph_ExploreSearchPo.selectWorkOrder(sWOName);
+		ph_ExploreSearchPo.selectFromLookupSearchList(sWOName);
 	}
 	
 	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException
@@ -826,6 +829,18 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleclickonaddparts;
 		}
+		
+		@FindAll({@FindBy(xpath="//*[@text='Order Status']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+			@FindBy(xpath="//*[@text='Order Status*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Order Status']/../XCUIElementTypeOther"),
+			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Order Status*']/../XCUIElementTypeOther")})
+		private WebElement eleOrderStatus;
+		public WebElement geteleOrderStatus()
+		{
+			return eleOrderStatus;
+		}
+		
+		
 	
 
 		@FindBy(xpath = "//*[@*='Start Date and Time']//following::*[@class='android.widget.TextView']")
