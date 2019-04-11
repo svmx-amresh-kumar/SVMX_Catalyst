@@ -55,12 +55,11 @@ public class Ph_ExploreSearchPO
 		return eleWorkOrdersChildSearch;
 	}
 
-	private WebElement eleSearchListItem;
 	public WebElement getEleSearchName(String sName)
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+			return  driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
 			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[2]"));
 		}
@@ -72,7 +71,7 @@ public class Ph_ExploreSearchPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return driver.findElement(By.xpath("//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')]"));
+			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[2]"));
 		}
 	}
 		
@@ -119,11 +118,15 @@ public class Ph_ExploreSearchPO
 		return EleOnline;
 	}
 	
+	private WebElement eleDownloadIcon;
 	public WebElement getDownloadIcon(String workOrder) {
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
+			 eleDownloadIcon = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
+			 return eleDownloadIcon;
 		}else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+workOrder+"']/..//../XCUIElementTypeOther/XCUIElementTypeOther"));
+			 eleDownloadIcon = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+workOrder+"']/..//../XCUIElementTypeOther/XCUIElementTypeOther"));
+			 return eleDownloadIcon;
+
 		}
 	}
 	
@@ -135,6 +138,7 @@ public class Ph_ExploreSearchPO
 	 */
 	public void selectFromLookupSearchList(String Record) throws InterruptedException
 	{
+		System.out.println("Selecting From Lookup Search");
 		getEleExploreSearchTxtFld().click();
 		Thread.sleep(300);			
 		getEleExploreSearchTxtFld().sendKeys(Record);

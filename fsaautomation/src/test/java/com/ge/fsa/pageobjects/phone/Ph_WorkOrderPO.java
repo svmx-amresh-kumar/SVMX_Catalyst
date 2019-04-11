@@ -652,12 +652,11 @@ public class Ph_WorkOrderPO
 
 	}
 public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
-		
 		exploreSearchPO.geteleExploreIcn().click();;
 		//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 		exploreSearchPO.getEleSearchName(sExploreSearch).click();;
 		exploreSearchPO.getEleSearchSubListName(sExploreChildSearchTxt).click();;
-		exploreSearchPO.getEleExploreSearchTxtFld().click();
+//		exploreSearchPO.getEleExploreSearchTxtFld().click();
 		exploreSearchPO.getEleExploreSearchTxtFld().clear();
 		exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
 

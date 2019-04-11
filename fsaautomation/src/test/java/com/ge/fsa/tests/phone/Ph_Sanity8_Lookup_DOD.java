@@ -49,16 +49,17 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		ph_MorePo.syncData(commonUtility);
 		ph_ExploreSearchPO.geteleExploreIcn().click();;
 		ph_WorkOrderPo.downloadCriteriaDOD(commonUtility, ph_ExploreSearchPO,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
 			if(ph_ExploreSearchPO.getSearchListItems().size()<=1)
-			{				
+			{		
+				 Thread.sleep(2000);
 				 ph_ExploreSearchPO.getEleOnline().click();
-				 Thread.sleep(5000);
+				 Thread.sleep(2000);
 				 // If the Cloud button is Visible then need to Tap on it
 				 
 				 
-					if(ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).isDisplayed())
+					if(commonUtility.waitforElement(ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName),1))
 						{
 						ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).click();
 						Thread.sleep(10000);
