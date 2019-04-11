@@ -1589,7 +1589,10 @@ public class CommonUtility {
 	 */
 	public boolean isDisplayedCust(WebElement wElement) {
 		boolean isDis = false;
-		switchContext("Webview");
+		if(!BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			switchContext("Webview");
+		}
+		
 		try {
 			isDis = wElement.isDisplayed();
 			if (isDis) {
