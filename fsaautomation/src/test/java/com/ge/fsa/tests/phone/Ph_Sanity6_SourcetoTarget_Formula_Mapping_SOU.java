@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -122,19 +123,23 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		try {
 			System.out.println("Removing part as default part is displayed which will help us validate mapped child line");
 			
-			commonUtility.tap(workOrderPo.getEleRemoveItemLnk());
-			commonUtility.tap(workOrderPo.getEleYesBtn());
-			
-			commonUtility.tap(workOrderPo.getEleOKBtn());
+		//	commonUtility.s
+			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
+			ph_WorkOrderPo.geteleRemove().click();
+			ph_WorkOrderPo.geteleRemovePopUp().click();
 			System.out.println("Handled successfully");
 			Thread.sleep(GenericLib.iMedSleep);
 		}catch(Exception e){
 			
 		}
-		/*
+		
 		
 		//Add the workorder parts
-		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		
+		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
+		
+/*
 		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
 		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");

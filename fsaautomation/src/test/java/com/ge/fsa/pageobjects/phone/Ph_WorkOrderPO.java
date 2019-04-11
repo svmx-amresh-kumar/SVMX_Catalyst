@@ -866,6 +866,13 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 			}
 		}
 		
-		
+			public WebElement geteleAddedPart(String value) {
+			
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+value+"']"));
+			}else {
+				return eleRemove =driver.findElement(By.xpath("//*[@*='"+value+"']"));
+			}
+		}
 	}	
 
