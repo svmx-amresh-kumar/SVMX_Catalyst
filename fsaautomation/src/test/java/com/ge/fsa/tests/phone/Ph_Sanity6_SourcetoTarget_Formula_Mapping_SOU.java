@@ -7,8 +7,11 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+import java.awt.KeyEventPostProcessor;
 import java.io.IOException;
 import java.util.Arrays;
+
+import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
@@ -124,6 +127,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 			
 		//	commonUtility.s
 			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
+			System.out.println("Swift left manually as of now!!!");
+			Thread.sleep(10000);
 			ph_WorkOrderPo.geteleRemove().click();
 			ph_WorkOrderPo.geteleRemovePopUp().click();
 			System.out.println("Handled successfully");
@@ -135,14 +140,32 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		//Add the workorder parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
-		
+		commonUtility.isDisplayedCust(ph_WorkOrderPo.geteleAddedPart(sProductName));
+		//Thread.sleep(3000);
 		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
+		
+		/*ph_WorkOrderPo.getEleLinePerUnitTxtFld().sendKeys("300\\n");
+		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys(Keys.ENTER);
+
+		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys("100\n");
+		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys(Keys.ENTER);*/
+
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleWODesMappedTxt());
 		Assert.assertTrue(ph_WorkOrderPo.getEleWODesMappedTxt().isDisplayed(),"Work description is not Mapped");
+		ph_WorkOrderPo.getEleWODesMappedTxt().click();
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
-/*
-		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
-		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
+		
+		
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQty());
+		String billableQfeed = "2";
+		String billableQtyapp=ph_WorkOrderPo.geteleBillableQty().getText();
+		Assert.assertTrue(billableQtyapp.equals(billableQfeed), "Billable Quantity mapped right!");
+		ExtentManager.logger.log(Status.PASS,"Billing Quantity Mapped successfully");
+		ph_WorkOrderPo.geteleXsymbol().click();
+		commonUtility.isDisplayedCust(ph_WorkOrderPo.getElesave());
+		ph_WorkOrderPo.getElesave().click();
+
+		/*
 
 		//Save the workorder updates and validate
 		commonUtility.tap(workOrderPo.getEleDoneBtn());
