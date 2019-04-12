@@ -224,7 +224,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		Assert.assertTrue(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)").isDisplayed(), "Serial Number Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) Search text is successfully displayed");
 		Thread.sleep(GenericLib.iMedSleep); 
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		System.out.println("  ************** Taping on WO **********");
 		System.out.println(exploreSearchPo.getEleExploreWOSearchLst().size());
 		System.out.println(exploreSearchPo.getEleExploreWOSearchLst().get(0).getText());
@@ -260,11 +260,11 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		commonUtility.tap(exploreSearchPo.getEleExploreAccSearchLst().get(0));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		validateSearch(sSerialNumber+"AccB");
 		Assert.assertTrue(exploreSearchPo.getEleWorkOrderIDTxt(sSerialNumber+"AccB").isDisplayed(), sSerialNumber+"AccB is not displayed");
@@ -311,7 +311,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		//Navigation to Work Orders (USERTRUNK) Search
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (USERTRUNK)"));
 		Thread.sleep(GenericLib.iMedSleep); 
@@ -322,7 +322,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders (CURRENTUSERID)"));
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "Work Orders (CURRENTUSERID) --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) -->No Records to display text is successfully displayed");
@@ -331,7 +331,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("(DATE LITERALS)"));
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch("WO");
@@ -391,12 +391,12 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		//Validation of WO search after updating WO2
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("Work Orders"));
@@ -437,7 +437,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("Locations"));
 		Thread.sleep(GenericLib.iMedSleep); 
@@ -474,7 +474,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		/*
 		//Navigation to Work Orders (USERTRUNK) Search
@@ -496,7 +496,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep); 
-		if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
+		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt("DATE LITERALS"));
 		Thread.sleep(GenericLib.iHighSleep); 
 		

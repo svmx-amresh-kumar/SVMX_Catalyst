@@ -135,7 +135,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		//Save the case created by IB
 		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Config Sync
 		commonUtility.tap(toolsPo.getEleToolsIcn());

@@ -96,7 +96,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		commonUtility.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iMedSleep);
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Validation of event on the calender
 		for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++){

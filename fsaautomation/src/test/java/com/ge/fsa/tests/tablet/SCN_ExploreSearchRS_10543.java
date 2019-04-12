@@ -167,7 +167,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Navigation to Case edit process
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
