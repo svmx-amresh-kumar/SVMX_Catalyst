@@ -200,14 +200,8 @@ public class Ph_CalendarPO
 	}
 
 	
+
 	
-	
-	private WebElement elenewprocess;
-	public WebElement getElenewprocess(String Process)
-	{
-		elenewprocess = driver.findElement(By.xpath("//*[@text='"+Process+"']"));
-		return elenewprocess;
-	}
 	
 	private List<WebElement> eleWOEventTitleTxt;
 	public List<WebElement> getEleWOEventTitleTxt(){

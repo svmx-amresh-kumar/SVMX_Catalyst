@@ -453,8 +453,8 @@ public class Ph_WorkOrderPO
 	
 		
 	
-	
-	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[contains(@label,'Product* Product Lookup')]"),
+	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleProductstar;
 	public WebElement getEleProductstar()
 	{
@@ -488,8 +488,14 @@ public class Ph_WorkOrderPO
 		//click on new icon
 		ph_CalendarPo.getEleCreateNewBtn().click();
 		Thread.sleep(2000);
-	ph_CalendarPo.getElenewprocess("Create New Installed Product Automation sahi").click();
-
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) 
+		{
+	ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi").click();
+		}
+		else
+		{
+			ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi no description").click();
+		}
 		Thread.sleep(2000);
 		
 		// Adding Value for Product
@@ -906,12 +912,20 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 					return eleusePriceBookcontract;
 		}
 				
-		@FindAll({@FindBy(xpath="//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//		*[@class='android.widget.TextView']"),
+		@FindAll({@FindBy(xpath="//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Description']")})
 		private WebElement eleDescriptiontext;
 		public WebElement geteleDescriptiontext()
 		{
 		return eleDescriptiontext;
+		}
+		
+		@FindAll({@FindBy(xpath="//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Problem Description']")})
+		private WebElement eleProblemDescriptiontxt;
+		public WebElement geteleProblemDescriptiontxt()
+		{
+		return eleProblemDescriptiontxt;
 		}
 		
 	}	
