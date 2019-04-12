@@ -66,7 +66,7 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		//restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 		// Select the Work Order from the Recent items
-		ph_RecentsPo.selectRecentsItem(commonUtility, sworkOrderName);
+		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
 		Thread.sleep(2000);
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);

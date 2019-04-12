@@ -337,19 +337,28 @@ public class CommonUtility {
 	}
 
 	public void swipeLeft(WebElement wElement) {
-		int offset = 30;
+	
+		switchContext("Native");
 		Point point = wElement.getLocation();
-		int x = point.getX();
+		System.out.println(point);
+		int x = point.getX()+200;
+		System.out.println(x);
 		int y = point.getY();
+		System.out.println(y);
 
-		int xOff = x + 100;
+		int xOff = x - 200;
 		// int yOff = y-100;
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(x, y))
-		.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-		.moveTo(new PointOption().withCoordinates((x - 5), 0)).release().perform();
+		//touchAction.longPress(new PointOption().withCoordinates(x, y))
+		.waitAction(new WaitOptions().withDuration(Duration.ofMillis(3000)))
+		.moveTo(new PointOption().withCoordinates(xOff, y+20)).release().perform();
+		System.out.println(xOff);
+
 	}
 
+	
+	
 	public void Enablepencilicon(WebElement wElement) {
 		int offset = 30;
 		Point point = wElement.getLocation();
@@ -358,6 +367,7 @@ public class CommonUtility {
 
 		int xOff = x + 200;
 		touchAction = new TouchAction(driver);
+		
 		switch (BaseLib.sOSName) {
 		case "android":
 
@@ -1589,7 +1599,10 @@ public class CommonUtility {
 	 */
 	public boolean isDisplayedCust(WebElement wElement) {
 		boolean isDis = false;
-		switchContext("Webview");
+		if(!BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			switchContext("Webview");
+		}
+		
 		try {
 			isDis = wElement.isDisplayed();
 			if (isDis) {
