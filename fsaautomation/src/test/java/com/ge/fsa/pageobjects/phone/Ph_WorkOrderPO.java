@@ -459,8 +459,8 @@ public class Ph_WorkOrderPO
 	
 		
 	
-	
-	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[contains(@label,'Product* Product Lookup')]"),
+	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleProductstar;
 	public WebElement getEleProductstar()
 	{
@@ -494,8 +494,14 @@ public class Ph_WorkOrderPO
 		//click on new icon
 		ph_CalendarPo.getEleCreateNewBtn().click();
 		Thread.sleep(2000);
-	ph_CalendarPo.getElenewprocess("Create New Installed Product Automation sahi").click();
-
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) 
+		{
+	ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi").click();
+		}
+		else
+		{
+			ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi no description").click();
+		}
 		Thread.sleep(2000);
 		
 		// Adding Value for Product
