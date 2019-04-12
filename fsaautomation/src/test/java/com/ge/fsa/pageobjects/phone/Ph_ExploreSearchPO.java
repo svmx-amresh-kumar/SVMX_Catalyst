@@ -89,8 +89,9 @@ public class Ph_ExploreSearchPO
 		return eleExploreChildSearchTxt;
 	}
 	
-	@FindBy(xpath="//*[@*='Search Keyword...']")
-	//@FindBy(xpath="//span[text()='Reset filter']")
+	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
+		@FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
+	})
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{

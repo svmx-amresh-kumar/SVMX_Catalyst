@@ -294,6 +294,9 @@ public class BaseLib {
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
+					capabilities.setCapability("wdaEventloopIdleDelay",5);
+					capabilities.setCapability("useNewWDA",false);
+					capabilities.setCapability("waitForQuiescence",false);
 					
 				
 				}else{
@@ -316,9 +319,7 @@ public class BaseLib {
 				capabilities.setCapability("autoAcceptAlerts", true);
 				//capabilities.setCapability("showXcodeLog", true);
 				//Use this capability for fixing slow launch of app
-				capabilities.setCapability("wdaEventloopIdleDelay",5);
-				capabilities.setCapability("useNewWDA",true);
-				capabilities.setCapability("waitForQuiescence",false);
+				
 				
 				
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);

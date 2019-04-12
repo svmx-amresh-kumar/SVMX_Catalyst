@@ -26,13 +26,13 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 	String sExploreChildSearchTxt = "Work Orders";
 
 
-	@Test(retryAnalyzer=Retry.class)		
+	@Test//(retryAnalyzer=Retry.class)		
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		
+//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		
 		System.out.println("Scenario 8");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		// Syncing after the Pre-Requisite is done
