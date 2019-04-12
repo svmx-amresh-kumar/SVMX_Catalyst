@@ -319,6 +319,7 @@ public class BaseLib {
 				capabilities.setCapability("autoAcceptAlerts", true);
 				//capabilities.setCapability("showXcodeLog", true);
 				//Use this capability for fixing slow launch of app
+				capabilities.setCapability("useNewWDA",true);
 				
 				
 				
