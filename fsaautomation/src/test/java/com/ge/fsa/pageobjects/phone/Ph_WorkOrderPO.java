@@ -914,12 +914,20 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 					return eleusePriceBookcontract;
 		}
 				
-		@FindAll({@FindBy(xpath="//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//		*[@class='android.widget.TextView']"),
+		@FindAll({@FindBy(xpath="//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Description']")})
 		private WebElement eleDescriptiontext;
 		public WebElement geteleDescriptiontext()
 		{
 		return eleDescriptiontext;
+		}
+		
+		@FindAll({@FindBy(xpath="//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Problem Description']")})
+		private WebElement eleProblemDescriptiontxt;
+		public WebElement geteleProblemDescriptiontxt()
+		{
+		return eleProblemDescriptiontxt;
 		}
 		
 	}	

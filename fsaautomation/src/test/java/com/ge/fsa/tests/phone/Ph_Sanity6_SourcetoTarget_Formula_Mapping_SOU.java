@@ -111,8 +111,14 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//System.out.println(Arrays.toString(sAppDate));
 		//System.out.println(Arrays.toString(sDeviceDate));
 		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(3000);
 
+		commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
+		ph_WorkOrderPo.geteleRemove().click();
+		Thread.sleep(2000);
+		ph_WorkOrderPo.geteleRemovePopUp().click();
+		Thread.sleep(GenericLib.iMedSleep);
+		
 		//Set the order status
 		
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
@@ -121,13 +127,6 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//billing type
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 		Thread.sleep(GenericLib.iLowSleep);
-	
-		//	commonUtility.s
-			commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
-			ph_WorkOrderPo.geteleRemove().click();
-			Thread.sleep(2000);
-			ph_WorkOrderPo.geteleRemovePopUp().click();
-			Thread.sleep(GenericLib.iMedSleep);
 		
 		//Add the workorder parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
@@ -154,13 +153,33 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(2000);
 		
 		//Validating sounrce object update.
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName,commonUtility);
+		
+		ph_WorkOrderPo.navigatetoWO(commonUtility,ph_ExploreSearchPO, sExploreSearch,sExploreChildSearchTxt,sCaseID);
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleDescriptiontext());
 		String ssouClientValue =ph_WorkOrderPo.geteleDescriptiontext().getText();
 		String ssouExpectedValue = "Source Object Updated";
 		Assert.assertTrue(ssouClientValue.equals(ssouExpectedValue), "Source Object Not updated");
+		ExtentManager.logger.log(Status.PASS,"Source Object Sucessful Expected :"+ssouExpectedValue+" Actual : "+ssouClientValue+"");
 
+		// Validation on Server.
 		
+		// Collecting the Work Order number from the Server.
+		ph_MorePo.syncData(commonUtility);
+
+		String sQosqlquery = "SELECT+id,SVMXC__Case__c,Name+FROM+SVMXC__Service_Order__c+where+SVMXC__Case__c+in+(select+id+from+Case+where+CaseNumber+=\'"+sCaseID+"\')";
+		//String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
+		restServices.getAccessToken();
+		String sworkOrderName = restServices.restGetSoqlValue(sQosqlquery,"Name");
+		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
+
+		ph_RecentsPo.selectRecentsItem(commonUtility, sworkOrderName);
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
+		String sProbdescWOClient = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		String sExpectedProbeDesc = "Description of Sanity6";
+		Assert.assertTrue(sProbdescWOClient.equals(sExpectedProbeDesc), "Source to Target Failed!");
+		ExtentManager.logger.log(Status.PASS,"Source to Target Process Sucessfull, WO Desc Expected :"+sExpectedProbeDesc+" Actual : "+sProbdescWOClient+"");
+
+
 		/*
 
 		//Save the workorder updates and validate
