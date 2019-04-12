@@ -125,14 +125,10 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 			}
 				
 		// Adding Product A to the Header and verifying the child values
-				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getProductLookup(), sProductNameA);
-
+				ph_WorkOrderPo.selectFromPickList(commonUtility,  ph_WorkOrderPo.getProductLookup(), sProductNameA);
 		// Coming to the Childlines and Verifying on the IB Serial Number
-				
-				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getChildLineAddItem("Add Parts"), sProductNameA);
-
-				ph_WorkOrderPo.getEleAddSelectedButton().click();
-				Thread.sleep(300);
+				ph_WorkOrderPo.addParts(commonUtility, sProductNameA);
+		
 		// Tapping on the Parts added and checking the IB Serial Number
 				ph_WorkOrderPo.getChildLineAddedItem(sProductNameA).click();
 				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleIBSerialNumber());

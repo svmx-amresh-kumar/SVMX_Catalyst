@@ -206,21 +206,6 @@ public class Ph_WorkOrderPO
 		return eleCalibration;
 	}
 	
-//	@FindAll({@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-//	@FindBy(xpath="((//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[3]/XCUIElementTypeOther)[2]")})
-//	private WebElement eleLaborstartdatetime;
-//	public WebElement getEleLaborstartdatetime()
-//	{
-//		return eleLaborstartdatetime;
-//	}
-	
-//	@FindAll({@FindBy(xpath="//*[@*='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-//	@FindBy(xpath="(//XCUIElementTypeOther[contains(@label,\"Part\")])/XCUIElementTypeOther[4]/XCUIElementTypeOther")})
-//	private WebElement eleLaborenddatetime;
-//	public WebElement getEleLaborenddatetime()
-//	{
-//		return eleLaborenddatetime;
-//	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Qty\"]/../XCUIElementTypeOther")})
@@ -535,7 +520,8 @@ public class Ph_WorkOrderPO
 	{
 		return eleSite;
 	}
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Product Lookup']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Product Lookup']"),
+		@FindBy(xpath="//*[@label='Product Product Lookup']")})
 	public WebElement productLookup;
 	public WebElement getProductLookup() {
 		return productLookup;
@@ -545,7 +531,13 @@ public class Ph_WorkOrderPO
 	}
 	
 	public WebElement getChildLineAddedItem(String value) {
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+
 		return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+value+"')]][@class='android.widget.ScrollView'])[last()]"));
+	}else {
+		return driver.findElement(By.xpath("//*[contains(@name,'"+value+"')]"));
+
+	}
 	}
 	
 	@FindBy(xpath="//*[@class='android.widget.TextView'][contains(@text,'ADD SELECTED')]")
