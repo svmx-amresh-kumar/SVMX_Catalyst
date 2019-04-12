@@ -172,7 +172,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		String sworkOrderName = restServices.restGetSoqlValue(sQosqlquery,"Name");
 		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
 
-		ph_RecentsPo.selectRecentsItem(commonUtility, sworkOrderName);
+		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
 		String sProbdescWOClient = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
 		String sExpectedProbeDesc = "Description of Sanity6";
