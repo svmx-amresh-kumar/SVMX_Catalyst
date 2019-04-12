@@ -88,14 +88,19 @@ public class Ph_ExploreSearchPO
 		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
 		return eleExploreChildSearchTxt;
 	}
-	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
-		@FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
-	})
+	
+	@FindBy(xpath="//*[@*='Search Keyword...']")
+	//@FindBy(xpath="//span[text()='Reset filter']")
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{
 		return eleExploreSearchTxtFld;
 	}
+	
+
+	
+	
+	
 	@FindBy(xpath="//div[@class='x-component x-button x-button-button-sfmsearch-search x-component-button-sfmsearch-search x-button-no-icon x-stretched sfmsearch-search-button x-haslabel x-layout-box-item x-layout-hbox-item']//span[@class='x-button-label'][text()='Reset filter']")
 	//@FindBy(xpath="//span[text()='Reset filter']")
 	private WebElement eleResetFilerBtn;
@@ -138,6 +143,7 @@ public class Ph_ExploreSearchPO
 	 */
 	public void selectFromLookupSearchList(String Record) throws InterruptedException
 	{
+		
 		System.out.println("Selecting From Lookup Search");
 		getEleExploreSearchTxtFld().click();
 		Thread.sleep(300);			
