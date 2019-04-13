@@ -72,7 +72,7 @@ public class Ph_ExploreSearchPO
 		
 	
 	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
-		@FindBy(xpath="//*[contains(@name,'EXPLORE.SEARCH_BAR')]")
+		@FindBy(xpath="//*[contains(@name,'SEARCH_BAR')]")
 	})
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
