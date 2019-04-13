@@ -360,15 +360,6 @@ private WebElement eleAccount;
 		return eleAccount;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Product']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Product']/../XCUIElementTypeOther")	})
-
-	private WebElement eleProduct;
-	public WebElement getEleProduct()
-	{
-		return eleProduct;
-	}
-	
 	@FindAll({@FindBy(xpath="//*[@text='Scheduled Date Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
 	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Scheduled Date Time']/../XCUIElementTypeOther")	})
 	private WebElement eleScheduledDateTime;
@@ -440,31 +431,34 @@ private WebElement eleAccount;
 	}
 	
 	
-		
-	
-	@FindAll({@FindBy(xpath="//*[contains(@label,'Product* Product Lookup')]"),
-	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
-	private WebElement eleProductstar;
-	public WebElement getEleProductstar()
+	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='Product*']/../XCUIElementTypeOther"),
+		@FindBy(xpath="//XCUIElementTypeStaticText[@name='Product']/../XCUIElementTypeOther"),
+	@FindBy(xpath="//*[@text='Product*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="//*[@text='Product']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
+	private WebElement eleProduct;
+	public WebElement getEleProduct()
 	{
-		return eleProductstar;
+		return eleProduct;
 	}
 	
-	@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='Installed Product ID*']/../XCUIElementTypeOther"),
+	@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")})
 	private WebElement eleInstalledProductstar;
 	public WebElement getEleInstalledProductstar()
 	{
 		return eleInstalledProductstar;
 	}
 	
-	@FindBy(xpath="//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='Account*']/../XCUIElementTypeOther"),
+	@FindBy(xpath="//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleAccountstar;
 	public WebElement getAccountstar()
 	{
 		return eleAccountstar;
 	}
 	
-	@FindBy(xpath="//*[@text='To Location']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//XCUIElementTypeStaticText[@name='To Location']/../XCUIElementTypeOther"),
+	@FindBy(xpath="//*[@text='To Location']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleToLocation;
 	public WebElement getEleToLocation()
 	{
@@ -490,7 +484,7 @@ private WebElement eleAccount;
 		// Adding Value for Product
 		//commonUtility.custScrollToElement(getEleProduct());
 		//getEleProductstar().click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility,getEleProductstar(), ProdutName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility,getEleProduct(), ProdutName);
 		
 		// Adding Value for InstalledproductID
 		//commonUtility.custScrollToElement(getEleInstalledProduct());
@@ -818,7 +812,8 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 		
 		
-		@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.LAYOUT.ADD.0\"]/android.view.ViewGroup")
+	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.LAYOUT.ADD.0\"]/android.view.ViewGroup"),
+		@FindBy(xpath="//*[@name='SFM.LAYOUT.ADD']")})
 		private WebElement eleclickonaddparts;
 		public WebElement getEleclickonaddparts()
 		{
@@ -836,7 +831,8 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		}
 		
 		
-		@FindBy(xpath="//*[@text='[Part]'][@class='android.widget.TextView']")
+		@FindAll({@FindBy(xpath="//*[@text='[Part]'][@class='android.widget.TextView']"),
+			@FindBy(xpath="//*[@*='[Part]']")})
 		private WebElement eleRemoveablePart;
 		public WebElement geteleRemoveablePart()
 		{
@@ -854,11 +850,8 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		public WebElement geteleRemove()
 		{
 
-			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-				return eleRemove = driver.findElementByAccessibilityId("SFM.DELETE_CHILD_LINE.BUTTON");
-			}else {
-				return eleRemove =driver.findElement(By.xpath("//*[@label='Remove']"));
-			}
+			return eleRemove = driver.findElementByAccessibilityId("SFM.DELETE_CHILD_LINE.BUTTON");
+		
 		}
 		
 		public WebElement geteleAddedPart(String value) {
