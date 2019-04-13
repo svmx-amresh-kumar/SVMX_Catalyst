@@ -79,7 +79,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_MorePo.syncData(commonUtility);
 		// Click on the Work Order
 		Thread.sleep(2000);
-		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPO, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
+		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
@@ -94,7 +94,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_WorkOrderPo.getEleMore().click();
 		ph_WorkOrderPo.getEleManageWorkDetails().click();
 		Thread.sleep(3000);
-		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPO, sProductName);
+		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Discard the Changes by clicking on it
@@ -123,7 +123,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		}
 
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
-		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPO, sProductName);
+		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
 		Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();

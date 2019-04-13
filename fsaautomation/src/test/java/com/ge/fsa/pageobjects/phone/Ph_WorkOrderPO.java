@@ -352,33 +352,7 @@ public class Ph_WorkOrderPO
 		
 	}
 
-/**
- * Navigate to SFM from explore
- * @param ph_ExploreSearchPO
- * @param sExploreSearch
- * @param sExploreChildSearchTxt
- * @param sSearchListElementTxt
- * @param sFieldServiceName
- * @param commonUtility
- * @throws InterruptedException
- */
-	public void navigateToSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sSearchListElementTxt, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
-	{
-		System.out.println("Navigating to SFM for --> "+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sSearchListElementTxt+" --> "+sFieldServiceName+"");
-		ph_ExploreSearchPO.geteleExploreIcn().click();
-		ph_ExploreSearchPO.getEleSearchListItem(sExploreSearch).click();
-		//ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();
-		selectFromlookupSearchList(commonUtility, ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
-//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().click();
-//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().clear();
-//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sSearchListElementTxt);
-//		ph_ExploreSearchPO.getEleSearchName(sSearchListElementTxt);
-		selectAction(commonUtility,sFieldServiceName);			
-		
-			}
-	
-	
-	@FindBy(xpath="//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+@FindBy(xpath="//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
 	private WebElement eleAccount;
 	public WebElement getEleAccount()
 	{
@@ -502,8 +476,8 @@ public class Ph_WorkOrderPO
 		
 		// Adding Value for Product
 		//commonsUtility.custScrollToElement(getEleProduct());
-		getEleProductstar().click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(ProdutName);
+		//getEleProductstar().click();
+		ph_ExploreSearchPO.selectFromLookupSearchList(getEleProductstar(),ProdutName);
 		
 		// Adding Value for InstalledproductID
 		//commonsUtility.custScrollToElement(getEleInstalledProduct());
@@ -512,8 +486,8 @@ public class Ph_WorkOrderPO
 		
 		// Adding Value for Account
 		commonsUtility.custScrollToElement(getAccountstar());
-		getAccountstar().click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(accountName);
+		//getAccountstar().click();
+		ph_ExploreSearchPO.selectFromLookupSearchList(getAccountstar(),accountName);
 	
 		
 		Thread.sleep(1000);
@@ -684,7 +658,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
 
 		// Select the Work Order
-		ph_ExploreSearchPo.selectFromLookupSearchList(sWOName);
+		ph_ExploreSearchPo.selectFromLookupSearchList(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt),sWOName);
 	}
 	
 	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException

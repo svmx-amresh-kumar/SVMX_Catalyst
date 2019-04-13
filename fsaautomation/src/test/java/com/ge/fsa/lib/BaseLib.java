@@ -79,7 +79,7 @@ public class BaseLib {
 	public Ph_CalendarPO ph_CalendarPo = null;
 	public Ph_RecentsItemsPO ph_RecentsItemsPo = null;
 	public Ph_WorkOrderPO ph_WorkOrderPo = null;
-	public Ph_ExploreSearchPO ph_ExploreSearchPO = null;
+	public Ph_ExploreSearchPO ph_ExploreSearchPo = null;
 	public Ph_ChecklistPO ph_ChecklistPO = null;
 	public Ph_CreateNewPO ph_CreateNewPo = null;
 	
@@ -376,7 +376,7 @@ public class BaseLib {
 		ph_RecentsItemsPo = new Ph_RecentsItemsPO(driver);
 		ph_WorkOrderPo = new Ph_WorkOrderPO(driver);
 		ph_ChecklistPO = new Ph_ChecklistPO(driver);
-		ph_ExploreSearchPO = new Ph_ExploreSearchPO(driver);
+		ph_ExploreSearchPo = new Ph_ExploreSearchPO(driver);
 		ph_CreateNewPo = new Ph_CreateNewPO(driver);
 
 		//browser

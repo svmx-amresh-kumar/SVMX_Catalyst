@@ -66,7 +66,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		// To sync the Data
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(genericLib.iMedSleep);
-		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPO, "AUTOMATION SEARCH", "Installed Products",
+		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Installed Products",
 				sIBName);
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
@@ -153,7 +153,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		// To Edit the Work Order value and to verify in the Data Sync
 		// To save the Work Order and verify the Values after the Edit Work Order is
 		// Selected
-		ph_ExploreSearchPO.geteleExploreIcn().click();
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
 		Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname2);

@@ -47,23 +47,23 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		restServices.getAccessToken();
 		String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
 		ph_MorePo.syncData(commonUtility);
-		ph_ExploreSearchPO.geteleExploreIcn().click();;
-		ph_WorkOrderPo.downloadCriteriaDOD(commonUtility, ph_ExploreSearchPO,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
+		ph_ExploreSearchPo.geteleExploreIcn().click();;
+		ph_WorkOrderPo.downloadCriteriaDOD(commonUtility, ph_ExploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
 		Thread.sleep(2000);
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
-			if(ph_ExploreSearchPO.getSearchListItems().size()<=1)
+			if(ph_ExploreSearchPo.getSearchListItems().size()<=1)
 			{		
 				 Thread.sleep(2000);
-				 ph_ExploreSearchPO.getEleOnline().click();
+				 ph_ExploreSearchPo.getEleOnline().click();
 				 Thread.sleep(2000);
 				 // If the Cloud button is Visible then need to Tap on it
 				 
 				 
-					if(commonUtility.waitforElement(ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName),1))
+					if(commonUtility.waitforElement(ph_ExploreSearchPo.getDownloadIcon(sWorkOrderName),1))
 						{
-						ph_ExploreSearchPO.getDownloadIcon(sWorkOrderName).click();
+						ph_ExploreSearchPo.getDownloadIcon(sWorkOrderName).click();
 						Thread.sleep(10000);
-						ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
+						ph_ExploreSearchPo.getEleSearchListItem(sWorkOrderName).click();
 					
 						}
 					// If the cloud button is not visible then throw an Error in the Report
@@ -111,7 +111,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 				
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
-				ph_ExploreSearchPO.geteleExploreIcn().click();
+				ph_ExploreSearchPo.geteleExploreIcn().click();
 			try
 			{
 				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
@@ -119,7 +119,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 			}
 			catch(Exception e)
 			{
-				ph_ExploreSearchPO.getEleSearchListItem(sWorkOrderName).click();
+				ph_ExploreSearchPo.getEleSearchListItem(sWorkOrderName).click();
 				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 				
 			}

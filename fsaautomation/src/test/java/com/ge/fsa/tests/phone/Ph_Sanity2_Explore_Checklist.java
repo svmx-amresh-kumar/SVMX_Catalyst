@@ -121,7 +121,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		System.out.println(sWOName);
 
 		// Navigating to Checklist
-		ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName,
+		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sProcessname, commonUtility);
 
 		// Click on ChecklistName
@@ -261,7 +261,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		 */
 
 		// Navigating to Checklist
-		ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName,
+		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sProcessname, commonUtility);
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
