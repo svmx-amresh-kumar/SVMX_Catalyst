@@ -352,35 +352,43 @@ public class Ph_WorkOrderPO
 		
 	}
 
-@FindBy(xpath="//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	private WebElement eleAccount;
+	@FindAll({@FindBy(xpath="//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+@FindBy(xpath="//XCUIElementTypeStaticText[@name='Account']/../XCUIElementTypeOther")	})
+private WebElement eleAccount;
 	public WebElement getEleAccount()
 	{
 		return eleAccount;
 	}
 	
-	@FindBy(xpath="//*[@text='Product']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Product']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Product']/../XCUIElementTypeOther")	})
+
 	private WebElement eleProduct;
 	public WebElement getEleProduct()
 	{
 		return eleProduct;
 	}
 	
-	@FindBy(xpath="//*[@text='Scheduled Date Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Scheduled Date Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Scheduled Date Time']/../XCUIElementTypeOther")	})
 	private WebElement eleScheduledDateTime;
 	public WebElement getEleScheduledDateTime()
 	{
 		return eleScheduledDateTime;
 	}
 	
-	@FindBy(xpath="//*[@text='Scheduled Date']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Scheduled Date']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Scheduled Date']/../XCUIElementTypeOther")	})
+
 	private WebElement eleScheduledDate;
 	public WebElement getEleScheduledDate()
 	{
 		return eleScheduledDate;
 	}
 	
-	@FindBy(xpath="//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther")	})
+
 	private WebElement eleComponent;
 	public WebElement getEleComponent()
 	{
@@ -388,7 +396,9 @@ public class Ph_WorkOrderPO
 	}
 	
 	
-	@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Installed Product ID*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Installed Product ID*']/../XCUIElementTypeOther")	})
+
 	private WebElement eleInstalledProduct ;
 	public WebElement getEleInstalledProduct()
 	{
@@ -396,14 +406,16 @@ public class Ph_WorkOrderPO
 	}
 	
 	
-	@FindBy(xpath="(//*[@text='Parts (1)']//..//following-sibling::*[@class='android.view.ViewGroup'])[1]")
+	@FindAll({@FindBy(xpath="(//*[@text='Parts (1)']//..//following-sibling::*[@class='android.view.ViewGroup'])[1]")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Parts (1)']/../XCUIElementTypeOther")	})
 	private WebElement eletabonpart;
 	public WebElement getEletabonpart()
 	{
 		return eletabonpart;
 	}
 	
-	@FindBy(xpath="//*[@text='Part']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Part']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Part']/../XCUIElementTypeOther")	})
 	private WebElement elePart;
 	public WebElement getPart()
 	{
@@ -411,7 +423,8 @@ public class Ph_WorkOrderPO
 	}
 	
 
-	@FindBy(xpath="//*[@text='Date Required']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='Date Required']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Date Required']/../XCUIElementTypeOther")	})
 	private WebElement eleDateRequired;
 	public WebElement getleDateRequired()
 	{
@@ -419,7 +432,7 @@ public class Ph_WorkOrderPO
 	}
 	
 	
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APP.BACK_BUTTON\"]/android.view.ViewGroup")
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement eleXsymbol;
 	public WebElement geteleXsymbol()
 	{
