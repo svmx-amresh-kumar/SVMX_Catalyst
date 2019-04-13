@@ -1907,7 +1907,7 @@ public class CommonUtility {
 	 * @throws InterruptedException
 	 */
 	public void custScrollToElementAndClick(WebElement wElement){
-
+		System.out.println("Scrolling to element and clicking");
 		//If element clicked then return immediately
 		try {
 			Thread.sleep(300);

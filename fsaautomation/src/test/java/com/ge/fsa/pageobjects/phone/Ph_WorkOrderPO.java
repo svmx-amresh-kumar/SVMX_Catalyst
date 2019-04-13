@@ -176,8 +176,8 @@ public class Ph_WorkOrderPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		return driver.findElement(By.xpath("//*[contains(@text,'"+sValue+"')]/../..//*[contains(@content-desc,'I')]/*[contains(@text,'"+sValue+"')]"));
 		}else {
-		return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'ITEM')]"));
-
+		//return driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'ITEM')]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sValue+"']"));
 		} 
 
 	}
@@ -351,37 +351,29 @@ public class Ph_WorkOrderPO
 		
 		
 	}
-	//Navigation to WorkOrder SFM with child search	
-	public void navigateToSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
+
+/**
+ * Navigate to SFM from explore
+ * @param ph_ExploreSearchPO
+ * @param sExploreSearch
+ * @param sExploreChildSearchTxt
+ * @param sSearchListElementTxt
+ * @param sFieldServiceName
+ * @param commonUtility
+ * @throws InterruptedException
+ */
+	public void navigateToSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sSearchListElementTxt, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
 	{
-		System.out.println("Navigating to SFM for -->"+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sWOName+" --> "+sFieldServiceName+"");
-		ph_ExploreSearchPO.geteleExploreIcn().click();;
-		//ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-		ph_ExploreSearchPO.getEleSearchName(sExploreSearch).click();;
-		ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();;
+		System.out.println("Navigating to SFM for --> "+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sSearchListElementTxt+" --> "+sFieldServiceName+"");
+		ph_ExploreSearchPO.geteleExploreIcn().click();
+		ph_ExploreSearchPO.getEleSearchListItem(sExploreSearch).click();
+		//ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();
+		selectFromlookupSearchList(commonUtility, ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
 //		ph_ExploreSearchPO.getEleExploreSearchTxtFld().click();
-		ph_ExploreSearchPO.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWOName);
+//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().clear();
+//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sSearchListElementTxt);
+//		ph_ExploreSearchPO.getEleSearchName(sSearchListElementTxt);
 		selectAction(commonUtility,sFieldServiceName);			
-//		try {
-//				
-//			ph_ExploreSearchPO.geteleExploreIcn().click();
-//				ph_ExploreSearchPO.geteleExploreIcn().click();
-//				
-//				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-//				Thread.sleep(3000);
-//				ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();
-//		
-//				// Select the Work Order
-//				ph_ExploreSearchPO.selectFromLookupSearchList(sWOName);
-//				if(sFieldServiceName!=null)
-//				{
-//					selectAction(commonUtility,sFieldServiceName);	
-//				}
-//				}catch(Exception e)
-//				{
-//					throw e;
-//				}
 		
 			}
 	
@@ -656,13 +648,13 @@ public class Ph_WorkOrderPO
 
 		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
 		//Thread.sleep(1000);
-		ph_ExploreSearchPo.getEleSearchName(sPartName1).click();
+		ph_ExploreSearchPo.getEleSearchListItem(sPartName1).click();
 
 	}
 public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO exploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWoName) throws InterruptedException {
 		exploreSearchPO.geteleExploreIcn().click();;
 		//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-		exploreSearchPO.getEleSearchName(sExploreSearch).click();;
+		exploreSearchPO.getEleSearchListItem(sExploreSearch).click();;
 		exploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();;
 //		exploreSearchPO.getEleExploreSearchTxtFld().click();
 		exploreSearchPO.getEleExploreSearchTxtFld().clear();
@@ -687,9 +679,9 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		Thread.sleep(GenericLib.iMedSleep);
 		//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchName(sExploreSearch));
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch));
 		Thread.sleep(GenericLib.iMedSleep);
-		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchName(sExploreChildSearchTxt));
+		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
 
 		// Select the Work Order
 		ph_ExploreSearchPo.selectFromLookupSearchList(sWOName);

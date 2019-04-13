@@ -49,13 +49,13 @@ public class Ph_ExploreSearchPO
 	}
 
 
-	public WebElement getEleSearchName(String sName)
+	public WebElement getEleSearchListItem(String sName)
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return  driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[2]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sName+"']"));
 		}
 	}
 	
@@ -69,13 +69,6 @@ public class Ph_ExploreSearchPO
 		}
 	}
 		
-	private WebElement eleSearchNameTxt;
-	public WebElement getEleSearchNameTxt(String sSearchTxt)
-	{
-		 eleSearchNameTxt=driver.findElement(By.xpath("//*[@text='"+sSearchTxt+"']"));
-		 return eleSearchNameTxt;
-	}
-	
 	
 	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
 		@FindBy(xpath="//*[contains(@name,'EXPLORE.SEARCH_BAR')]")
@@ -137,7 +130,7 @@ public class Ph_ExploreSearchPO
 //		getEleExploreSearchTxtFld().click();
 //		Thread.sleep(300);			
 		getEleExploreSearchTxtFld().sendKeys(Record);
-		getEleSearchName(Record).click();
+		getEleSearchListItem(Record).click();
 
 		
 	}
