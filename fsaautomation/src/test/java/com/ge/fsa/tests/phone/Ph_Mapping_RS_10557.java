@@ -122,7 +122,7 @@ String Location=null;
 			
 			Thread.sleep(5000);
 			//navigate to sfm
-			ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch,  sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName,commonUtility );	
+			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, sExploreChildSearchTxt, sInstalledproductID,sFieldServiceName );	
 			
 			
 			
@@ -133,10 +133,10 @@ String Location=null;
 			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 		
 		  //Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
-		  ph_ExploreSearchPo.selectFromLookupSearchList(ph_WorkOrderPo.getEleSite(),Location);
+		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleSite(), Location);
 		  
 		  //ph_WorkOrderPo.getEleComponent().click();
-		  ph_ExploreSearchPo.selectFromLookupSearchList(ph_WorkOrderPo.getEleComponent(),sproductname); Thread.sleep(2000);
+		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleComponent(), sproductname); Thread.sleep(2000);
 		 
 			
 			//add new line for parts
@@ -230,7 +230,7 @@ String Location=null;
 		
 			
 			System.out.println("Validating mapping after data sync");
-		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );	
 			Thread.sleep(GenericLib.iMedSleep);
 		
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());

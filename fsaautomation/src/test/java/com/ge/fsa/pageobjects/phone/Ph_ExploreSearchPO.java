@@ -121,15 +121,16 @@ public class Ph_ExploreSearchPO
 	
 	/**
 	 * Select and search any element from explore search list
+	 * @param commonsUtility TODO
 	 * @param wElement
 	 * @param Record
 	 * @throws InterruptedException
 	 */
-	public void selectFromLookupSearchList(WebElement wElement,String Record) throws InterruptedException
+	public void selectFromLookupSearchList(CommonUtility commonsUtility,WebElement wElement, String Record) throws InterruptedException
 	{
 		
 		System.out.println("Selecting From Lookup Search");
-		wElement.click();
+		commonsUtility.custScrollToElementAndClick(wElement);
 		getEleExploreSearchTxtFld().sendKeys(Record);
 		getEleSearchListItem(Record).click();
 
@@ -139,39 +140,39 @@ public class Ph_ExploreSearchPO
 
 	/**
 	 * Navigate to SFM from explore from child search
+	 * @param commonUtility
 	 * @param ph_WorkOrderPO TODO
 	 * @param sExploreSearch
 	 * @param sExploreChildSearchTxt
 	 * @param sSearchListElementTxt
 	 * @param sFieldServiceName
-	 * @param commonUtility
 	 * @throws InterruptedException
 	 */
-		public void navigateToSFM(Ph_WorkOrderPO ph_WorkOrderPO, String sExploreSearch, String sExploreChildSearchTxt, String sSearchListElementTxt, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
+		public void navigateToSFM(CommonUtility commonUtility, Ph_WorkOrderPO ph_WorkOrderPO, String sExploreSearch, String sExploreChildSearchTxt, String sSearchListElementTxt, String sFieldServiceName) throws InterruptedException
 		{
 			System.out.println("Navigating to SFM for --> "+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sSearchListElementTxt+" --> "+sFieldServiceName+"");
 			geteleExploreIcn().click();
 			getEleSearchListItem(sExploreSearch).click();
-			selectFromLookupSearchList(getEleSearchChildListName(sExploreChildSearchTxt),sSearchListElementTxt);
+			selectFromLookupSearchList(commonUtility,getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
 			ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
 			
 		}
 		
 		/**
 		 * Navigate to SFM from explore without child
+		 * @param commonUtility
 		 * @param ph_WorkOrderPO TODO
 		 * @param sExploreSearch
-		 * @param sExploreChildSearchTxt
 		 * @param sSearchListElementTxt
 		 * @param sFieldServiceName
-		 * @param commonUtility
+		 * @param sExploreChildSearchTxt
 		 * @throws InterruptedException
 		 */
-			public void navigateToSFM(Ph_WorkOrderPO ph_WorkOrderPO, String sExploreSearch, String sSearchListElementTxt, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
+			public void navigateToSFM(CommonUtility commonUtility, Ph_WorkOrderPO ph_WorkOrderPO, String sExploreSearch, String sSearchListElementTxt, String sFieldServiceName) throws InterruptedException
 			{
 				System.out.println("Navigating to SFM for --> "+sExploreSearch+" --> "+sSearchListElementTxt+" --> "+sFieldServiceName+"");
 				geteleExploreIcn().click();
-				selectFromLookupSearchList(getEleSearchListItem(sExploreSearch),sSearchListElementTxt);
+				selectFromLookupSearchList(commonUtility,getEleSearchListItem(sExploreSearch), sSearchListElementTxt);
 				ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
 				
 			}

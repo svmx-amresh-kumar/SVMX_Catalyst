@@ -471,7 +471,7 @@ private WebElement eleAccount;
 		return eleToLocation;
 	}
 	
-	public void createInstalledProduct(CommonUtility commonsUtility,Ph_CalendarPO ph_CalendarPo,String accountName, String ProdutName,String InstalledProductID,Ph_ExploreSearchPO ph_ExploreSearchPO ) throws Exception
+	public void createInstalledProduct(CommonUtility commonUtility,Ph_CalendarPO ph_CalendarPo,String accountName, String ProdutName,String InstalledProductID,Ph_ExploreSearchPO ph_ExploreSearchPO ) throws Exception
 	{
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//click on new icon
@@ -488,19 +488,19 @@ private WebElement eleAccount;
 		Thread.sleep(2000);
 		
 		// Adding Value for Product
-		//commonsUtility.custScrollToElement(getEleProduct());
+		//commonUtility.custScrollToElement(getEleProduct());
 		//getEleProductstar().click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(getEleProductstar(),ProdutName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility,getEleProductstar(), ProdutName);
 		
 		// Adding Value for InstalledproductID
-		//commonsUtility.custScrollToElement(getEleInstalledProduct());
+		//commonUtility.custScrollToElement(getEleInstalledProduct());
 		getEleInstalledProductstar().click();
 		getEleInstalledProductstar().sendKeys(InstalledProductID);
 		
 		// Adding Value for Account
-		commonsUtility.custScrollToElement(getAccountstar());
+		commonUtility.custScrollToElement(getAccountstar());
 		//getAccountstar().click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(getAccountstar(),accountName);
+		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility,getAccountstar(), accountName);
 	
 		
 		Thread.sleep(1000);
@@ -633,7 +633,7 @@ private WebElement eleAccount;
 		commonUtility.custScrollToElementAndClick(getElePartLnk());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
 
-		//commonsUtility.tap(workOrderPo.getEleAddselectedbutton());
+		//commonUtility.tap(workOrderPo.getEleAddselectedbutton());
 		//Thread.sleep(1000);
 		ph_ExploreSearchPo.getEleSearchListItem(sPartName1).click();
 
@@ -649,10 +649,10 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 
 	}
 	
-	public void addExpense(CommonUtility commonsUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
-		//commonsUtility.custScrollToElementAndClick("Add Expense").click();
-		//commonsUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonsUtility.custScrollToElementAndClick("Add Expense");
+	public void addExpense(CommonUtility commonUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
+		//commonUtility.custScrollToElementAndClick("Add Expense").click();
+		//commonUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
+		commonUtility.custScrollToElementAndClick("Add Expense");
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);
@@ -671,7 +671,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		commonUtility.custScrollToElementAndClick(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt));
 
 		// Select the Work Order
-		ph_ExploreSearchPo.selectFromLookupSearchList(ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt),sWOName);
+		ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt), sWOName);
 	}
 	
 	public void addPSLines(CommonUtility commonUtility,String sSerialNumber)throws InterruptedException

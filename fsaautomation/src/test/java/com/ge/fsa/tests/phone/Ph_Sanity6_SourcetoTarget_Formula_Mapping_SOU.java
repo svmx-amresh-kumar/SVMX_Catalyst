@@ -106,7 +106,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		//Navigation to SFM
 		
-		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName,commonUtility);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName);
 		//sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
 		//System.out.println(Arrays.toString(sAppDate));
 		//System.out.println(Arrays.toString(sDeviceDate));

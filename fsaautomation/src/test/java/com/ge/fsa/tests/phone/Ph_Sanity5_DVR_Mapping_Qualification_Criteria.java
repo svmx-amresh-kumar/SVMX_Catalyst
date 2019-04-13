@@ -80,7 +80,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 		 */
 		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName,commonUtility);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1,sFieldServiceName);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
@@ -89,7 +89,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 
 		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName,commonUtility);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName2,sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
 		commonUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
