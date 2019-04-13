@@ -352,26 +352,36 @@ public class Ph_WorkOrderPO
 		
 	}
 	//Navigation to WorkOrder SFM with child search	
-	public void navigateToWOSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
+	public void navigateToSFM(Ph_ExploreSearchPO ph_ExploreSearchPO, String sExploreSearch, String sExploreChildSearchTxt, String sWOName, String sFieldServiceName, CommonUtility commonUtility) throws InterruptedException
 	{
-		try {
-				ph_ExploreSearchPO.geteleExploreIcn().click();
-				ph_ExploreSearchPO.geteleExploreIcn().click();
-				
-				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
-				Thread.sleep(3000);
-				ph_ExploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt).click();
-		
-				// Select the Work Order
-				ph_ExploreSearchPO.selectFromLookupSearchList(sWOName);
-				if(sFieldServiceName!=null)
-				{
-					selectAction(commonUtility,sFieldServiceName);	
-				}
-				}catch(Exception e)
-				{
-					throw e;
-				}
+		System.out.println("Navigating to SFM for -->"+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sWOName+" --> "+sFieldServiceName+"");
+		ph_ExploreSearchPO.geteleExploreIcn().click();;
+		//ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+		ph_ExploreSearchPO.getEleSearchName(sExploreSearch).click();;
+		ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();;
+//		ph_ExploreSearchPO.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPO.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWOName);
+		selectAction(commonUtility,sFieldServiceName);			
+//		try {
+//				
+//			ph_ExploreSearchPO.geteleExploreIcn().click();
+//				ph_ExploreSearchPO.geteleExploreIcn().click();
+//				
+//				ph_ExploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
+//				Thread.sleep(3000);
+//				ph_ExploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();
+//		
+//				// Select the Work Order
+//				ph_ExploreSearchPO.selectFromLookupSearchList(sWOName);
+//				if(sFieldServiceName!=null)
+//				{
+//					selectAction(commonUtility,sFieldServiceName);	
+//				}
+//				}catch(Exception e)
+//				{
+//					throw e;
+//				}
 		
 			}
 	
@@ -653,7 +663,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		exploreSearchPO.geteleExploreIcn().click();;
 		//exploreSearchPO.getEleSearchNameTxt(sExploreSearch).click();
 		exploreSearchPO.getEleSearchName(sExploreSearch).click();;
-		exploreSearchPO.getEleSearchSubListName(sExploreChildSearchTxt).click();;
+		exploreSearchPO.getEleSearchChildListName(sExploreChildSearchTxt).click();;
 //		exploreSearchPO.getEleExploreSearchTxtFld().click();
 		exploreSearchPO.getEleExploreSearchTxtFld().clear();
 		exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);

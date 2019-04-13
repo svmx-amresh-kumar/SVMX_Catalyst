@@ -122,7 +122,7 @@ String Location=null;
 			
 			Thread.sleep(5000);
 			//navigate to sfm
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName,commonUtility );	
+			ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sInstalledproductID, sFieldServiceName,commonUtility );	
 			
 			
 			
@@ -230,7 +230,7 @@ String Location=null;
 		
 			
 			System.out.println("Validating mapping after data sync");
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
+		ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
 			Thread.sleep(GenericLib.iMedSleep);
 		
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());

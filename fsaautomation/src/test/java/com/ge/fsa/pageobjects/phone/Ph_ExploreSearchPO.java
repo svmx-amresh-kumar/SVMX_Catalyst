@@ -47,13 +47,7 @@ public class Ph_ExploreSearchPO
 	{
 		return eleAutomationSearch;
 	}
-	
-	@FindBy(xpath="//*[@*='Work Orders']")
-	private WebElement eleWorkOrdersChildSearch;
-	public WebElement geteleWorkOrdersChildSearch()
-	{
-		return eleWorkOrdersChildSearch;
-	}
+
 
 	public WebElement getEleSearchName(String sName)
 	{
@@ -65,7 +59,7 @@ public class Ph_ExploreSearchPO
 		}
 	}
 	
-	public WebElement getEleSearchSubListName(String sName)
+	public WebElement getEleSearchChildListName(String sName)
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -81,16 +75,10 @@ public class Ph_ExploreSearchPO
 		 eleSearchNameTxt=driver.findElement(By.xpath("//*[@text='"+sSearchTxt+"']"));
 		 return eleSearchNameTxt;
 	}
-	private WebElement eleExploreChildSearchTxt;
-	public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
-	{
-		//eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(@text,'"+sExploreChildSearchTxt+"')]"));
-		eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[@text='"+sExploreChildSearchTxt+"']"));
-		return eleExploreChildSearchTxt;
-	}
+	
 	
 	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
-		@FindBy(xpath="//*[contains(@name,'SEARCH_BAR')]")
+		@FindBy(xpath="//*[contains(@name,'EXPLORE.SEARCH_BAR')]")
 	})
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
@@ -146,8 +134,8 @@ public class Ph_ExploreSearchPO
 	{
 		
 		System.out.println("Selecting From Lookup Search");
-		getEleExploreSearchTxtFld().click();
-		Thread.sleep(300);			
+//		getEleExploreSearchTxtFld().click();
+//		Thread.sleep(300);			
 		getEleExploreSearchTxtFld().sendKeys(Record);
 		getEleSearchName(Record).click();
 

@@ -70,7 +70,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 	
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName, commonUtility);
+		ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName, commonUtility);
 		//Set Start time for event
 		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0", "pm");
 		//Edit the subject

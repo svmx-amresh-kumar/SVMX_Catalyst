@@ -147,7 +147,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			//Navigation to SFM
 
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sIBname, sFieldServiceName,commonUtility );	
+			ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch,  sExploreChildSearchTxt, sIBname, sFieldServiceName,commonUtility );	
 			Thread.sleep(3000);
 			//ph_WorkOrderPo.getEleselectprocess(sFieldServiceName).click();
 			Thread.sleep(3000);
@@ -273,7 +273,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			
 			//Validating after datasync
-			ph_WorkOrderPo.navigateToWOSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
+			ph_WorkOrderPo.navigateToSFM(ph_ExploreSearchPO, sExploreSearch,  "Work Orders", sworkOrdername, "EDIT_WORKORDER_MAPPING",commonUtility );	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 			//ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
 			
