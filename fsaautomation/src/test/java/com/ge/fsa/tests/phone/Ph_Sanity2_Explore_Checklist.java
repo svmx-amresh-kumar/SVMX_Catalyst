@@ -99,13 +99,13 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sNumberQAns = null;
 		String sValue = "MultiOn, MultiTwo";
 		String sProcessname = "Default title for Checklist";
-		String sDateExpected = "1/1/1971";
+		String sDateExpected = "1/1/2019";
 
 		prereq();
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
-
+*/
 		
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -159,11 +159,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		// Entering DateTime question
 		// commonUtility.custScrollToElement("6. DateTime Question");
-		commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
+		//commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
+		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
 		// Entering Date question
 		// commonUtility.custScrollToElementAndClick("5. Date Question");
-		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "JAN", "01", "1971");
+		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "JAN", "01", "2019");
 
 		// Entering Number Question
 		commonUtility.custScrollToElementAndClick(snumberQuestion);
@@ -261,6 +262,8 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		 */
 
 		// Navigating to Checklist
+		
+		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sWOName, sProcessname);
 		// Click on ChecklistName
