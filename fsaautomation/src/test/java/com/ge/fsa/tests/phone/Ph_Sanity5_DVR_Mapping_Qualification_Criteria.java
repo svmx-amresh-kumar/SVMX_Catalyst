@@ -67,62 +67,52 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
-		//preRequiste();
-		sWOName1="WO-00013308";
-		sWOName2="WO-00013309";	
+		preRequiste();
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		/*
-		ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
+		
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		ph_MorePo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		 */
+		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1,sFieldServiceName);
 
 		//Validation of not qualifying Work Order
-		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
-		ph_WorkOrderPo.getEleOKBtn().click();
-		Thread.sleep(GenericLib.iLowSleep);
-
+		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Does not meet 1ualification page is not displayed");
+		ExtentManager.logger.log(Status.PASS,"This is record does not meet page is displayed successfully");
+		ph_WorkOrderPo.getEleBackButton().click();
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName2,sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
-
-		ph_WorkOrderPo.getEleClickSave().click();
-		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(ph_WorkOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
 
 		//Validation of qualifying workorder with Issue found text popup.
-		ph_WorkOrderPo.getEleIssueFoundTxt().click();	
 		Assert.assertTrue(ph_WorkOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 
-		ph_WorkOrderPo.getEleIssueFoundTxt().click();
 		Thread.sleep(GenericLib.iMedSleep);
-		ph_WorkOrderPo.getEleCancelLink().click();
-		ph_WorkOrderPo.getEleDiscardBtn().click();
+		ph_WorkOrderPo.getEleBackButton().click();
+		ph_WorkOrderPo.getEleDiscardChangesButton().click();
 
 		//Navigation to WO
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), "Contract");
-		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), "Courtesy");
+		ph_WorkOrderPo.getElesave().click();
 
 		//Validation of qualifying workorder with Issue found text error.
-		Assert.assertTrue(ph_WorkOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 	}
 }
