@@ -58,8 +58,8 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		
 	} 
 
-	@Test(retryAnalyzer=Retry.class)
-	
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
 		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
@@ -111,7 +111,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		//converting to GMT to PST
 			    SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate1 = parser1.parse(sIBLastModifiedBy);
-		        SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yy HH:mm");
+		        SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/yyyy HH:mm");
 		        String stempDate =  formatter1.format(dTempDate1);
 		        System.out.println("formatter1.format value   "+stempDate);
 		        dTempDate1 = formatter1.parse(stempDate);
@@ -176,8 +176,8 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
-			//try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			//ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
+			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
 			commonUtility.tap(workOrderPo.openpartsontap());
@@ -235,7 +235,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 			 SimpleDateFormat parser2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate2 = parser2.parse(sScheduledDatetime);
-		        SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd/yy HH:mm");
+		        SimpleDateFormat formatter2 = new SimpleDateFormat("M/d/yyyy HH:mm");
 		        String stempDate1 =  formatter2.format(dTempDate2);
 		        System.out.println("formatter1.format value   "+stempDate1);
 		        dTempDate1 = formatter2.parse(stempDate1);
@@ -248,10 +248,10 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		        sformattedDatetime1 = formatter2.format((dTempDate1));  
 		        System.out.println("formateed dateTime"+sformattedDatetime1);
 		       
-			
+	////////////////////		
 		
-			//try{assertEquals(sformattedDatetime, sformattedDatetime1);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-				//ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}//change it later
+			try{assertEquals(sformattedDatetime, sformattedDatetime1);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
+		ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}//change it later
 				
 	
 				
@@ -269,8 +269,8 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			
 			//Validating after datasync
-			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Work Orders",sworkOrdername ,"EDIT_WORKORDER_MAPPING");
+			commonUtility.tap(exploreSearchPo.getEleExploreIcn());//sworkOrdername
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Work Orders",sworkOrdername,"EDIT_WORKORDER_MAPPING");
 
 			 fetchedaccount =workOrderPo.getAccountvalue().getAttribute("value");
 			System.out.println(fetchedaccount);
@@ -296,14 +296,15 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			 fetchedScheduledDatetime =workOrderPo.getScheduledDatetimevalue().getAttribute("value");
 			System.out.println(fetchedScheduledDatetime);
-			//try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			//ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
+			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful After data sync");
 			
 			
-			commonUtility.tap(workOrderPo.openpartsontap());
-			//Thread.sleep(GenericLib.iHighSleep);
 			
+			commonUtility.tap(workOrderPo.getpartsontapedit(sproductname));
+			Thread.sleep(GenericLib.iLowSleep);
+		
 			 fetchedpart =workOrderPo.getElePartLaborLkUp().getAttribute("value");
 			System.out.println(fetchedpart);
 			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,"part value mapped Successful ");}catch(AssertionError e) {System.out.println(e);

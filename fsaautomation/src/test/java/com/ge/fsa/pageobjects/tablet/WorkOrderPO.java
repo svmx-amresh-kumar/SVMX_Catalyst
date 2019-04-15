@@ -1874,8 +1874,20 @@ import com.ge.fsa.lib.ExtentManager;
 		{
 			return partsontap;
 		}
+		private WebElement partsontaptap;
+		public WebElement getpartsontaptap(String text)
+		{
+			partsontaptap=driver.findElement(By.xpath("(//div[@class='x-gridcell x-gridcell-gridcell-sfmdelivery-details']//div[contains(text(), '"+text+"')])[1]"));
+			return partsontaptap;
+		}
 	
-	
+		private WebElement partsontapedit;
+		public WebElement getpartsontapedit(String text)
+		{
+			partsontapedit=driver.findElement(By.xpath("(//div[@class='x-gridcell x-gridcell-gridcell-sfmdelivery-details']//div[contains(text(), '"+text+"')])[2]"));
+			return partsontapedit;
+		}
+		
 		@FindBy(xpath="(//div[contains(text(), 'Labor')][@class='x-panel-title-text']/../../../..//div[@class='x-cells-el'])[1]")
 		private WebElement Laborontap;
 		public WebElement openLaborontap()
