@@ -158,7 +158,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
 
 		// Entering DateTime question
-		// commonUtility.custScrollToElement("6. DateTime Question");
+		commonUtility.custScrollToElement("6. DateTime Question");
 		//commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 

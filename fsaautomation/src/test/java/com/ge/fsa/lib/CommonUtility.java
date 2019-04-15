@@ -702,11 +702,20 @@ public class CommonUtility {
 				tap(wElement, 30, 36);
 
 			}
+			Date currentDate = null;
 			switchContext("Native");
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//UK Date Format
+			currentDate=convertStringToDate("E dd MMM yyyy", date);
+			}
+			else
+			{
+			//US DateFormat
+			currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
@@ -912,12 +921,22 @@ public class CommonUtility {
 			tap(wElement, 30, 36);
 			switchContext("Native");
 			//Set current date if all paramters are "0"
+			Date currentDate = null;
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getCalendarDone().click();
 			}else {
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+				if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+					//UK Date Format
+					currentDate=convertStringToDate("E dd MMM yyyy", date);
+					}
+					else
+					{
+					//US DateFormat
+					currentDate=convertStringToDate("E, MMM dd yyyy", date);
+					}
+				
 				Date monthDate=convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(monthDate);
