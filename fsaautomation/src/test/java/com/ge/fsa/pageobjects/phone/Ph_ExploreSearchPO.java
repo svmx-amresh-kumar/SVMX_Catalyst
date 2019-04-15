@@ -154,6 +154,7 @@ public class Ph_ExploreSearchPO
 			geteleExploreIcn().click();
 			getEleSearchListItem(sExploreSearch).click();
 			selectFromLookupSearchList(commonUtility,getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
+			Thread.sleep(5000);
 			ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
 			
 		}

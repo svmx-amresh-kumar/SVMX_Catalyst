@@ -231,7 +231,7 @@ public class Ph_WorkOrderPO
 		}
 	
 	
-	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
+	@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
 	{
@@ -266,7 +266,7 @@ public class Ph_WorkOrderPO
 	{
 		return eleSavedSuccessTxt;
 	}
-	@FindBy(xpath="//div[contains(text(),'Issue')]")
+	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
@@ -283,7 +283,7 @@ public class Ph_WorkOrderPO
 	private WebElement eleIssuePopupTxt;
 	public WebElement getEleIssuePopupTxt(String sIssueTxt)
 	{
-		eleIssuePopupTxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sIssueTxt+"']"));
+		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
 		return eleIssuePopupTxt;
 	}
 	@FindBy(xpath="//*[text() = 'Cancel']")
@@ -908,6 +908,12 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		public WebElement geteleProblemDescriptiontxt()
 		{
 		return eleProblemDescriptiontxt;
+		}
+		
+		@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[1]")
+		private WebElement eleBillingTypeField;
+		public WebElement getEleBillingTypeField() {
+			return eleBillingTypeField;
 		}
 		
 	}	
