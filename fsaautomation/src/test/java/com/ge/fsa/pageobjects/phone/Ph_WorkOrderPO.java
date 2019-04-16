@@ -161,6 +161,7 @@ public class Ph_WorkOrderPO
 	{
 		return elePartLnk;
 	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@label='Add Labor']")})
 	private WebElement eleLaborLnk;
@@ -168,15 +169,32 @@ public class Ph_WorkOrderPO
 	{
 		return eleLaborLnk;
 	}
-	
+
 	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Travel']")})
-		private WebElement eleTravelLnk;
-		public WebElement getEleTravelLnk()
-		{
-			return eleTravelLnk;
-		}
-		
+	private WebElement eleTravelLnk;
+	public WebElement getEleTravelLnk()
+	{
+		return eleTravelLnk;
+	}
+
+	@FindAll({@FindBy(xpath="//*[@text ='Add Expense']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Expense']")})
+	private WebElement eleExpensesLnk;
+	public WebElement getEleExpensesLnk()
+	{
+		return eleExpensesLnk;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Image or Video']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Image or Video']")})
+	private WebElement eleAddImageLnk;
+	public WebElement getEleAddImageLnk()
+	{
+		return eleAddImageLnk;
+	}
+	
+	
 		
 	public WebElement getEleSearchListItem(String sValue)
 	{
@@ -326,6 +344,7 @@ public class Ph_WorkOrderPO
 	public void addParts(CommonUtility commonUtility,String sProductName1) 
 	{
 	System.out.println("Adding Parts");
+	commonUtility.gotToTabHorizontal("PART");
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
@@ -333,14 +352,14 @@ public class Ph_WorkOrderPO
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		System.out.println("Adding Labor");
-		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
+		commonUtility.custScrollToElementAndClick(getEleLaborLnk(),"LABOR");
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
 		
 		
 			try {
-				commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"0", "0","AM");
-				commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(),  1,"09","00","AM"); 
+				commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"0", "0");
+				commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(),  1,"09","00"); 
 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -621,7 +640,7 @@ private WebElement eleAccount;
 		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
 	}
 	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
-		getElePartLnk().click();
+		commonUtility.custScrollToElementAndClick(getElePartLnk(), "PART");
 		for(String productName : productNames) {
 			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
 			commonUtility.getSearchLookupWithText(productName).clear();
@@ -631,7 +650,7 @@ private WebElement eleAccount;
 	
 	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
-		commonUtility.custScrollToElementAndClick(getElePartLnk());
+		commonUtility.custScrollToElementAndClick(getElePartLnk(),"PART");
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
 
 		//commonUtility.tap(workOrderPo.getEleAddselectedbutton());
@@ -653,7 +672,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void addExpense(CommonUtility commonUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
 		//commonUtility.custScrollToElementAndClick("Add Expense").click();
 		//commonUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonUtility.custScrollToElementAndClick("Add Expense");
+		commonUtility.custScrollToElementAndClick(getEleExpensesLnk(),"EXPENSES");
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);
