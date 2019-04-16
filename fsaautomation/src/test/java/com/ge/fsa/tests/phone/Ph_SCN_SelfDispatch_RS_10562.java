@@ -72,13 +72,13 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 		//Set Start time for event
-		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0", "pm");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "00", "00");
 		//Edit the subject
 		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
-		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "1", "0", "pm");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "01", "00");
 		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getElesave().click();
 		

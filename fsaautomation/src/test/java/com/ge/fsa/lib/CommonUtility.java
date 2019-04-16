@@ -713,7 +713,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
-		System.out.println("Setting 24hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin);
+		System.out.println("Setting 24hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -829,7 +829,7 @@ public class CommonUtility {
 
 	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
-		System.out.println("Setting 24hrs Date Time For sDateFormat = "+sDateFormat+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin);
+		System.out.println("Setting 24hrs Date Time For sDateFormat = "+sDateFormat+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -1012,7 +1012,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
 			String sTimeAMPM) throws InterruptedException {
-		System.out.println("Setting 12hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin+"sTimeAMPM = "+sTimeAMPM);
+		System.out.println("Setting 12hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin+"sTimeAMPM = "+sTimeAMPM);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -1244,7 +1244,7 @@ public class CommonUtility {
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				//Phone needs mltiple calls to date picker to set the correct date
+				//Phone needs multiple calls to date picker to set the correct date
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
@@ -1258,6 +1258,7 @@ public class CommonUtility {
 		}
 		if (sTimeMin != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Phone needs multiple calls to date picker to set the correct date
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);

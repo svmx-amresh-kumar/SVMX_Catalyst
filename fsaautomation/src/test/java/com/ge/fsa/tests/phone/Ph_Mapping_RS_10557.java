@@ -128,7 +128,7 @@ String Location=null;
 			
 			//fill the values to to fields
 			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
-			commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0","0"); //set start time to Today
+			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"00", "00"); //set start time to Today
 
 			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 		
