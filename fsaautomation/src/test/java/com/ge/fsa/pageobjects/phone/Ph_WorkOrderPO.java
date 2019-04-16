@@ -161,6 +161,12 @@ public class Ph_WorkOrderPO
 		return elePartLnk;
 	}
 	
+	
+	public String getStringParts()
+	{
+		return "PARTS";
+	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@label='Add Labor']")})
 	private WebElement eleLaborLnk;
@@ -168,7 +174,12 @@ public class Ph_WorkOrderPO
 	{
 		return eleLaborLnk;
 	}
-
+	
+	public String getStringLabor()
+	{
+		return "LABOR";
+	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Travel']")})
 	private WebElement eleTravelLnk;
@@ -177,6 +188,11 @@ public class Ph_WorkOrderPO
 		return eleTravelLnk;
 	}
 
+	public String getStringTravel()
+	{
+		return "TRAVEL";
+	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Expense']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Expense']")})
 	private WebElement eleExpensesLnk;
@@ -185,6 +201,12 @@ public class Ph_WorkOrderPO
 		return eleExpensesLnk;
 	}
 	
+	public String getStringExpenses()
+	{
+		return "EXPENSES";
+	}
+	
+
 	@FindAll({@FindBy(xpath="//*[@text ='Add Image or Video']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Image or Video']")})
 	private WebElement eleAddImageLnk;
@@ -193,7 +215,15 @@ public class Ph_WorkOrderPO
 		return eleAddImageLnk;
 	}
 	
+	public String getStringAttachments()
+	{
+		return "ATTACHMENTS";
+	}
 	
+	public String getStringDocuments()
+	{
+		return "DOCUMENTS";
+	}
 		
 	public WebElement getEleSearchListItem(String sValue)
 	{
@@ -343,7 +373,7 @@ public class Ph_WorkOrderPO
 	public void addParts(CommonUtility commonUtility,String sProductName1) 
 	{
 	System.out.println("Adding Parts");
-	commonUtility.gotToTabHorizontal("PART");
+	commonUtility.gotToTabHorizontal(getStringParts());
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
@@ -351,7 +381,7 @@ public class Ph_WorkOrderPO
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		System.out.println("Adding Labor");
-		commonUtility.custScrollToElementAndClick(getEleLaborLnk(),"LABOR");
+		commonUtility.custScrollToElementAndClick(getEleLaborLnk(),getStringLabor());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
 		
@@ -639,7 +669,7 @@ private WebElement eleAccount;
 		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
 	}
 	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
-		commonUtility.custScrollToElementAndClick(getElePartLnk(), "PART");
+		commonUtility.custScrollToElementAndClick(getElePartLnk(), getStringParts());
 		for(String productName : productNames) {
 			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
 			commonUtility.getSearchLookupWithText(productName).clear();
@@ -649,7 +679,7 @@ private WebElement eleAccount;
 	
 	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
-		commonUtility.custScrollToElementAndClick(getElePartLnk(),"PART");
+		commonUtility.custScrollToElementAndClick(getElePartLnk(),getStringParts());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
 
 		//commonUtility.tap(workOrderPo.getEleAddselectedbutton());
