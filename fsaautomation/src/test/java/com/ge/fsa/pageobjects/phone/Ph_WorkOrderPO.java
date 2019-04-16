@@ -803,8 +803,9 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 
 
 	
-	@FindAll({@FindBy(xpath="//*[@*='HEADER_RIGHT']"),
-	@FindBy(xpath="//*[@content-desc='HEADER_RIGHT']")})
+	@FindAll({@FindBy(xpath="//*[@*='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@content-desc='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@text='Add']")})
 	private WebElement eleAdd;
 	public WebElement getEleAdd()
 	{
