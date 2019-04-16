@@ -144,9 +144,8 @@ public class Ph_WorkOrderPO
 
 		selectAction(commonUtility,"Create New Event From Work Order");
 		
-		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"5", "00","AM"); //set start time to Today
-		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
-		getEleSubjectTxtFld().click();
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "05", "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "06", "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
