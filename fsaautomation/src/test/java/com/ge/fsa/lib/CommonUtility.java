@@ -512,6 +512,7 @@ public class CommonUtility {
 
 	/**
 	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * NOTE : The Actual time is inclusive of Multiple object find time as well so it may be more
 	 * 
 	 * @param wElement
 	 * @param lTime
@@ -533,15 +534,22 @@ public class CommonUtility {
 		//		System.out.println("Waiting For Element : " + wElement.toString());
 		//		}
 		//		switchContext(context);
-
-		while (lElapsedTime != lTime) {
-			Thread.sleep(1000);
+		//long lInitTimeStartMilliSec = System.currentTimeMillis();
+		//long lInitTimeEndMilliSec = 0;
+		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime-2 to make it close to exact and iterate only for 3 sec
+		int reCalculatedWaitTime = Math.abs(lTime-2);
+		while (lElapsedTime != reCalculatedWaitTime) {		
+			//Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
 					//switchContext(context);
 					//reverting wait to 10 seconds
-					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					//lInitTimeEndMilliSec = System.currentTimeMillis();
+					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+					//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 					return true;
 				}
 			} catch (Exception ex) {
@@ -549,6 +557,10 @@ public class CommonUtility {
 
 			lElapsedTime++;
 		}
+		//lInitTimeEndMilliSec = System.currentTimeMillis();
+		//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 		System.out.println("Element is not displayed");
 		//switchContext(context);
 		//reverting wait to 10 seconds
@@ -1944,6 +1956,11 @@ public class CommonUtility {
 
 	}
 	
+	/**
+	 * Navigate to a horizontal tab based on the tab name
+	 * @param sTabName
+	 * @return
+	 */
 	public boolean gotToTabHorizontal(String sTabName) {
 		System.out.println("Scrolling Horizontally");
 		List<WebElement> wElementNav=null;
@@ -2248,5 +2265,29 @@ public class CommonUtility {
 
 	}
 
+	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Min = "+sDiff);
+		return sDiff;
+	}
+	
+	public long getDateDiffInSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Sec = "+sDiff);
+
+		return sDiff;
+	}
+	
+	public long getDateDiffInMilSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MILLISECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in MilliSec = "+sDiff);
+		return sDiff;
+	}
 
 }
