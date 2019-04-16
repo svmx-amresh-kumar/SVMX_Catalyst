@@ -249,6 +249,8 @@ public class BaseLib {
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 						capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
 						capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
+						capabilities.setCapability("ignoreUnimportantViews",true);
+
 					}else{
 						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 						capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
@@ -297,7 +299,7 @@ public class BaseLib {
 					capabilities.setCapability("wdaEventloopIdleDelay",5);
 					capabilities.setCapability("useNewWDA",false);
 					capabilities.setCapability("waitForQuiescence",false);
-					
+					capabilities.setCapability("ignoreUnimportantViews",true);
 				
 				}else{
 					//Only For Ipad
