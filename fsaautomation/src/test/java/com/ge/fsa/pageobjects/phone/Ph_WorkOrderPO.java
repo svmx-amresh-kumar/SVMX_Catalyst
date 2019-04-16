@@ -170,7 +170,16 @@ public class Ph_WorkOrderPO
 		return eleLaborLnk;
 	}
 	
-	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Travel\"]"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Travel\"]")})
+		private WebElement eleTravelLnk;
+		public WebElement getEleTravelLnk()
+		{
+			return eleTravelLnk;
+		}
+		
+		
 	public WebElement getEleSearchListItem(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -777,15 +786,19 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 
 
+	
+	@FindAll({@FindBy(xpath="//*[@*='HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@content-desc='HEADER_RIGHT']")})
 	private WebElement eleAdd;
 	public WebElement getEleAdd()
 	{
+		return eleAdd;
 
-		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		/*if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return eleAdd = driver.findElementByAccessibilityId("Add");
 		}else {
 			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
-		}
+		}*/
 	}	
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){

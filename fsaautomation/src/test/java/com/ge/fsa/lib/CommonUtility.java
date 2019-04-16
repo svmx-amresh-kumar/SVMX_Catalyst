@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -37,6 +38,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -506,6 +508,8 @@ public class CommonUtility {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
+		//Setting wait for 1 sec only for this method reverting when exiting
+				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		System.out.println("Waiting For : " + lTime + " sec");
 		//		String context=driver.getContext();
 		//		switchContext("native");
@@ -524,6 +528,8 @@ public class CommonUtility {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
 					//switchContext(context);
+					//reverting wait to 10 seconds
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					return true;
 				}
 			} catch (Exception ex) {
@@ -533,6 +539,8 @@ public class CommonUtility {
 		}
 		System.out.println("Element is not displayed");
 		//switchContext(context);
+		//reverting wait to 10 seconds
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return false;
 
 	}
@@ -1623,6 +1631,7 @@ public class CommonUtility {
 		}
 		
 		try {
+			
 			isDis = wElement.isDisplayed();
 			if (isDis) {
 				System.out.println("Element is visible");
@@ -1919,18 +1928,52 @@ public class CommonUtility {
 		}
 
 	}
+	
+	public boolean horizontalNavigation(String sTabName) {
+		System.out.println("Scrolling Horizontally");
+		int i;
+		for (i = 0; i < 5; i++) {
+			List<WebElement> wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
+			int tabNo = wElementNav.size();
+			System.out.println("Curernt no of Tabs = "+tabNo);
+			try {
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//android.widget.HorizontalScrollView//*[@text='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(Math.abs(tabNo-1)).click();
+		}
+		System.out.println("Tab Not found after scrolling Horizontally");
+		return false;
+
+	}
 
 	/**
-	 * TO scroll for IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
+	 * TO scroll for IOS or android page wise until element is found and if horizontal tab scroll is needed add the tab name, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
 	 * @param wElement
+	 * @param sTabName
 	 * @throws InterruptedException
 	 */
-	public void custScrollToElementAndClick(WebElement wElement){
+	public void custScrollToElementAndClick(WebElement wElement,String... sTabName){
+		String sTabNameVal = sTabName.length>0?sTabName[0]:null;
 		System.out.println("Scrolling to element and clicking");
+		if(!sTabNameVal.equals(null)) {
+			if(!horizontalNavigation(sTabNameVal)) {
+				System.out.println("Tab name "+sTabNameVal+" not found please pass correct tab name");
+				return;
+			}
+		}
 		//If element clicked then return immediately
 		try {
 			Thread.sleep(300);
-			if(isDisplayedCust(wElement)) {
+			if(waitforElement(wElement,3)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
 				return;
@@ -1943,7 +1986,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -1974,7 +2017,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						wElement.click();
 						System.out.println("Element found after scrolling");
 						return;
@@ -1988,7 +2031,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(isDisplayedCust(wElement)) {
+						if(waitforElement(wElement,3)) {
 							point = wElement.getLocation();
 							wElement.click();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2009,7 +2052,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2023,7 +2066,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2055,7 +2098,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						System.out.println("Element found after scrolling");
 						return;
 					}
@@ -2068,7 +2111,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(isDisplayedCust(wElement)) {
+						if(waitforElement(wElement,3)) {
 							point = wElement.getLocation();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 							System.out.println("Element found after scrolling");
@@ -2088,7 +2131,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					System.out.println("Element found after scrolling");
 					return;
 				}
@@ -2101,7 +2144,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2124,7 +2167,7 @@ public class CommonUtility {
 	public void custScrollToElement(WebElement wElement) throws InterruptedException {
 		try {
 			Thread.sleep(300);
-			if(isDisplayedCust(wElement)) {
+			if(waitforElement(wElement,3)) {
 				System.out.println("Element found and clicked after scrolling");
 				return;
 			}
@@ -2136,7 +2179,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					point = wElement.getLocation();
 					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 					System.out.println("Element found aafter scrolling");
