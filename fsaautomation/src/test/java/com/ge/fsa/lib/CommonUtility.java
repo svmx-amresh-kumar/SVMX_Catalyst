@@ -537,9 +537,10 @@ public class CommonUtility {
 		//long lInitTimeStartMilliSec = System.currentTimeMillis();
 		//long lInitTimeEndMilliSec = 0;
 		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime-2 to make it close to exact and iterate only for 3 sec
-		int reCalculatedWaitTime = Math.abs(lTime-2);
+		int reCalculatedWaitTime = Math.abs(lTime/2);
+		System.out.println("ABS "+reCalculatedWaitTime);
 		while (lElapsedTime != reCalculatedWaitTime) {		
-			//Thread.sleep(1000);
+			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
@@ -569,28 +570,21 @@ public class CommonUtility {
 
 	}
 
+	/**
+	 * Wait for the element to not be displayed on the screen
+	 * @param wElement
+	 * @param lTime
+	 * @return
+	 * @throws InterruptedException
+	 */
 	public boolean waitForElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
-		int lElapsedTime = 0;
 		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
-
-		while (lElapsedTime != lTime) {
-			Thread.sleep(1000);
-			try {
-				if (wElement.isDisplayed()) {// If element is not displayed break
-
-				}else {
+				if (!waitforElement(wElement, lTime)) {// If element is not displayed break
 					System.out.println("Element is not displayed anymore");
 					//switchContext(context);
 					return true;
 				}
-			} catch (Exception ex) {
-				System.out.println("Element is not displayed anymore");
-				//switchContext(context);
-				return true;
-			}
 
-			lElapsedTime++;
-		}
 		System.out.println("Element is still displayed and timed out");
 		//switchContext(context);
 		return false;
