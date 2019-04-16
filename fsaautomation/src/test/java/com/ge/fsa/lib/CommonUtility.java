@@ -578,13 +578,27 @@ public class CommonUtility {
 	 * @throws InterruptedException
 	 */
 	public boolean waitForElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
+		int lElapsedTime = 0;
 		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
-				if (!waitforElement(wElement, lTime)) {// If element is not displayed break
+
+		while (lElapsedTime != lTime) {
+			Thread.sleep(1000);
+			try {
+				if (wElement.isDisplayed()) {// If element is not displayed break
+
+				}else {
 					System.out.println("Element is not displayed anymore");
 					//switchContext(context);
 					return true;
 				}
+			} catch (Exception ex) {
+				System.out.println("Element is not displayed anymore");
+				//switchContext(context);
+				return true;
+			}
 
+			lElapsedTime++;
+		}
 		System.out.println("Element is still displayed and timed out");
 		//switchContext(context);
 		return false;
