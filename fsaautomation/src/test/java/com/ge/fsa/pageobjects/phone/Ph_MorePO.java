@@ -203,7 +203,7 @@ public class Ph_MorePO
 			Assert.assertTrue(2<1, "Data Sync Failed");
 		}
 		
-		commonUtility.longPress(getEleMoreBtn());
+		getEleDataSync().click();
 		
 		
 	}
