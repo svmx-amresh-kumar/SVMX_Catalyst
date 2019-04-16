@@ -713,6 +713,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -828,6 +829,7 @@ public class CommonUtility {
 
 	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For sDateFormat = "+sDateFormat+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -1010,7 +1012,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
 			String sTimeAMPM) throws InterruptedException {
-
+		System.out.println("Setting 12hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+"sTimeMin = "+sTimeMin+"sTimeAMPM = "+sTimeAMPM);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
