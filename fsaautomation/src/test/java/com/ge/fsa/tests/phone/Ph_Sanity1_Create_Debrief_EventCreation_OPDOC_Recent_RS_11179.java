@@ -66,12 +66,9 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 	{	
 
 
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
-
-
-
+	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+	Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
@@ -92,7 +89,6 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
-
 
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -121,7 +117,6 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
 
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleProformaInvoice());
-
 		ph_CreateNewPo.getEleProformaInvoice().sendKeys(sProformainVoice);
 		System.out.println(sProformainVoice);
 		ph_WorkOrderPo.getEleAdd().click();
@@ -140,12 +135,10 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		// To create a new Event for the given Work Order
 		ph_WorkOrderPo.createNewEvent(commonUtility,sEventSubject,ph_CalendarPo);
 
-
 		ph_MorePo.syncData(commonUtility);
 
 		// Open the Work Order from the calendar
 		ph_CalendarPo.openWoFromCalendar(sEventSubject);
-
 
 		//Adding parts to WO
 
@@ -159,10 +152,27 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
 
+		// Verifying the Childline values - Before the SYNC
+		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
+		String sChildlinesBefore = restServices.restGetSoqlValue(sSoqlquerychildlinesBefore, "totalSize");	
+		if(sChildlinesBefore.equals("0"))
+		{
+			ExtentManager.logger.log(Status.PASS,"The Childlines before Sync is "+sChildlinesBefore);
+			System.out.println("The attachment before Sync is "+sChildlinesBefore);
+		}
+		else
+		{
+			ExtentManager.logger.log(Status.FAIL,"The Childlines before Sync is "+sChildlinesBefore);
+			System.out.println("The attachment before Sync is "+sChildlinesBefore);
+		}
 
+		ph_MorePo.syncData(commonUtility);
 		sPrintReportSearch = "Work Order Service Report";
-		ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders",
+				sworkOrderName, sPrintReportSearch);		
+		//ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
 		ph_WorkOrderPo.getEleFinalize().click();
+		ExtentManager.logger.log(Status.PASS,"OPDOC FINALIZE Button was clicked");
 
 		// server validation 	
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -173,33 +183,17 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		String sAttachmentidBefore = restServices.restGetSoqlValue(sSoqlQueryattachBefore, "Id");
 		// This will verify if the Id retrived from the Work Order's attachment is not null.
 		assertNull(sAttachmentidBefore); 
-		// Verifying the Childline values - Before the SYNC
-		String sSoqlquerychildlinesBefore = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
-		String sChildlinesBefore = restServices.restGetSoqlValue(sSoqlquerychildlinesBefore, "totalSize");	
-		if(sChildlinesBefore.equals("0"))
-		{
-			ExtentManager.logger.log(Status.PASS,"The Childlines before Sync is "+sChildlinesBefore);
-			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.PASSED, null);
-
-			System.out.println("The attachment before Sync is "+sChildlinesBefore);
-		}
-		else
-		{
-			ExtentManager.logger.log(Status.FAIL,"The Childlines before Sync is "+sChildlinesBefore);
-
-			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines before Sync is "+sChildlinesBefore, LogAs.FAILED, null);
-			System.out.println("The attachment before Sync is "+sChildlinesBefore);
-		}
 		// Syncing the Data
-		Thread.sleep(genericLib.i30SecSleep);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(genericLib.i30SecSleep);
+		//VT PLease do not remove this wait. This is added because at times attachment takes few additional seconds to get synced to server.
+		Thread.sleep(10000);
 
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
 		assertNotNull(sAttachmentIDAfter);
+		ExtentManager.logger.log(Status.PASS,"Attachment is not null,OPDOC sucessfull");
 
 		// Verifying the childlines of the Same Work Order
 		String sSoqlQueryChildlineAfter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
