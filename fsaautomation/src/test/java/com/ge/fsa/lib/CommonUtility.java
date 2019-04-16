@@ -1962,9 +1962,9 @@ public class CommonUtility {
 	 * @throws InterruptedException
 	 */
 	public void custScrollToElementAndClick(WebElement wElement,String... sTabName){
-		String sTabNameVal = sTabName.length>0?sTabName[0]:null;
+		String sTabNameVal = sTabName.length>0?sTabName[0]:"";
 		System.out.println("Scrolling to element and clicking");
-		if(!sTabNameVal.equals(null)) {
+		if(!sTabNameVal.equals("")) {
 			if(!horizontalNavigation(sTabNameVal)) {
 				System.out.println("Tab name "+sTabNameVal+" not found please pass correct tab name");
 				return;
