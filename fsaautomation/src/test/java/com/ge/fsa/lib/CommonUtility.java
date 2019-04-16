@@ -327,9 +327,21 @@ public class CommonUtility {
 
 	// Customised touch Press
 	public void press(Point point) throws InterruptedException {
+		switch (BaseLib.sOSName) {
+	case "android":
+		// For Android add *2 if real device
+		switchContext("Native");
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
+	case "ios":
+		touchAction = new TouchAction(driver);
+		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+		Thread.sleep(GenericLib.iLowSleep);
+		break;
+		
+		}
+		
 	}
 
 	public void swipeUp() {
