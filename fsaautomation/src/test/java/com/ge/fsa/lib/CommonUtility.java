@@ -536,9 +536,9 @@ public class CommonUtility {
 		//		switchContext(context);
 		//long lInitTimeStartMilliSec = System.currentTimeMillis();
 		//long lInitTimeEndMilliSec = 0;
-		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime-2 to make it close to exact and iterate only for 3 sec
+		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
 		int reCalculatedWaitTime = Math.abs(lTime/2);
-		System.out.println("ABS "+reCalculatedWaitTime);
+		//System.out.println("ABS "+reCalculatedWaitTime);
 		while (lElapsedTime != reCalculatedWaitTime) {		
 			Thread.sleep(1000);
 			try {
