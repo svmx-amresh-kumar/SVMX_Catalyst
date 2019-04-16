@@ -1929,12 +1929,16 @@ public class CommonUtility {
 
 	}
 	
-	public boolean horizontalNavigation(String sTabName) {
+	public boolean gotToTabHorizontal(String sTabName) {
 		System.out.println("Scrolling Horizontally");
+		List<WebElement> wElementNav=null;
+		int tabNo =0;
 		int i;
 		for (i = 0; i < 5; i++) {
-			List<WebElement> wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
-			int tabNo = wElementNav.size();
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {//For Android
+			wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
+			tabNo = wElementNav.size();
+
 			System.out.println("Curernt no of Tabs = "+tabNo);
 			try {
 				Thread.sleep(300);
@@ -1949,6 +1953,25 @@ public class CommonUtility {
 			}catch(Exception e){}
 			System.out.println("Scrolling Horizontally for index "+tabNo);
 			wElementNav.get(Math.abs(tabNo-1)).click();
+		}
+		else {//For IOS
+			wElementNav = driver.findElements(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton"));
+			tabNo = wElementNav.size();
+			System.out.println("Curernt no of Tabs = "+tabNo);
+			try {
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton[@name='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(2+i).click();
+			}
 		}
 		System.out.println("Tab Not found after scrolling Horizontally");
 		return false;
@@ -1965,7 +1988,7 @@ public class CommonUtility {
 		String sTabNameVal = sTabName.length>0?sTabName[0]:"";
 		System.out.println("Scrolling to element and clicking");
 		if(!sTabNameVal.equals("")) {
-			if(!horizontalNavigation(sTabNameVal)) {
+			if(!gotToTabHorizontal(sTabNameVal)) {
 				System.out.println("Tab name "+sTabNameVal+" not found please pass correct tab name");
 				return;
 			}

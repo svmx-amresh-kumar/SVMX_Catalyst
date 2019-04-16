@@ -162,8 +162,7 @@ public class Ph_WorkOrderPO
 		return elePartLnk;
 	}
 	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]"),
-	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Labor\"]")})
+	@FindBy(xpath="//XCUIElementTypeOther[@label='Add Labor']")})
 	private WebElement eleLaborLnk;
 	public WebElement getEleLaborLnk()
 	{
@@ -171,8 +170,7 @@ public class Ph_WorkOrderPO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Travel\"]"),
-		@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Travel\"]")})
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Travel']")})
 		private WebElement eleTravelLnk;
 		public WebElement getEleTravelLnk()
 		{
