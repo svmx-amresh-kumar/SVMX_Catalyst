@@ -388,7 +388,7 @@ public class Ph_WorkOrderPO
 		
 			try {
 				commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"0", "0");
-				commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(),  1,"09","00"); 
+				commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(),1,"09","00"); 
 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
