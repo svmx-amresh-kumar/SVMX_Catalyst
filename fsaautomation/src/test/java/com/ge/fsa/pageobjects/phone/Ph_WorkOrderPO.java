@@ -320,7 +320,7 @@ public class Ph_WorkOrderPO
 	{
 		return eleSavedSuccessTxt;
 	}
-	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
