@@ -587,7 +587,8 @@ private WebElement eleAccount;
 		return eleDiscardChangesButton;
 	}
 	
-	@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']")
+	@FindAll({@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']"),
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")})
 	private WebElement eleBackButton;
 	public WebElement getEleBackButton() {
 		return eleBackButton;
