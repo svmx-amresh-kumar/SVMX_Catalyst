@@ -586,7 +586,8 @@ private WebElement eleAccount;
 		return eleRemoveButton;
 	}
 	
-	@FindBy(xpath="//*[./*[@text='Discard Changes']]")
+	@FindAll({@FindBy(xpath="//*[./*[@text='Discard Changes']]"),
+	@FindBy(xpath="//*[@*='Discard Changes']")})
 	private WebElement eleDiscardChangesButton;
 	public WebElement getEleDiscardChangesButton() {
 		return eleDiscardChangesButton;

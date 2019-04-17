@@ -2036,7 +2036,7 @@ public class CommonUtility {
 		//If element clicked then return immediately
 		try {
 			Thread.sleep(300);
-			if(waitforElement(wElement,3)) {
+			if(waitforElement(wElement,1)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
 				return;
@@ -2049,7 +2049,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2080,7 +2080,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						wElement.click();
 						System.out.println("Element found after scrolling");
 						return;
@@ -2094,7 +2094,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(waitforElement(wElement,3)) {
+						if(waitforElement(wElement,1)) {
 							point = wElement.getLocation();
 							wElement.click();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2115,7 +2115,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2129,7 +2129,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2161,7 +2161,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						System.out.println("Element found after scrolling");
 						return;
 					}
@@ -2174,7 +2174,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(waitforElement(wElement,3)) {
+						if(waitforElement(wElement,1)) {
 							point = wElement.getLocation();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 							System.out.println("Element found after scrolling");
@@ -2207,7 +2207,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2230,7 +2230,7 @@ public class CommonUtility {
 	public void custScrollToElement(WebElement wElement) throws InterruptedException {
 		try {
 			Thread.sleep(300);
-			if(waitforElement(wElement,3)) {
+			if(waitforElement(wElement,1)) {
 				System.out.println("Element found and clicked after scrolling");
 				return;
 			}
@@ -2242,7 +2242,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					point = wElement.getLocation();
 					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 					System.out.println("Element found aafter scrolling");
