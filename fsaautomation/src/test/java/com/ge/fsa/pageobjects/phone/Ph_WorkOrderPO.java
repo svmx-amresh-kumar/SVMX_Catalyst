@@ -160,16 +160,71 @@ public class Ph_WorkOrderPO
 	{
 		return elePartLnk;
 	}
+	
+	
+	public String getStringParts()
+	{
+		return "PARTS";
+	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]"),
-	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Labor\"]")})
+	@FindBy(xpath="//XCUIElementTypeOther[@label='Add Labor']")})
 	private WebElement eleLaborLnk;
 	public WebElement getEleLaborLnk()
 	{
 		return eleLaborLnk;
 	}
 	
+	public String getStringLabor()
+	{
+		return "LABOR";
+	}
 	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Travel']")})
+	private WebElement eleTravelLnk;
+	public WebElement getEleTravelLnk()
+	{
+		return eleTravelLnk;
+	}
+
+	public String getStringTravel()
+	{
+		return "TRAVEL";
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Expense']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Expense']")})
+	private WebElement eleExpensesLnk;
+	public WebElement getEleExpensesLnk()
+	{
+		return eleExpensesLnk;
+	}
+	
+	public String getStringExpenses()
+	{
+		return "EXPENSES";
+	}
+	
+
+	@FindAll({@FindBy(xpath="//*[@text ='Add Image or Video']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Image or Video']")})
+	private WebElement eleAddImageLnk;
+	public WebElement getEleAddImageLnk()
+	{
+		return eleAddImageLnk;
+	}
+	
+	public String getStringAttachments()
+	{
+		return "ATTACHMENTS";
+	}
+	
+	public String getStringDocuments()
+	{
+		return "DOCUMENTS";
+	}
+		
 	public WebElement getEleSearchListItem(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -230,7 +285,7 @@ public class Ph_WorkOrderPO
 		}
 	
 	
-	@FindBy(xpath="//*[@*='This record does not meet the qualification criteria for this SFM Transaction']")
+	@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
 	{
@@ -265,24 +320,11 @@ public class Ph_WorkOrderPO
 	{
 		return eleSavedSuccessTxt;
 	}
-	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]")
+	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
 		return eleIssueFoundTxt;
-	}
-	
-	private WebElement eleIssuePopupTxt;
-	public WebElement getEleIssuePopupTxt(String sIssueTxt)
-	{
-		switch (BaseLib.sOSName.toLowerCase()) {
-
-		case "android":
-			elelaborpartresult = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
-		case "ios":
-			 elelaborpartresult = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
-		}
-			return eleIssuePopupTxt;
 	}
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
@@ -292,7 +334,13 @@ public class Ph_WorkOrderPO
 		return eleDiscardBtn;
 	}
 	
-	@FindBy(xpath="//*[@* = 'Cancel']")
+	private WebElement eleIssuePopupTxt;
+	public WebElement getEleIssuePopupTxt(String sIssueTxt)
+	{
+		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
+		return eleIssuePopupTxt;
+	}
+	@FindBy(xpath="//*[text() = 'Cancel']")
 	private WebElement eleCancelLnk;
 	public WebElement getEleCancelLink()
 	{
@@ -325,6 +373,7 @@ public class Ph_WorkOrderPO
 	public void addParts(CommonUtility commonUtility,String sProductName1) 
 	{
 	System.out.println("Adding Parts");
+	commonUtility.gotToTabHorizontal(getStringParts());
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
@@ -332,7 +381,7 @@ public class Ph_WorkOrderPO
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		System.out.println("Adding Labor");
-		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
+		commonUtility.custScrollToElementAndClick(getEleLaborLnk(),getStringLabor());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
 		
@@ -620,7 +669,7 @@ private WebElement eleAccount;
 		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
 	}
 	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
-		getElePartLnk().click();
+		commonUtility.custScrollToElementAndClick(getElePartLnk(), getStringParts());
 		for(String productName : productNames) {
 			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
 			commonUtility.getSearchLookupWithText(productName).clear();
@@ -630,7 +679,7 @@ private WebElement eleAccount;
 	
 	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
-		commonUtility.custScrollToElementAndClick(getElePartLnk());
+		commonUtility.custScrollToElementAndClick(getElePartLnk(),getStringParts());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
 
 		//commonUtility.tap(workOrderPo.getEleAddselectedbutton());
@@ -652,7 +701,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void addExpense(CommonUtility commonUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
 		//commonUtility.custScrollToElementAndClick("Add Expense").click();
 		//commonUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonUtility.custScrollToElementAndClick("Add Expense");
+		commonUtility.custScrollToElementAndClick(getEleExpensesLnk(),"EXPENSES");
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);
@@ -783,15 +832,20 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 
 
+	
+	@FindAll({@FindBy(xpath="//*[@*='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@content-desc='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@text='Add']")})
 	private WebElement eleAdd;
 	public WebElement getEleAdd()
 	{
+		return eleAdd;
 
-		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return eleAdd = driver.findElement(By.xpath("//*[@*='Add']"));
+		/*if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleAdd = driver.findElementByAccessibilityId("Add");
 		}else {
 			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
-		}
+		}*/
 	}	
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
