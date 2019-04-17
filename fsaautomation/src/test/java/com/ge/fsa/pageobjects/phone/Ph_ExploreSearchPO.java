@@ -152,8 +152,15 @@ public class Ph_ExploreSearchPO
 		{
 			System.out.println("Navigating to SFM for --> "+sExploreSearch+" --> "+sExploreChildSearchTxt+" --> "+sSearchListElementTxt+" --> "+sFieldServiceName+"");
 			geteleExploreIcn().click();
+			
+			if (commonUtility.waitforElement(ph_WorkOrderPO.getEleBackButton(), 1)) {
+				ph_WorkOrderPO.getEleBackButton().click();
+			}
+			geteleExploreIcn().click();
+			Thread.sleep(3000);
 			getEleSearchListItem(sExploreSearch).click();
 			selectFromLookupSearchList(commonUtility,getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
+			Thread.sleep(5000);
 			ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
 			
 		}

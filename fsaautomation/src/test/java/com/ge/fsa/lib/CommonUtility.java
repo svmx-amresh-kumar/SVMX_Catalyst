@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -37,6 +38,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -325,9 +327,21 @@ public class CommonUtility {
 
 	// Customised touch Press
 	public void press(Point point) throws InterruptedException {
+		switch (BaseLib.sOSName) {
+	case "android":
+		// For Android add *2 if real device
+		switchContext("Native");
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
+	case "ios":
+		touchAction = new TouchAction(driver);
+		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+		Thread.sleep(GenericLib.iLowSleep);
+		break;
+		
+		}
+		
 	}
 
 	public void swipeUp() {
@@ -498,6 +512,7 @@ public class CommonUtility {
 
 	/**
 	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * NOTE : The Actual time is inclusive of Multiple object find time as well so it may be more
 	 * 
 	 * @param wElement
 	 * @param lTime
@@ -506,6 +521,8 @@ public class CommonUtility {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
+		//Setting wait for 1 sec only for this method reverting when exiting
+				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		System.out.println("Waiting For : " + lTime + " sec");
 		//		String context=driver.getContext();
 		//		switchContext("native");
@@ -517,13 +534,23 @@ public class CommonUtility {
 		//		System.out.println("Waiting For Element : " + wElement.toString());
 		//		}
 		//		switchContext(context);
-
-		while (lElapsedTime != lTime) {
+		//long lInitTimeStartMilliSec = System.currentTimeMillis();
+		//long lInitTimeEndMilliSec = 0;
+		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
+		int reCalculatedWaitTime = Math.abs((lTime/2)+1);
+		//System.out.println("ABS "+reCalculatedWaitTime);
+		while (lElapsedTime != reCalculatedWaitTime) {		
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
 					//switchContext(context);
+					//reverting wait to 10 seconds
+					//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					//lInitTimeEndMilliSec = System.currentTimeMillis();
+					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+					//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 					return true;
 				}
 			} catch (Exception ex) {
@@ -531,12 +558,25 @@ public class CommonUtility {
 
 			lElapsedTime++;
 		}
+		//lInitTimeEndMilliSec = System.currentTimeMillis();
+		//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 		System.out.println("Element is not displayed");
 		//switchContext(context);
+		//reverting wait to 10 seconds
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return false;
 
 	}
 
+	/**
+	 * Wait for the element to not be displayed on the screen
+	 * @param wElement
+	 * @param lTime
+	 * @return
+	 * @throws InterruptedException
+	 */
 	public boolean waitForElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
 		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
@@ -693,6 +733,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -702,11 +743,20 @@ public class CommonUtility {
 				tap(wElement, 30, 36);
 
 			}
+			Date currentDate = null;
 			switchContext("Native");
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//UK Date Format
+			currentDate=convertStringToDate("E dd MMM yyyy", date);
+			}
+			else
+			{
+			//US DateFormat
+			currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
@@ -799,6 +849,7 @@ public class CommonUtility {
 
 	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For sDateFormat = "+sDateFormat+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -912,12 +963,22 @@ public class CommonUtility {
 			tap(wElement, 30, 36);
 			switchContext("Native");
 			//Set current date if all paramters are "0"
+			Date currentDate = null;
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getCalendarDone().click();
 			}else {
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+				if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+					//UK Date Format
+					currentDate=convertStringToDate("E dd MMM yyyy", date);
+					}
+					else
+					{
+					//US DateFormat
+					currentDate=convertStringToDate("E, MMM dd yyyy", date);
+					}
+				
 				Date monthDate=convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(monthDate);
@@ -971,7 +1032,7 @@ public class CommonUtility {
 	 */
 	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
 			String sTimeAMPM) throws InterruptedException {
-
+		System.out.println("Setting 12hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin+"sTimeAMPM = "+sTimeAMPM);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -1203,7 +1264,7 @@ public class CommonUtility {
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				//Phone needs mltiple calls to date picker to set the correct date
+				//Phone needs multiple calls to date picker to set the correct date
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
@@ -1217,6 +1278,7 @@ public class CommonUtility {
 		}
 		if (sTimeMin != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Phone needs multiple calls to date picker to set the correct date
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
@@ -1604,6 +1666,7 @@ public class CommonUtility {
 		}
 		
 		try {
+			
 			isDis = wElement.isDisplayed();
 			if (isDis) {
 				System.out.println("Element is visible");
@@ -1900,18 +1963,80 @@ public class CommonUtility {
 		}
 
 	}
+	
+	/**
+	 * Navigate to a horizontal tab based on the tab name
+	 * @param sTabName
+	 * @return
+	 */
+	public boolean gotToTabHorizontal(String sTabName) {
+		System.out.println("Scrolling Horizontally");
+		List<WebElement> wElementNav=null;
+		int tabNo =0;
+		int i;
+		for (i = 0; i < 5; i++) {
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {//For Android
+			wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
+			tabNo = wElementNav.size();
+
+			System.out.println("Curernt no of Tabs = "+tabNo);
+			try {
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//android.widget.HorizontalScrollView//*[@text='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(Math.abs(tabNo-1)).click();
+		}
+		else {//For IOS
+			wElementNav = driver.findElements(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton"));
+			tabNo = wElementNav.size();
+			System.out.println("Curernt no of Tabs = "+tabNo);
+			try {
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton[@name='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(2+i).click();
+			}
+		}
+		System.out.println("Tab Not found after scrolling Horizontally");
+		return false;
+
+	}
 
 	/**
-	 * TO scroll for IOS or android page wise untill element is found, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
+	 * TO scroll for IOS or android page wise until element is found and if horizontal tab scroll is needed add the tab name, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
 	 * @param wElement
+	 * @param sTabName
 	 * @throws InterruptedException
 	 */
-	public void custScrollToElementAndClick(WebElement wElement){
+	public void custScrollToElementAndClick(WebElement wElement,String... sTabName){
+		String sTabNameVal = sTabName.length>0?sTabName[0]:"";
 		System.out.println("Scrolling to element and clicking");
+		if(!sTabNameVal.equals("")) {
+			if(!gotToTabHorizontal(sTabNameVal)) {
+				System.out.println("Tab name "+sTabNameVal+" not found please pass correct tab name");
+				return;
+			}
+		}
 		//If element clicked then return immediately
 		try {
 			Thread.sleep(300);
-			if(isDisplayedCust(wElement)) {
+			if(waitforElement(wElement,3)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
 				return;
@@ -1924,7 +2049,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -1955,7 +2080,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						wElement.click();
 						System.out.println("Element found after scrolling");
 						return;
@@ -1969,7 +2094,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(isDisplayedCust(wElement)) {
+						if(waitforElement(wElement,3)) {
 							point = wElement.getLocation();
 							wElement.click();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -1990,7 +2115,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2004,7 +2129,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2036,7 +2161,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						System.out.println("Element found after scrolling");
 						return;
 					}
@@ -2049,7 +2174,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(isDisplayedCust(wElement)) {
+						if(waitforElement(wElement,3)) {
 							point = wElement.getLocation();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 							System.out.println("Element found after scrolling");
@@ -2069,7 +2194,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					System.out.println("Element found after scrolling");
 					return;
 				}
@@ -2082,7 +2207,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(isDisplayedCust(wElement)) {
+					if(waitforElement(wElement,3)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2105,7 +2230,7 @@ public class CommonUtility {
 	public void custScrollToElement(WebElement wElement) throws InterruptedException {
 		try {
 			Thread.sleep(300);
-			if(isDisplayedCust(wElement)) {
+			if(waitforElement(wElement,3)) {
 				System.out.println("Element found and clicked after scrolling");
 				return;
 			}
@@ -2117,7 +2242,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(isDisplayedCust(wElement)) {
+				if(waitforElement(wElement,3)) {
 					point = wElement.getLocation();
 					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 					System.out.println("Element found aafter scrolling");
@@ -2148,5 +2273,29 @@ public class CommonUtility {
 
 	}
 
+	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Min = "+sDiff);
+		return sDiff;
+	}
+	
+	public long getDateDiffInSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Sec = "+sDiff);
+
+		return sDiff;
+	}
+	
+	public long getDateDiffInMilSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MILLISECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in MilliSec = "+sDiff);
+		return sDiff;
+	}
 
 }

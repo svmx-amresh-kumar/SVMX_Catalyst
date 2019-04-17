@@ -144,9 +144,8 @@ public class Ph_WorkOrderPO
 
 		selectAction(commonUtility,"Create New Event From Work Order");
 		
-		commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"5", "00","AM"); //set start time to Today
-		commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
-		getEleSubjectTxtFld().click();
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -332,8 +331,8 @@ public class Ph_WorkOrderPO
 		
 		
 			try {
-				commonUtility.setDateTime12Hrs(getEleStartDateTimeTxtFld(), 0,"0", "0","AM");
-				commonUtility.setDateTime12Hrs(getEleEndDateTimeTxtFld(),  1,"09","00","AM"); 
+				commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"0", "0");
+				commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(),1,"09","00"); 
 
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -128,7 +128,7 @@ String Location=null;
 			
 			//fill the values to to fields
 			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
-			commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0","0"); //set start time to Today
+			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"00", "00"); //set start time to Today
 
 			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
 		
@@ -140,7 +140,7 @@ String Location=null;
 		 
 			
 			//add new line for parts
-			ph_WorkOrderPo.getElePartLnk().click();
+		  commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
 			Thread.sleep(4000);
 			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
 			System.out.println(LocationWO);
@@ -150,7 +150,7 @@ String Location=null;
 			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
-			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk());
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk(),ph_WorkOrderPo.getStringLabor());
 			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
