@@ -285,7 +285,8 @@ public class Ph_WorkOrderPO
 		}
 	
 	
-	@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']")
+	@FindAll({@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']"),
+		@FindBy(xpath="//*[@label='This record does not meet the qualification criteria for this SFM Transaction']")})
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
 	{
@@ -293,46 +294,16 @@ public class Ph_WorkOrderPO
 		return eleThisRecordDoesNotPopup;
 	}
 
-	@FindBy(xpath="//span[text()='OK']")
-	private WebElement eleOKBtn;
-	public  WebElement getEleOKBtn()
-	{
 
-		return eleOKBtn;
-	}
-	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
-	private WebElement eleBillingTypeLst;
-	public WebElement getEleBillingTypeLst()
-	{
-		return eleBillingTypeLst;
-	}
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]"),
+	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")})
 
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Save']")
-	private WebElement eleClickSave;
-	public  WebElement getEleClickSave()
-	{
-
-		return eleClickSave;
-	}
-	@FindBy(xpath="//*[contains(text(),'Saved successfully')]")
-	private WebElement eleSavedSuccessTxt;
-	public WebElement getEleSavedSuccessTxt()
-	{
-		return eleSavedSuccessTxt;
-	}
-	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
 		return eleIssueFoundTxt;
 	}
-	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
-	private WebElement eleDiscardBtn;
-	public  WebElement getEleDiscardBtn()
-	{
-		return eleDiscardBtn;
-	}
+
 	
 	private WebElement eleIssuePopupTxt;
 	public WebElement getEleIssuePopupTxt(String sIssueTxt)
@@ -340,14 +311,8 @@ public class Ph_WorkOrderPO
 		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
 		return eleIssuePopupTxt;
 	}
-	@FindBy(xpath="//*[text() = 'Cancel']")
-	private WebElement eleCancelLnk;
-	public WebElement getEleCancelLink()
-	{
-		return eleCancelLnk;
-	}
 	
-
+	
 	private WebElement elelaborpartresult;
 	public WebElement getElelaborpartresult(String sProductName1)
 	{
@@ -362,6 +327,7 @@ public class Ph_WorkOrderPO
 			return elelaborpartresult;
 		
 	}
+	
 	@FindAll({@FindBy(xpath="//*[@*='Save']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@label=\"Save\"])[3]")})
 	private WebElement elesave;
@@ -753,20 +719,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleDiscardChanges;
 		}
-//		//android.view.ViewGroup[@content-desc="SFM.LAYOUT.ADD.0"]/android.view.ViewGroup
-//	@FindBy(xpath = "//*[@*='StartDateTime*']//following::*[@class='android.widget.TextView']")
-//	private WebElement eleStartDateTimeField;
-//
-//	public WebElement getEleStartDateTimeField() {
-//		return eleStartDateTimeField;
-//	}
 
-//	@FindBy(xpath = "//*[@*='EndDateTime*']//following::*[@class='android.widget.TextView']")
-//	private WebElement eleEndDateTimeField;
-//
-//	public WebElement getEleEndDateTimeField() {
-//		return eleEndDateTimeField;
-//	}
 	
 	@FindBy(xpath="//*[@*='Record Type ID']/following-sibling::*[1]")
 	private WebElement eleRecordTypeID;
