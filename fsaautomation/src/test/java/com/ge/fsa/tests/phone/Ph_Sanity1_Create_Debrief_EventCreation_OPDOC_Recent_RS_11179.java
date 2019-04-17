@@ -127,7 +127,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
-
+		ph_MorePo.syncData(commonUtility);
 		//open WO from recents
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
 		//Thread.sleep(2000);
