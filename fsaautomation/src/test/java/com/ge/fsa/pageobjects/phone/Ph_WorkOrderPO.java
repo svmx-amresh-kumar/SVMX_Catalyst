@@ -782,7 +782,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return eleAdd = driver.findElementByAccessibilityId("Add");
+			return eleAdd = driver.findElement(By.xpath("//*[@*='Add']"));
 		}else {
 			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
 		}

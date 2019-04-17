@@ -59,7 +59,29 @@ public class Ph_CalendarPO
 	{
 		return eleCreateNewEvent;
 	}
+	
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APPOINTMENT_DETAIL.VIEW\"]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[3]")
+	private WebElement eleAppointmenttime;
+	public WebElement getEleAppointmenttime()
+	{
+		return eleAppointmenttime;
+	}
+	
+	
 
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"APPOINTMENT_DETAIL.VIEW\"]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]")
+	private WebElement eleAppointmentdate;
+	public WebElement getEleAppointmentdate()
+	{
+		return eleAppointmentdate;
+	}
+	
+	/*@FindBy(xpath="//*[@text='10:00 - 23:00']")
+	private WebElement eleAppointmentdetails;
+	public WebElement getEleAppointmentdetails()
+	{
+		return eleAppointmentdetails;
+	}*/
 
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")})

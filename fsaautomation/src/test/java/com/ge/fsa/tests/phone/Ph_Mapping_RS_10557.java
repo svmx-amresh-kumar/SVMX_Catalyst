@@ -84,7 +84,7 @@ String Location=null;
 				sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-	/*	
+	
 		
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sProformainVoice+""+"account\"}";
@@ -108,7 +108,7 @@ String Location=null;
 		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
 		//sProductName1="v1";
 		System.out.println(Location);
-		*/
+		
 		
 			//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -116,8 +116,8 @@ String Location=null;
 			//datasync
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		//ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPO);
-		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,"AUTO11042019131130account", "AUTO11042019131130product",sInstalledproductID,ph_ExploreSearchPo);
+		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPo);
+		//ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,"AUTO11042019131130account", "AUTO11042019131130product",sInstalledproductID,ph_ExploreSearchPo);
 
 			
 			Thread.sleep(5000);
