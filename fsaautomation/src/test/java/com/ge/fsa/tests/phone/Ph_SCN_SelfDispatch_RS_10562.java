@@ -6,6 +6,7 @@ package com.ge.fsa.tests.phone;
 import org.testng.annotations.Test;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
@@ -72,13 +73,15 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 		//Set Start time for event
-		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "00", "00");
+		String[] deviceDate=commonUtility.getDeviceDate().split(" ");
+		String hours=deviceDate[3].substring(0, 2);
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, hours, "00");
 		//Edit the subject
 		commonUtility.switchContext("native");
-		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
+		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject+Keys.ENTER);
 		
 		//Set end time
-		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "01", "00");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(Integer.parseInt(hours)+1), "00");
 		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getElesave().click();
 		
@@ -93,6 +96,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		//Validation of event on the calender
 		for(int i=0;i<ph_CalendarPo.getEleWOEventTitleTxt().size();i++){
+			System.out.println(ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText()+"    "+sSubject);
 		    if(ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText().equals(sSubject))
 		    {
 		    	Assert.assertTrue(true,"Work Order event is not displayed on calender");

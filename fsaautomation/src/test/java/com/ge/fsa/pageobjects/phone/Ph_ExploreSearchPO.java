@@ -56,7 +56,7 @@ public class Ph_ExploreSearchPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return  driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sName+"']"));
+			return driver.findElement(By.xpath("(//*[@*[contains(.,'"+sName+"')]])[last()]"));
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class Ph_ExploreSearchPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
 		}else {
-			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[2]"));
+			return driver.findElement(By.xpath("(//*[contains(@label,'"+sName+"')]/*[contains(@name,'Item')])[last()]"));
 		}
 	}
 		
