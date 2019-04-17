@@ -308,7 +308,12 @@ public class Ph_WorkOrderPO
 	private WebElement eleIssuePopupTxt;
 	public WebElement getEleIssuePopupTxt(String sIssueTxt)
 	{
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
+		}else {
+		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
+		}
+		
 		return eleIssuePopupTxt;
 	}
 	
