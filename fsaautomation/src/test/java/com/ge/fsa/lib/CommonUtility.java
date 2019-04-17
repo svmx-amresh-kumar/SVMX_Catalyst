@@ -1876,7 +1876,7 @@ public class CommonUtility {
 			ZoneId toZoneId = ZoneId.of(value);
 			ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);
 			DateTimeFormatter format = DateTimeFormatter.ofPattern(dateFormat);
-			System.out.println(format.format(toDateTime));
+			returnDate=format.format(toDateTime);
 		}
 		return returnDate;
 	}

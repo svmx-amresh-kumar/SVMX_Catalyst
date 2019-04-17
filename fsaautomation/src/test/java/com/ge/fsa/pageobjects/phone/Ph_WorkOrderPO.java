@@ -230,7 +230,7 @@ public class Ph_WorkOrderPO
 		}
 	
 	
-	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
+	@FindBy(xpath="//*[@*='This record does not meet the qualification criteria for this SFM Transaction']")
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
 	{
@@ -265,11 +265,24 @@ public class Ph_WorkOrderPO
 	{
 		return eleSavedSuccessTxt;
 	}
-	@FindBy(xpath="//div[contains(text(),'Issue')]")
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
 		return eleIssueFoundTxt;
+	}
+	
+	private WebElement eleIssuePopupTxt;
+	public WebElement getEleIssuePopupTxt(String sIssueTxt)
+	{
+		switch (BaseLib.sOSName.toLowerCase()) {
+
+		case "android":
+			elelaborpartresult = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
+		case "ios":
+			 elelaborpartresult = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
+		}
+			return eleIssuePopupTxt;
 	}
 	
 	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
@@ -279,13 +292,7 @@ public class Ph_WorkOrderPO
 		return eleDiscardBtn;
 	}
 	
-	private WebElement eleIssuePopupTxt;
-	public WebElement getEleIssuePopupTxt(String sIssueTxt)
-	{
-		eleIssuePopupTxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sIssueTxt+"']"));
-		return eleIssuePopupTxt;
-	}
-	@FindBy(xpath="//*[text() = 'Cancel']")
+	@FindBy(xpath="//*[@* = 'Cancel']")
 	private WebElement eleCancelLnk;
 	public WebElement getEleCancelLink()
 	{
@@ -908,6 +915,13 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 		return eleProblemDescriptiontxt;
 		}
+		
+		@FindAll({@FindBy(xpath="(//*[@*[contains(.,'Billing Type')]])[last()]/following-sibling::*[1]"),
+			@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[1]")})
+			private WebElement eleBillingTypeField;
+			public WebElement getEleBillingTypeField() {
+				return eleBillingTypeField;
+			}
 		
 	}	
 
