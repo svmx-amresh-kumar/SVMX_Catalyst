@@ -31,7 +31,10 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String OrderStatusVal =null;
 	String sSheetName =null;
+	Boolean bProcessCheckResult  = false;
 
+	//For SFM Process Sahi Script name
+		String sScriptName="scenario7_preRequisite";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario7() throws Exception {
@@ -65,30 +68,32 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		String sChecklistPickListdynamicQuestionAns;
 		String sTargetObjectUpdateValue = "Target Object Update";
 		String sChecklistStatus = "Completed";
-		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+
 		//sWOName = "WO-00000415";
 							
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
-		
+	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
+
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		//toolsPo.configSync(commonsUtility);			
 		
 		//Navigation to WO
-	    workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);				
+	    workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);				
 		
 		//extract order status value		
 		OrderStatusVal= workOrderPo.geteleOrderStatusvaluelbl().getText();
 		System.out.println("Order Status of Work order is "+OrderStatusVal);		
 		
 		 // Navigate to Field Service process
-		workOrderPo.selectAction(commonsUtility, sFieldServiceName);
+		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		
 		// Navigating to the checklist
-		commonsUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		//commonsUtility.longPress();
 		Thread.sleep(GenericLib.iLowSleep);
 			
@@ -112,12 +117,12 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	//	checklistDefaultQuestion 
 		
 		//tapping next button
-		commonsUtility.tap(checklistPo.geteleNext());
+		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		//Validation of required question lbl and issue found txt.
@@ -125,7 +130,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
 		ExtentManager.logger.log(Status.PASS,"checklist required question validation passed");
 
-		commonsUtility.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
+		commonUtility.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
 		Assert.assertTrue(checklistPo.geteleissuefoundlbl().isDisplayed(),"Failed to display issue found for required question-checklist");
 		ExtentManager.logger.log(Status.PASS,"checklist required question validation issue display passed");
 
@@ -135,17 +140,17 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		//submitting of checklist
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
-		commonsUtility.tap(checklistPo.eleChecklistSubmit());
+		commonUtility.tap(checklistPo.eleChecklistSubmit());
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
-		commonsUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
+		commonUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
 		
 		//Navigating back to work Orders
-		commonsUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
+		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 
 		//Navigating to checklistOPDOC process
-		checklistPo.validateChecklistServiceReport(commonsUtility, workOrderPo, sChecklistOpDocName,sWOName );
+		checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo, sChecklistOpDocName,sWOName );
 	  	checklistPo.geteleChecklistOPDOCRow();
 	
 	  	//Validating is checklist status in opdoc is completed and also if checklist name is displayed.	  	  	
@@ -163,7 +168,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"WorkORder No populated through dynamic response displayed in OPDOC");
 
 	
-		commonsUtility.tap(workOrderPo.getEleDoneLnk());
+		commonUtility.tap(workOrderPo.getEleDoneLnk());
 		Thread.sleep(GenericLib.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(GenericLib.iHighSleep);
@@ -178,8 +183,8 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
-		 commonsUtility.tap(calendarPO.getEleCalendarIcn());	
-		 toolsPo.syncData(commonsUtility);
+		 commonUtility.tap(calendarPO.getEleCalendarIcn());	
+		 toolsPo.syncData(commonUtility);
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 
 		// Verifying if checklistopdoc is synced to server

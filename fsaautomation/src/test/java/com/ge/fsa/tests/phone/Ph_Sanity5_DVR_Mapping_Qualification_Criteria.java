@@ -2,7 +2,6 @@
  *  @author lakshmibs
  */
 package com.ge.fsa.tests.phone;
-
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
@@ -55,7 +54,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	/*	genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		//Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-*/
+    */
 	}
 
 	@Test(retryAnalyzer=Retry.class)
@@ -69,62 +68,51 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
 		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
 		preRequiste();
-
-		
 		//Pre Login to app
-		ph_LoginHomePo.login(commonsUtility, ph_MorePo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
-		ph_MorePo.configSync(commonsUtility, ph_CalendarPo);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
-
-		ph_MorePo.syncData(commonsUtility);
+		
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-
+		
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1,sFieldServiceName);
 
 		//Validation of not qualifying Work Order
-		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Error popup is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Error popup This is record does not meet is displayed successfully");
-		commonsUtility.tap(ph_WorkOrderPo.getEleOKBtn());
-		Thread.sleep(GenericLib.iLowSleep);
-
-
+		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "Does not meet 1ualification page is not displayed");
+		ExtentManager.logger.log(Status.PASS,"This is record does not meet page is displayed successfully");
+		ph_WorkOrderPo.getEleBackButton().click();
 		//Navigation to SFM
-		ph_WorkOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2, sFieldServiceName);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName2,sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 
-		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), sBillingType);
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), sBillingType);
 		Thread.sleep(GenericLib.iLowSleep);
 
-
-		commonsUtility.tap(ph_WorkOrderPo.getEleClickSave());
-		Thread.sleep(GenericLib.iLowSleep);
 
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(ph_WorkOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
 
 		//Validation of qualifying workorder with Issue found text popup.
-		commonsUtility.tap(ph_WorkOrderPo.getEleIssueFoundTxt());	
 		Assert.assertTrue(ph_WorkOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 
-		commonsUtility.tap(ph_WorkOrderPo.getEleIssueFoundTxt());
 		Thread.sleep(GenericLib.iMedSleep);
-		commonsUtility.tap(ph_WorkOrderPo.getEleCancelLink());
-		commonsUtility.tap(ph_WorkOrderPo.getEleDiscardBtn());
+		ph_WorkOrderPo.getEleBackButton().click();
+		try {ph_WorkOrderPo.getEleDiscardChangesButton().click();}catch(Exception e) {}
 
 		//Navigation to WO
-		ph_WorkOrderPo.selectAction(commonsUtility,ph_CalendarPo, sFieldServiceName);
+		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
-		commonsUtility.setPickerWheelValue(ph_WorkOrderPo.getEleBillingTypeLst(), "Contract");
-		commonsUtility.tap(ph_WorkOrderPo.getEleSaveLnk());
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), "Courtesy");
+		ph_WorkOrderPo.getElesave().click();
 
 		//Validation of qualifying workorder with Issue found text error.
-		Assert.assertTrue(ph_WorkOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Saved successfully is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 	}
 }

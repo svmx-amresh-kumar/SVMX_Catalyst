@@ -44,7 +44,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
 		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
@@ -60,30 +60,30 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sSubject = "Testing "+sWOName1+" "+sTestID;
 		
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		//Config Sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Data Sync
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 	
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 		
 		//Set Start time for event
-		commonsUtility.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
+		commonUtility.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
 		
 		//Edit the subject
-		commonsUtility.switchContext("Webview");
+		commonUtility.switchContext("Webview");
 		workOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
-		commonsUtility.switchContext("Webview");
-		commonsUtility.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.switchContext("Webview");
+		commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Validation of auto update process
@@ -91,12 +91,12 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
 		
 		//Navigation to Calendar
-		commonsUtility.tap(calendarPO.getEleCalendarIcn());
+		commonUtility.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iHighSleep);
 		
-		commonsUtility.tap(calendarPO.getEleCalendarIcn());
+		commonUtility.tap(calendarPO.getEleCalendarIcn());
 		Thread.sleep(GenericLib.iMedSleep);
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Validation of event on the calender
 		for(int i=0;i<calendarPO.getEleWOEventTitleTxt().size();i++){
@@ -107,7 +107,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 			}
 		} 
 		
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.i30SecSleep);
 		try {
 			//Validation of event creation at server side after sync.

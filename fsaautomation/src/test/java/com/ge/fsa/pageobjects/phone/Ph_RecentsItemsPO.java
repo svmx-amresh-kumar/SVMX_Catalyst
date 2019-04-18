@@ -42,46 +42,34 @@ public class Ph_RecentsItemsPO
 	Iterator<String> iterator =null;
 	
 	
-	@FindAll({@FindBy(xpath="//*[@text='Recents']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Recents, tab, 3 of 4\"]")})
+	@FindBy(xpath="//*[@*='TAB_BAR.RECENTS_TAB']")
 	private WebElement eleClickRecentItems;
 	public WebElement getEleClickRecentItems()
 	{
 		return eleClickRecentItems;
 	}
 	
-	private WebElement eleWorkorderNumberClick;
-	public WebElement getEleWorkordernumberclick(String workordername)
+	public WebElement getEleWorkorder(String sValue)
 	{
-		switch(BaseLib.sOSName.toLowerCase()) {
-		case "android":
-		eleWorkorderNumberClick = driver.findElement(By.xpath("//*[@text='"+workordername+"']"));
-		return eleWorkorderNumberClick;
-		case "ios":
-			eleWorkorderNumberClick = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"Recents\"])[12]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]"));
-			return eleWorkorderNumberClick;
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		
+			return driver.findElement(By.xpath("//*[@text='"+sValue+"']"));
+		}else {
+			//return  driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]//*[contains(@name,'I')]"));
+			return  driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+sValue+"']"));
 		}
-		return eleWorkorderNumberClick;
 		
 	}
 	
 	
 
 
-	public void clickonWorkOrderfromrecents(String workordername) throws InterruptedException 
+	public void selectRecentsItem(CommonUtility commonUtility, String sValue) throws InterruptedException 
 	{
+		System.out.println("Select From Recent Items");
 		getEleClickRecentItems().click();
-		Thread.sleep(1000);
-		try
-		{
-			getEleWorkordernumberclick(workordername).click();
-	
-		}
-		catch(Exception e)
-		{
-			System.out.println("unable to find the workorder");
-		}
-		
+		Thread.sleep(500);
+		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
 	}
 

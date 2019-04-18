@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -32,10 +33,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -63,6 +66,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -89,7 +93,7 @@ public class CommonUtility {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
-	
+
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -99,7 +103,7 @@ public class CommonUtility {
 		return elePickerWheelPopUp;
 	}
 
-	@FindBy(xpath = "//*[@name='Done']")
+	@FindAll({@FindBy(xpath = "//*[@name='Done']"),@FindBy(id="SFM.LAYOUT.DATETIMEFIELD.DATEPICKER_DONE")})
 	private WebElement eleDonePickerWheelBtn;
 
 	public WebElement getEleDonePickerWheelBtn() {
@@ -120,7 +124,7 @@ public class CommonUtility {
 		return elesearchButton;
 	}
 
-	
+
 
 	private WebElement eleSearchListItem;
 
@@ -128,8 +132,8 @@ public class CommonUtility {
 		// eleSearchListItem =
 		// driver.findElement(By.xpath("//div[@class='x-inner-el'][text()='"+searchName+"']"));
 		eleSearchListItem = driver.findElement(By.xpath("//*[.='" + searchName + "'][@class = 'x-gridcell']"));
-	
-		
+
+
 		return eleSearchListItem;
 
 	}
@@ -157,9 +161,9 @@ public class CommonUtility {
 		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
 
 		try {
-			
-			
-			
+
+
+
 			// Wait for the complete coordinates to be generated, E.g if (0,0) (0,231)
 			// (12,0), then we will wait for both coordinates to be non-zero.
 			for (int i = 0; i < 3; i++) {
@@ -173,7 +177,7 @@ public class CommonUtility {
 					clickPassed = false;
 					tapExp = e;
 				}
-				
+
 				try {
 					point = wElement.getLocation();
 				} catch (Exception e) {
@@ -181,7 +185,7 @@ public class CommonUtility {
 
 				if (point.getX() == 0 || point.getY() == 0) {
 					System.out
-							.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
+					.println("Waiting... for Coordinates ¯\\_(ツ)_/¯ : " + point.getX() + "---" + point.getY());
 					Thread.sleep(1000);
 
 				} else {
@@ -257,7 +261,7 @@ public class CommonUtility {
 			switchContext("Webview");
 			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
-		
+
 		switchContext("Webview");
 	}
 
@@ -267,13 +271,13 @@ public class CommonUtility {
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
-	
+
 
 	// Customised touch Tap
 	public void fingerTap(Point point, int iTapCount) throws InterruptedException {
 		touchAction = new TouchAction(driver);
 		touchAction.moveTo(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
-				.tap(new TapOptions().withTapsCount(iTapCount)).perform();
+		.tap(new TapOptions().withTapsCount(iTapCount)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
 	}
 
@@ -290,7 +294,7 @@ public class CommonUtility {
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
 			.perform();
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
-					.perform();
+			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			break;
@@ -300,7 +304,7 @@ public class CommonUtility {
 			// For IOS
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
-					.perform();
+			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			break;
 
@@ -323,31 +327,52 @@ public class CommonUtility {
 
 	// Customised touch Press
 	public void press(Point point) throws InterruptedException {
+		switch (BaseLib.sOSName) {
+	case "android":
+		// For Android add *2 if real device
+		switchContext("Native");
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
 		Thread.sleep(GenericLib.iLowSleep);
+	case "ios":
+		touchAction = new TouchAction(driver);
+		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
+		Thread.sleep(GenericLib.iLowSleep);
+		break;
+		
+		}
+		
 	}
 
 	public void swipeUp() {
 		touchAction = new TouchAction(driver);
 		touchAction.longPress(new PointOption().withCoordinates(150, 900))
-				.moveTo(new PointOption().withCoordinates(150, 70)).release();
+		.moveTo(new PointOption().withCoordinates(150, 70)).release();
 	}
 
 	public void swipeLeft(WebElement wElement) {
-		int offset = 30;
+	
+		switchContext("Native");
 		Point point = wElement.getLocation();
-		int x = point.getX();
+		System.out.println(point);
+		int x = point.getX()+200;
+		System.out.println(x);
 		int y = point.getY();
+		System.out.println(y);
 
-		int xOff = x + 100;
+		int xOff = x - 200;
 		// int yOff = y-100;
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(x, y))
-				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-				.moveTo(new PointOption().withCoordinates((x - 5), 0)).release().perform();
+		//touchAction.longPress(new PointOption().withCoordinates(x, y))
+		.waitAction(new WaitOptions().withDuration(Duration.ofMillis(3000)))
+		.moveTo(new PointOption().withCoordinates(xOff, y+20)).release().perform();
+		System.out.println(xOff);
+
 	}
 
+	
+	
 	public void Enablepencilicon(WebElement wElement) {
 		int offset = 30;
 		Point point = wElement.getLocation();
@@ -356,19 +381,20 @@ public class CommonUtility {
 
 		int xOff = x + 200;
 		touchAction = new TouchAction(driver);
+		
 		switch (BaseLib.sOSName) {
 		case "android":
 
 			// For Android add *2 if real device
 			switchContext("Native");
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
-					.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-					.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
+			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+			.moveTo(new PointOption().withCoordinates(x, y)).release().perform();
 			switchContext("webview");
 			break;
 
 		case "ios":
-			
+
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
 			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
@@ -379,18 +405,18 @@ public class CommonUtility {
 
 	// To search the element scrolling
 	public void getSearch(WebElement wElement) throws InterruptedException {
-//		while(iWhileCnt<=7) 
-//		{	
-//			try {
+		//		while(iWhileCnt<=7) 
+		//		{	
+		//			try {
 		waitforElement(wElement, 30);
 		Assert.assertTrue(wElement.isDisplayed(), "Failed to scroll to search");
 		ExtentManager.logger.log(Status.PASS, "Search is successfull");
 		System.out.println("Search is displayed");
 		// break;
-//			}catch(Exception e) {swipeUp();}			
-//			iWhileCnt++;
-//		}
-//		Thread.sleep(5000);
+		//			}catch(Exception e) {swipeUp();}			
+		//			iWhileCnt++;
+		//		}
+		//		Thread.sleep(5000);
 	}
 
 	/**
@@ -403,33 +429,33 @@ public class CommonUtility {
 		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Do Nothing
 		}else {
-			
-		// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
-		// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
-		// global variable to access across
-		try {
-			Set<String> availableContextNames = driver.getContextHandles();
-			//System.out.println("Available Contexts = " + availableContextNames);
 
-			for (String retreivedContext : availableContextNames) {
-				if (sContext.toLowerCase().contains("chrome")) {
-					if (retreivedContext.toLowerCase().contains("chrome")) {
-						//System.out.println("Setting Context = " + retreivedContext);
-						driver.context(retreivedContext);
-					}
+			// prints out something like NATIVE_APP \n WEBVIEW_1 since each time the
+			// WEBVIEW_2,_3,_4 name is appended by a new number we need to store is a
+			// global variable to access across
+			try {
+				Set<String> availableContextNames = driver.getContextHandles();
+				//System.out.println("Available Contexts = " + availableContextNames);
 
-				} else {
-					if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
-						//System.out.println("Setting Context = " + retreivedContext);
-						driver.context(retreivedContext);
+				for (String retreivedContext : availableContextNames) {
+					if (sContext.toLowerCase().contains("chrome")) {
+						if (retreivedContext.toLowerCase().contains("chrome")) {
+							//System.out.println("Setting Context = " + retreivedContext);
+							driver.context(retreivedContext);
+						}
+
+					} else {
+						if (retreivedContext.toLowerCase().contains(sContext.toLowerCase()) && !retreivedContext.toLowerCase().contains("chrome")) {
+							//System.out.println("Setting Context = " + retreivedContext);
+							driver.context(retreivedContext);
+						}
 					}
 				}
-			}
 
-		} catch (Exception e) {
-			// TODO: handle exceptions
-			System.out.println("Could not switch the context" + e);
-		}
+			} catch (Exception e) {
+				// TODO: handle exceptions
+				System.out.println("Could not switch the context" + e);
+			}
 		}
 	}
 
@@ -453,7 +479,7 @@ public class CommonUtility {
 
 		switch (BaseLib.sOSName) {
 		case "android":
-//			tap(wElement,16,20);
+			//			tap(wElement,16,20);
 			tap(wElement, 30, 36);
 			Thread.sleep(2000);
 			switchContext("Native");
@@ -486,6 +512,7 @@ public class CommonUtility {
 
 	/**
 	 * Wait for element until the element is displayed or time elapsed in seconds
+	 * NOTE : The Actual time is inclusive of Multiple object find time as well so it may be more
 	 * 
 	 * @param wElement
 	 * @param lTime
@@ -494,24 +521,36 @@ public class CommonUtility {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
+		//Setting wait for 1 sec only for this method reverting when exiting
+				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		System.out.println("Waiting For : " + lTime + " sec");
-//		String context=driver.getContext();
-//		switchContext("native");
-//		System.out.println("Time to Wait : " + lTime + " sec");
-//		if(wElement.toString().contains("->")) {
-//		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
-//		System.out.println("Waiting For Element : " + printElement);
-//		}else {
-//		System.out.println("Waiting For Element : " + wElement.toString());
-//		}
-//		switchContext(context);
-		
-		while (lElapsedTime != lTime) {
+		//		String context=driver.getContext();
+		//		switchContext("native");
+		//		System.out.println("Time to Wait : " + lTime + " sec");
+		//		if(wElement.toString().contains("->")) {
+		//		String printElement = StringUtils.substringAfter(wElement.toString(), "->");
+		//		System.out.println("Waiting For Element : " + printElement);
+		//		}else {
+		//		System.out.println("Waiting For Element : " + wElement.toString());
+		//		}
+		//		switchContext(context);
+		//long lInitTimeStartMilliSec = System.currentTimeMillis();
+		//long lInitTimeEndMilliSec = 0;
+		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
+		int reCalculatedWaitTime = Math.abs((lTime/2)+1);
+		//System.out.println("ABS "+reCalculatedWaitTime);
+		while (lElapsedTime != reCalculatedWaitTime) {		
 			Thread.sleep(1000);
 			try {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
 					//switchContext(context);
+					//reverting wait to 10 seconds
+					//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					//lInitTimeEndMilliSec = System.currentTimeMillis();
+					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+					//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 					return true;
 				}
 			} catch (Exception ex) {
@@ -519,11 +558,53 @@ public class CommonUtility {
 
 			lElapsedTime++;
 		}
+		//lInitTimeEndMilliSec = System.currentTimeMillis();
+		//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
+		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 		System.out.println("Element is not displayed");
+		//switchContext(context);
+		//reverting wait to 10 seconds
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		return false;
+
+	}
+
+	/**
+	 * Wait for the element to not be displayed on the screen
+	 * @param wElement
+	 * @param lTime
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public boolean waitForElementNotVisible(WebElement wElement, int lTime) throws InterruptedException {
+		int lElapsedTime = 0;
+		System.out.println("Waiting until element is not visible for : " + lTime + " sec");
+
+		while (lElapsedTime != lTime) {
+			Thread.sleep(1000);
+			try {
+				if (wElement.isDisplayed()) {// If element is not displayed break
+
+				}else {
+					System.out.println("Element is not displayed anymore");
+					//switchContext(context);
+					return true;
+				}
+			} catch (Exception ex) {
+				System.out.println("Element is not displayed anymore");
+				//switchContext(context);
+				return true;
+			}
+
+			lElapsedTime++;
+		}
+		System.out.println("Element is still displayed and timed out");
 		//switchContext(context);
 		return false;
 
 	}
+
 
 	// This method will search the required value and then click on it
 	public void lookupSearch(String value) throws InterruptedException {
@@ -551,7 +632,7 @@ public class CommonUtility {
 
 		return randomstring;
 	}
-	
+
 	/**
 	 * This method is used to parse the string to the passed format to return date
 	 * @param dateFormat
@@ -569,7 +650,7 @@ public class CommonUtility {
 			e.printStackTrace();
 		}
 		return parsedDate;
-		
+
 	}
 	/**
 	 * This method is used to format the passed date to string.
@@ -582,7 +663,7 @@ public class CommonUtility {
 		SimpleDateFormat df=new SimpleDateFormat(dateFormat);
 		return df.format(date);
 	}
-	
+
 	@FindBy(id = "android:id/date_picker_header_date")
 	private WebElement datePicker;
 	public WebElement getDatePicker() {
@@ -652,20 +733,30 @@ public class CommonUtility {
 	 */
 	public void setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				wElement.click();
+				custScrollToElementAndClick(wElement);
 			}else {
 				tap(wElement, 30, 36);
 
 			}
+			Date currentDate = null;
 			switchContext("Native");
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//UK Date Format
+			currentDate=convertStringToDate("E dd MMM yyyy", date);
+			}
+			else
+			{
+			//US DateFormat
+			currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
@@ -690,13 +781,17 @@ public class CommonUtility {
 				getCalendarDone().click();
 
 			} else {
-			getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
-			getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
-			getCalendarDone().click();
+				getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+				getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+				getCalendarDone().click();
 			}
 			switchContext("Webview");
 			break;
 		case "ios":
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}
+
 			switchContext("Webview");
 			wElement.click();
 			setDatePicker(0, iDaysToScroll);
@@ -715,7 +810,7 @@ public class CommonUtility {
 		}
 		switchContext("Webview");
 	}
-	
+
 	/**
 	 * <pre>
 	 * This is an overloaded method. @see setDateTime24hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin)
@@ -754,6 +849,7 @@ public class CommonUtility {
 
 	public void setDateTime24hrs(WebElement wElement, String sDateFormat, String sTimeHrs, String sTimeMin)
 			throws InterruptedException {
+		System.out.println("Setting 24hrs Date Time For sDateFormat = "+sDateFormat+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin);
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Webview");
@@ -803,7 +899,7 @@ public class CommonUtility {
 					getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
 					getCalendarDone().click();
 				}
-				
+
 			}
 			switchContext("Webview");
 			break;
@@ -823,7 +919,7 @@ public class CommonUtility {
 					timeSetter(sTimeHrs, sTimeMin, "", true);
 					getEleDonePickerWheelBtn().click();
 				}
-				
+
 			}
 			switchContext("Webview");
 			Thread.sleep(GenericLib.iLowSleep);
@@ -831,7 +927,7 @@ public class CommonUtility {
 		}
 		switchContext("Webview");
 	}
-	
+
 	/**
 	 * For setting the Date Only. !!NOTE : for dateTime use "setSpecificDateTime" method or "setDateTime24hrs" method
 	 * 
@@ -859,7 +955,7 @@ public class CommonUtility {
 	 * @param sYear
 	 * @throws InterruptedException
 	 */
-	
+
 	public void setSpecificDate(WebElement wElement, String sMonth, String sDay, String sYear)
 			throws InterruptedException {
 		switch (BaseLib.sOSName) {
@@ -867,31 +963,41 @@ public class CommonUtility {
 			tap(wElement, 30, 36);
 			switchContext("Native");
 			//Set current date if all paramters are "0"
+			Date currentDate = null;
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getCalendarDone().click();
 			}else {
-			String date = getDatePicker().getText();
-			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
-			Date monthDate=convertStringToDate("MMMM", sMonth);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(monthDate);
-			cal.set(Integer.valueOf(sYear),cal.get(Calendar.MONTH) , Integer.valueOf(sDay));
-			Date newDate = cal.getTime();
-			String selectDate = converDateToString("dd MMMM yyyy",newDate);
-			int count=0;
-			//Check only for 10 year ahead or behind in calendar
-			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
-				if (currentDate.before(newDate)) {
-					getAccessibleElement("Next month").click();
-				} else {
-					getAccessibleElement("Previous month").click();
+				String date = getDatePicker().getText();
+				date = date + " " + getYearPicker().getText();
+				if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+					//UK Date Format
+					currentDate=convertStringToDate("E dd MMM yyyy", date);
+					}
+					else
+					{
+					//US DateFormat
+					currentDate=convertStringToDate("E, MMM dd yyyy", date);
+					}
+				
+				Date monthDate=convertStringToDate("MMMM", sMonth);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(monthDate);
+				cal.set(Integer.valueOf(sYear),cal.get(Calendar.MONTH) , Integer.valueOf(sDay));
+				Date newDate = cal.getTime();
+				String selectDate = converDateToString("dd MMMM yyyy",newDate);
+				int count=0;
+				//Check only for 10 year ahead or behind in calendar
+				while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+					if (currentDate.before(newDate)) {
+						getAccessibleElement("Next month").click();
+					} else {
+						getAccessibleElement("Previous month").click();
+					}
+					count++;
 				}
-				count++;
-			}
-			//Select the date
-			getAccessibleElement(selectDate).click();
-			getCalendarDone().click();
+				//Select the date
+				getAccessibleElement(selectDate).click();
+				getCalendarDone().click();
 			}
 			break;
 		case "ios":
@@ -905,14 +1011,14 @@ public class CommonUtility {
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
-			
+
 			Thread.sleep(GenericLib.iLowSleep);
 		}
 		switchContext("Webview");
 	}
 
-	
-	
+
+
 	/**
 	 * Set the time form the date picker wheels in 12hrs format, passing 0 for
 	 * sTimeHrs,sTimeMin,sTimeAMPM will set the present date
@@ -926,19 +1032,80 @@ public class CommonUtility {
 	 */
 	public void setDateTime12Hrs(WebElement wElement, int iDaysToScroll, String sTimeHrs, String sTimeMin,
 			String sTimeAMPM) throws InterruptedException {
-		wElement.click();
-		switchContext("Native");
-		setDatePicker(0, iDaysToScroll);
-		if (sTimeHrs == "0" && sTimeMin == "0" && sTimeAMPM == "0") {
-			getEleDonePickerWheelBtn().click();
+		System.out.println("Setting 12hrs Date Time For iDaysToScroll = "+iDaysToScroll+" sTimeHrs = "+sTimeHrs+" sTimeMin = "+sTimeMin+"sTimeAMPM = "+sTimeAMPM);
+		switch (BaseLib.sOSName) {
+		case "android":
+			switchContext("Webview");
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}else {
+				tap(wElement, 30, 36);
 
-		} else {
-			timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
-			getEleDonePickerWheelBtn().click();
+			}
+			switchContext("Native");
+			Thread.sleep(3000);
+			String date = getDatePicker().getText();
+			date = date + " " + getYearPicker().getText();
+			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(currentDate);
+			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
+			Date newDate = cal.getTime();
+			String selectDate = converDateToString("dd MMMM yyyy",newDate);
+			int count=0;
+			//Check only for 10 year ahead or behind in calendar
+			while (driver.findElementsByAccessibilityId(selectDate).size() == 0 && count<120) {
+				if (currentDate.before(newDate)) {
+					getAccessibleElement("Next month").click();;
+				} else {
+					getAccessibleElement("Previous month").click();
+				}
+				count++;
+			}
+			//selecting the date, hour and minutes 
+			getAccessibleElement(selectDate).click();;
+			getCalendarDone().click();
+			//set current or specific time
+			Thread.sleep(1000);
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getCalendarDone().click();
+
+			} else {
+				getAccessibleElement(Integer.valueOf(sTimeHrs).toString()).click();
+				getAccessibleElement(Integer.valueOf(sTimeMin).toString()).click();
+				if(sTimeAMPM.equalsIgnoreCase("am")) {
+					driver.findElement(By.id("android:id/am_label")).click();
+				}else {
+					driver.findElement(By.id("android:id/pm_label")).click();
+				}
+
+				getCalendarDone().click();
+			}
+			switchContext("Webview");
+			break;
+		case "ios":
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}
+
+			switchContext("Webview");
+			wElement.click();
+			setDatePicker(0, iDaysToScroll);
+			switchContext("Native");
+			if (sTimeHrs == "0" && sTimeMin == "0") {
+				getEleDonePickerWheelBtn().click();
+
+			} else {
+				timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
+				getEleDonePickerWheelBtn().click();
+			}
+
+			switchContext("Webview");
+			Thread.sleep(GenericLib.iLowSleep);
+			break;
 		}
-
 		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
+
 
 	}
 
@@ -957,7 +1124,7 @@ public class CommonUtility {
 	 * @param scrollNum
 	 */
 	public void setDatePicker(int iWheelIndex, int scrollNum) {
-		
+
 		switch (BaseLib.sOSName) {
 		case "android":
 			switchContext("Native");
@@ -1000,50 +1167,50 @@ public class CommonUtility {
 				if (newTempVal < 0) {
 					System.out.println("Scrolling Down " + scrollNum);
 					params.put("order", "previous");
-	
+
 				} else {
 					System.out.println("Scrolling Up " + scrollNum);
 					params.put("order", "next");
-	
+
 				}
 				params.put("offset", 0.15);
 				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
 				js.executeScript("mobile: selectPickerWheelValue", params);
 			}
-			
+
 			break;
 		}
 
 	}
-	
+
 	@FindBy(id = "android:id/hours")
 	private WebElement calendarHours;
 
 	public WebElement getCalendarHours() {
 		return calendarHours;
 	}
-	
+
 	@FindBy(id = "android:id/minutes")
 	private WebElement calendarMinutes;
 
 	public WebElement getCalendarMinutes() {
 		return calendarMinutes;
 	}
-	
+
 	@FindBy(id = "android:id/am_label")
 	private WebElement calendarAM;
 
 	public WebElement getCalendarAM() {
 		return calendarAM;
 	}
-	
+
 	@FindBy(id = "android:id/pm_label")
 	private WebElement calendarPM;
 
 	public WebElement getCalendarPM() {
 		return calendarPM;
 	}
-	
+
 	@FindBy(xpath = "//*[@class='android.widget.CheckedTextView'][@checked='true']")
 	private WebElement eleAndroidWheelPopUp;
 	public WebElement getEleAndroidWheelPopUp() {
@@ -1096,24 +1263,45 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
-			getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				//Phone needs multiple calls to date picker to set the correct date
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+			}
+			else {
+				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+
+			}
+
 		}
 		if (sTimeMin != "0") {
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Phone needs multiple calls to date picker to set the correct date
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}else {
+			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}
+
 		}
 		if (is24hrs == false) {
 			if (sTimeAMPM != "0") {
 				getEleDatePickerPopUp().get(3).sendKeys(sTimeAMPM);
+
 			}
 		}
 
 	}
-	
+
 	@AndroidFindBy(id="android:id/select_dialog_listview")
 	@iOSBy(xpath ="//XCUIElementTypePickerWheel[@type='XCUIElementTypePickerWheel']")
 	private WebElement elPicklistValues;
 	public WebElement getElPicklistValues() {
-		
+
 		return elePicklistValue;
 	}
 
@@ -1130,13 +1318,13 @@ public class CommonUtility {
 		String[] sVals = new String[sActualValues.length];
 		String sPrevVal = "";
 		String sCurrVal = "";
-		
+
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
 			switchContext("Native");
-			 //List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
+			//List<WebElement> listElemets = driver.findElements(By.id("android:id/select_dialog_listview"));
 			List<WebElement> listElemets = driver.findElements(By.id("android:id/text1"));
-					  
+
 			System.out.println("Size of pl = "+listElemets.size());
 			for (int i = 0; i < listElemets.size(); i++) {
 				WebElement listItem = listElemets.get(i);
@@ -1158,12 +1346,12 @@ public class CommonUtility {
 				System.out.println("Array read = " + string);
 			}
 			switchContext("WebView");
-		break;
-	
-		
-		
+			break;
+
+
+
 		case "ios":
-			
+
 			switchContext("Native");
 			for (int i = 0; i <= sActualValues.length; i++) {
 				IOSElement PFS = (IOSElement) driver
@@ -1195,9 +1383,35 @@ public class CommonUtility {
 			}
 			switchContext("WebView");
 			break;
-			
+
 		}
-		
+
+		return sVals;
+	}
+
+	public String[] ph_getAllPicklistValues(CommonUtility commonUtility, String[] sActualValues) throws InterruptedException {
+		String[] sVals = new String[sActualValues.length];
+		String sCurrVal = "";
+		List<WebElement> listElemets = driver.findElements(By.xpath("//*[@*='FORM.PICKLIST.SCROLLVIEW']//*[@class='android.widget.TextView']"));
+
+		System.out.println("Size of pl = "+listElemets.size());
+		for (int i = 0; i < listElemets.size(); i++) {
+			WebElement listItem = listElemets.get(i);
+			sCurrVal = listItem.getText();
+			Thread.sleep(1000);
+			try {
+				System.out.println("-----------" + listItem);
+
+				System.out.println("sCurrVal -----------" + sCurrVal);
+
+			} catch (Exception e) {
+				System.out.println("The picklist Values couldn't be fetched" + e);
+			}
+			sVals[i] = sCurrVal;
+		}
+		for (String string : sVals) {
+			System.out.println("Array read = " + string);
+		}
 		return sVals;
 	}
 
@@ -1322,22 +1536,22 @@ public class CommonUtility {
 	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
 		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
 		if(verifySahiExecution()) {
-			
+
 			System.out.println("PASSED");
 		}
 		else 
 		{
 			System.out.println("FAILED");
-			
+
 
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
-	}
+		}
 	}
 
 	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
 			String sScriptName, String sTestCaseId) throws Exception {
-			String sProcessCheck = restServices.restGetSoqlValue(
+		String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
 						+ sProcessName + "\'",
 				"SVMXC__Dispatch_Process_Status__c");
@@ -1347,13 +1561,13 @@ public class CommonUtility {
 			if (sProcessCheck.equals("Incomplete")) {
 				System.out.println("Process in InComplete Status");
 				ExtentManager.logger.log(Status.FAIL,
-						"SFM PROCESS in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
+						"SFM PROCESS :'"+sProcessName+"':is in InComplete State: PLEASE RECHECK SFM PROCESS!!!!");
 				Assert.assertFalse(sProcessCheck.equals("Incomplete"), "Status is in Incomplete State");
 				return false;
 
 			} else if (sProcessCheck.equals("Complete")) {
-				System.out.println("Process already exists:Proceeding to FSA Automation");
-				ExtentManager.logger.log(Status.PASS, "SFM PROCESS Already Exists and hence proceeding to FSA Client");
+				System.out.println(" SFM Process '"+sProcessName+"' already exists:Proceeding to FSA Automation:");
+				ExtentManager.logger.log(Status.PASS, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
 				return false;
 
 			}
@@ -1383,22 +1597,22 @@ public class CommonUtility {
 				System.out.println("Attempting to Click on Always Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Always Allow'")).click();
 				System.out.println("Sucessfully Clicked on Always Allow Pop up");
-				
+
 
 			} catch (Exception e) {
 				System.out.println("Attempting to Click on Allow Pop up");
 				driver.findElement(By.xpath("//*[text()= 'Allow'")).click();
 				System.out.println("Sucessfully Clicked on Allow Pop up");
-				
+
 			}
 
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
 		} 
-			Thread.sleep(GenericLib.iLowSleep);
-			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
-		
+		Thread.sleep(GenericLib.iLowSleep);
+		switchContext("Webview");
+		Thread.sleep(GenericLib.iLowSleep);
+
 	}
 
 	public void lookupSearchOnly(String value) throws InterruptedException {
@@ -1447,8 +1661,12 @@ public class CommonUtility {
 	 */
 	public boolean isDisplayedCust(WebElement wElement) {
 		boolean isDis = false;
-		switchContext("Webview");
+		if(!BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			switchContext("Webview");
+		}
+		
 		try {
+			
 			isDis = wElement.isDisplayed();
 			if (isDis) {
 				System.out.println("Element is visible");
@@ -1475,10 +1693,10 @@ public class CommonUtility {
 		int x = width / 2;
 		int starty = (int) (height * 0.8);
 		int endy = (int) (height * 0.2);
-//		new TouchAction(driver).longPress(new PointOption().withCoordinates(x,starty)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,endy)).release();
+		//		new TouchAction(driver).longPress(new PointOption().withCoordinates(x,starty)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x,endy)).release();
 		new TouchAction(driver).longPress(new PointOption().withCoordinates(150, 900))
-				.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-				.moveTo(new PointOption().withCoordinates(150, 60)).release();
+		.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
+		.moveTo(new PointOption().withCoordinates(150, 60)).release();
 	}
 
 	/**
@@ -1504,269 +1722,584 @@ public class CommonUtility {
 
 	}
 
-	
-	 public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
-	 {
-		 String sMajorVersion = "";
-		 String sMinorVersion = "";
-		 String[] salesforceversion = new String[2];
-		 
-		 sMajorVersion = restServices.restGetSoqlValue("SELECT+MajorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MajorVersion");
-		 sMinorVersion = restServices.restGetSoqlValue("SELECT+MinorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MinorVersion");
-		 salesforceversion[0] = sMajorVersion;
-		 salesforceversion[1] = sMinorVersion;
-		 String sversionv = Arrays.toString(salesforceversion).replaceAll(",",".");
-		 System.out.println("Sales Force Version : "+sversionv);
-		 
-		 return sversionv;
-			 
-	 }
-	 
-	 public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO, String objapi) throws Exception
-		{
-		 			System.out.println("Entered Deletion of Calendar Events");
-		 			
-		 			ArrayList<String> mylist = new ArrayList<String>();
-		 			String queryeventcount = "SELECT count() FROM "+objapi+"";
-		 			restServices.getAccessToken();
-		 			String  eventcount = restServices.restGetSoqlValue(queryeventcount, "totalSize");	
-		 			System.out.println(eventcount);
-		 			int eventcountint=Integer.parseInt(eventcount);
-		 			
-		 			for (int i = 0; i<eventcountint; i++) {
-		 String Query = "SELECT Id from "+objapi+" limit 1 offset "+i+"";
-		 mylist.add(restServices.restGetSoqlValue(Query,"Id")); 
-		 			}
-		 			
-		 			System.out.println(Arrays.toString(mylist.toArray()));
-		 			
-		
-		  for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
-		  mylist.get(i));
-		  restServices.restDeleterecord(objapi,mylist.get(i)); }
-					
-		}
-	 
-	 /**
-	  * Take screenshot and return the screenshot path to be consumed in Extent logger
-	  * 
-	  * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
-	  * @return
-	  */
-		public String takeScreenShot() {
-			String filePath;
-			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				switchContext("Native");
-			}
-			filePath = ExtentManager.getScreenshot();
-			if(BaseLib.sOSName.toLowerCase().equals("android")) {	
-				switchContext("webview");
-			}
-			return filePath;
-		}
-		
 
-		public int getHeaderCount(Object obj) {
-			int count = 0;
-			if(obj instanceof WorkOrderPO) {
-				WorkOrderPO wO = (WorkOrderPO)obj;
-				count = Integer.parseInt(wO.getTxtFullNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
-			}
+	public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
+	{
+		String sMajorVersion = "";
+		String sMinorVersion = "";
+		String[] salesforceversion = new String[2];
 
-			return count;
-			
-		}
-		
-		public int getLocHeaderCount(Object obj) {
-			int count = 0;
-			if(obj instanceof WorkOrderPO) {
-				WorkOrderPO wO = (WorkOrderPO)obj;
-				count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
-			}
+		sMajorVersion = restServices.restGetSoqlValue("SELECT+MajorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MajorVersion");
+		sMinorVersion = restServices.restGetSoqlValue("SELECT+MinorVersion+FROM+Publisher+WHERE+NamespacePrefix='SVMXC'","MinorVersion");
+		salesforceversion[0] = sMajorVersion;
+		salesforceversion[1] = sMinorVersion;
+		String sversionv = Arrays.toString(salesforceversion).replaceAll(",",".");
+		System.out.println("Sales Force Version : "+sversionv);
 
-			return count;
-			
+		return sversionv;
+
+	}
+
+	public void deleteCalendarEvents(RestServices restServices, CalendarPO calendarPO, String objapi) throws Exception
+	{
+		System.out.println("Entered Deletion of Calendar Events");
+
+		ArrayList<String> mylist = new ArrayList<String>();
+		String queryeventcount = "SELECT count() FROM "+objapi+"";
+		restServices.getAccessToken();
+		String  eventcount = restServices.restGetSoqlValue(queryeventcount, "totalSize");	
+		System.out.println(eventcount);
+		int eventcountint=Integer.parseInt(eventcount);
+
+		for (int i = 0; i<eventcountint; i++) {
+			String Query = "SELECT Id from "+objapi+" limit 1 offset "+i+"";
+			mylist.add(restServices.restGetSoqlValue(Query,"Id")); 
 		}
 
-		/**
-		 * Rotate the screen to Portrait
-		 * @throws InterruptedException
-		 */
-		public void custRotateScreenPortrait() throws InterruptedException {
+		System.out.println(Arrays.toString(mylist.toArray()));
+
+
+		for (int i = 0; i < mylist.size(); i++) { System.out.println("deleting ID"+
+				mylist.get(i));
+		restServices.restDeleterecord(objapi,mylist.get(i)); }
+
+	}
+
+	/**
+	 * Take screenshot and return the screenshot path to be consumed in Extent logger
+	 * 
+	 * e.g: ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
+	 * @return
+	 */
+	public String takeScreenShot() {
+		String filePath;
+		if(BaseLib.sOSName.toLowerCase().equals("android")) {	
 			switchContext("Native");
-			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(3000);
-			switchContext("Webview");
-
 		}
-		
-		/**
-		 * Rotate the screen to Landscape
-		 * @throws InterruptedException
-		 */
-		public void custRotateScreenLandscape() throws InterruptedException {
-			switchContext("Native");
-			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(3000);
-			switchContext("Webview");
-
-
+		filePath = ExtentManager.getScreenshot();
+		if(BaseLib.sOSName.toLowerCase().equals("android")) {	
+			switchContext("webview");
 		}
+		return filePath;
+	}
+
+
+	public int getHeaderCount(Object obj) {
+		int count = 0;
+		if(obj instanceof WorkOrderPO) {
+			WorkOrderPO wO = (WorkOrderPO)obj;
+			count = Integer.parseInt(wO.getTxtFullNameHeader().getText().substring(wO.getTxtFullNameHeader().getText().indexOf('(')+1,wO.getTxtFullNameHeader().getText().indexOf(')')));
+		}
+
+		return count;
+
+	}
+
+	public int getLocHeaderCount(Object obj) {
+		int count = 0;
+		if(obj instanceof WorkOrderPO) {
+			WorkOrderPO wO = (WorkOrderPO)obj;
+			count = Integer.parseInt(wO.getTxtLocNameHeader().getText().substring(wO.getTxtLocNameHeader().getText().indexOf('(')+1,wO.getTxtLocNameHeader().getText().indexOf(')')));
+		}
+
+		return count;
+
+	}
+
+	/**
+	 * Rotate the screen to Portrait
+	 * @throws InterruptedException
+	 */
+	public void custRotateScreenPortrait() throws InterruptedException {
+		switchContext("Native");
+		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(3000);
+		switchContext("Webview");
+
+	}
+
+	/**
+	 * Rotate the screen to Landscape
+	 * @throws InterruptedException
+	 */
+	public void custRotateScreenLandscape() throws InterruptedException {
+		switchContext("Native");
+		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
+		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(3000);
+		switchContext("Webview");
+
+
+	}
+
+	/**
+	 * Injecting properties set from jenkins build into sahi for consumption
+	 */
+	public void injectJenkinsPropertiesForSahi() {
+		String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+		String sConfigExcelPath = GenericLib.sConfigPropertiesExcelFile;
+		String sConfigExcelSheetName = BaseLib.sSelectConfigPropFile;
+		try {
 	
-		/**
-		 * Injecting properties set from jenkins build into sahi for consumption
-		 */
-		public void injectJenkinsPropertiesForSahi() {
-			String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+			//this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
+			this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+BaseLib.sOrgType+"\"; var $catalyst_appiumOrg = \""+BaseLib.sSelectConfigPropFile+"\"; var $catalyst_appiumConfigExcelFilePath = \""+sConfigExcelPath+"\"; var $catalyst_appiumConfigExcelSheetName = \""+sConfigExcelSheetName+"\";");
+			System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
+
+		}catch(Exception e) {
+
+		}
+	}
+
+	public String getDeviceDate() throws ParseException{
+		String returnDate="";
+		if (BaseLib.sOSName.equalsIgnoreCase("Android")) {
+			switchContext("native");
+			Map<String, Object> args = new HashMap<>();
+			args.put("command", "date");
+			returnDate=(driver.executeScript("mobile: shell", args).toString());
+			switchContext("webview");
+		}
+		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			String value="";
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/idevicedate").trim();
+			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/ideviceinfo");
+			String[] IOBufferList = _cmd.split("\n"); 
+			for (String item: IOBufferList) { 
+				String[] subItemList = item.split(":"); 
+				if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
+					value=subItemList[1].trim();
+					break;
+				} 
+			}
+			String dateFormat="E MMM d HH:mm:ss z yyyy";
+			ZoneId defaultZoneId = TimeZone.getDefault().toZoneId();
+			System.out.println("TimeZone : " + defaultZoneId);
+			LocalDateTime ldt = LocalDateTime.parse(dateInString.replaceAll("  ", " 0"), DateTimeFormatter.ofPattern(dateFormat));
+			ZonedDateTime fromDateTime = ldt.atZone(defaultZoneId);
+			ZoneId toZoneId = ZoneId.of(value);
+			ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);
+			DateTimeFormatter format = DateTimeFormatter.ofPattern(dateFormat);
+			returnDate=format.format(toDateTime);
+		}
+		return returnDate;
+	}
+	public static String execCommand (String commands) { 
+		Process p; 
+		try { 
+			ProcessBuilder pb = new ProcessBuilder(commands); 
+			p = pb.start(); 
+		} catch (IOException e) { 
+			e.printStackTrace(); 
+			return null; 
+		} 
+
+		byte[] b = new byte[1024]; 
+		int readBytes; 
+		StringBuilder sb = new StringBuilder(); 
+		InputStream in = p.getInputStream(); 
+		try { 
+			while ((readBytes = in.read(b)) != -1) { 
+				sb.append(new String(b, 0, readBytes)); 
+			} 
+
+		} catch (IOException e) { 
+			e.printStackTrace(); 
+		} finally { 
+			try { 
+				in.close(); 
+			} catch (IOException e) { 
+				e.printStackTrace(); 
+			} 
+			try { 
+				p.destroy(); 
+			}catch (IllegalThreadStateException e){ 
+				e.printStackTrace(); 
+			} 
+		} 
+		return sb.toString(); 
+	}
+
+	/**
+	 * Function to do a generic swipe up or down
+	 * @param sDirectionUpDown
+	 * @param iNoOfTimes
+	 */
+	public void swipeGeneric(String sDirectionUpDown) {
+
+		System.out.println("Scrolling...");
+		switch (BaseLib.sOSName.toLowerCase()) {
+		case "android":
+
+			Dimension dim = driver.manage().window().getSize();
+			int height = dim.getHeight();
+			int width = dim.getWidth();
+			int x = width / 2;
+			int top_y;
+			int bottom_y;
+
+			if (sDirectionUpDown.equalsIgnoreCase("up")) {
+				top_y = (int) (height * 0.80);
+				bottom_y = (int) (height * 0.50);
+			} else {
+				// Reversing
+				top_y = (int) (height * 0.50);
+				bottom_y = (int) (height * 0.80);
+			}
+
+			System.out.println("coordinates :" + x + "  " + top_y + " " + bottom_y);
+			TouchAction ts = new TouchAction(driver);
+			ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
+
+			break;
+		case "ios":
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Map<String, Object> params = new HashMap<>();
+			if (sDirectionUpDown.equalsIgnoreCase("up")) {
+				params.put("direction", "up");
+			} else {
+				params.put("direction", "down");
+
+			}
+			js.executeScript("mobile: swipe", params);
+
+			break;
+		}
+
+	}
+	
+	/**
+	 * Navigate to a horizontal tab based on the tab name
+	 * @param sTabName
+	 * @return
+	 */
+	public boolean gotToTabHorizontal(String sTabName) {
+		System.out.println("Scrolling Horizontally");
+		List<WebElement> wElementNav=null;
+		int tabNo =0;
+		int i;
+		for (i = 0; i < 5; i++) {
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {//For Android
+			wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
+			tabNo = wElementNav.size();
+
+			System.out.println("Curernt no of Tabs = "+tabNo);
 			try {
-				this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
-				System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
-
-			}catch(Exception e) {
-				
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//android.widget.HorizontalScrollView//*[@text='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(Math.abs(tabNo-1)).click();
+		}
+		else {//For IOS
+			wElementNav = driver.findElements(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton"));
+			tabNo = wElementNav.size();
+			System.out.println("Curernt no of Tabs = "+tabNo);
+			try {
+				Thread.sleep(300);
+				WebElement tabElement = driver.findElement(By.xpath("//XCUIElementTypeScrollView //XCUIElementTypeButton[@name='"+sTabName+"']"));
+				if(waitforElement(tabElement,3))
+				{
+					tabElement.click();
+					System.out.println("Tab found after scrolling Horizontally");
+					return true;
+					//break;
+				}	
+			}catch(Exception e){}
+			System.out.println("Scrolling Horizontally for index "+tabNo);
+			wElementNav.get(2+i).click();
 			}
 		}
-		public String getDeviceDate() throws ParseException{
-			String returnDate="";
-			if (BaseLib.sOSName.equalsIgnoreCase("Android")) {
-				switchContext("native");
-				Map<String, Object> args = new HashMap<>();
-				args.put("command", "date");
-				returnDate=(driver.executeScript("mobile: shell", args).toString());
-				switchContext("webview");
+		System.out.println("Tab Not found after scrolling Horizontally");
+		return false;
+
+	}
+
+	/**
+	 * TO scroll for IOS or android page wise until element is found and if horizontal tab scroll is needed add the tab name, if it fails then try using the overloaded method "public WebElement custScrollToElementAndClick(String androidTextInElement) "
+	 * @param wElement
+	 * @param sTabName
+	 * @throws InterruptedException
+	 */
+	public void custScrollToElementAndClick(WebElement wElement,String... sTabName){
+		String sTabNameVal = sTabName.length>0?sTabName[0]:"";
+		System.out.println("Scrolling to element and clicking");
+		if(!sTabNameVal.equals("")) {
+			if(!gotToTabHorizontal(sTabNameVal)) {
+				System.out.println("Tab name "+sTabNameVal+" not found please pass correct tab name");
+				return;
 			}
-			else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-				String value="";
-				String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/idevicedate").trim();
-				String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/ideviceinfo");
-				String[] IOBufferList = _cmd.split("\n"); 
-				for (String item: IOBufferList) { 
-		               String[] subItemList = item.split(":"); 
-		               if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
-		                    value=subItemList[1].trim();
-		                    break;
-		               } 
-		        }
-				String dateFormat="E MMM d HH:mm:ss z yyyy";
-				ZoneId defaultZoneId = TimeZone.getDefault().toZoneId();
-		        System.out.println("TimeZone : " + defaultZoneId);
-		        LocalDateTime ldt = LocalDateTime.parse(dateInString.replaceAll("  ", " 0"), DateTimeFormatter.ofPattern(dateFormat));
-		        ZonedDateTime fromDateTime = ldt.atZone(defaultZoneId);
-		        ZoneId toZoneId = ZoneId.of(value);
-		        ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);
-		        DateTimeFormatter format = DateTimeFormatter.ofPattern(dateFormat);
-		        System.out.println(format.format(toDateTime));
-			}
-			return returnDate;
 		}
-		public static String execCommand (String commands) { 
-	        Process p; 
-	        try { 
-	            ProcessBuilder pb = new ProcessBuilder(commands); 
-	            p = pb.start(); 
-	        } catch (IOException e) { 
-	            e.printStackTrace(); 
-	            return null; 
-	        } 
-	 
-	        byte[] b = new byte[1024]; 
-	        int readBytes; 
-	        StringBuilder sb = new StringBuilder(); 
-	        InputStream in = p.getInputStream(); 
-	        try { 
-	            while ((readBytes = in.read(b)) != -1) { 
-	                sb.append(new String(b, 0, readBytes)); 
-	            } 
-	 
-	        } catch (IOException e) { 
-	            e.printStackTrace(); 
-	        } finally { 
-	            try { 
-	                in.close(); 
-	            } catch (IOException e) { 
-	                e.printStackTrace(); 
-	            } 
-	            try { 
-	                p.destroy(); 
-	            }catch (IllegalThreadStateException e){ 
-	                e.printStackTrace(); 
-	            } 
-	        } 
-	        return sb.toString(); 
-	    }
-		
-		/**
-		 * Function to do a generic swipe up or down
-		 * @param sDirectionUpDown
-		 * @param iNoOfTimes
-		 */
-		public void swipeGeneric(String sDirectionUpDown) {
+		//If element clicked then return immediately
+		try {
+			Thread.sleep(300);
+			if(waitforElement(wElement,1)) {
+				wElement.click();
+				System.out.println("Element found and clicked after scrolling");
+				return;
+			}
+		}catch(Exception e){}
 
-			System.out.println("Scrolling...");
-			switch (BaseLib.sOSName.toLowerCase()) {
-			case "android":
+		//Try to scroll and click element
+		int i;
+		for (i = 0; i < 10; i++) {
+			swipeGeneric("up");
+			try {
+				Thread.sleep(300);
+				if(waitforElement(wElement,1)) {
+					wElement.click();
+					System.out.println("Element found and clicked after scrolling");
+					return;
+					//break;
+				}
+			}catch(Exception e){}
+		}
+		System.out.println("Element not found to click after scrolling");
 
-				Dimension dim = driver.manage().window().getSize();
-				int height = dim.getHeight();
-				int width = dim.getWidth();
-				int x = width / 2;
-				int top_y;
-				int bottom_y;
+	}
 
-				if (sDirectionUpDown.equalsIgnoreCase("up")) {
-					top_y = (int) (height * 0.80);
-					bottom_y = (int) (height * 0.50);
-				} else {
-					// Reversing
-					top_y = (int) (height * 0.50);
-					bottom_y = (int) (height * 0.80);
+
+	/**
+	 * For certain elements to scroll and click we can pass the text/xpath directly to scroll, first try the overloaded method "custScrollToElementAndClick(WebElement webElement) " if it fails use this method
+	 * @param androidTextInElementOrXpath
+	 * @param isXpath
+	 * @throws InterruptedException
+	 */
+	public void custScrollToElementAndClick(String androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
+
+		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			Thread.sleep(300);
+			WebElement wElement = null;
+			System.out.println("Android scrolling");
+			if(isXpathOrNot == true) {
+				try {
+					Thread.sleep(300);
+					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+					if(waitforElement(wElement,1)) {
+						wElement.click();
+						System.out.println("Element found after scrolling");
+						return;
+					}
+				}catch(Exception e1){}
+
+				//Try to scroll and click element
+				int i;
+				for (i = 0; i < 10; i++) {
+					swipeGeneric("up");
+					try {
+						Thread.sleep(300);
+						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+						if(waitforElement(wElement,1)) {
+							point = wElement.getLocation();
+							wElement.click();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found and clicked after scrolling");
+							return;
+							//break;
+						}
+					}catch(Exception e2){};
+					System.out.println("Element not found and clicked after scrolling");
 				}
 
-				System.out.println("coordinates :" + x + "  " + top_y + " " + bottom_y);
-				TouchAction ts = new TouchAction(driver);
-				ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
-
-				break;
-			case "ios":
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				Map<String, Object> params = new HashMap<>();
-				if (sDirectionUpDown.equalsIgnoreCase("up")) {
-					params.put("direction", "up");
-				} else {
-					params.put("direction", "down");
-
-				}
-				js.executeScript("mobile: swipe", params);
-
-				break;
+			}else {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+androidTextInElementOrXpath+"\"))")).click();
 			}
+			break;
+		case "ios":
+			String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
+			try {
+				Thread.sleep(300);
+				wElement = driver.findElement(By.xpath(xpathString));
+				if(waitforElement(wElement,1)) {
+					wElement.click();
+					System.out.println("Element found and clicked after scrolling");
+					return;
+				}
+			}catch(Exception e1){}
 
-		}
-
-		public void custScrollToElementAndClick(WebElement webElement) throws InterruptedException {
-			Thread.sleep(3000);
+			//Try to scroll and click element
 			int i;
-			for (i = 0; i < 5; i++) {
+			for (i = 0; i < 10; i++) {
+				swipeGeneric("up");
 				try {
-				webElement.click();
-				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					Thread.sleep(300);
+					wElement = driver.findElement(By.xpath(xpathString));
+					if(waitforElement(wElement,1)) {
+						point = wElement.getLocation();
+						wElement.click();
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						System.out.println("Element found and clicked after scrolling");
+						return;
+						//break;
+					}
+				}catch(Exception e2){};
+				System.out.println("Element not found to click after scrolling");
+			}
+		}
+	}
+
+	/**
+	 * For certain elements to only scroll we can pass the text/xpath directly to scroll, first try the overloaded method "custScrollToElementAndClick(WebElement webElement) " if it fails use this method
+	 * @param androidTextInElementOrXpath
+	 * @param isXpath
+	 * @throws InterruptedException
+	 */
+	public void custScrollToElement(String androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
+		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
+
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			Thread.sleep(300);
+			WebElement wElement = null;
+			System.out.println("Android scrolling");
+			if(isXpathOrNot== true) {
+				try {
+					Thread.sleep(300);
+					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+					if(waitforElement(wElement,1)) {
+						System.out.println("Element found after scrolling");
+						return;
+					}
+				}catch(Exception e1){}
+
+				//Try to scroll
+				int i;
+				for (i = 0; i < 10; i++) {
+					swipeGeneric("up");
+					try {
+						Thread.sleep(300);
+						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
+						if(waitforElement(wElement,1)) {
+							point = wElement.getLocation();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found after scrolling");
+							return;
+							//break;
+						}
+					}catch(Exception e2){};
+					System.out.println("Element not found after scrolling");
+				}
+
+			}else {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+androidTextInElementOrXpath+"\"))"));
+			}
+			break;
+		case "ios":
+			String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
+			try {
+				Thread.sleep(300);
+				wElement = driver.findElement(By.xpath(xpathString));
+				if(waitforElement(wElement,3)) {
+					System.out.println("Element found after scrolling");
 					return;
 				}
-				
-				}catch(Exception e){}
-				
-				swipeGeneric("up");
-				
-				try {
-					Thread.sleep(1000);
-					webElement.click();
-					return;
-				}catch(Exception e){}
-				
-			}
-			System.out.println("Element not found to click after scrolling");
+			}catch(Exception e1){}
 
+			//Try to scroll and click element
+			int i;
+			for (i = 0; i < 10; i++) {
+				swipeGeneric("up");
+				try {
+					Thread.sleep(300);
+					wElement = driver.findElement(By.xpath(xpathString));
+					if(waitforElement(wElement,1)) {
+						point = wElement.getLocation();
+						wElement.click();
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						System.out.println("Element found after scrolling");
+						return;
+						//break;
+					}
+
+				}catch(Exception e2){};
+				System.out.println("Element not found after scrolling");
+			}
 		}
+	}
+
+	/**
+	 * Scroll to a element
+	 * @param wElement
+	 * @throws InterruptedException
+	 */
+	public void custScrollToElement(WebElement wElement) throws InterruptedException {
+		try {
+			Thread.sleep(300);
+			if(waitforElement(wElement,1)) {
+				System.out.println("Element found and clicked after scrolling");
+				return;
+			}
+		}catch(Exception e){}
+
+		//Try to scroll
+		int i;
+		for (i = 0; i < 10; i++) {
+			swipeGeneric("up");
+			try {
+				Thread.sleep(300);
+				if(waitforElement(wElement,1)) {
+					point = wElement.getLocation();
+					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+					System.out.println("Element found aafter scrolling");
+					return;
+					//break;
+				}
+			}catch(Exception e){}
+		}
+		System.out.println("Element not found to click after scrolling");
+	}
+
+	@FindBy(xpath="//*[@class='android.widget.EditText'][@text='Search Keyword...']")
+	private WebElement searchLookup;
+	public WebElement getSearchLookup() {
+		return searchLookup;
+	}
+
+	private WebElement pheleSearchListItem;
+	public WebElement getEleSearchListItem(String sName)
+	{
+		return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
+
+	}
+
+	public WebElement getSearchLookupWithText(String sName)
+	{
+		return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.EditText'][@text='"+sName+"']"));
+
+	}
+
+	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Min = "+sDiff);
+		return sDiff;
+	}
+	
+	public long getDateDiffInSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in Sec = "+sDiff);
+
+		return sDiff;
+	}
+	
+	public long getDateDiffInMilSec(long lInitTimeStart, long lInitTimeEnd) {
+
+		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
+		long sDiff = TimeUnit.MILLISECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		System.out.println("Time Diff in MilliSec = "+sDiff);
+		return sDiff;
+	}
+
 }

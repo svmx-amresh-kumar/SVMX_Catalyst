@@ -1,5 +1,5 @@
 /*
- *  @author lakshmibs
+ *  @author 
  */
 package com.ge.fsa.tests.phone;
 
@@ -7,16 +7,21 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+import java.awt.KeyEventPostProcessor;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
+import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 
 public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
@@ -42,11 +47,13 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	String[] sAppDate = null;
 	String sSerialNumber = null;
 	String sSheetName =null;
+	boolean bProcessCheckResult = false;
 
+	
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonsUtility.generaterandomnumber("SAN6_");
+		sSerialNumber = commonUtility.generaterandomnumber("SAN6_");
 		
 		//	sDeviceDate = driver.getDeviceTime().split(" ");
 
@@ -69,7 +76,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	*/	
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
@@ -87,61 +95,102 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
-		toolsPo.configSync(commonsUtility);
+		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		//Data Sync for WO's created
-		toolsPo.syncData(commonsUtility);
+		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
-		sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
-		System.out.println(Arrays.toString(sAppDate));
-		System.out.println(Arrays.toString(sDeviceDate));
-		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
-		Thread.sleep(GenericLib.iLowSleep);
-
-		//Set the order status
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
-		Thread.sleep(GenericLib.iLowSleep);
-
-		//Set the billing type
-		commonsUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
-		Thread.sleep(GenericLib.iLowSleep);
-	
-		try {
-			System.out.println("Need to be Handled successfully");
-			workOrderPo.getElePartsToggleBtn().click();
-			commonsUtility.tap(workOrderPo.getElePartsToggleBtn());
-			
-			commonsUtility.tap(workOrderPo.getEleRemoveItemLnk());
-			commonsUtility.tap(workOrderPo.getEleYesBtn());
-			
-			commonsUtility.tap(workOrderPo.getEleOKBtn());
-			System.out.println("Handled successfully");
-			Thread.sleep(GenericLib.iMedSleep);
-		}catch(Exception e){
-			
-		}
 		
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName);
+		//sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
+		//System.out.println(Arrays.toString(sAppDate));
+		//System.out.println(Arrays.toString(sDeviceDate));
+		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
+		Thread.sleep(3000);
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
+		Thread.sleep(3000);
+		commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
+		ph_WorkOrderPo.geteleRemove().click();
+		Thread.sleep(2000);
+		ph_WorkOrderPo.geteleRemovePopUp().click();
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		//Set the order status
+		
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
+		Thread.sleep(GenericLib.iLowSleep);
+
+		//billing type
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
+		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Add the workorder parts
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
-		commonsUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		Assert.assertTrue(workOrderPo.getEleWODesMappedTxt().isDisplayed(), "Work Description is not mapped");
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		commonUtility.isDisplayedCust(ph_WorkOrderPo.geteleAddedPart(sProductName));
+		//Thread.sleep(3000);
+		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
+		
+		//Validating Mapping for text. 
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleWODesMappedTxt());
+		Assert.assertTrue(ph_WorkOrderPo.getEleWODesMappedTxt().isDisplayed(),"Work description is not Mapped");
+		ph_WorkOrderPo.getEleWODesMappedTxt().click();
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
+		
+		//Validating Mapping for Number. 
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQty());
+		String billableQfeed = "2";
+		String billableQtyapp=ph_WorkOrderPo.geteleBillableQty().getText();
+		Assert.assertTrue(billableQtyapp.equals(billableQfeed), "Billable Quantity mapped right!");
+		ExtentManager.logger.log(Status.PASS,"Billing Quantity Mapped successfully");
+		
+		ph_WorkOrderPo.geteleXsymbol().click();
+		commonUtility.isDisplayedCust(ph_WorkOrderPo.getElesave());
+		ph_WorkOrderPo.getElesave().click();
+		Thread.sleep(2000);
+		
+		//Validating sounrce object update.
+		
+		ph_WorkOrderPo.navigatetoWO(commonUtility,ph_ExploreSearchPo, sExploreSearch,sExploreChildSearchTxt,sCaseID);
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleDescriptiontext());
+		String ssouClientValue =ph_WorkOrderPo.geteleDescriptiontext().getText();
+		String ssouExpectedValue = "Source Object Updated";
+		Assert.assertTrue(ssouClientValue.equals(ssouExpectedValue), "Source Object Not updated");
+		ExtentManager.logger.log(Status.PASS,"Source Object Sucessful Expected :"+ssouExpectedValue+" Actual : "+ssouClientValue+"");
+
+		// Validation on Server.
+		
+		// Collecting the Work Order number from the Server.
+		ph_MorePo.syncData(commonUtility);
+
+		String sQosqlquery = "SELECT+id,SVMXC__Case__c,Name+FROM+SVMXC__Service_Order__c+where+SVMXC__Case__c+in+(select+id+from+Case+where+CaseNumber+=\'"+sCaseID+"\')";
+		//String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
+		restServices.getAccessToken();
+		String sworkOrderName = restServices.restGetSoqlValue(sQosqlquery,"Name");
+		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
+
+		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
+		String sProbdescWOClient = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		String sExpectedProbeDesc = "Description of Sanity6";
+		Assert.assertTrue(sProbdescWOClient.equals(sExpectedProbeDesc), "Source to Target Failed!");
+		ExtentManager.logger.log(Status.PASS,"Source to Target Process Sucessfull, WO Desc Expected :"+sExpectedProbeDesc+" Actual : "+sProbdescWOClient+"");
+
+
+		/*
 
 		//Save the workorder updates and validate
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
-		commonsUtility.tap(workOrderPo.getEleSaveLnk());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
 		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
 	
-	
+	*/
 	}
 
 }

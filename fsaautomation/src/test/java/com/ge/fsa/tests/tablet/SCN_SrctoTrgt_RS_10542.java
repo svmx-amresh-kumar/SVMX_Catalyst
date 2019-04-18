@@ -38,7 +38,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	private void preRequiste() throws Exception { 
 		
 		restServices.getAccessToken();
-		sSerialNumber = commonsUtility.generaterandomnumber("IB_10542_");
+		sSerialNumber = commonUtility.generaterandomnumber("IB_10542_");
 		
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"account\"}";
@@ -62,7 +62,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		System.out.println(sIBName1);
 
 		//Creation of dynamic IB2
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonsUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonsUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
@@ -71,7 +71,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		
 		
 		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
@@ -85,26 +85,26 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		preRequiste();
 			
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
 
 		//Validation of not qualifying Work Order
 		Assert.assertTrue(workOrderPo.getElePopupTxt().getText().equals("Account can't be NULL"), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
 		
-		commonsUtility.tap(workOrderPo.getEleOKBtn());
+		commonUtility.tap(workOrderPo.getEleOKBtn());
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
 		Thread.sleep(GenericLib.iLowSleep);
 		
 		//Validation of auto update process
@@ -119,27 +119,27 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		if(BaseLib.sOSName.equals("ios") ){
 			workOrderPo.getEleIBScheduledTxtFld().click();
 			Thread.sleep(GenericLib.iMedSleep);
-			commonsUtility.setDatePicker(1, 2);
-			commonsUtility.getEleDonePickerWheelBtn().click();
-			commonsUtility.switchContext("Webview");}
+			commonUtility.setDatePicker(1, 2);
+			commonUtility.getEleDonePickerWheelBtn().click();
+			commonUtility.switchContext("Webview");}
 		else{
-			commonsUtility.tap(workOrderPo.getEleIBScheduledTxtFld());
+			commonUtility.tap(workOrderPo.getEleIBScheduledTxtFld());
 			Thread.sleep(GenericLib.iMedSleep);
-			commonsUtility.setDatePicker(1, 2);
-			commonsUtility.switchContext("native");
-			commonsUtility.getCalendarDone().click();
-			commonsUtility.switchContext("Webview");
+			commonUtility.setDatePicker(1, 2);
+			commonUtility.switchContext("native");
+			commonUtility.getCalendarDone().click();
+			commonUtility.switchContext("Webview");
 			}
 		
 		Thread.sleep(GenericLib.iMedSleep);
 		//Save the case created by IB
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		Thread.sleep(GenericLib.iLowSleep);
-		driver.activateApp(GenericLib.sAppBundleID);
+		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Config Sync
-		commonsUtility.tap(toolsPo.getEleToolsIcn());
-		toolsPo.syncData(commonsUtility);
+		commonUtility.tap(toolsPo.getEleToolsIcn());
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validation of WorkOrder from IB

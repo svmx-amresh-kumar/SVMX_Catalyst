@@ -10,6 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -32,9 +33,12 @@ import org.openqa.selenium.support.PageFactory;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
+import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -85,26 +89,57 @@ public class workBench extends BaseLib
 	@Test
 
 public void workBenchAnd() throws Exception
-{		
+{	
+		Thread.sleep(10000);
+		String sProductName = "auto_product";
+		String  sProcessname = "EditWoAutoTimesstamp";
+		String sEventSubject = "susy";
+		String sworkOrderName = "WO-00013653";
 		
-		//GenericLib.setConfigValue(GenericLib.sConfigFile, "NO_RESET", "true");
-//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);	
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		
+		//AUTOMATION SEARCH --> Installed Products --> AUTO12042019180834RS_10554_IBIB --> RS_10554_field_mapping
+
+		//ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Installed Products", "AUTO12042019180834RS_10554_IBIB","RS_10554_field_mapping" );	
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "00", "00");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "22", "22");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "23", "20");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "00", "00");
+//
+//		Thread.sleep(10000);
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0,"5", "30","AM"); //set start time to Today
+//		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
+//br_LoginHomePO.login(commonsUtility, exploreSearchPo);
+		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		//ph_MorePo.syncData(commonUtility);
+		
+		//		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", sTestCaseID);
 //		commonsUtility.verifySahiExecution();
-		ExtentManager.logger.pass("before login", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
 
-		lauchNewApp("false");
-		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
 
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-		ExtentManager.extent.flush();
-
-		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
-		ExtentManager.extent.flush();
-
-        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonsUtility.takeScreenShot()).build());
-
+		//lauchNewApp("false");
+//		ExtentManager.logger.pass("after login", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//		//loginHomePo.login(commonUtility, exploreSearchPo);
+//		ExtentManager.extent.flush();
+//
+//		ExtentManager.logger.pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//		ExtentManager.extent.flush();
+//
+//        ExtentManager.logger.fail("Fail", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+//
 
 
 //String convertedstartday="31-01-2019";
@@ -176,37 +211,37 @@ public void DateFormatTests() throws Exception {
 	String sTestCaseID="RS_11859_Calender_3";
 
 		//Pre Login to app
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		//config sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("First time");
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 		
 		
-		 toolsPo.configSync(commonsUtility);
+		 toolsPo.configSync(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		System.out.println("second time");
-		commonsUtility.tap(calendarPO.getEleCalendarClick());
-		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+		commonUtility.tap(calendarPO.getEleCalendarClick());
+		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 		
 		
-		 toolsPo.configSync(commonsUtility);
+		 toolsPo.configSync(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 			System.out.println("third time");
-			commonsUtility.tap(calendarPO.getEleCalendarClick());
-			workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+			commonUtility.tap(calendarPO.getEleCalendarClick());
+			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 			
 			
 
-			 toolsPo.configSync(commonsUtility);
+			 toolsPo.configSync(commonUtility);
 				Thread.sleep(GenericLib.iMedSleep);
 				System.out.println("forth time");
-				commonsUtility.tap(calendarPO.getEleCalendarClick());
-				workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
+				commonUtility.tap(calendarPO.getEleCalendarClick());
+				workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", "WO-00004603", "");
 				
 
     System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
@@ -217,7 +252,7 @@ public void AttachmentTests() throws Exception
 {		
 
 
-	loginHomePo.login(commonsUtility, exploreSearchPo);
+	loginHomePo.login(commonUtility, exploreSearchPo);
 	//String sworkOrderName = "WO-00001744";
 	Thread.sleep(30000);
 	//commonsUtility.switchContext("Webview");
@@ -311,7 +346,7 @@ try {
 //	touchAction2.tap(new PointOption().withCoordinates(x, y)).perform().release();
 	
 	
-	commonsUtility.switchContext("Native");
+	commonUtility.switchContext("Native");
 	List<WebElement> mel = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
 for(int i =0;i<mel.size();i++) {
 	try {
@@ -442,7 +477,7 @@ for(int i =0;i<mel.size();i++) {
 
 }
 
-commonsUtility.switchContext("Native");
+commonUtility.switchContext("Native");
 
 
 //List<IOSElement> picPic = (List<IOSElement>) driver.findElements(By.xpath("//XCUIElementTypeOther[@name='RemoteViewBridge']"));

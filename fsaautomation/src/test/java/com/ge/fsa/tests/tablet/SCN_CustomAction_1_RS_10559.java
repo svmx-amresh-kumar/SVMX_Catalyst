@@ -27,7 +27,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 //		// Resinstall the app
 //		lauchNewApp("false");
 //		//Execute Sahi
-		commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
@@ -35,7 +35,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		//	System.out.println("WO no ="+sWOName);
 		//**********Create Product from API**********
-		String sProductName = commonsUtility.generaterandomnumber("Prod");
+		String sProductName = commonUtility.generaterandomnumber("Prod");
 		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
 		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
 		//	System.out.println(sProductId);
@@ -56,16 +56,16 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		dateFormat.setTimeZone(gmtTime);
 		String sCurrentDate = dateFormat.format(date);
 		System.out.println(sCurrentDate);
-		loginHomePo.login(commonsUtility, exploreSearchPo);	
-		toolsPo.syncData(commonsUtility);
+		loginHomePo.login(commonUtility, exploreSearchPo);	
+		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		toolsPo.configSync(commonsUtility); 
+		toolsPo.configSync(commonUtility); 
 		Thread.sleep(GenericLib.iMedSleep);
-		workOrderPo.navigateToWOSFMWithIcon(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
+		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
 		Thread.sleep(GenericLib.i30SecSleep);
-		commonsUtility.tap(workOrderPo.getEleActionsLnk());
+		commonUtility.tap(workOrderPo.getEleActionsLnk());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+		commonUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 	//	commonsUtility.tap(workOrderPo.getEleLblStateName());
 		Thread.sleep(5000);
 //		System.out.println("State is "+workOrderPo.getEleLblStateName().getAttribute("innerText"));
@@ -84,22 +84,22 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 			workOrderPo.geteleDiscardChangesbutton().click();
 		}
 		catch(Exception e){
-			commonsUtility.tap(workOrderPo.getelecancelbutton());
-			commonsUtility.tap(workOrderPo.geteleDiscardChangesbutton());
+			commonUtility.tap(workOrderPo.getelecancelbutton());
+			commonUtility.tap(workOrderPo.geteleDiscardChangesbutton());
 		}
-		workOrderPo.navigateToWOSFMWithIcon(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
+		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 		Thread.sleep(GenericLib.i30SecSleep);
 		try{
 			workOrderPo.getEleActionsLnk().click();
 		}
 		catch (Exception e) {
-			commonsUtility.tap(workOrderPo.getEleActionsLnk());
+			commonUtility.tap(workOrderPo.getEleActionsLnk());
 		}
 		
 		Thread.sleep(GenericLib.iLowSleep);
-		commonsUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+		commonUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 		workOrderPo.getEleclickparts(sProductName).click();
-		commonsUtility.tap(workOrderPo.getEleclickparts(sProductName),20,20);
+		commonUtility.tap(workOrderPo.getEleclickparts(sProductName),20,20);
 		Thread.sleep(5000);
 //		System.out.println("R city "+workOrderPo.getEleLblRequestedCity().getAttribute("innerText"));
 //		System.out.println(sRequestedCity);

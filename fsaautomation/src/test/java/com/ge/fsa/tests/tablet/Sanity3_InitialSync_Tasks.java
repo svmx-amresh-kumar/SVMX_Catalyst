@@ -17,9 +17,9 @@ public class Sanity3_InitialSync_Tasks extends BaseLib {
 	public void scenario3Test() throws InterruptedException, IOException {
 		String sTaskName = "";
 		lauchNewApp("false");
-		loginHomePo.login(commonsUtility, exploreSearchPo);
-		sTaskName = tasksPo.addTask(commonsUtility);
-		toolsPo.syncData(commonsUtility);
+		loginHomePo.login(commonUtility, exploreSearchPo);
+		sTaskName = tasksPo.addTask(commonUtility);
+		toolsPo.syncData(commonUtility);
 		//Fetching the task name and checking if the task is present on the server.
 		String soqlquery = "Select+Count()+from+Task+where+Subject+=\'"+sTaskName+"\'";
 		

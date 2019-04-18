@@ -52,7 +52,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
 		genericLib.executeSahiScript("appium/Scenario_10532.sah");
-		if(commonsUtility.verifySahiExecution()) {
+		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
 		}
@@ -64,11 +64,11 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
 			assertEquals(0, 1);
 		}
-		loginHomePo.login(commonsUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
-		toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		// Do a Data sync
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
@@ -84,23 +84,23 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		String sworkOrderName = GenericLib.getExcelData(sTestDataValue2,sSheetName1,"Work Order Number");
 	
 		// To navigate to the Work Order
-		workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
+		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "EditWoAutoTimesstamp";// Standard SFM Process
 		Thread.sleep(2000);
-		workOrderPo.selectAction(commonsUtility,sProcessname);
+		workOrderPo.selectAction(commonUtility,sProcessname);
 		
 		/**
 		 * PARTS - Verification of Fields
 		 */
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName);
+		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
 		// To verify if Billing Type = Warranty
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("--None--", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);
 		// Clicking on Get Price button for Parts
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonUtility.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
+		commonUtility.tap(workOrderPo.getEleChildLineTapName(sProductName));
 		
 		String sLinePricePerUnit = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -145,18 +145,18 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
 		
 		/**
 		 * PARTS - Verification of Fields
 		 */
-		workOrderPo.addParts(commonsUtility, workOrderPo, sProductName2);
+		workOrderPo.addParts(commonUtility, workOrderPo, sProductName2);
 		// To verify if Billing Type = Warranty
 		// Clicking on Get Price button for Parts
-		commonsUtility.tap(workOrderPo.geteleGetPrice());
+		commonUtility.tap(workOrderPo.geteleGetPrice());
 		// Tap on the Product and verify the field values after the Get Price of Parts
-		commonsUtility.tap(workOrderPo.getEleChildLineTapName(sProductName2));
+		commonUtility.tap(workOrderPo.getEleChildLineTapName(sProductName2));
 		
 		String sLinePricePerUnit2 = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sCoveredPercent2 = workOrderPo.getelechildlinefields("Covered %").getAttribute("value");
@@ -201,10 +201,10 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		{
 			ExtentManager.logger.log(Status.FAIL,"Billable Line Price is not as Expected");
 		}
-		commonsUtility.tap(workOrderPo.getEleDoneBtn());
-		commonsUtility.tap(workOrderPo.getEleClickSave());
+		commonUtility.tap(workOrderPo.getEleDoneBtn());
+		commonUtility.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
-		toolsPo.syncData(commonsUtility);
+		toolsPo.syncData(commonUtility);
 		String sSoqlQueryChildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
 		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildlines, "totalSize");	
