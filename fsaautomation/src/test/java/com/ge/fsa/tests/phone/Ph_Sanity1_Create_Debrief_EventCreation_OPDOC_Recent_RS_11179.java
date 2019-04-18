@@ -172,6 +172,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 				sworkOrderName, sPrintReportSearch);		
 		//ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
 		ph_WorkOrderPo.getEleFinalize().click();
+		Thread.sleep(3000);
 		ExtentManager.logger.log(Status.PASS,"OPDOC FINALIZE Button was clicked");
 
 		// server validation 	
