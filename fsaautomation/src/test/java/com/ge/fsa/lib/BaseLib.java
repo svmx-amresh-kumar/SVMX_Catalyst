@@ -115,6 +115,7 @@ public class BaseLib {
 	public static String sUpdate_BundleID = null;
 	public static String sApp_BundleID = null;
 	public static String sNo_Reset = null;
+	public static String sApp_Name = null;
 
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -173,6 +174,9 @@ public class BaseLib {
 		//Get UDID
 		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
+		
+		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME").toLowerCase();
+		System.out.println("[BaseLib] APP_NAME : " + sApp_Name);
 		
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
