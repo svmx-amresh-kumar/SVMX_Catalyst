@@ -134,6 +134,7 @@ public class Ph_WorkOrderPO
 	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
 		System.out.println("Selecting Action");
+		commonUtility.waitforElement(getEleActionsLnk(), 3);
 		getEleActionsLnk().click();	
 		Thread.sleep(3000);
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
@@ -143,9 +144,7 @@ public class Ph_WorkOrderPO
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
 		System.out.println("Creating New Event");
-
 		selectAction(commonUtility,"Create New Event From Work Order");
-		
 		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
 		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
