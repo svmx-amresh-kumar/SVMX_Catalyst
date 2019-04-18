@@ -10,6 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
+import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -91,13 +93,31 @@ public void workBenchAnd() throws Exception
 		Thread.sleep(10000);
 		String sProductName = "auto_product";
 		String  sProcessname = "EditWoAutoTimesstamp";
-		ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
-		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
-		//ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		String sEventSubject = "susy";
+		String sworkOrderName = "WO-00013653";
+		
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);	
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
+		
+		//AUTOMATION SEARCH --> Installed Products --> AUTO12042019180834RS_10554_IBIB --> RS_10554_field_mapping
 
-		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
-		ph_WorkOrderPo.getElesave().click();
-
+		//ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Installed Products", "AUTO12042019180834RS_10554_IBIB","RS_10554_field_mapping" );	
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "00", "00");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "22", "22");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "23", "20");
+//		Thread.sleep(10000);
+//
+//		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "00", "00");
+//
+//		Thread.sleep(10000);
 //		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0,"5", "30","AM"); //set start time to Today
 //		commonUtility.setDateTime12Hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0,"6","00","AM"); //set end time
 //br_LoginHomePO.login(commonsUtility, exploreSearchPo);
