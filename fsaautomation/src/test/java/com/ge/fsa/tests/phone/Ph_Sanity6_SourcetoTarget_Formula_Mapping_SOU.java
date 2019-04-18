@@ -21,6 +21,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
+import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 
 public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
@@ -112,7 +113,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//System.out.println(Arrays.toString(sDeviceDate));
 		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
 		Thread.sleep(3000);
-
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
+		Thread.sleep(3000);
 		commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
 		ph_WorkOrderPo.geteleRemove().click();
 		Thread.sleep(2000);
