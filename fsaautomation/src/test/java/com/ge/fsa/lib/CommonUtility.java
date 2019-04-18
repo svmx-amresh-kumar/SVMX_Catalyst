@@ -1838,10 +1838,12 @@ public class CommonUtility {
 	 */
 	public void injectJenkinsPropertiesForSahi() {
 		String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+		String sConfigExcelPath = GenericLib.sConfigPropertiesExcelFile;
+		String sConfigExcelSheetName = BaseLib.sSelectConfigPropFile;
 		try {
 	
 			//this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
-			this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+BaseLib.sOrgType+"\"; var $catalyst_appiumOrg = \""+BaseLib.sSelectConfigPropFile+"\";");
+			this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+BaseLib.sOrgType+"\"; var $catalyst_appiumOrg = \""+BaseLib.sSelectConfigPropFile+"\"; var $catalyst_appiumConfigExcelFilePath = \""+sConfigExcelPath+"\"; var $catalyst_appiumConfigExcelSheetName = \""+sConfigExcelSheetName+"\";");
 			System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
 
 		}catch(Exception e) {
