@@ -163,7 +163,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
 		// Entering Date question
-		// commonUtility.custScrollToElementAndClick("5. Date Question");
+		commonUtility.custScrollToElementAndClick("7. Date Question");
 		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "JAN", "01", "2019");
 
 		// Entering Number Question
