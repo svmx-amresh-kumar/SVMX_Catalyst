@@ -63,7 +63,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// boolean bProcessCheckResult =commonUtility.ProcessCheck(restServices,
 		// genericLib, sChecklistName, sScriptName, sTestCaseID);
 		// sWOName1 = "WO-00001615";
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName,
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
 				sTestCaseID);
 
 	}

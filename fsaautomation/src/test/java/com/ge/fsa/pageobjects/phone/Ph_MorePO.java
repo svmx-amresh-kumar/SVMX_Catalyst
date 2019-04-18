@@ -165,7 +165,9 @@ public class Ph_MorePO
 	//System.out.println("clicking perform config sync now waiting for calandar new");
 	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
+	commonUtility.waitforElement(getEleSyncBtn(),3);
 	getEleSyncBtn().click();
+	commonUtility.waitForElementNotVisible(getEleSyncBtn(),3);
 	System.out.println("Clicked on Sync button and waiting...");
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 	System.out.println("Sync Status = "+getEleConfigSyncSuccessText());
