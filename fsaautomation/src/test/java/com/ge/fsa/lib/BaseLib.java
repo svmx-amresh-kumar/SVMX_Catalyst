@@ -532,6 +532,7 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
+		ExtentManager.extent.flush();
 		// try{driver.quit();}catch(Exception e) {};
 	}
 
