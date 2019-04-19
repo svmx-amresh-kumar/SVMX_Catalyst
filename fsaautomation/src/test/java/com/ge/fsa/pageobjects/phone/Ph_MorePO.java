@@ -97,7 +97,7 @@ public class Ph_MorePO
 		return eleRunConfigSync	;	
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Sync completed']"),
+	@FindAll({@FindBy(xpath="//*[contains(@text,'Sync completed')]"),
 	@FindBy(xpath="(//*[contains(@label,'Sync completed Last sync time')])")})
 	private WebElement eleDataSynccompleted;
 	public WebElement getEleDataSynccompleted()
@@ -105,18 +105,23 @@ public class Ph_MorePO
 		return eleDataSynccompleted;
 	}
 	
+	@FindAll({@FindBy(xpath="//*[contains(@text,'successful sync')]"),
+	@FindBy(xpath="(//*[contains(@label,'successful sync')])")})
+	private WebElement eleConfigSyncCompleted;
+	public WebElement getEleConfigSyncCompleted()
+	{
+		return eleConfigSyncCompleted;
+	}
 	
-		public String getEleConfigSyncSuccessText()
+	
+	@FindAll({@FindBy(xpath="//*[@text='Configuration sync in progress']"),
+		@FindBy(xpath="(//*[contains(@label,'Configuration sync in progress')])")})
+		private WebElement eleConfigSyncInProgress;
+		public WebElement getEleConfigSyncInProgress()
 		{
-			if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getAttribute("label");
-
-			}else {
-				return driver.findElementByAccessibilityId("SETTING.SYNC.CONFIG.ITEM_BUTTON").getText();
-
-			}
+			return eleConfigSyncInProgress;
 		}
-		
+	
 		
 		public void OptionalConfigSync(CommonUtility commonUtility,Ph_CalendarPO ph_CalendarPo, Boolean bProcessCheckResult) throws InterruptedException, IOException
 		{
@@ -162,6 +167,7 @@ public class Ph_MorePO
 	getEleRunConfigSync().click();
 	System.out.println("Clicked on run config button");
 	try {getElePerformConfigSync().click();}catch(Exception e) {}
+	commonUtility.waitForElementNotVisible(getEleConfigSyncInProgress(),800);
 	//System.out.println("clicking perform config sync now waiting for calandar new");
 	commonUtility.waitforElement(ph_CalendarPo.getEleCalendarViewMenu(), 200);
 	getEleMoreBtn().click();
@@ -170,8 +176,7 @@ public class Ph_MorePO
 	commonUtility.waitForElementNotVisible(getEleSyncBtn(),3);
 	System.out.println("Clicked on Sync button and waiting...");
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-	System.out.println("Sync Status = "+getEleConfigSyncSuccessText());
-	if(getEleConfigSyncSuccessText().contains("successful sync")) {
+	if(commonUtility.waitforElement(getEleConfigSyncCompleted(), 3)) {
 	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
 }else {
 	ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
