@@ -6,7 +6,11 @@
     </listeners>
 <test name="ip_workBench">
 		<classes>
-			<class name="com.ge.fsa.tests.phone.Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179.java" />
+			<class name="com.ge.fsa.tests.workBench" />
+						<class name="com.ge.fsa.tests.workBench2" />
+						<class name="com.ge.fsa.tests.workBench3" />
+			
+			
 		</classes>
 	</test> <!-- Test -->
 
