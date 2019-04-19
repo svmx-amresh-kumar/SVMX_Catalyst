@@ -514,8 +514,10 @@ public class BaseLib {
 			sCompletedSymbol = "^^";
 			sRetryState = "";
 			// Add the retry log
-			ExtentManager.extent.flush();
+			//ExtentManager.extent.flush();
 		}
+		
+		ExtentManager.extent.flush();
 
 		try {
 			driver.quit();
@@ -530,7 +532,6 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
-
 		// try{driver.quit();}catch(Exception e) {};
 	}
 

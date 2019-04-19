@@ -530,7 +530,9 @@ public class CommonUtility {
 			//System.out.println("ABS "+reCalculatedWaitTime);
 
 		}else {
-			//For Tablet do nothing
+			//For Tablet
+			//Setting wait for 3 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			 reCalculatedWaitTime = lTime;
 		}
 		
