@@ -483,7 +483,7 @@ public class BaseLib {
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
 			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED"+" "+sRetryState);
-			if (sOSName.toLowerCase().equals("android")) {
+			if (sOSName.equalsIgnoreCase("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
 			}
