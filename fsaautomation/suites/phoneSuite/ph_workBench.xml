@@ -7,8 +7,8 @@
 <test name="ip_workBench">
 		<classes>
 			<class name="com.ge.fsa.tests.workBench" />
-						<class name="com.ge.fsa.tests.workBench2" />
-						<class name="com.ge.fsa.tests.workBench3" />
+			<!-- 			<class name="com.ge.fsa.tests.workBench2" />
+						<class name="com.ge.fsa.tests.workBench3" /> -->
 			
 			
 		</classes>
