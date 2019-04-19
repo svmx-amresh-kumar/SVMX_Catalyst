@@ -521,8 +521,19 @@ public class CommonUtility {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
-		//Setting wait for 1 sec only for this method reverting when exiting
-				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		int reCalculatedWaitTime =0;
+		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Setting wait for 1 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+			//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
+			 reCalculatedWaitTime = Math.abs((lTime/2)+1);
+			//System.out.println("ABS "+reCalculatedWaitTime);
+
+		}else {
+			//For Tablet do nothing
+			 reCalculatedWaitTime = lTime;
+		}
+		
 		System.out.println("Waiting For : " + lTime + " sec");
 		//		String context=driver.getContext();
 		//		switchContext("native");
@@ -536,9 +547,7 @@ public class CommonUtility {
 		//		switchContext(context);
 		//long lInitTimeStartMilliSec = System.currentTimeMillis();
 		//long lInitTimeEndMilliSec = 0;
-		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
-		int reCalculatedWaitTime = Math.abs((lTime/2)+1);
-		//System.out.println("ABS "+reCalculatedWaitTime);
+		
 		while (lElapsedTime != reCalculatedWaitTime) {		
 			Thread.sleep(1000);
 			try {
@@ -546,7 +555,7 @@ public class CommonUtility {
 					System.out.println("Element is displayed");
 					//switchContext(context);
 					//reverting wait to 10 seconds
-					//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					//lInitTimeEndMilliSec = System.currentTimeMillis();
 					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
 					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
