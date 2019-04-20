@@ -532,7 +532,7 @@ public class CommonUtility {
 		}else {
 			//For Tablet
 			//Setting wait for 3 sec only for this method reverting when exiting
-			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			
 			 reCalculatedWaitTime = lTime;
 		}
 		
