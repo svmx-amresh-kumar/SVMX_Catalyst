@@ -511,6 +511,7 @@ public class BaseLib {
 			sRetryState = "RETRY";
 
 		} else {
+			Retry.isRetryRun = false;
 			sCompletedSymbol = "^^";
 			sRetryState = "";
 			// Add the retry log
@@ -532,7 +533,6 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
-		ExtentManager.extent.flush();
 		// try{driver.quit();}catch(Exception e) {};
 	}
 
