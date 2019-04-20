@@ -20,7 +20,7 @@ public class Retry implements IRetryAnalyzer {
 	// override retry Method
 
 	public boolean retry(ITestResult result) {
-
+		isRetryRun = false;
 		// this will run until max count completes if test pass within this frame it
 		// will come out of for loop
 
