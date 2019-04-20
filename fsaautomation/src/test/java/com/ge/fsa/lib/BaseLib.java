@@ -503,21 +503,19 @@ public class BaseLib {
 
 		// Avoid duplicate test results in reports on retry
 		if (Retry.isRetryRun) {
-			// Reset the isRetryRun to false to accept the next run
-			Retry.isRetryRun = false;
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
 			sCompletedSymbol = "<<^^";
 			sRetryState = "RETRY";
 
 		} else {
-			Retry.isRetryRun = false;
 			sCompletedSymbol = "^^";
 			sRetryState = "";
 			// Add the retry log
 			//ExtentManager.extent.flush();
 		}
-		
+		// Reset the isRetryRun to false to accept the next run
+		Retry.isRetryRun = false;
 		ExtentManager.extent.flush();
 
 		try {
