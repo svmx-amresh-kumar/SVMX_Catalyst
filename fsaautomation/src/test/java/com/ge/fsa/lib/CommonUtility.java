@@ -530,9 +530,7 @@ public class CommonUtility {
 			//System.out.println("ABS "+reCalculatedWaitTime);
 
 		}else {
-			//For Tablet
-			//Setting wait for 3 sec only for this method reverting when exiting
-			
+			//For Tablet			
 			 reCalculatedWaitTime = lTime;
 		}
 		
