@@ -503,6 +503,7 @@ public class BaseLib {
 
 		// Avoid duplicate test results in reports on retry
 		if (Retry.isRetryRun) {
+			Retry.isRetryRun = false;
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
 			sCompletedSymbol = "<<^^";
@@ -512,11 +513,8 @@ public class BaseLib {
 			sCompletedSymbol = "^^";
 			sRetryState = "";
 			// Add the retry log
-			//ExtentManager.extent.flush();
+			ExtentManager.extent.flush();
 		}
-		// Reset the isRetryRun to false to accept the next run
-		Retry.isRetryRun = false;
-		ExtentManager.extent.flush();
 
 		try {
 			driver.quit();
@@ -531,6 +529,8 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
+		Retry.isRetryRun = false;
+		ExtentManager.extent.flush();
 		// try{driver.quit();}catch(Exception e) {};
 	}
 
