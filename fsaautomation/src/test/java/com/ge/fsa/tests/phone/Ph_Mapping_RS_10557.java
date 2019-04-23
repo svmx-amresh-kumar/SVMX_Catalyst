@@ -140,7 +140,7 @@ String Location=null;
 		 
 			
 			//add new line for parts
-		  commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
+	////	 // commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
 			Thread.sleep(4000);
 			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
 			System.out.println(LocationWO);
@@ -150,7 +150,7 @@ String Location=null;
 			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
-			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk(),ph_WorkOrderPo.getStringLabor());
+/////			//commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk(),ph_WorkOrderPo.getStringLabor());
 			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);

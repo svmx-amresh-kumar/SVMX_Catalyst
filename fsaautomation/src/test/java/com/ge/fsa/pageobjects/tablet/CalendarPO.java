@@ -439,6 +439,16 @@ public class CalendarPO
 		return stempDate;
 	}
 	
+	public String convertedformate( String Datetime,String format1,String format2) throws Exception 
+	{
+		SimpleDateFormat parser1 = new SimpleDateFormat(format1);
+		 Date  dTempDate1 = parser1.parse(Datetime);
+		 SimpleDateFormat formatter1 = new SimpleDateFormat(format2);
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("Converted to date "+stempDate); 
+		return stempDate;
+	}
+	
 	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']//input")
 	private WebElement elesubjectSFDCtap;
 	public WebElement getelesubjectSFDCtap()
@@ -665,6 +675,10 @@ public class CalendarPO
 		}
 		
 	
+		
+		
+		
+		
 }
 
 

@@ -192,14 +192,16 @@ public class Ph_CalendarPO
 	}
 
 
-	@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")})
 	private WebElement eleStartDateTimecal;
 	public WebElement geteleStartDateTimecal()
 	{
 		return eleStartDateTimecal;
 	}	
 
-	@FindBy(xpath="//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
+	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+		@FindBy(xpath="//*[@text='End Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")})
 	private WebElement eleEndDateTimecal;
 	public WebElement geteleEndDateTimecal()
 	{
@@ -223,12 +225,38 @@ public class Ph_CalendarPO
 
 	
 
+	@FindBy(xpath="//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]/android.view.ViewGroup/android.widget.TextView[3]")
+	private WebElement eleeventtime;
+	public WebElement getEleeventtime()
+	{
+		return eleeventtime;
+	}
+	
+	@FindBy(xpath="//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]/android.view.ViewGroup/android.widget.TextView[2]")
+	private WebElement eleeventate;
+	public WebElement getEleeventdate()
+	{
+		return eleeventate;
+	}
+	
 	
 	
 	private List<WebElement> eleWOEventTitleTxt;
 	public List<WebElement> getEleWOEventTitleTxt(){
 		return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]//*[@*='android.widget.TextView'][1]"));
 	}
+	
+	
+	@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
+	private WebElement eleStartDateTimecalSFDC;
+	public WebElement geteleStartDateTimecalSFDC()
+	{
+		return eleStartDateTimecalSFDC;
+	}	
+	
+	
+	
+	
 }
 
 

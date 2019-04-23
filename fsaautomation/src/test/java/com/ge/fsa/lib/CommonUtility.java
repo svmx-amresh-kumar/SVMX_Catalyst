@@ -2298,4 +2298,15 @@ public class CommonUtility {
 		return sDiff;
 	}
 
+	
+	public String gethrsfromdevicetime() throws ParseException {
+
+		String[] time =getDeviceDate().split(" ");
+		System.out.println("############"+time[3]);
+		String hrs=time[3].substring(0,2);
+		System.out.println("hours"+hrs);
+		return hrs;
+	}
+	
+	
 }
