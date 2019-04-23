@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="iPhone">
+ <listeners>
+    
+    </listeners>
+<test name="Sanity">
+		<classes>
+			<class name="com.ge.fsa.tests.phone.Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" />
+						<class name="com.ge.fsa.tests.phone.Ph_Sanity2_Explore_Checklist" />
+						<class name="com.ge.fsa.tests.phone.Ph_Sanity5_DVR_Mapping_Qualification_Criteria" />
+						<class name="com.ge.fsa.tests.phone.Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU" />
+						<!-- <class name="Ph_Sanity8_Lookup_DOD" /> -->
+			
+			
+		</classes>
+	</test> <!-- Test -->
+
+</suite> <!-- Suite -->

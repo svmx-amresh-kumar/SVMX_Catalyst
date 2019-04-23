@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="iPhone">
+ <listeners>
+    
+    </listeners>
+<test name="ip_workBench">
+		<classes>
+			<class name="com.ge.fsa.tests.workBench" />
+			<!-- 			<class name="com.ge.fsa.tests.workBench2" />
+						<class name="com.ge.fsa.tests.workBench3" /> -->
+			
+			
+		</classes>
+	</test> <!-- Test -->
+
+</suite> <!-- Suite -->

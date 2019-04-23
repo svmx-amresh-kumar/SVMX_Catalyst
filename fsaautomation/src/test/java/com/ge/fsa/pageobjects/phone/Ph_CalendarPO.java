@@ -243,7 +243,12 @@ public class Ph_CalendarPO
 	
 	private List<WebElement> eleWOEventTitleTxt;
 	public List<WebElement> getEleWOEventTitleTxt(){
-		return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]//*[@*='android.widget.TextView'][1]"));
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]//*[@*='android.widget.TextView'][1]"));
+		}
+		else {
+			return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]"));
+		}
 	}
 	
 	

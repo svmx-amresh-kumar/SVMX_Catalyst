@@ -102,7 +102,7 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 
 		Thread.sleep(GenericLib.iMedSleep);
 		ph_WorkOrderPo.getEleBackButton().click();
-		ph_WorkOrderPo.getEleDiscardChangesButton().click();
+		try {ph_WorkOrderPo.getEleDiscardChangesButton().click();}catch(Exception e) {}
 
 		//Navigation to WO
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);

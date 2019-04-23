@@ -63,7 +63,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// boolean bProcessCheckResult =commonUtility.ProcessCheck(restServices,
 		// genericLib, sChecklistName, sScriptName, sTestCaseID);
 		// sWOName1 = "WO-00001615";
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName,
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
 				sTestCaseID);
 
 	}
@@ -158,12 +158,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
 
 		// Entering DateTime question
-		commonUtility.custScrollToElement("6. DateTime Question");
+		commonUtility.custScrollToElement(sdateTimeQuestion);
 		//commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
 		// Entering Date question
-		// commonUtility.custScrollToElementAndClick("5. Date Question");
+		commonUtility.custScrollToElement(snumberQuestion);
 		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "JAN", "01", "2019");
 
 		// Entering Number Question
@@ -198,6 +198,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 				"Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
 
 		// Date question
+		commonUtility.custScrollToElement(snumberQuestion);
 		String sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion, sDateExpected).getText();
 		Assert.assertTrue(sDateQAns.equals(sDateExpected),
 				"Checklist Text answer --expected: " + sDateExpected + " actual: " + sDateQAns + "");

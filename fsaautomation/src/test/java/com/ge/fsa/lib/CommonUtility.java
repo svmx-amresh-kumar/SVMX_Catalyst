@@ -521,8 +521,19 @@ public class CommonUtility {
 
 	public boolean waitforElement(WebElement wElement, int lTime) throws InterruptedException {
 		int lElapsedTime = 0;
-		//Setting wait for 1 sec only for this method reverting when exiting
-				driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		int reCalculatedWaitTime =0;
+		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Setting wait for 1 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+			//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
+			 reCalculatedWaitTime = Math.abs((lTime/2)+1);
+			//System.out.println("ABS "+reCalculatedWaitTime);
+
+		}else {
+			//For Tablet			
+			 reCalculatedWaitTime = lTime;
+		}
+		
 		System.out.println("Waiting For : " + lTime + " sec");
 		//		String context=driver.getContext();
 		//		switchContext("native");
@@ -536,9 +547,7 @@ public class CommonUtility {
 		//		switchContext(context);
 		//long lInitTimeStartMilliSec = System.currentTimeMillis();
 		//long lInitTimeEndMilliSec = 0;
-		//If we Set 3 sec wait, then Actual time is 6 sec + inclusive of Multiple object find time as well so it may be more , so reducing to lTime/2 to make it close to exact and iterate only for 3 sec
-		int reCalculatedWaitTime = Math.abs((lTime/2)+1);
-		//System.out.println("ABS "+reCalculatedWaitTime);
+		
 		while (lElapsedTime != reCalculatedWaitTime) {		
 			Thread.sleep(1000);
 			try {
@@ -546,7 +555,7 @@ public class CommonUtility {
 					System.out.println("Element is displayed");
 					//switchContext(context);
 					//reverting wait to 10 seconds
-					//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					//lInitTimeEndMilliSec = System.currentTimeMillis();
 					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
 					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
@@ -1838,8 +1847,12 @@ public class CommonUtility {
 	 */
 	public void injectJenkinsPropertiesForSahi() {
 		String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
+		String sConfigExcelPath = GenericLib.sConfigPropertiesExcelFile;
+		String sConfigExcelSheetName = BaseLib.sSelectConfigPropFile;
 		try {
-			this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
+	
+			//this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+System.getenv("Org_Type")+"\"; var $catalyst_appiumOrg = \""+System.getenv("Select_Config_Properties_For_Build")+"\";");
+			this.writeTextFile(sFilePath,"var $catalyst_orgtype = \""+BaseLib.sOrgType+"\"; var $catalyst_appiumOrg = \""+BaseLib.sSelectConfigPropFile+"\"; var $catalyst_appiumConfigExcelFilePath = \""+sConfigExcelPath+"\"; var $catalyst_appiumConfigExcelSheetName = \""+sConfigExcelSheetName+"\";");
 			System.out.println("Injected jenkins env properties for Sahi in 'jenkinsProp_config.sah' file : "+sFilePath);
 
 		}catch(Exception e) {
@@ -1876,7 +1889,7 @@ public class CommonUtility {
 			ZoneId toZoneId = ZoneId.of(value);
 			ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);
 			DateTimeFormatter format = DateTimeFormatter.ofPattern(dateFormat);
-			System.out.println(format.format(toDateTime));
+			returnDate=format.format(toDateTime);
 		}
 		return returnDate;
 	}
@@ -2036,7 +2049,7 @@ public class CommonUtility {
 		//If element clicked then return immediately
 		try {
 			Thread.sleep(300);
-			if(waitforElement(wElement,3)) {
+			if(waitforElement(wElement,1)) {
 				wElement.click();
 				System.out.println("Element found and clicked after scrolling");
 				return;
@@ -2049,7 +2062,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2080,7 +2093,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						wElement.click();
 						System.out.println("Element found after scrolling");
 						return;
@@ -2094,7 +2107,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(waitforElement(wElement,3)) {
+						if(waitforElement(wElement,1)) {
 							point = wElement.getLocation();
 							wElement.click();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2115,7 +2128,7 @@ public class CommonUtility {
 			try {
 				Thread.sleep(300);
 				wElement = driver.findElement(By.xpath(xpathString));
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					wElement.click();
 					System.out.println("Element found and clicked after scrolling");
 					return;
@@ -2129,7 +2142,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2161,7 +2174,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						System.out.println("Element found after scrolling");
 						return;
 					}
@@ -2174,7 +2187,7 @@ public class CommonUtility {
 					try {
 						Thread.sleep(300);
 						wElement = driver.findElement(By.xpath(androidTextInElementOrXpath));
-						if(waitforElement(wElement,3)) {
+						if(waitforElement(wElement,1)) {
 							point = wElement.getLocation();
 							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 							System.out.println("Element found after scrolling");
@@ -2207,7 +2220,7 @@ public class CommonUtility {
 				try {
 					Thread.sleep(300);
 					wElement = driver.findElement(By.xpath(xpathString));
-					if(waitforElement(wElement,3)) {
+					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
 						wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
@@ -2230,7 +2243,7 @@ public class CommonUtility {
 	public void custScrollToElement(WebElement wElement) throws InterruptedException {
 		try {
 			Thread.sleep(300);
-			if(waitforElement(wElement,3)) {
+			if(waitforElement(wElement,1)) {
 				System.out.println("Element found and clicked after scrolling");
 				return;
 			}
@@ -2242,7 +2255,7 @@ public class CommonUtility {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
-				if(waitforElement(wElement,3)) {
+				if(waitforElement(wElement,1)) {
 					point = wElement.getLocation();
 					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 					System.out.println("Element found aafter scrolling");

@@ -190,7 +190,7 @@ public class ToolsPO
 		commonUtility.tap(getEleStartSyncBtn());
 		System.out.println("Begining Data Sync");
 
-		commonUtility.waitforElement(getEleRefreshingViewTxt(),240);
+		commonUtility.waitforElement(getEleRefreshingViewTxt(),500);
 
 //		//Verification of successful sync
 //		Assert.assertTrue(getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");

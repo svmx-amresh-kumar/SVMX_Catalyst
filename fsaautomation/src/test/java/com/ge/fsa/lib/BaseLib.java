@@ -115,6 +115,7 @@ public class BaseLib {
 	public static String sUpdate_BundleID = null;
 	public static String sApp_BundleID = null;
 	public static String sNo_Reset = null;
+	public static String sApp_Name = null;
 
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -173,6 +174,9 @@ public class BaseLib {
 		//Get UDID
 		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
+		
+		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME").toLowerCase();
+		System.out.println("[BaseLib] APP_NAME : " + sApp_Name);
 		
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
@@ -479,7 +483,7 @@ public class BaseLib {
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
 			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED"+" "+sRetryState);
-			if (sOSName.toLowerCase().equals("android")) {
+			if (sOSName.equalsIgnoreCase("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
 			}
@@ -499,7 +503,6 @@ public class BaseLib {
 
 		// Avoid duplicate test results in reports on retry
 		if (Retry.isRetryRun) {
-			// Reset the isRetryRun to false to accept the next run
 			Retry.isRetryRun = false;
 			// Remove the failed first try
 			ExtentManager.extent.removeTest(ExtentManager.logger);
@@ -526,7 +529,8 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
-
+		Retry.isRetryRun = false;
+		ExtentManager.extent.flush();
 		// try{driver.quit();}catch(Exception e) {};
 	}
 

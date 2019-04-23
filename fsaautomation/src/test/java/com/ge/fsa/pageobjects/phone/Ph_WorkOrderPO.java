@@ -58,7 +58,7 @@ public class Ph_WorkOrderPO
 		return eleActionsLnk;
 		}
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-	//@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']"),
+	@FindBy(xpath="//*[@text='Start Date Time*']"),
 	@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']")})
@@ -69,6 +69,7 @@ public class Ph_WorkOrderPO
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
+	@FindBy(xpath="//*[@text='End Date Time*']"),
 	@FindBy(xpath="//*[@text='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
@@ -78,7 +79,8 @@ public class Ph_WorkOrderPO
 		return eleEndDateTimeTxtFld;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindAll({@FindBy(xpath="//*[@text='Subject']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+	@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='Subject*']")})
 	private WebElement eleSubjectTxtFld;
 	public WebElement getEleSubjectTxtFld()
@@ -132,6 +134,7 @@ public class Ph_WorkOrderPO
 	public void selectAction(CommonUtility commonUtility,String sActionsName) throws InterruptedException
 	{
 		System.out.println("Selecting Action");
+		commonUtility.waitforElement(getEleActionsLnk(), 3);
 		getEleActionsLnk().click();	
 		Thread.sleep(3000);
 		commonUtility.custScrollToElementAndClick(getEleselectprocess(sActionsName));
@@ -141,9 +144,7 @@ public class Ph_WorkOrderPO
 	public void createNewEvent(CommonUtility commonUtility,String sSubject,Ph_CalendarPO ip_CalendarPo) throws InterruptedException
 	{
 		System.out.println("Creating New Event");
-
 		selectAction(commonUtility,"Create New Event From Work Order");
-		
 		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
 		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
@@ -160,16 +161,71 @@ public class Ph_WorkOrderPO
 	{
 		return elePartLnk;
 	}
+	
+	
+	public String getStringParts()
+	{
+		return "PARTS";
+	}
+	
 	@FindAll({@FindBy(xpath="//*[@text ='Add Labor']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Add Labor\"]"),
-	@FindBy(xpath="//XCUIElementTypeOther[@label=\"Add Labor\"]")})
+	@FindBy(xpath="//XCUIElementTypeOther[@label='Add Labor']")})
 	private WebElement eleLaborLnk;
 	public WebElement getEleLaborLnk()
 	{
 		return eleLaborLnk;
 	}
 	
+	public String getStringLabor()
+	{
+		return "LABOR";
+	}
 	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Travel']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Travel']")})
+	private WebElement eleTravelLnk;
+	public WebElement getEleTravelLnk()
+	{
+		return eleTravelLnk;
+	}
+
+	public String getStringTravel()
+	{
+		return "TRAVEL";
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@text ='Add Expense']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Expense']")})
+	private WebElement eleExpensesLnk;
+	public WebElement getEleExpensesLnk()
+	{
+		return eleExpensesLnk;
+	}
+	
+	public String getStringExpenses()
+	{
+		return "EXPENSES";
+	}
+	
+
+	@FindAll({@FindBy(xpath="//*[@text ='Add Image or Video']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Add Image or Video']")})
+	private WebElement eleAddImageLnk;
+	public WebElement getEleAddImageLnk()
+	{
+		return eleAddImageLnk;
+	}
+	
+	public String getStringAttachments()
+	{
+		return "ATTACHMENTS";
+	}
+	
+	public String getStringDocuments()
+	{
+		return "DOCUMENTS";
+	}
+		
 	public WebElement getEleSearchListItem(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -230,7 +286,8 @@ public class Ph_WorkOrderPO
 		}
 	
 	
-	@FindBy(xpath="//div[@class='x-innerhtml'][text()='This record does not meet the qualification criteria for this SFM Transaction']")
+	@FindAll({@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']"),
+		@FindBy(xpath="//*[@label='This record does not meet the qualification criteria for this SFM Transaction']")})
 	private WebElement eleThisRecordDoesNotPopup;
 	public  WebElement getEleThisRecordDoesNotPopup()
 	{
@@ -238,61 +295,30 @@ public class Ph_WorkOrderPO
 		return eleThisRecordDoesNotPopup;
 	}
 
-	@FindBy(xpath="//span[text()='OK']")
-	private WebElement eleOKBtn;
-	public  WebElement getEleOKBtn()
-	{
 
-		return eleOKBtn;
-	}
-	@FindBy(xpath="(//*[text()='Billing Type']/../..//div[@class='x-input-body-el']/input)[2]")
-	private WebElement eleBillingTypeLst;
-	public WebElement getEleBillingTypeLst()
-	{
-		return eleBillingTypeLst;
-	}
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]"),
+	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")})
 
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Save']")
-	private WebElement eleClickSave;
-	public  WebElement getEleClickSave()
-	{
-
-		return eleClickSave;
-	}
-	@FindBy(xpath="//*[contains(text(),'Saved successfully')]")
-	private WebElement eleSavedSuccessTxt;
-	public WebElement getEleSavedSuccessTxt()
-	{
-		return eleSavedSuccessTxt;
-	}
-	@FindBy(xpath="//div[contains(text(),'Issue')]")
 	private WebElement eleIssueFoundTxt;
 	public WebElement getEleIssueFoundTxt()
 	{
 		return eleIssueFoundTxt;
 	}
-	
-	@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
-	private WebElement eleDiscardBtn;
-	public  WebElement getEleDiscardBtn()
-	{
-		return eleDiscardBtn;
-	}
+
 	
 	private WebElement eleIssuePopupTxt;
 	public WebElement getEleIssuePopupTxt(String sIssueTxt)
 	{
-		eleIssuePopupTxt = driver.findElement(By.xpath("//span[@class='x-button-label'][text()='"+sIssueTxt+"']"));
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'"+sIssueTxt+"')]]"));
+		}else {
+		eleIssuePopupTxt = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
+		}
+		
 		return eleIssuePopupTxt;
 	}
-	@FindBy(xpath="//*[text() = 'Cancel']")
-	private WebElement eleCancelLnk;
-	public WebElement getEleCancelLink()
-	{
-		return eleCancelLnk;
-	}
 	
-
+	
 	private WebElement elelaborpartresult;
 	public WebElement getElelaborpartresult(String sProductName1)
 	{
@@ -307,6 +333,7 @@ public class Ph_WorkOrderPO
 			return elelaborpartresult;
 		
 	}
+	
 	@FindAll({@FindBy(xpath="//*[@*='Save']"),
 	@FindBy(xpath="(//XCUIElementTypeOther[@label=\"Save\"])[3]")})
 	private WebElement elesave;
@@ -318,6 +345,7 @@ public class Ph_WorkOrderPO
 	public void addParts(CommonUtility commonUtility,String sProductName1) 
 	{
 	System.out.println("Adding Parts");
+	commonUtility.gotToTabHorizontal(getStringParts());
 	selectFromlookupSearchList(commonUtility, getElePartLnk(), sProductName1);
 	getEleAddSelected().click();
 	}
@@ -325,7 +353,7 @@ public class Ph_WorkOrderPO
 	public void addLabor(CommonUtility commonUtility,String sProductName1)
 	{
 		System.out.println("Adding Labor");
-		commonUtility.custScrollToElementAndClick(getEleLaborLnk());
+		commonUtility.custScrollToElementAndClick(getEleLaborLnk(),getStringLabor());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sProductName1);
 		selectFromPickList(commonUtility, getEleActivityType(), "Calibration");
 		
@@ -559,13 +587,15 @@ private WebElement eleAccount;
 		return eleRemoveButton;
 	}
 	
-	@FindBy(xpath="//*[./*[@text='Discard Changes']]")
+	@FindAll({@FindBy(xpath="//*[./*[@text='Discard Changes']]"),
+	@FindBy(xpath="//*[@*='Discard Changes']")})
 	private WebElement eleDiscardChangesButton;
 	public WebElement getEleDiscardChangesButton() {
 		return eleDiscardChangesButton;
 	}
 	
-	@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']")
+	@FindAll({@FindBy(xpath="//*[@content-desc='APP.BACK_BUTTON']"),
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")})
 	private WebElement eleBackButton;
 	public WebElement getEleBackButton() {
 		return eleBackButton;
@@ -613,7 +643,7 @@ private WebElement eleAccount;
 		return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sProductName+"']"));
 	}
 	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
-		getElePartLnk().click();
+		commonUtility.custScrollToElementAndClick(getElePartLnk(), getStringParts());
 		for(String productName : productNames) {
 			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
 			commonUtility.getSearchLookupWithText(productName).clear();
@@ -623,7 +653,7 @@ private WebElement eleAccount;
 	
 	public void addPartsManageWD(CommonUtility commonUtility,Ph_ExploreSearchPO ph_ExploreSearchPo, String sPartName1) throws InterruptedException
 	{
-		commonUtility.custScrollToElementAndClick(getElePartLnk());
+		commonUtility.custScrollToElementAndClick(getElePartLnk(),getStringParts());
 		selectFromlookupSearchList(commonUtility, getElepartlookup(), sPartName1);
 
 		//commonUtility.tap(workOrderPo.getEleAddselectedbutton());
@@ -645,7 +675,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void addExpense(CommonUtility commonUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
 		//commonUtility.custScrollToElementAndClick("Add Expense").click();
 		//commonUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonUtility.custScrollToElementAndClick("Add Expense");
+		commonUtility.custScrollToElementAndClick(getEleExpensesLnk(),"EXPENSES");
 		getEleExpenseTypeField().click();
 		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);
@@ -697,20 +727,7 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		{
 			return eleDiscardChanges;
 		}
-//		//android.view.ViewGroup[@content-desc="SFM.LAYOUT.ADD.0"]/android.view.ViewGroup
-//	@FindBy(xpath = "//*[@*='StartDateTime*']//following::*[@class='android.widget.TextView']")
-//	private WebElement eleStartDateTimeField;
-//
-//	public WebElement getEleStartDateTimeField() {
-//		return eleStartDateTimeField;
-//	}
 
-//	@FindBy(xpath = "//*[@*='EndDateTime*']//following::*[@class='android.widget.TextView']")
-//	private WebElement eleEndDateTimeField;
-//
-//	public WebElement getEleEndDateTimeField() {
-//		return eleEndDateTimeField;
-//	}
 	
 	@FindBy(xpath="//*[@*='Record Type ID']/following-sibling::*[1]")
 	private WebElement eleRecordTypeID;
@@ -776,15 +793,20 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	}
 
 
+	
+	@FindAll({@FindBy(xpath="//*[@*='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@content-desc='SFM.HEADER_RIGHT']"),
+	@FindBy(xpath="//*[@text='Add']")})
 	private WebElement eleAdd;
 	public WebElement getEleAdd()
 	{
+		return eleAdd;
 
-		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return eleAdd = driver.findElement(By.xpath("//*[@*='Add']"));
+		/*if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleAdd = driver.findElementByAccessibilityId("Add");
 		}else {
 			return eleAdd =driver.findElement(By.xpath("//*[@text='Add']"));
-		}
+		}*/
 	}	
 
 	public void selectFromlookupSearchList(CommonUtility commonUtility,WebElement eleToSetValue, String sValue){
@@ -909,5 +931,12 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		return eleProblemDescriptiontxt;
 		}
 		
-	}	
+		@FindAll({@FindBy(xpath="(//*[@*[contains(.,'Billing Type')]])[last()]/following-sibling::*[1]"),
+			@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[1]")})
+			private WebElement eleBillingTypeField;
+			public WebElement getEleBillingTypeField() {
+				return eleBillingTypeField;
+			}
+		
+	}	 
 
