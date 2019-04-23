@@ -96,12 +96,9 @@ public void workBenchAnd() throws Exception
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
 		
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);	
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, true);
-		
+		loginHomePo.login(commonUtility, exploreSearchPo);
+		toolsPo.configSync(commonUtility);
+		toolsPo.syncData(commonUtility);
 		//AUTOMATION SEARCH --> Installed Products --> AUTO12042019180834RS_10554_IBIB --> RS_10554_field_mapping
 
 		//ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Installed Products", "AUTO12042019180834RS_10554_IBIB","RS_10554_field_mapping" );	
