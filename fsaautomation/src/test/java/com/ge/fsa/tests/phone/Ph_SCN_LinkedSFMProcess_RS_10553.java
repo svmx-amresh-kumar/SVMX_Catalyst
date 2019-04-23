@@ -4,16 +4,14 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 import org.json.JSONArray;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
-
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
@@ -83,13 +81,15 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
-
+		Thread.sleep(3000);
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
 		Thread.sleep(3000);
 		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
 		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
-		new TouchAction(driver).press(new PointOption().withCoordinates(coordinates.getX()+1000,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
+		Dimension dim=driver.manage().window().getSize();
+		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
 					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
 		ph_WorkOrderPo.getEleMore().click();
 		ph_WorkOrderPo.getEleManageWorkDetails().click();
@@ -104,9 +104,11 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		Thread.sleep(3000);
+		commonUtility.gotToTabHorizontal("PRODUCTS SERVICED");
 		if (ph_WorkOrderPo.getChildLineAddedItem(sIBName).isDisplayed() == true) {
 			ExtentManager.logger.log(Status.PASS, "The PS Lines are Added ");
-			new TouchAction(driver).press(new PointOption().withCoordinates(coordinates.getX()+1000,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
+			new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
 			.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
 			ph_WorkOrderPo.getEleMore().click();
 			ph_WorkOrderPo.getEleManageWorkDetails().click();Thread.sleep(3000);

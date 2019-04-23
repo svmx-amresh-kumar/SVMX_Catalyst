@@ -74,6 +74,7 @@ public class Ph_ExploreSearchPO
 	@FindAll({@FindBy(xpath="//*[@*='Search Keyword...']"),
 		@FindBy(xpath="//*[contains(@name,'SEARCH_BAR')]")
 	})
+	//@FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
 	private WebElement eleExploreSearchTxtFld;
 	public WebElement getEleExploreSearchTxtFld()
 	{
@@ -112,7 +113,7 @@ public class Ph_ExploreSearchPO
 			 eleDownloadIcon = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+workOrder+"']/following-sibling::*[@class='android.view.ViewGroup']"));
 			 return eleDownloadIcon;
 		}else {
-			 eleDownloadIcon = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+workOrder+"']/..//../XCUIElementTypeOther/XCUIElementTypeOther"));
+			 eleDownloadIcon = driver.findElement(By.xpath("(//*[@*[contains(.,'"+workOrder+"')]])[last()]"));
 			 return eleDownloadIcon;
 
 		}

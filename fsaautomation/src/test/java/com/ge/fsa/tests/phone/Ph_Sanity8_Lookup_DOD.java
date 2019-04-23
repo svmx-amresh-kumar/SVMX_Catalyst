@@ -53,9 +53,8 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
 			if(ph_ExploreSearchPo.getSearchListItems().size()<=1)
 			{		
-				 Thread.sleep(2000);
 				 ph_ExploreSearchPo.getEleOnline().click();
-				 Thread.sleep(2000);
+				 Thread.sleep(4000);
 				 // If the Cloud button is Visible then need to Tap on it
 				 
 				 
@@ -112,6 +111,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		// Adding the values to the childlines 
 				String sProcessname = "Senario8_childlinesSFM";
 				ph_ExploreSearchPo.geteleExploreIcn().click();
+				Thread.sleep(5000);
 			try
 			{
 				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
@@ -123,7 +123,6 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 				ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 				
 			}
-				
 		// Adding Product A to the Header and verifying the child values
 				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,  ph_WorkOrderPo.getProductLookup(), sProductNameA);
 		// Coming to the Childlines and Verifying on the IB Serial Number
@@ -132,7 +131,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		// Tapping on the Parts added and checking the IB Serial Number
 				ph_WorkOrderPo.getChildLineAddedItem(sProductNameA).click();
 				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleIBSerialNumber());
-				Thread.sleep(200);
+				Thread.sleep(2000);
 		// To verify if the Count of the Element on the Lookup is 1. If it is 1 and visible then click on it.
 				assertEquals(ph_WorkOrderPo.getIBLookup().size(), 1);
 				//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-The Installed Product added in the Lookup is only 1", LogAs.PASSED, null);
