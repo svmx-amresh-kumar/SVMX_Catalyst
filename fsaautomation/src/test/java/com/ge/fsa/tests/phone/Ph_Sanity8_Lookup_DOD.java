@@ -127,7 +127,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 				ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,  ph_WorkOrderPo.getProductLookup(), sProductNameA);
 		// Coming to the Childlines and Verifying on the IB Serial Number
 				ph_WorkOrderPo.addParts(commonUtility, sProductNameA);
-		
+				Thread.sleep(3000);
 		// Tapping on the Parts added and checking the IB Serial Number
 				ph_WorkOrderPo.getChildLineAddedItem(sProductNameA).click();
 				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleIBSerialNumber());
@@ -141,6 +141,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 				{
 					ph_WorkOrderPo.getChildLineAddItem(sInstalledProductAName).click();;
 					ph_WorkOrderPo.getElesave().click();
+					Thread.sleep(2000);
 					ph_WorkOrderPo.getElesave().click();
 					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
 					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");

@@ -82,6 +82,7 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		ph_WorkOrderPo.getEleChildLineItem(sProductName).click();
 		Thread.sleep(2000);
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleRemoveButton());
+		Thread.sleep(2000);
 		ph_WorkOrderPo.getEleRemoveButton().click();
 		Thread.sleep(2000);
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
