@@ -2321,5 +2321,23 @@ public class CommonUtility {
 		return hrs;
 	}
 	
+	public String adddaystocurrentday(int value) throws ParseException {
+
+
+		String[] date = getDeviceDate().split(" ");
+		Calendar cal=Calendar.getInstance();
+		cal.set(Calendar.DATE,Integer.parseInt(date[2].trim()));
+		cal.set(Calendar.YEAR, Integer.parseInt(date[5].trim()));
+		Date date1=new SimpleDateFormat("MMM").parse(date[1].trim());
+		cal.set(Calendar.MONTH,date1.getMonth());
+		cal.add(Calendar.DATE, value);
+		System.out.println(cal.get(Calendar.DATE));
+		String date2=String.valueOf(cal.get(Calendar.DATE));
+		
+		return date2;
 	
+	
+	
+	
+	}
 }

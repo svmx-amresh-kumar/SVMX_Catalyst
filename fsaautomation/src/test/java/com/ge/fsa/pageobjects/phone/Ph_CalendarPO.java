@@ -1,6 +1,8 @@
 package com.ge.fsa.pageobjects.phone;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -252,14 +254,56 @@ public class Ph_CalendarPO
 	}
 	
 	
-	@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")
-	private WebElement eleStartDateTimecalSFDC;
-	public WebElement geteleStartDateTimecalSFDC()
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_SELECTED\"]/android.view.ViewGroup[2]")
+	private WebElement elecurrentdatedot;
+	public WebElement getlecurrentdatedot()
 	{
-		return eleStartDateTimecalSFDC;
+		return elecurrentdatedot;
+	}	
+	
+	private WebElement elegetdot;
+	public WebElement getElegetdot(String hour)
+	{
+		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.view.ViewGroup"));
+		return elegetdot;
 	}	
 	
 	
+	private WebElement elegetday;
+	public WebElement getelegetday(String hour)
+	{//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER26"]/android.widget.TextView
+
+		elegetday = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.widget.TextView"));
+		return elegetday;
+	}
+
+	public String convertedformate( String Datetime) throws Exception 
+	{
+		SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		 Date  dTempDate1 = parser1.parse(Datetime);
+		 SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/yyyy HH:mm");
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("Converted to date "+stempDate); 
+		return stempDate;
+	}
+	
+	public String convertedformate( String Datetime,String format1,String format2) throws Exception 
+	{
+		SimpleDateFormat parser1 = new SimpleDateFormat(format1);
+		 Date  dTempDate1 = parser1.parse(Datetime);
+		 SimpleDateFormat formatter1 = new SimpleDateFormat(format2);
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("Converted to date "+stempDate); 
+		return stempDate;
+	}
+
+	
+	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.CARET_DOWN\"]/android.widget.TextView")
+	private WebElement eleyearandmonth;
+	public WebElement geteleyearandmonth()
+	{
+		return eleyearandmonth;
+	}	
 	
 	
 }
