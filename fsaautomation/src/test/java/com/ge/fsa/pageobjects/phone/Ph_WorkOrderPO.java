@@ -59,9 +59,10 @@ public class Ph_WorkOrderPO
 		}
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//*[@text='Start Date Time*']"),
-	@FindBy(xpath="//*[@text='Start Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']")})
+	@FindBy(xpath="//*[@*[contains(.,'Start Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+//	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
+//	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']"),
+	@FindBy(xpath="//*[@*='Start Date and Time']/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleStartDateTimeTxtFld;
 	public WebElement getEleStartDateTimeTxtFld()
 	{
@@ -70,9 +71,10 @@ public class Ph_WorkOrderPO
 	
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']"),
 	@FindBy(xpath="//*[@text='End Date Time*']"),
-	@FindBy(xpath="//*[@text='End Date and Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="//*[@*[contains(.,'End Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
-	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']")})
+	@FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
+	@FindBy(xpath="//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleEndDateTimeTxtFld;
 	public WebElement getEleEndDateTimeTxtFld()
 	{
@@ -263,14 +265,14 @@ public class Ph_WorkOrderPO
 	
 	
 	@FindAll({@FindBy(xpath="//*[@text='Line Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Qty\"]/../XCUIElementTypeOther")})
+	@FindBy(xpath="//XCUIElementTypeStaticText[@label='Line Qty']/../XCUIElementTypeOther")})
 	private WebElement eleLineQtyTxtFld;
 	public WebElement getEleLineQtyTxtFld()
 	{
 		return eleLineQtyTxtFld;
 	}
 	@FindAll({@FindBy(xpath="//*[@text='Line Price Per Unit']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-	@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"Line Price Per Unit\"]/../XCUIElementTypeOther")})
+	@FindBy(xpath="//XCUIElementTypeStaticText[@label='Line Price Per Unit']/../XCUIElementTypeOther")})
 	private WebElement eleLinePerUnitTxtFld;
 	public WebElement getEleLinePerUnitTxtFld()
 	{
@@ -644,7 +646,7 @@ private WebElement eleAccount;
 		return eleAddButton;
 	}
 	
-	@FindBy(xpath="//*[./*[@text='Remove']]")
+	@FindAll({@FindBy(xpath="//*[./*[@text='Remove']]"),@FindBy(xpath="//*[@name='Remove']/*")})
 	private WebElement eleRemoveButton;
 	public WebElement getEleRemoveButton() {
 		return eleRemoveButton;
@@ -665,10 +667,16 @@ private WebElement eleAccount;
 	}
 	
 	public WebElement getEleChildLineItem(String childLine) {
-		return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+childLine+"')]][@class='android.widget.ScrollView'])[last()]"));
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("(//*[.//*[contains(@text,'"+childLine+"')]][@class='android.widget.ScrollView'])[last()]"));
+		}
+		else {
+			return driver.findElement(By.xpath("//*[./*[@*='"+childLine+"']]"));
+		}
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Expense Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Expense Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+		@FindBy(xpath="//*[@*='Expense Type']/following-sibling::*")})
 	private WebElement eleExpenseTypeField;
 	public WebElement getEleExpenseTypeField() {
 		return eleExpenseTypeField;
@@ -678,13 +686,15 @@ private WebElement eleAccount;
 		return driver.findElement(By.xpath("//*[@*='"+value+"']"));
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Qty']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Qty']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//*[@*='Line Qty']/following-sibling::*")})
 	private WebElement eleLineQtyField;
 	public WebElement getEleLineQtyField() {
 		return eleLineQtyField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Price Per Unit']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Line Price Per Unit']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//*[@*='Line Price Per Unit']/following-sibling::*")})
 	private WebElement eleLinePriceField;
 	public WebElement getEleLinePriceField() {
 		return eleLinePriceField;
@@ -714,8 +724,14 @@ private WebElement eleAccount;
 	public void addParts(CommonUtility commonUtility,String[] productNames) throws InterruptedException {
 		commonUtility.custScrollToElementAndClick(getElePartLnk(), getStringParts());
 		for(String productName : productNames) {
-			selectFromlookupSearchList(commonUtility, getElePartLnk(), productName);
-			commonUtility.getSearchLookupWithText(productName).clear();
+			getElelookupsearch().click();
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				getElelookupsearch().sendKeys(productName+"\\n");
+			}else {
+				getElelookupsearch().sendKeys(productName+"\n");
+			}
+			getEleSearchListItem(productName).click();
+			getElelookupsearch().clear();
 		}
 		getEleAddSelectedButton().click();
 	}
@@ -745,9 +761,10 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 	public void addExpense(CommonUtility commonUtility, String sExpenseType,String sLineQty,String slinepriceperunit) throws InterruptedException {
 		//commonUtility.custScrollToElementAndClick("Add Expense").click();
 		//commonUtility.custScrollToElementAndClick(getChildLineAddItem("Add Expense"));
-		commonUtility.custScrollToElementAndClick(getEleExpensesLnk(),"EXPENSES");
-		getEleExpenseTypeField().click();
-		getEleDropDownValue(sExpenseType).click();;
+		commonUtility.custScrollToElementAndClick(getEleExpensesLnk(),getStringExpenses());
+		selectFromPickList(commonUtility, getEleExpenseTypeField(), sExpenseType);
+//		getEleExpenseTypeField().click();
+//		getEleDropDownValue(sExpenseType).click();;
 		getEleLineQtyField().sendKeys(sLineQty);
 		getEleLinePriceField().sendKeys(slinepriceperunit);
 		getEleAddButton().click();

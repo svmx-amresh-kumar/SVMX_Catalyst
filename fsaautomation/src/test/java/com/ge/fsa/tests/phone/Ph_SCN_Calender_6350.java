@@ -10,9 +10,12 @@ import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -22,6 +25,10 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class Ph_SCN_Calender_6350 extends BaseLib {
 
@@ -58,15 +65,15 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 
 		String sTestCaseID = "Calender_6350";
 
-		 commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		 commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		// commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		// commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "Event_" + sRandomNumber;
 		// sahi
 
-		genericLib.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
+		/*	genericLib.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");*/
 		
 		// read from file
 		/*sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
@@ -76,7 +83,7 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
 */
-		// Pre Login to app
+		/*	// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
@@ -101,7 +108,7 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
 		ph_MorePo.syncData(commonUtility);
-
+		Thread.sleep(5000);
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" + sEventSubject + "'";
 		sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
@@ -296,10 +303,48 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 	ExtentManager.logger.log(Status.PASS," Attach a WO to SFDC event verification is sucessful");
 	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		*/
 	//Verify Day view,Verify Month view,Verify Agenda view ,Verify map view
+		 ph_CalendarPo.geteleyearandmonth().click();
+		 Thread.sleep(2000);
+		 
+		
+		 
+		Assert.assertTrue(ph_CalendarPo.getlecurrentdatedot().isDisplayed());//current day
+		
+		String day = commonUtility.adddaystocurrentday(1);
+		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
 	
+		 day = commonUtility.adddaystocurrentday(2);
+		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
 	
+		day = commonUtility.adddaystocurrentday(3);
+		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
+		
+		
+		Point coordinates= ph_CalendarPo.getlecurrentdatedot().getLocation();
+		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
+		Dimension dim=driver.manage().window().getSize();
+		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-20,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
+	 
+		Thread.sleep(5000);
+	 
+		day = commonUtility.adddaystocurrentday(9);
+		//Assert.assertFalse(ph_CalendarPo.getElegetdot(day).isDisplayed());
+		
+		
+		 coordinates= ph_CalendarPo.getelegetday(day).getLocation();
+		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
+		 dim=driver.manage().window().getSize();
+		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()+50,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
+	 
+		day = commonUtility.adddaystocurrentday(-1);
+		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
+		
 	
 	}
 

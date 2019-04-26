@@ -20,55 +20,59 @@ public class Ph_CreateNewPO {
 	}
 	AppiumDriver driver = null;
 	
-	@FindBy(xpath="//*[@content-desc='APP.TOOLBAR.CREATE_NEW.BUTTON']")
+	@FindBy(xpath="//*[@*='APP.TOOLBAR.CREATE_NEW.BUTTON']")
 	private WebElement eleCreateNew;
 	public WebElement getEleCreateNew() {
 		return eleCreateNew;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Create New Work Order']")
+	@FindBy(xpath="//*[@*='Create New Work Order']")
 	private WebElement eleCreateNewWorkOrder;
 	public WebElement getEleCreateNewWorkOrder() {
 		return eleCreateNewWorkOrder;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Account Lookup']")
+	@FindBy(xpath="(//*[@*='Account Lookup'])[last()]")
 	private WebElement eleAccountField;
 	public WebElement getEleAccountFied() {
 		return eleAccountField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Contact Lookup']")
+	@FindBy(xpath="(//*[@*='Contact Lookup'])[last()]")
 	private WebElement eleContactField;
 	public WebElement getEleContactFied() {
 		return eleContactField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Product Lookup']")
+	@FindBy(xpath="(//*[@*='Product Lookup'])[last()]")
 	private WebElement eleProductField;
 	public WebElement getEleProductFied() {
 		return eleProductField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+	@FindBy(xpath="//*[@*='Priority']/following-sibling::*")})
 	private WebElement elePriorityField;
 	public WebElement getElePriorityField() {
 		return elePriorityField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+	@FindBy(xpath="//*[@*='Billing Type']/following-sibling::*")})
 	private WebElement eleBillingTypeField;
 	public WebElement getEleBillingTypeField() {
 		return eleBillingTypeField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Proforma Invoice']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Proforma Invoice']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//*[@*='Proforma Invoice']//XCUIElementTypeTextField")})
 	private WebElement eleProformaInvoiceField;
 	public WebElement getEleProformaInvoiceField() {
 		return eleProformaInvoiceField;
 	}
 	
-	@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Add']")
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Add']"),
+		@FindBy(xpath="//*[@*='Add']")})
 	private WebElement eleAddWorkOrder;
 	public WebElement getEleAddWorkOrder() {
 		return eleAddWorkOrder;
