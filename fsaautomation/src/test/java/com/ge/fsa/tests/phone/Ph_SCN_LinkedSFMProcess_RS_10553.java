@@ -85,20 +85,22 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
 		Thread.sleep(3000);
-		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
-		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
-		Dimension dim=driver.manage().window().getSize();
-		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
-		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
-					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
-		ph_WorkOrderPo.getEleMore().click();
-		ph_WorkOrderPo.getEleManageWorkDetails().click();
+//		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
+//		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
+//		Dimension dim=driver.manage().window().getSize();
+//		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+//		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
+//					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
+		commonUtility.clickPopup(ph_WorkOrderPo.getEleMore(), ph_WorkOrderPo.getEleManageWorkDetails());
+//		ph_WorkOrderPo.getEleMore().click();
+//		ph_WorkOrderPo.getEleManageWorkDetails().click();
 		Thread.sleep(3000);
 		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
-		ph_WorkOrderPo.getEleBackButton().click();
-		// Discard the Changes by clicking on it
-		ph_WorkOrderPo.getEleDiscardChangesButton().click();
+//		ph_WorkOrderPo.getEleBackButton().click();
+//		// Discard the Changes by clicking on it
+//		ph_WorkOrderPo.getEleDiscardChangesButton().click();
+		commonUtility.clickPopup(ph_WorkOrderPo.getEleBackButton(), ph_WorkOrderPo.getEleDiscardChangesButton());
 		// Click on Cancel Button and verify the Changes of the ChildLines
 		ph_WorkOrderPo.getEleBackButton().click();
 
@@ -108,10 +110,12 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		commonUtility.gotToTabHorizontal("PRODUCTS SERVICED");
 		if (ph_WorkOrderPo.getChildLineAddedItem(sIBName).isDisplayed() == true) {
 			ExtentManager.logger.log(Status.PASS, "The PS Lines are Added ");
-			new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
-			.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
-			ph_WorkOrderPo.getEleMore().click();
-			ph_WorkOrderPo.getEleManageWorkDetails().click();Thread.sleep(3000);
+//			new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-25,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(3000)))
+//			.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
+//			ph_WorkOrderPo.getEleMore().click();
+//			ph_WorkOrderPo.getEleManageWorkDetails().click();
+			commonUtility.clickPopup(ph_WorkOrderPo.getEleMore(), ph_WorkOrderPo.getEleManageWorkDetails());
+			Thread.sleep(3000);
 			try {
 				ph_WorkOrderPo.getEleeleIBId(sProductName).isDisplayed();
 				ExtentManager.logger.log(Status.FAIL, "The Product from Parts is Saved - Not Expected Scenario");
@@ -129,6 +133,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_WorkOrderPo.getEleAddButton().click();
 		Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();
+		Thread.sleep(3000);
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Sync the Data and verify in the Server end if both the data are present
 		Thread.sleep(2000);

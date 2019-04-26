@@ -554,8 +554,13 @@ public class CommonUtility {
 				if (wElement.isDisplayed()) {// If element is displayed break
 					System.out.println("Element is displayed");
 					//switchContext(context);
+					if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+						//Setting wait for 1 sec only for this method reverting when exiting
+						driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+					}else {
 					//reverting wait to 10 seconds
 					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+					}
 					//lInitTimeEndMilliSec = System.currentTimeMillis();
 					//long sTimeDiff = getDateDiffInSec(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
 					//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
@@ -573,8 +578,13 @@ public class CommonUtility {
 		//System.out.println("Actual Time Waited : " + sTimeDiff + " sec");
 		System.out.println("Element is not displayed");
 		//switchContext(context);
+		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			//Setting wait for 1 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		}else {
 		//reverting wait to 10 seconds
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
 		return false;
 
 	}
@@ -2319,6 +2329,16 @@ public class CommonUtility {
 		String hrs=time[3].substring(0,2);
 		System.out.println("hours"+hrs);
 		return hrs;
+	}
+	
+	public void clickPopup(WebElement wElement, WebElement popupElement) {
+		custScrollToElementAndClick(wElement);
+		try {
+			popupElement.click();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	
 	public String adddaystocurrentday(int value) throws ParseException {
