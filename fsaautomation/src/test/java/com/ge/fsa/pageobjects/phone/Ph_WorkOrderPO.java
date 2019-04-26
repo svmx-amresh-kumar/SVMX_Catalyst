@@ -285,7 +285,30 @@ public class Ph_WorkOrderPO
 			return eleDiscountPercentage;
 		}
 	
-	
+		@FindAll({@FindBy(xpath="//*[@text='No Of Times Assigned']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//XCUIElementTypeStaticText[@label=\"No Of Times Assigned\"]/../XCUIElementTypeOther")})
+		private WebElement NoOfTimesAssigned;
+		public WebElement GetEleNoOfTimesAssigned_Edit_Input()
+		{
+			return NoOfTimesAssigned;
+		}
+		
+		
+		private WebElement eleDvrText;
+		public WebElement getDvrText(String sIssueTxt)
+		{
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				eleDvrText = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'"+sIssueTxt+"')]]"));
+			}else {
+				eleDvrText = driver.findElement(By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'"+sIssueTxt+"')]]"));
+			}
+			
+			return eleDvrText;
+		}
+		
+
+		
+		
 	@FindAll({@FindBy(xpath="//*[@text='This record does not meet the qualification criteria for this SFM Transaction']"),
 		@FindBy(xpath="//*[@label='This record does not meet the qualification criteria for this SFM Transaction']")})
 	private WebElement eleThisRecordDoesNotPopup;
@@ -403,6 +426,40 @@ private WebElement eleAccount;
 	{
 		return eleScheduledDate;
 	}
+
+
+	@FindAll({@FindBy(xpath="//*[@text='Auto_Date1']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Auto_Date1']/../XCUIElementTypeOther")	})
+	private WebElement eleAutoDate1_Edit_Input;
+	public WebElement getEleAutoDate1_Edit_Input()
+	{
+		return eleAutoDate1_Edit_Input;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@text='Auto_Date2']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Auto_Date2']/../XCUIElementTypeOther")	})
+	private WebElement eleAutoDate2_Edit_Input;
+	public WebElement getEleAutoDate2_Edit_Input()
+	{
+		return eleAutoDate2_Edit_Input;
+	}
+
+	@FindAll({@FindBy(xpath="//*[@text='Scheduled Date Time']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Scheduled Date Time']/../XCUIElementTypeOther")	})
+	private WebElement eleScheduledDateTimeTxt;
+	public WebElement getEleScheduledDateTimeTxt()
+	{
+		return eleScheduledDateTimeTxt;
+	}
+	
+	
+	/*@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
+	private WebElement eleScheduledDate;
+	public WebElement getEleScheduledDate()
+	{
+		return eleScheduledDate;
+	}*/
+
 	
 	@FindAll({@FindBy(xpath="//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
 	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther")	})
@@ -935,7 +992,9 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 		return eleDescriptiontext;
 		}
 		
-		@FindAll({@FindBy(xpath="//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindAll({@FindBy(xpath="//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath="//XCUIElementTypeOther[@label='Problem Description*']"),
 		@FindBy(xpath="//XCUIElementTypeOther[@label='Problem Description']")})
 		private WebElement eleProblemDescriptiontxt;
 		public WebElement geteleProblemDescriptiontxt()
