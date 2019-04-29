@@ -2,18 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="WorkBench">
  <listeners>
-     <!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener>
-         
-         <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
     </listeners>
 <test name="WorkBench">
 		<classes>
-		
-	
-
-		<class name="com.ge.fsa.tests.tablet.SCN_ImageCompression_RS_12341" />
-		
-		
+			<class name="com.ge.fsa.tests.tablet.SCN_ImageCompression_RS_12341" />	
 		</classes>
 	</test> <!-- Test -->
 	

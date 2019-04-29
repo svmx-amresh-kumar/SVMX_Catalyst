@@ -581,6 +581,7 @@ try {
 				} else {
 					count = lsPhotoGrid.size() - 1;
 					elem = lsPhotoGrid.get(count);
+					System.out.println(elem.getText());
 					driver.findElement(By.xpath("//*[contains(@label,'" + elem.getText() + "')]")).click();
 					System.out.println("finished Clicking");
 					Thread.sleep(10000);
@@ -667,10 +668,18 @@ if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
   int numPhotos = photos.size();
   // commonsUtility.switchContext("Native");
   String sImagenameforios = "Photo, Landscape, 03 April, 11:22";
+  String sImagenameforios1 = "Photo, Landscape, 11:05";
   WebElement photoios = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios + "')]"));
-  Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
-  ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
-  photoios.click();
+  WebElement photoios1 = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios1 + "')]"));
+  //Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
+  //ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
+  
+   photoios1.click();
+	
+		
+		// TODO: handle exception
+	
+  
   System.out.println("finished Clicking");
   Thread.sleep(10000);
   commonUtility.switchContext("Webview");
