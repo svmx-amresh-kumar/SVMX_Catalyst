@@ -325,4 +325,11 @@ public class ToolsPO
 		}
 		}
 		
+		@FindBy(xpath="//div[text()='Image Compression']/../../../..//input[@name='picker']")
+		private WebElement setimagecompression;
+		public WebElement getimagecompression()
+		{
+			return setimagecompression;
+		}
+		
 }
