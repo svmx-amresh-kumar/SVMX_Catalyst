@@ -9,7 +9,9 @@ import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 	import org.openqa.selenium.support.PageFactory;
-	import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 	
 	import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.CommonUtility;
@@ -17,7 +19,9 @@ import com.ge.fsa.lib.ExtentManager;
 	import com.ge.fsa.lib.GenericLib;
 	
 	import io.appium.java_client.AppiumDriver;
-	import io.appium.java_client.TouchAction;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 	
 	public class WorkOrderPO{
 	
@@ -2406,6 +2410,156 @@ import com.ge.fsa.lib.ExtentManager;
 		{
 			return eleEndDateandTimeTxtFld;
 		}
+		
+		public void AllowCamerabutton(CommonUtility commonUtility) throws Exception
+		{
+			commonUtility.switchContext("Native");
+			Thread.sleep(GenericLib.iHighSleep);
+	try {
+		driver.findElementByAccessibilityId("OK").click();
+
+	} catch (Exception e) {
+		System.out.println("Could not Find OK Popup for camera");
+		commonUtility.switchContext("WebView");
+
+	}
+
+
+		}
+	
+		
+		
+		public void WorkorderAttach(CommonUtility commonUtility, String AttachmentAction) throws Exception
+		{
+   
+			
+			System.out.println("Clicking on attachement section");
+			commonUtility.tap(getEleAttacheddoc());
+			commonUtility.tap(getEleAddAttachedImagesLnk());
+			commonUtility.switchContext("WebView");
+			commonUtility.tap(driver.findElement(By.xpath("//span[text()='"+AttachmentAction+"']")));
+			//AllowCamerabutton(commonUtility);
+			if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
+				if (AttachmentAction == "Choose from Library" || AttachmentAction == "choose from library") {
+					driver.context("NATIVE_APP");
+					Thread.sleep(5000);
+					MobileElement el2 = (MobileElement) driver.findElementByAccessibilityId("Show roots");
+					el2.click();
+					Thread.sleep(5000);
+					System.out.println("Attempting to click on Photos");
+					driver.context("NATIVE_APP");
+					WebElement sd = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Photos')]"));
+					commonUtility.tap(sd);
+					System.out.println("clicked photos");
+					Thread.sleep(3000);
+					driver.context("NATIVE_APP");
+					WebElement se = driver.findElement(By.xpath("//android.widget.TextView[contains(@text,'Camera')]"));
+					commonUtility.tap(se);
+					System.out.println("Clicked on Camera");
+					driver.context("NATIVE_APP");
+					Thread.sleep(3000);
+					WebElement el5 = driver
+							.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'Photo taken')][1]");
+					commonUtility.tap(el5);
+					System.out.println("Finished clicking on the first image");
+				}
+				if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+					commonUtility.switchContext("Native");
+					
+						Thread.sleep(3000);
+						List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+						e.get(0).click();
+					
+					
+					Thread.sleep(2000);
+					driver.findElementByAccessibilityId("Done").click();
+				}
+
+				if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+					Thread.sleep(GenericLib.iMedSleep);
+					commonUtility.switchContext("Native");
+					Thread.sleep(3000);
+					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+					e.get(0).click();
+					Thread.sleep(4000);
+					// sleeping for 4 seconds as recording is going on and clicing again to stop
+//					e.get(0).click();
+//					Thread.sleep(2000);
+					driver.findElementByAccessibilityId("Done").click();
+				}
+				commonUtility.switchContext("Webview");
+				Thread.sleep(GenericLib.i30SecSleep);
+			} else
+			// For IOS
+			{
+				if (AttachmentAction == "Choose from Library" || AttachmentAction == "choose from library") {
+
+					Thread.sleep(3000);
+					WebDriverWait wait = new WebDriverWait(driver, 10);
+					AllowCamerabutton(commonUtility);
+					commonUtility.switchContext("Native");
+					WebElement el = wait
+							.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
+					el.click();
+					List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
+					int numPhotos = photos.size();
+					// commonsUtility.switchContext("Native");
+					WebElement elem = null;
+					Thread.sleep(5000);
+					List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView")
+							.findElements(By.xpath("//*[contains(@label,'Photo')]"));
+					int count = lsPhotoGrid.size();
+					if (count == 0 || count == 1) {
+						ExtentManager.logger.log(Status.FAIL, "PLease add photos to Device and reexecute tests");
+					} else {
+						count = lsPhotoGrid.size() - 1;
+						elem = lsPhotoGrid.get(count);
+						System.out.println(elem.getText());
+						driver.findElement(By.xpath("//*[contains(@label,'" + elem.getText() + "')]")).click();
+						System.out.println("finished Clicking");
+						Thread.sleep(10000);
+
+					}
+				}
+				if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+					Thread.sleep(GenericLib.iMedSleep);
+					AllowCamerabutton(commonUtility);
+					commonUtility.switchContext("Native");
+					Thread.sleep(5000);
+					driver.findElementByAccessibilityId("Take Picture").click();
+					Thread.sleep(3000);
+					driver.findElementByAccessibilityId("Use Photo").click();
+				}
+
+				if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+					Thread.sleep(GenericLib.iMedSleep);
+					AllowCamerabutton(commonUtility);
+					;
+					// com.apple.camera
+					commonUtility.switchContext("Native");
+					driver.findElementByAccessibilityId("Record Video").click();
+					Thread.sleep(5000);
+					System.out.println("Recording 5 secs video");
+					driver.findElementByAccessibilityId("Stop Recording Video").click();
+					driver.findElementByAccessibilityId("Use Video").click();
+				}
+				commonUtility.switchContext("Webview");
+				Thread.sleep(GenericLib.i30SecSleep);
+			}
+			commonUtility.switchContext("Webview");
+			Thread.sleep(GenericLib.i30SecSleep);
+		
+		
+		}
+		
+      @FindBy(xpath="//span[text()='Attached Documents']")
+		
+		private WebElement eleAttacheddoc;
+		public WebElement getEleAttacheddoc()
+		{
+			return eleAttacheddoc;
+		}
+		
 		
 	}
 	

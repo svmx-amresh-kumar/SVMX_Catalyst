@@ -118,6 +118,74 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
+		/*------------------------------------------option for choose from library -------------------------------------------------------*/
+		//Set the setting SET007 to True
+	
+		  genericLib.executeSahiScript(
+		  "appium/SCN_option_to_remove_Choosefromlib_True.sah", "sTestCaseID");
+		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
+		  else { System.out.println("FAILED");
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); }
+		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
+		  
+		  //perform a config sync toolsPo.configSync(commonsUtility);
+		  
+		  //navigating to Workorder
+		  
+		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch,sExploreChildSearchTxt, sWOName);
+		  
+		  // Navigate to Field Service process 
+		  workOrderPo.selectAction(commonUtility,sFieldServiceName);
+		  
+		  // Navigating to the checklist
+		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		  //Thread.sleep(GenericLib.iLowSleep); //driver.context("NATIVE_APP");
+		  //driver.findElementByAccessibilityId("Attach").click();
+		  //commonsUtility.switchContext("WebView");
+		  checklistPo.clickAttach(commonUtility);
+		  commonUtility.switchContext("WebView"); Thread.sleep(GenericLib.iLowSleep);
+		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
+		  
+		  //Checking for Option Choose from Library
+		  
+		  Assert.assertFalse(commonUtility.waitforElement(checklistPo.getElechoosefromlib(),3),"Choose from Library is not displayed");
+		  ExtentManager.logger.log(Status.PASS,"Option Choose from Library is Not displayed as per setting True");
+		  
+		  lauchNewApp("true");
+		  
+		  //Set the setting SET007 to False 
+		  genericLib.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
+		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
+		  else { System.out.println("FAILED");
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +"Sahi verification failure"); assertEquals(0, 1); }
+		  
+		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
+		  
+		  //perform a config sync toolsPo.configSync(commonsUtility);
+		  
+		  //navigating to Workorder
+		  
+		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch,sExploreChildSearchTxt, sWOName);
+		  
+		  // Navigate to Field Service process 
+		  workOrderPo.selectAction(commonUtility,sFieldServiceName);
+		  
+		  // Navigating to the checklist
+		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+		  //Thread.sleep(GenericLib.iLowSleep); // driver.context("NATIVE_APP");
+		  //driver.findElementByAccessibilityId("Attach").click();
+		  //commonsUtility.switchContext("WebView");
+		  checklistPo.clickAttach(commonUtility);
+		  commonUtility.switchContext("WebView"); Thread.sleep(GenericLib.iLowSleep);
+		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
+		  
+		  //Checking for Option Choose from Library
+		  Assert.assertTrue(commonUtility.waitforElement(checklistPo.getElechoosefromlib(),3), "Choose from Library is displayed");
+		  ExtentManager.logger.log(Status.PASS,"Option Choose from Library is displayed as per setting False");
+		  lauchNewApp("true");
+
+
 /*-----------------------------------Upload from Library------------------------------------*/
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
