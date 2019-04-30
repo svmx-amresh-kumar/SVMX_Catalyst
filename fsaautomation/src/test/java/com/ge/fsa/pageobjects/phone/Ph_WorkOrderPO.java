@@ -422,7 +422,6 @@ private WebElement eleAccount;
 	
 	@FindAll({@FindBy(xpath="//*[@text='Scheduled Date']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
 	,@FindBy(xpath="//XCUIElementTypeStaticText[@name='Scheduled Date']/../XCUIElementTypeOther")	})
-
 	private WebElement eleScheduledDate;
 	public WebElement getEleScheduledDate()
 	{
@@ -453,6 +452,8 @@ private WebElement eleAccount;
 	{
 		return eleScheduledDateTimeTxt;
 	}
+	
+	
 	
 	
 	/*@FindBy(xpath="//*[text()='Scheduled Date']/../..//div[@class='x-input-body-el']/input")
@@ -1025,6 +1026,19 @@ public void downloadCriteriaDOD(CommonUtility commonUtility,Ph_ExploreSearchPO e
 			public WebElement getEleBillingTypeField() {
 				return eleBillingTypeField;
 			}
+			
+			//*[@text='Is Entitlement Performed']/following-sibling::*[@text='OFF']
+			//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']
+	@FindAll({@FindBy(xpath="//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']"),
+	@FindBy(xpath="//*")})
+	private WebElement eleEntitlementPerformed;
+	public WebElement geteleEntitlementPerformed() {
+	return eleEntitlementPerformed;
+				}
+
+			
+
+			
 		
 	}	 
 
