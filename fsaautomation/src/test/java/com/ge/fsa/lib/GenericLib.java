@@ -294,9 +294,11 @@ public class GenericLib
 					
 					for(int j=0;j<iCellNum;j++)
 					{
+						//System.out.println("row"+i+"  column"+j);
 						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
 							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
 							sht.getRow(i+1).createCell(j).setCellValue(sValue);
+							break;
 							}
 					}
 					break;
