@@ -581,6 +581,7 @@ try {
 				} else {
 					count = lsPhotoGrid.size() - 1;
 					elem = lsPhotoGrid.get(count);
+					System.out.println(elem.getText());
 					driver.findElement(By.xpath("//*[contains(@label,'" + elem.getText() + "')]")).click();
 					System.out.println("finished Clicking");
 					Thread.sleep(10000);
@@ -616,7 +617,118 @@ try {
 		Thread.sleep(GenericLib.i30SecSleep);
 	}
 
+	public void checklistAttach(CommonUtility commonUtility, String checklistq) throws Exception
+    {
+   
+   clickAttach(commonUtility);
+   //commonsUtility.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+   //driver.findElementByAccessibilityId(AttachmentAction).click();
+   commonUtility.switchContext("WebView");
+   commonUtility.tap(getElechoosefromlib());
+   AllowCamerabutton(commonUtility);
+if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
+   driver.context("NATIVE_APP");
+   Thread.sleep(5000);
+   MobileElement el2 = (MobileElement) driver.findElementByAccessibilityId("Show roots");
+   el2.click();
+   Thread.sleep(5000);
+   System.out.println("Attempting to click on Photos");
+   driver.context("NATIVE_APP");
+   WebElement sd = getelecontainsphoto();
+   commonUtility.tap(sd);
+   System.out.println("clicked photos");
+   Thread.sleep(3000);
+   driver.context("NATIVE_APP");
+   WebElement se = getelecontainsdownload();
+   commonUtility.tap(se);
+   System.out.println("Clicked on Camera");
+   driver.context("NATIVE_APP");
+   Thread.sleep(3000);
+   String sImagenameforAndroid = "Photo taken on Apr 3, 2019 11:22:14";
+   //WebElement el5 = driver.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'Photo taken')][1]");
+   WebElement el5 = driver.findElementByXPath("//android.view.ViewGroup[contains(@content-desc,'" + sImagenameforAndroid +"' )]");
+   commonUtility.tap(el5);
+   System.out.println("Finished clicking on the Test image");
+  //commonsUtility.tap(driver.findElement(By.xpath("//div[text()='Attach']")));
+  //driver.findElementByAccessibilityId(AttachmentAction).click();
 		
+}else
+  {
+  commonUtility.switchContext("WebView");
+  commonUtility.tap(getElechoosefromlib());
+  AllowCamerabutton(commonUtility);
+
+  Thread.sleep(3000);
+  WebDriverWait wait = new WebDriverWait(driver, 10);
+  AllowCamerabutton(commonUtility);
+  commonUtility.switchContext("Native");
+  WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("PhotosGridView")));
+  el.click();
+  List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
+  int numPhotos = photos.size();
+  // commonsUtility.switchContext("Native");
+  String sImagenameforios = "Photo, Landscape, 03 April, 11:22";
+  String sImagenameforios1 = "Photo, Landscape, 11:05";
+  WebElement photoios = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios + "')]"));
+  WebElement photoios1 = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios1 + "')]"));
+  //Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
+  //ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
+  
+   photoios1.click();
+	
+		
+		// TODO: handle exception
+	
+  
+  System.out.println("finished Clicking");
+  Thread.sleep(10000);
+  commonUtility.switchContext("Webview");
+  Thread.sleep(GenericLib.i30SecSleep);
+  }}
+	
+public void clickAttach(CommonUtility commonUtility) throws InterruptedException {
+		
+		System.out.println("Trying to click Attach");
+		
+		try {
+			driver.context("NATIVE_APP");
+			driver.findElementByAccessibilityId("Attach").click();
+		} catch (Exception e) {
+			commonUtility.switchContext("WebView");
+			commonUtility.tap(geteleattachbyxpath());
+			// TODO: handle exception
+		}
+		
+	    }
+
+@FindBy(xpath="//android.widget.TextView[contains(@text,'Photos')]")
+private WebElement elecontainsphoto;
+public WebElement getelecontainsphoto()
+{
+	return elecontainsphoto;
+}
+
+@FindBy(xpath="//android.widget.TextView[contains(@text,'Download')]")
+private WebElement elecontainsdownload;
+public WebElement getelecontainsdownload()
+{
+	return elecontainsdownload;
+}
+
+@FindBy(xpath="//div[text()='Attach']")
+private WebElement eleattachbyxpath;
+public WebElement geteleattachbyxpath()
+{
+	return eleattachbyxpath;
+}
+
+@FindBy(xpath="//span[text()='Choose from Library']")
+private WebElement elechoosefromlib;
+public WebElement getElechoosefromlib()
+{
+	return elechoosefromlib;
+}
+	
 	
 }
 

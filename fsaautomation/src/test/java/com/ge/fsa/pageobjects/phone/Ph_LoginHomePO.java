@@ -204,7 +204,7 @@ public class Ph_LoginHomePO
 						getEleBackbtn().click();
 						getEleBackbtn().click();	
 					}
-					commonUtility.waitforElement(getEleUserNameTxtFld(),2);
+					commonUtility.waitforElement(getEleUserNameTxtFld(),3);
 					getEleUserNameTxtFld().click();
 					getEleUserNameTxtFld().sendKeys(sUn);
 					Thread.sleep(500);
@@ -239,12 +239,13 @@ public class Ph_LoginHomePO
 				System.out.println("Logged in Already");
 
 			}else {
+				
 				try {//For IOS
 					//Login from Sign in Page
 					Thread.sleep(500);
 					getEleSignInBtn().click();
 					Thread.sleep(500);
-					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
+					if(!commonUtility.waitforElement(getEleLoginBtn(),3)) {
 						getEleSettingsbtn().click();
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();

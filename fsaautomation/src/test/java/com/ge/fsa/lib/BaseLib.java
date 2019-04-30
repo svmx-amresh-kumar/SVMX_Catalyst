@@ -303,7 +303,7 @@ public class BaseLib {
 					capabilities.setCapability("wdaEventloopIdleDelay",5);
 					capabilities.setCapability("useNewWDA",false);
 					capabilities.setCapability("waitForQuiescence",false);
-					capabilities.setCapability("ignoreUnimportantViews",true);
+					//capabilities.setCapability("ignoreUnimportantViews",true);
 				
 				}else{
 					//Only For Ipad
@@ -404,10 +404,16 @@ public class BaseLib {
 		if(sOSName.equalsIgnoreCase("browser")) {
 			ExtentManager.getInstance(chromeDriver);
 			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		}else{
+		}else if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			ExtentManager.getInstance(driver);
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			//Setting wait for 1 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		}else {
+			ExtentManager.getInstance(driver);
+		//reverting wait to 10 seconds
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}
+
 
 	}
 

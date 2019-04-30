@@ -67,7 +67,7 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 		// Select the Work Order from the Recent items
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		Thread.sleep(2000);
+		Thread.sleep(10000);
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		Thread.sleep(4000);
@@ -81,10 +81,7 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
 		ph_WorkOrderPo.getEleChildLineItem(sProductName).click();
 		Thread.sleep(2000);
-		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleRemoveButton());
-		Thread.sleep(2000);
-		ph_WorkOrderPo.getEleRemoveButton().click();
-		Thread.sleep(2000);
+		commonUtility.clickPopup(ph_WorkOrderPo.getEleRemoveButton(), ph_WorkOrderPo.getEleRemoveButton());
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
 		ph_WorkOrderPo.addParts(commonUtility, sProductNamesArray);
