@@ -51,8 +51,8 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 	String sScheduledDateTimeDVR="Scheduled_DateTime cannot be Today";
 	String sScheduledDateDVR = "Scheduled Date cannot be Today or Yesterday or Tommorow";
 
-	String sPartsLineQtyDVR = "Parts: Line Qty has to be more than 2 and WD cannot be Null";
-	String sPartsLinePriceDVR="Parts: Line Price is Less than 2000";
+	String sPartsLineQtyDVR = "Line Qty has to be more than 2 and WD cannot be Null";
+	String sPartsLinePriceDVR="Line Price is Less than 2000";
 	String sBillingDVR="Billing Type cannot be Loan";
 	String sBillingTypeDVR = "Loan";
 	String SBillingType = "Warranty";
@@ -202,15 +202,10 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTimeTxt(),0, "0", "0");
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateTimeDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS,"DateTime Literal Today validation passed");	
-	//    commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDateTimeTxt(),"JUN", "3", "2019");	
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTimeTxt(),3, "0", "0");
 
 
 	   //Setting up Scheduled Date to today
-	   /* workOrderPo.getEleScheduledDateLst().click();
-	    commonsUtility.switchContext("Native");
-	   commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
-	   commonsUtility.switchContext("WebView");   */
 		commonUtility.custScrollToElement(ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleScheduledDate());
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0"); 
@@ -218,7 +213,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"DATE Literal Today validation passed");	
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "JUN", "01", "2019"); 
-	//	ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.getElesave().click();
 		//Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(), "Look up DVR did not display, account cannot be same as Parnter Account ");
 
 
@@ -252,76 +247,41 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 
 		}*/
 		
-		//Confirming IsEntitmenet
-		
-		//android.widget.Switch
-		
-		commonUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
-		System.out.println("tapped 20");
-		//Thread.sleep(10000);
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());		
-		
-		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("20");
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
-		
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-	try {
-		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Work Order Saved successfully is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
-	} catch (AssertionError e) {
-		ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
-	}	
+	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(calendarPO.getEleCalendarClick());
+		ph_CalendarPo.getEleCalendarBtn().click();
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		workOrderPo.addParts(commonUtility, workOrderPo,sProductName);
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		Thread.sleep(GenericLib.iLowSleep);
-		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
+		
+		
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
+				sWOName, sFieldServiceName);
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.getelePartName(sProductName).click();
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sPartsLineQtyDVR),3),"PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.openpartsontap());
-		workOrderPo.getEleLineQtyTxtFld().clear();
-		workOrderPo.getEleLineQtyTxtFld().sendKeys("3");
-		workOrderPo.getEleLinePerUnitTxtFld().sendKeys("100");
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.getEleIsEntitlementPerformedConfirmation(),20,20);
-		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLinePriceDVR).isDisplayed(), "Line Price Confirmation displayed");
-		ExtentManager.logger.log(Status.PASS,"Line Price Confirmation displayed");
+		ph_WorkOrderPo.getEleLineQtyField().clear();
+		ph_WorkOrderPo.getEleLineQtyField().sendKeys("3");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleDiscountPercentage());
+		ph_WorkOrderPo.getEleLinePriceField().sendKeys("100");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(),3),sPartsLinePriceDVR);
+		ExtentManager.logger.log(Status.PASS,"Parts DVR PASS :Line Quantity confirmation message displayed"+sPartsLinePriceDVR+"");
+		ph_WorkOrderPo.geteleConfirm().click();
+		ExtentManager.logger.log(Status.PASS,"Clicked on Confirm button");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleDiscountPercentage());
+		ph_WorkOrderPo.geteleWorkDescription().click();
+		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.getEleBackButton().click();
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleOverViewTab(),3),sPartsLinePriceDVR);
+		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
+
 		
-		commonUtility.tap(workOrderPo.getEleLinePriceLessthanConfirmation(), 20,20);
-		System.out.println("tapped 20");
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		//commonsUtility.waitforElement(workOrderPo.getEleSavedSuccessTxt(), 3);
-		//
-		try {
-			Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
-			ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
-		} catch (AssertionError e) {
-			ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
-		}
-			
-		try {
-			Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
-			ExtentManager.logger.log(Status.FAIL,"Parts DVR messge is still being displayed");
-
-		} catch (Exception e) {
-			ExtentManager.logger.log(Status.PASS,"Parts DVR message is not longer displayed after adding more than 2 line qty");
-		}
-
-		//Validation of qualifying workorder with Issue found text error.
-		//Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), " Work Order Saved successfully is not displayed");
-		//ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully text is displayed successfully");
-
+		
+		
 	}
 	
 	
