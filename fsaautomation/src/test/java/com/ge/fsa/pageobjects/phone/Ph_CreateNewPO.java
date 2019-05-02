@@ -73,9 +73,9 @@ public class Ph_CreateNewPO {
 	
 	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Add']"),
 		@FindBy(xpath="//*[@*='Add']")})
-	private WebElement eleAddWorkOrder;
-	public WebElement getEleAddWorkOrder() {
-		return eleAddWorkOrder;
+	private WebElement eleAdd;
+	public WebElement getEleAdd() {
+		return eleAdd;
 	}
 	
 	public WebElement getEleDropDownValue(String value) {
@@ -102,7 +102,7 @@ public class Ph_CreateNewPO {
 		commonUtility.custScrollToElementAndClick(getEleProformaInvoiceField());
 		getEleProformaInvoiceField().sendKeys(proformaInvoice);
 		Thread.sleep(1000);
-		getEleAddWorkOrder().click();
+		getEleAdd().click();
 		
 	}
 	
@@ -204,5 +204,52 @@ public class Ph_CreateNewPO {
 		return eleProformaInvoice;
 
 	}
-				
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Email')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*='Email']//XCUIElementTypeTextField")})
+	private WebElement eleEmail;
+	public WebElement getEleEmail() {
+		return eleEmail;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Location Name')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*[contains(.,'Location Name')]]//XCUIElementTypeTextField")})
+	private WebElement eleLocationName;
+	public WebElement getEleLocationName() {
+		return eleLocationName;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Status')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*[contains(.,'Status')]]//*[contains(@name,'SFM.LAYOUT.EDIT.PICKLIST')]")})
+	private WebElement eleStatus;
+	public WebElement getEleStatus() {
+		return eleStatus;
+	}
+	
+	@FindBy(xpath="(//*[@*='Contact ID Lookup'])[last()]")
+	private WebElement eleContactIDLookup;
+	public WebElement getEleContactIDLookup() {
+		return eleContactIDLookup;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Subject')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*[contains(.,'Subject')]]//XCUIElementTypeTextField")})
+	private WebElement eleSubject;
+	public WebElement getEleSubject() {
+		return eleSubject;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Installed Product ID')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*='Installed Product ID*']//XCUIElementTypeTextField")})
+	private WebElement eleInstalledProductID;
+	public WebElement getEleInstalledProductID() {
+		return eleInstalledProductID;
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Auto_Custom_Object2 Name')]]/following-sibling::*/*"),
+		@FindBy(xpath="//*[@*='Auto_Custom_Object2 Name']//XCUIElementTypeTextField")})
+	private WebElement eleAutoCustomObject;
+	public WebElement getEleAutoCustomObject() {
+		return eleAutoCustomObject;
+	}
 }

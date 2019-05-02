@@ -76,15 +76,15 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_MorePo.syncData(commonUtility);
 		// Click on the Work Order
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 //		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
 //		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
 //		Dimension dim=driver.manage().window().getSize();
@@ -94,7 +94,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		commonUtility.clickPopup(ph_WorkOrderPo.getEleMore(), ph_WorkOrderPo.getEleManageWorkDetails());
 //		ph_WorkOrderPo.getEleMore().click();
 //		ph_WorkOrderPo.getEleManageWorkDetails().click();
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
 //		ph_WorkOrderPo.getEleBackButton().click();
@@ -106,7 +106,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		commonUtility.gotToTabHorizontal("PRODUCTS SERVICED");
 		if (ph_WorkOrderPo.getChildLineAddedItem(sIBName).isDisplayed() == true) {
 			ExtentManager.logger.log(Status.PASS, "The PS Lines are Added ");
@@ -115,7 +115,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 //			ph_WorkOrderPo.getEleMore().click();
 //			ph_WorkOrderPo.getEleManageWorkDetails().click();
 			commonUtility.clickPopup(ph_WorkOrderPo.getEleMore(), ph_WorkOrderPo.getEleManageWorkDetails());
-			Thread.sleep(3000);
+			//Thread.sleep(3000);
 			try {
 				ph_WorkOrderPo.getEleeleIBId(sProductName).isDisplayed();
 				ExtentManager.logger.log(Status.FAIL, "The Product from Parts is Saved - Not Expected Scenario");
@@ -131,14 +131,15 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
 		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
+		System.out.println(ph_WorkOrderPo.getEleBackButton());
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Sync the Data and verify in the Server end if both the data are present
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(2000);
+		//Thread.sleep(2000);t
 		// Verify the Queries
 		restServices.getAccessToken();
 		String sSoqlquerychildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"
