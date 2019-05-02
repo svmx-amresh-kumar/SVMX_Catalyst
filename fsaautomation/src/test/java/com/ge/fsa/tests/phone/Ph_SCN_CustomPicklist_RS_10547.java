@@ -30,11 +30,7 @@ import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
 import io.appium.java_client.ios.IOSElement;
 
-/**
- * 
- * @author meghanarao
- *
- */
+
 public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 	String sTestCaseID = "Scenario_10547";
 	String sAccountName = null;

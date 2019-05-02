@@ -219,6 +219,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib{
 		System.out.println("Scheduled Date Header"+sScheduledDateHeader);		
 		String sScheduledDateTimeHeader = workOrderPo.getScheduledDatetimevalue().getAttribute("value").toString();
 		System.out.println("Scheduled Date Header"+sScheduledDateTimeHeader); */
+		ph_WorkOrderPo.getPart().click();
 		
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		Thread.sleep(genericLib.iLowSleep);
@@ -226,7 +227,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib{
 	//	ph_WorkOrderPo.geteleAddedPart(sProductName).click();
 		//to be changed after code fix to above one
 		ph_WorkOrderPo.geteleRemoveablePart().click();
-		Thread.sleep(2000);
+		
 		
 		//Assert.assertEquals(workOrderPo.getelePart_Edit_Input().getAttribute("value").toString(),sProductName,"Part is not source object updated");
 	//	ExtentManager.logger.log(Status.PASS,"Part Child  Lookup Source Object Update Header sucessful in Client");
