@@ -66,10 +66,10 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 	{	
 
 
-	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 	Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
-
+*/
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
@@ -169,10 +169,12 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		ph_MorePo.syncData(commonUtility);
 		sPrintReportSearch = "Work Order Service Report";
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders",
-				sworkOrderName, sPrintReportSearch);		
+				sworkOrderName, sPrintReportSearch);	
+		Thread.sleep(3000);
 		//ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
 		ph_WorkOrderPo.getEleFinalize().click();
-		Thread.sleep(3000);
+		//Need to hardcode this 10 sec else the opdoc template isnt loading up and datasync fails.
+		Thread.sleep(10000);
 		ExtentManager.logger.log(Status.PASS,"OPDOC FINALIZE Button was clicked");
 
 		// server validation 	

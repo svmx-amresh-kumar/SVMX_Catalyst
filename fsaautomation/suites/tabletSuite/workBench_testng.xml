@@ -5,7 +5,8 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
-			<class name="com.ge.fsa.tests.tablet.SCN_ImageCompression_RS_12341" />	
+			<class name="com.ge.fsa.tests.tablet.SCN_Workorder_Attachement_RS_9726" />	
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10584" />
 		</classes>
 	</test> <!-- Test -->
 	

@@ -153,6 +153,14 @@ public class Ph_CreateNewPO {
 	{
 		return eleAccountLookUp;
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@text='Partner Account Lookup']"),
+		@FindBy(id="Account Account Lookup")})
+	private WebElement elePartnerAccountLookUp;
+	public WebElement getelePartnerAccountLookUp()
+	{
+		return elePartnerAccountLookUp;
+	}
 
 	private WebElement eleContactLookuptap;
 	public WebElement getEleContactLookuptap()

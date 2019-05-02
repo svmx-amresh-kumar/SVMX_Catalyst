@@ -667,14 +667,12 @@ if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
   List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeImage"));
   int numPhotos = photos.size();
   // commonsUtility.switchContext("Native");
-  String sImagenameforios = "Photo, Landscape, 03 April, 11:22";
-  String sImagenameforios1 = "Photo, Landscape, 11:05";
+  String sImagenameforios = "Photo, Landscape, 05:11";
   WebElement photoios = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios + "')]"));
-  WebElement photoios1 = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios1 + "')]"));
   //Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
   //ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
   
-   photoios1.click();
+   photoios.click();
 	
 		
 		// TODO: handle exception

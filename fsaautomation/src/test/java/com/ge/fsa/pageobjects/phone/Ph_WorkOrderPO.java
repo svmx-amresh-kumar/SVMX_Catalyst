@@ -23,7 +23,7 @@ import io.appium.java_client.TouchAction;
 public class Ph_WorkOrderPO {
 	public Ph_WorkOrderPO(AppiumDriver driver) {
 		this.driver = driver;
-		PageFactory.initElements(new AjaxElementLocatorFactory(driver, 15), this);
+		PageFactory.initElements(driver, this);
 	}
 
 	WebDriverWait wait = null;
@@ -229,7 +229,9 @@ public class Ph_WorkOrderPO {
 
 	}
 
-	@FindBy(xpath = "(//*[@*='Part Lookup'])[last()]")
+	@FindAll({
+			@FindBy(xpath = "//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+			@FindBy(xpath = "(//*[@label='Part Lookup'])[last()]") })
 	private WebElement elepartlookup;
 
 	public WebElement getElepartlookup() {
@@ -412,7 +414,6 @@ public class Ph_WorkOrderPO {
 	@FindAll({
 			@FindBy(xpath = "//*[@text='Scheduled Date']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 			@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Scheduled Date']/../XCUIElementTypeOther") })
-
 	private WebElement eleScheduledDate;
 
 	public WebElement getEleScheduledDate() {
@@ -684,9 +685,10 @@ public class Ph_WorkOrderPO {
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Line Qty']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//*[@*='Line Qty']/following-sibling::*") })
+			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Line Qty*']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+			@FindBy(xpath = "//*[@*='Line Qty']/following-sibling::*"),
+			@FindBy(xpath = "//*[@*='Line Qty*']/following-sibling::*") })
 	private WebElement eleLineQtyField;
-
 	public WebElement getEleLineQtyField() {
 		return eleLineQtyField;
 	}
@@ -699,8 +701,9 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleLinePriceField() {
 		return eleLinePriceField;
 	}
-
-	@FindBy(xpath = "//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM')]]/descendant::*[last()]")
+	
+	@FindAll({ @FindBy(xpath = "//*[./*[@text='More']][@class='android.view.ViewGroup']"),
+			@FindBy(xpath = "//XCUIElementTypeOther[@name='More']") })
 	private WebElement eleMore;
 
 	public WebElement getEleMore() {
@@ -1049,13 +1052,68 @@ public class Ph_WorkOrderPO {
 	public WebElement getAutomationNumber(){
 		return automationNumber;
 	}
+	
+	@FindAll({ @FindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']"),
+		@FindBy(xpath = "//*") })
+	private WebElement eleEntitlementPerformed;
+
+	public WebElement geteleEntitlementPerformed() {
+		return eleEntitlementPerformed;
+	}
+
+	private WebElement elePartName;
+
+	public WebElement getelePartName(String sPartName) {
+
+		switch (BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			elePartName = driver.findElement(By.xpath("//*[@text='" + sPartName + "']"));
+			return elePartName;
+		case "ios":
+			elePartName = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='" + sPartName + "'])[3]"));
+			return elePartName;
+
+		}
+		return elePartName;
+	}
+
+	@FindAll({ @FindBy(xpath = "//*[@text='Confirm']"), @FindBy(xpath = "//*[*='Confirm']") })
+	private WebElement eleConfirm;
+
+	public WebElement geteleConfirm() {
+		return eleConfirm;
+	}
+
+	@FindAll({
+		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Work Description']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath = "//*[@*='Work Description']/following-sibling::*") })
+	private WebElement eleWorkDescription;
+
+	public WebElement geteleWorkDescription() {
+		return eleWorkDescription;
+	}
+
+	@FindAll({ @FindBy(xpath = "//*[@text='Line Price is Less than 2000']"), @FindBy(xpath = "//*[*='Confirm']") })
+	private WebElement eleLinePriceConfirmationtxt;
+
+	public WebElement geteleLinePriceConfirmationtxt() {
+		return eleLinePriceConfirmationtxt;
+	}
+
+	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
+	private WebElement eleOverViewTab;
+
+	public WebElement geteleOverViewTab() {
+		return eleOverViewTab;
+	}
+
 
 	@FindAll({@FindBy(xpath="//android.widget.Switch[@text='OFF']")})
 	private WebElement toggleCustomerDown;
 	public WebElement getToggleCustomerDown(){
 		return toggleCustomerDown;
 	}
-	
-	
-	
+
+
+
 }

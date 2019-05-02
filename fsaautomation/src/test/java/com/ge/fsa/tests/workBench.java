@@ -72,6 +72,8 @@ public class workBench extends BaseLib
 	String sExpenseType = "Airfare";
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
+	
+	
 
 //	@FindBy(xpath="//XCUIElementTypeOther[@type='XCUIElementTypeOther']")	
 //	private List<WebElement> picPic;
@@ -99,18 +101,7 @@ public void workBenchAnd() throws Exception
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
 		
-		
-		System.out.println(commonUtility.getDeviceDate());
-		String[] date = commonUtility.getDeviceDate().split(" ");
-		Calendar cal=Calendar.getInstance();
-		cal.set(Calendar.DATE,Integer.parseInt(date[2].trim()));
-		cal.set(Calendar.YEAR, Integer.parseInt(date[5].trim()));
-		Date date1=new SimpleDateFormat("MMM").parse(date[1].trim());
-		cal.set(Calendar.MONTH,date1.getMonth());
-		cal.add(Calendar.DATE, 7);
-		System.out.println(cal.get(Calendar.DATE));
-		
-		
+
 		
 		
 		

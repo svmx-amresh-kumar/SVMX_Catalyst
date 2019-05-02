@@ -698,7 +698,6 @@ public class CommonUtility {
 
 	@FindBy(id = "android:id/button1")
 	private WebElement calendarDone;
-
 	public WebElement getCalendarDone() {
 		return calendarDone;
 	}
@@ -979,7 +978,14 @@ public class CommonUtility {
 			throws InterruptedException {
 		switch (BaseLib.sOSName) {
 		case "android":
-			tap(wElement, 30, 36);
+			//switchContext("webview");
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				custScrollToElementAndClick(wElement);
+			}else {
+				switchContext("webview");
+				tap(wElement, 30, 36);
+
+			}
 			switchContext("Native");
 			//Set current date if all paramters are "0"
 			Date currentDate = null;

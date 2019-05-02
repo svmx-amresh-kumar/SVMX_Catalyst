@@ -67,7 +67,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 	String sNone="None";
 	String sHigh="High";
 	String sMedium="Medium";
-	int iSizeBeforeCompression = 4755405;
+	int iSizeBeforeCompression = 738780;
 	Boolean bProcessCheckResult  = false;
 	String sScriptName="Scenario_RS10584_Checklist_Attachments";
 	//Attachment questions
@@ -227,7 +227,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 // Navigating to the checklist
 		 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		 Thread.sleep(GenericLib.iLowSleep);
-		 checklistPo.checklistAttach(commonUtility,sAttachmentQ);
+		 checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		 ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
 		 checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
@@ -297,7 +297,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  // Navigating to the checklist
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		  Thread.sleep(GenericLib.iLowSleep);
-		  checklistPo.checklistAttach(commonUtility,sAttachmentQ);
+		  checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		  ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
 		  checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
@@ -368,7 +368,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 // Navigating to the checklist
 		 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		 Thread.sleep(GenericLib.iLowSleep);
-		 checklistPo.checklistAttach(commonUtility,sAttachmentQ);
+		 checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		 ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
 		 checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
