@@ -57,7 +57,7 @@ public class Ph_CreateNewPO {
 		return elePriorityField;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]"),
 	@FindBy(xpath="//*[@*='Billing Type']/following-sibling::*")})
 	private WebElement eleBillingTypeField;
 	public WebElement getEleBillingTypeField() {

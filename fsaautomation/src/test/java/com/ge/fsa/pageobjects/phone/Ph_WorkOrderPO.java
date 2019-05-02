@@ -688,6 +688,7 @@ public class Ph_WorkOrderPO {
 			@FindBy(xpath = "//*[@*='Line Qty']/following-sibling::*"),
 			@FindBy(xpath = "//*[@*='Line Qty*']/following-sibling::*") })
 	private WebElement eleLineQtyField;
+
 	public WebElement getEleLineQtyField() {
 		return eleLineQtyField;
 	}
@@ -1064,29 +1065,72 @@ public class Ph_WorkOrderPO {
 	public WebElement geteleConfirm() {
 		return eleConfirm;
 	}
-	
-	@FindAll({
-		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Work Description']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
-		@FindBy(xpath = "//*[@*='Work Description']/following-sibling::*") })
-private WebElement eleWorkDescription;
 
-public WebElement geteleWorkDescription() {
-	return eleWorkDescription;
-}
+	@FindAll({
+			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Work Description']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+			@FindBy(xpath = "//*[@*='Work Description']/following-sibling::*") })
+	private WebElement eleWorkDescription;
+
+	public WebElement geteleWorkDescription() {
+		return eleWorkDescription;
+	}
 
 	@FindAll({ @FindBy(xpath = "//*[@text='Line Price is Less than 2000']"), @FindBy(xpath = "//*[*='Confirm']") })
-private WebElement eleLinePriceConfirmationtxt;
+	private WebElement eleLinePriceConfirmationtxt;
 
-public WebElement geteleLinePriceConfirmationtxt() {
-return eleLinePriceConfirmationtxt;
+	public WebElement geteleLinePriceConfirmationtxt() {
+		return eleLinePriceConfirmationtxt;
+	}
+
+	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
+	private WebElement eleOverViewTab;
+
+	public WebElement getEleOverViewTab() {
+		return eleOverViewTab;
+	}
+
+	@FindAll({
+			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='URL']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+			@FindBy(xpath = "//*[@*='URL']/following-sibling::*") })
+	private WebElement eleURL;
+
+	public WebElement getEleURL() {
+		return eleURL;
+	}
+
+	@FindAll({
+			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Phone']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+			@FindBy(xpath = "//*[@*='Phone']/following-sibling::*") })
+	private WebElement elePhone;
+
+	public WebElement getElePhone() {
+		return elePhone;
+	}
+
+	@FindAll({
+			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Email']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+			@FindBy(xpath = "//*[@*='Email']/following-sibling::*") })
+	private WebElement eleEmail;
+
+	public WebElement getEleEmail() {
+		return eleEmail;
+	}
+
+	@FindAll({ @FindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']"),
+			@FindBy(xpath = "//*") })
+	private WebElement eleEntitlementPerformedOn;
+
+	public WebElement getEleEntitlementPerformedOn() {
+		return eleEntitlementPerformedOn;
+	}
+	
+	@FindAll({
+		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Billing Information']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath = "//*[@*='Billing Information']/following-sibling::*") })
+private WebElement eleBillingInformation;
+
+public WebElement getEleBillingInformation() {
+	return eleBillingInformation;
 }
-
-@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
-private WebElement eleOverViewTab;
-
-public WebElement geteleOverViewTab() {
-return eleOverViewTab;
-}
-
 
 }

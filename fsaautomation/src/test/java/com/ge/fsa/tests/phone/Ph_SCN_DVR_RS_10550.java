@@ -253,13 +253,16 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		
-		
-		
+		//navigating to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sWOName, sFieldServiceName);
+		
+		//Adding Partts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getelePartName(sProductName).click();
+		
+		//validation of Parts DVR
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sPartsLineQtyDVR),3),"PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
 		ph_WorkOrderPo.getEleLineQtyField().clear();
@@ -276,7 +279,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleOverViewTab(),3),sPartsLinePriceDVR);
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(),3),"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
 
 		
