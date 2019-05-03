@@ -1414,10 +1414,25 @@ public class CommonUtility {
 		return sVals;
 	}
 
-	public String[] ph_getAllPicklistValues(CommonUtility commonUtility, String[] sActualValues) throws InterruptedException {
+	/**
+	 * For Phone : To get all the values from the picklist and verify with the given set of
+	 * values in the UI
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 * @param sActualValues = Values sent to verify the picklist fields on the UI.
+	 */
+	public String[] getAllPicklistValues(CommonUtility commonUtility, String[] sActualValues) throws InterruptedException {
 		String[] sVals = new String[sActualValues.length];
 		String sCurrVal = "";
-		List<WebElement> listElemets = driver.findElements(By.xpath("//*[@*='FORM.PICKLIST.SCROLLVIEW']//*[@class='android.widget.TextView']"));
+		List<WebElement> listElemets=null;
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			listElemets = driver.findElements(By.xpath("//*[@*='FORM.PICKLIST.SCROLLVIEW']//*[@class='android.widget.TextView']"));
+
+		}else {
+			listElemets = driver.findElements(By.xpath("//XCUIElementTypeOther[contains(@name,'FORM.PICKLIST.ITEM')]"));
+
+		}
 
 		System.out.println("Size of pl = "+listElemets.size());
 		for (int i = 0; i < listElemets.size(); i++) {

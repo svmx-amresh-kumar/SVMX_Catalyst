@@ -80,7 +80,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		// ==============================================================================================
 
-		String[] sExpectedValues = commonUtility.ph_getAllPicklistValues(commonUtility,
+		String[] sExpectedValues = commonUtility.getAllPicklistValues(commonUtility,
 				sContollingPicklist_WO_001);
 		// for(int i=0;i<sContollingPicklist_WO_001.length;i++) {
 		// if(sExpectedValues[i].equals(sContollingPicklist_WO_001[i]))
@@ -111,7 +111,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleDependentPicklist());
 		// ==============================================================================================
 
-		String[] sExpectedValues2 = commonUtility.ph_getAllPicklistValues(commonUtility,
+		String[] sExpectedValues2 = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_001);
 //		for (int i = 0; i < sDependentPicklist_CP_001.length; i++) {
 //			if (sExpectedValues2[i].equals(sDependentPicklist_CP_001[i])) {
@@ -162,7 +162,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		String[] sDependentPicklist_CP_012 = { "--None--", "DP-0112" };
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleDependentPicklist());
 
-		String[] sExpectedValues3 = commonUtility.ph_getAllPicklistValues(commonUtility,
+		String[] sExpectedValues3 = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_012);
 //		for (int i1 = 0; i1 < sDependentPicklist_CP_012.length; i1++) {
 //			if (sExpectedValues3[i1].equals(sDependentPicklist_CP_012[i1])) {
