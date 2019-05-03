@@ -163,7 +163,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  
 		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
 		  
-		  //perform a config sync toolsPo.configSync(commonsUtility);
+		  //perform a config sync 
+		  toolsPo.configSync(commonUtility);
 		  
 		  //navigating to Workorder
 		  
