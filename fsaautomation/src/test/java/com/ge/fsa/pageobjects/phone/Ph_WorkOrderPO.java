@@ -1161,5 +1161,15 @@ public class Ph_WorkOrderPO {
 	public WebElement geteleCountryShouldbeItaly(){
 		return eleCountryshouldbeItaly;
 	}
+	
+
+	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*='NULL']") })
+	private WebElement eleAccountnotNUll;
+	public WebElement geteleAccountnotNUll(){
+		return eleAccountnotNUll;
+	}
+	
+
+	
 
 }
