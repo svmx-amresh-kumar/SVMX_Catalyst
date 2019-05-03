@@ -1155,5 +1155,11 @@ public class Ph_WorkOrderPO {
 	public WebElement getToggleCustomerDown(){
 		return toggleCustomerDown;
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@text='Country should be Italy']"),@FindBy(xpath = "//*[@*='Country should be Italy']") })
+	private WebElement eleCountryshouldbeItaly;
+	public WebElement geteleCountryShouldbeItaly(){
+		return eleCountryshouldbeItaly;
+	}
 
 }
