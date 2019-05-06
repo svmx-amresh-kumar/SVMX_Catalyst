@@ -360,6 +360,62 @@ public class Ph_WorkOrderPO {
 	public WebElement getElesave() {
 		return elesave;
 	}
+	//Added by Harish--------------
+	@FindBy(xpath="//*[@*='Contact']")
+	private WebElement lblContact;
+	
+	public WebElement getLblContact() {
+		return lblContact;
+	}
+	
+	@FindBy(xpath="//*[@*='Account']")
+	private WebElement lblAccount;
+	
+	public WebElement getLblAccount() {
+		return lblAccount;
+	}
+	
+	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
+	private WebElement btnClose;
+	
+	public WebElement getBtnClose() {
+		return btnClose;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Account ID')]]")
+	private List<WebElement>  noAccContactsLst;
+	
+	public List<WebElement> getNoAccContactsLst() {
+		return noAccContactsLst;
+	}
+	
+	public List<WebElement> getContactLst(String sValue) {
+			return driver.findElements(By.xpath("//*[@*='"+sValue+"']"));
+	}
+	
+	@FindBy(xpath="(//*[@*='SFM.LAYOUT.LOOKUP.LIST']//android.widget.TextView)[2]")
+	private WebElement lblResults;
+	
+	public WebElement getLblResults() {
+		return lblResults;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Limit search to Account')]]/following-sibling::android.view.ViewGroup")
+	private WebElement btnclrFilter;
+	
+	public WebElement getBtnclrFilter() {
+		return btnclrFilter;
+	}
+	
+	@FindBy(xpath="//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
+	private WebElement countryPicklst;
+	
+	public WebElement getCountryPicklst() {
+		return countryPicklst;
+	}
+	
+	
+	//-----------------------------
 
 	public void addParts(CommonUtility commonUtility, String sProductName1) {
 		System.out.println("Adding Parts");
