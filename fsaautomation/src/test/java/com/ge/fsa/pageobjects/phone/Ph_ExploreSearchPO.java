@@ -187,5 +187,33 @@ public class Ph_ExploreSearchPO
 				ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
 				
 			}
+			
+			private WebElement eleSearchNameTxt;
+			public WebElement getEleSearchNameTxt(String sSearchTxt)
+			{
+				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					 eleSearchNameTxt=driver.findElement(By.xpath("//*[@text='"+sSearchTxt+"']"));
+					 return eleSearchNameTxt;}
+				else {
+					return driver.findElement(By.xpath("(//*[@*[contains(.,'"+sSearchTxt+"')]])[last()]"));
+				}
+				
+				
+			}
+			
+			private WebElement eleExploreChildSearchTxt;
+			public WebElement getEleExploreChildSearchTxt(String sExploreChildSearchTxt)
+			{
+				
+				if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+					eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(@text,'"+sExploreChildSearchTxt+"')]"));
+					return eleExploreChildSearchTxt;
+}
+				else {
+					eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(label(),'"+sExploreChildSearchTxt+"')]"));
+					return eleExploreChildSearchTxt;}
+				
+			}
 	
+			
 }
