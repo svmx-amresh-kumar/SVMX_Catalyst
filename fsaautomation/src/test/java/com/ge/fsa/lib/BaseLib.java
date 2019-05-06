@@ -300,7 +300,7 @@ public class BaseLib {
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
-					capabilities.setCapability("wdaEventloopIdleDelay",5);
+					capabilities.setCapability("wdaEventloopIdleDelay",15);
 					capabilities.setCapability("useNewWDA",false);
 					capabilities.setCapability("waitForQuiescence",false);
 					//capabilities.setCapability("ignoreUnimportantViews",true);

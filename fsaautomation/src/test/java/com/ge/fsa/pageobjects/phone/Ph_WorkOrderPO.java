@@ -726,7 +726,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Expense Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+		@FindBy(xpath = "//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
 		@FindBy(xpath = "//*[@*='Expense Type']/following-sibling::*") })
 	private WebElement eleExpenseTypeField;
 
@@ -974,7 +974,7 @@ public class Ph_WorkOrderPO {
 		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			driver.findElement(By.xpath("//*[@text='" + sValue + "']")).click();
+			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))")).click();;
 		} else {
 			driver.findElement(By.xpath("//*[@label='" + sValue + "']")).click();
 		}
@@ -1211,5 +1211,21 @@ public class Ph_WorkOrderPO {
 	public WebElement getToggleCustomerDown(){
 		return toggleCustomerDown;
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@text='Country should be Italy']"),@FindBy(xpath = "//*[@*='Country should be Italy']") })
+	private WebElement eleCountryshouldbeItaly;
+	public WebElement geteleCountryShouldbeItaly(){
+		return eleCountryshouldbeItaly;
+	}
+	
+
+	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*='NULL']") })
+	private WebElement eleAccountnotNUll;
+	public WebElement geteleAccountnotNUll(){
+		return eleAccountnotNUll;
+	}
+	
+
+	
 
 }

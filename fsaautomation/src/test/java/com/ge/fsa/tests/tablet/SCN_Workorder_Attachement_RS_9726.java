@@ -120,11 +120,14 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); }
 		  
-		  genericLib.executeSahiScript("appium/Checklist_preRequisite.sah", sTestCaseID);
-		  Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
-		 
-		   
+		/*
+		 * genericLib.executeSahiScript("appium/Checklist_preRequisite.sah",
+		 * sTestCaseID); Assert.assertTrue(commonUtility.verifySahiExecution(),
+		 * "Failed to execute Sahi script");
+		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
+		 * "Sahi verification is successful");
+		 * 
+		 */
 		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
 		  
 		  //perform a config sync

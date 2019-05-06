@@ -132,7 +132,8 @@ public class Ph_ExploreSearchPO
 		
 		System.out.println("Selecting From Lookup Search");
 		commonsUtility.custScrollToElementAndClick(wElement);
-		commonsUtility.waitforElement(getEleExploreSearchTxtFld(), 4);
+		//commonsUtility.waitforElement(getEleExploreSearchTxtFld(), 4);
+		//getEleExploreSearchTxtFld().click();
 		getEleExploreSearchTxtFld().sendKeys(Record);
 		Thread.sleep(1000);
 		getEleSearchListItem(Record).click();
