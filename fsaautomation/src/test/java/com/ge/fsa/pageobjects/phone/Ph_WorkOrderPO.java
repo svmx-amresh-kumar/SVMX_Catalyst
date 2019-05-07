@@ -298,8 +298,7 @@ public class Ph_WorkOrderPO {
 					By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
 			eleDvrText = driver.findElement(
-					By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'" + sIssueTxt + "')]]"));
-		}
+					By.xpath("//*[@*[contains(.,'" + sIssueTxt + "')]]"));		}
 
 		return eleDvrText;
 	}
@@ -331,8 +330,7 @@ public class Ph_WorkOrderPO {
 					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
 			eleIssuePopupTxt = driver.findElement(By.xpath(
-					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'" + sIssueTxt + "')]]"));
-		}
+					"//*[@*[contains(.,'//*[@*[contains(.,'" + sIssueTxt + "')]]"));		}
 
 		return eleIssuePopupTxt;
 	}
@@ -758,7 +756,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
+		@FindBy(xpath = "(//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
 		@FindBy(xpath = "//*[@*='Expense Type']/following-sibling::*") })
 	private WebElement eleExpenseTypeField;
 
@@ -1146,7 +1144,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({ @FindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']"),
-		@FindBy(xpath = "//*") })
+		@FindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]") })
 	private WebElement eleEntitlementPerformed;
 
 	public WebElement geteleEntitlementPerformed() {
@@ -1256,13 +1254,17 @@ public class Ph_WorkOrderPO {
 	}
 	
 
-	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*='NULL']") })
+	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*[contains(.,'Account can')]]") })
 	private WebElement eleAccountnotNUll;
 	public WebElement geteleAccountnotNUll(){
 		return eleAccountnotNUll;
 	}
 	
-
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]")})
+	private WebElement autoTextBox;
+	public WebElement getAutoTextBox(){
+		return autoTextBox;
+	}
 	
 
 }

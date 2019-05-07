@@ -1,5 +1,6 @@
 package com.ge.fsa.tests.phone;
 
+import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -64,7 +65,7 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		ph_CreateNewPo.getEleCreateNew().click();
 		Thread.sleep(3000);
 		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_Loc_10570").click();
-		ph_CreateNewPo.getEleLocationName().sendKeys(sLocName);
+		ph_CreateNewPo.getEleLocationName().sendKeys(sLocName+Keys.ENTER);
 		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,ph_CreateNewPo.getEleAccountFied(), sAccountName);
 		ph_CreateNewPo.getEleAdd().click();
 		
@@ -81,7 +82,7 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		//********Creating IB from FSA********
 		ph_CreateNewPo.getEleCreateNew().click();
 		Thread.sleep(3000);
-		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_IB_10570").click();;
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("SFM_IB_10570"));
 		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,ph_CreateNewPo.getEleProductFied(), sProductName);
 		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,ph_CreateNewPo.getEleAccountFied(), sAccountName);
 		ph_CreateNewPo.getEleInstalledProductID().sendKeys(sIBName);
@@ -90,7 +91,7 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		//********Creating Custom Object from FSA********
 		ph_CreateNewPo.getEleCreateNew().click();
 		Thread.sleep(3000);
-		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_CO_10570").click();;
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("SFM_CO_10570"));
 		ph_CreateNewPo.getEleAutoCustomObject().sendKeys(sCoName);
 		ph_CreateNewPo.getEleAdd().click();
 		Thread.sleep(10000);
@@ -108,7 +109,8 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		Assert.assertEquals(0, Integer.parseInt(sWoCountBeforeSync));
 		
 		//********Perform Data Sync********
-		ph_CalendarPo.getEleCalendarBtn().click();
+		ph_MorePo.getEleMoreBtn().click();
+		ph_WorkOrderPo.getBtnClose().click();
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		
