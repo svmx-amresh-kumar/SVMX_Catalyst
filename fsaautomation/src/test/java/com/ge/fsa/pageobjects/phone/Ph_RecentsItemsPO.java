@@ -72,6 +72,12 @@ public class Ph_RecentsItemsPO
 		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@*='Item0']/*")})
+	private WebElement eleworkorderrecentused;
+	public WebElement getEleWorkOrderRecentUsed() {
+		return eleworkorderrecentused;
+	}
 
 
 }	
