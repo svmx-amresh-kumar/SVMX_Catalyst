@@ -974,7 +974,12 @@ public class Ph_WorkOrderPO {
 		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))")).click();;
+			try {
+				driver.findElement(By.xpath("//*[@text='" + sValue + "']")).click();
+			}
+			catch(Exception e) {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))")).click();
+			}
 		} else {
 			driver.findElement(By.xpath("//*[@label='" + sValue + "']")).click();
 		}
