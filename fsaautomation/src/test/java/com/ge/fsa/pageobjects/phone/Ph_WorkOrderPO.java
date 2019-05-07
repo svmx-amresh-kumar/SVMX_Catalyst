@@ -1224,7 +1224,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 
-	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*='NULL']") })
+	@FindAll({@FindBy(xpath="//*[@text[contains(.,'Account can')]]"),@FindBy(xpath = "//*[@*[contains(.,'Account can')]]") })
 	private WebElement eleAccountnotNUll;
 	public WebElement geteleAccountnotNUll(){
 		return eleAccountnotNUll;
