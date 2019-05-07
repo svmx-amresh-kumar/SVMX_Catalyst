@@ -375,6 +375,20 @@ public class Ph_WorkOrderPO {
 		return lblAccount;
 	}
 	
+	@FindBy(xpath="//*[@*='Site']")
+	private WebElement lblSite;
+	
+	public WebElement getLblSite() {
+		return lblSite;
+	}
+	
+	@FindBy(xpath="//*[@*='To Location']")
+	private WebElement lblToLocation;
+	
+	public WebElement getLblToLocation() {
+		return lblToLocation;
+	}
+	
 	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement btnClose;
 	
@@ -392,6 +406,10 @@ public class Ph_WorkOrderPO {
 	public List<WebElement> getContactLst(String sValue) {
 			return driver.findElements(By.xpath("//*[@*='"+sValue+"']"));
 	}
+	
+	public WebElement getEle(String sValue) {
+		return driver.findElement(By.xpath("//*[@*='"+sValue+"']"));
+}
 	
 	@FindBy(xpath="(//*[@*='SFM.LAYOUT.LOOKUP.LIST']//android.widget.TextView)[2]")
 	private WebElement lblResults;
@@ -412,6 +430,20 @@ public class Ph_WorkOrderPO {
 	
 	public WebElement getCountryPicklst() {
 		return countryPicklst;
+	}
+	
+	@FindBy(xpath="//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+	private WebElement requestedCountryPicklst;
+	
+	public WebElement getRequestedCountryPicklst() {
+		return requestedCountryPicklst;
+	}
+	
+	@FindBy(xpath="//*[@text='PARTS']")
+	private WebElement tabParts;
+	
+	public WebElement getTabParts() {
+		return tabParts;
 	}
 	
 	
