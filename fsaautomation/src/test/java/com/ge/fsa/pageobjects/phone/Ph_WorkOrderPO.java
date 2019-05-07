@@ -726,7 +726,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
+		@FindBy(xpath = "(//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
 		@FindBy(xpath = "//*[@*='Expense Type']/following-sibling::*") })
 	private WebElement eleExpenseTypeField;
 
