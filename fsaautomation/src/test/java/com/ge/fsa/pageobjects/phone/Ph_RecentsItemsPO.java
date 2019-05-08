@@ -49,6 +49,12 @@ public class Ph_RecentsItemsPO
 		return eleClickRecentItems;
 	}
 	
+	@FindBy(xpath="//*[@*='RECENTS.VIEW']//*[@*='ItemCount=0']")
+	private WebElement eleEmptyRecentItems;
+	public WebElement getEleEmptyRecentItems() {
+		return eleEmptyRecentItems;
+	}
+	
 	public WebElement getEleWorkorder(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {

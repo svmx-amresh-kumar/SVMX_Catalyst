@@ -166,9 +166,9 @@ public class Ph_ExploreSearchPO
 			
 			if (commonUtility.waitforElement(ph_WorkOrderPO.getEleBackButton(), 1)) {
 				ph_WorkOrderPO.getEleBackButton().click();
+				geteleExploreIcn().click();
+				Thread.sleep(3000);
 			}
-			geteleExploreIcn().click();
-			Thread.sleep(3000);
 			getEleSearchListItem(sExploreSearch).click();
 			selectFromLookupSearchList(commonUtility,getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
 			Thread.sleep(5000);

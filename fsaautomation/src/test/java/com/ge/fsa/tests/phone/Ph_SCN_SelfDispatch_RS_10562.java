@@ -44,8 +44,8 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
-		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+//		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
@@ -78,7 +78,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, hours, "00");
 		//Edit the subject
 		commonUtility.switchContext("native");
-		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject+Keys.ENTER);
+		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(Integer.parseInt(hours)+1), "00");
@@ -96,7 +96,6 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		//Validation of event on the calender
 		for(int i=0;i<ph_CalendarPo.getEleWOEventTitleTxt().size();i++){
-			System.out.println(ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText()+"    "+sSubject);
 		    if(ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText().equals(sSubject))
 		    {
 		    	Assert.assertTrue(true,"Work Order event is not displayed on calender");

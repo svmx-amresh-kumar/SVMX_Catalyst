@@ -59,7 +59,9 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']"),
-		@FindBy(xpath = "//*[@*='Start Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*[contains(.,'StartDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleStartDateTimeTxtFld;
 
 	public WebElement getEleStartDateTimeTxtFld() {
@@ -70,7 +72,10 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
-		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'EndDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleEndDateTimeTxtFld;
 
 	public WebElement getEleEndDateTimeTxtFld() {
