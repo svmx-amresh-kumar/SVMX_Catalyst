@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="WorkBench_2">
+ <listeners>
+     <!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener>
+         
+         <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
+    </listeners>
+  <test name="WorkBench_2">
+		<classes>
+			<class name="com.ge.fsa.tests.phone.Ph_SanityPreReq" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_1_RS_10511" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_6_RS_10525" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_RS_10525_2mts_event" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_11859" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_2_RS_10512" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_4_RS_10514" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10538" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10531" />	
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10533" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPriceNotCovered_RS_10532" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_GetPrice_RS_10534" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527_b" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_2_RS_10528" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_3_RS_10529" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_4_10530" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_CustomAction_1_RS_10559" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_CustomAction_2_RS_10558" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_SourceObjectUpdate_RS_10544" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Creating_Editing_RS_10574" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Opdoc_RS_10571" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_ZeroLines_RS_10516" />	
+			
+			</classes>
+			</test>
+</suite> <!-- Suite -->

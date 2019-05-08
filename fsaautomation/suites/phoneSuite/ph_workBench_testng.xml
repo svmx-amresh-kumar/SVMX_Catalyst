@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="WorkBench">
+ <listeners>
+    </listeners>
+<test name="WorkBench">
+		<classes>	
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_ImageCompression_RS_12341" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Workorder_Attachement_RS_9726" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_Attachment_RS_10584" />
+		</classes>
+	</test> <!-- Test -->
+	
+</suite> <!-- Suite -->

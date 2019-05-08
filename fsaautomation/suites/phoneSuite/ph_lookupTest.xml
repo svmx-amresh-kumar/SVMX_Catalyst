@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Lookup">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+<test name="Lookup">
+		<classes>
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527_b" />
+	<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_2_RS_10528" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_3_RS_10529" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_4_10530" /> 
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Calendar">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+	<test name="Calendar">
+		<classes>
+		
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_5_RS_10515" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_6_RS_10525" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_RS_10525_2mts_event" />		
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_1_RS_10511" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calander_7_RS_10526" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_11859" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calendar_2_RS_10512" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_4_RS_10514" />
+	
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
