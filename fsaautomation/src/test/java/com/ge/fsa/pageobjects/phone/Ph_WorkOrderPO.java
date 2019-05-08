@@ -1190,7 +1190,7 @@ public class Ph_WorkOrderPO {
 		return eleLinePriceConfirmationtxt;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
+	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[@*='OVERVIEW']") })
 	private WebElement eleOverViewTab;
 
 	public WebElement getEleOverViewTab() {
