@@ -44,8 +44,8 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 		
-//		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
-//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
