@@ -135,7 +135,13 @@ public class Ph_ExploreSearchPO
 		commonsUtility.custScrollToElementAndClick(wElement);
 		//commonsUtility.waitforElement(getEleExploreSearchTxtFld(), 4);
 		getEleExploreSearchTxtFld().click();
-		getEleExploreSearchTxtFld().sendKeys(Record+Keys.ENTER);
+		if(BaseLib.sOSName.equals("android")){
+			getEleExploreSearchTxtFld().sendKeys(Record);
+		}
+		else {
+			getEleExploreSearchTxtFld().sendKeys(Record+Keys.ENTER);
+		}
+		
 		Thread.sleep(1000);
 		getEleSearchListItem(Record).click();
 

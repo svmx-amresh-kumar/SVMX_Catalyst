@@ -23,10 +23,10 @@ public class Ph_SCN_10527 extends BaseLib {
 	String sTestCaseID = "RS_10527";
 	String sScriptName = "Scenario_10527";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 	
-	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+//	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
 	// ******Creating Account******x
 	String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
