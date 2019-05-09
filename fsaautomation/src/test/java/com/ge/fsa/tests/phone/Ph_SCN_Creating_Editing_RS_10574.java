@@ -55,8 +55,8 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		// sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into
 		// Wizard
-		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+//		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
 
 		sRandomNumber = commonUtility.generaterandomnumber("");
@@ -88,6 +88,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sWOName = restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
+		sEventSubject = "EventName_RS10574_1"+sWOName;
 		// Thread.sleep(genericLib.iHighSleep);
 
 		// Collecting the Work Order number from the Server.
@@ -105,10 +106,16 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 				+ "\'";
 		System.out.println("sSqlWOQuery1 = " + sSqlWOQuery1);
 		sDelWo = restServices.restGetSoqlValue(sSqlWOQuery1, "Id");
-		System.out.println("sDelWo = " + sSqlWOQuery1);
-		sObjectApi = "SVMXC__Service_Order__c";
-		restServices.restDeleterecord(sObjectApi, sDelWo);
-		System.out.println("Deleted" + sDelWo);
+//		System.out.println("sDelWo = " + sSqlWOQuery1);
+//		sObjectApi = "SVMXC__Service_Order__c";
+//		restServices.restDeleterecord(sObjectApi, sDelWo);
+//		System.out.println("Deleted" + sDelWo);
+		if(sDelWo==null) {
+			ExtentManager.logger.log(Status.PASS, "Event got Deleted Sucessfully when work order is deleted");
+		}
+		else {
+			ExtentManager.logger.log(Status.FAIL, "Event not got Deleted when work order is deleted");
+		}
 
 	}
 
@@ -135,37 +142,38 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		commonUtility.waitForElementNotVisible(ph_MorePo.getEleSyncing(), 300);
 		try {
 			// Verification of successful sync
-			Assert.assertTrue(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted()), "Data sync is not successfull");
+			Assert.assertTrue(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted()),
+					"Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS, "Data Sync is successfull");
-		} catch (Exception e) {
+		} catch (Error e) {
 			ph_MorePo.getEleResolveBtn().click();
 			ph_MorePo.getEleResolveConflict().click();
 			ph_MorePo.getEleSyncNow().click();
-			ph_MorePo.getEleDataSync().click();
-			commonUtility.waitForElementNotVisible(ph_MorePo.getEleSyncing(), 300);
-			Assert.assertTrue(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted()), "Data sync is not successfull");
+			//ph_MorePo.getEleDataSync().click();
+			commonUtility.waitforElement(ph_MorePo.getEleDataSynccompleted(), 300);
+			Assert.assertTrue(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted()),
+					"Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS, "Data Sync is successfull");
 		}
+		ph_MorePo.getEleDataSync().click();
 	}
 
 	@Test(retryAnalyzer = Retry.class)
 	/// @Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
 
-
 		PreRequisites1();
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		Thread.sleep(GenericLib.iMedSleep);
 
-		// Perform Config Sync
-		// toolsPo.configSync(commonsUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		// Need to sync the data
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iHighSleep);
 		// Creating the Work Order
-		ph_CreateNewPo.createWorkOrder(commonUtility, sAccountName, sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		ph_CreateNewPo.createWorkOrder(commonUtility, sAccountName, sContactName, sProductName, "Medium", "Loan",
+				sProformainVoice);
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
@@ -179,56 +187,38 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 
 		// To create a new Event for the given Work Order
 		ph_WorkOrderPo.createNewEvent(commonUtility, sEventSubject, ph_CalendarPo);
+		ExtentManager.logger.log(Status.PASS, "Created new event for "+sworkOrderName+" with subject "+sEventSubject);
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Open the Work Order from the calendar
 		ph_CalendarPo.openWoFromCalendar(sEventSubject);
 		ExtentManager.logger.log(Status.PASS, "Validated event from Calendar");
-
+		Thread.sleep(3000);
+		Assert.assertTrue(ph_WorkOrderPo.verifyWorkOrder().contains("View Work Order "+sworkOrderName),
+				"Word order event is not created.");
 		System.out.println("Sucessfully validated Create Event from WorkOrder after creating workOrder from FSA App");
 
-		commonUtility.tap(calendarPO.getEleCalendarClick());
 		ph_CalendarPo.getEleCalendarBtn().click();
-		Thread.sleep(GenericLib.iHighSleep);
-		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iHighSleep);
+		//Thread.sleep(GenericLib.iHighSleep);
 		// ------------------Script to read a work Order and create an Event for
 		// it.----------------
 
 		// Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName,
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders", sWOName,
 				"Create New Event From Work Order");
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "Create New Event From Work Order");
-		// ------------------------------------------------------
-		// Navigation to SFM
-
-		// Set Start time for event
-		// workOrderPo.getEleStartDateTimeTxtFld().click();
-		// Thread.sleep(GenericLib.iMedSleep);
-		// commonsUtility.switchContext("Native");
-		// commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
-
-		// workOrderPo.getEleEndDateTimeTxtFld().click();
-		// Thread.sleep(GenericLib.iMedSleep);
-		// commonsUtility.switchContext("Native");
-		//
-		// commonsUtility.setDatePicker(1, 1);
-		// commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
-		//
-		// commonsUtility.switchContext("Webview");
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "0", "0");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Thread.sleep(GenericLib.iLowSleep);
 
 		// Validation of auto update process
-		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
+		Assert.assertTrue(ph_WorkOrderPo.getEleViewEvent().isDisplayed(), "Update process is not successful.");
+		ExtentManager.logger.log(Status.PASS, "Created new event for "+sWOName+" with subject "+sSubject);
 		ExtentManager.logger.log(Status.PASS, "Event saved successfully.");
-
+		ph_WorkOrderPo.getEleBackButton().click();
 		ph_CalendarPo.getEleCalendarBtn().click();
 		Thread.sleep(GenericLib.iLowSleep);
-		// toolsPo.syncData(commonsUtility);
 		syncwithConflict();
 
 		// ----------------------------Deleting the work Order,event and sync back
@@ -244,8 +234,8 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		syncwithConflict();
 		// workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch,
 		// sExploreChildSearchTxt, sWOName);
-		ph_CalendarPo.getEleCalendarBtn().click();
-		Thread.sleep(3000);
+		//ph_CalendarPo.getEleCalendarBtn().click();
+		//Thread.sleep(3000);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, sSubject);
 		ExtentManager.logger.log(Status.PASS, "WorkOrder not found as deleted from server.");
 
