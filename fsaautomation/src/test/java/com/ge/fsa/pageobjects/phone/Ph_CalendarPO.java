@@ -139,7 +139,7 @@ public class Ph_CalendarPO
 
 	}
 
-	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Work Order\"]")
+	@FindBy(xpath="//*[@*='CALENDAR.APPOINTMENT.VIEW_WORKORDER']")
 	private WebElement eleworkordernumontap;
 	public WebElement getEleworkordernumontap()
 	{

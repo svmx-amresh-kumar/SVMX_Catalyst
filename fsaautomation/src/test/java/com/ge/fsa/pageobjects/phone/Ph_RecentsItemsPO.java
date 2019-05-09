@@ -49,6 +49,12 @@ public class Ph_RecentsItemsPO
 		return eleClickRecentItems;
 	}
 	
+	@FindBy(xpath="//*[@*='RECENTS.VIEW']//*[@*='ItemCount=0']")
+	private WebElement eleEmptyRecentItems;
+	public WebElement getEleEmptyRecentItems() {
+		return eleEmptyRecentItems;
+	}
+	
 	public WebElement getEleWorkorder(String sValue)
 	{
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -71,6 +77,12 @@ public class Ph_RecentsItemsPO
 		Thread.sleep(500);
 		commonUtility.custScrollToElementAndClick(getEleWorkorder(sValue));
 
+	}
+	
+	@FindAll({@FindBy(xpath="//*[@*='Item0']/*")})
+	private WebElement eleworkorderrecentused;
+	public WebElement getEleWorkOrderRecentUsed() {
+		return eleworkorderrecentused;
 	}
 
 

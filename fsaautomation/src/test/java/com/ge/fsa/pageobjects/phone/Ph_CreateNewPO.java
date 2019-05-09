@@ -32,6 +32,12 @@ public class Ph_CreateNewPO {
 		return eleCreateNewWorkOrder;
 	}
 	
+	@FindBy(xpath="//*[@*='Create New Custom object']")
+	private WebElement eleCreateNewCustomObject;
+	public WebElement getEleCreateNewCustomObject() {
+		return eleCreateNewCustomObject;
+	}
+	
 	@FindBy(xpath="(//*[@*='Account Lookup'])[last()]")
 	private WebElement eleAccountField;
 	public WebElement getEleAccountFied() {
@@ -227,8 +233,9 @@ public class Ph_CreateNewPO {
 		return eleLocationName;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Status')]]/following-sibling::*/*"),
-		@FindBy(xpath="//*[@*[contains(.,'Status')]]//*[contains(@name,'SFM.LAYOUT.EDIT.PICKLIST')]")})
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Status')]]//*[contains(@name,'SFM.LAYOUT.EDIT.PICKLIST')]"),
+		@FindBy(xpath="//*[@*[contains(.,'Status')]]/following-sibling::*/*")
+		})
 	private WebElement eleStatus;
 	public WebElement getEleStatus() {
 		return eleStatus;

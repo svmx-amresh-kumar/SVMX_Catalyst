@@ -556,7 +556,7 @@ public class CommonUtility {
 					//switchContext(context);
 					if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 						//Setting wait for 1 sec only for this method reverting when exiting
-						driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 					}else {
 					//reverting wait to 10 seconds
 					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -580,7 +580,7 @@ public class CommonUtility {
 		//switchContext(context);
 		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Setting wait for 1 sec only for this method reverting when exiting
-			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else {
 		//reverting wait to 10 seconds
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -1897,7 +1897,7 @@ public class CommonUtility {
 			switchContext("native");
 			Map<String, Object> args = new HashMap<>();
 			args.put("command", "date");
-			returnDate=(driver.executeScript("mobile: shell", args).toString());
+			returnDate=(driver.executeScript("mobile: shell", args).toString().replace("  ", " "));
 			switchContext("webview");
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {

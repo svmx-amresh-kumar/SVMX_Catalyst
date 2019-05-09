@@ -25,6 +25,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -64,9 +65,11 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		Thread.sleep(genericLib.iMedSleep);
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Installed Products",
 				sIBName);
+		ExtentManager.logger.log(Status.INFO,"Navigated to Installed Products of number "+sIBName);
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname+" in Installed Products.");
 		String[] sContollingPicklist_WO_001 = { "--None--", "CP-011", "CP-012" };
 		System.out.println(sContollingPicklist_WO_001.length);
 		String[] sDependentPicklist_CP_001 = { "--None--", "DP-0111" };
@@ -74,27 +77,13 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		// ==========================================================================================================================================
 		// To click the Record Type button and choosing the values
-		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleRecordTypeID());
-		ph_WorkOrderPo.getEleDropDownValue("WO_001").click();
+		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleRecordTypeID(), "WO_001");
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleControllingPicklist());
 
 		// ==============================================================================================
 
 		String[] sExpectedValues = commonUtility.getAllPicklistValues(commonUtility,
 				sContollingPicklist_WO_001);
-		// for(int i=0;i<sContollingPicklist_WO_001.length;i++) {
-		// if(sExpectedValues[i].equals(sContollingPicklist_WO_001[i]))
-		// {
-		// ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "The
-		// Controlling Picklist Values match");
-		// }
-		// else
-		// {
-		// ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "The
-		// Controlling Picklist Values don't match");
-		// }
-		//
-		// }
 		if (Arrays.equals(sContollingPicklist_WO_001, sExpectedValues)) {
 			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The Controlling Picklist Values match");
 		} else {
@@ -113,15 +102,6 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		String[] sExpectedValues2 = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_001);
-//		for (int i = 0; i < sDependentPicklist_CP_001.length; i++) {
-//			if (sExpectedValues2[i].equals(sDependentPicklist_CP_001[i])) {
-//				ExtentManager.logger.log(Status.PASS,
-//						"Testcase " + sTestCaseID + "The Controlling Picklist Values match");
-//			} else {
-//				ExtentManager.logger.log(Status.FAIL,
-//						"Testcase " + sTestCaseID + "The Controlling Picklist Values don't match");
-//			}
-//		}
 		if (Arrays.equals(sDependentPicklist_CP_001, sExpectedValues2)) {
 			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The depending Picklist Values match");
 		} else {
@@ -132,6 +112,8 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		// To select the Dependent Picklist value
 		ph_WorkOrderPo.getEleDropDownValue("DP-0111").click();
 		ph_WorkOrderPo.getElesave().click();
+		ExtentManager.logger.log(Status.INFO, "Installed Product saved successfully.");
+
 		Thread.sleep(4000);
 		ph_MorePo.syncData(commonUtility);
 		// ==============================================================================================================
@@ -153,10 +135,9 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		String sProcessname2 = "RS_10547CustomPicklistUI";// Standard SFM Process
 		Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname2);
+		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname2+" in Installed Products.");
 		Thread.sleep(2000);
-		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleControllingPicklist());
-		Thread.sleep(2000);
-		ph_WorkOrderPo.getEleDropDownValue("CP-012").click();
+		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleControllingPicklist(), "CP-012");
 		// ======================================================================================================
 		// To verify the values at the Dependent Picklist
 		String[] sDependentPicklist_CP_012 = { "--None--", "DP-0112" };
@@ -164,15 +145,6 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		String[] sExpectedValues3 = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_012);
-//		for (int i1 = 0; i1 < sDependentPicklist_CP_012.length; i1++) {
-//			if (sExpectedValues3[i1].equals(sDependentPicklist_CP_012[i1])) {
-//				ExtentManager.logger.log(Status.PASS,
-//						"Testcase " + sTestCaseID + "The Dependent Picklist Values match");
-//			} else {
-//				ExtentManager.logger.log(Status.FAIL,
-//						"Testcase " + sTestCaseID + "The Dependent Picklist Values don't match");
-//			}
-//		}
 		if (Arrays.equals(sDependentPicklist_CP_012, sExpectedValues3)) {
 			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The depending Picklist Values match");
 		} else {
@@ -182,6 +154,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		ph_WorkOrderPo.getEleDropDownValue("DP-0112").click();
 
 		ph_WorkOrderPo.getElesave().click();
+		ExtentManager.logger.log(Status.INFO, "Installed Product saved successfully.");
 	}
 
 }

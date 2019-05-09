@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -133,8 +134,14 @@ public class Ph_ExploreSearchPO
 		System.out.println("Selecting From Lookup Search");
 		commonsUtility.custScrollToElementAndClick(wElement);
 		//commonsUtility.waitforElement(getEleExploreSearchTxtFld(), 4);
-		//getEleExploreSearchTxtFld().click();
-		getEleExploreSearchTxtFld().sendKeys(Record);
+		getEleExploreSearchTxtFld().click();
+		if(BaseLib.sOSName.equals("android")){
+			getEleExploreSearchTxtFld().sendKeys(Record);
+		}
+		else {
+			getEleExploreSearchTxtFld().sendKeys(Record+Keys.ENTER);
+		}
+		
 		Thread.sleep(1000);
 		getEleSearchListItem(Record).click();
 
@@ -159,13 +166,15 @@ public class Ph_ExploreSearchPO
 			
 			if (commonUtility.waitforElement(ph_WorkOrderPO.getEleBackButton(), 1)) {
 				ph_WorkOrderPO.getEleBackButton().click();
+				geteleExploreIcn().click();
+				Thread.sleep(3000);
 			}
-			geteleExploreIcn().click();
-			Thread.sleep(3000);
 			getEleSearchListItem(sExploreSearch).click();
 			selectFromLookupSearchList(commonUtility,getEleSearchChildListName(sExploreChildSearchTxt), sSearchListElementTxt);
 			Thread.sleep(5000);
-			ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);			
+			if(sFieldServiceName!=null) {
+				ph_WorkOrderPO.selectAction(commonUtility,sFieldServiceName);
+			}
 			
 		}
 		
@@ -210,7 +219,7 @@ public class Ph_ExploreSearchPO
 					return eleExploreChildSearchTxt;
 }
 				else {
-					eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(label(),'"+sExploreChildSearchTxt+"')]"));
+					eleExploreChildSearchTxt= driver.findElement(By.xpath("(//*[contains(@label,'"+sExploreChildSearchTxt+"')]/*[contains(@name,'Item')])[last()]"));
 					return eleExploreChildSearchTxt;}
 				
 			}
