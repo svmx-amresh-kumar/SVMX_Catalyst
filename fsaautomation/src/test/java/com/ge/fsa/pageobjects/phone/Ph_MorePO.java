@@ -28,12 +28,13 @@ import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 
 public class Ph_MorePO {
 	public Ph_MorePO(AppiumDriver driver) {
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	WebDriverWait wait = null;
