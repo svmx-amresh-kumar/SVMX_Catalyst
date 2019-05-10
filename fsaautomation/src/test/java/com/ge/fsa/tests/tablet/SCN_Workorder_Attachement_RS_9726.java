@@ -162,7 +162,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); }
 				   
-		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
+		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to Flase");
 				  
 		  //perform a config sync
 		  toolsPo.configSync(commonUtility);

@@ -147,9 +147,16 @@ public class Ph_WorkOrderPO {
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
 			throws InterruptedException {
 		System.out.println("Creating New Event");
+		int hrs=0;
+		try {
+			hrs=Integer.parseInt(commonUtility.gethrsfromdevicetime());
+		}
+		catch(Exception e) {
+			
+		}
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+2), "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -1271,5 +1278,29 @@ public class Ph_WorkOrderPO {
 		return autoTextBox;
 	}
 	
+	@FindBy(xpath="//*[@*[contains(.,'View Event')]]")
+	private WebElement eleViewEvent;
+	public WebElement getEleViewEvent() {
+		return eleViewEvent;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderTitle']")
+	private WebElement eleHeaderTitle;
+	public WebElement getEleHeaderTitle() {
+		return eleHeaderTitle;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderSubTitle']")
+	private WebElement eleHeaderSubTitle;
+	public WebElement getEleHeaderSubTitle() {
+		return eleHeaderSubTitle;
+	}
+	
+	public String verifyWorkOrder() {
+		String retText=getEleHeaderTitle().getText()+" ";
+		retText+=getEleHeaderSubTitle().getText();
+		System.out.println("retText:"+retText);
+		return retText;
+	}
 
 }

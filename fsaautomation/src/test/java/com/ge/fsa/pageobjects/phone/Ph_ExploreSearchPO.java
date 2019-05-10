@@ -219,7 +219,7 @@ public class Ph_ExploreSearchPO
 					return eleExploreChildSearchTxt;
 }
 				else {
-					eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(label(),'"+sExploreChildSearchTxt+"')]"));
+					eleExploreChildSearchTxt= driver.findElement(By.xpath("(//*[contains(@label,'"+sExploreChildSearchTxt+"')]/*[contains(@name,'Item')])[last()]"));
 					return eleExploreChildSearchTxt;}
 				
 			}
