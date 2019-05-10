@@ -21,6 +21,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -31,7 +32,7 @@ public class Ph_LoginHomePO
 	public Ph_LoginHomePO(AppiumDriver driver)
 	{
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	WebDriverWait wait = null;
 	AppiumDriver driver = null;

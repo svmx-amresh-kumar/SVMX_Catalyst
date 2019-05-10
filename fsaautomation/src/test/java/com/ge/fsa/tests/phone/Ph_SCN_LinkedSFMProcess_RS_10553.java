@@ -79,9 +79,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		//Thread.sleep(2000);
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
-		//Thread.sleep(2000);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
-		//Thread.sleep(3000);
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
 		//Thread.sleep(3000);

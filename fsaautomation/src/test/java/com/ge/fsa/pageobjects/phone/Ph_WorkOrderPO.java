@@ -18,11 +18,13 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class Ph_WorkOrderPO {
 	public Ph_WorkOrderPO(AppiumDriver driver) {
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	WebDriverWait wait = null;
@@ -59,7 +61,9 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']"),
-		@FindBy(xpath = "//*[@*='Start Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*[contains(.,'StartDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleStartDateTimeTxtFld;
 
 	public WebElement getEleStartDateTimeTxtFld() {
@@ -70,7 +74,10 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
-		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'EndDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleEndDateTimeTxtFld;
 
 	public WebElement getEleEndDateTimeTxtFld() {
@@ -142,9 +149,16 @@ public class Ph_WorkOrderPO {
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
 			throws InterruptedException {
 		System.out.println("Creating New Event");
+		int hrs=0;
+		try {
+			hrs=Integer.parseInt(commonUtility.gethrsfromdevicetime());
+		}
+		catch(Exception e) {
+			
+		}
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+2), "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -227,10 +241,8 @@ public class Ph_WorkOrderPO {
 		}
 
 	}
-
-	@FindAll({
-		@FindBy(xpath = "//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-		@FindBy(xpath = "(//*[@label='Part Lookup'])[last()]") })
+	
+	@FindBy(xpath = "(//*[@*='Part Lookup'])[last()]")
 	private WebElement elepartlookup;
 
 	public WebElement getElepartlookup() {
@@ -851,8 +863,7 @@ public class Ph_WorkOrderPO {
 		return eleLinePriceField;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[./*[@text='More']][@class='android.view.ViewGroup']"),
-		@FindBy(xpath = "//XCUIElementTypeOther[@name='More']") })
+	@FindBy(xpath = "(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM')]]//*)[last()]")//*[./*[@text='More']][@class='android.view.ViewGroup']
 	private WebElement eleMore;
 
 	public WebElement getEleMore() {
@@ -860,8 +871,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']"),
-		@FindBy(xpath = "//*[@*[contains(.,'Manage Work Details for Products')]]") })
+		@FindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']")})
 	private WebElement eleManageWorkDetails;
 
 	public WebElement getEleManageWorkDetails() {
@@ -1138,13 +1148,6 @@ public class Ph_WorkOrderPO {
 		return EleWODesMappedTxt;
 	}
 
-	@FindBy(xpath = "//*[@text='Save'][@class='android.widget.TextView']")
-	private WebElement eleSaveButton;
-
-	public WebElement geteleSaveButton() {
-		return eleSaveButton;
-	}
-
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Billable Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='Billable Qty']") })
@@ -1254,7 +1257,7 @@ public class Ph_WorkOrderPO {
 		return eleLinePriceConfirmationtxt;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
+	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[@*='OVERVIEW']") })
 	private WebElement eleOverViewTab;
 
 	public WebElement getEleOverViewTab() {
@@ -1330,5 +1333,49 @@ public class Ph_WorkOrderPO {
 		return autoTextBox;
 	}
 	
+	@FindBy(xpath="//*[@*[contains(.,'View Event')]]")
+	private WebElement eleViewEvent;
+	public WebElement getEleViewEvent() {
+		return eleViewEvent;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderTitle']")
+	private WebElement eleHeaderTitle;
+	public WebElement getEleHeaderTitle() {
+		return eleHeaderTitle;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderSubTitle']")
+	private WebElement eleHeaderSubTitle;
+	public WebElement getEleHeaderSubTitle() {
+		return eleHeaderSubTitle;
+	}
+	
+	public String verifyWorkOrder() {
+		String retText=getEleHeaderTitle().getText()+" ";
+		retText+=getEleHeaderSubTitle().getText();
+		System.out.println("retText:"+retText);
+		return retText;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]//*[@*='You must add at least one Labor to save.']")
+	private WebElement eleNoLaborError;
+	public WebElement getEleNoLaborError() {
+		return eleNoLaborError;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='2 ERROR(S)']")
+	private WebElement eleChildLine2IssuesFound;
+	public WebElement getEleChildLine2IssuesFound()
+	{
+		return eleChildLine2IssuesFound;
+	}
 
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='1 ERROR(S)']")
+	private WebElement eleChildLine1IssueFound;
+	public WebElement getEleChildLine1IssueFound()
+	{
+		return eleChildLine1IssueFound;
+	}
+	
 }
