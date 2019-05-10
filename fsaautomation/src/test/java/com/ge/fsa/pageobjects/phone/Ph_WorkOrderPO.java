@@ -387,6 +387,13 @@ public class Ph_WorkOrderPO {
 		return lblToLocation;
 	}
 	
+	@FindBy(xpath="//*[@*='Component']")
+	private WebElement lblComponent;
+	
+	public WebElement getLblComponent() {
+		return lblComponent;
+	}
+	
 	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement btnClose;
 	
@@ -403,7 +410,7 @@ public class Ph_WorkOrderPO {
 	
 	public List<WebElement> getContactLst(String sValue) {
 			return driver.findElements(By.xpath("//*[@*='"+sValue+"']"));
-	}
+	}	
 	
 	public WebElement getEle(String sValue) {
 		return driver.findElement(By.xpath("//*[@*='"+sValue+"']"));
@@ -443,6 +450,63 @@ public class Ph_WorkOrderPO {
 	public WebElement getTabParts() {
 		return tabParts;
 	}
+	
+	@FindBy(xpath="//*[@*='Product']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtProduct;
+	
+	public WebElement getTxtProduct() {
+		return txtProduct;
+	}
+	
+	@FindBy(xpath="//*[@*='Contact']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtContact;
+	
+	public WebElement getTxtContact() {
+		return txtContact;
+	}
+	
+	@FindBy(xpath="//*[@*='Country']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtCountry;
+	
+	public WebElement getTxtCountry() {
+		return txtCountry;
+	}
+	
+	@FindBy(xpath="//*[@*='Site']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtSite;
+	
+	public WebElement getTxtSite() {
+		return txtSite;
+	}
+	
+	@FindBy(xpath="//*[@*='Top-Level']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtTopLevel;
+	
+	public WebElement getTxtTopLevel() {
+		return txtTopLevel;
+	}
+	
+	@FindBy(xpath="//*[@*='City']/following::android.widget.EditText")
+	private WebElement txtCity;
+	
+	public WebElement getTxtCity() {
+		return txtCity;
+	}
+	
+	@FindBy(xpath="//*[@*='Zip']/following::android.widget.EditText")
+	private WebElement txtZip;
+	
+	public WebElement getTxtZip() {
+		return txtZip;
+	}
+	
+	@FindBy(xpath="//*[@*='Save']")
+	private WebElement btnSave;
+	
+	public WebElement getBtnSave() {
+		return btnSave;
+	}
+	
 	
 	
 	//-----------------------------
