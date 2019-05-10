@@ -30,7 +30,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
-public class Ph_SCN_Calender_6350 extends BaseLib {
+public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	int iWhileCnt = 0;
 	String sExploreSearch = null;

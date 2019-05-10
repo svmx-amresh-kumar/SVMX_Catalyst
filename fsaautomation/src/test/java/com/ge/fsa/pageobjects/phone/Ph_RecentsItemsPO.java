@@ -25,6 +25,7 @@ import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -34,7 +35,7 @@ public class Ph_RecentsItemsPO
 	public Ph_RecentsItemsPO(AppiumDriver driver)
 	{
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	WebDriverWait wait = null;
 	AppiumDriver driver = null;

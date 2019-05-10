@@ -18,6 +18,7 @@ import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 
 
@@ -26,7 +27,7 @@ public class Ph_ExploreSearchPO
 	public Ph_ExploreSearchPO(AppiumDriver driver)
 	{
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	WebDriverWait wait = null;
 	AppiumDriver driver = null;
@@ -219,7 +220,7 @@ public class Ph_ExploreSearchPO
 					return eleExploreChildSearchTxt;
 }
 				else {
-					eleExploreChildSearchTxt=driver.findElement(By.xpath("//*[contains(label(),'"+sExploreChildSearchTxt+"')]"));
+					eleExploreChildSearchTxt= driver.findElement(By.xpath("(//*[contains(@label,'"+sExploreChildSearchTxt+"')]/*[contains(@name,'Item')])[last()]"));
 					return eleExploreChildSearchTxt;}
 				
 			}

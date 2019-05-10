@@ -7,8 +7,7 @@
 	</listeners>
 <test name="CustomActions">
 		<classes>
-		<class name="com.ge.fsa.tests.phone.Ph_SCN_CustomAction_1_RS_10559" />
-		 	<class name="com.ge.fsa.tests.phone.Ph_SCN_CustomAction_2_RS_10558" />
+
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

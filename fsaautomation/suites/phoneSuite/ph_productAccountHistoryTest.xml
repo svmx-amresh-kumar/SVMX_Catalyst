@@ -7,7 +7,7 @@
 	</listeners>
 <test name="ProductAccountHistory">
 		<classes>		
-			<class name="com.ge.fsa.tests.phone.Ph_SCN_Acc_pro_history_RS_10566" />
+
 		</classes>
 	</test> <!-- Test -->
 	

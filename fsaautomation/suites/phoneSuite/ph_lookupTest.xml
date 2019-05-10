@@ -7,7 +7,6 @@
 	</listeners>
 <test name="Lookup">
 		<classes>
-			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527_b" />
 	<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_1_RS_10527" />
 			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_2_RS_10528" />
 			<class name="com.ge.fsa.tests.phone.Ph_SCN_Lookups_3_RS_10529" />

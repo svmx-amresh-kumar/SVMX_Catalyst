@@ -53,6 +53,8 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchNameTxt("SVMXSTD: Timesheet Manager").isDisplayed(), "SVMXSTD: Timesheet Manager is not displayed");
 		ExtentManager.logger.log(Status.PASS,"SVMXSTD: Timesheet Manager text is successfully displayed");
 		
+		
+		commonUtility.swipeGeneric("up");
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchNameTxt("SVMXSTD:Search Trunk Stock").isDisplayed(), "SVMXSTD:Search Trunk Stock is not displayed");
 		ExtentManager.logger.log(Status.PASS,"SVMXSTD:Search Trunk Stock text is successfully displayed");
 		
@@ -65,7 +67,7 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Serial Number Search text is successfully displayed");
 	
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();;
-		
+		commonUtility.waitforElement(ph_ExploreSearchPo.getEleExploreChildSearchTxt("Work Orders"), 4);
 		//Validation of childSearch
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleExploreChildSearchTxt("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed");
