@@ -274,7 +274,8 @@ public class BaseLib {
 				capabilities.setCapability("resetKeyboard", true);
 				capabilities.setCapability("autoAcceptAlerts", true);
 
-				driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			//	driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+				driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 				Thread.sleep(2000);
 			} catch (Exception e) {
@@ -407,7 +408,7 @@ public class BaseLib {
 		}else if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			ExtentManager.getInstance(driver);
 			//Setting wait for 1 sec only for this method reverting when exiting
-			driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else {
 			ExtentManager.getInstance(driver);
 		//reverting wait to 10 seconds

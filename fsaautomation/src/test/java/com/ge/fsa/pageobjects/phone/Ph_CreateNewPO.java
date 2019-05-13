@@ -10,13 +10,14 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class Ph_CreateNewPO {
 	
 	public Ph_CreateNewPO(AppiumDriver driver)
 	{
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	AppiumDriver driver = null;
 	
@@ -30,6 +31,12 @@ public class Ph_CreateNewPO {
 	private WebElement eleCreateNewWorkOrder;
 	public WebElement getEleCreateNewWorkOrder() {
 		return eleCreateNewWorkOrder;
+	}
+	
+	@FindBy(xpath="//*[@*='Create New Custom object']")
+	private WebElement eleCreateNewCustomObject;
+	public WebElement getEleCreateNewCustomObject() {
+		return eleCreateNewCustomObject;
 	}
 	
 	@FindBy(xpath="(//*[@*='Account Lookup'])[last()]")
@@ -227,8 +234,9 @@ public class Ph_CreateNewPO {
 		return eleLocationName;
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Status')]]/following-sibling::*/*"),
-		@FindBy(xpath="//*[@*[contains(.,'Status')]]//*[contains(@name,'SFM.LAYOUT.EDIT.PICKLIST')]")})
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Status')]]//*[contains(@name,'SFM.LAYOUT.EDIT.PICKLIST')]"),
+		@FindBy(xpath="//*[@*[contains(.,'Status')]]/following-sibling::*/*")
+		})
 	private WebElement eleStatus;
 	public WebElement getEleStatus() {
 		return eleStatus;

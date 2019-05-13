@@ -115,11 +115,16 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(3000);
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		Thread.sleep(3000);
-		commonUtility.swipeLeft(ph_WorkOrderPo.geteleRemoveablePart());
-		ph_WorkOrderPo.geteleRemove().click();
-		Thread.sleep(2000);
-		ph_WorkOrderPo.geteleRemovePopUp().click();
-		Thread.sleep(GenericLib.iMedSleep);
+		
+		
+		commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
+		ph_WorkOrderPo.geteleRemoveablePart().click();
+		commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
+		ph_WorkOrderPo.geteleDelete().click();
+		commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
+		ph_WorkOrderPo.geteleDelete().click();;
+		ph_WorkOrderPo.getEleBackButton().click();
+		ph_WorkOrderPo.getEleOverViewTab().click();
 		
 		//Set the order status
 		

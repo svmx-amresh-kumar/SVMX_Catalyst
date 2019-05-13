@@ -18,11 +18,14 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class Ph_WorkOrderPO {
 	public Ph_WorkOrderPO(AppiumDriver driver) {
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	WebDriverWait wait = null;
@@ -59,7 +62,9 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
 		// @FindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.1']"),
-		@FindBy(xpath = "//*[@*='Start Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*[contains(.,'StartDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'Start Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleStartDateTimeTxtFld;
 
 	public WebElement getEleStartDateTimeTxtFld() {
@@ -70,7 +75,10 @@ public class Ph_WorkOrderPO {
 		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.3']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@name='SFM.LAYOUT.EDIT.DATEPICKER.2']"),
-		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText") })
+		@FindBy(xpath = "//*[@*='End Date and Time']/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date and Time')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'EndDateTime')]]/following-sibling::*/XCUIElementTypeStaticText"),
+		@FindBy(xpath = "//*[@*[contains(.,'End Date Time')]]/following-sibling::*/XCUIElementTypeStaticText")})
 	private WebElement eleEndDateTimeTxtFld;
 
 	public WebElement getEleEndDateTimeTxtFld() {
@@ -142,9 +150,16 @@ public class Ph_WorkOrderPO {
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
 			throws InterruptedException {
 		System.out.println("Creating New Event");
+		int hrs=0;
+		try {
+			hrs=Integer.parseInt(commonUtility.gethrsfromdevicetime());
+		}
+		catch(Exception e) {
+			
+		}
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, "16", "0");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, "18", "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+2), "0");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -227,10 +242,8 @@ public class Ph_WorkOrderPO {
 		}
 
 	}
-
-	@FindAll({
-		@FindBy(xpath = "//*[contains(@text,'Part')]//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-		@FindBy(xpath = "(//*[@label='Part Lookup'])[last()]") })
+	
+	@FindBy(xpath = "(//*[@*='Part Lookup'])[last()]")
 	private WebElement elepartlookup;
 
 	public WebElement getElepartlookup() {
@@ -298,8 +311,7 @@ public class Ph_WorkOrderPO {
 					By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
 			eleDvrText = driver.findElement(
-					By.xpath("//*[@*[contains(.,'SFM.VALIDATION.LIST.ROW')]]//*[@*[contains(.,'" + sIssueTxt + "')]]"));
-		}
+					By.xpath("//*[@*[contains(.,'" + sIssueTxt + "')]]"));		}
 
 		return eleDvrText;
 	}
@@ -331,8 +343,7 @@ public class Ph_WorkOrderPO {
 					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
 			eleIssuePopupTxt = driver.findElement(By.xpath(
-					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'" + sIssueTxt + "')]]"));
-		}
+					"//*[@*[contains(.,'//*[@*[contains(.,'" + sIssueTxt + "')]]"));		}
 
 		return eleIssuePopupTxt;
 	}
@@ -375,6 +386,27 @@ public class Ph_WorkOrderPO {
 		return lblAccount;
 	}
 	
+	@FindBy(xpath="//*[@*='Site']")
+	private WebElement lblSite;
+	
+	public WebElement getLblSite() {
+		return lblSite;
+	}
+	
+	@FindBy(xpath="//*[@*='To Location']")
+	private WebElement lblToLocation;
+	
+	public WebElement getLblToLocation() {
+		return lblToLocation;
+	}
+	
+	@FindBy(xpath="//*[@*='Component']")
+	private WebElement lblComponent;
+	
+	public WebElement getLblComponent() {
+		return lblComponent;
+	}
+	
 	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
 	private WebElement btnClose;
 	
@@ -391,7 +423,11 @@ public class Ph_WorkOrderPO {
 	
 	public List<WebElement> getContactLst(String sValue) {
 			return driver.findElements(By.xpath("//*[@*='"+sValue+"']"));
-	}
+	}	
+	
+	public WebElement getEle(String sValue) {
+		return driver.findElement(By.xpath("//*[@*='"+sValue+"']"));
+}
 	
 	@FindBy(xpath="(//*[@*='SFM.LAYOUT.LOOKUP.LIST']//android.widget.TextView)[2]")
 	private WebElement lblResults;
@@ -413,6 +449,77 @@ public class Ph_WorkOrderPO {
 	public WebElement getCountryPicklst() {
 		return countryPicklst;
 	}
+	
+	@FindBy(xpath="//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+	private WebElement requestedCountryPicklst;
+	
+	public WebElement getRequestedCountryPicklst() {
+		return requestedCountryPicklst;
+	}
+	
+	@FindBy(xpath="//*[@text='PARTS']")
+	private WebElement tabParts;
+	
+	public WebElement getTabParts() {
+		return tabParts;
+	}
+	
+	@FindBy(xpath="//*[@*='Product']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtProduct;
+	
+	public WebElement getTxtProduct() {
+		return txtProduct;
+	}
+	
+	@FindBy(xpath="//*[@*='Contact']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtContact;
+	
+	public WebElement getTxtContact() {
+		return txtContact;
+	}
+	
+	@FindBy(xpath="//*[@*='Country']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtCountry;
+	
+	public WebElement getTxtCountry() {
+		return txtCountry;
+	}
+	
+	@FindBy(xpath="//*[@*='Site']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtSite;
+	
+	public WebElement getTxtSite() {
+		return txtSite;
+	}
+	
+	@FindBy(xpath="//*[@*='Top-Level']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	private WebElement txtTopLevel;
+	
+	public WebElement getTxtTopLevel() {
+		return txtTopLevel;
+	}
+	
+	@FindBy(xpath="//*[@*='City']/following::android.widget.EditText")
+	private WebElement txtCity;
+	
+	public WebElement getTxtCity() {
+		return txtCity;
+	}
+	
+	@FindBy(xpath="//*[@*='Zip']/following::android.widget.EditText")
+	private WebElement txtZip;
+	
+	public WebElement getTxtZip() {
+		return txtZip;
+	}
+	
+	@FindBy(xpath="//*[@*='Save']")
+	private WebElement btnSave;
+	
+	public WebElement getBtnSave() {
+		return btnSave;
+	}
+	
 	
 	
 	//-----------------------------
@@ -511,8 +618,8 @@ public class Ph_WorkOrderPO {
 
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther") ,
-	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component Lookup']/../XCUIElementTypeOther") })
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther") })
+
 	private WebElement eleComponent;
 
 	public WebElement getEleComponent() {
@@ -623,7 +730,7 @@ public class Ph_WorkOrderPO {
 
 		// Adding Value for Account
 		commonUtility.custScrollToElement(getAccountstar());
-		 getAccountstar().click();
+		// getAccountstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
 		Thread.sleep(1000);
@@ -728,7 +835,7 @@ private WebElement eleSite;
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
+		@FindBy(xpath = "(//*[@*[contains(.,'Expense Type')]])[last()]/following-sibling::*[1]"),
 		@FindBy(xpath = "//*[@*='Expense Type']/following-sibling::*") })
 	private WebElement eleExpenseTypeField;
 
@@ -759,8 +866,7 @@ private WebElement eleSite;
 		return eleLinePriceField;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[./*[@text='More']][@class='android.view.ViewGroup']"),
-		@FindBy(xpath = "//XCUIElementTypeOther[@name='More']") })
+	@FindBy(xpath = "(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM')]]//*)[last()]")//*[./*[@text='More']][@class='android.view.ViewGroup']
 	private WebElement eleMore;
 
 	public WebElement getEleMore() {
@@ -768,8 +874,7 @@ private WebElement eleSite;
 	}
 
 	@FindAll({
-		@FindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']"),
-		@FindBy(xpath = "//*[@*[contains(.,'Manage Work Details for Products')]]") })
+		@FindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']")})
 	private WebElement eleManageWorkDetails;
 
 	public WebElement getEleManageWorkDetails() {
@@ -860,7 +965,7 @@ private WebElement eleSite;
 		getEleAddSelectedButton().click();
 
 	}
-////
+
 	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup")
 	private WebElement eleOntoppart;
 
@@ -874,7 +979,7 @@ private WebElement eleSite;
 	public WebElement getEleOntoplabor() {
 		return eleOntoplabor;
 	}
-///////
+
 	@FindBy(xpath = "//*[@text='DiscardChanges']")
 	private WebElement eleDiscardChanges;
 
@@ -976,7 +1081,12 @@ private WebElement eleSite;
 		System.out.println("Select From Picklist");
 		commonUtility.custScrollToElementAndClick(eleToSetValue);
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))")).click();;
+			try {
+				driver.findElement(By.xpath("//*[@text='" + sValue + "']")).click();
+			}
+			catch(Exception e) {
+				driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))")).click();
+			}
 		} else {
 			driver.findElement(By.xpath("//*[@label='" + sValue + "']")).click();
 		}
@@ -1076,6 +1186,7 @@ private WebElement eleSite;
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath = "//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath= "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),	
 		@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description*']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description']") })
 	private WebElement eleProblemDescriptiontxt;
@@ -1111,7 +1222,7 @@ private WebElement eleSite;
 	}
 
 	@FindAll({ @FindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='OFF']"),
-		@FindBy(xpath = "//*") })
+		@FindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]") })
 	private WebElement eleEntitlementPerformed;
 
 	public WebElement geteleEntitlementPerformed() {
@@ -1157,7 +1268,7 @@ private WebElement eleSite;
 		return eleLinePriceConfirmationtxt;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[*='OVERVIEW']") })
+	@FindAll({ @FindBy(xpath = "//*[@text='OVERVIEW']"), @FindBy(xpath = "//*[@*='OVERVIEW']") })
 	private WebElement eleOverViewTab;
 
 	public WebElement getEleOverViewTab() {
@@ -1227,6 +1338,49 @@ private WebElement eleSite;
 		return eleAccountnotNUll;
 	}
 	
+	@FindAll({@FindBy(xpath="//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]")})
+	private WebElement autoTextBox;
+	public WebElement getAutoTextBox(){
+		return autoTextBox;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'View Event')]]")
+	private WebElement eleViewEvent;
+	public WebElement getEleViewEvent() {
+		return eleViewEvent;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderTitle']")
+	private WebElement eleHeaderTitle;
+	public WebElement getEleHeaderTitle() {
+		return eleHeaderTitle;
+	}
+	
+	@FindBy(xpath="//*[@*='multiLineHeaderSubTitle']")
+	private WebElement eleHeaderSubTitle;
+	public WebElement getEleHeaderSubTitle() {
+		return eleHeaderSubTitle;
+	}
+	
+	public String verifyWorkOrder() {
+		String retText=getEleHeaderTitle().getText()+" ";
+		retText+=getEleHeaderSubTitle().getText();
+		System.out.println("retText:"+retText);
+		return retText;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]//*[@*='You must add at least one Labor to save.']")
+	private WebElement eleNoLaborError;
+	public WebElement getEleNoLaborError() {
+		return eleNoLaborError;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='2 ERROR(S)']")
+	private WebElement eleChildLine2IssuesFound;
+	public WebElement getEleChildLine2IssuesFound()
+	{
+		return eleChildLine2IssuesFound;
+	}
 
 
 	
@@ -1237,6 +1391,22 @@ private WebElement eleSite;
 			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+value+"']"));
 		}
 	}
+	@FindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='1 ERROR(S)']")
+	private WebElement eleChildLine1IssueFound;
+	public WebElement getEleChildLine1IssueFound()
+	{
+		return eleChildLine1IssueFound;
+	}
 	
+	
+	
+	@AndroidFindBy(xpath ="//*[@text='Delete']")
+	@iOSFindBy(xpath ="//*[@label='Delete']")
+	private WebElement eleDelete;
+	public WebElement geteleDelete()
+	{
+		return eleDelete;
+	}
 
+	
 }

@@ -12,6 +12,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 
 public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 
@@ -79,14 +80,14 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 		Thread.sleep(2000);
 		
 		
-		
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(),"Contract");
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		if(workOrderPo.getEleChildLine2IssuesFound().isDisplayed())
+		if(ph_WorkOrderPo.getEleChildLine2IssuesFound().isDisplayed())
 		{
 		
-			commonUtility.tap(workOrderPo.getEleChildLine2IssuesFound());
+			//commonUtility.tap(workOrderPo.getEleChildLine2IssuesFound());
 			// Adding Labor - An Error must be thrown
-			assertEquals(workOrderPo.getEleNoLaborEntry().isDisplayed(), true);
+			assertEquals(ph_WorkOrderPo.getEleNoLaborError().isDisplayed(), true);
 			// Adding Parts - Warning message must be thrown
 			assertEquals(workOrderPo.getEleNoPartsEntry().isDisplayed(), true);
 			// To verify if the Parts error is just a warning , Click on the Checkbox
@@ -96,28 +97,28 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 			commonUtility.tap(workOrderPo.getElePartsIssueCheckbox(),20,20);
 			// Tap anywhere on the UI 
 			commonUtility.tap(workOrderPo.getEleNoPartsEntry());
-			commonUtility.tap(workOrderPo.getEleClickSave());
+			ph_WorkOrderPo.getEleSaveLnk().click();
 			// Now only 1 Issue must be shown on the UI
 			Thread.sleep(2000);
 			try {
-				workOrderPo.getEleChildLine1IssueFound().isDisplayed();
+				ph_WorkOrderPo.getEleChildLine1IssueFound().isDisplayed();
 			}
 			
 			catch(Exception e) {
-				
-				//ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI");
 				ExtentManager.logger.log(Status.FAIL,"Only 1 Issue Found must be on the UI",MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 
 			}
 			
-
-			commonUtility.tap(workOrderPo.getEleChildLine1IssueFound());
-			commonUtility.tap(workOrderPo.getEleNoLaborEntry());
-		
-			workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
-			commonUtility.tap(workOrderPo.getEleClickSave());
-			ExtentManager.logger.log(Status.PASS,"After Adding Labor No issues were Found");
-
+			ph_WorkOrderPo.addLabor(commonUtility, sProcessname);
+			ph_WorkOrderPo.getEleSaveLnk().click();
+			try {
+				ph_WorkOrderPo.getEleChildLine1IssueFound().isDisplayed();
+				ExtentManager.logger.log(Status.FAIL,"1 Issue Found must be on the UI",MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+			}
+			
+			catch(Exception e) {
+				ExtentManager.logger.log(Status.PASS,"After Adding Labor No issues were Found");
+			}
 		}
 		else
 		{

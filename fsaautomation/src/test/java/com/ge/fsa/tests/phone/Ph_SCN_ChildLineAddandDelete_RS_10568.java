@@ -1,5 +1,7 @@
 package com.ge.fsa.tests.phone;
 
+import java.util.Arrays;
+
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -59,6 +61,9 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		Thread.sleep(genericLib.iMedSleep);
 		// Creating the Work Order - To create the Childlines
 		ph_CreateNewPo.createWorkOrder(commonUtility, sAccountName, sContactName, sProductName, "Medium", "Loan", sProformainVoice);
+		ExtentManager.logger.log(Status.INFO, "Work order created successfully with details as Account Name:"+sAccountName+", Contact Name:"+
+				sContactName+", Product Name:"+sProductName+" Priority Type:Medium, Billing Type:Loan, Proforma Invoice: "+sProformainVoice);
+			
 		Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
 		// Collecting the Work Order number from the Server.
@@ -70,21 +75,27 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		Thread.sleep(10000);
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname);
 		Thread.sleep(4000);
 		// Single Adding the Labor by clicking on the +Add button
 		//workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
+		ExtentManager.logger.log(Status.INFO, "Added labor with product name:"+sProductName);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
+		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname);
 		Thread.sleep(4000);
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName2);
+		ExtentManager.logger.log(Status.INFO, "Added labor with product name:"+sProductName2);
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
 		ph_WorkOrderPo.getEleChildLineItem(sProductName).click();
 		Thread.sleep(2000);
 		commonUtility.clickPopup(ph_WorkOrderPo.getEleRemoveButton(), ph_WorkOrderPo.getEleRemoveButton());
+		ExtentManager.logger.log(Status.INFO, "Removed labor with product name:"+sProductName);
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
 		ph_WorkOrderPo.addParts(commonUtility, sProductNamesArray);
+		ExtentManager.logger.log(Status.INFO, "Added parts with product name:"+Arrays.toString(sProductNamesArray));
 		Thread.sleep(2000);
 		// Adding the Expenses to the Work Order
 		//workOrderPo.addExpense(commonUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
@@ -95,6 +106,7 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		Thread.sleep(2000);
 		// Saving all the Childlines of the Work Order
 		ph_WorkOrderPo.getElesave().click();
+		ExtentManager.logger.log(Status.INFO, "Added Expenses with Expense Type:"+sExpenseType+", Line Quantity:"+sLineQty+", Line Proce Per Unit:"+slinepriceperunit);
 		Thread.sleep(2000);
 		// Syncing this Data into the Server for the Work Order
 		ph_MorePo.syncData(commonUtility);
