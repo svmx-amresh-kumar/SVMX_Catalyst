@@ -19,6 +19,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class Ph_WorkOrderPO {
@@ -1176,6 +1177,7 @@ public class Ph_WorkOrderPO {
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath = "//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@FindBy(xpath= "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),	
 		@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description*']"),
 		@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description']") })
 	private WebElement eleProblemDescriptiontxt;
@@ -1377,5 +1379,16 @@ public class Ph_WorkOrderPO {
 	{
 		return eleChildLine1IssueFound;
 	}
+	
+	
+	
+	@AndroidFindBy(xpath ="//*[@text='Delete']")
+	@iOSFindBy(xpath ="//*[@label='Delete']")
+	private WebElement eleDelete;
+	public WebElement geteleDelete()
+	{
+		return eleDelete;
+	}
+
 	
 }
