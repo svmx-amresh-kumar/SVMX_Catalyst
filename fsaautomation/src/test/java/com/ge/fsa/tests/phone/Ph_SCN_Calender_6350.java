@@ -1,5 +1,5 @@
 /*
-*@author vinaya
+ *@author vinaya
  *  The link to the JIRA for the Scenario = "https://servicemax.atlassian.net/browse/RS-10554"
  */
 package com.ge.fsa.tests.phone;
@@ -65,16 +65,16 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 
 		String sTestCaseID = "Calender_6350";
 
-		// commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		// commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "Event_" + sRandomNumber;
 		// sahi
 
-		/*	genericLib.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
+		genericLib.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");*/
-		
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+
 		// read from file
 		/*sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
@@ -82,15 +82,15 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 
 		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
-*/
-		/*	// Pre Login to app
+		 */
+		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
+			ph_MorePo.configSync(commonUtility,ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		// Create SVMX event from Create New Option
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -98,12 +98,10 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarEventSubject().click();
 		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
 
-		
+
 		String hrs = commonUtility.gethrsfromdevicetime();//get the device time hrs 
 		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
-		int hr=Integer.parseInt(hrs)+3;	
-		hrs=String.valueOf(hr);//add one hr to device time
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, hrs, "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.valueOf(Integer.parseInt(hrs)+3), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -136,33 +134,33 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		String sWOJson = "{\"SVMXC__EndDateTime__c\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSVMX_1);
 
-		
+
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
 		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
 		System.out.println(sEventenddatetimeserver);
-		
+
 		String enddatetimefromserver = calendarPO.convertedformate(sEventenddatetimeserver);
 		System.out.println("end data"+enddatetimefromserver);
-		
-		
+
+
 	ph_MorePo.syncData(commonUtility);
 	Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
-		
-	
-		
+
+
+
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		Thread.sleep(2000);
-		
-		
+
+
 		String getappointmentdate = ph_CalendarPo.getEleeventdate().getAttribute("text");
 		System.out.println("get dates:"+getappointmentdate);
 
 		String enddatefromcal = calendarPO.convertedformate(getappointmentdate,"E, MMM dd, yyyy","M/d/yyyy");
 		System.out.println("date1:"+enddatefromcal);
-		
-		
+
+
 		String[] getappointmenttime= ph_CalendarPo.getEleeventtime().getAttribute("text").split("- ");
 		System.out.println("get end  time:"+getappointmenttime[1]);
 		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
@@ -170,20 +168,20 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
 		ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful");
 		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
-		
+
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\"}";
 		sObjectApi = "SVMXC__Service_Order__c?";
-		
+
 		String sObjectWOID = restServices.restCreate(sObjectApi,sJsonData);
 		String sSqlWOQuery1 = "SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectWOID+"\'";				
 		String WOname = restServices.restGetSoqlValue(sSqlWOQuery1,"Name"); 
-		
-		
-		
+
+
+
 		 sWOJson = "{\"SVMXC__Service_Order__c\":\""+sObjectWOID+"\",\"SVMXC__WhatId__c\":\""+sObjectWOID+"\"}";
 		restServices.restUpdaterecord("SVMXC__SVMX_Event__c", sWOJson, sEventIdSVMX_1);
 		ph_MorePo.syncData(commonUtility);
-		
+
 		Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
@@ -194,15 +192,15 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		Assert.assertTrue(ph_WorkOrderPo.getEleActionsLnk().isDisplayed());
 		ExtentManager.logger.log(Status.PASS," Attach a WO to event verification is sucessful");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		//setting to SFDC event
 		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
-		
+
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
-		
-		
+
+
 		//create SFDC event from calender
 		String SFDC_Event = "SFDC"+sEventSubject;
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -210,16 +208,17 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarEventSubject().click();
 		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(SFDC_Event);
 
-		
+
 		 String hrs1 = commonUtility.gethrsfromdevicetime();//get the device time hrs 
 		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs1, "00");
-		 int hr1 = Integer.parseInt(hrs1)+3;	
-		hrs1=String.valueOf(hr1);//add one hr to device time
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, hrs1, "00");
+		//add one hr to device time
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.valueOf(Integer.parseInt(hrs1)+3), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
 		ph_MorePo.syncData(commonUtility);
+
+		Thread.sleep(10000);
 
 		sObjectApi = "Event";
 		sSqlEventQuery = "SELECT+id+from+Event+Where+Subject+='" + SFDC_Event + "'";
@@ -228,47 +227,47 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 		Assert.assertNotNull(sEventIdSFDC, "Record not found");
 		ExtentManager.logger.log(Status.PASS, "Create SFDC event from Create New Option is Successful");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		// On server/DC, edit one of the events created SFDC
-		
 
-		 sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		 now1 = Calendar.getInstance();
+		// On server/DC, edit one of the events created SFDC
+
+
+		  sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		  now1 = Calendar.getInstance();
 		now1.set(Calendar.HOUR, 6);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
-		 endtimezero = sdf.format(now1.getTime());
+		  endtimezero = sdf.format(now1.getTime());
 		// now1.set(Calendar.HOUR_OF_DAY, 12);
 		System.out.println(endtimezero);
 
-		 sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
+		  sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSFDC);
 
-		
+
 		sObjectApi = "Event";
 		sSqlEventQuery ="SELECT+EndDateTime+from+Event+Where+id+=\'"+sEventIdSFDC+"\'";				
 		String sEventenddatetimeserverSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"EndDateTime"); 
 		System.out.println(sEventenddatetimeserverSFDC);
-		
+
 		String enddatetimefromserverSFDC = calendarPO.convertedformate(sEventenddatetimeserverSFDC);
 		System.out.println("end data"+enddatetimefromserverSFDC);
-		
-		
+
+
 	ph_MorePo.syncData(commonUtility);
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
 	Thread.sleep(2000);
 	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
 	Thread.sleep(2000);
-	
-	
+
+
 	String getappointmentdateSFDC = ph_CalendarPo.getEleeventdate().getAttribute("text");
 	System.out.println("get time:"+getappointmentdateSFDC);
 
 	String enddatefromcalSFDC = calendarPO.convertedformate(getappointmentdateSFDC,"E, MMM dd, yyyy","M/d/yyyy");
 	System.out.println("get date:"+enddatefromcalSFDC);
-	
-	
+
+
 	String[] getappointmenttimeSFDC= ph_CalendarPo.getEleeventtime().getAttribute("text").split("- ");
 	System.out.println("get end  time:"+getappointmenttimeSFDC[1]);
 	String datetimefromclientSFDC=enddatefromcalSFDC+" "+getappointmenttimeSFDC[1];
@@ -277,75 +276,159 @@ public class Ph_SCN_Calender_6350 extends BaseLib {
 	ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the SFDC events and validated in client is successful");
 	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
-	
+
+
 	sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\"}";
 	sObjectApi = "SVMXC__Service_Order__c?";
-	
+
 	String sObjectWOID1 = restServices.restCreate(sObjectApi,sJsonData);
 	String sSqlWOQuery2 = "SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectWOID1+"\'";				
 	String WOname1 = restServices.restGetSoqlValue(sSqlWOQuery2,"Name"); 
-	
-	
-	
+
+
+
 	 sWOJson = "{\"WhatId\":\""+sObjectWOID1+"\"}";
 	restServices.restUpdaterecord("Event", sWOJson, sEventIdSFDC);
 	ph_MorePo.syncData(commonUtility);
-	
+
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
 	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
-	 WOfromcalender = ph_CalendarPo.getEleworkordernumonCalendar(WOname1).getAttribute("text");
+	  WOfromcalender = ph_CalendarPo.getEleworkordernumonCalendar(WOname1).getAttribute("text");
 	System.out.println(WOfromcalender);
 	ph_CalendarPo.getEleworkordernumonCalendar(WOname1).click();
 	Thread.sleep(5000);
 	Assert.assertTrue(ph_WorkOrderPo.getEleActionsLnk().isDisplayed());
 	ExtentManager.logger.log(Status.PASS," Attach a WO to SFDC event verification is sucessful");
-	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
-	///////////////////////////////////////////////////////////////////////////////////////////////////
-		*/
-	//Verify Day view,Verify Month view,Verify Agenda view ,Verify map view
-		 ph_CalendarPo.geteleyearandmonth().click();
-		 Thread.sleep(2000);
-		 
-		
-		 
+		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		Thread.sleep(3000);
+		//Verifying Dots
+		ph_CalendarPo.geteleyearandmonth().click();
+		Thread.sleep(2000);
+
 		Assert.assertTrue(ph_CalendarPo.getlecurrentdatedot().isDisplayed());//current day
+
 		
-		String day = commonUtility.adddaystocurrentday(1);
-		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
+		int i=1;
+		int noOfDays=6;
+		int sPassCount =0;
+		int sFailCount=0;
+		for(i= 1;i<=noOfDays-3;i=i+2) {
+			int sDayBack = -i;
+			//Backward
+			String day = commonUtility.adddaystocurrentday(sDayBack);
+			if(commonUtility.waitforElement(ph_CalendarPo.getElegetdot(day), 1)) {
+				System.out.println("Found the  back date for "+day);
+				sPassCount++;
+			}
+			
+		
+				
+		else {
+				if(day.equalsIgnoreCase("31") || day.equalsIgnoreCase("30") || day.equalsIgnoreCase("29")|| day.equalsIgnoreCase("28")) {
+					
+				System.out.println("Did not Find in current month the date for back date "+day);
+
+				//Swipe once back ward and check
+				Point coordinates= ph_CalendarPo.getlecurrentdatedot().getLocation();
+				System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
+				Dimension dim=driver.manage().window().getSize();
+				System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+				new TouchAction(driver).press(new PointOption().withCoordinates(coordinates.getX(),coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(new PointOption().withCoordinates(dim.getWidth()-20, coordinates.getY())).release().perform();
+				}
+				if(commonUtility.waitforElement(ph_CalendarPo.getElegetdot(day), 1)) {
+					System.out.println("Found the  Back date after swiping for "+day);
+
+					sPassCount++;}
+				
+				
+				}
+				
+
+			}
+
+			
+		
+		System.out.println(sPassCount);
+		if(sPassCount==2) {
+			ExtentManager.logger.log(Status.PASS,"Pass Past Dates Found ");	
+		}
+		else {
+			ExtentManager.logger.log(Status.FAIL,"Failed Past Dates Not Found");	
+			}
+		sPassCount=0;
+		
+		for(i= 1;i<=noOfDays-3;i++) {
+				int sDayFront = i;
+				//Forward
+				String day = commonUtility.adddaystocurrentday(sDayFront);
+
+				if(commonUtility.waitforElement(ph_CalendarPo.getElegetdot(day), 1)) {
+					
+					System.out.println("Found the  future date for "+day);
+					sPassCount++;
+				}else {
+					
+					if(day.equalsIgnoreCase("1")|| day.equalsIgnoreCase("2") || day.equalsIgnoreCase("3") ||day.equalsIgnoreCase("4") ) {
+
+					//Swipe once forward and check if date is 1 in any case swipe if its 1
+						Point coordinates= ph_CalendarPo.getGetDates(day).getLocation();
+						System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
+						Dimension dim=driver.manage().window().getSize();
+						System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
+						new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-5,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+									.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
+					}
+					
+					if(commonUtility.waitforElement(ph_CalendarPo.getElegetdot(day), 1)) {
+						System.out.println("Found the  future date after swiping for "+day);
+						sPassCount++;
+					}
+				}
+			}
+
+		if(sPassCount==3) {
+			ExtentManager.logger.log(Status.PASS,"Passed Future Dates Found ");	
+					
+		}
+		else {
+			ExtentManager.logger.log(Status.FAIL,"Failed Future Dates Not Found dates");			
+
+		}
+		
+		sPassCount=0;
+			//9th Day it should not be downloaded
+			String day = commonUtility.adddaystocurrentday(9);
+			if(commonUtility.waitforElement(ph_CalendarPo.getElegetdot(day), 1)) {
+				System.out.println("***Failed Dot Found day were it must not be "+day);		
+
+			}else {
+				System.out.println("***Passed Dot Not Found day were it must not be "+day);		
+
+			}
+			System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////");		
+			//Verify Day view,Verify Agenda view
+
+			
+			ph_CalendarPo.getEleselectview().click();
+			ph_CalendarPo.getEleAgendaView().click();
+			Thread.sleep(3000);
+			commonUtility.swipeUp();
+			commonUtility.custScrollToElement(ph_CalendarPo.getEletopelement());
+			
+		int Eventcount=	ph_CalendarPo.getEleAgendaViewcomponent().size();
+	if(Eventcount==4)
+	{
+		ExtentManager.logger.log(Status.PASS,"PASS Verified agenda view for the current day ");	
+	}else {
+		ExtentManager.logger.log(Status.FAIL,"FAIL Verified agenda view for the current day");
+	}
 	
-		 day = commonUtility.adddaystocurrentday(2);
-		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
+			
 	
-		day = commonUtility.adddaystocurrentday(3);
-		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
-		
-		
-		Point coordinates= ph_CalendarPo.getlecurrentdatedot().getLocation();
-		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
-		Dimension dim=driver.manage().window().getSize();
-		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
-		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()-20,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
-					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
-	 
-		Thread.sleep(5000);
-	 
-		day = commonUtility.adddaystocurrentday(9);
-		//Assert.assertFalse(ph_CalendarPo.getElegetdot(day).isDisplayed());
-		
-		
-		 coordinates= ph_CalendarPo.getelegetday(day).getLocation();
-		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
-		 dim=driver.manage().window().getSize();
-		System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
-		new TouchAction(driver).press(new PointOption().withCoordinates(dim.getWidth()+50,coordinates.getY())).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
-					.moveTo(new PointOption().withCoordinates(coordinates.getX(), coordinates.getY())).release().perform();
-	 
-		day = commonUtility.adddaystocurrentday(-1);
-		Assert.assertTrue(ph_CalendarPo.getElegetdot(day).isDisplayed());
-		
 	
 	}
 
-}
+	}

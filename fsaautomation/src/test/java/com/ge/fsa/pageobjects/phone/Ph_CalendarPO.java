@@ -131,10 +131,11 @@ public class Ph_CalendarPO
 			eleworkordernumonCalendar=driver.findElement(By.xpath("//*[@text='"+Subject+"']"));
 			return eleworkordernumonCalendar;
 		}else {
-			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='"+Subject+"'])[6]"));
+			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"CALENDAR.APPOINTMENT."+Subject+"\"])[1]"));
 			return eleworkordernumonCalendar;
 		}
-
+				
+		
 
 
 	}
@@ -172,6 +173,9 @@ public class Ph_CalendarPO
 	{
 
 		Thread.sleep(3000);
+		
+		
+		System.out.println("scroll");
 		try {
 			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
 			if(getEleworkordernumonCalendar(Subject) != null){
@@ -195,7 +199,8 @@ public class Ph_CalendarPO
 
 
 	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-		@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")})
+		@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name='Start Date Time*']/../XCUIElementTypeOther")})
 	private WebElement eleStartDateTimecal;
 	public WebElement geteleStartDateTimecal()
 	{
@@ -203,7 +208,8 @@ public class Ph_CalendarPO
 	}	
 
 	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-		@FindBy(xpath="//*[@text='End Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']")})
+		@FindBy(xpath="//*[@text='End Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+	@FindBy(xpath="//XCUIElementTypeStaticText[@name='End Date Time*']/../XCUIElementTypeOther")})
 	private WebElement eleEndDateTimecal;
 	public WebElement geteleEndDateTimecal()
 	{
@@ -264,16 +270,44 @@ public class Ph_CalendarPO
 	private WebElement elegetdot;
 	public WebElement getElegetdot(String hour)
 	{
+		try {
 		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.view.ViewGroup"));
-		return elegetdot;
-	}	
+		}catch(Exception e) {
+			return null;
+		}
+			return elegetdot;
+		}
+		
+
+	private WebElement eleGetDate;
+	public WebElement getGetDate(String sDate)
+	{
+		try {
+		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=CALENDAR.DATE_NUMBER"+sDate+"]/android.widget.TextView"));
+		}catch(Exception e) {
+			return null;
+		}
+			return eleGetDate;
+		}
 	
+	
+	private WebElement eleGetDates;
+	public WebElement getGetDates(String sDate)
+	{//eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=CALENDAR.DATE_NUMBER"+sDate+"]/android.widget.TextView"));
+		eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER13\"]/android.widget.TextView"));
+
+	return eleGetDates;
+		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER13"]/android.view.ViewGroup/android.widget.TextView
+		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER13"]/android.widget.TextView
+
+	
+		}
 	
 	private WebElement elegetday;
 	public WebElement getelegetday(String hour)
 	{//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER26"]/android.widget.TextView
 
-		elegetday = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.widget.TextView"));
+		elegetday = driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"CALENDAR.MONTH_SCROLLER\"]"));
 		return elegetday;
 	}
 
@@ -298,14 +332,53 @@ public class Ph_CalendarPO
 	}
 
 	
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.CARET_DOWN\"]/android.widget.TextView")
+	@FindBy(xpath="//*[@*='CALENDAR.CARET_DOWN']")
 	private WebElement eleyearandmonth;
 	public WebElement geteleyearandmonth()
 	{
 		return eleyearandmonth;
 	}	
+	//*[@*='TAB_BAR.CALENDAR_TAB']
 	
 	
+	@FindBy(xpath="//*[@*='CALENDAR.SELECT_VIEW']")
+	private WebElement eleselectview;
+	public WebElement getEleselectview()
+	{
+		return eleselectview;
+	}
+	
+	
+	@FindBy(xpath="//*[@text='Agenda View']")
+	private WebElement eleAgendaView;
+	public WebElement getEleAgendaView()
+	{
+		return eleAgendaView;
+	}
+	
+
+	
+	
+	
+	private List<WebElement> eleAgendaViewcomponent;
+	public List<WebElement> getEleAgendaViewcomponent(){
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.COMPONENT.AGENDA_VIEW')]]//*[@*='android.view.ViewGroup']//*[@*='android.view.ViewGroup'][2]//*[@*='android.widget.TextView'][1]"));
+			//*[@*='android.view.ViewGroup']//*[@*='android.view.ViewGroup'][2]//*[@*='android.widget.TextView'][1]
+		}
+		else {
+			return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]"));
+		}
+	}
+	
+
+	@FindBy(xpath="//android.widget.ScrollView[@content-desc=\"CALENDAR.COMPONENT.AGENDA_VIEW\"]/android.view.ViewGroup/android.widget.TextView[1]")
+	private WebElement eletopelement;
+	public WebElement getEletopelement()
+	{
+		return eletopelement;
+	}
+
 }
 
 

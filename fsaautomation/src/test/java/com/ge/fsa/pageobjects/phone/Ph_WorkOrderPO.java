@@ -511,8 +511,8 @@ public class Ph_WorkOrderPO {
 
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Component']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther") })
-
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component']/../XCUIElementTypeOther") ,
+	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Component Lookup']/../XCUIElementTypeOther") })
 	private WebElement eleComponent;
 
 	public WebElement getEleComponent() {
@@ -623,16 +623,18 @@ public class Ph_WorkOrderPO {
 
 		// Adding Value for Account
 		commonUtility.custScrollToElement(getAccountstar());
-		// getAccountstar().click();
+		 getAccountstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
 		Thread.sleep(1000);
 
 		getEleAdd().click();
 	}
-
-	@FindBy(xpath = "//*[@text='Site']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	private WebElement eleSite;
+@FindAll({
+	@FindBy(xpath = "//*[@text='Site']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Site Lookup']/../XCUIElementTypeOther")})
+	
+private WebElement eleSite;
 
 	public WebElement getEleSite() {
 		return eleSite;
@@ -858,7 +860,7 @@ public class Ph_WorkOrderPO {
 		getEleAddSelectedButton().click();
 
 	}
-
+////
 	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"SFM.LAYOUT.CHIILDLINE_LIST.ALLCHILDLINES\"]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.view.ViewGroup")
 	private WebElement eleOntoppart;
 
@@ -872,7 +874,7 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleOntoplabor() {
 		return eleOntoplabor;
 	}
-
+///////
 	@FindBy(xpath = "//*[@text='DiscardChanges']")
 	private WebElement eleDiscardChanges;
 
@@ -1226,6 +1228,15 @@ public class Ph_WorkOrderPO {
 	}
 	
 
+
+	
+	public WebElement getEletapon(String value) {
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@text='"+value+"']"));
+		} else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='"+value+"']"));
+		}
+	}
 	
 
 }

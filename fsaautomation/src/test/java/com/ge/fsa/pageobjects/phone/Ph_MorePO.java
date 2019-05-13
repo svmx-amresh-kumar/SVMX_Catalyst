@@ -29,6 +29,13 @@ import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSBy;
+import io.appium.java_client.pagefactory.iOSFindAll;
+import io.appium.java_client.pagefactory.iOSFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -38,14 +45,21 @@ public class Ph_MorePO
 	public Ph_MorePO(AppiumDriver driver)
 	{
 		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		//PageFactory.initElements(driver, this);
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	WebDriverWait wait = null;
 	AppiumDriver driver = null;
 	TouchAction touchAction = null;
 	Iterator<String> iterator =null;
 	
-
+	@AndroidFindAll({
+		@AndroidBy(xpath="//*[@*='TAB_BAR.']"),
+		@AndroidBy(xpath="//*[@*='TAB_BAR.MORE_TAB']"),
+	})
+	@iOSFindAll({
+		@iOSBy(xpath="//*[@*='TAB_BAR.']"),	@iOSBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
+	})
 	@FindBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
 	private WebElement eleMoreBtn;
 	public WebElement getEleMoreBtn()

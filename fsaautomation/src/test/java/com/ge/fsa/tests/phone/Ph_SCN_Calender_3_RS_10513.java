@@ -58,24 +58,24 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 
 		String sTestCaseID = "RS_10513_Calender_3";
 
-		 //commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		// commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "EventName" + sRandomNumber;
 		// sahi
 
 		
+	/*
 		
-		/*
-		 * genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		 * if(commonUtility.verifySahiExecution()) {
-		 * 
-		 * System.out.println("PASSED"); } else { System.out.println("FAILED");
-		 * 
-		 * 
-		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		 * "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
-		 * System.out.println("RS-10513");
+		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
+		  if(commonUtility.verifySahiExecution()) {
+		  
+		  System.out.println("PASSED"); } else { System.out.println("FAILED");
+		  
+		  
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
+		  System.out.println("RS-10513");
 		 */
 		 
 
@@ -88,16 +88,16 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
 
 		// Pre Login to app
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		Thread.sleep(GenericLib.iMedSleep);
-
+		//ph_MorePo.syncData(commonUtility);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	/*	// verify WO event is present or not
+		// verify WO event is present or not
 		ph_CalendarPo.getEleCalendarBtn().click();
 
 		Thread.sleep(3000);
-
+		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event2");
 
@@ -118,7 +118,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.syncData(commonUtility);
-
+		Thread.sleep(10000);
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" + sEventSubject + "'";
 		sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
@@ -148,133 +148,68 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 
 		ph_MorePo.syncData(commonUtility);
 
-		*/
+		
+		
+		
+		sObjectApi = "SVMXC__SVMX_Event__c";
+		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
+		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
+		System.out.println(sEventenddatetimeserver);
+
+		String enddatetimefromserver = calendarPO.convertedformate(sEventenddatetimeserver);
+		System.out.println("end data"+enddatetimefromserver);
+		
+		
 		
 
 		ph_CalendarPo.getEleCalendarBtn().click();
-
+		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
 		ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1").click();
 		Thread.sleep(5000);
+		
 		
 		String getappointmentdate = ph_CalendarPo.getEleAppointmentdate().getAttribute("text");
 		System.out.println("get dates:"+getappointmentdate);
 
-		String getappointmenttime= ph_CalendarPo.getEleAppointmenttime().getAttribute("text");
-		System.out.println("get time:"+getappointmenttime);
-		//commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "05", "00");
-		
-		Date currentDate=commonUtility.convertStringToDate("EE MMM, dd, yyyy", getappointmentdate);
-		System.out.println("current date:"+currentDate);
-		
-		
-		/*
-		 * String EndDateTimecal=calendarPO.geteleEndDateTime().getAttribute("value");
-		 * System.out.println(EndDateTimecal);
-		 * 
-		 * Assert.assertEquals(stempDate,EndDateTimecal,
-		 * "End Date time value mapped is not displayed");
-		 * commonsUtility.tap(workOrderPo.getEleCancelLink());
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"On server/DC, edit one of the events and validated in client is successful"
-		 * ); System.out.println(
-		 * "//////////////////////////////////////////////////////////////////////////////////////////////"
-		 * );
-		 * 
-		 * /////////////////////////////////////////////////////////////////////////////
-		 * /////////////////////////////////////////
-		 * 
-		 * // On client, edit one of the events created
-		 * commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		 * calendarPO.geteleWOendpoint("09:00").getLocation(); Thread.sleep(3000); try {
-		 * commonsUtility.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-		 * Thread.sleep(3000);} catch (Exception e) {
-		 * commonsUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1))
-		 * ; } Thread.sleep(3000);
-		 * 
-		 * System.out.println("tap on pencil icon");
-		 * commonsUtility.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
-		 * 
-		 * //commonsUtility.tap(calendarPO.geteleEndDateTime());
-		 * commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
-		 * if(BaseLib.sOSName=="ios") { commonsUtility.switchContext("Native");
-		 * commonsUtility.getEleDonePickerWheelBtn().click();
-		 * commonsUtility.switchContext("Webview"); }
-		 * 
-		 * String
-		 * EndDateTimevalidate=calendarPO.geteleEndDateTime().getAttribute("value");
-		 * System.out.println(EndDateTimevalidate);
-		 * 
-		 * Thread.sleep(3000); commonsUtility.switchContext("WebView");
-		 * commonsUtility.tap(workOrderPo.getEleSaveLnk(),20,20);
-		 * commonsUtility.tap(workOrderPo.getEleYesBtn(),20,20);
-		 * 
-		 * toolsPo.syncData(commonsUtility);
-		 * 
-		 * 
-		 * sObjectApi = "SVMXC__SVMX_Event__c"; sSqlEventQuery
-		 * ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+
-		 * sEventIdSVMX_1+"\'"; String sEventenddatetimeserver
-		 * =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c");
-		 * System.out.println(sEventenddatetimeserver);
-		 * 
-		 * stempDate=calendarPO.convertedformate(sEventenddatetimeserver);
-		 * 
-		 * Assert.assertEquals(stempDate,EndDateTimevalidate,
-		 * "End Date time is mismatch"); ExtentManager.logger.log(Status.
-		 * PASS," On client, edit one of the event is successful"); System.out.println(
-		 * "//////////////////////////////////////////////////////////////////////////////////////////////"
-		 * );
-		 * /////////////////////////////////////////////////////////////////////////////
-		 * ////////////////////// //On client, create an SVMX event longer than 14 days.
-		 * 
-		 * commonsUtility.tap(calendarPO.getEleCalendarClick()); Thread.sleep(3000);
-		 * commonsUtility.tap(calendarPO.geteleNewClick());
-		 * 
-		 * calendarPO.getelesubjectcal().sendKeys("Event for 14 days");
-		 * commonsUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10",
-		 * "00"); //set start time to Today
-		 * commonsUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(),
-		 * 16,"10","00"); //get the values to start and end date to validate String
-		 * startDateTimevalidate=calendarPO.geteleStartDateTimesvmx().getAttribute(
-		 * "value"); System.out.println(startDateTimevalidate);
-		 * 
-		 * EndDateTimevalidate=calendarPO.geteleEndDateTimesvmx().getAttribute("value");
-		 * System.out.println(EndDateTimevalidate);
-		 * 
-		 * commonsUtility.tap(workOrderPo.getEleClickSave());
-		 * 
-		 * toolsPo.syncData(commonsUtility);
-		 * 
-		 * sObjectApi = "SVMXC__SVMX_Event__c"; sSqlEventQuery
-		 * ="SELECT+id,SVMXC__StartDateTime__c,SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+name+=\'Event for 14 days\'"
-		 * ; sEventIdSVMX14 = restServices.restGetSoqlValue(sSqlEventQuery,"Id");
-		 * System.out.println("created event id from server:"+sEventIdSVMX14);
-		 * 
-		 * String sEventstartdateSVMX
-		 * =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__StartDateTime__c");
-		 * System.out.println("created event id from server:"+sEventstartdateSVMX);
-		 * 
-		 * String sEventenddateSVMX
-		 * =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c");
-		 * System.out.println("created event id from server:"+sEventenddateSVMX);
-		 * 
-		 * String startdatefromserver=calendarPO.convertedformate(sEventstartdateSVMX);
-		 * 
-		 * String enddatefromserver=calendarPO.convertedformate(sEventenddateSVMX);
-		 * 
-		 * Assert.assertEquals(startdatefromserver,startDateTimevalidate,
-		 * "Start Date time is mismatch");
-		 * Assert.assertEquals(enddatefromserver,EndDateTimevalidate,
-		 * "End Date time is mismatch");
-		 * 
-		 * 
-		 * 
-		 */
-		ExtentManager.logger.log(Status.PASS, " On client, create an SVMX event longer than 14 days is successful");
-		System.out.println(
-				"//////////////////////////////////////////////////////////////////////////////////////////////");
+		String enddatefromcal = calendarPO.convertedformate(getappointmentdate,"E, MMM dd, yyyy","M/d/yyyy");
+		System.out.println("date1:"+enddatefromcal);
 
-		// Server create 14 days event
+
+		String[] getappointmenttime= ph_CalendarPo.getEleAppointmenttime().getAttribute("text").split("- ");
+		System.out.println("get end  time:"+getappointmenttime[1]);
+		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
+		System.out.println("datetimefromclient"+datetimefromclient);
+		Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
+		
+		 
+		  ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful"); System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////" );
+		  
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//On client, edit one of the events 
+		  
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  
+		  //On client, create an SVMX event longer than 14 days
+		String sEventSubject14days = "Eventformorethen14daysevent";
+		  ph_CalendarPo.getEleCalendarBtn().click();
+			ph_CalendarPo.getEleCreateNewEvent().click();
+			ph_CalendarPo.getEleCalendarEventSubject().click();
+			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject14days);
+
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "05", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 16, "07", "00");
+			ph_WorkOrderPo.getEleAdd().click();
+			Thread.sleep(3000);
+			ph_MorePo.syncData(commonUtility);
+
+			sObjectApi = "SVMXC__SVMX_Event__c";
+			sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" + sEventSubject14days + "'";
+			sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
+			System.out.println("created event id from server:" + sEventIdSVMX);
+			Assert.assertNotNull(sEventIdSVMX, "Record not found");
+			ExtentManager.logger.log(Status.PASS, "Create SVMX event from from client more than 14 days successful");
+	
+	
 	}
 
 }

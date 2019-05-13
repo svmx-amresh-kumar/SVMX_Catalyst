@@ -101,10 +101,10 @@ public void workBenchAnd() throws Exception
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
 		
-
 		
+		ph_MorePo.getEleMoreBtn().click();
 		
-		
+		Thread.sleep(5000);
 		
 		
 		/*

@@ -85,7 +85,7 @@ String Location=null;
 				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
 				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
 	
-		
+	
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sProformainVoice+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
@@ -117,7 +117,7 @@ String Location=null;
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPo);
-		//ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,"AUTO11042019131130account", "AUTO11042019131130product",sInstalledproductID,ph_ExploreSearchPo);
+		//ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,"AUTO09052019164420account", "AUTO09052019164420product",sInstalledproductID,ph_ExploreSearchPo);
 
 			
 			Thread.sleep(5000);
@@ -128,9 +128,9 @@ String Location=null;
 			
 			//fill the values to to fields
 			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
-			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"00", "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0"); //set start time to Today
 
-			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getAttribute("text");
+			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getText();//change
 		
 		  //Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
 		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleSite(), Location);
@@ -138,11 +138,11 @@ String Location=null;
 		  //ph_WorkOrderPo.getEleComponent().click();
 		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleComponent(), sproductname); Thread.sleep(2000);
 		 
-			
+		Thread.sleep(15000);
 			//add new line for parts
-	////	 // commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
-			Thread.sleep(4000);
-			String LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+		  commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
+			Thread.sleep(3000);
+			String LocationWO = ph_WorkOrderPo.getEleToLocation().getText();
 			System.out.println(LocationWO);
 			Assert.assertNotNull(LocationWO);
 			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful  ");}catch(AssertionError e) {System.out.println(e);
@@ -150,8 +150,9 @@ String Location=null;
 			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
-/////			//commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk(),ph_WorkOrderPo.getStringLabor());
-			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleLaborLnk(),ph_WorkOrderPo.getStringLabor());
+			Thread.sleep(3000);
+			String startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
 			
@@ -162,19 +163,22 @@ String Location=null;
 			
 			//validating mapped values before save
 			//Part
-			ph_WorkOrderPo.getEleOntoppart().click();
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getStringParts());
+			ph_WorkOrderPo.getEletapon(Location).click();
 			Thread.sleep(2000);
-			  LocationWO = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+			  LocationWO = ph_WorkOrderPo.getEleToLocation().getText();
 			 System.out.println(LocationWO);
 			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed before save ");}
 			ph_WorkOrderPo.geteleXsymbol().click();
-			 
+			
 			 //Labor
-			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
-			ph_WorkOrderPo.getEleOntoplabor().click();
+			
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getStringLabor());
+			//commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
+			ph_WorkOrderPo.getEletapon(startdatetimeWO).click();
 			Thread.sleep(2000);
-			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
+			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
 			 System.out.println(startdatetimeWO);
 			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed before save ");}
@@ -233,21 +237,22 @@ String Location=null;
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );	
 			Thread.sleep(GenericLib.iMedSleep);
 		
-			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+			commonUtility.gotToTabHorizontal("PARTS");
 			Thread.sleep(GenericLib.iLowSleep);
+			
+			ph_WorkOrderPo.geteleRemoveablePart().click();
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleToLocation());
-			String fetchedlocation = ph_WorkOrderPo.getEleToLocation().getAttribute("text");
+			String fetchedlocation = ph_WorkOrderPo.getEleToLocation().getText();
 		System.out.println(fetchedlocation);
 			try{Assert.assertTrue(Location.equals(fetchedlocation));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful after data sync ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed after data sync ");}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			 
 			 //Labor
-			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
-			ph_WorkOrderPo.getEleOntoplabor().click();
-			Thread.sleep(2000);
+			commonUtility.gotToTabHorizontal("LABOR");
+			ph_WorkOrderPo.geteleRemoveablePart().click();
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleStartDateTimeTxtFld());
-			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getAttribute("text");
+			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
 			 System.out.println(startdatetimeWO);
 			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime mapped Successful after data sync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed after data sync ");}
@@ -263,12 +268,12 @@ String Location=null;
 		
 	
 	}
-
-//	
-//	  @AfterClass(enabled = true) public void deletedata() throws Exception {
-//	  //Deleting data created
-//	  restServices.restDeleterecord("Account",sObjectAccID);
-//	  restServices.restDeleterecord("Product2",sObjectProID);
-//	  restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
-//	 
+/*
+	
+	  @AfterClass(enabled = true) public void deletedata() throws Exception {
+	  //Deleting data created
+	  restServices.restDeleterecord("Account",sObjectAccID);
+	  restServices.restDeleterecord("Product2",sObjectProID);
+	  restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
+	*/ 
 }

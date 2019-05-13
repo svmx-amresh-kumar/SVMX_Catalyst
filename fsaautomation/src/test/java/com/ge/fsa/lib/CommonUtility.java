@@ -346,8 +346,8 @@ public class CommonUtility {
 
 	public void swipeUp() {
 		touchAction = new TouchAction(driver);
-		touchAction.longPress(new PointOption().withCoordinates(150, 900))
-		.moveTo(new PointOption().withCoordinates(150, 70)).release();
+		touchAction.longPress(new PointOption().withCoordinates(132, 674))
+		.moveTo(new PointOption().withCoordinates(162, 1385)).release();
 	}
 
 	public void swipeLeft(WebElement wElement) {
@@ -2346,8 +2346,9 @@ public class CommonUtility {
 	public String gethrsfromdevicetime() throws ParseException {
 
 		String[] time =getDeviceDate().split(" ");
-		System.out.println("############"+time[3]);
-		String hrs=time[3].substring(0,2);
+		System.out.println("############"+time[4]);
+		String hrs=time[4].substring(0,2);
+		//String hrs=time[3];
 		System.out.println("hours"+hrs);
 		return hrs;
 	}
@@ -2362,23 +2363,152 @@ public class CommonUtility {
 		}
 	}
 	
+	/**
+	 * Function to return the offset day as string
+	 * @param value
+	 * @return
+	 * @throws ParseException
+	 */
 	public String adddaystocurrentday(int value) throws ParseException {
 
 
 		String[] date = getDeviceDate().split(" ");
 		Calendar cal=Calendar.getInstance();
-		cal.set(Calendar.DATE,Integer.parseInt(date[2].trim()));
-		cal.set(Calendar.YEAR, Integer.parseInt(date[5].trim()));
+		//System.out.println(date[3]);
+		cal.set(Calendar.DATE,Integer.parseInt(date[3].trim()));
+		cal.set(Calendar.YEAR, Integer.parseInt(date[6].trim()));
 		Date date1=new SimpleDateFormat("MMM").parse(date[1].trim());
 		cal.set(Calendar.MONTH,date1.getMonth());
 		cal.add(Calendar.DATE, value);
-		System.out.println(cal.get(Calendar.DATE));
+		System.out.println("Offset to current date is = "+cal.get(Calendar.DATE));
 		String date2=String.valueOf(cal.get(Calendar.DATE));
-		
+
 		return date2;
 	
 	
 	
 	
 	}
+
+
+	public void custScrollcalender(WebElement androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
+		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
+
+		switch(BaseLib.sOSName.toLowerCase()) {
+		case "android":
+			Thread.sleep(300);
+			WebElement wElement = null;
+			System.out.println("Android scrolling");
+			if(isXpathOrNot== true) {
+				try {
+					Thread.sleep(300);
+					wElement = androidTextInElementOrXpath;
+					if(waitforElement(wElement,1)) {
+						System.out.println("Element found after scrolling");
+						return;
+					}
+				}catch(Exception e1){}
+
+				//Try to scroll
+				int i;
+				for (i = 0; i <3; i++) {
+					swipeGeneric("up");
+					try {
+						Thread.sleep(300);
+						wElement = androidTextInElementOrXpath;
+						if(waitforElement(wElement,1)) {
+							point = wElement.getLocation();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found after UP scrolling");
+							return;
+							//break;
+						}
+					}catch(Exception e2){};
+					System.out.println("Element not found after UP scrolling");
+				}
+
+				
+				for (i = 0; i <3; i++) {
+					swipeGeneric("down");
+					try {
+						Thread.sleep(300);
+						wElement = androidTextInElementOrXpath;
+						if(waitforElement(wElement,1)) {
+							point = wElement.getLocation();
+							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+							System.out.println("Element found after DOWN scrolling");
+							return;
+							//break;
+						}
+					}catch(Exception e2){};
+					System.out.println("Element not found after DOWN scrolling");
+				}
+			}else {
+				System.out.println("Element not found after DOWN and UP scrolling");
+			}
+			break;
+		case "ios":
+			//String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
+			try {
+				Thread.sleep(300);
+				wElement = androidTextInElementOrXpath;
+				if(waitforElement(wElement,3)) {
+					System.out.println("Element found after scrolling");
+					return;
+				}
+			}catch(Exception e1){}
+
+			//Try to scroll and click element
+			int i;
+			for (i = 0; i < 3; i++) {
+				swipeGeneric("up");
+				try {
+					Thread.sleep(300);
+					wElement = androidTextInElementOrXpath;
+					if(waitforElement(wElement,1)) {
+						point = wElement.getLocation();
+						wElement.click();
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						System.out.println("Element found after up scrolling");
+						return;
+						//break;
+					}
+
+				}catch(Exception e2){};
+				System.out.println("Element not found after scrolling");
+			}
+		
+			for (i = 0; i < 3; i++) {
+				swipeGeneric("down");
+				try {
+					Thread.sleep(300);
+					wElement = androidTextInElementOrXpath;
+					if(waitforElement(wElement,1)) {
+						point = wElement.getLocation();
+						wElement.click();
+						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+						System.out.println("Element found after down scrolling");
+						return;
+						//break;
+					}
+
+				}catch(Exception e2){};
+				System.out.println("Element not found after scrolling");
+			}
+		
+		
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }

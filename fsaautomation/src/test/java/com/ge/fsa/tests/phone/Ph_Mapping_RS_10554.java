@@ -110,7 +110,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		//converting to GMT to PST
 			    SimpleDateFormat parser1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate1 = parser1.parse(sIBLastModifiedBy);
-		        SimpleDateFormat formatter1 = new SimpleDateFormat("M/d/y H:mm aa");
+		        SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/y HH:mm");
 		        String stempDate =  formatter1.format(dTempDate1);
 		        System.out.println("formatter1.format value   "+stempDate);
 		        dTempDate1 = formatter1.parse(stempDate);
@@ -137,7 +137,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
 			//config sync
-			//toolsPo.configSync(commonsUtility);
+
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -175,7 +175,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedScheduledDate =ph_WorkOrderPo.getEleScheduledDate().getText();
 			System.out.println(fetchedScheduledDate);
-			try{assertEquals(fetchedScheduledDate,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful before save");}catch(AssertionError e) {System.out.println(e);
+			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful before save");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed before save ");}
 			
 			String fetchedScheduledDatetime =ph_WorkOrderPo.getEleScheduledDateTime().getText();
@@ -184,7 +184,10 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
-			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+				
+			commonUtility.gotToTabHorizontal("PARTS");
+			Thread.sleep(10000);
+			ph_WorkOrderPo.getEletapon(sproductname).click();
 			Thread.sleep(3000);
 			
 			String fetchedpart =ph_WorkOrderPo.getPart().getText();
@@ -194,7 +197,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			String fetcheddaterequired =ph_WorkOrderPo.getleDateRequired().getText();
 			System.out.println(fetcheddaterequired);
-			try{assertEquals(fetcheddaterequired,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
+			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed before save ");}
 			
 			
@@ -240,7 +243,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 			 SimpleDateFormat parser2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			  Date  dTempDate2 = parser2.parse(sScheduledDatetime);
-		        SimpleDateFormat formatter2 = new SimpleDateFormat("M/d/y H:mm aa");
+		        SimpleDateFormat formatter2 = new SimpleDateFormat("d/M/y HH:mm");
 		        String stempDate1 =  formatter2.format(dTempDate2);
 		        System.out.println("formatter1.format value   "+stempDate1);
 		        dTempDate1 = formatter2.parse(stempDate1);
@@ -277,7 +280,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );	
 ////////////////////////////////////////////////////////////////////////////////////////////////
 			//ph_WorkOrderPo.getEleselectprocess("EDIT_WORKORDER_MAPPING").click();
-			
+		
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAccount());
 			 fetchedaccount = ph_WorkOrderPo.getEleAccount().getText();
 			System.out.println(fetchedaccount);
@@ -300,10 +303,10 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDate());
 			  fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText();
 			System.out.println(fetchedScheduledDate);
-			try{assertEquals(fetchedScheduledDate,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
+			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed after datasync");}
 			
-			ph_CalendarPo.getEleSelectProcessNewProcess("Scheduled Date Time");
+			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDateTime());
 			  fetchedScheduledDatetime = ph_WorkOrderPo.getEleScheduledDateTime().getText();
 			System.out.println(fetchedScheduledDatetime);
 		
@@ -312,7 +315,9 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful After data sync");
 			
 			
-			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEletabonpart());
+			commonUtility.gotToTabHorizontal("PARTS");
+			
+			ph_WorkOrderPo.getEletapon(sproductname).click();
 			//Thread.sleep(GenericLib.iHighSleep);
 			
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getPart());
@@ -324,7 +329,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getleDateRequired());
 			  fetcheddaterequired = ph_WorkOrderPo.getleDateRequired().getText();
 			System.out.println(fetcheddaterequired);
-			try{assertEquals(fetcheddaterequired,"8/29/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
+			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed after datasync");}
 			
 			ph_WorkOrderPo.geteleXsymbol().click();
@@ -332,7 +337,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			
 			ExtentManager.logger.log(Status.PASS,"Installed product to workorder field mapping is successfull(Lookup,date,datetime fields are covered for both header and child)");
-			
+		
 	
 	}
 
