@@ -580,7 +580,7 @@ public class CommonUtility {
 		//switchContext(context);
 		if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Setting wait for 1 sec only for this method reverting when exiting
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else {
 		//reverting wait to 10 seconds
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -2346,8 +2346,8 @@ public class CommonUtility {
 	public String gethrsfromdevicetime() throws ParseException {
 
 		String[] time =getDeviceDate().split(" ");
-		System.out.println("############"+time[4]);
-		String hrs=time[4].substring(0,2);
+		System.out.println("############"+time[3]);
+		String hrs=time[3].substring(0,2);
 		//String hrs=time[3];
 		System.out.println("hours"+hrs);
 		return hrs;
