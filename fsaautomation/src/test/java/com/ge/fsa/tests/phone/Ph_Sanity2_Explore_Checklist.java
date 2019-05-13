@@ -264,6 +264,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		// Navigating to Checklist
 		
+		commonUtility.waitforElement(ph_CalendarPo.getEleCalendarBtn(), 3);
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sWOName, sProcessname);
