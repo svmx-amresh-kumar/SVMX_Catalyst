@@ -113,7 +113,7 @@ public class Ph_CreateNewPO {
 		
 	}
 	
-	@FindBy(xpath="//*[@*='SFM_LAYOUT.LOOKUP.SEARCH_BAR']")
+	@FindBy(xpath="//*[@*[contains(.,'SEARCH_BAR')]]")
 	private WebElement elelookupsearch;
 	public WebElement getElelookupsearch()
 	{
