@@ -12,9 +12,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.DeviceRotation;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -24,10 +27,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.pageobjects.browser.Br_CalendarPO;
+import com.ge.fsa.pageobjects.browser.Br_HomePagePO;
 import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
+import com.ge.fsa.pageobjects.browser.Br_LoginPagePO;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 import com.ge.fsa.pageobjects.phone.Ph_CreateNewPO;
@@ -57,7 +64,28 @@ public class BaseLib {
 
 	public AppiumDriver driver = null;
 	public WebDriver chromeDriver = null;
-
+	
+	
+	// Added for Browser
+	public WebDriver webDriver = null;
+	public static Actions actionTest = null;
+	public static JavascriptExecutor js = null;
+	
+	public Br_LoginPagePO loginPagePo = null;
+	public Br_HomePagePO homePagePo = null;
+	
+	public static String testUrl = "https://www.bryntum.com/examples/scheduler/animations/";
+	public static String geUsn ="212678248";
+	public static String gePwd = "R0nald0h";
+	public static String path = "";
+	
+	enum BrowserType{
+		
+		FIREFOX,CHROME,EDGE,SAFARI;
+	}
+	
+	public BrowserType browser = BrowserType.CHROME;
+	//------------------------------------
 	public GenericLib genericLib = null;
 	public RestServices restServices = null;
 	public LoginHomePO loginHomePo = null;
@@ -479,6 +507,32 @@ public class BaseLib {
 		driver.rotate((ScreenOrientation.PORTRAIT));
 			}
 		}
+	}
+	
+	public void initDriver() throws InterruptedException {
+		
+		if(browser==BrowserType.CHROME) {
+			path = System.getProperty("user.dir")+"/resources/chromedriver";
+			System.setProperty("webdriver.chrome.driver",path);
+			webDriver = new ChromeDriver();	
+		}
+		else {
+			path = System.getProperty("user.dir")+"/resources/geckodriver";
+			System.setProperty("webdriver.gecko.driver",path);
+			webDriver = new FirefoxDriver();
+		}
+		
+		actionTest = new Actions(webDriver);
+		js = (JavascriptExecutor)webDriver;
+		
+		webDriver.manage().window().maximize();
+		webDriver.get(testUrl);
+		
+		loginPagePo = new Br_LoginPagePO(webDriver);
+		homePagePo = new Br_HomePagePO(webDriver);
+		
+		Thread.sleep(15000);
+		
 	}
 
 	@AfterMethod
