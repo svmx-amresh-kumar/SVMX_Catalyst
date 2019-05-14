@@ -1246,7 +1246,7 @@ private WebElement eleSite;
 		return elePartName;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='Confirm']"), @FindBy(xpath = "//*[*='Confirm']") })
+	@FindAll({ @FindBy(xpath = "//*[@text='Confirm']"), @FindBy(xpath = "//*[@*='Confirm']") })
 	private WebElement eleConfirm;
 
 	public WebElement geteleConfirm() {
@@ -1262,7 +1262,7 @@ private WebElement eleSite;
 		return eleWorkDescription;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='Line Price is Less than 2000']"), @FindBy(xpath = "//*[*='Confirm']") })
+	@FindAll({ @FindBy(xpath = "//*[@text='Line Price is Less than 2000']"), @FindBy(xpath = "//*[@*='Line Price is Less than 2000']") })
 	private WebElement eleLinePriceConfirmationtxt;
 
 	public WebElement geteleLinePriceConfirmationtxt() {
