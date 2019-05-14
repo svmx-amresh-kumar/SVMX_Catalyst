@@ -106,7 +106,8 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 */
-		
+		lauchNewApp("false");
+
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
