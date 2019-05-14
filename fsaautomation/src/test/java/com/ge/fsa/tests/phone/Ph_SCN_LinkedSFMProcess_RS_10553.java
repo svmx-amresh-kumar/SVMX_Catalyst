@@ -131,7 +131,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_WorkOrderPo.getEleAddButton().click();
 		//Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		//Thread.sleep(3000);
+		Thread.sleep(3000);
 		System.out.println(ph_WorkOrderPo.getEleBackButton());
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Sync the Data and verify in the Server end if both the data are present
@@ -139,7 +139,6 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_MorePo.syncData(commonUtility);
 		//Thread.sleep(2000);t
 		// Verify the Queries
-		restServices.getAccessToken();
 		String sSoqlquerychildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"
 				+ sworkOrderName + "\')";
 		String sChildlines = restServices.restGetSoqlValue(sSoqlquerychildlines, "totalSize");
