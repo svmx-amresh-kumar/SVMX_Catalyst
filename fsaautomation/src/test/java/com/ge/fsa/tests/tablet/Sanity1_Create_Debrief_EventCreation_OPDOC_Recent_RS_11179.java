@@ -69,6 +69,9 @@ public void Scenario1Test() throws Exception
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
+		lauchNewApp("false");
+
+		
 		// Need to sync the data
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(5000);
