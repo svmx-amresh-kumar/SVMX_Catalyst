@@ -557,6 +557,7 @@ public class Ph_WorkOrderPO {
 
 	@FindAll({
 		@FindBy(xpath = "//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath = "//*[@text='Account']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Account']/../XCUIElementTypeOther") })
 	private WebElement eleAccount;
 
@@ -1407,6 +1408,5 @@ private WebElement eleSite;
 	{
 		return eleDelete;
 	}
-
 	
 }

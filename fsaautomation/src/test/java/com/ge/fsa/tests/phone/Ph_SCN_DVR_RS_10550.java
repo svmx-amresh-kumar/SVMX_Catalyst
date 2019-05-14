@@ -57,6 +57,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 	String sBillingTypeDVR = "Loan";
 	String SBillingType = "Warranty";
 	String sSheetName =null;
+	String sObjectApi1 = null;
+	String sJsonData1 = null;
+	
 	
 	//For SFM Process Sahi Script name
 		String sScriptName="SCN_DVR_RS_10550";
@@ -68,6 +71,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		sTestCaseID = "SCN_DVR_RS_10550";
 		sCaseWOID = "Data_SCN_DVR_RS_10550";
 		String sAccountNameToCreate = "Auto_10550_Account";
+		String sAccountNameToCreate1 = "Auto_10550_Account1";
 		
 		//Reading from the Excel sheet
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
@@ -98,11 +102,11 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 				
 				bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
 		
-		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sAccountNameToCreate+"\"}";
-		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlAccQuery1 ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
-		sAccountName1 =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
+		sObjectApi1 = "Account?";
+		sJsonData1 = "{\"Name\": \""+sAccountNameToCreate1+"\"}";
+		String sObjectAccID1=restServices.restCreate(sObjectApi1,sJsonData1);
+		sSqlAccQuery1 ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID1+"\'";				
+		sAccountName1 =restServices.restGetSoqlValue(sSqlAccQuery1,"Name"); 
 		System.out.println(sAccountName1);		
 		
 				
@@ -165,8 +169,12 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		
 		//Validation of 
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sBooleanDVR),3), "Required Field Validation failed");
-		ph_WorkOrderPo.geteleEntitlementPerformed().click();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sBooleanDVR),3), "Boolean Field confirmation failed.");
+		ph_WorkOrderPo.geteleConfirm().click();
+		ExtentManager.logger.log(Status.PASS,"Boolean field confirmationvalidation passed");
+
+		//ph_WorkOrderPo.geteleEntitlementPerformed().click();
 
 		
 		//Setting up Auto_date1 greater than Auto_date2	
@@ -213,19 +221,23 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"DATE Literal Today validation passed");	
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "JUN", "01", "2019"); 
-		ph_WorkOrderPo.getElesave().click();
+		//ph_WorkOrderPo.getElesave().click();
 		//Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(), "Look up DVR did not display, account cannot be same as Parnter Account ");
 
 
 		//eleAccountLookUp DVR
-/*		Thread.sleep(2000);
+	Thread.sleep(2000);
 		System.out.println("Begining account look upf");
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getelePartnerAccountLookUp(), sAccountName);
 		ph_WorkOrderPo.getElesave().click();				
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sAccountDVR),3), "Look up DVR did not display, account cannot be same as Parnter Account ");
 		ExtentManager.logger.log(Status.PASS,"Lookup DVR passed Account cannot be same as Partner Account is displayed");	
-		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName1);*/
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleAccount(), sAccountName1);
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		//Assert.assertTrue(commonUtility.waitForElementNotVisible(ph_WorkOrderPo.getDvrText(sAccountDVR), 3), "Look up DVR did not display, account cannot be same as Parnter Account ");
+		//ExtentManager.logger.log(Status.PASS,"Lookup DVR passed Account cannot be same as Partner Account not displayed when accounts are different.");	
+
 		
 	/*	//Trying with no150 - sohuld throw DVR again.
 		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
@@ -246,8 +258,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 			ExtentManager.logger.log(Status.PASS,"Account DVR is no longer displayed");
 
 		}*/
-		
-	
 		Thread.sleep(GenericLib.iLowSleep);
 		ph_CalendarPo.getEleCalendarBtn().click();
 		Thread.sleep(GenericLib.iLowSleep);
@@ -281,10 +291,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(),3),"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
-
-		
-		
-		
+	
 	}
 	
 	
