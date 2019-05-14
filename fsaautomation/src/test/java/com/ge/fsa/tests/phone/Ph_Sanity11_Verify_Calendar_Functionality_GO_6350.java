@@ -84,7 +84,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
 		 */
 		// Pre Login to app
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+			ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 			ph_MorePo.configSync(commonUtility,ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -92,7 +92,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-		// Create SVMX event from Create New Option
+	// Create SVMX event from Create New Option
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_CalendarPo.getEleCreateNewEvent().click();
 		ph_CalendarPo.getEleCalendarEventSubject().click();
@@ -148,20 +148,18 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
 
-
-
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		Thread.sleep(2000);
 
 
-		String getappointmentdate = ph_CalendarPo.getEleeventdate().getAttribute("text");
+		String getappointmentdate = ph_CalendarPo.getEleeventdate(sEventSubject).getText();
 		System.out.println("get dates:"+getappointmentdate);
 
 		String enddatefromcal = calendarPO.convertedformate(getappointmentdate,"E, MMM dd, yyyy","M/d/yyyy");
 		System.out.println("date1:"+enddatefromcal);
 
 
-		String[] getappointmenttime= ph_CalendarPo.getEleeventtime().getAttribute("text").split("- ");
+		String[] getappointmenttime= ph_CalendarPo.getEleeventtime(sEventSubject).getText().split("- ");
 		System.out.println("get end  time:"+getappointmenttime[1]);
 		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
 		System.out.println("datetimefromclient"+datetimefromclient);
@@ -184,10 +182,10 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
-		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
-		String WOfromcalender = ph_CalendarPo.getEleworkordernumonCalendar(WOname).getAttribute("text");
+		//ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
+		String WOfromcalender = ph_CalendarPo.getEleworkordernumon(WOname).getText();
 		System.out.println(WOfromcalender);
-		ph_CalendarPo.getEleworkordernumonCalendar(WOname).click();
+		ph_CalendarPo.getEleworkordernumon(WOname).click();
 		Thread.sleep(2000);
 		Assert.assertTrue(ph_WorkOrderPo.getEleActionsLnk().isDisplayed());
 		ExtentManager.logger.log(Status.PASS," Attach a WO to event verification is sucessful");
@@ -231,16 +229,16 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		// On server/DC, edit one of the events created SFDC
 
 
-		  sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		  now1 = Calendar.getInstance();
+		   sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		   now1 = Calendar.getInstance();
 		now1.set(Calendar.HOUR, 6);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
-		  endtimezero = sdf.format(now1.getTime());
+		   endtimezero = sdf.format(now1.getTime());
 		// now1.set(Calendar.HOUR_OF_DAY, 12);
 		System.out.println(endtimezero);
 
-		  sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
+		   sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSFDC);
 
 
@@ -261,14 +259,14 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	Thread.sleep(2000);
 
 
-	String getappointmentdateSFDC = ph_CalendarPo.getEleeventdate().getAttribute("text");
+	String getappointmentdateSFDC = ph_CalendarPo.getEleeventdate(SFDC_Event).getText();
 	System.out.println("get time:"+getappointmentdateSFDC);
 
 	String enddatefromcalSFDC = calendarPO.convertedformate(getappointmentdateSFDC,"E, MMM dd, yyyy","M/d/yyyy");
 	System.out.println("get date:"+enddatefromcalSFDC);
 
 
-	String[] getappointmenttimeSFDC= ph_CalendarPo.getEleeventtime().getAttribute("text").split("- ");
+	String[] getappointmenttimeSFDC= ph_CalendarPo.getEleeventtime(SFDC_Event).getText().split("- ");
 	System.out.println("get end  time:"+getappointmenttimeSFDC[1]);
 	String datetimefromclientSFDC=enddatefromcalSFDC+" "+getappointmenttimeSFDC[1];
 	System.out.println("datetimefromclient"+datetimefromclientSFDC);
@@ -293,18 +291,18 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
-	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
-	  WOfromcalender = ph_CalendarPo.getEleworkordernumonCalendar(WOname1).getAttribute("text");
+	//ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
+	   WOfromcalender = ph_CalendarPo.getEleworkordernumon(WOname1).getText();
 	System.out.println(WOfromcalender);
-	ph_CalendarPo.getEleworkordernumonCalendar(WOname1).click();
+	ph_CalendarPo.getEleworkordernumon(WOname1).click();
 	Thread.sleep(5000);
 	Assert.assertTrue(ph_WorkOrderPo.getEleActionsLnk().isDisplayed());
 	ExtentManager.logger.log(Status.PASS," Attach a WO to SFDC event verification is sucessful");
 		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 		///////////////////////////////////////////////////////////////////////////////////////////////////
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		//Verifying Dots
-		ph_CalendarPo.geteleyearandmonth().click();
+	/*	ph_CalendarPo.geteleyearandmonth().click();
 		Thread.sleep(2000);
 
 		Assert.assertTrue(ph_CalendarPo.getlecurrentdatedot().isDisplayed());//current day
@@ -426,7 +424,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ExtentManager.logger.log(Status.FAIL,"FAIL Verified agenda view for the current day");
 	}
 	
-			
+	*/		
 	
 	
 	}

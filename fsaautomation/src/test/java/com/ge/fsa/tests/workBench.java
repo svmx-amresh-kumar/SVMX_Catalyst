@@ -102,9 +102,8 @@ public void workBenchAnd() throws Exception
 		String sworkOrderName = "WO-00013653";
 		
 		
-		ph_MorePo.getEleMoreBtn().click();
-		
-		Thread.sleep(5000);
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "11", "01");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, "04" ,"59");
 		
 		
 		/*

@@ -1902,8 +1902,8 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/idevicedate").trim();
-			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/ideviceinfo");
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
+			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
@@ -2344,10 +2344,10 @@ public class CommonUtility {
 
 	
 	public String gethrsfromdevicetime() throws ParseException {
-
+		System.out.println(getDeviceDate());
 		String[] time =getDeviceDate().split(" ");
-		System.out.println("############"+time[4]);
-		String hrs=time[4].substring(0,2);
+		System.out.println("############"+time[3]);
+		String hrs=time[3].substring(0,2);
 		//String hrs=time[3];
 		System.out.println("hours"+hrs);
 		return hrs;
