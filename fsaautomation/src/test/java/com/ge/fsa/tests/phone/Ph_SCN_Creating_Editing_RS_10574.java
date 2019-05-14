@@ -88,7 +88,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sWOName = restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
-		sEventSubject = "EventName_RS10574_1"+sWOName;
+		sEventSubject = "EventName_RS10574_1";
 		// Thread.sleep(genericLib.iHighSleep);
 
 		// Collecting the Work Order number from the Server.
@@ -106,10 +106,10 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 				+ "\'";
 		System.out.println("sSqlWOQuery1 = " + sSqlWOQuery1);
 		sDelWo = restServices.restGetSoqlValue(sSqlWOQuery1, "Id");
-//		System.out.println("sDelWo = " + sSqlWOQuery1);
-//		sObjectApi = "SVMXC__Service_Order__c";
-//		restServices.restDeleterecord(sObjectApi, sDelWo);
-//		System.out.println("Deleted" + sDelWo);
+		System.out.println("sDelWo = " + sSqlWOQuery1);
+		sObjectApi = "SVMXC__Service_Order__c";
+		restServices.restDeleterecord(sObjectApi, sDelWo);
+		System.out.println("Deleted" + sDelWo);
 		if(sDelWo==null) {
 			ExtentManager.logger.log(Status.PASS, "Event got Deleted Sucessfully when work order is deleted");
 		}
@@ -126,9 +126,15 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		System.out.println("sSqlWOQuery1 = " + sSqlWOQuery1);
 		sDelWo = restServices.restGetSoqlValue(sSqlWOQuery1, "Id");
 		System.out.println("sDelWo = " + sSqlWOQuery1);
-		sObjectApi = "SVMXC__SVMX_Event__c";
-		restServices.restDeleterecord(sObjectApi, sDelWo);
-		System.out.println("Deleted" + sDelWo);
+//		sObjectApi = "SVMXC__SVMX_Event__c";
+//		restServices.restDeleterecord(sObjectApi, sDelWo);
+//		System.out.println("Deleted" + sDelWo);
+		if(sDelWo==null) {
+			ExtentManager.logger.log(Status.PASS, "Event got Deleted Sucessfully when work order is deleted");
+		}
+		else {
+			ExtentManager.logger.log(Status.FAIL, "Event not got Deleted when work order is deleted");
+		}
 
 	}
 
@@ -155,7 +161,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 					"Data sync is not successfull");
 			ExtentManager.logger.log(Status.PASS, "Data Sync is successfull");
 		}
-		ph_MorePo.getEleDataSync().click();
+		commonUtility.press(ph_MorePo.getEleMoreBtn().getLocation());
 	}
 
 	@Test(retryAnalyzer = Retry.class)
@@ -181,6 +187,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 				+ sProformainVoice + "\'";
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery, "Name");
+		sEventSubject=sEventSubject+sworkOrderName;
 		// Select the Work Order from the Recent items
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
 		ExtentManager.logger.log(Status.PASS, "Picked up work Order from Recent items");
@@ -206,9 +213,16 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		// Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders", sWOName,
 				"Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
+		int hrs=0;
+		try {
+			hrs=Integer.parseInt(commonUtility.gethrsfromdevicetime());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
-		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, "0", "0");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+1), "0");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Thread.sleep(GenericLib.iLowSleep);
 
