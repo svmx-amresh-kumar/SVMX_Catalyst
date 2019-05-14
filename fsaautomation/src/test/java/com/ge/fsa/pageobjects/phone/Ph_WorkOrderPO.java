@@ -1239,7 +1239,7 @@ private WebElement eleSite;
 			elePartName = driver.findElement(By.xpath("//*[@text='" + sPartName + "']"));
 			return elePartName;
 		case "ios":
-			elePartName = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name='" + sPartName + "'])[3]"));
+			elePartName = driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name='" + sPartName + "'])[last()]"));
 			return elePartName;
 
 		}

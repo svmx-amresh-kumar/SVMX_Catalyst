@@ -162,7 +162,7 @@ public class Ph_CreateNewPO {
 	}
 	
 	@FindAll({@FindBy(xpath="//*[@text='Partner Account Lookup']"),
-		@FindBy(id="Account Account Lookup")})
+		@FindBy(id="Partner Account Lookup")})
 	private WebElement elePartnerAccountLookUp;
 	public WebElement getelePartnerAccountLookUp()
 	{
