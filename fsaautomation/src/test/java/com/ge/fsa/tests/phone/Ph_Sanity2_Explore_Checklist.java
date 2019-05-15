@@ -72,7 +72,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	public void scenario2_checklist() throws Exception {
 		// commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
-		// lauchNewApp("false");
+		 lauchNewApp("false");
 
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
