@@ -149,7 +149,8 @@ public class Ph_CalendarPO
 	{
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-			eleworkordernumonCalendar=driver.findElement(By.xpath("//*[@text='"+Subject+"']"));
+			eleworkordernumonCalendar=driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.APPOINTMENT."+Subject+"\"]/android.view.ViewGroup[2]/android.widget.TextView[1]"));
+			//android.view.ViewGroup[@content-desc="CALENDAR.APPOINTMENT.A11859_SFDC_Event1"]/android.view.ViewGroup[2]/android.widget.TextView[1]
 			return eleworkordernumonCalendar;
 		}else {
 			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"CALENDAR.APPOINTMENT."+Subject+"\"])[1]"));
