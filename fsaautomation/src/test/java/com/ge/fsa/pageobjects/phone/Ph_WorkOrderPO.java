@@ -449,14 +449,16 @@ public class Ph_WorkOrderPO {
 		return btnclrFilter;
 	}
 
-	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
+//	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
+	@FindBy(xpath = "(//*[@text='Country']/following::android.widget.TextView)[1]")
 	private WebElement countryPicklst;
 
 	public WebElement getCountryPicklst() {
 		return countryPicklst;
 	}
 
-	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+//	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+	@FindBy(xpath = "(//*[@text='Requested Country']/following::android.widget.TextView)[1]")
 	private WebElement requestedCountryPicklst;
 
 	public WebElement getRequestedCountryPicklst() {

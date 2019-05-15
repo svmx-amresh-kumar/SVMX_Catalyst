@@ -70,7 +70,7 @@ public class Ph_SCN_10529 extends BaseLib {
 		
 //		ph_MorePo.syncData(commonUtility);
 //		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, "WO-00013468", sProcessName);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, "WO-00013467", sProcessName);
 		// ************Start of Scenario 1****************
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		ph_WorkOrderPo.getElePartLnk().click();
@@ -100,7 +100,13 @@ public class Ph_SCN_10529 extends BaseLib {
 		// ************Start of Scenario 5****************
 		ph_WorkOrderPo.getBtnClose().click();
 		ph_WorkOrderPo.getEleOverViewTab().click();
-		Thread.sleep(30000);
-} 
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getCountryPicklst(), sCountry);
+		ph_WorkOrderPo.getTxtSite().click();
+		String sLocItaCount = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+='"+sCountry+"'", "totalSize");
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocItaCount));
+		Thread.sleep(3000000);
+		// ************End of Scenario 5******************
+		// ************Start of Scenario 6****************
+} 	
 
 }
