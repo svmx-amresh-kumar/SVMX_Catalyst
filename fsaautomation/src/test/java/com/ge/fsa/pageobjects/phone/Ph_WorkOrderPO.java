@@ -423,8 +423,13 @@ public class Ph_WorkOrderPO {
 	}
 
 	public List<WebElement> getContactLst(String sValue) {
-		return driver.findElements(By.xpath("//*[@*='" + sValue + "']"));
-	}
+			return driver.findElements(By.xpath("//*[@*='"+sValue+"']"));
+	}	
+	
+	public WebElement getLkpEle(String sValue) {
+		return driver.findElement(By.xpath("//android.widget.TextView[@text='"+sValue+"']"));
+}	
+	
 
 	public WebElement getEle(String sValue) {
 		return driver.findElement(By.xpath("//*[@*='" + sValue + "']"));
@@ -444,14 +449,16 @@ public class Ph_WorkOrderPO {
 		return btnclrFilter;
 	}
 
-	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
+//	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
+	@FindBy(xpath = "(//*[@text='Country']/following::android.widget.TextView)[1]")
 	private WebElement countryPicklst;
 
 	public WebElement getCountryPicklst() {
 		return countryPicklst;
 	}
 
-	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+//	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.11']")
+	@FindBy(xpath = "(//*[@text='Requested Country']/following::android.widget.TextView)[1]")
 	private WebElement requestedCountryPicklst;
 
 	public WebElement getRequestedCountryPicklst() {
@@ -520,8 +527,15 @@ public class Ph_WorkOrderPO {
 	public WebElement getBtnSave() {
 		return btnSave;
 	}
+	
+	@FindBy(xpath="//*[@*='Problem Description']/following::android.widget.EditText")
+	private WebElement txtProblemDescription;
+	
+	public WebElement getTxtProblemDescription() {
+		return txtProblemDescription;
+	}
+	//-----------------------------
 
-	// -----------------------------
 
 	public void addParts(CommonUtility commonUtility, String sProductName1) {
 		System.out.println("Adding Parts");

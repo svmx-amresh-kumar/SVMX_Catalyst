@@ -94,7 +94,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		String sProductCount = restServices.restGetSoqlValue("SELECT+Count()+from+Product2+Where+Description+=null", "totalSize");
 		System.out.println(productList.size());
 		System.out.println(sProductCount);
-		//		Assert.assertEquals(productList.size(), Integer.parseInt(sProductCount)); //Step 1, Have commented out step 1 validation since the number of records products exceeds 250 and on fsa maximum 250 items are displayed
+		// Assert.assertEquals(productList.size(), Integer.parseInt(sProductCount)); //Step 1, Have commented out step 1 validation since the number of records products exceeds 250 and on fsa maximum 250 items are displayed
 		commonUtility.tap(commonUtility.getElesearchTap());
 		commonUtility.getElesearchTap().clear();
 		commonUtility.getElesearchTap().sendKeys(sProductName);

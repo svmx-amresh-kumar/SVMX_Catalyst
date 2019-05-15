@@ -139,9 +139,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  /////////////////////////////////////////////////////////////////////////////
 		  /////////////////////////////////////////// // On server/DC, edit one of the events created
 		  
-		  sObjectApi = "Event"; sSqlEventQuery
-		  ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event1\'"; sEventIdSVMX_1
-		  =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
+		  sObjectApi = "Event"; 
+		  sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A11859_SFDC_Event1\'"; 
+		  sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
 		  System.out.println(sEventIdSVMX_1);
 		  
 		  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -276,6 +276,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  
 		  commonUtility.tap(toolsPo.geteleResolveissue());
 		  commonUtility.tap(toolsPo.geteleApply()); commonUtility.tap(toolsPo.getEleOkBtn());
+		 
 		  toolsPo.syncData(commonUtility);
 		  
 		  
