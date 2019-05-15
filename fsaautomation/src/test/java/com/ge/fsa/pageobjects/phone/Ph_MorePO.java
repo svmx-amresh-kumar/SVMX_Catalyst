@@ -270,14 +270,16 @@ public class Ph_MorePO {
 			ExtentManager.logger.log(Status.FAIL, "Erasing and reinitializing data  Failed");
 		}
 	}
-	
-	@FindBy(xpath="//*[@*='Resolve']")
+	@FindAll({@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"SYNC.STATUS_DROPDOWN\"]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView"),
+	@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Resolve\"])[2]")})
 	private WebElement eleResolveBtn;
 	public WebElement getEleResolveBtn() {
 		return eleResolveBtn;
 	}
 	
-	@FindBy(xpath="//*[@*='Remove record permanently']")
+	
+	@FindAll({@FindBy(xpath="(//android.view.ViewGroup[@content-desc=\"APP.CONNECTION_TYPE.0\"])[3]/android.widget.TextView"),
+	@FindBy(xpath="//XCUIElementTypeOther[@name=\"Remove record permanently\"]")})
 	private WebElement eleResoveConflict;
 	public WebElement getEleResolveConflict() {
 		return eleResoveConflict;
