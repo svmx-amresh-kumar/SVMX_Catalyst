@@ -1349,7 +1349,7 @@ public class Ph_WorkOrderPO {
 		return eleAccountnotNUll;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]") })
+	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'Auto_Text')]]/following-sibling::*/*[1]") })
 	private WebElement autoTextBox;
 
 	public WebElement getAutoTextBox() {

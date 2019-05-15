@@ -138,13 +138,13 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ph_MorePo.syncData(commonUtility);
 
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
+		Thread.sleep(3000);
 		// commonsUtility.tap(recenItemsPO.gettaponobject("Auto_Custom_Object2 ("));
 		String fetchedCustom_Objectfromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
 		System.out.println(fetchedCustom_Objectfromrecents);
 
 		String sSoqlQuery1 = "SELECT+Name+from+Auto_Custom_Object2__c+Where+Auto_TextBox_c__c+=\'" + sProformainVoice
 				+ "\'";
-		restServices.getAccessToken();
 		String Custom_ObjectName = restServices.restGetSoqlValue(sSoqlQuery1, "Name");
 		System.out.println(Custom_ObjectName);
 		Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName),"Custom object  value  is not displayed");
