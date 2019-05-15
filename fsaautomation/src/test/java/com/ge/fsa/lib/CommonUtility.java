@@ -809,9 +809,10 @@ public class CommonUtility {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				custScrollToElementAndClick(wElement);
 			}
-
-			switchContext("Webview");
-			wElement.click();
+			else {
+				switchContext("Webview");
+				wElement.click();
+			}
 			setDatePicker(0, iDaysToScroll);
 			switchContext("Native");
 			if (sTimeHrs == "0" && sTimeMin == "0") {
@@ -1186,20 +1187,20 @@ public class CommonUtility {
 			int i = 0;
 			int newTempVal = scrollNum;
 			scrollNum = Math.abs(scrollNum);
-			for (i = 0; i < scrollNum; i++) {
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				Map<String, Object> params = new HashMap<>();
-				if (newTempVal < 0) {
-					System.out.println("Scrolling Down " + scrollNum);
-					params.put("order", "previous");
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			Map<String, Object> params = new HashMap<>();
+			if (newTempVal < 0) {
+				System.out.println("Scrolling Down " + scrollNum);
+				params.put("order", "previous");
 
-				} else {
-					System.out.println("Scrolling Up " + scrollNum);
-					params.put("order", "next");
+			} else {
+				System.out.println("Scrolling Up " + scrollNum);
+				params.put("order", "next");
 
-				}
-				params.put("offset", 0.15);
-				params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
+			}
+			params.put("offset", 0.15);
+			params.put("element", getEleDatePickerPopUp().get(iWheelIndex));
+			for (i = 0; i < scrollNum; i++) {	
 				js.executeScript("mobile: selectPickerWheelValue", params);
 			}
 
@@ -1290,10 +1291,9 @@ public class CommonUtility {
 		if (sTimeHrs != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(1).getText().contains(sTimeHrs)) {
+					getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				}
 			}
 			else {
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
@@ -1304,10 +1304,9 @@ public class CommonUtility {
 		if (sTimeMin != "0") {
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Phone needs multiple calls to date picker to set the correct date
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+				while(!getEleDatePickerPopUp().get(2).getText().contains(sTimeMin)) {
+					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+				}
 			}else {
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 			}
