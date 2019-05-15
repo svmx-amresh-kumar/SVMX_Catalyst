@@ -35,6 +35,9 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSBy;
 import io.appium.java_client.pagefactory.iOSFindAll;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindAll;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -53,8 +56,9 @@ public class Ph_MorePO {
 		@AndroidBy(xpath="//*[@*='TAB_BAR.']"),
 		@AndroidBy(xpath="//*[@*='TAB_BAR.MORE_TAB']"),
 	})
-	@iOSFindAll({
-		@iOSBy(xpath="//*[@*='TAB_BAR.']"),	@iOSBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
+	@iOSXCUITFindAll({
+		@iOSXCUITBy(xpath="//*[@*='TAB_BAR.']"),
+		@iOSXCUITBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
 	})
 	@FindBy(xpath="//*[@*='TAB_BAR.MORE_TAB']")
 	private WebElement eleMoreBtn;
@@ -85,7 +89,8 @@ public class Ph_MorePO {
 	}
 
 	// return
-	@FindAll({ @FindBy(xpath = "//*[@text='Sync Now']"), @FindBy(xpath = "//*[@*='Sync Now']/*") })
+	@AndroidFindBy(xpath = "//*[@text='Sync Now']")
+	@iOSXCUITFindBy(xpath = "//*[@*='Sync Now']/*")
 	private WebElement eleSyncNow;
 
 	public WebElement getEleSyncNow() {
@@ -139,24 +144,24 @@ public class Ph_MorePO {
 		return eleEraseReinitialize;
 	}
 	
-	@FindAll({ @FindBy(xpath = "//*[contains(@text,'Sync completed')]"),
-			@FindBy(xpath = "(//*[contains(@label,'Sync completed Last sync time')])") })
+	@AndroidFindBy(xpath = "//*[contains(@text,'Sync completed')]")
+	@iOSXCUITFindBy(xpath = "(//*[contains(@label,'Sync completed Last sync time')])")
 	private WebElement eleDataSynccompleted;
 
 	public WebElement getEleDataSynccompleted() {
 		return eleDataSynccompleted;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[contains(@text,'successful sync')]"),
-			@FindBy(xpath = "(//*[contains(@label,'successful sync')])") })
+	@AndroidFindBy(xpath = "//*[contains(@text,'successful sync')]")
+	@iOSXCUITFindBy(xpath = "(//*[contains(@label,'successful sync')])")
 	private WebElement eleConfigSyncCompleted;
 
 	public WebElement getEleConfigSyncCompleted() {
 		return eleConfigSyncCompleted;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='Configuration sync in progress']"),
-			@FindBy(xpath = "(//*[contains(@label,'Configuration sync in progress')])") })
+	@AndroidFindBy(xpath = "//*[@text='Configuration sync in progress']")
+	@iOSXCUITFindBy(xpath = "(//*[contains(@label,'Configuration sync in progress')])")
 	private WebElement eleConfigSyncInProgress;
 
 	public WebElement getEleConfigSyncInProgress() {

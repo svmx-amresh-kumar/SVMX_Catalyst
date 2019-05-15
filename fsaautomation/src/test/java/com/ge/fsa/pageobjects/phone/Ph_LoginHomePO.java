@@ -20,9 +20,16 @@ import com.ge.fsa.pageobjects.tablet.*;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSBy;
+import io.appium.java_client.pagefactory.iOSFindAll;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindAll;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -45,8 +52,8 @@ public class Ph_LoginHomePO
 	int iWhileCnt =0;
 	long lElapsedTime=0L;
 
-	@FindAll({@FindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"SIGN IN WITH SALESFORCE\"])[2]")})
+	@AndroidFindBy(xpath="//*[@text='SIGN IN WITH SALESFORCE']")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name='SIGN IN WITH SALESFORCE'])[last()]")
 	private WebElement eleSignInBtn;
 	public WebElement getEleSignInBtn()
 	{
@@ -54,8 +61,8 @@ public class Ph_LoginHomePO
 	}
 
 
-	@FindAll({@FindBy(xpath="//*[@resource-id='username']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")})
+	@AndroidFindBy(xpath="//*[@resource-id='username']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeTextField")
 	private WebElement eleUserNameTxtFld;
 	public WebElement getEleUserNameTxtFld()
 	{
@@ -63,29 +70,34 @@ public class Ph_LoginHomePO
 	}
 
 
-	@FindAll({@FindBy(xpath="//*[@resource-id='password']"),
-		@FindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")})
+	@AndroidFindBy(xpath="//*[@resource-id='password']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name=\"Login | Salesforce\"]/XCUIElementTypeSecureTextField")
 	private WebElement elePasswordTxtFld;
 	public WebElement getElePasswordTxtFld()
 	{
 		return elePasswordTxtFld;
 	}
 
-	@FindAll({@FindBy(xpath="//*[@text='Log In to Sandbox']"),
+	
+	@FindAll({
 		@FindBy(id="Log In to Sandbox"),
-		@FindBy(xpath="//*[@content-desc='Log In to Sandbox']")})
+		@FindBy(xpath="//*[@text='Log In to Sandbox']"),
+		@FindBy(xpath="//*[@content-desc='Log In to Sandbox']")
+})
 	private WebElement eleLoginBtn;
 	public WebElement getEleLoginBtn()
 	{
 		return eleLoginBtn;
 	}
 
-	@FindAll({@FindBy(id="//*[@content-desc=' Allow  Allow']"),
+	
+	@FindAll({
 		@FindBy(id=" Allow "),
-		@FindBy(xpath="//*[@resource-id='oaapprove']"),
 		@FindBy(id="oaapprove"),
-		@FindBy(xpath="//*[@text='Allow']")})
-	//@FindBy(xpath="//*[@content-desc=' Allow  Allow']")
+		@FindBy(xpath="//*[@resource-id='oaapprove']"),
+		@FindBy(xpath="//*[@text='Allow']"),
+		@FindBy(id="//*[@content-desc=' Allow  Allow']")
+})
 	private WebElement eleAllowBtn;
 	public WebElement getEleAllowBtn()
 	{
