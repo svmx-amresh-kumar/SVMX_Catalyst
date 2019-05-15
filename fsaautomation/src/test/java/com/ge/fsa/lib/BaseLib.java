@@ -203,7 +203,7 @@ public class BaseLib {
 		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
 		
-		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME").toLowerCase();
+		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME");
 		System.out.println("[BaseLib] APP_NAME : " + sApp_Name);
 		
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
@@ -269,7 +269,7 @@ public class BaseLib {
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
-				sAppPath = GenericLib.sResources + "//" + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME") + ".apk";
+				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));
@@ -315,7 +315,7 @@ public class BaseLib {
 
 			try { // IOS Drivers
 
-				sAppPath = GenericLib.sResources + "//" + GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME") + ".ipa";
+				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".ipa";
 				app = new File(sAppPath);
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));

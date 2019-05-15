@@ -556,7 +556,7 @@ public class CommonUtility {
 					//switchContext(context);
 					if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 						//Setting wait for 1 sec only for this method reverting when exiting
-						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+						driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					}else {
 					//reverting wait to 10 seconds
 					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -1902,8 +1902,8 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/idevicedate").trim();
-			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-92c5462_3/bin/ideviceinfo");
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
+			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
@@ -2344,7 +2344,7 @@ public class CommonUtility {
 
 	
 	public String gethrsfromdevicetime() throws ParseException {
-
+		System.out.println(getDeviceDate());
 		String[] time =getDeviceDate().split(" ");
 		System.out.println("############"+time[3]);
 		String hrs=time[3].substring(0,2);
