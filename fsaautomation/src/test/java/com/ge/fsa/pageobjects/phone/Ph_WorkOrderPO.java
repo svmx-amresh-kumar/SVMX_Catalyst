@@ -407,6 +407,13 @@ public class Ph_WorkOrderPO {
 	public WebElement getLblComponent() {
 		return lblComponent;
 	}
+	
+	@FindBy(xpath = "//*[@*='Product']")
+	private WebElement lblProduct;
+
+	public WebElement getLblProduct() {
+		return lblProduct;
+	}
 
 	@FindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
 	private WebElement btnClose;
@@ -533,6 +540,27 @@ public class Ph_WorkOrderPO {
 	
 	public WebElement getTxtProblemDescription() {
 		return txtProblemDescription;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[@text='Filter']")
+	private WebElement lnkFilter;
+	
+	public WebElement getLnkFilter() {
+		return lnkFilter;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	private WebElement chkboxFilter;
+	
+	public WebElement getChkboxFilter() {
+		return chkboxFilter;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[@text='See results']")
+	private WebElement btnSeeResults;
+	
+	public WebElement getBtnSeeResults() {
+		return btnSeeResults;
 	}
 	//-----------------------------
 
