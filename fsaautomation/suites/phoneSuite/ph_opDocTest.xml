@@ -7,7 +7,6 @@
 	</listeners>
 		<test name="OpDoc">
 		<classes>
-						<class name="com.ge.fsa.tests.phone.Ph_SCN_Opdoc_RS_10571" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

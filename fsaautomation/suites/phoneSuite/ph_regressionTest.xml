@@ -8,35 +8,35 @@
 
 	<suite-files>
 		<!-- First Delivery -->
-		<suite-file path="sanityTest.xml" />
+		<suite-file path="ph_sanityTest.xml" />
 		
 		
-		<suite-file path="selfDispatchTest.xml" /> <!-- 1 -->
-		<suite-file path="exploreTest.xml" /> <!-- 5 -->
-		<suite-file path="customPicklistTest.xml" /> <!-- 1 -->
-		<suite-file path="recentItemsTest.xml" /> <!-- 1 -->
-		<suite-file path="productAccountHistoryTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_selfDispatchTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_exploreTest.xml" /> <!-- 5 -->
+		<suite-file path="ph_customPicklistTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_recentItemsTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_productAccountHistoryTest.xml" /> <!-- 1 -->
 
-		<suite-file path="checklistTest.xml" /> <!-- 8 -->
-		<suite-file path="mappingTest.xml" /> <!-- 3 -->
-		<suite-file path="childLineTest.xml" /> <!-- 1 -->
-		<suite-file path="linkedSfmTest.xml" /> <!-- 1 -->
-		<suite-file path="sourceObjectUpdateTest.xml" /> <!--1 -->
-		<suite-file path="dvrTest.xml" /> <!-- 1 -->
-		<suite-file path="zeroLinesTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_checklistTest.xml" /> <!-- 8 -->
+		<suite-file path="ph_mappingTest.xml" /> <!-- 3 -->
+		<suite-file path="ph_childLineTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_linkedSfmTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_sourceObjectUpdateTest.xml" /> <!--1 -->
+		<suite-file path="ph_dvrTest.xml" /> <!-- 1 -->
+		<suite-file path="ph_zeroLinesTest.xml" /> <!-- 1 -->
 
-		<suite-file path="sourceToTargetTest.xml" /> <!-- 3 -->
+		<suite-file path="ph_sourceToTargetTest.xml" /> <!-- 3 -->
 		
-        <suite-file path="createNewRecordTest.xml" /> <!-- 1 --> 
-        <suite-file path="customActionsTest.xml" /> <!-- 2 -->  
-        <suite-file path="lookupTest.xml" /> <!-- 4 --> 
-        <suite-file path="formulaTest.xml" />  <!-- 1 -->
-		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
+        <suite-file path="ph_createNewRecordTest.xml" /> <!-- 1 --> 
+        <suite-file path="ph_customActionsTest.xml" /> <!-- 2 -->  
+        <suite-file path="ph_lookupTest.xml" /> <!-- 4 --> 
+        <suite-file path="ph_formulaTest.xml" />  <!-- 1 -->
+		<suite-file path="ph_opDocTest.xml" />  <!-- 1 --> 
 
-		<suite-file path="calendarTest.xml" /> <!-- 8 -->
-		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
-		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
-		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
+		<suite-file path="ph_calendarTest.xml" /> <!-- 8 -->
+		<suite-file path="ph_configSyncTest.xml" /> <!-- 2 -->
+		<suite-file path="ph_dataSyncTest.xml" /> <!-- 2 -->
+		<suite-file path="ph_getPriceTest.xml" /> <!-- 8 -->
 
 
 	</suite-files>
