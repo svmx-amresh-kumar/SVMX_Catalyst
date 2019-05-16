@@ -107,7 +107,8 @@ public class Ph_CalendarPO
 	}*/
 
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")})
+		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])"),
+		@FindBy(xpath="//*[@text='Subject']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")})
 	private WebElement eleCalendarEventSubject;
 	public WebElement getEleCalendarEventSubject()
 	{
@@ -430,6 +431,15 @@ public class Ph_CalendarPO
 	{
 		return eletopelement;
 	}
+
+
+	@FindBy(xpath="//android.widget.TextView[@content-desc=\"multiLineHeaderTitle\"]")
+	private WebElement elevalidatecreatenew;
+	public WebElement getvalidatecreatenew()
+	{
+		return elevalidatecreatenew;
+	}
+
 
 }
 
