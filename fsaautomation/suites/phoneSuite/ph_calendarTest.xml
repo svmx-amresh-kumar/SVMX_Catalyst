@@ -6,10 +6,12 @@
 			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
 	</listeners>
 	<test name="Calendar">
-		<classes>
-		
 	
-	
+		<classes>		
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_Calender_3_RS_11859" />
+			
 		</classes>
+	
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
