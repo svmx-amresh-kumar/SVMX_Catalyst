@@ -1441,4 +1441,22 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleCaseReasonField() {
 		return eleCaseReasonField;
 	}
+	
+	public WebElement getEleWoPriorityTxt(String sWoNumTxt)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
+		} else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+		}
+	}
+	
+	public WebElement getEleWoLocationTxt(String sWoNumTxt)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
+		} else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+		}
+	}
 }
