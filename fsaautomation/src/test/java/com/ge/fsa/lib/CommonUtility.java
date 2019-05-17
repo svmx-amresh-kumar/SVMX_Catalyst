@@ -1033,7 +1033,8 @@ public class CommonUtility {
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getEleDonePickerWheelBtn().click();
 			} else {
-				getEleDatePickerPopUp().get(0).sendKeys(sMonth);
+				int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?1:0;
+				getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sMonth);
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
