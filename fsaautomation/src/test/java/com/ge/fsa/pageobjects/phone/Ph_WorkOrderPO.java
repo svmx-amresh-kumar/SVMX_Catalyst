@@ -781,6 +781,30 @@ public class Ph_WorkOrderPO {
 		getEleAdd().click();
 	}
 
+	
+	
+	@FindAll({
+		@FindBy(xpath = "//*[@text='Contact']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Contact']/../XCUIElementTypeOther") })
+
+private WebElement eleContact;
+
+public WebElement getEleContact() {
+	return eleContact;
+}
+
+	
+@FindAll({
+	@FindBy(xpath = "//*[@text='Customer Down']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Customer Down']/../XCUIElementTypeOther") })
+
+private WebElement eleCustomerDown;
+
+public WebElement getEleCustomerDown() {
+return eleCustomerDown;
+}
+	
+	
 	@FindAll({
 			@FindBy(xpath = "//*[@text='Site']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 			@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Site Lookup']/../XCUIElementTypeOther") })
@@ -1334,6 +1358,26 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleURL() {
 		return eleURL;
 	}
+	
+	
+	
+	@FindAll({
+		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Number']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Number']/../XCUIElementTypeOther") })
+private WebElement eleNumber;
+
+public WebElement getEleNumber() {
+	return eleNumber;
+}
+
+
+@FindAll({
+	@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Closed By']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
+	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Closed By']/../XCUIElementTypeOther") })
+private WebElement eleclosedby;
+public WebElement getEleclosedby() {
+return eleclosedby;
+}
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Phone']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
@@ -1360,6 +1404,29 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleEntitlementPerformedOn() {
 		return eleEntitlementPerformedOn;
 	}
+	
+	
+	@FindAll({
+		@FindBy(xpath = "//*[@text='Email']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Email']/../XCUIElementTypeOther") })
+
+	private WebElement eleEmailvalue;
+
+	public WebElement getEmailvalue() {
+	return eleEmailvalue;
+	}
+	
+	
+	@FindAll({
+		@FindBy(xpath = "//*[@text='Currency']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
+		@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Currency']/../XCUIElementTypeOther") })
+
+	private WebElement elecurrency;
+
+	public WebElement getelecurrency() {
+	return elecurrency;
+	}
+	
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Billing Information']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),

@@ -1289,13 +1289,15 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
+			int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(1).getText().contains(sTimeHrs)) {
-					getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().contains(sTimeHrs)) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 				}
 			}
 			else {
+				//Tablet
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 
 			}
@@ -1967,8 +1969,8 @@ public class CommonUtility {
 	public void swipeGeneric(String sDirectionUpDown) {
 
 		System.out.println("Scrolling...");
-		switch (BaseLib.sOSName.toLowerCase()) {
-		case "android":
+//		switch (BaseLib.sOSName.toLowerCase()) {
+//		case "android":
 
 			Dimension dim = driver.manage().window().getSize();
 			int height = dim.getHeight();
@@ -1990,20 +1992,17 @@ public class CommonUtility {
 			TouchAction ts = new TouchAction(driver);
 			ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
 
-			break;
-		case "ios":
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			Map<String, Object> params = new HashMap<>();
-			if (sDirectionUpDown.equalsIgnoreCase("up")) {
-				params.put("direction", "up");
-			} else {
-				params.put("direction", "down");
-
-			}
-			js.executeScript("mobile: swipe", params);
-
-			break;
-		}
+			
+			/*	case "ios":
+			
+			 * JavascriptExecutor js = (JavascriptExecutor) driver; Map<String, Object>
+			 * params = new HashMap<>(); if (sDirectionUpDown.equalsIgnoreCase("up")) {
+			 * params.put("direction", "up"); } else { params.put("direction", "down");
+			 * 
+			 * } js.executeScript("mobile: swipe", params);
+			 */
+		
+		//}
 
 	}
 	
