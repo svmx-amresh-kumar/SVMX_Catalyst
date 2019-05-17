@@ -293,9 +293,9 @@ public class Ph_WorkOrderPO {
 		return eleDiscountPercentage;
 	}
 
-	@FindAll({
-			@FindBy(xpath = "//*[@text='No Of Times Assigned']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//XCUIElementTypeStaticText[@label=\"No Of Times Assigned\"]/../XCUIElementTypeOther") })
+	
+	@AndroidFindBy(xpath = "//*[@text='No Of Times Assigned']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='No Of Times Assigned']/..//XCUIElementTypeTextField")
 	private WebElement NoOfTimesAssigned;
 
 	public WebElement GetEleNoOfTimesAssigned_Edit_Input() {
@@ -1258,7 +1258,7 @@ return eleCustomerDown;
 			@FindBy(xpath = "//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 			@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description*']"),
-			@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description']") })
+			@FindBy(xpath = "//XCUIElementTypeOther[@name='Problem Description']//XCUIElementTypeTextView") })
 	private WebElement eleProblemDescriptiontxt;
 
 	public WebElement geteleProblemDescriptiontxt() {
@@ -1352,7 +1352,7 @@ return eleCustomerDown;
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='URL']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//*[@*='URL']/following-sibling::*") })
+			@FindBy(xpath = "//XCUIElementTypeOther[@name='URL']//XCUIElementTypeTextField") })
 	private WebElement eleURL;
 
 	public WebElement getEleURL() {
@@ -1381,7 +1381,7 @@ return eleclosedby;
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Phone']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//*[@*='Phone']/following-sibling::*") })
+			@FindBy(xpath = "//XCUIElementTypeOther[@name='Phone']//XCUIElementTypeTextField") })
 	private WebElement elePhone;
 
 	public WebElement getElePhone() {
@@ -1390,7 +1390,7 @@ return eleclosedby;
 
 	@FindAll({
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Email']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//*[@*='Email']/following-sibling::*") })
+			@FindBy(xpath = "//XCUIElementTypeOther[@name='Email']//XCUIElementTypeTextField") })
 	private WebElement eleEmail;
 
 	public WebElement getEleEmail() {
