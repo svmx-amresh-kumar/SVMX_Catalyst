@@ -226,5 +226,14 @@ public class Ph_ExploreSearchPO {
 	public WebElement getEleNoRecords() {
 		return eleNoRecords;
 	}
+	
+	public WebElement getEleSearchListItemCount(String sName) {
+
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sName + "']/following-sibling::*[1]"));
+		} else {
+			return driver.findElement(By.xpath("(//*[@*[contains(.,'" + sName + "')]])[last()]/following-sibling::*[1]"));
+		}
+	}
 
 }

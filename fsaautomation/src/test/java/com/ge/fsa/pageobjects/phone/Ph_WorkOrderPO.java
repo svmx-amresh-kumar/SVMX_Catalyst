@@ -18,7 +18,6 @@ import com.ge.fsa.lib.GenericLib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.pagefactory.iOSFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -557,7 +556,7 @@ public class Ph_WorkOrderPO {
 		return chkboxFilter;
 	}
 	
-	
+
 	@FindBy(xpath="//android.widget.TextView[@text='See results']")
 	private WebElement btnSeeResults;
 	
@@ -1458,7 +1457,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@AndroidFindBy(xpath = "//*[@text='Delete']")
-	@iOSFindBy(xpath = "//*[@label='Delete']")
+	@iOSXCUITFindBy(xpath = "//*[@label='Delete']")
 	private WebElement eleDelete;
 
 	public WebElement geteleDelete() {
@@ -1472,6 +1471,7 @@ public class Ph_WorkOrderPO {
 		return eleCaseReasonField;
 	}
 	
+
 
 	@AndroidFindBy(xpath ="//*[@class='android.widget.TextView'][@text='Line Qty*']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
 	@iOSXCUITFindBy(xpath ="//*[@*='Line Qty*']/following-sibling::*")
