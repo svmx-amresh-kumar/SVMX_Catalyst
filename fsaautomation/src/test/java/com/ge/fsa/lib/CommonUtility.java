@@ -1967,8 +1967,8 @@ public class CommonUtility {
 	public void swipeGeneric(String sDirectionUpDown) {
 
 		System.out.println("Scrolling...");
-		switch (BaseLib.sOSName.toLowerCase()) {
-		case "android":
+//		switch (BaseLib.sOSName.toLowerCase()) {
+//		case "android":
 
 			Dimension dim = driver.manage().window().getSize();
 			int height = dim.getHeight();
@@ -1990,20 +1990,17 @@ public class CommonUtility {
 			TouchAction ts = new TouchAction(driver);
 			ts.press(new PointOption().withCoordinates(x, top_y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, bottom_y)).release().perform();
 
-			break;
-		case "ios":
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			Map<String, Object> params = new HashMap<>();
-			if (sDirectionUpDown.equalsIgnoreCase("up")) {
-				params.put("direction", "up");
-			} else {
-				params.put("direction", "down");
-
-			}
-			js.executeScript("mobile: swipe", params);
-
-			break;
-		}
+			
+			/*	case "ios":
+			
+			 * JavascriptExecutor js = (JavascriptExecutor) driver; Map<String, Object>
+			 * params = new HashMap<>(); if (sDirectionUpDown.equalsIgnoreCase("up")) {
+			 * params.put("direction", "up"); } else { params.put("direction", "down");
+			 * 
+			 * } js.executeScript("mobile: swipe", params);
+			 */
+		
+		//}
 
 	}
 	
