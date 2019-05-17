@@ -1485,18 +1485,36 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleWoPriorityTxt(String sWoNumTxt)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		}
 	}
 	
 	public WebElement getEleWoLocationTxt(String sWoNumTxt)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		}
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][1]")
+	private WebElement eleWoOrderNumberTxt;
+	public WebElement getEleWoOrderNumberTxt() {
+		return eleWoOrderNumberTxt;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][2]")
+	private WebElement eleBillingCityTxt;
+	public WebElement getEleBillingCityTxt() {
+		return eleBillingCityTxt;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][3]")
+	private WebElement elePriorityTxt;
+	public WebElement getElePriorityTxt() {
+		return elePriorityTxt;
 	}
 }
