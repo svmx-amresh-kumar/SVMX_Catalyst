@@ -19,6 +19,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
@@ -407,6 +408,13 @@ public class Ph_WorkOrderPO {
 	public WebElement getLblComponent() {
 		return lblComponent;
 	}
+	
+	@FindBy(xpath = "//*[@*='Product']")
+	private WebElement lblProduct;
+
+	public WebElement getLblProduct() {
+		return lblProduct;
+	}
 
 	@FindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
 	private WebElement btnClose;
@@ -533,6 +541,28 @@ public class Ph_WorkOrderPO {
 	
 	public WebElement getTxtProblemDescription() {
 		return txtProblemDescription;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[@text='Filter']")
+	private WebElement lnkFilter;
+	
+	public WebElement getLnkFilter() {
+		return lnkFilter;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	private WebElement chkboxFilter;
+	
+	public WebElement getChkboxFilter() {
+		return chkboxFilter;
+	}
+	
+	
+	@FindBy(xpath="//android.widget.TextView[@text='See results']")
+	private WebElement btnSeeResults;
+	
+	public WebElement getBtnSeeResults() {
+		return btnSeeResults;
 	}
 	//-----------------------------
 
@@ -1440,5 +1470,33 @@ public class Ph_WorkOrderPO {
 
 	public WebElement getEleCaseReasonField() {
 		return eleCaseReasonField;
+	}
+	
+
+	@AndroidFindBy(xpath ="//*[@class='android.widget.TextView'][@text='Line Qty*']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath ="//*[@*='Line Qty*']/following-sibling::*")
+	private WebElement eleLineQtymandatoryfldd;
+	
+	public WebElement geteleLineQtymandatoryfldd() {
+		return eleLineQtymandatoryfldd;
+	}
+	
+
+	public WebElement getEleWoPriorityTxt(String sWoNumTxt)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
+		} else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+		}
+	}
+	
+	public WebElement getEleWoLocationTxt(String sWoNumTxt)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
+		} else {
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']"));
+		}
 	}
 }
