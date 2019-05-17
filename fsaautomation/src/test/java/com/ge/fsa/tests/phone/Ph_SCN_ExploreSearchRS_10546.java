@@ -119,25 +119,21 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName, null);
-		Thread.sleep(GenericLib.iLowSleep);
 		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sWOName), sWOName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sWOName+" is successfully displayed");
 		
 		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Contacts", sWOName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Contacts", sContactName, null);
 		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sContactName), sContactName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sContactName+" is successfully displayed");
 		
 		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Products", sWOName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Products", sProductName, null);
 		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sProductName), sProductName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sProductName+" is successfully displayed");
 		
 		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Accounts", sWOName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
 		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sSerialNumber+"AccA"), sSerialNumber+"AccA is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccA is successfully displayed");
 		
