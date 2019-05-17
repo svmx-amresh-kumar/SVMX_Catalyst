@@ -104,7 +104,6 @@ public class Ph_SCN_10529 extends BaseLib {
 		ph_WorkOrderPo.getTxtSite().click();
 		String sLocItaCount = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+='"+sCountry+"'", "totalSize");
 		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocItaCount));
-		Thread.sleep(3000000);
 		// ************End of Scenario 5******************
 		// ************Start of Scenario 6****************
 } 	

@@ -29,6 +29,9 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 	@Test(retryAnalyzer=Retry.class)		
 	public void Scenario8Test() throws Exception
 	{
+		
+		lauchNewApp("false");
+
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");

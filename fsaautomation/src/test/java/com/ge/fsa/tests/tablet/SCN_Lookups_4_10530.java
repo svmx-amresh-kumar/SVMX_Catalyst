@@ -179,8 +179,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		Thread.sleep(GenericLib.iMedSleep);
 		commonUtility.tap(workOrderPo.getLblProduct());
-		System.out.println("I am Here--------");
-		Thread.sleep(60000);
+		Thread.sleep(30000);
 		commonUtility.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
 		Thread.sleep(GenericLib.iMedSleep);
 		List<WebElement> prodList = new ArrayList<WebElement>();

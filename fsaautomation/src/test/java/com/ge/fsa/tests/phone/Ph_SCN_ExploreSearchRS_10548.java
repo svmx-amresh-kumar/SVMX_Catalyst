@@ -1,0 +1,304 @@
+package com.ge.fsa.tests.phone;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.Status;
+import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
+
+public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
+
+	
+	int iWhileCnt = 0;
+	String sTestID = null;
+	String sExploreSearch = null;
+	String sExploreChildSearchTxt = null;
+	String sObjectApi = null;
+	String sJsonData = null;
+	String sObjectID = null;	
+	String sSerialNumber = null;
+	String sSqlQuery = null;
+	String sWOName1 = null;
+	String sWOName2 = null;
+	String sWOName3 = null;
+	String sWOName4 = null;
+	String sWOName5 = null;
+	String sAccountNameA=null;
+	String sAccountNameB=null;
+	String sAccountNameC=null;
+	String sLocationA = null;
+	String sLocationB = null;
+	String sLocationC = null;
+	String sLocationD = null;
+	String sLocationE = null;
+	String sLocationId = null;
+	
+	
+	private void preRequiste() throws Exception { 
+
+		restServices.getAccessToken();
+		sSerialNumber = commonUtility.generaterandomnumber("RS_10548_");
+		
+		//create Account
+		sObjectApi = "Account?";
+		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccA\"}";
+		sAccountNameA=restServices.restCreate(sObjectApi,sJsonData);
+		System.out.println(sAccountNameA);
+		sObjectApi = "Account";
+		sJsonData="{\"BillingCity\":\""+"Hyderabad"+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameA );
+	
+		sObjectApi = "Account?";
+		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccB\"}";
+		sAccountNameB=restServices.restCreate(sObjectApi,sJsonData);
+		sObjectApi = "Account";
+		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameB );
+
+		sObjectApi = "Account?";
+		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccC\"}";
+		sAccountNameC=restServices.restCreate(sObjectApi,sJsonData);
+		sObjectApi = "Account";
+		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameC );
+
+		//Create Location
+		sLocationA = sSerialNumber+"LocA";
+		sObjectApi = "SVMXC__Site__c?";
+		sJsonData = "{\"Name\": \""+sLocationA+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Lewes\",\"SVMXC__Country__c\": \"United Kingdom\"}";
+		sLocationA = restServices.restCreate(sObjectApi,sJsonData);
+		
+		//Create Location
+		sLocationB = sSerialNumber+"LocB";
+		sJsonData = "{\"Name\": \""+sLocationB+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Colombo\",\"SVMXC__Country__c\": \"SriLanka\"}";
+		sLocationB = restServices.restCreate(sObjectApi,sJsonData);
+		
+		//Create Location
+		sLocationC = sSerialNumber+"LocC";
+		sJsonData = "{\"Name\": \""+sLocationC+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}";
+		sLocationC = restServices.restCreate(sObjectApi,sJsonData);
+		
+		//Create Location
+		sLocationD = sSerialNumber+"LocD";
+		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
+		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
+		
+		//Create Location
+		sLocationE = sSerialNumber+"LocE";
+		sJsonData ="{\"Name\": \""+sLocationE+"\", \"SVMXC__Stocking_Location__c\": false}" ;
+		sLocationE = restServices.restCreate(sObjectApi,sJsonData);
+		
+		//Creation of dynamic Work Order
+		sObjectApi="SVMXC__Service_Order__c?";
+		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationA+"\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWOName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		
+		//Creation of dynamic Work Order
+		sObjectApi="SVMXC__Service_Order__c?";
+		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Company__c\":\""+sAccountNameB+"\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWOName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		
+		//Creation of dynamic Work Order
+		sObjectApi="SVMXC__Service_Order__c?";
+		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"Medium\",\"SVMXC__Site__c\":\""+sLocationC+"\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWOName3 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		
+		//Creation of dynamic Work Order
+		sObjectApi="SVMXC__Service_Order__c?";
+		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Company__c\":\""+sAccountNameA+"\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationD+"\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWOName4 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		
+		//Creation of dynamic Work Order
+		sObjectApi="SVMXC__Service_Order__c?";
+		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
+		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		
+		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		
+	}
+
+	@Test(enabled = true, retryAnalyzer=Retry.class)
+	public void RS_10548Test() throws Exception {
+		sTestID = "RS_10548";
+		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+		
+		try {
+		preRequiste();
+		
+		//Pre Login to app
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		
+		//Config Sync for process
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			
+		//Data Sync for WO's created
+		ph_MorePo.syncData(commonUtility);
+		
+		//Navigation to SFM
+		ph_ExploreSearchPo.geteleExploreIcn().click();
+		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
+		
+		//Validation of WO with invalid country
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Srilanka");
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
+		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
+		
+		//Validation of WO with invalid account
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccC");
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
+		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
+		
+		//Validation of WO with invalid wo number
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO-354300000");
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
+		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
+		
+		//Validation of WO in search
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO");
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(workOrderPo.getEleWoOrderNumberTxt().isDisplayed(), "Display field WO number is not displayed.");
+		ExtentManager.logger.log(Status.PASS,"Display field WO number text is successfully displayed");
+		
+		Assert.assertTrue(workOrderPo.getEleBillingCityTxt().isDisplayed(), "Display field Billing City Text is not displayed.");
+		ExtentManager.logger.log(Status.PASS,"Display field Billing City Text is successfully displayed");
+		
+		Assert.assertTrue(workOrderPo.getElePriorityTxt().isDisplayed(), "Display field Priority text is not displayed.");
+		ExtentManager.logger.log(Status.PASS,"Display field Priority text is successfully displayed");
+		
+		//Validation of WO1
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName1).getText().equals("High"), "Work Order1 priority is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order1 priority is successfully displayed");
+		
+		//Validation of WO2
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order2 Record is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoLocationTxt(sWOName1).getText().equals("Bangalore"), "Work Order2 Billing city is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order2 Billing city is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName1).getText().equals("High"), "Work Order2 priority is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order2 priority is successfully displayed");
+		
+		//Validation of WO3
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
+			
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName1).getText().equals("Medium"), "Work Order3 priority is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order3 priority is successfully displayed");
+		
+		//Validation of WO4
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoLocationTxt(sWOName4).getText().equals("Hyderabad"), "Work Order4 Billing city is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order4 Billing city is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName4).getText().equals("High"), "Work Order4 priority is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order4 priority is successfully displayed");
+		
+		//Validation of WO5
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName5).getText().equals("High"), "Work Order5 priority is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order5 priority is successfully displayed");
+		
+		//Validation of WO with WO-number
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName5);
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 with WO-number search is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order5 Record with WO-number search is successfully displayed");
+		
+		//Validation of WO4 with valid country
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Germany");
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with country-site search is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order4 Record with country-site search is successfully displayed");
+		
+		//Validation of WO1 & WO3 with valid country
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("in");
+		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
+		Thread.sleep(GenericLib.iMedSleep);
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 with country-site is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order1 Record with country-site is successfully displayed");
+		
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 with country-site is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order3 Record with country-site is successfully displayed");
+		
+		//Validation of WO4 with valid account number
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccA");
+		Thread.sleep(GenericLib.iMedSleep);
+				
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with account search is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order4 Record with account search is successfully displayed");
+	
+		//Validation of WO2 with valid account number
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccB");
+		Thread.sleep(GenericLib.iMedSleep);
+				
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 with account search is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Order2 Record with account search is successfully displayed");
+	
+		
+		}
+		catch(Exception e) {
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + " Testcase failed");
+
+			throw e;
+			
+		}
+		
+	}
+
+	
+	
+	
+	
+
+}
