@@ -1289,13 +1289,15 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
+			int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(1).getText().contains(sTimeHrs)) {
-					getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().contains(sTimeHrs)) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 				}
 			}
 			else {
+				//Tablet
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 
 			}
