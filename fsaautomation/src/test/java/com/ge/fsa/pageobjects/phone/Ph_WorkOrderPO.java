@@ -202,8 +202,8 @@ public class Ph_WorkOrderPO {
 		return "TRAVEL";
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text ='Add Expense']"),
-			@FindBy(xpath = "//XCUIElementTypeOther[@label='Add Expense']") })
+	@FindAll({ @FindBy(xpath = "//*[@text ='Add Expenses']"),
+			@FindBy(xpath = "//XCUIElementTypeOther[@label='Add Expenses']") })
 	private WebElement eleExpensesLnk;
 
 	public WebElement getEleExpensesLnk() {
@@ -1181,8 +1181,8 @@ return eleCustomerDown;
 		return eleOrderStatus;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text='[Part]'][@class='android.widget.TextView']"),
-			@FindBy(xpath = "//*[@*='[Part]']") })
+	@AndroidFindBy(xpath = "//*[@text='[Part]'][@class='android.widget.TextView']")
+	@iOSXCUITFindBy(xpath = "//*[@*='[Part]']")
 	private WebElement eleRemoveablePart;
 
 	public WebElement geteleRemoveablePart() {
@@ -1214,7 +1214,8 @@ return eleCustomerDown;
 
 	}
 
-	@FindBy(xpath = "//*[@text='Work Description Mapped'][@class='android.widget.EditText']")
+	@AndroidFindBy(xpath = "//*[@text='Work Description Mapped'][@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath="//*[@*='Work Description Mapped']")
 	private WebElement EleWODesMappedTxt;
 
 	public WebElement getEleWODesMappedTxt() {
@@ -1228,9 +1229,9 @@ return eleCustomerDown;
 		return eleSaveButton;
 	}
 
-	@FindAll({
-			@FindBy(xpath = "//*[@text='Billable Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-			@FindBy(xpath = "//XCUIElementTypeOther[@name='Billable Qty']") })
+
+	@AndroidFindBy(xpath = "//*[@text='Billable Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Billable Qty']/../XCUIElementTypeOther")
 	private WebElement eleBillableQty;
 
 	public WebElement geteleBillableQty() {
@@ -1244,9 +1245,9 @@ return eleCustomerDown;
 		return eleusePriceBookcontract;
 	}
 
-	@FindAll({
-			@FindBy(xpath = "//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
-			@FindBy(xpath = "//XCUIElementTypeOther[@label='Description']") })
+
+	@AndroidFindBy(xpath = "//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Problem Description']/../XCUIElementTypeOther")
 	private WebElement eleDescriptiontext;
 
 	public WebElement geteleDescriptiontext() {
@@ -1524,7 +1525,7 @@ return eleclosedby;
 	}
 
 	@AndroidFindBy(xpath = "//*[@text='Delete']")
-	@iOSXCUITFindBy(xpath = "//*[@label='Delete']")
+	@iOSXCUITFindBy(xpath = "//*[@*='Delete']")
 	private WebElement eleDelete;
 
 	public WebElement geteleDelete() {

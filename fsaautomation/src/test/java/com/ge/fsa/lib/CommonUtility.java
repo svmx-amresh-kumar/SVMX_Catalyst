@@ -303,7 +303,7 @@ public class CommonUtility {
 
 			// For IOS
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			break;
