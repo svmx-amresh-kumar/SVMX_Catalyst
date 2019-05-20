@@ -73,10 +73,10 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//Data Sync for WO's created
-		ph_MorePo.syncData(commonUtility);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		
 		//Config Sync for process
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		ph_MorePo.syncData(commonUtility);
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.geteleExploreIcn().click();
@@ -103,7 +103,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		//Selecting Billing Type to contract to make sure sfm is working fine.
 		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), sBillingType);
 		ph_WorkOrderPo.getElesave().click();
-		
+		Thread.sleep(3000);
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(ph_WorkOrderPo.verifyWorkOrder().contains("View Work Order "+sWOName),"Word order event is not saved correctly.");
 		ExtentManager.logger.log(Status.PASS,"work order is saved successfully");
@@ -123,7 +123,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"No Records text is successfully displayed");
 		
 		ph_ExploreSearchPo.getEleOnline().click();
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getDownloadIcon(sCaseID).isDisplayed(), "Download Icon is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Download Icon  is successfully displayed");
@@ -195,18 +195,20 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 			throw e;
 		}
 		finally
-		{	try {
-				postCleanup();ph_MorePo.syncData(commonUtility);
-				Thread.sleep(GenericLib.iMedSleep);
-				if(bExecutionFlag) {
-				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
-
-			}catch(Exception e) {
-				postCleanup();ph_MorePo.syncData(commonUtility);
-				Thread.sleep(GenericLib.iMedSleep);
-				if(bExecutionFlag) {
-				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
-			}
+		{	
+//			try {
+//				postCleanup();ph_MorePo.syncData(commonUtility);
+//				Thread.sleep(GenericLib.iMedSleep);
+//				if(bExecutionFlag) {
+//				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
+//
+//			}catch(Exception e) {
+//				postCleanup();ph_MorePo.syncData(commonUtility);
+//				Thread.sleep(GenericLib.iMedSleep);
+//				if(bExecutionFlag) {
+//				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
+//			}
+			postCleanup();
 			ph_MorePo.syncData(commonUtility);
 			Thread.sleep(GenericLib.iMedSleep);
 		}
