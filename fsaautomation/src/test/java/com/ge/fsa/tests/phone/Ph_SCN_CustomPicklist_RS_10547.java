@@ -77,7 +77,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		// ==========================================================================================================================================
 		// To click the Record Type button and choosing the values
-		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleRecordTypeID(), "WO_001");
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleRecordTypeID(), "WO_001");
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleControllingPicklist());
 
 		// ==============================================================================================
@@ -137,7 +137,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname2);
 		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname2+" in Installed Products.");
 		Thread.sleep(2000);
-		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleControllingPicklist(), "CP-012");
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleControllingPicklist(), "CP-012");
 		// ======================================================================================================
 		// To verify the values at the Dependent Picklist
 		String[] sDependentPicklist_CP_012 = { "--None--", "DP-0112" };
