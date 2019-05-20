@@ -81,7 +81,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 
 		Thread.sleep(GenericLib.iMedSleep);
 		ph_MorePo.resetApp(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		
 
 		// crete a wo
 		ph_CreateNewPo.getEleCreateNew().click();
@@ -127,7 +127,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		Assert.assertTrue(sCaseID.equals(fetchedcasefromrecents), "case value  is not displayed");
 		ExtentManager.logger.log(Status.PASS, " case valaditation in recent item is successful");
 
-		Thread.sleep(5000);
+		
 		// create new custom record
 		ph_CreateNewPo.getEleCreateNew().click();
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleCreateNewCustomObject());
@@ -137,6 +137,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 
 		ph_MorePo.syncData(commonUtility);
 
+		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		Thread.sleep(3000);
 		// commonsUtility.tap(recenItemsPO.gettaponobject("Auto_Custom_Object2 ("));
