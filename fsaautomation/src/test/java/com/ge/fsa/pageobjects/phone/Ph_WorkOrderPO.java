@@ -535,7 +535,8 @@ public class Ph_WorkOrderPO {
 		return btnSave;
 	}
 	
-	@FindBy(xpath="//*[@*='Problem Description']/following::android.widget.EditText")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Problem Description']/..//XCUIElementTypeStaticText)[last()]")
+	@AndroidFindBy(xpath="//*[@*='Problem Description']/following::android.widget.EditText")
 	private WebElement txtProblemDescription;
 	
 	public WebElement getTxtProblemDescription() {
@@ -1229,9 +1230,8 @@ return eleCustomerDown;
 		return eleSaveButton;
 	}
 
-
 	@AndroidFindBy(xpath = "//*[@text='Billable Qty']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Billable Qty']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Billable Qty']/..//XCUIElementTypeTextField")
 	private WebElement eleBillableQty;
 
 	public WebElement geteleBillableQty() {
@@ -1247,7 +1247,7 @@ return eleCustomerDown;
 
 
 	@AndroidFindBy(xpath = "//*[@text='Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Problem Description']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Description']/../XCUIElementTypeOther")
 	private WebElement eleDescriptiontext;
 
 	public WebElement geteleDescriptiontext() {
@@ -1525,7 +1525,7 @@ return eleclosedby;
 	}
 
 	@AndroidFindBy(xpath = "//*[@text='Delete']")
-	@iOSXCUITFindBy(xpath = "//*[@*='Delete']")
+	@iOSXCUITFindBy(xpath = "(//*[@*='Delete'])[last()]")
 	private WebElement eleDelete;
 
 	public WebElement geteleDelete() {
