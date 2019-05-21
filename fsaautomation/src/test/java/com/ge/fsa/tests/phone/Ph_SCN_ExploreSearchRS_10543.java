@@ -82,7 +82,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt).click();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName + "\\n");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName + "\n");
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records text is not displayed");
@@ -116,7 +116,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt).click();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID + "\\n");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID + "\n");
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records text is not displayed");

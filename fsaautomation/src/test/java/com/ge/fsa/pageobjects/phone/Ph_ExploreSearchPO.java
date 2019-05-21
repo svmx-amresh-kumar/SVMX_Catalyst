@@ -49,7 +49,7 @@ public class Ph_ExploreSearchPO {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sName + "']"));
 		} else {
-			return driver.findElement(By.xpath("(//*[@*[contains(.,'" + sName + "')]])[last()]"));
+			return driver.findElement(By.xpath("(//*[@label= '"+sName + "')]])[last()]"));
 		}
 	}
 

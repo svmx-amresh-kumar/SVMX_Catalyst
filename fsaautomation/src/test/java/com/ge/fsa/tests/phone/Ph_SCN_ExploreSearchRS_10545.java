@@ -512,7 +512,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	private void validateSearch(String sObjectValue) throws InterruptedException
 	{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue);
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue+"\n");
 		Thread.sleep(GenericLib.iMedSleep);		
 	}
 	
