@@ -23,7 +23,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	String sTestCaseID = "RS_10527";
 	String sScriptName = "Scenario_10527";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 	
 	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
@@ -51,13 +51,13 @@ public class Ph_SCN_10527 extends BaseLib {
 	// ******Create Location******
 	String sLoc = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName+"\'", "totalSize");
 	if(Integer.parseInt(sLoc)==0) {
-	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"France\"}");
+	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"Australia\"}");
 	System.out.println("Loc Id is "+sLocId);
 	}		
 	// ******Create Location 1******
 	String sLoc1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName1+"\'", "totalSize");
 	if(Integer.parseInt(sLoc1)==0) {
-	String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Qatar\"}");
+	String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Afghanistan\"}");
 	System.out.println("Loc Id is "+sLocId1);
 	}
 	
@@ -171,10 +171,6 @@ public class Ph_SCN_10527 extends BaseLib {
 	ph_WorkOrderPo.getBtnClose().click();
 	// ************End of Scenario 9******************
 	// ************Start of Scenario 4****************
-//	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders", sWOName,"Auto_Reg_10527");
-//	ph_WorkOrderPo.addParts(commonUtility, sProdName);
-//	Thread.sleep(3000);
-//	ph_WorkOrderPo.getEle(sProdName).click();
 	commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblContact());
 	contactList = ph_WorkOrderPo.getNoAccContactsLst();
 	System.out.println("Contacts Without Accounts fetched from Database ="+contactList.size());
