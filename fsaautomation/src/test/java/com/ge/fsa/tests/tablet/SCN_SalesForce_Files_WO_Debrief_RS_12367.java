@@ -19,8 +19,9 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
-public class SCN_SalesForce_Files_WO_Debrief extends BaseLib {
+public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 	
 	String sTestCaseID = null;
 	String sCaseWOID = null;
@@ -48,10 +49,10 @@ public class SCN_SalesForce_Files_WO_Debrief extends BaseLib {
 
 	public void prereq() throws Exception
 	{	
-		sSheetName ="RS_9726";
-		System.out.println("SCN_Workoreder_Attachment_RS-9726");
-		sTestCaseID = "SCN_Workoreder_Attachment_RS-9726";
-		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-9726";
+		sSheetName ="RS_12367";
+		System.out.println("SCN_SalesForce_Files_WO_Debrief_RS_12367");
+		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
+		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
 		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
@@ -95,8 +96,8 @@ public class SCN_SalesForce_Files_WO_Debrief extends BaseLib {
 		 		 
 }
 	
-	@Test()
-	public void RS_9726() throws Exception {
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_12367() throws Exception {
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
