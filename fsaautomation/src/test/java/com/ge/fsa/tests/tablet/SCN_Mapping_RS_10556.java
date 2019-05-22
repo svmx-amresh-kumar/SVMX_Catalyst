@@ -974,8 +974,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL, "Billable value mapping Failed ");
 		}
-		ExtentManager.logger.log(Status.PASS,
-				"Mapping validation is successful. Covered fields for child record - lookup, record type, checkbox, picklist, number, currency, text, date & datetime, Also using these literals - SVMX.USERTRUNK,SVMX.CURRENTUSERID,SVMX.CURRENTRECORD,SVMX.CURRENTRECORDHEADER,SVMX.OWNER");
+		ExtentManager.logger.log(Status.PASS,"Mapping validation is successful. Covered fields for child record - lookup, record type, checkbox, picklist, number, currency, text, date & datetime, Also using these literals - SVMX.USERTRUNK,SVMX.CURRENTUSERID,SVMX.CURRENTRECORD,SVMX.CURRENTRECORDHEADER,SVMX.OWNER");
 
 	}
 

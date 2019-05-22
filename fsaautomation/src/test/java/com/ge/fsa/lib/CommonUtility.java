@@ -2278,8 +2278,22 @@ public class CommonUtility {
 
 		//Try to scroll
 		int i;
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < 3; i++) {
 			swipeGeneric("up");
+			try {
+				Thread.sleep(300);
+				if(waitforElement(wElement,1)) {
+					point = wElement.getLocation();
+					System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
+					System.out.println("Element found aafter scrolling");
+					return;
+					//break;
+				}
+			}catch(Exception e){}
+		}
+		
+		for (i = 0; i < 3; i++) {
+			swipeGeneric("down");
 			try {
 				Thread.sleep(300);
 				if(waitforElement(wElement,1)) {
@@ -2389,7 +2403,6 @@ public class CommonUtility {
 
 	public void custScrollcalender(WebElement androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
 		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
-
 		switch(BaseLib.sOSName.toLowerCase()) {
 		case "android":
 			Thread.sleep(300);
@@ -2400,7 +2413,7 @@ public class CommonUtility {
 					Thread.sleep(300);
 					wElement = androidTextInElementOrXpath;
 					if(waitforElement(wElement,1)) {
-						System.out.println("Element found after scrolling");
+						System.out.println("Element found ");
 						return;
 					}
 				}catch(Exception e1){}
@@ -2497,13 +2510,6 @@ public class CommonUtility {
 	}
 
 	
-
-
-
-
-
-
-
 
 
 

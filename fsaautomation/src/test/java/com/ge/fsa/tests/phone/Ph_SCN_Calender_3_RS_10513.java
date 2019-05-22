@@ -88,7 +88,8 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 
 		Thread.sleep(3000);
-		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
+		ph_CalendarPo.custScroll(("10:00"),"down",commonUtility);
+		//commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event2");
 

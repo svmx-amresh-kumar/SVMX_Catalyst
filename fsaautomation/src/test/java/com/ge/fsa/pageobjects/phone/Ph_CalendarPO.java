@@ -7,14 +7,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -96,15 +99,7 @@ public class Ph_CalendarPO
 	}
 	
 	
-	
-	
-	
-	/*@FindBy(xpath="//*[@text='10:00 - 23:00']")
-	private WebElement eleAppointmentdetails;
-	public WebElement getEleAppointmentdetails()
-	{
-		return eleAppointmentdetails;
-	}*/
+
 
 	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])"),
@@ -152,6 +147,7 @@ public class Ph_CalendarPO
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			eleworkordernumonCalendar=driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.APPOINTMENT."+Subject+"\"]/android.view.ViewGroup[2]/android.widget.TextView[1]"));
 			//android.view.ViewGroup[@content-desc="CALENDAR.APPOINTMENT.A11859_SFDC_Event1"]/android.view.ViewGroup[2]/android.widget.TextView[1]
+			
 			return eleworkordernumonCalendar;
 		}else {
 			eleworkordernumonCalendar=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"CALENDAR.APPOINTMENT."+Subject+"\"])[1]"));
@@ -227,6 +223,7 @@ public class Ph_CalendarPO
 		catch(Exception e){
 			System.out.println(e);
 			System.out.println("Did not Find WO " + Subject);
+			ExtentManager.logger.log(Status.FAIL," Events are not displayed in calendar");
 		}
 	}
 
@@ -254,6 +251,9 @@ public class Ph_CalendarPO
 	public WebElement getEleWOendpoint(String hour)
 	{
 		eleWOendpoint = driver.findElement(By.xpath("//*[@text='"+hour+"']"));
+		
+		//eleWOendpoint = driver.findElement(By.xpath("//android.support.v4.view.ViewPager[@content-desc=\"CALENDAR.DAY_SCROLLER\"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]"));
+		//android.support.v4.view.ViewPager[@content-desc="CALENDAR.DAY_SCROLLER"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]
 		return eleWOendpoint;
 	}
 
@@ -279,9 +279,6 @@ public class Ph_CalendarPO
 		}
 	
 	}
-	
-	
-	
 	
 	
 	
@@ -323,11 +320,9 @@ public class Ph_CalendarPO
 	private WebElement elegetdot;
 	public WebElement getElegetdot(String hour)
 	{
-		try {
+		
 		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.view.ViewGroup"));
-		}catch(Exception e) {
-			return null;
-		}
+		
 			return elegetdot;
 		}
 		
@@ -335,19 +330,18 @@ public class Ph_CalendarPO
 	private WebElement eleGetDate;
 	public WebElement getGetDate(String sDate)
 	{
-		try {
-		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=CALENDAR.DATE_NUMBER"+sDate+"]/android.widget.TextView"));
-		}catch(Exception e) {
-			return null;
-		}
+		
+		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+sDate+"\"]"));
+		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER20"]
+
 			return eleGetDate;
 		}
 	
 	
 	private WebElement eleGetDates;
-	public WebElement getGetDates(String sDate)
+	public WebElement getGetDates()
 	{//eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=CALENDAR.DATE_NUMBER"+sDate+"]/android.widget.TextView"));
-		eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER13\"]/android.widget.TextView"));
+		eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER17\"]/android.widget.TextView"));
 
 	return eleGetDates;
 		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER13"]/android.view.ViewGroup/android.widget.TextView
@@ -440,8 +434,69 @@ public class Ph_CalendarPO
 		return elevalidatecreatenew;
 	}
 
-
+	
+	
+	public void validateeventlocation(String workordername,String startcalDate,String endcalDate,int hrs,CommonUtility commonUtility) throws Exception 
+	{
+		Thread.sleep(3000);
+		
+		int minus1 = hrs-1;
+		  startcalDate = startcalDate+":00";
+		 endcalDate=endcalDate+":00"; 
+		 
+		
+		 
+		 custScroll(startcalDate,"down",commonUtility);
+		 Thread.sleep(3000);
+		 Point startDate=getEleWOendpoint(startcalDate).getLocation();//To navigate to particular location
+		 System.out.println("startcalDate"+startcalDate);
+		 Point WorkOrderLocation=getEleworkordernumonCalendar(workordername).getLocation();
+		System.out.println("WorkOrderLocation"+WorkOrderLocation);
+		
+		int Diffstartcoodinates = WorkOrderLocation.getY() - startDate.getY();
+		System.out.println("Diff of start coodinates"+Diffstartcoodinates);
+		
+		 custScroll(endcalDate,"up",commonUtility);
+		 Thread.sleep(3000);
+		Point endDate=getEleWOendpoint(endcalDate).getLocation();
+		 System.out.println("endcalDate"+endcalDate);
+		 int Diffendcoodinates = endDate.getY() - WorkOrderLocation.getY();
+			System.out.println("Diff of end coodinates"+Diffendcoodinates);
+	
+if(Diffstartcoodinates==26 || Diffendcoodinates==((121*hrs)+(26*minus1)))
+{
+System.out.println("Event  is displayed at right position");
 }
+else {
+	System.out.println("Event is not displayed in the right position");
+	throw new Exception("Event is not displayed in the right position");
+}
+	
+	}
 
-
-
+	
+	
+	
+	public void custScroll(String androidTextInElementOrXpath, String direction,CommonUtility commonUtility)
+	{
+		boolean reTry=false;
+		while(!reTry) {
+			try {	
+				if(getEleWOendpoint(androidTextInElementOrXpath).isDisplayed()) {
+					reTry=true;
+				}
+			}
+			catch(Exception e) {
+				commonUtility.swipeGeneric(direction);
+			}
+		}	
+		}
+	
+	
+	
+		
+	
+	
+	
+	
+}

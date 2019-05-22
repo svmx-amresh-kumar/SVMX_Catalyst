@@ -83,7 +83,7 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 
 		Thread.sleep(3000);
 		//commonUtility.custScrollToElement("//*[@text='A11859_SFDC_Event1']",true);
-		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A11859_SFDC_Event1"),true);
+		ph_CalendarPo.custScroll(("10:00"),"down",commonUtility);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A11859_SFDC_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A11859_SFDC_Event2");
 
