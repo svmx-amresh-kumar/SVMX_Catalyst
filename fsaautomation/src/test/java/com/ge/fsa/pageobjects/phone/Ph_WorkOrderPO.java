@@ -373,7 +373,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	// Added by Harish--------------
-	@FindBy(xpath = "//*[@*='Contact']")
+	@FindBy(xpath = "//*[@*='Contact']") //Works on both
 	private WebElement lblContact;
 
 	public WebElement getLblContact() {
@@ -415,14 +415,22 @@ public class Ph_WorkOrderPO {
 		return lblProduct;
 	}
 
-	@FindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
+	@AndroidFindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
 	private WebElement btnClose;
 
 	public WebElement getBtnClose() {
 		return btnClose;
 	}
+	
+//	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
+//	private WebElement btnContactClose;
+//
+//	public WebElement getIOSBtnContactClose() {
+//		return btnContactClose;
+//	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]")
+	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]") //Works on both
 	private List<WebElement> noAccContactsLst;
 
 	public List<WebElement> getNoAccContactsLst() {
@@ -442,14 +450,16 @@ public class Ph_WorkOrderPO {
 		return driver.findElement(By.xpath("//*[@*='" + sValue + "']"));
 	}
 
-	@FindBy(xpath = "(//*[@*='SFM.LAYOUT.LOOKUP.LIST']//android.widget.TextView)[2]")
+	@AndroidFindBy(xpath = "//*[@*='SFM.LAYOUT.LOOKUP.LIST']//android.widget.TextView[contains(@text,'RESULT')]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'RESULT')]")
 	private WebElement lblResults;
 
 	public WebElement getLblResults() {
 		return lblResults;
 	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'Limit search to Account')]]/following-sibling::android.view.ViewGroup")
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'Limit search to Account')]]/following-sibling::android.view.ViewGroup")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='CLEAR ALL']")
 	private WebElement btnclrFilter;
 
 	public WebElement getBtnclrFilter() {
@@ -457,7 +467,8 @@ public class Ph_WorkOrderPO {
 	}
 
 //	@FindBy(xpath = "//*[@*='SFM.LAYOUT.EDIT.PICKLIST.3']")
-	@FindBy(xpath = "(//*[@text='Country']/following::android.widget.TextView)[1]")
+	@AndroidFindBy(xpath = "(//*[@text='Country']/following::android.widget.TextView)[1]")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Country']/following::XCUIElementTypeOther)[1]")
 	private WebElement countryPicklst;
 
 	public WebElement getCountryPicklst() {
@@ -472,7 +483,8 @@ public class Ph_WorkOrderPO {
 		return requestedCountryPicklst;
 	}
 
-	@FindBy(xpath = "//*[@text='PARTS']")
+	@AndroidFindBy(xpath = "//*[@text='PARTS']")
+	@iOSXCUITFindBy(xpath = "//*[@*='PARTS']")
 	private WebElement tabParts;
 
 	public WebElement getTabParts() {
