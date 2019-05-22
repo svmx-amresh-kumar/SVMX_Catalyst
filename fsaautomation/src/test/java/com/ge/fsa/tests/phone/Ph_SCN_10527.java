@@ -75,7 +75,7 @@ public class Ph_SCN_10527 extends BaseLib {
 
 	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	
-	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders","WO-00013461","Auto_Reg_10527");
+	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,"Auto_Reg_10527");
 	
 	// ***********Start of Scenario 1*******************
 	ph_WorkOrderPo.getLblContact().click();
