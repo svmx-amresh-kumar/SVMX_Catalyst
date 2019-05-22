@@ -1904,7 +1904,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/*/./bin/idevicedate").trim();
 			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 
