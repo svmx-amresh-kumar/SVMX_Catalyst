@@ -303,7 +303,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleDiscountPercentage());
 		ph_WorkOrderPo.geteleWorkDescription().click();
 		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
-		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.getBtnSave().click();
 		ph_WorkOrderPo.getEleBackButton().click();
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		ph_WorkOrderPo.getBtnSave().click();
