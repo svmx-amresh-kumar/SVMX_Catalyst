@@ -535,7 +535,7 @@ public class Ph_WorkOrderPO {
 		return btnSave;
 	}
 	
-	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Problem Description']/..//XCUIElementTypeStaticText)[last()]")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Description']/..//XCUIElementTypeStaticText)[last()]")
 	@AndroidFindBy(xpath="//*[@*='Problem Description']/following::android.widget.EditText")
 	private WebElement txtProblemDescription;
 	

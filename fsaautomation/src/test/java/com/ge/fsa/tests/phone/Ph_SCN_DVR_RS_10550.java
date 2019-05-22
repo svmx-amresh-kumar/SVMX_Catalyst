@@ -221,7 +221,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS,"DATE Literal Today validation passed");	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "JUN", "01", "2019"); 
+		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019"); 
 		//ph_WorkOrderPo.getElesave().click();
 		//Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(), "Look up DVR did not display, account cannot be same as Parnter Account ");
 
@@ -304,7 +304,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getEleBackButton().click();
-		//ph_WorkOrderPo.getEleSaveLnk().click();
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		}		
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(),3),"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
 	
