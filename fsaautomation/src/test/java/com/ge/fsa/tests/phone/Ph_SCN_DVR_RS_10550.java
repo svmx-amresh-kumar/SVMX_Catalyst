@@ -232,6 +232,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		//eleAccountLookUp DVR
 	Thread.sleep(2000);
 		System.out.println("Begining account look upf");
+		commonUtility.custScrollToElement(ph_CreateNewPo.getelePartnerAccountLookUp());
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getelePartnerAccountLookUp(), sAccountName);
 		ph_WorkOrderPo.getElesave().click();				
