@@ -287,7 +287,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		String svalue2 ="100";
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			ph_WorkOrderPo.geteleLineQtymandatoryfldd().sendKeys(svalue+"\\n");
-			ph_WorkOrderPo.getEleLinePriceField().sendKeys("svalue+\"\\n");
+			ph_WorkOrderPo.getEleLinePriceField().sendKeys(svalue+"\\n");
 		}else {
 			ph_WorkOrderPo.geteleLineQtymandatoryfldd().sendKeys(svalue+"\n");
 			driver.hideKeyboard();
