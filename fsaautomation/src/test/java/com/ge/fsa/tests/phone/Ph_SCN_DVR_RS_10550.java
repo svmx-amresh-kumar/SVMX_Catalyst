@@ -306,7 +306,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getEleBackButton().click();
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
-		ph_WorkOrderPo.getEleSaveLnk().click();
+		ph_WorkOrderPo.getBtnSave().click();
 		}		
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(),3),"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
