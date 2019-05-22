@@ -47,17 +47,17 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 		System.out.println("WO ID FETCHED " + woID);
 		// To extract the work order name from the Work Order ID
 		String sSoqlQueryWoName = "Select+Name+from+SVMXC__Service_Order__c+where+Id+=\'"+woID+"\'";
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		String sWorkOrderName = restServices.restGetSoqlValue(sSoqlQueryWoName, "Name");
 		ph_MorePo.syncData(commonUtility);
-		ph_ExploreSearchPo.geteleExploreIcn().click();;
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_WorkOrderPo.downloadCriteriaDOD(commonUtility, ph_ExploreSearchPo,"AUTOMATION SEARCH", "Work Orders", sWorkOrderName);
 		Thread.sleep(2000);
 		// If the value "Records not Displayed" is Visible then the Work Order is Online.
 			if(ph_ExploreSearchPo.getSearchListItems().size()<=1)
 			{		
 				 ph_ExploreSearchPo.getEleOnline().click();
-				 Thread.sleep(4000);
+				 Thread.sleep(5000);
 				 // If the Cloud button is Visible then need to Tap on it
 				 
 				 

@@ -303,7 +303,7 @@ public class CommonUtility {
 
 			// For IOS
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			break;
@@ -1033,7 +1033,8 @@ public class CommonUtility {
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getEleDonePickerWheelBtn().click();
 			} else {
-				getEleDatePickerPopUp().get(0).sendKeys(sMonth);
+				int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?1:0;
+				getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sMonth);
 				timeSetter(sDay, sYear, "", true);
 				getEleDonePickerWheelBtn().click();
 			}
@@ -1289,13 +1290,15 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
 		if (sTimeHrs != "0") {
+			int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(1).getText().contains(sTimeHrs)) {
-					getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().contains(sTimeHrs)) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 				}
 			}
 			else {
+				//Tablet
 				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
 
 			}
@@ -1901,7 +1904,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/*/./bin/idevicedate").trim();
 			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 

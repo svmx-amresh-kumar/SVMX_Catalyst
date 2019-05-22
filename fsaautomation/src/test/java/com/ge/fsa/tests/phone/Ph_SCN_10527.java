@@ -15,18 +15,18 @@ public class Ph_SCN_10527 extends BaseLib {
 	
 	String sAccountName = "AshwiniAutoAcc";
 	String sAccId = "";
-	String sCountry = "France";
-	String sCountry1 = "Qatar";
+	String sCountry = "Australia";
+	String sCountry1 = "Afghanistan";
 	String sProdName = "SampleProd";
 	String sLocName = "Ricardo";
 	String sLocName1 = "Nashville";
 	String sTestCaseID = "RS_10527";
 	String sScriptName = "Scenario_10527";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 	
-//	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
 	// ******Creating Account******x
 	String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -51,13 +51,13 @@ public class Ph_SCN_10527 extends BaseLib {
 	// ******Create Location******
 	String sLoc = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName+"\'", "totalSize");
 	if(Integer.parseInt(sLoc)==0) {
-	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"France\"}");
+	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\",\"SVMXC__Country__c\": \"Australia\"}");
 	System.out.println("Loc Id is "+sLocId);
 	}		
 	// ******Create Location 1******
 	String sLoc1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName1+"\'", "totalSize");
 	if(Integer.parseInt(sLoc1)==0) {
-	String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Qatar\"}");
+	String sLocId1 = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName1+"\",\"SVMXC__Country__c\": \"Afghanistan\"}");
 	System.out.println("Loc Id is "+sLocId1);
 	}
 	
@@ -81,36 +81,52 @@ public class Ph_SCN_10527 extends BaseLib {
 	ph_WorkOrderPo.getLblContact().click();
 	List<WebElement> contactList = new ArrayList<WebElement>();
 	contactList = ph_WorkOrderPo.getNoAccContactsLst();
-//	System.out.println("Contacts without Account "+contactList.size());
+	System.out.println("Contacts without Account "+contactList.size());
 	String sConWoAcc = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Id+=null", "totalSize");
 //	System.out.println("Contacts Without Accounts fetched from Database ="+sConWoAcc);
 //	Assert.assertEquals(contactList.size(), Integer.parseInt(sConWoAcc),"Existing Bug");--Commented Due to Existing Bug
-	ph_WorkOrderPo.getBtnClose().click();
+		ph_WorkOrderPo.getBtnClose().click();
 	// ************End of Scenario 1********************
 	// ***********Start of Scenario 2*******************
 	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblAccount(), "AshwiniAutoAcc");
 	ph_WorkOrderPo.getLblContact().click();
 	Thread.sleep(5000);
-	contactList = ph_WorkOrderPo.getContactLst(sAccountName);
-	System.out.println("Contacts without Account "+contactList.size());
+//	contactList = ph_WorkOrderPo.getContactLst(sAccountName);
+//	System.out.println("Contacts without Account "+contactList.size());
 	String sConWithAcme = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Account.Name+=\'"+sAccountName+"\'", "totalSize");
-	System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
-	Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme),"Existing Bug");
+//	System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
+	if(sOSName.equalsIgnoreCase("IOS")) {
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getAttribute("value").contains(sConWithAcme));
+	}
+	else{
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sConWithAcme));
+	}
+	
+//	Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme),"Existing Bug");
 	// ************End of Scenario 2********************
 	// ***********Start of Scenario 3*******************
 	ph_WorkOrderPo.getBtnclrFilter().click();
 //	System.out.println(ph_WorkOrderPo.getLblResults().getText());
 //	Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sAllCon));--Commented Due to Existing Bug
-	ph_WorkOrderPo.getBtnClose().click();
+		ph_WorkOrderPo.getBtnClose().click();
 	// ************End of Scenario 3********************
 	// ************Start of Scenario 7******************
-	ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getCountryPicklst(), "France");
+	ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getCountryPicklst(), sCountry);
 	ph_WorkOrderPo.getLblSite().click();
 	Thread.sleep(3000);
 	contactList = ph_WorkOrderPo.getContactLst(sCountry);
-	String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'France\'", "totalSize");
-	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt),"Existing Bug");
-	ph_WorkOrderPo.getBtnClose().click();
+	String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Australia\'", "totalSize");
+//	System.out.println(ph_WorkOrderPo.getLblResults().getAttribute("value"));
+	if(sOSName.equalsIgnoreCase("IOS"))
+	{
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getAttribute("value").contains(sLocCnt));
+	}
+	else {
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocCnt));
+	}
+	
+//	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt),"Existing Bug");
+		ph_WorkOrderPo.getBtnClose().click();
 	// ************End of Scenario 7********************
 	// ************Start of Scenario 8******************
 	ph_WorkOrderPo.addParts(commonUtility, sProdName);
@@ -119,10 +135,20 @@ public class Ph_SCN_10527 extends BaseLib {
 	commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblToLocation());
 	Thread.sleep(3000);
 	contactList = ph_WorkOrderPo.getContactLst(sCountry);
-	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt),"Existing Bug");
-	ph_WorkOrderPo.getBtnClose().click();
+//	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt),"Existing Bug");
+	if(sOSName.equalsIgnoreCase("IOS"))
+	{
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getAttribute("value").contains(sLocCnt));
+	}
+	else {
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocCnt));
+	}
+		ph_WorkOrderPo.getBtnClose().click();
 	Thread.sleep(5000);
-	ph_WorkOrderPo.getBtnClose().click();
+		ph_WorkOrderPo.getBtnClose().click();
+		if(sOSName.equalsIgnoreCase("android")) {
+			ph_WorkOrderPo.getEleDiscardChangesButton().click();
+		}
 	// ************End of Scenario 8******************
 	// ************Start of Scenario 9****************
 	ph_WorkOrderPo.getEleOverViewTab().click();
@@ -131,22 +157,20 @@ public class Ph_SCN_10527 extends BaseLib {
 	Thread.sleep(3000);
 	ph_WorkOrderPo.getEle(sProdName).click();
 	commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblToLocation());
-	String sLocCnt1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Qatar\'", "totalSize");
+	String sLocCnt1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Afghanistan\'", "totalSize");
 	Thread.sleep(3000);
 	contactList = ph_WorkOrderPo.getContactLst(sCountry1);
-	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt1),"Existing Bug");
+	if(sOSName.equalsIgnoreCase("IOS"))
+	{
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getAttribute("value").contains(sLocCnt1));
+	}
+	else {
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocCnt1));
+	}
+//	Assert.assertEquals(contactList.size(), Integer.parseInt(sLocCnt1),"Existing Bug");
 	ph_WorkOrderPo.getBtnClose().click();
-	Thread.sleep(3000);
-	ph_WorkOrderPo.getBtnClose().click();
-	Thread.sleep(3000);
-	ph_WorkOrderPo.getBtnClose().click();
-	ph_WorkOrderPo.getEleDiscardChangesButton().click();
 	// ************End of Scenario 9******************
 	// ************Start of Scenario 4****************
-	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders", sWOName,"Auto_Reg_10527");
-	ph_WorkOrderPo.addParts(commonUtility, sProdName);
-	Thread.sleep(3000);
-	ph_WorkOrderPo.getEle(sProdName).click();
 	commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblContact());
 	contactList = ph_WorkOrderPo.getNoAccContactsLst();
 	System.out.println("Contacts Without Accounts fetched from Database ="+contactList.size());
@@ -160,7 +184,14 @@ public class Ph_SCN_10527 extends BaseLib {
 	contactList = ph_WorkOrderPo.getContactLst(sAccountName);
 //	System.out.println("Contacts without Account "+contactList.size());
 //	System.out.println("Contacts with Account Acme fetched from Database ="+sConWithAcme);
-	Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme),"Existing Bug");
+//	Assert.assertEquals(contactList.size(), Integer.parseInt(sConWithAcme),"Existing Bug");
+	if(sOSName.equalsIgnoreCase("IOS"))
+	{
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getAttribute("value").contains(sConWithAcme));
+	}
+	else {
+		Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sConWithAcme));
+	}
 	// ************End of Scenario 5******************
 	// ***********Start of Scenario 6*****************
 	ph_WorkOrderPo.getBtnclrFilter().click();

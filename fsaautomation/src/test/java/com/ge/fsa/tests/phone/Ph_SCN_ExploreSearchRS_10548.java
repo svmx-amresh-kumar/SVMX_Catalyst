@@ -157,42 +157,39 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Srilanka");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		//Validation of WO with invalid account
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccC");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		//Validation of WO with invalid wo number
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO-354300000");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		//Validation of WO in search
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO");
-		Thread.sleep(GenericLib.iMedSleep);
 		
-		Assert.assertTrue(workOrderPo.getEleWoOrderNumberTxt().isDisplayed(), "Display field WO number is not displayed.");
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoOrderNumberTxt().isDisplayed(), "Display field WO number is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Display field WO number text is successfully displayed");
 		
-		Assert.assertTrue(workOrderPo.getEleBillingCityTxt().isDisplayed(), "Display field Billing City Text is not displayed.");
+		Assert.assertTrue(ph_WorkOrderPo.getEleBillingCityTxt().isDisplayed(), "Display field Billing City Text is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Display field Billing City Text is successfully displayed");
 		
-		Assert.assertTrue(workOrderPo.getElePriorityTxt().isDisplayed(), "Display field Priority text is not displayed.");
+		Assert.assertTrue(ph_WorkOrderPo.getElePriorityTxt().isDisplayed(), "Display field Priority text is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Display field Priority text is successfully displayed");
 		
 		//Validation of WO1
@@ -206,17 +203,17 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order2 Record is successfully displayed");
 		
-		Assert.assertTrue(ph_WorkOrderPo.getEleWoLocationTxt(sWOName1).getText().equals("Bangalore"), "Work Order2 Billing city is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoLocationTxt(sWOName2).getText().equals("Bangalore"), "Work Order2 Billing city is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order2 Billing city is successfully displayed");
 		
-		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName1).getText().equals("High"), "Work Order2 priority is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName2).getText().equals("High"), "Work Order2 priority is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order2 priority is successfully displayed");
 		
 		//Validation of WO3
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
 			
-		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName1).getText().equals("Medium"), "Work Order3 priority is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleWoPriorityTxt(sWOName3).getText().equals("Medium"), "Work Order3 priority is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order3 priority is successfully displayed");
 		
 		//Validation of WO4
@@ -240,7 +237,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName5);
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 with WO-number search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order5 Record with WO-number search is successfully displayed");
@@ -249,7 +246,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Germany");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with country-site search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order4 Record with country-site search is successfully displayed");
@@ -258,8 +255,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("in");
-		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 with country-site is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order1 Record with country-site is successfully displayed");
@@ -271,7 +267,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccA");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 				
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with account search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order4 Record with account search is successfully displayed");
@@ -280,7 +276,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccB");
-		Thread.sleep(GenericLib.iMedSleep);
+		
 				
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 with account search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order2 Record with account search is successfully displayed");

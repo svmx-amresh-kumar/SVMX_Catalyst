@@ -2382,14 +2382,14 @@ import io.appium.java_client.TouchAction;
 			return eleEndDateAndTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'Start Date Time')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleStartDateTimeTxtFld;
 		public WebElement getEleStartDateTimeTxtFld()
 		{
 			return eleStartDateTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'End Date Time')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeTxtFld;
 		public WebElement getEleEndDateTimeTxtFld()
 		{
@@ -2559,6 +2559,60 @@ import io.appium.java_client.TouchAction;
 		{
 			return eleAttacheddoc;
 		}
+		
+		
+        @FindBy(xpath="//div[text()='Attached Images/Videos']/following::span[text()='Select']")
+		
+		private WebElement eleSelectbutton;
+		public WebElement geteleSelectbutton()
+		{
+			return eleSelectbutton;
+		}
+		
+@FindBy(xpath="//div[@class='sfm-attachment-options-icon']")
+		
+		private WebElement eleActionbutton;
+		public WebElement geteleActionbutton()
+		{
+			return eleSelectbutton;
+		}
+		
+@FindBy(xpath="//span[text()='Delete']")
+		
+		private WebElement eleDeletebutton;
+		public WebElement geteleDeletebutton()
+		{
+			return eleDeletebutton;
+		}
+		
+@FindBy(xpath="//div[@class='x-toolbar x-container x-component x-noborder-trbl x-toolbar-svmx-toolbar-grey x-container-svmx-toolbar-grey x-component-svmx-toolbar-grey x-stretched x-widthed x-dock-item x-docked-top x-noborder-rl']/div/div[4]")
+		
+		private WebElement eledeleteicon;
+		public WebElement geteledeleteicon()
+		{
+			return eledeleteicon;
+		}
+		
+		public void DeletingAttachement (CommonUtility commonUtility, String sImageTitle) throws InterruptedException
+		
+		{   commonUtility.tap(getEleAttacheddoc());
+		    Thread.sleep(GenericLib.iHighSleep);
+		    commonUtility.tap(geteleSelectbutton());
+			Thread.sleep(GenericLib.iHighSleep);
+			//commonUtility.switchContext("Native");
+			
+			//commonUtility.tap(geteledeleteicon());
+			commonUtility.tap(driver.findElement(By.xpath("//div[text()='" + sImageTitle +"']")));
+			Thread.sleep(GenericLib.iHighSleep);
+			//commonUtility.tap(geteleActionbutton());
+			commonUtility.tap(geteledeleteicon());
+			commonUtility.tap(geteleDeletebutton());
+			Thread.sleep(GenericLib.iHighSleep);
+			commonUtility.tap(getEleSaveLnk());
+			
+		}
+		
+		
 		
 		
 	}

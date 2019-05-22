@@ -69,7 +69,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
-		//sCaseID="00001147";
+		//sCaseID="00001550";
 	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
@@ -93,7 +93,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
 		
-		
+		//lauchNewApp("false");
+
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
@@ -119,10 +120,20 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
 		ph_WorkOrderPo.geteleRemoveablePart().click();
-		commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
-		ph_WorkOrderPo.geteleDelete().click();
-		commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
-		ph_WorkOrderPo.geteleDelete().click();;
+		
+		if(BaseLib.sOSName.equalsIgnoreCase("android"))
+		{
+			commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
+			ph_WorkOrderPo.geteleDelete().click();
+			commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
+			ph_WorkOrderPo.geteleDelete().click();;
+		}
+		else
+		{
+			commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
+			ph_WorkOrderPo.geteleDelete().click();
+			Thread.sleep(5000);
+		}
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_WorkOrderPo.getEleOverViewTab().click();
 		
@@ -144,7 +155,11 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//Validating Mapping for text. 
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleWODesMappedTxt());
 		Assert.assertTrue(ph_WorkOrderPo.getEleWODesMappedTxt().isDisplayed(),"Work description is not Mapped");
-		ph_WorkOrderPo.getEleWODesMappedTxt().click();
+		if(BaseLib.sOSName.equalsIgnoreCase("android"))
+		{
+			ph_WorkOrderPo.getEleWODesMappedTxt().click();
+
+		}
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
 		
 		//Validating Mapping for Number. 
