@@ -148,9 +148,9 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+//		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
@@ -512,7 +512,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	private void validateSearch(String sObjectValue) throws InterruptedException
 	{
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue);
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sObjectValue+"\n");
 		Thread.sleep(GenericLib.iMedSleep);		
 	}
 	

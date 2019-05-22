@@ -20,6 +20,8 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
+import io.appium.java_client.pagefactory.iOSFindBy;
+
 public class Ph_SCN_DVR_RS_10550 extends BaseLib{	
 	
 	String sTestCaseID= null;
@@ -175,7 +177,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Boolean field confirmationvalidation passed");
 
 		//ph_WorkOrderPo.geteleEntitlementPerformed().click();
-
+/*
 		
 		//Setting up Auto_date1 greater than Auto_date2	
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
@@ -185,10 +187,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sDate1DVR).isDisplayed(), "Date1 DVR did not display,Auto_Date1 cant be greater than Auto_date2");
 		ExtentManager.logger.log(Status.PASS,"Auto_date1 DVR passed - Auto_Date1 can't be greater than Auto_Date2 displayed");
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate2_Edit_Input());
-	    commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(),"JUN", "3", "2019");		
+	    commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(),"JUN", "3", "2019");	*/	
 
-		
-	/*	//number DVR no of times assigned
+		/*	//number DVR no of times assigned
 		commonUtility.custScrollToElement(ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("302");
 		ph_WorkOrderPo.getElesave().click();
@@ -220,14 +221,18 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS,"DATE Literal Today validation passed");	
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "JUN", "01", "2019"); 
+		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019"); 
 		//ph_WorkOrderPo.getElesave().click();
 		//Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(), "Look up DVR did not display, account cannot be same as Parnter Account ");
 
 
+
+		
+
 		//eleAccountLookUp DVR
 	Thread.sleep(2000);
 		System.out.println("Begining account look upf");
+		commonUtility.custScrollToElement(ph_CreateNewPo.getelePartnerAccountLookUp());
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getelePartnerAccountLookUp(), sAccountName);
 		ph_WorkOrderPo.getElesave().click();				
@@ -238,8 +243,8 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		//Assert.assertTrue(commonUtility.waitForElementNotVisible(ph_WorkOrderPo.getDvrText(sAccountDVR), 3), "Look up DVR did not display, account cannot be same as Parnter Account ");
 		//ExtentManager.logger.log(Status.PASS,"Lookup DVR passed Account cannot be same as Partner Account not displayed when accounts are different.");	
 
-		
-	/*	//Trying with no150 - sohuld throw DVR again.
+	/*	
+		//Trying with no150 - sohuld throw DVR again.
 		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
 		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
@@ -272,13 +277,25 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getelePartName(sProductName).click();
 		
+		
 		//validation of Parts DVR
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sPartsLineQtyDVR),3),"PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
-		ph_WorkOrderPo.getEleLineQtyField().clear();
-		ph_WorkOrderPo.getEleLineQtyField().sendKeys("3");
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleDiscountPercentage());
-		ph_WorkOrderPo.getEleLinePriceField().sendKeys("100");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleConfirm());
+	//	ph_WorkOrderPo.getEleLineQtyField().clear();
+		String svalue ="3";
+		String svalue2 ="100";
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			ph_WorkOrderPo.geteleLineQtymandatoryfldd().sendKeys(svalue+"\\n");
+			ph_WorkOrderPo.getEleLinePriceField().sendKeys("svalue+\"\\n");
+		}else {
+			ph_WorkOrderPo.geteleLineQtymandatoryfldd().sendKeys(svalue+"\n");
+			driver.hideKeyboard();
+			ph_WorkOrderPo.getEleLinePriceField().sendKeys(svalue+"\n");
+			driver.hideKeyboard();
+
+		}
+		
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(),3),sPartsLinePriceDVR);
 		ExtentManager.logger.log(Status.PASS,"Parts DVR PASS :Line Quantity confirmation message displayed"+sPartsLinePriceDVR+"");
 		ph_WorkOrderPo.geteleConfirm().click();
@@ -288,7 +305,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getEleBackButton().click();
-		ph_WorkOrderPo.getEleSaveLnk().click();
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+		ph_WorkOrderPo.getBtnSave().click();
+		}		
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(),3),"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS,"OverView Tab is displayed post saving.");
 	
