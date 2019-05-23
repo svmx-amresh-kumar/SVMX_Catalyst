@@ -7,7 +7,7 @@
 	</listeners>
 	<test name="Sanity">
 		<classes>
-			<!--  <class name="com.ge.fsa.tests.phone.Ph_Sanity8_Lookup_DOD" /> -->
+			<class name="com.ge.fsa.tests.phone.Ph_Sanity8_Lookup_DOD" />
 		  	<class name="com.ge.fsa.tests.phone.Ph_Sanity2_Explore_Checklist" />
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity5_DVR_Mapping_Qualification_Criteria" />
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU"/>		
