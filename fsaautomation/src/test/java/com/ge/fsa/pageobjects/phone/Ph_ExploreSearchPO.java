@@ -62,8 +62,8 @@ public class Ph_ExploreSearchPO {
 					.findElement(By.xpath("(//*[contains(@label,'" + sName + "')]/*[contains(@name,'Item')])[last()]"));
 		}
 	}
-
-	@FindAll({ @FindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']"), @FindBy(xpath = "//*[contains(@name,'SEARCH_BAR')]") })
+	
+	@FindAll({ @FindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']"), @FindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]") })
 	// @FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
 	private WebElement eleExploreSearchTxtFld;
 
