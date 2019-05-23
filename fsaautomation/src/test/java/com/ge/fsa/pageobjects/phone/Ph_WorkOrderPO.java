@@ -1641,4 +1641,10 @@ public WebElement geteleIsbillable() {
 	public WebElement getElePriorityTxt() {
 		return elePriorityTxt;
 	}
+	
+	@FindBy(xpath="//*[@*='SFM.VALIDATION.LIST.TOGGLE_BUTTON']")
+	private WebElement eleValidationToggle;
+	public WebElement getEleValidationToggle() {
+		return eleValidationToggle;
+	}
 }
