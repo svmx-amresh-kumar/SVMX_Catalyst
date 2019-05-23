@@ -226,9 +226,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		//Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(), "Look up DVR did not display, account cannot be same as Parnter Account ");
 
 
-
-		
-
 		//eleAccountLookUp DVR
 	Thread.sleep(2000);
 		System.out.println("Begining account look upf");
@@ -271,6 +268,12 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib{
 		//navigating to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sWOName, sFieldServiceName);
+		
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
+		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
+		ph_WorkOrderPo.getEleSaveLnk().click();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleConfirm());
+		ph_WorkOrderPo.geteleConfirm().click();
 		
 		//Adding Partts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
