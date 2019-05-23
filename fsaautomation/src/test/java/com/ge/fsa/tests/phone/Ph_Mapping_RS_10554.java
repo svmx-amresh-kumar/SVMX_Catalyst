@@ -325,9 +325,11 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			System.out.println(fetchedpart);
 			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,"part value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"part value mapping Failed after datasync");}
-			
+		
+		
+	
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getleDateRequired());
-			  fetcheddaterequired = ph_WorkOrderPo.getleDateRequired().getText();
+			   fetcheddaterequired = ph_WorkOrderPo.getleDateRequired().getText();
 			System.out.println(fetcheddaterequired);
 			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed after datasync");}

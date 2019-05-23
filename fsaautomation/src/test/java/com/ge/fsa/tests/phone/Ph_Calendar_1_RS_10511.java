@@ -49,7 +49,7 @@ int iWhileCnt = 0;
 	@Test()
 	public void Ph_10511() throws Exception {
 	
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		sSheetName ="RS_10511";
 		String sTestCaseID="RS_10511_Calender_1";
@@ -86,13 +86,16 @@ int iWhileCnt = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
 			ph_CalendarPo.getEleCalendarBtn().click();			
-			ph_CalendarPo.custScroll("10:00","down",commonUtility);
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event3");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event1");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event2");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event3");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event1");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event1");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event3");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event1");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event1");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event3");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event3");
 			ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,9 +119,13 @@ int iWhileCnt = 0;
 			ph_MorePo.syncData(commonUtility);
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll("10:00","down",commonUtility);
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event1");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event1");
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SFDC_Event1");
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SVMX_Event1");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event3");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event3");
 			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,10 +169,9 @@ int iWhileCnt = 0;
 			ph_MorePo.syncData(commonUtility);
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll("10:00","down",commonUtility);
-	
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SVMX_Event2");
 			
 			ph_MorePo.getEleMoreBtn().click();
 			ph_MorePo.getEleSignOut().click();
@@ -174,14 +180,14 @@ int iWhileCnt = 0;
 			
 			commonUtility.waitforElement(ph_LoginHomePo.getEleSignInBtn(),200);
 			System.out.println("Sign out successfully");
-
+			
+			lauchNewApp("false"); 
 			ph_LoginHomePo.login(commonUtility, ph_MorePo,"TECH_USN_1");
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll("10:00","down",commonUtility);
-	
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyWOInCalender(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
 			
 			ph_MorePo.getEleMoreBtn().click();
 			ph_MorePo.getEleSignOut().click();
@@ -194,6 +200,7 @@ int iWhileCnt = 0;
 			ExtentManager.logger.log(Status.PASS,"Event Re-Assigned to tech2 is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	
+		
 	}
 	
 }

@@ -2281,7 +2281,7 @@ public class CommonUtility {
 
 		//Try to scroll
 		int i;
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i <= 5; i++) {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
@@ -2295,7 +2295,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i <=5; i++) {
 			swipeGeneric("down");
 			try {
 				Thread.sleep(300);
@@ -2381,7 +2381,7 @@ public class CommonUtility {
 	 * @param value
 	 * @return
 	 * @throws ParseException
-	 */
+	 */ 
 	public String adddaystocurrentday(int value) throws ParseException {
 
 
@@ -2404,113 +2404,7 @@ public class CommonUtility {
 	}
 
 
-	public void custScrollcalender(WebElement androidTextInElementOrXpath,boolean... isXpath) throws InterruptedException {
-		boolean isXpathOrNot = isXpath.length>0?isXpath[0]:false;
-		switch(BaseLib.sOSName.toLowerCase()) {
-		case "android":
-			Thread.sleep(300);
-			WebElement wElement = null;
-			System.out.println("Android scrolling");
-			if(isXpathOrNot== true) {
-				try {
-					Thread.sleep(300);
-					wElement = androidTextInElementOrXpath;
-					if(waitforElement(wElement,1)) {
-						System.out.println("Element found ");
-						return;
-					}
-				}catch(Exception e1){}
-
-				//Try to scroll
-				int i;
-				for (i = 0; i <3; i++) {
-					swipeGeneric("up");
-					try {
-						Thread.sleep(300);
-						wElement = androidTextInElementOrXpath;
-						if(waitforElement(wElement,1)) {
-							point = wElement.getLocation();
-							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
-							System.out.println("Element found after UP scrolling");
-							return;
-							//break;
-						}
-					}catch(Exception e2){};
-					System.out.println("Element not found after UP scrolling");
-				}
-
-				
-				for (i = 0; i <3; i++) {
-					swipeGeneric("down");
-					try {
-						Thread.sleep(300);
-						wElement = androidTextInElementOrXpath;
-						if(waitforElement(wElement,1)) {
-							point = wElement.getLocation();
-							System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
-							System.out.println("Element found after DOWN scrolling");
-							return;
-							//break;
-						}
-					}catch(Exception e2){};
-					System.out.println("Element not found after DOWN scrolling");
-				}
-			}else {
-				System.out.println("Element not found after DOWN and UP scrolling");
-			}
-			break;
-		case "ios":
-			//String xpathString = "//*[@label='"+androidTextInElementOrXpath+"']";
-			try {
-				Thread.sleep(300);
-				wElement = androidTextInElementOrXpath;
-				if(waitforElement(wElement,3)) {
-					System.out.println("Element found after scrolling");
-					return;
-				}
-			}catch(Exception e1){}
-
-			//Try to scroll and click element
-			int i;
-			for (i = 0; i < 3; i++) {
-				swipeGeneric("up");
-				try {
-					Thread.sleep(300);
-					wElement = androidTextInElementOrXpath;
-					if(waitforElement(wElement,1)) {
-						point = wElement.getLocation();
-						wElement.click();
-						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
-						System.out.println("Element found after up scrolling");
-						return;
-						//break;
-					}
-
-				}catch(Exception e2){};
-				System.out.println("Element not found after scrolling");
-			}
-		
-			for (i = 0; i < 3; i++) {
-				swipeGeneric("down");
-				try {
-					Thread.sleep(300);
-					wElement = androidTextInElementOrXpath;
-					if(waitforElement(wElement,1)) {
-						point = wElement.getLocation();
-						wElement.click();
-						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
-						System.out.println("Element found after down scrolling");
-						return;
-						//break;
-					}
-
-				}catch(Exception e2){};
-				System.out.println("Element not found after scrolling");
-			}
-		
-		
-		}
-	}
+	
 
 	
 

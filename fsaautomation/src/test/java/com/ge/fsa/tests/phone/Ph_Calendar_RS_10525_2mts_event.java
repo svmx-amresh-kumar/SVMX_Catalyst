@@ -137,7 +137,7 @@ int iWhileCnt = 0;
 			ph_CalendarPo.getEleCalendarBtn().click();
 			ph_CalendarPo.getEleCalendarBtn().click();
 			 String startDateTimehr = calendarPO.convertdatetimetohr(sSoqlQueryStartDateTime);
-			ph_CalendarPo.custScroll((startDateTimehr+":00"),"down",commonUtility);
+			ph_CalendarPo.custScroll(commonUtility,(startDateTimehr+":00"));
 			ph_CalendarPo.VerifyWOInCalender(commonUtility,seventName);
 			
 			Thread.sleep(3000);
@@ -156,7 +156,7 @@ int iWhileCnt = 0;
 	
 			ph_CalendarPo.geteleyearandmonth().click();
 			Thread.sleep(000);
-			ph_CalendarPo.custScroll((startDateTimehr+":00"),"down",commonUtility);
+			ph_CalendarPo.custScroll(commonUtility,(startDateTimehr+":00"));
 		        
 			ph_CalendarPo.VerifyWOInCalender(commonUtility,seventName);
 			

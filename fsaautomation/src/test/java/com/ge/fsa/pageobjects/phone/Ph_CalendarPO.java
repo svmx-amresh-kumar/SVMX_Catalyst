@@ -146,7 +146,7 @@ public class Ph_CalendarPO
 
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 			eleworkordernumonCalendar=driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.APPOINTMENT."+Subject+"\"]/android.view.ViewGroup[2]/android.widget.TextView[1]"));
-			//android.view.ViewGroup[@content-desc="CALENDAR.APPOINTMENT.A11859_SFDC_Event1"]/android.view.ViewGroup[2]/android.widget.TextView[1]
+			//eleworkordernumonCalendar=driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.APPOINTMENT."+Subject+"\"]/android.view.ViewGroup[2]"));
 			
 			return eleworkordernumonCalendar;
 		}else {
@@ -223,7 +223,7 @@ public class Ph_CalendarPO
 		catch(Exception e){
 			System.out.println(e);
 			System.out.println("Did not Find WO " + Subject);
-			ExtentManager.logger.log(Status.FAIL," Events are not displayed in calendar");
+			
 		}
 	}
 
@@ -446,7 +446,7 @@ public class Ph_CalendarPO
 		 
 		
 		 
-		 custScroll(startcalDate,"down",commonUtility);
+		 custScroll(commonUtility,startcalDate);
 		 Thread.sleep(3000);
 		 Point startDate=getEleWOendpoint(startcalDate).getLocation();//To navigate to particular location
 		 System.out.println("startcalDate"+startcalDate);
@@ -456,7 +456,7 @@ public class Ph_CalendarPO
 		int Diffstartcoodinates = WorkOrderLocation.getY() - startDate.getY();
 		System.out.println("Diff of start coodinates"+Diffstartcoodinates);
 		
-		 custScroll(endcalDate,"up",commonUtility);
+		 custScroll(commonUtility,endcalDate);
 		 Thread.sleep(3000);
 		Point endDate=getEleWOendpoint(endcalDate).getLocation();
 		 System.out.println("endcalDate"+endcalDate);
@@ -474,29 +474,76 @@ else {
 	
 	}
 
-	
-	
-	
-	public void custScroll(String androidTextInElementOrXpath, String direction,CommonUtility commonUtility)
+	public void VerifyEventInCalender(CommonUtility commonUtility, String Subject) throws Exception 
 	{
+
+		Thread.sleep(3000);
+	try {
+			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
+			if(getEleworkordernumonCalendar(Subject) != null){
+				System.out.println("Found WO " + Subject);
+			}
+			else
+			{
+				System.out.println("Did not Find WO " + Subject);
+				ExtentManager.logger.log(Status.FAIL,"Event is not displayed in calender");
+
+			}}catch(Exception e){System.out.println(e);}
+	
+	}
+	
+	
+	
+	public void VerifyEventdeletion(CommonUtility commonUtility, String Subject) throws Exception 
+	{
+
+		Thread.sleep(3000);
+		try{
+		commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
+			if(getEleworkordernumonCalendar(Subject) == null){
+				System.out.println("Event not found " + Subject);
+		}else {
+			System.out.println("Event should not be  displayed in calender" + Subject);
+			ExtentManager.logger.log(Status.FAIL,"Event should not be  displayed in calender");
+			
+		}
+			}catch(Exception e) {
+		}
+			
+			}
+			
+	public void custScroll(CommonUtility commonUtility,String androidTextInElementOrXpath)
+	{
+		int i =0;
 		boolean reTry=false;
 		while(!reTry) {
+			for(i=0;i<=3;i++)
+			{
 			try {	
 				if(getEleWOendpoint(androidTextInElementOrXpath).isDisplayed()) {
 					reTry=true;
 				}
 			}
 			catch(Exception e) {
-				commonUtility.swipeGeneric(direction);
+				commonUtility.swipeGeneric("down");
+			}}
+			
+			for(i=0;i<=3;i++)
+			{
+			try {	
+				if(getEleWOendpoint(androidTextInElementOrXpath).isDisplayed()) {
+					reTry=true;
+				}
 			}
+			catch(Exception e) {
+				commonUtility.swipeGeneric("up");
+			}}
+			break;
 		}	
 		}
 	
+
 	
-	
-		
-	
-	
-	
+
 	
 }
