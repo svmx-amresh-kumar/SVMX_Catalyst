@@ -59,9 +59,9 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sSerialNumber+"\", \"LastName\": \"RS_10546\", \"AccountId\": \""+sAccountNameA+"\"}");
 		sContactName = sSerialNumber+" "+"RS_10546";
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+//		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
@@ -86,11 +86,12 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		
 		//Validation of WorkOrder object search and count
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed ");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM SVMXC__Service_Order__c";				
 		sWorkOrderCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText().contains(sWorkOrderCnt), "Invalid WorkOrder count is displayed.");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText().contains(sWorkOrderCnt), "Invalid WorkOrder count is displayed. Expected:"+sWorkOrderCnt
+				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText());
 		ExtentManager.logger.log(Status.PASS,"Valid WorkOrder count is displayed.");
 		
 		//Validation of Contacts object search and count
@@ -98,7 +99,8 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Contacts for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Contact";				
 		sContactCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText().contains(sContactCnt), "Invalid Contact count is displayed.");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText().contains(sContactCnt), "Invalid Contact count is displayed. Expected:"+sContactCnt
+				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText());
 		ExtentManager.logger.log(Status.PASS,"Valid Contact count is displayed.");
 		
 		//Validation of Products object search and count
@@ -106,7 +108,8 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Products for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Product2";				
 		sProductCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText().contains(sProductCnt), "Invalid Product count is displayed.");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText().contains(sProductCnt), "Invalid Product count is displayed. Expected:"+sProductCnt
+				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText());
 		ExtentManager.logger.log(Status.PASS,"Valid Product count is displayed.");
 
 		//Validation of Accounts object search and count
@@ -114,27 +117,28 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Accounts for RS_10549 SFM Search is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Account";				
 		sAccountCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText().contains(sAccountCnt), "Invalid Account count is displayed.");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText().contains(sAccountCnt), "Invalid Account count is displayed. Expected:"+sAccountCnt
+				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText());
 		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.");
 
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName, null);
-		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sWOName), sWOName +" is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sWOName), sWOName +" is not displayed for Work Orders, actual displayed is"+ph_WorkOrderPo.getEleHeaderSubTitle().getText());
 		ExtentManager.logger.log(Status.PASS,sWOName+" is successfully displayed");
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Contacts", sContactName, null);
-		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sContactName), sContactName +" is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sContactName), sContactName +" is not displayed for contacts, actual displayed is"+ph_WorkOrderPo.getEleHeaderSubTitle().getText());
 		ExtentManager.logger.log(Status.PASS,sContactName+" is successfully displayed");
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Products", sProductName, null);
-		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sProductName), sProductName +" is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sProductName), sProductName +" is not displayed for products, actual displayed is"+ph_WorkOrderPo.getEleHeaderSubTitle().getText());
 		ExtentManager.logger.log(Status.PASS,sProductName+" is successfully displayed");
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
-		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sSerialNumber+"AccA"), sSerialNumber+"AccA is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getEleHeaderSubTitle().getText().equals(sSerialNumber+"AccA"), sSerialNumber+"AccA is not displayed for Accoutns, actual displayed is"+ph_WorkOrderPo.getEleHeaderSubTitle().getText());
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccA is successfully displayed");
 		
 	}
