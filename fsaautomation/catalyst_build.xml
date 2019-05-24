@@ -62,7 +62,7 @@
         <pathelement location="../../../Users/automation/.m2/repository/com/jayway/restassured/rest-assured-common/2.9.0/rest-assured-common-2.9.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/com/jayway/restassured/xml-path/2.9.0/xml-path-2.9.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/json/json/20171018/json-20171018.jar"/>
-        <pathelement location="../../../Users/automation/.m2/repository/io/appium/java-client/7.0.0/java-client-6.1.0.jar"/>
+        <pathelement location="../../../Users/automation/.m2/repository/io/appium/java-client/7.0.0/java-client-7.0.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/cglib/cglib/3.2.6/cglib-3.2.6.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/ow2/asm/asm/6.0/asm-6.0.jar"/>
         <pathelement location="../../../Users/automation/.m2/repository/org/apache/ant/ant/1.9.6/ant-1.9.6.jar"/>
