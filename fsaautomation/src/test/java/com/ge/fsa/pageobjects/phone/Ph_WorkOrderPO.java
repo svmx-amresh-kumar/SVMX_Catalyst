@@ -745,7 +745,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({ @FindBy(xpath = "//XCUIElementTypeStaticText[@name='Account*']/../XCUIElementTypeOther"),
-			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']") })
+			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleAccountstar;
 
 	public WebElement getAccountstar() {
@@ -785,7 +785,7 @@ public class Ph_WorkOrderPO {
 		getEleInstalledProductstar().sendKeys(InstalledProductID);
 
 		// Adding Value for Account
-		commonUtility.custScrollToElement(getAccountstar());
+		//commonUtility.custScrollToElement(getAccountstar());
 		// getAccountstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
