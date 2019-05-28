@@ -96,6 +96,15 @@ public class Ph_MorePO {
 	public WebElement getEleSyncNow() {
 		return eleSyncNow;
 	}
+	
+	
+	@AndroidFindBy(xpath = "//*[@text='Sign Out']")
+	@iOSXCUITFindBy(xpath = "//*[@*='Sign Out']/*")
+	private WebElement eleSignOut;
+
+	public WebElement getEleSignOut() {
+		return eleSignOut;
+	}
 
 	@FindBy(xpath = "//*[@*='Syncing...']")
 	private WebElement eleSyncing;

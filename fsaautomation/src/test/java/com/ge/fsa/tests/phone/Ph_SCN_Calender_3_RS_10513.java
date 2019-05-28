@@ -88,7 +88,9 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 
 		Thread.sleep(3000);
-		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
+		ph_CalendarPo.custScroll(commonUtility,"A10513_SVMX_Event1");
+
+		//commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event2");
 
@@ -154,7 +156,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		
 
 		ph_CalendarPo.getEleCalendarBtn().click();
-		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
+		ph_CalendarPo.custScroll(commonUtility,"A10513_SVMX_Event1");
 		ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1").click();
 		Thread.sleep(5000);
 		

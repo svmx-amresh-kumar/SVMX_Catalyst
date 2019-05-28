@@ -117,7 +117,6 @@ String Location=null;
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPo);
-		//ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,"AUTO09052019164420account", "AUTO09052019164420product",sInstalledproductID,ph_ExploreSearchPo);
 
 			
 			Thread.sleep(5000);
@@ -268,12 +267,12 @@ String Location=null;
 		
 	
 	}
-/*
+
 	
 	  @AfterClass(enabled = true) public void deletedata() throws Exception {
 	  //Deleting data created
 	  restServices.restDeleterecord("Account",sObjectAccID);
 	  restServices.restDeleterecord("Product2",sObjectProID);
 	  restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
-	*/ 
+	
 }

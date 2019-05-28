@@ -9,7 +9,7 @@
 	<test name="Mapping">
 		<classes>
 		<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10554" />
-			<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10557" />	
+	<!--  		<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10557" />	-->
 				
 		</classes>
 	</test> <!-- Test -->

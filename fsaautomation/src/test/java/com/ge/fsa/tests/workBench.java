@@ -100,10 +100,23 @@ public void workBenchAnd() throws Exception
 		String  sProcessname = "EditWoAutoTimesstamp";
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+
+		//System.out.println("NOWWW");
+		//Thread.sleep(12000);
 		
+		//commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
+
 		
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "11", "01");
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, "04" ,"59");
+	//	commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "01", "2019"); 
+
+
+		//commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0"); 
+	//	commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "01", "2019"); 
+		//commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0"); 
+
+		//commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "11", "01");
+		//commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, "04" ,"59");
 		
 		
 		/*

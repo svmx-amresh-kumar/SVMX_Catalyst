@@ -147,14 +147,16 @@ public class Ph_Calender_4_RS_10514 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Create SVMX event from Create New  is Successful");
 */	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			String sSalesforceuser = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
+			//String sSalesforceuser = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
 			String stechname = "Auto_Tech_1";//Add to config page
 
 			//Globel setting should be set to servicemax event for tech2  
 	        sObjectApi = "SVMXC__Service_Group_Members__c";
-			sSqlEventQuery ="SELECT+id+from+SVMXC__Service_Group_Members__c+Where+Name+=\'"+stechname+"\'";	//add to sheet			
+			sSqlEventQuery ="SELECT+id,SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+Name+=\'"+stechname+"\'";	//add to sheet			
 			String techID =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(techID);
+			String salesforceuserId =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__Salesforce_User__c"); 
+			System.out.println(salesforceuserId);
 			//updating event
 			 String sWOJson = "{\"SVMXC__Salesforce_User__c\":\"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,techID );
@@ -163,7 +165,7 @@ public class Ph_Calender_4_RS_10514 extends BaseLib {
 			lauchNewApp("false");
 			ph_LoginHomePo.login(commonUtility, ph_MorePo,"TECH_USN_1");
 			
-			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 			
 			Thread.sleep(3000);
 			
@@ -185,7 +187,7 @@ public class Ph_Calender_4_RS_10514 extends BaseLib {
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.valueOf(Integer.parseInt(hrs)+3), "00");
 			ph_WorkOrderPo.getEleAdd().click();
-			Thread.sleep(3000);
+			Thread.sleep(3000);  
 			
 			
 			

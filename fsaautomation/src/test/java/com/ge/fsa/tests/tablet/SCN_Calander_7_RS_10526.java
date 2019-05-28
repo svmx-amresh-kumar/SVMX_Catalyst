@@ -22,7 +22,6 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 	
 	
 	int iWhileCnt =0;
-//	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
 	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
 	String sAccountName = null;
