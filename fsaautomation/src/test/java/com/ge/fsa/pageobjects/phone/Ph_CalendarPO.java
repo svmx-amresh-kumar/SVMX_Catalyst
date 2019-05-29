@@ -472,7 +472,7 @@ public class Ph_CalendarPO
 		 int Diffendcoodinates = endDate.getY() - WorkOrderLocation.getY();
 			System.out.println("Diff of end coodinates"+Diffendcoodinates);
 	
-	
+	try {
 if(Diffstartcoodinates==26 || Diffendcoodinates==((121*hrs)+(26*minus1)) ||Diffstartcoodinates==(-1281) ||Diffstartcoodinates==63)
 {
 System.out.println("Event  is displayed at right position");
@@ -480,7 +480,7 @@ System.out.println("Event  is displayed at right position");
 else {
 	System.out.println("Event is not displayed in the right position");
 	throw new Exception("Event is not displayed in the right position");
-}
+}}catch(Exception e) {}
 	
 	}
 
