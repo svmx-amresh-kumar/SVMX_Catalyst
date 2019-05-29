@@ -126,9 +126,9 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+//		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
@@ -156,7 +156,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO with invalid country
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Srilanka");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Srilanka"+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
@@ -164,7 +164,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		
 		//Validation of WO with invalid account
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccC");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccC"+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
@@ -172,7 +172,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		
 		//Validation of WO with invalid wo number
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO-354300000");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO-354300000"+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records to display text is not displayed");
@@ -180,7 +180,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		
 		//Validation of WO in search
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("WO"+"\n");
 		
 		
 		Assert.assertTrue(ph_WorkOrderPo.getEleWoOrderNumberTxt().isDisplayed(), "Display field WO number is not displayed.");
@@ -236,7 +236,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO with WO-number
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName5);
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName5+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 with WO-number search is not displayed");
@@ -245,7 +245,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO4 with valid country
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Germany");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("Germany"+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with country-site search is not displayed");
@@ -254,7 +254,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO1 & WO3 with valid country
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("in");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys("in"+"\n");
 		
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 with country-site is not displayed");
@@ -266,7 +266,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO4 with valid account number
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccA");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccA"+"\n");
 		
 				
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 with account search is not displayed");
@@ -275,7 +275,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		//Validation of WO2 with valid account number
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().clear();
-		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccB");
+		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sSerialNumber+"AccB"+"\n");
 		
 				
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 with account search is not displayed");

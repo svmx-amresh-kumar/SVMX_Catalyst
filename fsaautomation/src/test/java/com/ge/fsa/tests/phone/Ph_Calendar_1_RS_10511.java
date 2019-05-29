@@ -85,7 +85,7 @@ int iWhileCnt = 0;
 			//ph_MorePo.syncData(commonUtility);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
-			ph_CalendarPo.getEleCalendarBtn().click();			
+		ph_CalendarPo.getEleCalendarBtn().click();			
 			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event1");
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event1");
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
@@ -200,7 +200,8 @@ int iWhileCnt = 0;
 			ExtentManager.logger.log(Status.PASS,"Event Re-Assigned to tech2 is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	
-		
+
+	
 	}
 	
 }

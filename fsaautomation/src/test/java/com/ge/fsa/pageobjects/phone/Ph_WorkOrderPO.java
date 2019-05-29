@@ -157,8 +157,8 @@ public class Ph_WorkOrderPO {
 
 		}
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "00");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "00");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -755,7 +755,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({ @FindBy(xpath = "//XCUIElementTypeStaticText[@name='Account*']/../XCUIElementTypeOther"),
-			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']") })
+			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleAccountstar;
 
 	public WebElement getAccountstar() {
@@ -795,7 +795,7 @@ public class Ph_WorkOrderPO {
 		getEleInstalledProductstar().sendKeys(InstalledProductID);
 
 		// Adding Value for Account
-		commonUtility.custScrollToElement(getAccountstar());
+		//commonUtility.custScrollToElement(getAccountstar());
 		// getAccountstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
@@ -1295,6 +1295,13 @@ return eleCustomerDown;
 	public WebElement getEleBillingTypeField() {
 		return eleBillingTypeField;
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+		@FindBy(xpath="//*[@*='Priority']/following-sibling::*")})
+		private WebElement elePriorityField;
+		public WebElement getElePriorityField() {
+			return elePriorityField;
+		}
 
 	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]") })
 	private WebElement autoDate;
@@ -1621,7 +1628,7 @@ public WebElement geteleIsbillable() {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[1]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		}
 	}
 	
@@ -1630,23 +1637,26 @@ public WebElement geteleIsbillable() {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[2]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		}
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][1]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][1]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[1]")
 	private WebElement eleWoOrderNumberTxt;
 	public WebElement getEleWoOrderNumberTxt() {
 		return eleWoOrderNumberTxt;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][2]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][2]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[2]")
 	private WebElement eleBillingCityTxt;
 	public WebElement getEleBillingCityTxt() {
 		return eleBillingCityTxt;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][3]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][3]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[3]")
 	private WebElement elePriorityTxt;
 	public WebElement getElePriorityTxt() {
 		return elePriorityTxt;

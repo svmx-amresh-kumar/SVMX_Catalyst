@@ -63,7 +63,7 @@ int iWhileCnt = 0;
 			assertEquals(0, 1);
 		}
 	
-			String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
+		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
 			String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			
@@ -238,11 +238,13 @@ int iWhileCnt = 0;
 				 EndDateTimehr=calendarPO.convertdatetimetohr(sSoqlQueryEndDateTime);
 			
 				 ph_CalendarPo.getEleCalendarBtn().click();	
-				// ph_CalendarPo.validateeventlocation("OverlappingEvent",StartDateTimehr,EndDateTimehr,diff,commonUtility);
-				 ph_CalendarPo.validateeventlocation("OverlappingEvent","00","17",17,commonUtility);
+				ph_CalendarPo.validateeventlocation("OverlappingEvent",StartDateTimehr,EndDateTimehr,diff,commonUtility);
+		
 
 				 ExtentManager.logger.log(Status.PASS,"Over lapping  event verification is successful");
-				
+			
+				 
+		
 	}
 	
 }

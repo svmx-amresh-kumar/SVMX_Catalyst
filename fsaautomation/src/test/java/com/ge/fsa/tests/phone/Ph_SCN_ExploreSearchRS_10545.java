@@ -148,9 +148,9 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
-//		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
-//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
@@ -182,8 +182,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		
 	try {
 		preRequiste();
-		
-		//Pre Login to app
+		lauchNewApp("false");
+		//Pre Login to app.
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
@@ -211,7 +211,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders (DATE LITERALS)").isDisplayed(), "SVMXSTD: Account Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (DATE LITERALS) Search text is successfully displayed");
 		
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders (CURRENTUSERID)").isDisplayed(), "Serial Number Search is not displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders (CURRENTUSER)").isDisplayed(), "Serial Number Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) Search text is successfully displayed");
 		//Thread.sleep(GenericLib.iMedSleep); 
 		//driver.activateApp(GenericLib.sAppBundleID);
@@ -303,30 +303,24 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//Navigation to Work Orders (CURRENTUSERID) Search
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (CURRENTUSERID)").click();
+		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (CURRENTUSER)").click();
+		validateSearch(sWOName1);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "Work Orders (CURRENTUSERID) --> No Records to display text is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSERID) -->No Records to display text is successfully displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSER) -->No Records to display text is successfully displayed");
 		
 		//Navigation to Work Orders (DATE LITERALS) Search
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (DATE LITERALS)").click();
 		Thread.sleep(GenericLib.iMedSleep); 
-		validateSearch("WO");
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
+		validateSearch(sWOName1);
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "Work Orders (DATE LITERALS) --> No Records to display text is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Orders (DATE LITERALS) -->No Records to display text is successfully displayed");
 		
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order2 Record is successfully displayed");
+		validateSearch(sWOName2);
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "Work Orders (DATE LITERALS) --> No Records to display text is not displayed");
+		ExtentManager.logger.log(Status.PASS,"Work Orders (DATE LITERALS) -->No Records to display text is successfully displayed");
 		
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
-		
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
-		
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName5, sAutoEditWO);
@@ -335,7 +329,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,sAutoEditWO+" is successfully displayed");
 		
 		//Update the WO5 with priority HIGH
-		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), "High");
+		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getElePriorityField(), "High");
 		ph_WorkOrderPo.getElesave().click();
 		Thread.sleep(GenericLib.iLowSleep);
 		
@@ -419,7 +413,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		validateSearch(sSerialNumber+"LocB");
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), sSerialNumber+"LocB --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber +"LocB -->No Records to display text is successfully displayed");
-	
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		//Updating WorkOrder2 with Location5 and scheduled date to tomorrow
 		sObjectApi = "SVMXC__Service_Order__c";
 		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
@@ -463,7 +457,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//Navigation to Work Orders (DATE LITERALS) Search
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (DATE LITERALS").click();
+		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (DATE LITERALS)").click();
 		Thread.sleep(GenericLib.iHighSleep); 
 		
 		//Validation of WO1, WO3 and WO5
