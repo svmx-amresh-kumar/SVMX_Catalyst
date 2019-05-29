@@ -180,6 +180,8 @@
                           			<!--Make sure the classpathref is set properly -->
                           			<testng  classpathref="fsaautomation.classpath" useDefaultListeners="true">
                           				<!-- ${jenkins_track_build} is derived from jenkins -->
+                          				<!--Usage-->
+                          				<!-- <xmlfileset dir="${basedir}" includes="suite/phoneSuite/ph_calendarTest.xml" />-->
                           				<xmlfileset dir="${basedir}" includes="${jenkins_track_build}" />
                           			</testng>
                           		</target>
