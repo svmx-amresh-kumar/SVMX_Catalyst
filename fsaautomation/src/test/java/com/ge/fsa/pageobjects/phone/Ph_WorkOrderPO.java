@@ -157,8 +157,8 @@ public class Ph_WorkOrderPO {
 
 		}
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "0");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "0");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "00");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "00");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -442,7 +442,7 @@ public class Ph_WorkOrderPO {
 	}	
 	
 	public WebElement getLkpEle(String sValue) {
-		return driver.findElement(By.xpath("//android.widget.TextView[@text='"+sValue+"']"));
+		return driver.findElement(By.xpath("//*[@*='"+sValue+"']"));
 }	
 	
 
@@ -491,49 +491,56 @@ public class Ph_WorkOrderPO {
 		return tabParts;
 	}
 
-	@FindBy(xpath = "//*[@*='Product']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@AndroidFindBy(xpath = "//*[@*='Product']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Product']/following-sibling::XCUIElementTypeOther")
 	private WebElement txtProduct;
 
 	public WebElement getTxtProduct() {
 		return txtProduct;
 	}
 
-	@FindBy(xpath = "//*[@*='Contact']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@AndroidFindBy(xpath = "//*[@*='Contact']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Contact']/following-sibling::XCUIElementTypeOther")
 	private WebElement txtContact;
 
 	public WebElement getTxtContact() {
 		return txtContact;
 	}
 
-	@FindBy(xpath = "//*[@*='Country']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@AndroidFindBy(xpath = "//*[@*='Country']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Country']/following-sibling::XCUIElementTypeOther")
 	private WebElement txtCountry;
 
 	public WebElement getTxtCountry() {
 		return txtCountry;
 	}
 
-	@FindBy(xpath = "//*[@*='Site']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@AndroidFindBy(xpath = "//*[@*='Site']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Site']/following-sibling::XCUIElementTypeOther")
 	private WebElement txtSite;
 
 	public WebElement getTxtSite() {
 		return txtSite;
 	}
 
-	@FindBy(xpath = "//*[@*='Top-Level']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@AndroidFindBy(xpath = "//*[@*='Top-Level']/following-sibling::android.view.ViewGroup/android.widget.TextView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top-Level']/following-sibling::XCUIElementTypeOther")
 	private WebElement txtTopLevel;
 
 	public WebElement getTxtTopLevel() {
 		return txtTopLevel;
 	}
 
-	@FindBy(xpath = "//*[@*='City']/following::android.widget.EditText")
+	@AndroidFindBy(xpath = "//*[@*='City']/following::android.widget.EditText")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='City']/following-sibling::XCUIElementTypeOther//XCUIElementTypeTextField")
 	private WebElement txtCity;
 
 	public WebElement getTxtCity() {
 		return txtCity;
 	}
 
-	@FindBy(xpath = "//*[@*='Zip']/following::android.widget.EditText")
+	@AndroidFindBy(xpath = "//*[@*='Zip']/following::android.widget.EditText")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Zip']/following-sibling::XCUIElementTypeOther//XCUIElementTypeTextField")
 	private WebElement txtZip;
 
 	public WebElement getTxtZip() {
@@ -547,15 +554,17 @@ public class Ph_WorkOrderPO {
 		return btnSave;
 	}
 	
-	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Description']/..//XCUIElementTypeStaticText)[last()]")
+//	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Description']/..//XCUIElementTypeStaticText)[last()]")
 	@AndroidFindBy(xpath="//*[@*='Problem Description']/following::android.widget.EditText")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextView")
 	private WebElement txtProblemDescription;
 	
 	public WebElement getTxtProblemDescription() {
 		return txtProblemDescription;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[@text='Filter']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@text='Filter']")
+	@iOSXCUITFindBy(xpath="	//XCUIElementTypeOther[@name='Filter']")
 	private WebElement lnkFilter;
 	
 	public WebElement getLnkFilter() {
@@ -745,7 +754,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({ @FindBy(xpath = "//XCUIElementTypeStaticText[@name='Account*']/../XCUIElementTypeOther"),
-			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']") })
+			@FindBy(xpath = "//*[@text='Account*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")})
 	private WebElement eleAccountstar;
 
 	public WebElement getAccountstar() {
@@ -785,7 +794,7 @@ public class Ph_WorkOrderPO {
 		getEleInstalledProductstar().sendKeys(InstalledProductID);
 
 		// Adding Value for Account
-		commonUtility.custScrollToElement(getAccountstar());
+		//commonUtility.custScrollToElement(getAccountstar());
 		// getAccountstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 

@@ -98,8 +98,12 @@ public class Ph_MorePO {
 	}
 	
 	
-	@AndroidFindBy(xpath = "//*[@text='Sign Out']")
-	@iOSXCUITFindBy(xpath = "//*[@*='Sign Out']/*")
+	@AndroidFindAll({
+		@AndroidBy(xpath="//*[@text='Sign Out']")})
+	@iOSXCUITFindAll({
+		@iOSXCUITBy(xpath="//XCUIElementTypeOther[@name=\"Sign Out\"]"),
+		@iOSXCUITBy(xpath="//XCUIElementTypeButton[@name=\"Sign Out\"]")})
+
 	private WebElement eleSignOut;
 
 	public WebElement getEleSignOut() {

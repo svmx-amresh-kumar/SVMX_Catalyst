@@ -819,7 +819,7 @@ public class CommonUtility {
 				getEleDonePickerWheelBtn().click();
 
 			} else {
-				timeSetter(sTimeHrs, sTimeMin, "", true);
+				timeSetter(sTimeHrs, sTimeMin, "", true,true);
 				getEleDonePickerWheelBtn().click();
 			}
 
@@ -935,7 +935,7 @@ public class CommonUtility {
 					getEleDonePickerWheelBtn().click();
 
 				} else {
-					timeSetter(sTimeHrs, sTimeMin, "", true);
+					timeSetter(sTimeHrs, sTimeMin, "", true,true);
 					getEleDonePickerWheelBtn().click();
 				}
 
@@ -1035,7 +1035,7 @@ public class CommonUtility {
 			} else {
 				int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?1:0;
 				getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sMonth);
-				timeSetter(sDay, sYear, "", true);
+				timeSetter(sDay, sYear, "", true,false);
 				getEleDonePickerWheelBtn().click();
 			}
 
@@ -1123,7 +1123,7 @@ public class CommonUtility {
 				getEleDonePickerWheelBtn().click();
 
 			} else {
-				timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false);
+				timeSetter(sTimeHrs, sTimeMin, sTimeAMPM, false,true);
 				getEleDonePickerWheelBtn().click();
 			}
 
@@ -1288,13 +1288,22 @@ public class CommonUtility {
 	 * @param sTimeAMPM
 	 * @param is24hrs
 	 */
-	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs) {
+	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs,Boolean isUkRegionDateTime) {
+		int cylinderPosition=0;
 		if (sTimeHrs != "0") {
-			int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
+			if(isUkRegionDateTime==true) {
+				 cylinderPosition=1;
+
+			}else {
+				 cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
+
+			}
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				int breakCount=0;
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().contains(sTimeHrs)) {
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().contains(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+					breakCount++;
 				}
 			}
 			else {
@@ -1305,10 +1314,12 @@ public class CommonUtility {
 
 		}
 		if (sTimeMin != "0") {
+			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(2).getText().contains(sTimeMin)) {
+				while(!getEleDatePickerPopUp().get(2).getText().contains(sTimeMin) && breakCount<20) {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+					breakCount++;
 				}
 			}else {
 			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
@@ -1904,7 +1915,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/*/./bin/idevicedate").trim();
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
 			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 

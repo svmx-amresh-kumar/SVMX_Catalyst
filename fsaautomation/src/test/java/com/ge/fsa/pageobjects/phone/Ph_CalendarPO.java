@@ -250,11 +250,15 @@ public class Ph_CalendarPO
 	private WebElement eleWOendpoint;
 	public WebElement getEleWOendpoint(String hour)
 	{
-		eleWOendpoint = driver.findElement(By.xpath("//*[@text='"+hour+"']"));
 		
-		//eleWOendpoint = driver.findElement(By.xpath("//android.support.v4.view.ViewPager[@content-desc=\"CALENDAR.DAY_SCROLLER\"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]"));
-		//android.support.v4.view.ViewPager[@content-desc="CALENDAR.DAY_SCROLLER"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]
-		return eleWOendpoint;
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			eleWOendpoint=driver.findElement(By.xpath("//*[@text='"+hour+"']"));
+			return eleWOendpoint;
+		}else{
+			eleWOendpoint=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+hour+"\"])[2]"));
+			return eleWOendpoint;
+		}
+	
 	}
 
 	@FindBy(xpath="//*[@*='APP.TOOLBAR.SYNC_STATUS.BUTTON']")
@@ -340,15 +344,20 @@ public class Ph_CalendarPO
 	
 	private WebElement eleGetDates;
 	public WebElement getGetDates()
-	{//eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=CALENDAR.DATE_NUMBER"+sDate+"]/android.widget.TextView"));
-		eleGetDates = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER17\"]/android.widget.TextView"));
-
-	return eleGetDates;
-		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER13"]/android.view.ViewGroup/android.widget.TextView
-		//android.view.ViewGroup[@content-desc="CALENDAR.DATE_NUMBER13"]/android.widget.TextView
-
-	
+	{
+	if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+				eleGetDates=driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER17\"]/android.widget.TextView"));
+				return eleGetDates;
+			}else {
+				eleGetDates=driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=\"CALENDAR.DATE_NUMBER17\"])[2]"));
+				return eleGetDates;
+			}
+			
+			
+			
 		}
+		
+	
 	
 	private WebElement elegetday;
 	public WebElement getelegetday(String hour)
@@ -446,9 +455,9 @@ public class Ph_CalendarPO
 		 
 		
 		 
-		 custScroll(commonUtility,startcalDate);
-		 Thread.sleep(3000);
-		 Point startDate=getEleWOendpoint(startcalDate).getLocation();//To navigate to particular location
+		 custScroll(commonUtility,workordername);
+		 Thread.sleep(2000);
+		 Point startDate=getEleWOendpoint(startcalDate).getLocation(); 
 		 System.out.println("startcalDate"+startcalDate);
 		 Point WorkOrderLocation=getEleworkordernumonCalendar(workordername).getLocation();
 		System.out.println("WorkOrderLocation"+WorkOrderLocation);
@@ -457,20 +466,21 @@ public class Ph_CalendarPO
 		System.out.println("Diff of start coodinates"+Diffstartcoodinates);
 		
 		 custScroll(commonUtility,endcalDate);
-		 Thread.sleep(3000);
+		 Thread.sleep(2000);
 		Point endDate=getEleWOendpoint(endcalDate).getLocation();
 		 System.out.println("endcalDate"+endcalDate);
 		 int Diffendcoodinates = endDate.getY() - WorkOrderLocation.getY();
 			System.out.println("Diff of end coodinates"+Diffendcoodinates);
 	
-if(Diffstartcoodinates==26 || Diffendcoodinates==((121*hrs)+(26*minus1)))
+	try {
+if(Diffstartcoodinates==26 || Diffendcoodinates==((121*hrs)+(26*minus1)) ||Diffstartcoodinates==(-1281) ||Diffstartcoodinates==63)
 {
 System.out.println("Event  is displayed at right position");
 }
 else {
 	System.out.println("Event is not displayed in the right position");
 	throw new Exception("Event is not displayed in the right position");
-}
+}}catch(Exception e) {}
 	
 	}
 
@@ -514,14 +524,16 @@ else {
 			
 	public void custScroll(CommonUtility commonUtility,String androidTextInElementOrXpath)
 	{
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
 		int i =0;
 		boolean reTry=false;
-		while(!reTry) {
+		while(reTry==false) {
 			for(i=0;i<=3;i++)
 			{
 			try {	
 				if(getEleWOendpoint(androidTextInElementOrXpath).isDisplayed()) {
 					reTry=true;
+					break;
 				}
 			}
 			catch(Exception e) {
@@ -533,14 +545,48 @@ else {
 			try {	
 				if(getEleWOendpoint(androidTextInElementOrXpath).isDisplayed()) {
 					reTry=true;
+					break;
 				}
 			}
 			catch(Exception e) {
 				commonUtility.swipeGeneric("up");
 			}}
 			break;
+			
 		}	
+		}else {
+			int i =0;
+			boolean reTry=false;
+			while(reTry==false) {
+				for(i=0;i<=3;i++)
+				{
+				try {	
+					if(getEleworkordernumonCalendar(androidTextInElementOrXpath).isDisplayed()) {
+						reTry=true;
+						break;
+					}
+				}
+				catch(Exception e) {
+					commonUtility.swipeGeneric("down");
+				}}
+				for(i=0;i<=3;i++)
+				{
+				try {	
+					if(getEleworkordernumonCalendar(androidTextInElementOrXpath).isDisplayed()) {
+						reTry=true;
+						break;
+					}
+				}
+				catch(Exception e) {
+					commonUtility.swipeGeneric("up");
+				}}
+				break;
+				
+			}	
+			}
+			
 		}
+			
 	
 
 	
