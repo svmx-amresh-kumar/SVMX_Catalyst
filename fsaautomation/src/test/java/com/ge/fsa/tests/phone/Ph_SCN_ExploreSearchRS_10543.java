@@ -139,11 +139,11 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sCaseObjectID);
 	
 		//Data Sync for WO's created
-		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		ph_MorePo.syncData(commonUtility); 
 		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Navigation to Case edit process
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt), sCaseID);
