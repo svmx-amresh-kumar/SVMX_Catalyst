@@ -564,7 +564,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath="//android.widget.TextView[@text='Filter']")
-	@iOSXCUITFindBy(xpath="	//XCUIElementTypeOther[@name='Filter']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.LOOKUP.OPTIONS.BUTTON']")
 	private WebElement lnkFilter;
 	
 	public WebElement getLnkFilter() {
@@ -579,7 +579,8 @@ public class Ph_WorkOrderPO {
 	}
 	
 
-	@FindBy(xpath="//android.widget.TextView[@text='See results']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@text='See results']")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name='See results'])[last()]")
 	private WebElement btnSeeResults;
 	
 	public WebElement getBtnSeeResults() {
