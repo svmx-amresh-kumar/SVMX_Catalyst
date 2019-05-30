@@ -5,6 +5,8 @@
     </listeners>
 <test name="WorkBench">
 		<classes>	
+		<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10554" /> 
+		<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10557" /> 
 		<class name="com.ge.fsa.tests.phone.Ph_Sanity11_Verify_Calendar_Functionality_GO_6350" /> 
 		<class name="com.ge.fsa.tests.phone.Ph_Calendar_6_RS_10525" />
 		<class name="com.ge.fsa.tests.phone.Ph_Calendar_RS_10525_2mts_event" />
