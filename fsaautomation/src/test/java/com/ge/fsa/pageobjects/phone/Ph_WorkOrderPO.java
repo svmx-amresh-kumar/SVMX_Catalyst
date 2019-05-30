@@ -564,7 +564,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath="//android.widget.TextView[@text='Filter']")
-	@iOSXCUITFindBy(xpath="	//XCUIElementTypeOther[@name='Filter']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.LOOKUP.OPTIONS.BUTTON']")
 	private WebElement lnkFilter;
 	
 	public WebElement getLnkFilter() {
@@ -579,7 +579,8 @@ public class Ph_WorkOrderPO {
 	}
 	
 
-	@FindBy(xpath="//android.widget.TextView[@text='See results']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@text='See results']")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name='See results'])[last()]")
 	private WebElement btnSeeResults;
 	
 	public WebElement getBtnSeeResults() {
@@ -1298,6 +1299,13 @@ return eleCustomerDown;
 	public WebElement getEleBillingTypeField() {
 		return eleBillingTypeField;
 	}
+	
+	@FindAll({@FindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']"),
+		@FindBy(xpath="//*[@*='Priority']/following-sibling::*")})
+		private WebElement elePriorityField;
+		public WebElement getElePriorityField() {
+			return elePriorityField;
+		}
 
 	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]") })
 	private WebElement autoDate;
@@ -1624,7 +1632,7 @@ public WebElement geteleIsbillable() {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[1]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[2]"));
 		}
 	}
 	
@@ -1633,23 +1641,26 @@ public WebElement geteleIsbillable() {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		} else {
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[2]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sWoNumTxt + "']/following-sibling::*[1]"));
 		}
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][1]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][1]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[1]")
 	private WebElement eleWoOrderNumberTxt;
 	public WebElement getEleWoOrderNumberTxt() {
 		return eleWoOrderNumberTxt;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][2]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][2]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[2]")
 	private WebElement eleBillingCityTxt;
 	public WebElement getEleBillingCityTxt() {
 		return eleBillingCityTxt;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][3]")
+	@AndroidFindBy(xpath="//*[@*[contains(.,'Item')]]//*[@class='android.widget.TextView'][3]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'Item')]]//XCUIElementTypeStaticText[3]")
 	private WebElement elePriorityTxt;
 	public WebElement getElePriorityTxt() {
 		return elePriorityTxt;

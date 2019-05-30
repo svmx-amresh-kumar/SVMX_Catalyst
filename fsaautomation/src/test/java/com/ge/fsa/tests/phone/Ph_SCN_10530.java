@@ -31,7 +31,7 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sSearchTxt = "HarryProd";
 	
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
@@ -170,14 +170,15 @@ public class Ph_SCN_10530 extends BaseLib {
 			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, "WO-00013467", sProcessName);
 			// ************Start of Scenario 1****************
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblProduct());
-			ph_WorkOrderPo.getElelookupsearch().sendKeys(sSearchTxt);
+			ph_WorkOrderPo.getElelookupsearch().sendKeys(sSearchTxt+ "\n");
 			Assert.assertTrue(ph_WorkOrderPo.getLkpEle(sSearchTxt).isDisplayed());
 			// ************End of Scenario 1******************
 			// ************Start of Scenario 2****************
 			Thread.sleep(3000);
 			ph_WorkOrderPo.getElelookupsearch().clear();
 			ph_WorkOrderPo.getLnkFilter().click();
-			ph_WorkOrderPo.getChkboxFilter().click();
+			ph_WorkOrderPo.getLnkFilter().click();
+//			ph_WorkOrderPo.getChkboxFilter().click();
 			ph_WorkOrderPo.getBtnSeeResults().click();
 //			String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
 //		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
@@ -200,3 +201,5 @@ public class Ph_SCN_10530 extends BaseLib {
 } 			
 
 }
+
+
