@@ -114,7 +114,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 
 	}
 
-	@Test // (retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10550() throws Exception {
 
 		prerequisites();

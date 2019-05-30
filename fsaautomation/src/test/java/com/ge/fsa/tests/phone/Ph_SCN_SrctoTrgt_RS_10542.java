@@ -83,8 +83,8 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 
 	}
 
-	@Test()
-	//@Test(enabled = true, retryAnalyzer=Retry.class)
+	//@Test()
+	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10542Test() throws Exception {
 		sTestID = "RS_10542";	
 		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
