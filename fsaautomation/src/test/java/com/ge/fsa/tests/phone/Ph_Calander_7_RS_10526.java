@@ -46,7 +46,7 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 
 		String sTestCaseID = "Ph_10526_Calender_7";
 
-		lauchNewApp("true");
+		lauchNewApp("false");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
