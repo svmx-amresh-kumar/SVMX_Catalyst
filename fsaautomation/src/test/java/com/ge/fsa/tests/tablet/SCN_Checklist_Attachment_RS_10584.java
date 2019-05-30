@@ -365,6 +365,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 			  	Thread.sleep(GenericLib.i30SecSleep);
 				
 				System.out.println("Validating if  attachment is syned to server.");
+				Thread.sleep(60000);
 			  	Thread.sleep(GenericLib.i30SecSleep);
 			  	Thread.sleep(GenericLib.i30SecSleep);
 			  	Thread.sleep(GenericLib.iMedSleep);
@@ -404,6 +405,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 			  	String sSoqlAttachmentName2 = "SELECT Name FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid2+"\')"; 
 			  	String sAttachmentNameAfter2 = restServices.restGetSoqlValue(sSoqlAttachmentName2, "Name");
 				ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter2);
+				
+				
 }
 
 	
