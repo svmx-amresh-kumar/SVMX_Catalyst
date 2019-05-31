@@ -79,7 +79,7 @@ public class Ph_ChecklistPO
 	}*/
 	
 	
-	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
+	@FindBy(xpath="(//*[@*='APP.BACK_BUTTON'])[last()]")
 	private WebElement eleBackbutton;
 	public WebElement geteleBackbutton()
 	{
@@ -126,8 +126,12 @@ public class Ph_ChecklistPO
 		return eleChecklistCompleted;
 	}
 	
-	
-	
+	@FindBy(xpath="//*[@*[contains(.,'RadioTwo_selected=true')]]")
+	private WebElement eleRadioTwoSelected;
+	public WebElement geteleRadioTwoSelected()
+	{
+		return eleRadioTwoSelected;
+	}
 	
 	private WebElement elechecklistinprogress;
 	public WebElement getelechecklistinprogress(String sChecklistName)
@@ -219,10 +223,10 @@ public class Ph_ChecklistPO
 	}
 	
 	private WebElement elechecklistDateQAnsValue;
-	public WebElement getelechecklistDateQAnsValue(String sTextQuestion,String sDateAnswer)
+	public WebElement getelechecklistDateQAnsValue(String sTextQuestion)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sDateAnswer+"']"));
+			return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText']"));
 		}
 		else
 		{																											
