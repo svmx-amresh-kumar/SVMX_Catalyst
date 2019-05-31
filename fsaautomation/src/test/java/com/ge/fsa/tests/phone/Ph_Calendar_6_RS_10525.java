@@ -63,7 +63,7 @@ int iWhileCnt = 0;
 			assertEquals(0, 1);
 		}
 	
-		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
+		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
 			String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			

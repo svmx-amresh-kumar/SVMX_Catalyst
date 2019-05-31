@@ -72,16 +72,16 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName = GenericLib.getExcelData(sTestDataValue1,sSheetName2,"Product Name ");
+		sProductName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName);
 		
-		sProductName2 = GenericLib.getExcelData(sTestDataValue3,sSheetName3,"Product2 Name");
+		sProductName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Product2 Name");
 		System.out.println(sProductName2);
-		sIBName = GenericLib.getExcelData(sTestDataValue1,sSheetName2,"Installed Product Name");
+		sIBName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sIBName);	
 		
 		String sTestDataValue2 = "SCN_GetPriceNotCovered_RS_10532";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue2,sSheetName1,"Work Order Number");
+		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
 	
 		// To navigate to the Work Order
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	

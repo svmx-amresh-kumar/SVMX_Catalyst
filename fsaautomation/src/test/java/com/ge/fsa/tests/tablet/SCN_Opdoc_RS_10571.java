@@ -35,15 +35,15 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void SCN_Opdoc_RS_10571() throws Exception {
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sTestCaseID,"ExploreSearch");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sTestCaseID,"ExploreChildSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreChildSearch");
 		System.out.println(sExploreChildSearchTxt);
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sTestCaseID, "ProcessName");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
 		System.out.println(sFieldServiceName);
-		sProbDesc = GenericLib.getExcelData(sTestCaseID,sTestCaseID, "ProbDesc");
+		sProbDesc = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
 		System.out.println("The Value is "+sProbDesc);
-//		iValToIncrease = Integer.parseInt(GenericLib.getExcelData(sTestID,sTestID, "Increased"));
+//		iValToIncrease = Integer.parseInt(GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
 		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);

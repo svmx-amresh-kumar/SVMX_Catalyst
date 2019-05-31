@@ -76,9 +76,9 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.getExcelData(sTestDataValue1,sSheetName, "Work Order Number");
-		String sworkOrderName2 = GenericLib.getExcelData(sTestDataValue1,sSheetName, "Work Order Number2");
-		String sProductName = GenericLib.getExcelData(sTestDataValue2,sSheetName2, "Product Name ");
+		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
+		String sworkOrderName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number2");
+		String sProductName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2, "Product Name ");
 		System.out.println(sworkOrderName2);
 	/** 
 	 * To enter the DOD of the Work Order	

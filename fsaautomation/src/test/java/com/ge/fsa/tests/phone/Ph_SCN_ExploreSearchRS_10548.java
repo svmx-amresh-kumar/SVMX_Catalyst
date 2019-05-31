@@ -135,7 +135,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		
 		try {
 		preRequiste();

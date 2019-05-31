@@ -77,9 +77,9 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
-		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Work Order Number");
+		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
-		sProductName10533 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");
+		sProductName10533 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10533);
 		
 		
