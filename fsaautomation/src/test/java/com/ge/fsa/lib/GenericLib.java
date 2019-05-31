@@ -251,7 +251,7 @@ public class GenericLib
 			Sheet sht = wb.getSheet(sSheetName);
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
-			for (int i = 0; i <= iRowNum; i++) {
+			for (int i = 0; i < iRowNum; i++) {
 				
 				//if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
 					int iCellNum = sht.getRow(i).getLastCellNum();
