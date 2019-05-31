@@ -52,12 +52,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		sCaseWOID = "RS_2389_checklistID";
 
 		// Extracting Excel Data
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		// sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName,
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		// sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,
 		// "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ChecklistName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);

@@ -54,10 +54,10 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //Work Order for Files --upload from library

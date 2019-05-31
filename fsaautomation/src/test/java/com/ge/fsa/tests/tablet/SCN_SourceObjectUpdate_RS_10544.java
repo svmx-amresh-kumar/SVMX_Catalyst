@@ -92,10 +92,10 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 				
 
 				//Reading from the Excel sheet
-				sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-				sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-				sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-				sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+				sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+				sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 					
 				
 				//Account Creation

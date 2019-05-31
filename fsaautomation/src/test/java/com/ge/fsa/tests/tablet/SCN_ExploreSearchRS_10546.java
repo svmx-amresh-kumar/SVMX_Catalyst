@@ -69,7 +69,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	public void RS_10546Test() throws Exception 
 	{
 		sTestID = "RS_10549";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		preRequiste();
 
 		//Pre Login to app

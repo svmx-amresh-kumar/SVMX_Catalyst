@@ -62,11 +62,11 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";
 
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "IssueText");
-		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName, "BillingType");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "IssueText");
+		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "BillingType");
 		preRequiste();
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

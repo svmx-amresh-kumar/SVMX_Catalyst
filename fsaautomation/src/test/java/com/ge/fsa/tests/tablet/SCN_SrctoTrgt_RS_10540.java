@@ -86,9 +86,9 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		lauchNewApp("false");
 		
 		sTestID = "RS_10540";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app

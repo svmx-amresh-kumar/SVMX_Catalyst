@@ -104,10 +104,10 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ViewProcessNameAccPro");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ViewProcessNameAccPro");
+		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 			//Pre Login to app
