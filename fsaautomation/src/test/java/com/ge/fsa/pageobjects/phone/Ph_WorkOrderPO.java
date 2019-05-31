@@ -414,6 +414,20 @@ public class Ph_WorkOrderPO {
 	public WebElement getLblProduct() {
 		return lblProduct;
 	}
+	
+	@FindBy(xpath = "//*[@*='City']")
+	private WebElement lblCity;
+
+	public WebElement getLblCity() {
+		return lblCity;
+	}
+	
+	@FindBy(xpath = "//*[@*='Country']")
+	private WebElement lblCountry;
+
+	public WebElement getLblCountry() {
+		return lblCountry;
+	}
 
 	@AndroidFindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
