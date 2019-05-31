@@ -72,23 +72,23 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID="00001550";
 	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+		 ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 	*/	
 	}
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName , "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "IssueText");
-		sOrderStatus = GenericLib.getExcelData(sTestCaseID,sSheetName , "OrderStatus");
-		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName , "BillingType");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
+		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
+		sOrderStatus = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
+		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
@@ -195,8 +195,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
 
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
-		String sProbdescWOClient = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtProblemDescription());
+		String sProbdescWOClient = ph_WorkOrderPo.getTxtProblemDescription().getText();
 		String sExpectedProbeDesc = "Description of Sanity6";
 		Assert.assertTrue(sProbdescWOClient.equals(sExpectedProbeDesc), "Source to Target Failed!");
 		ExtentManager.logger.log(Status.PASS,"Source to Target Process Sucessfull, WO Desc Expected :"+sExpectedProbeDesc+" Actual : "+sProbdescWOClient+"");

@@ -61,10 +61,10 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";

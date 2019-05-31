@@ -54,10 +54,10 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //Work Order for Files --upload from library
@@ -150,6 +150,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 toolsPo.syncData(commonUtility);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(60000);
 		 System.out.println("Validating if  File is syned to server.");
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 
@@ -188,6 +189,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
+		 Thread.sleep(60000);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 
 		 String sSoqlWorkorderid1 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\'";
@@ -226,6 +228,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
 		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(60000);
 		 
 		 String sSoqlWorkorderid2 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\'";
 		 String sSoqlWorkorderidafter2 = restServices.restGetSoqlValue(sSoqlWorkorderid2, "Id");
@@ -309,6 +312,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  Thread.sleep(GenericLib.i30SecSleep); 
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  File is syned to server.");
+		  Thread.sleep(60000);
 		  Thread.sleep(GenericLib.i30SecSleep); 
 		  String sSoqlWorkorderidAtach = "select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\'";
 		  String sSoqlWorkorderidafterAtach = restServices.restGetSoqlValue(sSoqlWorkorderidAtach, "Id");

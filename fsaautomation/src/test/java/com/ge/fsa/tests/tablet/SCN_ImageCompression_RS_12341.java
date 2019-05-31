@@ -86,11 +86,11 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS-12341";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		//Work Order for Value None 
@@ -175,6 +175,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  toolsPo.syncData(commonUtility); Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
+		  Thread.sleep(60000);
 		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
 		  
@@ -246,7 +247,9 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		
 		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(GenericLib.i30SecSleep);
 		 Thread.sleep(GenericLib.iMedSleep);
 		  
 		 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName1+"\')";
@@ -317,7 +320,9 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 			
 		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(60000);
+		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
 			  
 		  String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName2+"\')";
@@ -386,7 +391,9 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 toolsPo.syncData(commonUtility);
 		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(GenericLib.i30SecSleep);
 		 Thread.sleep(GenericLib.iMedSleep);
 				  
          String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName3+"\')";

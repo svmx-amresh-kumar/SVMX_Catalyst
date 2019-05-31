@@ -22,12 +22,12 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 	public void RS_10528() throws Exception {
 		
 		String sTestID = "RS_10528"; 
-		String sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		String sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		String sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		String sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		String sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		String sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		String sZipCode = "51203";
-		String sCountry = GenericLib.getExcelData(sTestID,sTestID, "Country");
-		String sCity = GenericLib.getExcelData(sTestID,sTestID, "City");
+		String sCountry = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Country");
+		String sCity = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "City");
 		String sScriptName = "Scenario_10528";
 		
 		

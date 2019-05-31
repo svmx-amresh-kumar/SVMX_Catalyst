@@ -78,11 +78,11 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		//WorkOrder for Choose from Library
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
@@ -365,6 +365,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 			  	Thread.sleep(GenericLib.i30SecSleep);
 				
 				System.out.println("Validating if  attachment is syned to server.");
+				Thread.sleep(60000);
 			  	Thread.sleep(GenericLib.i30SecSleep);
 			  	Thread.sleep(GenericLib.i30SecSleep);
 			  	Thread.sleep(GenericLib.iMedSleep);
@@ -404,6 +405,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 			  	String sSoqlAttachmentName2 = "SELECT Name FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid2+"\')"; 
 			  	String sAttachmentNameAfter2 = restServices.restGetSoqlValue(sSoqlAttachmentName2, "Name");
 				ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter2);
+				
+				
 }
 
 	

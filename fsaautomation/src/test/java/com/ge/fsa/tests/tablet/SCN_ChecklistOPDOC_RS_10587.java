@@ -73,15 +73,15 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistNameAllVersions = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_AllVersions");
-		sChecklistNameFirstVersion = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_FirstVersion");
-		sChecklistNameLastVersion = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName_LastVersion");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistNameAllVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_AllVersions");
+		sChecklistNameFirstVersion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_FirstVersion");
+		sChecklistNameLastVersion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_LastVersion");
 
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
-		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
 
 		// Rest to Create Workorder - Work Order -
 		

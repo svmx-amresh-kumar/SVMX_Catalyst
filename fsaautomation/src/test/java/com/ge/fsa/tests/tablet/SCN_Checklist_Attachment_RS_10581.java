@@ -63,11 +63,11 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
 		
@@ -150,6 +150,7 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 
 		//------------------SERVER SIDE VALIDATIONS
 		System.out.println("Validating if  attachment is syned to server.");
+		Thread.sleep(60000);
 	  	Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.i30SecSleep);
 	  	Thread.sleep(GenericLib.iMedSleep);

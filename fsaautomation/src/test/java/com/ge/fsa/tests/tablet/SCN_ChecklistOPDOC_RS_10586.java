@@ -80,12 +80,12 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");	
-		sChecklistOpDocName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");	
+		sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
 		
 		//Creation of Work Order
 		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",

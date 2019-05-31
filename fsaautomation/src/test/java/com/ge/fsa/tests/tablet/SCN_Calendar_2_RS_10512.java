@@ -80,10 +80,10 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		lauchNewApp("false");
 	
 		
-		 sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_1");
-		 sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_2");
-		 sWO_SVMX_3 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_3");
-		 sWO_SVMX_4 = GenericLib.getExcelData(sTestCaseID,sSheetName, "WO_SVMX_4");
+		 sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
+		 sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
+		 sWO_SVMX_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
+		 sWO_SVMX_4 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		//config sync

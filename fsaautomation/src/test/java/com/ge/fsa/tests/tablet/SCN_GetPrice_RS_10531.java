@@ -78,24 +78,24 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		Thread.sleep(genericLib.iMedSleep);
 		// get Product from the RS-10531
 		String sTestDataValue = "SCN_GetPrice_RS_10531";
-		sProductName10531 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product Name");
+		sProductName10531 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10531);
 		// To get the Work Order Name
-		sworkOrderName = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Work Order Number");
+		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		
 		// get Product 2 from the RS-10539
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName210539 = GenericLib.getExcelData(sTestDataValue3,sSheetName3,"Product2 Name");
+		sProductName210539 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Product2 Name");
 		System.out.println(sProductName210539);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName2,"Installed Product Name");
+		sInstalledProduct10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		// get Product from the RS-10538
-		sProductName10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName2,"Product Name ");
+		sProductName10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
 //		
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	

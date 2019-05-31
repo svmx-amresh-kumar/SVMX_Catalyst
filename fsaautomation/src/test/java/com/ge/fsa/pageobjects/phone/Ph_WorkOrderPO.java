@@ -797,18 +797,22 @@ public class Ph_WorkOrderPO {
 		Thread.sleep(2000);
 
 		// Adding Value for Product
-		// commonUtility.custScrollToElement(getEleProduct());
-		// getEleProductstar().click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getEleProduct(), ProdutName);
 
 		// Adding Value for InstalledproductID
-		// commonUtility.custScrollToElement(getEleInstalledProduct());
 		getEleInstalledProductstar().click();
 		getEleInstalledProductstar().sendKeys(InstalledProductID);
 
 		// Adding Value for Account
-		//commonUtility.custScrollToElement(getAccountstar());
-		// getAccountstar().click();
+		commonUtility.tap(getAccountstar());
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(accountName + "\\n");
+		} else {
+			ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(accountName + "\n");
+		}
+
+		Thread.sleep(1000);
+		getEleSearchListItem(accountName).click();
 		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
 		Thread.sleep(1000);

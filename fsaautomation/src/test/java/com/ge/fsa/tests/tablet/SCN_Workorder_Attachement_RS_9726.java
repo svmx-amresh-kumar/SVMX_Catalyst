@@ -68,11 +68,11 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-9726";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
-		sChecklistName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //WorkOrder for Choose from Library 
@@ -243,6 +243,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  Thread.sleep(GenericLib.i30SecSleep);
 				
 		  System.out.println("Validating if  attachment is syned to server.");
+		  Thread.sleep(60000);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
@@ -258,6 +259,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 				
 				
 		  System.out.println("Validating if  attachment is syned to server.");
+		  Thread.sleep(60000);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
@@ -273,6 +275,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  
 			
 		  System.out.println("Validating if  attachment is syned to server.");
+		  Thread.sleep(60000);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
