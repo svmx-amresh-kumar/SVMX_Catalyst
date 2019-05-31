@@ -726,6 +726,62 @@ public WebElement getElechoosefromlib()
 {
 	return elechoosefromlib;
 }
+
+@FindBy(xpath="//span[text()='Checklist Section Title']")
+private WebElement eleChecklistTitlebutton;
+public WebElement geteleChecklistTitlebutton()
+{
+	return eleChecklistTitlebutton;
+}
+
+@FindBy(xpath="//div[@class='x-component x-button x-button-svmx-toolbar-btn x-component-svmx-toolbar-btn x-button-svmx-cancel-btn x-component-svmx-cancel-btn x-button-no-icon x-layout-box-item x-layout-hbox-item x-stretched']")
+private WebElement eleChecklistBackButton;
+public WebElement geteleChecklistBackButton()
+{
+	return eleChecklistBackButton;
+}
+
+@FindBy(xpath="//span[text()='Save']")
+private WebElement eleSaveButton;
+public WebElement geteleeleSaveButton()
+{
+	return eleSaveButton;
+}
+
+@FindBy(xpath="//span[text()='Delete']")
+private WebElement eleDeleteButton;
+public WebElement geteleDeleteButton()
+{
+	return eleDeleteButton;
+}
+
+@FindBy(xpath="x-component x-button x-button-no-icon x-button-button-tools-msgbox x-component-button-tools-msgbox x-button-button-highlight x-component-button-highlight x-haslabel x-layout-box-item x-layout-hbox-item x-stretched")
+private WebElement eleConfirmDeleteButton;
+public WebElement geteleConfirmDeleteButton()
+{
+	return eleConfirmDeleteButton;
+}
+
+            public void DeleteAttachement (CommonUtility commonUtility, String sChecklistName) throws InterruptedException {
+					
+			// Navigating to the checklist
+	        commonUtility.tap(geteleChecklistName(sChecklistName));
+			Thread.sleep(GenericLib.iHighSleep);
+			commonUtility.tap(geteleChecklistTitlebutton());
+			Thread.sleep(GenericLib.iHighSleep);
+			WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
+			commonUtility.waitforElement(wElement, 30000);
+			commonUtility.longPressWithOptional(wElement,32,32);
+			System.out.println("working 22,22");
+			commonUtility.tap(geteleDeleteButton());
+			commonUtility.switchContext("Native");
+			commonUtility.tap(driver.findElementByAccessibilityId("Delete"));
+			System.out.println("File is Deleted from server");
+			Thread.sleep(GenericLib.iHighSleep);
+			commonUtility.tap(geteleChecklistBackButton());
+			commonUtility.tap(geteleeleSaveButton());
+			navigateBacktoWorkOrder(commonUtility);
+}
 	
 	
 }
