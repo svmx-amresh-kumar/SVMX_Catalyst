@@ -145,8 +145,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
-		      //  stechname = GenericLib.getExcelData(sTestCaseID,sSheetName, "TechName2");
-				sSalesforceuser = GenericLib.getExcelData(sTestCaseID,sSheetName,"Salesforceuser");
+		      //  stechname = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "TechName2");
+				sSalesforceuser = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"Salesforceuser");
 				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  

@@ -81,10 +81,10 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 	
 	//read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-		String sworkOrderName = GenericLib.getExcelData(sTestCaseID,sSheetName, "WorkOrder Number");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
 		String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);

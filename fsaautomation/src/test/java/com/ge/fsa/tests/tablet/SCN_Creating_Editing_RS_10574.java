@@ -64,12 +64,12 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sCaseWOID = "SCN_Creating_Editing_RS_10574";	
 		sSheetName = "RS_10574";
 		//Reading from the Excel sheet
-//		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreSearch");
+//		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
 //		System.out.println(sExploreSearch);
 //		
-//		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName, "ExploreChildSearch");
-//		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName, "ProcessName");
-//		sEditProcessName = GenericLib.getExcelData(sTestCaseID,sSheetName, "EditProcessName");
+//		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+//		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+//		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		sSubject = "Testing "+sTestCaseID;
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard

@@ -78,20 +78,20 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 		toolsPo.syncData(commonUtility);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
-		sProductName10539 = GenericLib.getExcelData(sTestDataValue,sSheetName1,"Product2 Name");
+		sProductName10539 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product2 Name");
 		System.out.println(sProductName10539);
 		// get Product from the RS-10538
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		sProductName10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName2,"Product Name ");
+		sProductName10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = GenericLib.getExcelData(sTestDataValue2,sSheetName2,"Installed Product Name");
+		sInstalledProduct10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		
 		// get Work Order from the RS-10537
 		String sTestDataValue3 = "SCN_GetPrice_RS_10536";
-		sworkOrderName = GenericLib.getExcelData(sTestDataValue3,sSheetName3,"Work Order Number");
+		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		Thread.sleep(genericLib.iMedSleep);

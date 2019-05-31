@@ -89,9 +89,9 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	public void RS_10541Test() throws Exception {
 		sTestID = "RS_10541";
 		
-		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		
 		preRequiste();
 		//Pre Login to app

@@ -166,7 +166,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	public void RS_10545Test() throws Exception 
 	{
 		sTestID = "RS_10545";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
 		if(Integer.parseInt(sDate[2])>28)
 		{
