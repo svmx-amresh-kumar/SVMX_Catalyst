@@ -3,7 +3,11 @@
  */
 package com.ge.fsa.tests.phone;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -65,7 +69,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 				sTestCaseID);
 
 	}
-
+	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 	
@@ -101,7 +105,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 
-		lauchNewApp("false");
+		//lauchNewApp("false");
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -153,6 +157,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		commonUtility.custScrollToElement("MultiOn, MultiTwo");
 		ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question",
 		 "MultiOn, MultiTwo").click();
+		Thread.sleep(2000);
 		ph_ChecklistPO.geteleBackbutton().click();
 
 		// Entering Text question
@@ -166,7 +171,15 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		
 		//commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "00", "00");
-
+		String sDeviceDateTUF= commonUtility.getDeviceDate();
+		System.out.println("Device Date"+sDeviceDateTUF);        
+		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+		Date date = (Date)formatter.parse(sDeviceDateTUF);
+		SimpleDateFormat formatter1 = new SimpleDateFormat("dd/M/yyyy");
+		formatter1.setTimeZone(TimeZone.getTimeZone("GMT"));
+	    String sDeviceDateTimeFinal= formatter1.format(date);  
+	    System.out.println(sDeviceDateTimeFinal);  
+	
 		// Entering Date question
 		commonUtility.custScrollToElement(snumberQuestion);
 		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "January", "1", "2019");
@@ -180,9 +193,9 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		// Opening Completed Checklist
 		ph_ChecklistPO.geteleCompleted().click();
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		ph_ChecklistPO.geteleName().click();
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		
 		//to be reverted once number is fixed for android!
 		try {
@@ -209,12 +222,20 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		// Date question
 		commonUtility.custScrollToElement(snumberQuestion);
-		String sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion, sDateExpected).getText();
+		String sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion).getText();
 		Assert.assertTrue(sDateQAns.contains((sDateExpected)),
 				"Checklist Date answer --expected: " + sDateExpected + " actual: " + sDateQAns + "");
 		ExtentManager.logger.log(Status.PASS,
 				"Checklist Date answer sucessfull expected: " + sDateQAns + " actual: " + sDateQAns + "");
-
+	
+		// DateTime question
+		commonUtility.custScrollToElement(snumberQuestion);
+		String sDateTimeQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateTimeQuestion).getText();
+		Assert.assertTrue(sDateTimeQAns.contains((sDeviceDateTimeFinal)),
+				"Checklist DateTime answer --expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
+		ExtentManager.logger.log(Status.PASS,
+				"Checklist Date answer sucessfull expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
+		
 		/*
 		 * commonUtility.custScrollToElementAndClick(snumberQuestion);
 		 * Thread.sleep(3000); sNumberQAns =
@@ -226,6 +247,13 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		 * sNumberQAns + "");
 		 * 
 		 */
+		
+		//radio button question
+		commonUtility.custScrollToElement(sCheckboxQuestion);
+	//	Boolean rbuttonresult =commonUtility.isDisplayedCust(ph_ChecklistPO.geteleRadioTwoSelected());
+	//	Assert.assertTrue(rbuttonresult);
+	//	ExtentManager.logger.log(Status.PASS,"Checklist Radiobutton answer sucessfull");
+
 		// Sync the Data
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iVHighSleep);
@@ -315,12 +343,20 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		// Date question
 		commonUtility.custScrollToElement(snumberQuestion);
-		sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion, sDateExpected).getText();
+		sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion).getText();
 		Assert.assertTrue(sDateQAns.contains((sDateExpected)),
 				"Checklist Text client post syncanswer --expected: " + sDateExpected + " actual: " + sDateQAns + "");
 		ExtentManager.logger.log(Status.PASS,
 				"Checklist Text client post answer sucessfull expected: " + sDateQAns + " actual: " + sDateQAns + "");
 		
+		
+		// DateTime question
+		commonUtility.custScrollToElement(snumberQuestion);
+		sDateTimeQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateTimeQuestion).getText();
+		Assert.assertTrue(sDateTimeQAns.contains((sDeviceDateTimeFinal)),
+				"Checklist DateTime client post sync  answer --expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
+		ExtentManager.logger.log(Status.PASS, "Checklist DateTime client post sync sucessfull expected: " + sDeviceDateTimeFinal
+				+ " actual: " + sDateTimeQAns + "");
 
 		// ----------------------Validation after sync--------------------
 		System.out.println(

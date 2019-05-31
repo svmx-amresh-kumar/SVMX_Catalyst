@@ -76,7 +76,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	*/	
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test()
+	//@Test(retryAnalyzer=Retry.class)
 	//@Test()
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
@@ -195,8 +196,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
 
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtProblemDescription());
-		String sProbdescWOClient = ph_WorkOrderPo.getTxtProblemDescription().getText();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
+		String sProbdescWOClient = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
 		String sExpectedProbeDesc = "Description of Sanity6";
 		Assert.assertTrue(sProbdescWOClient.equals(sExpectedProbeDesc), "Source to Target Failed!");
 		ExtentManager.logger.log(Status.PASS,"Source to Target Process Sucessfull, WO Desc Expected :"+sExpectedProbeDesc+" Actual : "+sProbdescWOClient+"");
