@@ -27,7 +27,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sProcessName = "Auto_Reg_10563";
 		String sOpDocProcessName = "Auto_OPDOC_10563";
 		String sTestCaseID = "RS_10563_configSync_edit";
-		String sScriptName = "Scenario_RS_10563_configSync_edit";
+		String sScriptName = "Scenario_RS_10563_configSync_edit ";      
 		String sScriptName1 = "Scenario_RS_10563_configSync";
 		String sExploreSearch = "WO SEARCH";
 		

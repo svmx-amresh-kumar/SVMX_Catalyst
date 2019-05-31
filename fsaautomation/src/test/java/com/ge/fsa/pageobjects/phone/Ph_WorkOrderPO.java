@@ -586,6 +586,18 @@ public class Ph_WorkOrderPO {
 	public WebElement getBtnSeeResults() {
 		return btnSeeResults;
 	}
+	
+	@FindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	private WebElement lblHeader;
+	public WebElement getLblHeader() {
+		return lblHeader;
+	}
+	
+	@FindBy(xpath="//*[@text='Finalize']")
+	private WebElement btnFinalize;
+	public WebElement getBtnFinalize() {
+		return btnFinalize;
+	}
 	//-----------------------------
 
 
