@@ -232,7 +232,7 @@ public class Ph_MorePO {
 	System.out.println("Clicked on Sync button and waiting...");
 	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 	if(commonUtility.waitforElement(getEleConfigSyncCompleted(), 3)) {
-	ExtentManager.logger.log(Status.PASS,"Config Sync Completed sucessfully");
+	ExtentManager.logger.log(Status.INFO,"Config Sync Completed sucessfully");
 }else {
 	ExtentManager.logger.log(Status.FAIL,"Config Sync Failed");
 }
@@ -257,7 +257,7 @@ public class Ph_MorePO {
 		
 		if(commonUtility.isDisplayedCust(getEleDataSynccompleted())) {
 			System.out.println("Data Sync Completed Sucessfully");
-			ExtentManager.logger.log(Status.PASS,"Data Sync is successfull");
+			ExtentManager.logger.log(Status.INFO,"Data Sync is successfull");
 		}else {
 			System.out.println("Data Sync Failed");
 			//Verification of successful sync
@@ -278,7 +278,7 @@ public class Ph_MorePO {
 		commonUtility.waitForElementNotVisible(getElePreparingDownload(), 20);
 		commonUtility.waitforElement(getEleDownloading(), 20);
 		if (commonUtility.waitforElement(getEleMoreBtn(), 20)) {
-			ExtentManager.logger.log(Status.PASS, "Erasing and reinitializing data Completed sucessfully");
+			ExtentManager.logger.log(Status.INFO, "Erasing and reinitializing data Completed sucessfully");
 		} else {
 			ExtentManager.logger.log(Status.FAIL, "Erasing and reinitializing data  Failed");
 		}
