@@ -53,7 +53,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		
 	}
 
-	@Test(enabled = true, retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
 		commonUtility.preReqSetup(genericLib);
