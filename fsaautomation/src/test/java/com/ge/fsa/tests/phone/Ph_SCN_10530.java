@@ -31,7 +31,7 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sSearchTxt = "HarryProd";
 	
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
@@ -177,8 +177,10 @@ public class Ph_SCN_10530 extends BaseLib {
 			Thread.sleep(3000);
 			ph_WorkOrderPo.getElelookupsearch().clear();
 			ph_WorkOrderPo.getLnkFilter().click();
-			ph_WorkOrderPo.getLnkFilter().click();
-//			ph_WorkOrderPo.getChkboxFilter().click();
+			if(sOSName.equalsIgnoreCase("ios")) {
+				ph_WorkOrderPo.getLnkFilter().click();
+			}
+			ph_WorkOrderPo.getChkboxFilter().click();
 			ph_WorkOrderPo.getBtnSeeResults().click();
 //			String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
 //		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
@@ -197,7 +199,13 @@ public class Ph_SCN_10530 extends BaseLib {
 			commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 			ph_WorkOrderPo.getElePartLnk().click();
 			ph_WorkOrderPo.getLnkFilter().click();
-			Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("content-desc").toLowerCase().contains("checked"));
+			if(sOSName.equalsIgnoreCase("ios")) {
+				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("name").toLowerCase().contains("checked"));
+			}
+			else {
+				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("content-desc").toLowerCase().contains("checked"));	
+			}
+			
 } 			
 
 }

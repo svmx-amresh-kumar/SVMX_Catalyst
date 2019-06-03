@@ -585,7 +585,8 @@ public class Ph_WorkOrderPO {
 		return lnkFilter;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	@AndroidFindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[contains(@name,'checkbox')])[last()]")
 	private WebElement chkboxFilter;
 	
 	public WebElement getChkboxFilter() {
