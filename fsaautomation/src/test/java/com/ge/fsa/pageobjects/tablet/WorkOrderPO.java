@@ -2382,14 +2382,14 @@ import io.appium.java_client.TouchAction;
 			return eleEndDateAndTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'Start Date Time')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleStartDateTimeTxtFld;
 		public WebElement getEleStartDateTimeTxtFld()
 		{
 			return eleStartDateTimeTxtFld;
 		}
 		
-		@FindBy(xpath="//*[contains(text(),'End Date Time')][@class = 'x-label-text-el']/../..//input")
+		@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")
 		private WebElement eleEndDateTimeTxtFld;
 		public WebElement getEleEndDateTimeTxtFld()
 		{
