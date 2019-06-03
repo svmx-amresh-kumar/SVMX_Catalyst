@@ -1,5 +1,8 @@
 package com.ge.fsa.tests.phone;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.testng.Assert;
@@ -20,7 +23,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	String sSerialNumber = null;//"21022019140256";//null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	String sObjectID = null;
+	//String sObjectID = null;
 	String sSqlQuery = null;
 	String sAccountNameA = null;//sSerialNumber+"AccA";
 	String sAccountNameB = null;//sSerialNumber+"AccB";
@@ -33,7 +36,11 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	String sLocationId = null;
 	String sWOName1 = null;//"WO-00010448";
 	String sWOName2 = null;//"WO-00010449";
+	String sObjectIDWO1 = null;
 	String sObjectIDWO2 = null;
+	String sObjectIDWO3 = null;
+	String sObjectIDWO4 = null;
+	String sObjectIDWO5 = null;
 	String sWOName3 = null;//"WO-00010450";
 	String sWOName4 = null;//"WO-00010451";
 	String sWOName5 = null;//"WO-00010451";
@@ -110,8 +117,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"46\",\"SVMXC__Site__c\":\""+sLocationA+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sObjectIDWO1=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO1+"\'";				
 		sWOName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		//Creation of dynamic Work Order
@@ -124,22 +131,22 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"Medium\",\"Number__c\":\"14\",\"SVMXC__Site__c\":\""+sLocationC+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sObjectIDWO3=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO3+"\'";				
 		sWOName3 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"66\",\"SVMXC__Site__c\":\""+sLocationD+"\",\"SVMXC__Company__c\":\""+sAccountNameA+"\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sObjectIDWO4=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO4+"\'";				
 		sWOName4 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"Low\",\"Number__c\":\"44\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
-		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
+		sObjectIDWO5=restServices.restCreate(sObjectApi,sJsonData);
+		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO5+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		/*
 		//Updating Technician with LocationE
@@ -154,31 +161,42 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		
 	}
 
-	@Test(enabled = true, retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10545Test() throws Exception 
 	{
 		sTestID = "RS_10545";
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
-		if(Integer.parseInt(sDate[2])>28)
-		{
-			sDate[2]="1";
-			iMonth=Integer.parseInt(sDate[1])+1;
-			if(iMonth>12) {
-				iMonth=01;
-			}
-			sDate[1]=""+iMonth;
-		}
-		sTodayDateTxt= sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-	
-		iDay=Integer.parseInt(sDate[2])+1;
-		sDate[2]=""+iDay;
-		sTomDateTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-		
-		iDay=Integer.parseInt(sDate[2])+1;
-		sDate[2]=""+iDay;
-		sDateAfterTomTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-	
+//		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
+//		if(Integer.parseInt(sDate[2])>28)
+//		{
+//			sDate[2]="1";
+//			iMonth=Integer.parseInt(sDate[1])+1;
+//			if(iMonth>12) {
+//				iMonth=01;
+//			}
+//			sDate[1]=""+iMonth;
+//		}
+//		sTodayDateTxt= sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+//	
+//		iDay=Integer.parseInt(sDate[2])+1;
+//		sDate[2]=""+iDay;
+//		sTomDateTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+//		
+//		iDay=Integer.parseInt(sDate[2])+1;
+//		sDate[2]=""+iDay;
+//		sDateAfterTomTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
+		//Thu May 30 11:30:26 GMT 2019
+		sDate=commonUtility.getDeviceDate().split(" ");
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal=Calendar.getInstance();
+		cal.set(Calendar.DATE,Integer.parseInt(sDate[2].trim()));
+		cal.set(Calendar.YEAR, Integer.parseInt(sDate[5].trim()));
+		cal.set(Calendar.MONTH,new SimpleDateFormat("MMM").parse(sDate[1].trim()).getMonth());
+		sTodayDateTxt=df.format(cal.getTime());
+		cal.add(Calendar.DATE, 1);
+		sTomDateTxt=df.format(cal.getTime());
+		cal.add(Calendar.DATE, 1);
+		sDateAfterTomTxt=df.format(cal.getTime());
 		
 	try {
 		preRequiste();
@@ -422,17 +440,17 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//Updating WorkOrder5 with Location5 and scheduled date to tomorrow
 		sObjectApi = "SVMXC__Service_Order__c";
 		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sTomDateTxt+"\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
-		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO5 );
 
 		//Updating WorkOrder3  and scheduled date to today
 		sObjectApi = "SVMXC__Service_Order__c";
 		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sTodayDateTxt+"\"}";
-		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO3 );
 
 		//Updating WorkOrder4 with scheduled Day after tomorrow
 		sObjectApi = "SVMXC__Service_Order__c";
 		sJsonData="{\"SVMXC__Scheduled_Date_Time__c\":\""+sDateAfterTomTxt+"\"}";
-		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO2 );
+		restServices.restUpdaterecord(sObjectApi,sJsonData,sObjectIDWO4 );
 
 		//Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
@@ -461,7 +479,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		Thread.sleep(GenericLib.iHighSleep); 
 		
 		//Validation of WO1, WO3 and WO5
-		validateSearch(sWOName1);
+		validateSearch(sWOName2);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
 		
