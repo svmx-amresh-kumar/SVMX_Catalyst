@@ -771,7 +771,7 @@ public WebElement geteleConfirmDeleteButton()
 			Thread.sleep(GenericLib.iHighSleep);
 			WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 			commonUtility.waitforElement(wElement, 30000);
-			commonUtility.longPressWithOptional(wElement,32,32);
+			commonUtility.longPress(wElement,32,32);
 			System.out.println("working 22,22");
 			commonUtility.tap(geteleDeleteButton());
 			commonUtility.switchContext("Native");

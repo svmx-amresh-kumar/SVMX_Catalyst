@@ -266,55 +266,7 @@ public class CommonUtility {
 		switchContext("Webview");
 	}
 	
-	// Customised touch LongPress with optional
-			public void longPressWithOptional(WebElement wElementop, int... optionalOffsetPointsxy) throws InterruptedException {
-				Point point = wElementop.getLocation();
-				int x = 0;
-				int y = 0;
 
-				Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
-				Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
-				System.out.println("x " + point.getX() + " y " + point.getY());
-				
-				if (xNewOffset != null) {
-					x = point.getX() + xNewOffset;
-					y = point.getY() + yNewOffset;
-					System.out.println("Using Custom Offset Points xNewOffset = " + (xNewOffset) + " yNewOffset = "
-							+ (yNewOffset) + " on " + x + "," + y);
-				} else {
-					x = point.getX() + xOffset;
-					y = point.getY() + yOffset;
-					System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset = " + (yOffset) + " on "
-							+ x + "," + y);
-
-				}
-				
-				switch (BaseLib.sOSName) {
-				case "android":
-
-					// For Android add *2 if real device
-					switchContext("Native");
-					touchAction = new TouchAction(driver);
-					touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
-					.perform();
-					touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
-					
-					Thread.sleep(GenericLib.iLowSleep);
-					switchContext("Webview");
-					break;
-
-				case "ios":
-
-					// For IOS
-					touchAction = new TouchAction(driver);
-					touchAction.longPress(new PointOption().withCoordinates(x,y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
-					//TouchAction action = new TouchAction(driver).longPress(longPressOptions().withElement(element(wElementop)).withDuration(Duration.ofMillis(10000))).release().perform();
-			        //Thread.sleep(5000);
-					Thread.sleep(GenericLib.iLowSleep);
-					break;
-
-				}
-			}
 
 	public void singleTap(Point point) throws InterruptedException {
 		touchAction = new TouchAction(driver);
@@ -333,19 +285,41 @@ public class CommonUtility {
 	}
 
 	// Customised touch LongPress
-	public void longPress(WebElement wElement) throws InterruptedException {
+	public void longPress(WebElement wElement,int... optionalOffsetPointsxy) throws InterruptedException {
+		int x = 0;
+		int y = 0;
 		Point point = wElement.getLocation();
 		System.out.println("x " + point.getX() + " y " + point.getY());
+		
+		Integer xNewOffset = optionalOffsetPointsxy.length > 0 ? optionalOffsetPointsxy[0] : null;
+		Integer yNewOffset = optionalOffsetPointsxy.length > 1 ? optionalOffsetPointsxy[1] : null;
+		System.out.println("x " + point.getX() + " y " + point.getY());
+		
+		if (xNewOffset != null) {
+			x = point.getX() + xNewOffset;
+			y = point.getY() + yNewOffset;
+			System.out.println("Using Custom Offset Points xNewOffset = " + (xNewOffset) + " yNewOffset = "
+					+ (yNewOffset) + " on " + x + "," + y);
+		} else {
+			x = point.getX() + xOffset;
+			y = point.getY() + yOffset;
+			System.out.println("Using Offset Points xOffset  = " + (xOffset) + " yOffset = " + (yOffset) + " on "
+					+ x + "," + y);
+
+		}
+		
+	
 		switch (BaseLib.sOSName) {
 		case "android":
 
 			// For Android add *2 if real device
 			switchContext("Native");
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
-			.perform();
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
-			.perform();
+			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
+//			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
+//			.perform();
+//			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
+//			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			switchContext("Webview");
 			break;
@@ -354,8 +328,9 @@ public class CommonUtility {
 
 			// For IOS
 			touchAction = new TouchAction(driver);
-			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
-			.perform();
+			touchAction.longPress(new PointOption().withCoordinates(x,y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
+//			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
+//			.perform();
 			Thread.sleep(GenericLib.iLowSleep);
 			break;
 
