@@ -20,6 +20,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -118,7 +120,11 @@ public class Ph_ChecklistPO
 		return eleName;
 	}
 	
-	@AndroidFindBy(xpath="//*[@*='Completed']")
+	
+	
+	@AndroidFindAll({
+	@AndroidBy(xpath="//*[@*='Completed'])"),
+	@AndroidBy(xpath="//*[@*='COMPLETED']")})	
 	@iOSXCUITFindBy(xpath="(//*[@*[contains(.,'Checklist Section Title COMPLETED')]])[last()]")
 	private WebElement eleChecklistCompleted;
 	public WebElement geteleChecklistCompleted()
