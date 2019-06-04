@@ -85,12 +85,12 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 */
 		// read from file
-		/*sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ProcessName");
+		/*sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
 
-		String sWO_SVMX_1 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
+		String sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_2");
 		 */
 		// Pre Login to app
 		//ph_LoginHomePo.login(commonUtility, ph_MorePo);

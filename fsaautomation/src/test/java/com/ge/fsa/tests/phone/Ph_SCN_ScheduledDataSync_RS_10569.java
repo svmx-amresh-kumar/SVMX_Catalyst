@@ -48,12 +48,12 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sCaseWOID = "DATA_SCN_ScheduledDataSync_RS_10569";
 		sSheetName = "RS_10569";
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
 		System.out.println(sExploreSearch);
 
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.getExcelData(sTestCaseID, sSheetName, "EditProcessName");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
 		// sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
 		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah", sTestCaseID);

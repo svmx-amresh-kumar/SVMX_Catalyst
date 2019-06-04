@@ -102,10 +102,10 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		 
 
 		// read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ProcessName");
-		String sworkordernumber = GenericLib.getExcelData(sTestCaseID, sSheetName, "WorkOrder Number");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		String sworkordernumber = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "WorkOrder Number");
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);

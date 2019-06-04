@@ -414,6 +414,20 @@ public class Ph_WorkOrderPO {
 	public WebElement getLblProduct() {
 		return lblProduct;
 	}
+	
+	@FindBy(xpath = "//*[@*='City']")
+	private WebElement lblCity;
+
+	public WebElement getLblCity() {
+		return lblCity;
+	}
+	
+	@FindBy(xpath = "//*[@*='Country']")
+	private WebElement lblCountry;
+
+	public WebElement getLblCountry() {
+		return lblCountry;
+	}
 
 	@AndroidFindBy(xpath = "//*[@*='APP.BACK_BUTTON']")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
@@ -422,13 +436,6 @@ public class Ph_WorkOrderPO {
 	public WebElement getBtnClose() {
 		return btnClose;
 	}
-	
-//	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
-//	private WebElement btnContactClose;
-//
-//	public WebElement getIOSBtnContactClose() {
-//		return btnContactClose;
-//	}
 
 	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]") //Works on both
 	private List<WebElement> noAccContactsLst;
@@ -563,6 +570,13 @@ public class Ph_WorkOrderPO {
 		return txtProblemDescription;
 	}
 	
+	@FindBy(xpath="//*[@*='Number']/following::android.widget.EditText")
+	private WebElement txtNumber;
+	
+	public WebElement getTxtNumber() {
+		return txtNumber;
+	}
+	
 	@AndroidFindBy(xpath="//android.widget.TextView[@text='Filter']")
 	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.LOOKUP.OPTIONS.BUTTON']")
 	private WebElement lnkFilter;
@@ -571,7 +585,8 @@ public class Ph_WorkOrderPO {
 		return lnkFilter;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	@AndroidFindBy(xpath="//android.widget.TextView[contains(@content-desc,'checkbox')]")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[contains(@name,'checkbox')])[last()]")
 	private WebElement chkboxFilter;
 	
 	public WebElement getChkboxFilter() {
@@ -585,6 +600,30 @@ public class Ph_WorkOrderPO {
 	
 	public WebElement getBtnSeeResults() {
 		return btnSeeResults;
+	}
+	
+	@FindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	private WebElement lblHeader;
+	public WebElement getLblHeader() {
+		return lblHeader;
+	}
+	
+	@FindBy(xpath="//*[@text='Finalize']")
+	private WebElement btnFinalize;
+	public WebElement getBtnFinalize() {
+		return btnFinalize;
+	}
+	
+	@FindBy(xpath="(//*[@text='Scheduled Date']/following::android.widget.TextView)[1]")
+	private WebElement txtScheduledDate;
+	public WebElement getTxtScheduledDate() {
+		return txtScheduledDate;
+	}
+	
+	@FindBy(xpath="(//*[@text='Scheduled Date Time']/following::android.widget.TextView)[1]")
+	private WebElement txtScheduledDateTime;
+	public WebElement getTxtScheduledDateTime() {
+		return txtScheduledDateTime;
 	}
 	//-----------------------------
 
@@ -1671,4 +1710,19 @@ public WebElement geteleIsbillable() {
 	public WebElement getEleValidationToggle() {
 		return eleValidationToggle;
 	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']")
+	private WebElement eleProformaInvoice;
+	public WebElement geteleProformaInvoice() {
+		return eleProformaInvoice;
+	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='ON']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	private WebElement eleEntPerformedOn;
+	public WebElement geteleEntPerformedOn() {
+		return eleEntPerformedOn;
+}
+
 }

@@ -72,23 +72,24 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID="00001550";
 	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+		 ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 	*/	
 	}
 
-	//@Test(retryAnalyzer=Retry.class)
 	@Test()
+	//@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void scenario6Test() throws Exception {
 		 sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID,sSheetName , "ProcessName");
-		sIssueTxt = GenericLib.getExcelData(sTestCaseID,sSheetName , "IssueText");
-		sOrderStatus = GenericLib.getExcelData(sTestCaseID,sSheetName , "OrderStatus");
-		sBillingType = GenericLib.getExcelData(sTestCaseID,sSheetName , "BillingType");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
+		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
+		sOrderStatus = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
+		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";

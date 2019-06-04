@@ -53,7 +53,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		
 	}
 
-	@Test(enabled = true, retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
 		commonUtility.preReqSetup(genericLib);
@@ -61,10 +61,10 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = GenericLib.getExcelData(sTestID, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
-		sBillingType = GenericLib.getExcelData(sTestID,sTestID, "BillingType");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";

@@ -79,9 +79,9 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10542Test() throws Exception {
 		sTestID = "RS_10542";	
-		sExploreSearch = GenericLib.getExcelData(sTestID,sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestID, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestID,sTestID, "ProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		preRequiste();
 			
 		//Pre Login to app

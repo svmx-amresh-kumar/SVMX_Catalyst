@@ -87,40 +87,40 @@ public class GenericLib
 	/*
 	 * @author: LAKSHMI BS Description: To read test data from excel sheet
 	 */
-	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) throws IOException {
-		String sData = null;
-		FileInputStream fis = new FileInputStream(sTestDataFile);
-		
-		try {
-
-			Workbook wb = (Workbook) WorkbookFactory.create(fis);
-			Sheet sht = wb.getSheet(sSheetName);
-			int iRowNum = sht.getLastRowNum();
-			int k = 0;
-			for (int i = 1; i <= iRowNum; i++) {
-				
-				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
-					int iCellNum = sht.getRow(i).getLastCellNum();
-					
-					for(int j=0;j<iCellNum;j++)
-					{
-						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
-							{sData = sht.getRow(i+1).getCell(j).getStringCellValue();break;}
-							
-					}
-					
-					break;
-				}
-			}
-			wb.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		fis.close();
-		return sData;
-	}
-	
+//	public static String getExcelData(String sTestCaseID, String sSheetName, String sKey) throws IOException {
+//		String sData = null;
+//		FileInputStream fis = new FileInputStream(sTestDataFile);
+//		
+//		try {
+//
+//			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+//			Sheet sht = wb.getSheet(sSheetName);
+//			int iRowNum = sht.getLastRowNum();
+//			int k = 0;
+//			for (int i = 1; i <= iRowNum; i++) {
+//				
+//				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
+//					int iCellNum = sht.getRow(i).getLastCellNum();
+//					
+//					for(int j=0;j<iCellNum;j++)
+//					{
+//						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+//							{sData = sht.getRow(i+1).getCell(j).getStringCellValue();break;}
+//							
+//					}
+//					
+//					break;
+//				}
+//			}
+//			wb.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		fis.close();
+//		return sData;
+//	}
+//	
 	
 	public void createShellFile(String sSahiFile) throws IOException
 	{
@@ -251,7 +251,7 @@ public class GenericLib
 			Sheet sht = wb.getSheet(sSheetName);
 			int iRowNum = sht.getLastRowNum();
 			int k = 0;
-			for (int i = 0; i <= iRowNum; i++) {
+			for (int i = 0; i < iRowNum; i++) {
 				
 				//if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
 					int iCellNum = sht.getRow(i).getLastCellNum();
@@ -265,7 +265,7 @@ public class GenericLib
 							
 					}
 					
-					break;
+				
 				//}
 			}
 			wb.close();

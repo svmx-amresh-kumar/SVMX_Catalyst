@@ -100,10 +100,13 @@ public void workBenchAnd() throws Exception
 		String  sProcessname = "EditWoAutoTimesstamp";
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		//System.out.println("NOWWW");
-		//Thread.sleep(12000);
+		Thread.sleep(15000);
+		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
+		commonUtility.longPress(wElement,32,32);
+
 		
 		//commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
 

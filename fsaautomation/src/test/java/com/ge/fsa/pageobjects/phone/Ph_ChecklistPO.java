@@ -4,7 +4,7 @@ package com.ge.fsa.pageobjects.phone;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,18 +14,21 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.appium.java_client.touch.offset.PointOption;
 
 
@@ -40,14 +43,20 @@ public class Ph_ChecklistPO
 	WebDriverWait wait = null;
 	AppiumDriver driver = null;
 	TouchAction touchAction = null;
-	Iterator<String> iterator =null;
 	
 	
 	//*[@text='Sanity2_Checklist']
 	private WebElement eleChecklistName;
 	public WebElement getEleChecklistName(String sChecklistName)
 	{
-		return eleChecklistName = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleChecklistName = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"']"));
+		}
+		else
+		{
+			return eleChecklistName = driver.findElement(By.xpath("//*[@name='"+sChecklistName+"']"));
+
+		}
 		
 		
 	}
@@ -55,7 +64,17 @@ public class Ph_ChecklistPO
 	private WebElement elecheckliststartnew;
 	public WebElement getelecheckliststartnew(String sChecklistName)
 	{
-		return elecheckliststartnew = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elecheckliststartnew = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New']"));
+
+		}
+		else
+		{
+			return eleChecklistName = driver.findElement(By.xpath("//*[@name='"+sChecklistName+"']/../..//*[@name='CHECKLIST.START.NEW']"));
+
+		}
+		
+		
 	}
 	
 	/*@FindBy(xpath="//*[@text='Start New']")
@@ -66,39 +85,62 @@ public class Ph_ChecklistPO
 	}*/
 	
 	
-	@FindBy(xpath="//*[@*='APP.BACK_BUTTON']")
+	@FindBy(xpath="(//*[@*='APP.BACK_BUTTON'])[last()]")
 	private WebElement eleBackbutton;
 	public WebElement geteleBackbutton()
 	{
 		return eleBackbutton;
 	}
 	
-	@FindBy(xpath="//*[@text='IN PROGRESS']")
+	@AndroidFindBy(xpath="(//*[@text='IN PROGRESS'])[last()]")
+	@iOSXCUITFindBy(xpath="(//*[@*[contains(.,'IN PROGRESS')]])[last()]")
 	private WebElement eleInProgress;
 	public WebElement geteleInProgress()
 	{
 		return eleInProgress;
 	}
 	
-	@FindBy(xpath="//*[@text='Submit']")
+	@FindBy(xpath="//*[@*='Submit']")
 	private WebElement eleSubmitbtn;
 	public WebElement geteleSubmitbtn()
 	{
 		return eleSubmitbtn;
 	}
 	
-	@FindBy(xpath="//*[@text='Completed']")
+	@FindBy(xpath="//*[@*='Completed']")
 	private WebElement eleCompleted;
 	public WebElement geteleCompleted()
 	{
 		return eleCompleted;
 	}
 	
-	@FindBy(xpath="//*[@text='[Name]']")
+	
+	
+	@iOSXCUITFindBy(xpath="//*[@*='[Name]'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='[Name]']")
 	private WebElement eleName;
 	public WebElement geteleName()
 	{
 		return eleName;
+	}
+	
+	
+	
+	@AndroidFindAll({
+	@AndroidBy(xpath="//*[@*='Completed'])"),
+	@AndroidBy(xpath="//*[@*='COMPLETED']")})	
+	@iOSXCUITFindBy(xpath="(//*[@*[contains(.,'Checklist Section Title COMPLETED')]])[last()]")
+	private WebElement eleChecklistCompleted;
+	public WebElement geteleChecklistCompleted()
+	{
+		return eleChecklistCompleted;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'RadioTwo_selected=true')]]")
+	private WebElement eleRadioTwoSelected;
+	public WebElement geteleRadioTwoSelected()
+	{
+		return eleRadioTwoSelected;
 	}
 	
 	private WebElement elechecklistinprogress;
@@ -110,26 +152,50 @@ public class Ph_ChecklistPO
 	private WebElement elechecklistPickListQAns;
 	public WebElement getelechecklistPickListQAns(String sPicklistQuestion, String sPicklistValue)
 	{
-		return elechecklistPickListQAns = driver.findElement(By.xpath("//*[@text='"+sPicklistQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sPicklistValue+"']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistPickListQAns = driver.findElement(By.xpath("//*[@text='"+sPicklistQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sPicklistValue+"']"));
+		}
+		else
+		{
+			return elechecklistPickListQAns = driver.findElement(By.xpath("//*[@name='"+sPicklistQuestion+"']/../..//*[@name='"+sPicklistValue+"']"));
+		}		
 	}
 	
 	private WebElement eleChecklistGenericText;
 	public WebElement geteleChecklistGenericText(String sGenericText)
 	{
-		return eleChecklistGenericText = driver.findElement(By.xpath("//*[@text='"+sGenericText+"']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleChecklistGenericText = driver.findElement(By.xpath("//*[@text='"+sGenericText+"']"));
+		}
+		else
+		{
+			return eleChecklistGenericText = driver.findElement(By.xpath("(//*[@label='"+sGenericText+"'])[last()]"));
+		}
+		
 	}
 
 	private WebElement elechecklistRadioButtonQAns;
 	public WebElement elechecklistRadioButtonQAns(String sRadioQuestion, String sRadiovalue)
 	{
-		return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@text='"+sRadioQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sRadiovalue+"']"));
-
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@text='"+sRadioQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sRadiovalue+"']"));
+		}
+		else
+		{																	
+			return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@name='"+sRadioQuestion+"']/..//*[@*[contains(.,'"+sRadiovalue+"')]]"));
+		}		
 	}
 
 	private WebElement elechecklistcheckboxQAns;
 	public WebElement getelechecklistcheckboxQAns(String sCheckboxQuestion, String sRadiovalue)
 	{
-		return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@text='"+sCheckboxQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sRadiovalue+"']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@text='"+sCheckboxQuestion+"'][@class='android.widget.TextView']/..//*[@text='"+sRadiovalue+"']"));
+		}
+		else
+		{
+			return elechecklistRadioButtonQAns = driver.findElement(By.xpath("//*[@name='"+sCheckboxQuestion+"']/..//*[@*[contains(.,'"+sRadiovalue+"')]]"));
+		}		
 
 	}
 	
@@ -143,30 +209,52 @@ public class Ph_ChecklistPO
 	private WebElement elechecklistTextQAns;
 	public WebElement getelechecklistTextQAns(String sTextQuestion)
 	{
-		return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"));
+		}
+		else
+		{																											
+			return elechecklistTextQAns = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']//XCUIElementTypeTextView"));
+		}	
+		
 
 	}
 	
 	private WebElement elechecklistTextQAnsValue;
 	public WebElement getelechecklistTextQAnsValue(String sTextQuestion,String sTextAnswer)
 	{
-		return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sTextAnswer+"']"));
-
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistTextQAns = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sTextAnswer+"']"));
+		}
+		else
+		{																											
+			return elechecklistTextQAns = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']//XCUIElementTypeTextView"));
+		}	
 	}
 	
 	private WebElement elechecklistDateQAnsValue;
-	public WebElement getelechecklistDateQAnsValue(String sTextQuestion,String sDateAnswer)
+	public WebElement getelechecklistDateQAnsValue(String sTextQuestion)
 	{
-		return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText'][@text='"+sDateAnswer+"']"));
-
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText']"));
+		}
+		else
+		{																											
+			return elechecklistDateQAnsValue = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']//XCUIElementTypeTextField"));
+		}	
 	}
 	
 	
 	private WebElement elechecklistNumberQAns;
 	public WebElement getelechecklistNumberQAns(String sNumberQuestion)
 	{
-		return elechecklistNumberQAns = driver.findElement(By.xpath("//*[@text='"+sNumberQuestion+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"));
-
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistNumberQAns = driver.findElement(By.xpath("//*[@text='"+sNumberQuestion+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"));
+		}
+		else
+		{																											
+			return elechecklistNumberQAns = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']//XCUIElementTypeTextField"));
+		}	
 	}
 	
 	private WebElement elechecklistinstance;
@@ -178,9 +266,104 @@ public class Ph_ChecklistPO
 	private WebElement elechecklistdate;
 	public WebElement getelechecklistdate(String sdates)
 	{
-		return driver.findElement(By.xpath("//*[@text='"+sdates+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"));
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@text='"+sdates+"']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"));
+		}
+		else
+		{																											
+			return driver.findElement(By.xpath("(//*[@name='"+sdates+"']/..//XCUIElementTypeStaticText)[last()]"));
+		}	
+		
 		
 	}
 	
+	@iOSXCUITFindBy(xpath="//*[@*='Add Image or Video'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Add Image or Video']")
+	private WebElement eleAddImageorVideo;
+	public WebElement geteleAddImageorVideo()
+	{
+		return eleAddImageorVideo;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Take Photo'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Take Photo']")
+	private WebElement eleTakePhoto;
+	public WebElement geteleTakePhoto()
+	{
+		return eleTakePhoto;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Take Video'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Take Video']")
+	private WebElement eleTakeVideo;
+	public WebElement geteleTakeVideo()
+	{
+		return eleTakeVideo;
+	}
+	
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Choose from Camera Roll'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Choose from Camera Roll']")
+	private WebElement eleChoosefromCameraRoll;
+	public WebElement geteleChoosefromCameraRoll()
+	{
+		return eleChoosefromCameraRoll;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Add'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Add']")
+	private WebElement eleAdd;
+	public WebElement geteleAdd()
+	{
+		return eleAdd;
+	}
+	
+	public void AllowCamerabutton(CommonUtility commonUtility) throws Exception {
+		commonUtility.switchContext("Native");
+		Thread.sleep(GenericLib.iHighSleep);
+		try {
+			driver.findElementByAccessibilityId("OK").click();
+
+		} catch (Exception e) {
+			System.out.println("Could not Find OK Popup for camera");
+		}
+	}
+	
+	public void checklistAttach(CommonUtility commonUtility, String AttachmentAction, String checklistq) throws Exception
+	{
+		geteleAddImageorVideo().click();
+		if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+			geteleTakePhoto().click();
+			AllowCamerabutton(commonUtility);
+			try {
+				Thread.sleep(3000);
+				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+				e.get(0).click();
+			} catch (Exception e) {
+				List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByAccessibilityId("Shutter");
+				els1.get(0).click();
+			}
+			Thread.sleep(2000);
+			driver.findElementByAccessibilityId("Done").click();
+			geteleAdd().click();
+		}
+		
+		if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+			geteleTakeVideo().click();
+			AllowCamerabutton(commonUtility);
+
+		}
+		
+		if (AttachmentAction == "Choose from Camera Roll" || AttachmentAction == "choose from camera roll") {
+			geteleChoosefromCameraRoll().click();
+			//AllowCamerabutton(commonUtility);
+			Thread.sleep(5000);
+			WebElement sd = driver.findElement(By.xpath("(//android.view.ViewGroup[@content-desc='MEDIA_LIBRARY.IMAGE_CLICK'])[last()]"));
+			sd.click();
+			geteleAdd().click();
+			Thread.sleep(3000);
+		}
+		
+	}
 	
 }

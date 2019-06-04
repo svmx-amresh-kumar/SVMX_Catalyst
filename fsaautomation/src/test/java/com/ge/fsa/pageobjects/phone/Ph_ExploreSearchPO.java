@@ -59,7 +59,7 @@ public class Ph_ExploreSearchPO {
 			return driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='" + sName + "']"));
 		} else {
 			return driver
-					.findElement(By.xpath("(//*[contains(@label,'" + sName + "')]/*[contains(@name,'Item')])[last()]"));
+					.findElement(By.xpath("(//*[@label='"+sName+"']//ancestor::*[@*[contains(.,'Item')]])[last()]"));
 		}
 	}
 	

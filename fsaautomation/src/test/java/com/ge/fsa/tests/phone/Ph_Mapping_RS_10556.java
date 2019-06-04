@@ -64,46 +64,46 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";
 
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
 
-	/*	
-		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		
+		/*  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  lauchNewApp("false"); System.out.println("RS_10556");
-		 */ 
+		  */
 		 
+
 		// read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ProcessName");
-		String sworkordernumber = GenericLib.getExcelData(sTestCaseID, sSheetName, "WorkOrder Number");
-	
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		String sworkordernumber = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "WorkOrder Number");
+
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		// config sync
 		// toolsPo.configSync(commonsUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+	/*	Thread.sleep(GenericLib.iMedSleep);
 
 		// datasync
-	//	ph_MorePo.syncData(commonUtility);
-		//Thread.sleep(GenericLib.iMedSleep);
+		//ph_MorePo.syncData(commonUtility);
+		Thread.sleep(GenericLib.iMedSleep);
 			//open WO from calendar
 		
 		ph_CalendarPo.getEleCalendarBtn().click();
-		ph_CalendarPo.custScroll(commonUtility,"Event_10556");
+		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("Event_10556"),true);
 		
 		ph_CalendarPo.getEleworkordernumonCalendar("Event_10556").click();
 		ph_CalendarPo.getEleworkordernumon(sworkordernumber).click();
 		
-		
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-		
+	*/	
 		// to get orderstatus nd ordertype from workorder
 
 				JSONArray sJsonArrayWO1 = restServices.restGetSoqlJsonArray("Select+SVMXC__Order_Status__c,+SVMXC__Order_Type__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"+ sworkordernumber + "\'");
@@ -277,8 +277,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				Thread.sleep(3000);
 				ph_WorkOrderPo.getEletapon(SFMProduct).click();
 				Thread.sleep(3000);
-				System.out.println("now");
-				Thread.sleep(15000);
+
 				// Verifying mapping before save on child
 				System.out.println(
 						":):):):):):):):):before save child):):):):):):):)before savechild:):):):):):):):):):):):)before save:):):):):):):)");

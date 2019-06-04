@@ -67,11 +67,11 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		 */
 
 		// read from file
-		sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.getExcelData(sTestCaseID, sSheetName, "ViewProcessNameCustom");
-		String sFieldServiceName2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "CreateNewCustomrecord");
-		// String WOname1=GenericLib.getExcelData(sTestCaseID, "WorkOrder");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ViewProcessNameCustom");
+		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "CreateNewCustomrecord");
+		// String WOname1=GenericLib.readExcelData(GenericLib.sTestDataFile, "WorkOrder");
 
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		sProformainVoice = sRandomNumber;

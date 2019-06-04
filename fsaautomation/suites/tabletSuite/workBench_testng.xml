@@ -5,7 +5,7 @@
     </listeners>
 <test name="WorkBench">
 		<classes>	
-			<class name="com.ge.fsa.tests.tablet.SCN_SalesForce_Files_WO_Debrief_RS_12367" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SalesForce_Files_Checklist_Attachment_RS_12378" />
 		</classes>
 	</test> <!-- Test -->
 	
