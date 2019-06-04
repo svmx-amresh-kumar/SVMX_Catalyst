@@ -89,37 +89,41 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Work Orders").isDisplayed(), "Work Orders for RS_10549 SFM Search  is not displayed ");
 		ExtentManager.logger.log(Status.PASS," Work Orders for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM SVMXC__Service_Order__c";				
-		sWorkOrderCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText().contains(sWorkOrderCnt), "Invalid WorkOrder count is displayed. Expected:"+sWorkOrderCnt
-				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText());
-		ExtentManager.logger.log(Status.PASS,"Valid WorkOrder count is displayed.");
+		sWorkOrderCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize");
+		String appWorkOrdercnt=ph_ExploreSearchPo.getEleSearchListItemCount("Work Orders").getText();
+		Assert.assertTrue(appWorkOrdercnt.equals(sWorkOrderCnt), "Invalid WorkOrder count is displayed. Expected:"+sWorkOrderCnt
+				+" Actual:"+appWorkOrdercnt);
+		ExtentManager.logger.log(Status.PASS,"Valid WorkOrder count is displayed. Expected:"+sWorkOrderCnt+" Actual:"+appWorkOrdercnt);
 		
 		//Validation of Contacts object search and count
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Contacts").isDisplayed(), "Contacts for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Contacts for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Contact";				
-		sContactCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText().contains(sContactCnt), "Invalid Contact count is displayed. Expected:"+sContactCnt
-				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText());
-		ExtentManager.logger.log(Status.PASS,"Valid Contact count is displayed.");
+		sContactCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize");
+		String appContactCnt=ph_ExploreSearchPo.getEleSearchListItemCount("Contacts").getText();
+		Assert.assertTrue(appContactCnt.equals(sContactCnt), "Invalid Contact count is displayed. Expected:"+sContactCnt
+				+" Actual:"+appContactCnt);
+		ExtentManager.logger.log(Status.PASS,"Valid Contact count is displayed.Expected:"+sContactCnt+" Actual:"+appContactCnt);
 		
 		//Validation of Products object search and count
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Products").isDisplayed(), "Products for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Products for RS_10549 Multi Field WO Search text is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Product2";				
-		sProductCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText().contains(sProductCnt), "Invalid Product count is displayed. Expected:"+sProductCnt
-				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText());
-		ExtentManager.logger.log(Status.PASS,"Valid Product count is displayed.");
+		sProductCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize");
+		String appProductCnt=ph_ExploreSearchPo.getEleSearchListItemCount("Products").getText();
+		Assert.assertTrue(appProductCnt.equals(sProductCnt), "Invalid Product count is displayed. Expected:"+sProductCnt
+				+" Actual:"+appProductCnt);
+		ExtentManager.logger.log(Status.PASS,"Valid Product count is displayed.Expected:"+sProductCnt+" Actual:"+appProductCnt);
 
 		//Validation of Accounts object search and count
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Accounts").isDisplayed(), "Accounts for RS_10549 SFM Search is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Accounts for RS_10549 SFM Search is successfully displayed");
 		sSqlQuery ="SELECT count() FROM Account";				
 		sAccountCnt  =restServices.restGetSoqlValue(sSqlQuery,"totalSize"); 
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText().contains(sAccountCnt), "Invalid Account count is displayed. Expected:"+sAccountCnt
-				+" Actual:"+ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText());
-		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.");
+		String appAccountCnt=ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText();
+		Assert.assertTrue(appAccountCnt.equals(sAccountCnt), "Invalid Account count is displayed. Expected:"+sAccountCnt
+				+" Actual:"+appAccountCnt);
+		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.Expected:"+sAccountCnt+" Actual:"+appAccountCnt);
 
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName, null);

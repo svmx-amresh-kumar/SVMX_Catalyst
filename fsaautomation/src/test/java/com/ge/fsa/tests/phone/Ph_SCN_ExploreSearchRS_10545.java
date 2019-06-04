@@ -245,14 +245,14 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch("WO");
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), sWOName3+" Work Order is not displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName3+" Work Order is successfully displayed");
 		//validateSearch(sWOName4);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), sWOName4+" Work Order is not displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName4+" Work Order is successfully displayed");
 		//validateSearch(sWOName5);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), sWOName5+" Work Order is not displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName5+" Work Order is successfully displayed");
 		
 		//Validation of WO1 not to downloaded in search
 		validateSearch(sWOName1);
@@ -272,8 +272,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		//if(BaseLib.sOSName.equals("ios")) {driver.activateApp(GenericLib.sAppBundleID);}
 		
 		validateSearch(sSerialNumber+"AccB");
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sSerialNumber+"AccB").isDisplayed(), sSerialNumber+"AccB is not displayed");
-		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccB Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sSerialNumber+"AccB").isDisplayed(), sSerialNumber+"AccB account is not displayed");
+		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccB account is successfully displayed");
 		
 		//Validation of AccA not to be downloaded in search
 		validateSearch(sSerialNumber+"AccA");
@@ -292,8 +292,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		validateSearch(sSerialNumber+"LocB");
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sSerialNumber+"LocB").isDisplayed(), sSerialNumber+"LocB is not displayed");
-		ExtentManager.logger.log(Status.PASS,sSerialNumber+"LocB Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sSerialNumber+"LocB").isDisplayed(), sSerialNumber+"LocB location is not displayed");
+		ExtentManager.logger.log(Status.PASS,sSerialNumber+"LocB location is successfully displayed");
 		
 		//Validation of sLocationA not to be downloaded in search
 		validateSearch(sSerialNumber+"LocA");
@@ -351,7 +351,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		ph_WorkOrderPo.getElesave().click();
 		Thread.sleep(GenericLib.iLowSleep);
 		
-		ExtentManager.logger.log(Status.PASS,"Update process is successful");
+		ExtentManager.logger.log(Status.PASS,"Update process of work order is successful");
 		//Validation of WO search after updating WO2
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 				
@@ -386,20 +386,20 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchListItem("Work Orders").click();
 		Thread.sleep(GenericLib.iMedSleep); 
 		validateSearch(sWOName2);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), "Work Order2 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order2 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName2).isDisplayed(), sWOName2+ " Work Order is not displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName2+ " After updation of Work Order location to India Record is successfully displayed");
 		
 		validateSearch(sWOName3);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName3+" Work Order Record is successfully displayed");
 		
 		validateSearch(sWOName4);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), "Work Order4 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order4 Record is successfully displayed");
+		ExtentManager.logger.log(Status.PASS,sWOName4+" Work Order Record is successfully displayed");
 		
 		validateSearch(sWOName5);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), sWOName5 +" --> No Records to display text is not displayed");
-		ExtentManager.logger.log(Status.PASS,sWOName5 +" -->No Records to display text is successfully displayed");
+		ExtentManager.logger.log(Status.PASS, "After updating priority to High for work order "+sWOName5+" No Records to display text is successfully displayed");
 		
 		//Navigation to Accounts Search
 		ph_ExploreSearchPo.geteleExploreIcn().click();
@@ -480,16 +480,16 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		
 		//Validation of WO1, WO3 and WO5
 		validateSearch(sWOName2);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), "Work Order1 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order1 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName1).isDisplayed(), sWOName1+ " Work Order is not displayed after updating the scheduled date time");
+		ExtentManager.logger.log(Status.PASS,"After updation of scheduler date time Work Order "+sWOName1+" Record is successfully displayed");
 		
 		validateSearch(sWOName3);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), "Work Order3 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order3 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(),sWOName3+ " Work Order is not displayed after updating the scheduled date time");
+		ExtentManager.logger.log(Status.PASS,"After updation of scheduler date time Work Order "+sWOName3+" Record is successfully displayed");
 		
 		validateSearch(sWOName5);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), "Work Order5 is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Work Order5 Record is successfully displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), sWOName5+ " Work Order is not displayed after updating the scheduled date time");
+		ExtentManager.logger.log(Status.PASS,"After updation of scheduler date time Work Order "+sWOName5+" Record is successfully displayed");
 		
 		/*
 		//Navigation to SFM

@@ -1710,4 +1710,19 @@ public WebElement geteleIsbillable() {
 	public WebElement getEleValidationToggle() {
 		return eleValidationToggle;
 	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']")
+	private WebElement eleProformaInvoice;
+	public WebElement geteleProformaInvoice() {
+		return eleProformaInvoice;
+	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='ON']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	private WebElement eleEntPerformedOn;
+	public WebElement geteleEntPerformedOn() {
+		return eleEntPerformedOn;
+}
+
 }
