@@ -3,6 +3,9 @@ package com.ge.fsa.pageobjects.phone;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
@@ -273,5 +277,93 @@ public class Ph_ChecklistPO
 		
 	}
 	
+	@iOSXCUITFindBy(xpath="//*[@*='Add Image or Video'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Add Image or Video']")
+	private WebElement eleAddImageorVideo;
+	public WebElement geteleAddImageorVideo()
+	{
+		return eleAddImageorVideo;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Take Photo'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Take Photo']")
+	private WebElement eleTakePhoto;
+	public WebElement geteleTakePhoto()
+	{
+		return eleTakePhoto;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Take Video'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Take Video']")
+	private WebElement eleTakeVideo;
+	public WebElement geteleTakeVideo()
+	{
+		return eleTakeVideo;
+	}
+	
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Choose from Camera Roll'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Choose from Camera Roll']")
+	private WebElement eleChoosefromCameraRoll;
+	public WebElement geteleChoosefromCameraRoll()
+	{
+		return eleChoosefromCameraRoll;
+	}
+	
+	@iOSXCUITFindBy(xpath="//*[@*='Add'])[last()]")
+	@AndroidFindBy(xpath="//*[@text='Add']")
+	private WebElement eleAdd;
+	public WebElement geteleAdd()
+	{
+		return eleAdd;
+	}
+	
+	public void AllowCamerabutton(CommonUtility commonUtility) throws Exception {
+		commonUtility.switchContext("Native");
+		Thread.sleep(GenericLib.iHighSleep);
+		try {
+			driver.findElementByAccessibilityId("OK").click();
+
+		} catch (Exception e) {
+			System.out.println("Could not Find OK Popup for camera");
+		}
+	}
+	
+	public void checklistAttach(CommonUtility commonUtility, String AttachmentAction, String checklistq) throws Exception
+	{
+		geteleAddImageorVideo().click();
+		if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+			geteleTakePhoto().click();
+			AllowCamerabutton(commonUtility);
+			try {
+				Thread.sleep(3000);
+				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+				e.get(0).click();
+			} catch (Exception e) {
+				List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByAccessibilityId("Shutter");
+				els1.get(0).click();
+			}
+			Thread.sleep(2000);
+			driver.findElementByAccessibilityId("Done").click();
+			geteleAdd().click();
+		}
+		
+		if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+			geteleTakeVideo().click();
+			AllowCamerabutton(commonUtility);
+
+		}
+		
+		if (AttachmentAction == "Choose from Camera Roll" || AttachmentAction == "choose from camera roll") {
+			geteleChoosefromCameraRoll().click();
+			//AllowCamerabutton(commonUtility);
+			Thread.sleep(5000);
+			WebElement sd = driver.findElement(By.xpath("(//android.view.ViewGroup[@content-desc='MEDIA_LIBRARY.IMAGE_CLICK'])[last()]"));
+			sd.click();
+			geteleAdd().click();
+			Thread.sleep(3000);
+		}
+		
+	}
 	
 }
