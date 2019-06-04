@@ -779,7 +779,7 @@ public class Ph_WorkOrderPO {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi").click();
 		} else {
-			ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi no description")
+			ph_CalendarPo.getEleSelectProcessNewProcess("Create New Installed Product Automation sahi")
 					.click();
 		}
 		Thread.sleep(2000);

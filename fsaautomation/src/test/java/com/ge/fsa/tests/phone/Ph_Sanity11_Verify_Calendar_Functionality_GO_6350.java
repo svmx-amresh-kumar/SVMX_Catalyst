@@ -9,14 +9,20 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.ge.fsa.lib.CommonUtility;
@@ -26,7 +32,10 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -65,16 +74,16 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		String sTestCaseID = "Calender_6350";
 
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		String sEventSubject = "Event_" + sRandomNumber;
 		// sahi
-
+/*
 		genericLib.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
-
+*/
 		// read from file
 		/*sExploreSearch = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = GenericLib.getExcelData(sTestCaseID, sSheetName, "ExploreChildSearch");
@@ -84,9 +93,9 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		String sWO_SVMX_2 = GenericLib.getExcelData(sTestCaseID, sSheetName, "WO_SVMX_2");
 		 */
 		// Pre Login to app
-			ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-			ph_MorePo.configSync(commonUtility,ph_CalendarPo);
+		/*		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -302,7 +311,8 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		Thread.sleep(5000);
 		//Verifying Dots
-	/*	ph_CalendarPo.geteleyearandmonth().click();
+		ph_CalendarPo.getEleCalendarBtn().click();
+		ph_CalendarPo.geteleyearandmonth().click();
 		Thread.sleep(2000);
 
 		Assert.assertTrue(ph_CalendarPo.getlecurrentdatedot().isDisplayed());//current day
@@ -372,7 +382,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 					if(day.equalsIgnoreCase("1")|| day.equalsIgnoreCase("2") || day.equalsIgnoreCase("3") ||day.equalsIgnoreCase("4") ) {
 
 					//Swipe once forward and check if date is 1 in any case swipe if its 1
-						Point coordinates= ph_CalendarPo.getGetDates(day).getLocation();
+						Point coordinates= ph_CalendarPo.getGetDates().getLocation();
 						System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
 						Dimension dim=driver.manage().window().getSize();
 						System.out.println("x:"+dim.getWidth()+"y:"+dim.getHeight());
@@ -408,10 +418,12 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 			}
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////");		
 			//Verify Day view,Verify Agenda view
-
-			
-			ph_CalendarPo.getEleselectview().click();
-			ph_CalendarPo.getEleAgendaView().click();
+*/
+		
+			System.out.println("select view before");
+				ph_CalendarPo.getEleselectview().click();
+				//ph_CalendarPo.getEleAgendaView().click();
+				commonUtility.tap(ph_CalendarPo.getEleAgendaView());
 			Thread.sleep(3000);
 			commonUtility.swipeUp();
 			commonUtility.custScrollToElement(ph_CalendarPo.getEletopelement());
@@ -424,7 +436,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ExtentManager.logger.log(Status.FAIL,"FAIL Verified agenda view for the current day");
 	}
 	
-	*/		
+			
 	
 	
 	}

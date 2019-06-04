@@ -324,10 +324,20 @@ public class Ph_CalendarPO
 	private WebElement elegetdot;
 	public WebElement getElegetdot(String hour)
 	{
+		try {
+			if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.view.ViewGroup"));
+			
+			}
+			else {
+				elegetdot = driver.findElement(By.xpath("((//XCUIElementTypeOther[@name=\"CALENDAR.DATE_NUMBER"+hour+"\"])[2]//XCUIElementTypeOther)[3]"));
+				//((//XCUIElementTypeOther[@name="CALENDAR.DATE_NUMBER5"])[2]//XCUIElementTypeOther)[3]
+			}
+			} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return elegetdot;
 		
-		elegetdot = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_NUMBER"+hour+"\"]/android.view.ViewGroup"));
-		
-			return elegetdot;
 		}
 		
 
@@ -405,14 +415,14 @@ public class Ph_CalendarPO
 	}
 	
 	
-	@FindBy(xpath="//*[@text='Agenda View']")
+	@FindBy(xpath="//XCUIElementTypeButton[@name=\"Agenda View\"]")
 	private WebElement eleAgendaView;
 	public WebElement getEleAgendaView()
 	{
 		return eleAgendaView;
 	}
 	
-
+//@FindAll({@FindBy(xpath="//*[@*='Agenda View']"),
 	
 	
 	
