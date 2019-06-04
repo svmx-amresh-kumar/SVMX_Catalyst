@@ -3,6 +3,8 @@ package com.ge.fsa.pageobjects.phone;
 
 import java.io.IOException;
 import java.util.Iterator;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -245,7 +247,20 @@ public class Ph_LoginHomePO
 		case "ios":
 
 			System.out.println("Login For Iphone IOS UN = "+sUn+" PWD = "+sPwd);
+			try {
+				WebElement popEl = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Always Allow']"));
+				if(commonUtility.waitforElement(popEl, 2)){
+					popEl.click();
 
+				}}catch(Exception e) {};
+				
+			
+				try {
+					WebElement popEl1 = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Allow']"));
+					if(commonUtility.waitforElement(popEl1, 2)){
+						popEl1.click();
+
+					}}catch(Exception e1) {};
 			if(commonUtility.waitforElement(ph_MorePo.getEleMoreBtn(), 1)){
 				System.out.println("Logged in Already");
 

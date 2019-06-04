@@ -333,11 +333,16 @@ public class BaseLib {
 					capabilities.setCapability("useNewWDA",false);
 					capabilities.setCapability("waitForQuiescence",false);
 					//capabilities.setCapability("ignoreUnimportantViews",true);
+					//Dont use for Go App
+					//capabilities.setCapability("autoAcceptAlerts", true);
+
 				
 				}else{
 					//Only For Ipad
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 					capabilities.setCapability("sendKeyStrategy", "grouped");
+					capabilities.setCapability("autoAcceptAlerts", true);
+
 
 				}
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
@@ -351,7 +356,6 @@ public class BaseLib {
 				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
-				capabilities.setCapability("autoAcceptAlerts", true);
 				//capabilities.setCapability("showXcodeLog", true);
 				//Use this capability for fixing slow launch of app
 				//capabilities.setCapability("useNewWDA",true);
