@@ -436,13 +436,6 @@ public class Ph_WorkOrderPO {
 	public WebElement getBtnClose() {
 		return btnClose;
 	}
-	
-//	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
-//	private WebElement btnContactClose;
-//
-//	public WebElement getIOSBtnContactClose() {
-//		return btnContactClose;
-//	}
 
 	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]") //Works on both
 	private List<WebElement> noAccContactsLst;
@@ -577,6 +570,13 @@ public class Ph_WorkOrderPO {
 		return txtProblemDescription;
 	}
 	
+	@FindBy(xpath="//*[@*='Number']/following::android.widget.EditText")
+	private WebElement txtNumber;
+	
+	public WebElement getTxtNumber() {
+		return txtNumber;
+	}
+	
 	@AndroidFindBy(xpath="//android.widget.TextView[@text='Filter']")
 	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='SFM.LAYOUT.LOOKUP.OPTIONS.BUTTON']")
 	private WebElement lnkFilter;
@@ -612,6 +612,18 @@ public class Ph_WorkOrderPO {
 	private WebElement btnFinalize;
 	public WebElement getBtnFinalize() {
 		return btnFinalize;
+	}
+	
+	@FindBy(xpath="(//*[@text='Scheduled Date']/following::android.widget.TextView)[1]")
+	private WebElement txtScheduledDate;
+	public WebElement getTxtScheduledDate() {
+		return txtScheduledDate;
+	}
+	
+	@FindBy(xpath="(//*[@text='Scheduled Date Time']/following::android.widget.TextView)[1]")
+	private WebElement txtScheduledDateTime;
+	public WebElement getTxtScheduledDateTime() {
+		return txtScheduledDateTime;
 	}
 	//-----------------------------
 
