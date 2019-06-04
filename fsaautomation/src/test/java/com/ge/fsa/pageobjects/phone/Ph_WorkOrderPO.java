@@ -1705,4 +1705,12 @@ public WebElement geteleIsbillable() {
 	public WebElement geteleProformaInvoice() {
 		return eleProformaInvoice;
 	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='ON']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	private WebElement eleEntPerformedOn;
+	public WebElement geteleEntPerformedOn() {
+		return eleEntPerformedOn;
+}
+
 }
