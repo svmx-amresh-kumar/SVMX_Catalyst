@@ -30,10 +30,9 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	String sExploreChildSearchTxt = null;
 	String sFieldServiceName = null;
 	String sProbDesc = null;
-//	int iValToIncrease = 0;
 	int iValNoOfTimesAssigned = 0;
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
@@ -42,10 +41,9 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
 		sProbDesc = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
 		System.out.println("The Value is "+sProbDesc);
-//		iValToIncrease = Integer.parseInt(GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
-//		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");
@@ -61,19 +59,32 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Perform Config Sync************
-//		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-//		Thread.sleep(GenericLib.iMedSleep);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		Thread.sleep(GenericLib.iMedSleep);
 		
 		//************Navigate to SFM************
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtProblemDescription());
+		if(sOSName.equalsIgnoreCase("ios")) {
+			Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDate().getAttribute("value").trim(),"");
+			Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDateTime().getAttribute("value").trim(),"");
+			Assert.assertEquals(ph_WorkOrderPo.getTxtProblemDescription().getAttribute("value"),null);
+		}
+		else {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDate().getAttribute("text").trim(),"");
 		Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDateTime().getAttribute("text").trim(),"");
 		Assert.assertEquals(ph_WorkOrderPo.getTxtProblemDescription().getAttribute("text"),"");
+		}
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtNumber());
-
-		iValNoOfTimesAssigned = Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("text"));
-		Assert.assertEquals(ph_WorkOrderPo.getTxtNumber().getAttribute("text"),"10");
+		if(sOSName.equalsIgnoreCase("ios")) {
+			iValNoOfTimesAssigned = Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("value"));
+			Assert.assertEquals(ph_WorkOrderPo.getTxtNumber().getAttribute("value"),"10");
+		}
+		else {
+			iValNoOfTimesAssigned = Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("text"));
+			Assert.assertEquals(ph_WorkOrderPo.getTxtNumber().getAttribute("text"),"10");	
+		}
+		
 		ph_WorkOrderPo.getBtnClose().click();
 		ph_WorkOrderPo.selectAction(commonUtility, "Auto_Regression_10571");
 		Thread.sleep(3000);
@@ -85,13 +96,22 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 //		System.out.println("Todays Date "+sCurrentDate);
 		iValNoOfTimesAssigned = iValNoOfTimesAssigned+10;
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtProblemDescription());
-		Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDate().getAttribute("text").trim(),"1/1/2019");
-		Assert.assertTrue(ph_WorkOrderPo.getTxtScheduledDateTime().getAttribute("text").trim().contains(sCurrentDate));
-		Assert.assertEquals(ph_WorkOrderPo.getTxtProblemDescription().getAttribute("text"),sProbDesc);
+		if(sOSName.equalsIgnoreCase("ios")) {
+			Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDate().getAttribute("value").trim(),"1/1/2019");
+			Assert.assertTrue(ph_WorkOrderPo.getTxtScheduledDateTime().getAttribute("value").trim().contains(sCurrentDate));
+			Assert.assertEquals(ph_WorkOrderPo.getTxtProblemDescription().getAttribute("value"),sProbDesc);
+		}
+		else {
+			Assert.assertEquals(ph_WorkOrderPo.getTxtScheduledDate().getAttribute("text").trim(),"1/1/2019");
+			Assert.assertTrue(ph_WorkOrderPo.getTxtScheduledDateTime().getAttribute("text").trim().contains(sCurrentDate));
+			Assert.assertEquals(ph_WorkOrderPo.getTxtProblemDescription().getAttribute("text"),sProbDesc);
+		}
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getTxtNumber());
-		Assert.assertEquals(Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("text")),iValNoOfTimesAssigned);
-//		System.out.println(workOrderPo.getProblemDescription().getAttribute("value"));
-		
-				
+		if(sOSName.equalsIgnoreCase("ios")) {
+			Assert.assertEquals(Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("value")),iValNoOfTimesAssigned);
+		}
+		else {
+			Assert.assertEquals(Integer.parseInt(ph_WorkOrderPo.getTxtNumber().getAttribute("text")),iValNoOfTimesAssigned);
+		}		
 	}
 }
