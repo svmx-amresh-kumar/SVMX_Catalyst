@@ -570,7 +570,8 @@ public class Ph_WorkOrderPO {
 		return txtProblemDescription;
 	}
 	
-	@FindBy(xpath="//*[@*='Number']/following::android.widget.EditText")
+	@AndroidFindBy(xpath="//*[@*='Number']/following::android.widget.EditText")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Number']/following::XCUIElementTypeTextField)[1]")
 	private WebElement txtNumber;
 	
 	public WebElement getTxtNumber() {
@@ -608,19 +609,22 @@ public class Ph_WorkOrderPO {
 		return lblHeader;
 	}
 	
-	@FindBy(xpath="//*[@text='Finalize']")
+	@AndroidFindBy(xpath="//*[@text='Finalize']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeOther[@name='SFM.HEADER_RIGHT']")
 	private WebElement btnFinalize;
 	public WebElement getBtnFinalize() {
 		return btnFinalize;
 	}
 	
-	@FindBy(xpath="(//*[@text='Scheduled Date']/following::android.widget.TextView)[1]")
+	@AndroidFindBy(xpath="(//*[@text='Scheduled Date']/following::android.widget.TextView)[1]")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Scheduled Date']/following::XCUIElementTypeStaticText)[1]")
 	private WebElement txtScheduledDate;
 	public WebElement getTxtScheduledDate() {
 		return txtScheduledDate;
 	}
 	
-	@FindBy(xpath="(//*[@text='Scheduled Date Time']/following::android.widget.TextView)[1]")
+	@AndroidFindBy(xpath="(//*[@text='Scheduled Date Time']/following::android.widget.TextView)[1]")
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Scheduled Date Time']/following::XCUIElementTypeStaticText)[1]")
 	private WebElement txtScheduledDateTime;
 	public WebElement getTxtScheduledDateTime() {
 		return txtScheduledDateTime;
