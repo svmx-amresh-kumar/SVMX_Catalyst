@@ -375,6 +375,11 @@ public class CommonUtility {
 		touchAction.longPress(new PointOption().withCoordinates(132, 674))
 		.moveTo(new PointOption().withCoordinates(162, 1385)).release();
 	}
+	public void swipeDown() {
+		touchAction = new TouchAction(driver);
+		touchAction.longPress(new PointOption().withCoordinates(132, 674))
+		.moveTo(new PointOption().withCoordinates(1385,162)).release();
+	}
 
 	public void swipeLeft(WebElement wElement) {
 	
@@ -2425,8 +2430,13 @@ public class CommonUtility {
 		String[] date = getDeviceDate().split(" ");
 		Calendar cal=Calendar.getInstance();
 		//System.out.println(date[3]);
-		cal.set(Calendar.DATE,Integer.parseInt(date[3].trim()));
-		cal.set(Calendar.YEAR, Integer.parseInt(date[6].trim()));
+		try {
+			cal.set(Calendar.DATE,Integer.parseInt(date[3].trim()));
+			cal.set(Calendar.YEAR, Integer.parseInt(date[6].trim()));
+		} catch (Exception e) {
+			cal.set(Calendar.DATE,Integer.parseInt(date[2].trim()));
+			cal.set(Calendar.YEAR, Integer.parseInt(date[5].trim()));
+		}
 		Date date1=new SimpleDateFormat("MMM").parse(date[1].trim());
 		cal.set(Calendar.MONTH,date1.getMonth());
 		cal.add(Calendar.DATE, value);

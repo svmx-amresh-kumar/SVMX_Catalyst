@@ -415,14 +415,14 @@ public class Ph_CalendarPO
 	}
 	
 	
-	@FindBy(xpath="//XCUIElementTypeButton[@name=\"Agenda View\"]")
+	@FindAll({@FindBy(xpath="//*[@*='Agenda View']"),@FindBy(xpath="//XCUIElementTypeButton[@name=\"Agenda View\"]")})
 	private WebElement eleAgendaView;
 	public WebElement getEleAgendaView()
 	{
 		return eleAgendaView;
 	}
 	
-//@FindAll({@FindBy(xpath="//*[@*='Agenda View']"),
+
 	
 	
 	
@@ -433,7 +433,9 @@ public class Ph_CalendarPO
 			//*[@*='android.view.ViewGroup']//*[@*='android.view.ViewGroup'][2]//*[@*='android.widget.TextView'][1]
 		}
 		else {
-			return driver.findElements(By.xpath("//*[@*[contains(., 'CALENDAR.APPOINTMENT')]]"));
+			return driver.findElements(By.xpath("//XCUIElementTypeOther[@name=\"CALENDAR.COMPONENT.AGENDA_VIEW\"]"));
+		
+
 		}
 	}
 	
