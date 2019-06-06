@@ -34,11 +34,11 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sExploreSearch = "WO SEARCH";
 		
 		//*************** Execute Sahi Script ***************
-		commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
+//		commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
 		
-		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		lauchNewApp("false");
+//		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		lauchNewApp("false");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		ph_MorePo.syncData(commonUtility);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
