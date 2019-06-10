@@ -26,29 +26,29 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 	public void RS_10568() throws Exception {
 		
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
-		
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-
-
-
 		// To create a Work Order for Editing 
 		String sRandomNumber = commonUtility.generaterandomnumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sAccountName+" Account Id:"+sAccountId);
 		
 		// Creating Product from API
 		sProductName = "auto_product1"+sRandomNumber;
-		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
-		
+		String sProductId1=restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
+		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name:"+sProductName+" Product Id:"+sProductId1);
+
 		// Creating Product2 from API
 		sProductName2 = "auto_product2"+sRandomNumber;
-		restServices.restCreate("Product2?","{\"Name\":\""+sProductName2+"\" }");
-		
+		String sProductId2=restServices.restCreate("Product2?","{\"Name\":\""+sProductName2+"\" }");
+		ExtentManager.logger.log(Status.INFO, "Product has been create through rest web service with Name:"+sProductName2+" Product Id:"+sProductId2);
+
 		// Creating Product3 from API
 		sProductName3 = "auto_product3"+sRandomNumber;
-		restServices.restCreate("Product2?","{\"Name\":\""+sProductName3+"\" }");
-		
+		String sProductId3=restServices.restCreate("Product2?","{\"Name\":\""+sProductName3+"\" }");
+		ExtentManager.logger.log(Status.INFO, "Product has been create through rest web service with Name:"+sProductName3+" Product Id:"+sProductId3);
+
 		
 		// Creating Contact from API
 		sFirstName = "auto_contact";
@@ -56,7 +56,8 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
-		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
+		String sContactId=restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
+		ExtentManager.logger.log(Status.INFO, "Contact has been create through rest web service. With Account Id as "+sAccountId+" and Contact Id:"+sContactId);
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(genericLib.iMedSleep);
 		// Creating the Work Order - To create the Childlines
@@ -64,7 +65,6 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Work order created successfully with details as Account Name:"+sAccountName+", Contact Name:"+
 				sContactName+", Product Name:"+sProductName+" Priority Type:Medium, Billing Type:Loan, Proforma Invoice: "+sProformainVoice);
 			
-		Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
@@ -72,11 +72,9 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 		// Select the Work Order from the Recent items
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		Thread.sleep(10000);
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname);
-		Thread.sleep(4000);
 		// Single Adding the Labor by clicking on the +Add button
 		//workOrderPo.addLaborParts(commonUtility, workOrderPo, sProductName, "Calibration", sProcessname);
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
@@ -84,48 +82,39 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Added labor with product name:"+sProductName);
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		ExtentManager.logger.log(Status.INFO, "selected action "+sProcessname);
-		Thread.sleep(4000);
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName2);
 		ExtentManager.logger.log(Status.INFO, "Added labor with product name:"+sProductName2);
 		// Deleting the Line by clicking on Remove Button - Removing one Labor
 		ph_WorkOrderPo.getEleChildLineItem(sProductName).click();
-		Thread.sleep(2000);
 		commonUtility.clickPopup(ph_WorkOrderPo.getEleRemoveButton(), ph_WorkOrderPo.getEleRemoveButton());
 		ExtentManager.logger.log(Status.INFO, "Removed labor with product name:"+sProductName);
 		//Multi-Add of the Labor by clicking the +Add Button - Adding the Parts
 		String[] sProductNamesArray = {sProductName2,sProductName3};
 		ph_WorkOrderPo.addParts(commonUtility, sProductNamesArray);
 		ExtentManager.logger.log(Status.INFO, "Added parts with product name:"+Arrays.toString(sProductNamesArray));
-		Thread.sleep(2000);
 		// Adding the Expenses to the Work Order
 		//workOrderPo.addExpense(commonUtility, workOrderPo, sExpenseType,sProcessname,sLineQty,slinepriceperunit);
 		ph_WorkOrderPo.addExpense(commonUtility, sExpenseType, sLineQty, slinepriceperunit);
-		Thread.sleep(3000);
+		ExtentManager.logger.log(Status.INFO, "Added Expenses with Expense Type:"+sExpenseType+", Line Quantity:"+sLineQty+", Line Proce Per Unit:"+slinepriceperunit);
 		// Adding the Another Expense by clicking on New Button
 		ph_WorkOrderPo.addExpense(commonUtility, sExpenseType, sLineQty, slinepriceperunit);
-		Thread.sleep(2000);
+		ExtentManager.logger.log(Status.INFO, "Added Expenses with Expense Type:"+sExpenseType+", Line Quantity:"+sLineQty+", Line Proce Per Unit:"+slinepriceperunit);
 		// Saving all the Childlines of the Work Order
 		ph_WorkOrderPo.getElesave().click();
-		ExtentManager.logger.log(Status.INFO, "Added Expenses with Expense Type:"+sExpenseType+", Line Quantity:"+sLineQty+", Line Proce Per Unit:"+slinepriceperunit);
-		Thread.sleep(2000);
+		ExtentManager.logger.log(Status.INFO, "Saved Work Order after adding child Lines");
 		// Syncing this Data into the Server for the Work Order
 		ph_MorePo.syncData(commonUtility);
 		// Verifying the number of Child lines on the Server Side from API after the Sync
 	
 		String sSoqlQueryChildline = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
-		restServices.getAccessToken();
 		String sChildlines = restServices.restGetSoqlValue(sSoqlQueryChildline, "totalSize");	
 		if(sChildlines.equals("5"))
 		{
-			ExtentManager.logger.log(Status.PASS,"The Childlines on the Work Order is "+sChildlines);
-
-
-		System.out.println("The Childlines on the Work Order "+sChildlines);
+			ExtentManager.logger.log(Status.PASS,"The Childlines on the Work Order is Expected:5, Actual:"+sChildlines);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"The Childlines on the Work Order isnt equal to 3");
-			System.out.println("The Childlines on the Work Order "+sChildlines);
+			ExtentManager.logger.log(Status.FAIL,"The Childlines on the Work Order is Expected:5, Actual:"+sChildlines);
 		}
 
 	}

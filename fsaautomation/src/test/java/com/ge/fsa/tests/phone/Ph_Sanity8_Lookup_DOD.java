@@ -147,14 +147,14 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 					Thread.sleep(2000);
 					ph_WorkOrderPo.getElesave().click();
 					//NXGReports.addStep("Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product", LogAs.PASSED, null);
-					ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Passed-Clicked on the Installed Product");
+					ExtentManager.logger.log(Status.PASS,"Installed Product size is correclty getting displayed as Expected:1, Actual:1");
 
 				}
 		// Else print with a Failure because there are more than 1 IB under the Lookup
 				else
 				{
 					//NXGReports.addStep("Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
-					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "More than 1 IB is present under the Lookup of IBSerial number");
+					ExtentManager.logger.log(Status.FAIL,"Installed product size is wrongly getting displayed. Expected:1, Actual:"+ph_WorkOrderPo.getIBLookup().size());
 
 				}
 				
@@ -175,7 +175,9 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib
 				String sProductName2 = restServices.restGetSoqlValue(sSoqlProductName,"Name");
 				String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
 				assertEquals(sProductNameA, sProductName2);
-				assertEquals(sLineQtyParts, "1.0");
+				assertEquals("1.0", sLineQtyParts);
+				ExtentManager.logger.log(Status.PASS, "Data is correctly saved. ProductName Expected:"+sProductNameA+
+						", Actual:"+sProductName2+" , Line Quantity Expected:1.0, Actual:"+sLineQtyParts);
 	
 	}
 	

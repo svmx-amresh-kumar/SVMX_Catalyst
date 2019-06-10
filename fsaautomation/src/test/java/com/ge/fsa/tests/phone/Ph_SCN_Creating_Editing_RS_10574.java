@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
@@ -67,18 +68,21 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		// Creating Account from API
 		sAccountName = "auto_account" + sRandomNumber;
 		sAccountId = restServices.restCreate("Account?", "{\"Name\":\"" + sAccountName + "\"}");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sAccountName+" and returned Account Id:"+sAccountId);
 
 		// Creating Product from API
 		sProductName = "auto_product" + sRandomNumber;
-		restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
+		String sProductId=restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sProductName+" and returned Account Id:"+sProductId);
 
 		// Creating Contact from API
 		sFirstName = "auto_contact";
 		sLastName = sRandomNumber;
 		sContactName = sFirstName + " " + sLastName;
 		System.out.println(sContactName);
-		restServices.restCreate("Contact?", "{\"FirstName\": \"" + sFirstName + "\", \"LastName\": \"" + sLastName
+		String sContactId=restServices.restCreate("Contact?", "{\"FirstName\": \"" + sFirstName + "\", \"LastName\": \"" + sLastName
 				+ "\", \"AccountId\": \"" + sAccountId + "\"}");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with AccountId:"+sAccountId+" and returned Account Id:"+sContactId);
 
 		// Create work Order
 		restServices.getAccessToken();
@@ -88,6 +92,8 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sWOName = restServices
 				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service. Work Order Id:"+sWORecordID);
+
 		sEventSubject = "EventName_RS10574_1";
 		// Thread.sleep(genericLib.iHighSleep);
 
@@ -109,14 +115,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		System.out.println("sDelWo = " + sSqlWOQuery1);
 		sObjectApi = "SVMXC__Service_Order__c";
 		restServices.restDeleterecord(sObjectApi, sDelWo);
-		System.out.println("Deleted" + sDelWo);
-		if(sDelWo==null) {
-			ExtentManager.logger.log(Status.PASS, "Event got Deleted Sucessfully when work order is deleted");
-		}
-		else {
-			ExtentManager.logger.log(Status.FAIL, "Event not got Deleted when work order is deleted");
-		}
-
+		ExtentManager.logger.log(Status.PASS, "Work order got deleted Successfully. Work order is:"+sDelWo);
 	}
 
 	public void DeletionOfEvents() throws Exception {
@@ -133,7 +132,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Event got Deleted Sucessfully when work order is deleted");
 		}
 		else {
-			ExtentManager.logger.log(Status.FAIL, "Event not got Deleted when work order is deleted");
+			ExtentManager.logger.log(Status.FAIL, "Event not got Deleted when work order is deleted. Event is:"+sDelWo);
 		}
 
 	}
@@ -165,23 +164,18 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 	}
 
 	@Test(retryAnalyzer = Retry.class)
-	/// @Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
 
 		PreRequisites1();
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		Thread.sleep(GenericLib.iMedSleep);
 
-		Thread.sleep(GenericLib.iMedSleep);
 		// Need to sync the data
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iHighSleep);
 		// Creating the Work Order
 		ph_CreateNewPo.createWorkOrder(commonUtility, sAccountName, sContactName, sProductName, "Medium", "Loan",
 				sProformainVoice);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"
 				+ sProformainVoice + "\'";
@@ -190,16 +184,15 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sEventSubject=sEventSubject+sworkOrderName;
 		// Select the Work Order from the Recent items
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		ExtentManager.logger.log(Status.PASS, "Picked up work Order from Recent items");
+		ExtentManager.logger.log(Status.INFO, "Picked up work Order from Recent items");
 
 		// To create a new Event for the given Work Order
 		ph_WorkOrderPo.createNewEvent(commonUtility, sEventSubject, ph_CalendarPo);
-		ExtentManager.logger.log(Status.PASS, "Created new event for "+sworkOrderName+" with subject "+sEventSubject);
+		ExtentManager.logger.log(Status.INFO, "Created new event for "+sworkOrderName+" with subject "+sEventSubject);
 		ph_WorkOrderPo.getEleBackButton().click();
 		// Open the Work Order from the calendar
 		ph_CalendarPo.openWoFromCalendar(sEventSubject);
-		ExtentManager.logger.log(Status.PASS, "Validated event from Calendar");
-		Thread.sleep(3000);
+		ExtentManager.logger.log(Status.INFO, "Validated event from Calendar.");
 		Assert.assertTrue(ph_WorkOrderPo.verifyWorkOrder().contains("View Work Order "+sworkOrderName),
 				"Word order event is not created.");
 		System.out.println("Sucessfully validated Create Event from WorkOrder after creating workOrder from FSA App");
@@ -213,6 +206,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		// Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders", sWOName,
 				"Create New Event From Work Order");
+		ExtentManager.logger.log(Status.INFO, "Navigate to Action Create New Event From Work order for work order:"+sWOName);
 		int hrs=0;
 		try {
 			hrs=Integer.parseInt(commonUtility.gethrsfromdevicetime());
@@ -225,14 +219,12 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+1), "0");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Thread.sleep(GenericLib.iLowSleep);
-
+		ExtentManager.logger.log(Status.INFO, "Created New Event From Work Order");
 		// Validation of auto update process
 		Assert.assertTrue(ph_WorkOrderPo.getEleViewEvent().isDisplayed(), "Update process is not successful.");
-		ExtentManager.logger.log(Status.PASS, "Created new event for "+sWOName+" with subject "+sSubject);
-		ExtentManager.logger.log(Status.PASS, "Event saved successfully.");
+		ExtentManager.logger.log(Status.PASS, "Created new event for "+sWOName+" with subject "+sSubject+" is getting displayed");
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_CalendarPo.getEleCalendarBtn().click();
-		Thread.sleep(GenericLib.iLowSleep);
 		syncwithConflict();
 
 		// ----------------------------Deleting the work Order,event and sync back
@@ -243,7 +235,6 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 
 		// Perform Config Sync
 		// toolsPo.configSync(commonsUtility);
-		Thread.sleep(GenericLib.iMedSleep);
 
 		syncwithConflict();
 		// workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch,
@@ -251,8 +242,6 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//ph_CalendarPo.getEleCalendarBtn().click();
 		//Thread.sleep(3000);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, sSubject);
-		ExtentManager.logger.log(Status.PASS, "WorkOrder not found as deleted from server.");
-
 		// ExtentManager.logger.log(Status.PASS,"Event is no longer displayed in
 		// calendar");
 

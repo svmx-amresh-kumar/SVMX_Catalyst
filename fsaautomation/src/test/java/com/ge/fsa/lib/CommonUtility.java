@@ -441,7 +441,7 @@ public class CommonUtility {
 		//			try {
 		waitforElement(wElement, 30);
 		Assert.assertTrue(wElement.isDisplayed(), "Failed to scroll to search");
-		ExtentManager.logger.log(Status.PASS, "Search is successfull");
+		ExtentManager.logger.log(Status.INFO, "Search is successfull");
 		System.out.println("Search is displayed");
 		// break;
 		//			}catch(Exception e) {swipeUp();}			
@@ -1651,7 +1651,7 @@ public class CommonUtility {
 
 			} else if (sProcessCheck.equals("Complete")) {
 				System.out.println(" SFM Process '"+sProcessName+"' already exists:Proceeding to FSA Automation:");
-				ExtentManager.logger.log(Status.PASS, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
+				ExtentManager.logger.log(Status.INFO, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
 				return false;
 
 			}
@@ -2143,6 +2143,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		System.out.println("Element not found to click after scrolling");
+		ExtentManager.logger.log(Status.FAIL, "Element not found after scrolling");
 
 	}
 

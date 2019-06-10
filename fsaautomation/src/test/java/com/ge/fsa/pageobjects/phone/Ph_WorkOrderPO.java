@@ -341,8 +341,8 @@ public class Ph_WorkOrderPO {
 			eleIssuePopupTxt = driver.findElement(By.xpath(
 					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
-			eleIssuePopupTxt = driver
-					.findElement(By.xpath("//*[@*[contains(.,'//*[@*[contains(.,'" + sIssueTxt + "')]]"));
+			eleIssuePopupTxt = driver.findElement(By.xpath(
+					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
 		}
 
 		return eleIssuePopupTxt;

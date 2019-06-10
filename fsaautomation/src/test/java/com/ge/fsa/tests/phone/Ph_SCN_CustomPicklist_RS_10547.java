@@ -58,7 +58,8 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		sIbSerialNum = commonUtility.generaterandomnumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?", "{\"Name\": \"" + sIBName
 				+ "\", \"SVMXC__Serial_Lot_Number__c\": \"" + sIbSerialNum + "\",\"SVMXC__Country__c\": \"India\"}");
-		System.out.println("IB id is " + sIbId);
+		ExtentManager.logger.log(Status.INFO, "Installed Product has been created through rest web service with Name:"+sIBName+" serialNumer:"+sIbSerialNum+
+				" and returned Installed product Id:"+sIbId);
 		Thread.sleep(1000);
 		// To sync the Data
 		ph_MorePo.syncData(commonUtility);
@@ -82,13 +83,14 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 		// ==============================================================================================
 
-		String[] sExpectedValues = commonUtility.getAllPicklistValues(commonUtility,
+		String[] sControllingActualValues = commonUtility.getAllPicklistValues(commonUtility,
 				sContollingPicklist_WO_001);
-		if (Arrays.equals(sContollingPicklist_WO_001, sExpectedValues)) {
-			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The Controlling Picklist Values match");
+		if (Arrays.equals(sContollingPicklist_WO_001, sControllingActualValues)) {
+			ExtentManager.logger.log(Status.PASS, "Controlling picklist values are matching. Expected:"+Arrays.deepToString(sControllingPicklist2)+", Actual:"+
+										Arrays.toString(sControllingActualValues));
 		} else {
-			ExtentManager.logger.log(Status.FAIL,
-					"Testcase " + sTestCaseID + "The Controlling Picklist Values don't match");
+			ExtentManager.logger.log(Status.FAIL, "Controlling picklist values are not matching. Expected:"+Arrays.deepToString(sControllingPicklist2)+", Actual:"+
+					Arrays.toString(sControllingActualValues));
 		}
 
 		// ==============================================================================================
@@ -100,13 +102,14 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleDependentPicklist());
 		// ==============================================================================================
 
-		String[] sExpectedValues2 = commonUtility.getAllPicklistValues(commonUtility,
+		String[] sDependentActualValues = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_001);
-		if (Arrays.equals(sDependentPicklist_CP_001, sExpectedValues2)) {
-			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The depending Picklist Values match");
+		if (Arrays.equals(sDependentPicklist_CP_001, sDependentActualValues)) {
+			ExtentManager.logger.log(Status.PASS, "Dependent picklist values are matching for CP-011. Expected:"+Arrays.deepToString(sDependentPicklist_CP_001)+", Actual:"+
+					Arrays.toString(sDependentActualValues));
 		} else {
-			ExtentManager.logger.log(Status.FAIL,
-					"Testcase " + sTestCaseID + "The depending Picklist Values don't match");
+			ExtentManager.logger.log(Status.FAIL, "Dependent picklist values are not matching for CP-011. Expected:"+Arrays.deepToString(sDependentPicklist_CP_001)+", Actual:"+
+					Arrays.toString(sDependentActualValues));
 		}
 		// =======================================================================================================
 		// To select the Dependent Picklist value
@@ -114,7 +117,6 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		ph_WorkOrderPo.getElesave().click();
 		ExtentManager.logger.log(Status.INFO, "Installed Product saved successfully.");
 
-		Thread.sleep(4000);
 		ph_MorePo.syncData(commonUtility);
 		// ==============================================================================================================
 
@@ -126,6 +128,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		System.out.println(sWOId);
 		String sWOJson = "{\"SVMXC__Order_Status__c\":\"Open\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sWOId);
+		ExtentManager.logger.log(Status.INFO, "Updating the status to Open though webservice for Installed Product:"+sIbId);
 		ph_MorePo.syncData(commonUtility);
 		// ===============================================================================================================
 		// To Edit the Work Order value and to verify in the Data Sync
@@ -143,13 +146,14 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		String[] sDependentPicklist_CP_012 = { "--None--", "DP-0112" };
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleDependentPicklist());
 
-		String[] sExpectedValues3 = commonUtility.getAllPicklistValues(commonUtility,
+		String[] sDependentActualValues1 = commonUtility.getAllPicklistValues(commonUtility,
 				sDependentPicklist_CP_012);
-		if (Arrays.equals(sDependentPicklist_CP_012, sExpectedValues3)) {
-			ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "The depending Picklist Values match");
+		if (Arrays.equals(sDependentPicklist_CP_012, sDependentActualValues1)) {
+			ExtentManager.logger.log(Status.PASS, "Dependent picklist values are matching for CP-012. Expected:"+Arrays.deepToString(sDependentPicklist_CP_012)+", Actual:"+
+					Arrays.toString(sDependentActualValues1));
 		} else {
-			ExtentManager.logger.log(Status.FAIL,
-					"Testcase " + sTestCaseID + "The depending Picklist Values don't match");
+			ExtentManager.logger.log(Status.PASS, "Dependent picklist values are not matching for CP-012. Expected:"+Arrays.deepToString(sDependentPicklist_CP_012)+", Actual:"+
+					Arrays.toString(sDependentActualValues1));
 		}
 		ph_WorkOrderPo.getEleDropDownValue("DP-0112").click();
 
