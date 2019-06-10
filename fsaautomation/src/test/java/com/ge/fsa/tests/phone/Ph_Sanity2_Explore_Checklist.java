@@ -175,7 +175,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		System.out.println("Device Date"+sDeviceDateTUF);        
 		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
 		Date date = (Date)formatter.parse(sDeviceDateTUF);
-		SimpleDateFormat formatter1 = new SimpleDateFormat("dd/M/yyyy");
+		SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/yyyy");
 		formatter1.setTimeZone(TimeZone.getTimeZone("GMT"));
 	    String sDeviceDateTimeFinal= formatter1.format(date);  
 	    System.out.println(sDeviceDateTimeFinal);  

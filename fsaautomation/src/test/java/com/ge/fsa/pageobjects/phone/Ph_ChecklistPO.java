@@ -4,7 +4,12 @@ package com.ge.fsa.pageobjects.phone;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -365,5 +370,41 @@ public class Ph_ChecklistPO
 		}
 		
 	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'Advanced DVR value should be more than 200')]])")
+	//@AndroidFindBy(xpath="//*[@text='Advanced DVR value should be more than 200']")
+	private WebElement eleChecklistAdvanceDVR;
+	public WebElement geteleChecklistAdvanceDVR()
+	{
+		return eleChecklistAdvanceDVR;
+	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'Date Should not be Today')]])")
+	private WebElement eleChecklistDVRtxt;
+	public WebElement geteleChecklistDVRtxt()
+	{
+		return eleChecklistDVRtxt;
+	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'Number Cannot be 10')]])")
+	private WebElement eleChecklistDVRConfirmationtxt;
+	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	public String get_device_date(CommonUtility commonUtility) throws Exception
+	{
+		String sDeviceDateTUF = commonUtility.getDeviceDate();
+		System.out.println("Device Date" + sDeviceDateTUF);
+		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+		Date date = (Date) formatter.parse(sDeviceDateTUF);
+		SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/yyyy");
+		formatter1.setTimeZone(TimeZone.getTimeZone("GMT"));
+		String sTodayDate = formatter1.format(date);
+		
+		return sTodayDate;
+	}
+	
 	
 }
