@@ -437,7 +437,7 @@ public class Ph_WorkOrderPO {
 		return btnClose;
 	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]") //Works on both
+	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]")//Works on both IOS and Android
 	private List<WebElement> noAccContactsLst;
 
 	public List<WebElement> getNoAccContactsLst() {
@@ -554,11 +554,11 @@ public class Ph_WorkOrderPO {
 		return txtZip;
 	}
 
-	@FindBy(xpath = "(//*[@*='Save'])[last()]")
-	private WebElement btnSave;
+	@FindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'SFM.LAYOUT.LOOKUP.ITEM')]/android.widget.TextView[1]")
+	private List<WebElement> lkpLst;
 
-	public WebElement getBtnSave() {
-		return btnSave;
+	public List<WebElement> getLkpLst() {
+		return lkpLst;
 	}
 	
 //	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Description']/..//XCUIElementTypeStaticText)[last()]")
@@ -630,6 +630,15 @@ public class Ph_WorkOrderPO {
 	public WebElement getTxtScheduledDateTime() {
 		return txtScheduledDateTime;
 	}
+	
+	@FindBy(xpath = "(//*[@*='Save'])[last()]")
+	private WebElement btnSave;
+
+	public WebElement getBtnSave() {
+		return btnSave;
+	}
+	
+	
 	//-----------------------------
 
 

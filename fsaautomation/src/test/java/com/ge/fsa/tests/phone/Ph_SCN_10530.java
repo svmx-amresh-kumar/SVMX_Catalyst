@@ -31,7 +31,7 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sSearchTxt = "HarryProd";
 	
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
@@ -132,7 +132,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			
 			//**********Product Stock1**********
-			String sprodStkName1 ="STK-00000006";
+			String sprodStkName1 ="STK-00000009";
 			String sprodStkCount1 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName1+"\'", "totalSize");
 			if(Integer.parseInt(sprodStkCount1)==0) {
 				String sprodStkId1 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName1+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName1+"\"}}");
@@ -140,7 +140,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			
 			//**********Product Stock2**********
-			String sprodStkName2 ="STK-00000007";
+			String sprodStkName2 ="STK-00000010";
 			String sprodStkCount2 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName2+"\'", "totalSize");
 			if(Integer.parseInt(sprodStkCount2)==0) {
 			String sprodStkId2 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName2+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName2+"\"}}");
@@ -148,7 +148,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			
 			//**********Product Stock3**********
-			String sprodStkName3 ="STK-00000008";
+			String sprodStkName3 ="STK-00000011";
 			String sprodStkCount3 = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Product_Stock__c+Where+name+=\'"+sprodStkName3+"\'", "totalSize");
 			if(Integer.parseInt(sprodStkCount3)==0) {
 			String sprodStkId3 = restServices.restCreate("SVMXC__Product_Stock__c?","{\"SVMXC__Product__r\":{\"Name\": \""+sProdName3+"\"},\"SVMXC__Location__r\":{\"Name\":\""+sLocName2+"\"}}");
@@ -165,9 +165,9 @@ public class Ph_SCN_10530 extends BaseLib {
 			
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
-//			ph_MorePo.syncData(commonUtility);
-//			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, "WO-00013467", sProcessName);
+			ph_MorePo.syncData(commonUtility);
+			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 			// ************Start of Scenario 1****************
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblProduct());
 			ph_WorkOrderPo.getElelookupsearch().sendKeys(sSearchTxt+ "\n");
@@ -182,19 +182,21 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			ph_WorkOrderPo.getChkboxFilter().click();
 			ph_WorkOrderPo.getBtnSeeResults().click();
-//			String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
-//		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
-//		    ArrayList<String> sArrOfProd = restServices.getJsonArr(jSonArr, "Name");
-//		    List<WebElement> prodList = new ArrayList<WebElement>();
-//			prodList = ph_WorkOrderPo.getContactLst("");
-//		    ArrayList<String>sProdList = new ArrayList<String>();
-//		    for(WebElement we:prodList) {
-//		    	sProdList.add(we.getText());
-//		    }
-//		    Collections.sort(sArrOfProd);
-//		    Collections.sort(sProdList);
-//		    Assert.assertTrue(sArrOfProd.equals(sProdList));
+			String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'"+sLocId1+"\'+and+SVMXC__Product__c!=null)";
+		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
+		    ArrayList<String> sArrOfProd = restServices.getJsonArr(jSonArr, "Name");
+		    List<WebElement> prodList = new ArrayList<WebElement>();
+			prodList = ph_WorkOrderPo.getLkpLst();
+		    ArrayList<String>sProdList = new ArrayList<String>();
+		    for(WebElement we:prodList) {
+		    	sProdList.add(we.getText());
+		    }
+		    System.out.println(sArrOfProd);
+		    Collections.sort(sArrOfProd);
+		    Collections.sort(sProdList);
+		    Assert.assertTrue(sArrOfProd.equals(sProdList));
 			// ************End of Scenario 2******************
+			// ************Start of Scenario 3****************
 			ph_WorkOrderPo.getBtnClose().click();
 			commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 			ph_WorkOrderPo.getElePartLnk().click();
@@ -205,7 +207,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			else {
 				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("content-desc").toLowerCase().contains("checked"));	
 			}
-			
+			// ************End of Scenario 3****************
 } 			
 
 }
