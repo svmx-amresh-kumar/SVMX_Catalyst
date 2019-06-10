@@ -603,7 +603,8 @@ public class Ph_WorkOrderPO {
 		return btnSeeResults;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeStaticText[@name='multiLineHeaderTitle']")
 	private WebElement lblHeader;
 	public WebElement getLblHeader() {
 		return lblHeader;
@@ -1714,16 +1715,17 @@ public WebElement geteleIsbillable() {
 	public WebElement getEleValidationToggle() {
 		return eleValidationToggle;
 	}
-	
+		
 	@AndroidFindBy(xpath = "//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']//XCUIElementTypeTextField")
 	private WebElement eleProformaInvoice;
 	public WebElement geteleProformaInvoice() {
 		return eleProformaInvoice;
 	}
 	
 	@AndroidFindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='ON']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	//@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeStaticText[@name='Yes']")
 	private WebElement eleEntPerformedOn;
 	public WebElement geteleEntPerformedOn() {
 		return eleEntPerformedOn;

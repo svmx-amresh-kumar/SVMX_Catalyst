@@ -393,6 +393,13 @@ public class Ph_ChecklistPO
 		return eleChecklistDVRConfirmationtxt;
 	}
 	
+	@FindBy(xpath="(//*[@*[contains(.,'Confirm')]])")
+	private WebElement eleConfirm;
+	public WebElement getEleConfirm()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
 	public String get_device_date(CommonUtility commonUtility) throws Exception
 	{
 		String sDeviceDateTUF = commonUtility.getDeviceDate();

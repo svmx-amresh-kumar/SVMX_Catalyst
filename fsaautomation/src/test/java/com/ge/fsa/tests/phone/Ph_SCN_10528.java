@@ -76,11 +76,11 @@ public class Ph_SCN_10528 extends BaseLib {
 			
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
-//	ph_MorePo.syncData(commonUtility);
+	ph_MorePo.syncData(commonUtility);
 //	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	
-	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders","WO-00013461","AutoReg10528");
-	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), "IB23052019105702");
+	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,"AutoReg10528");
+	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), sIbName1);
 	
 	// **********Assert if Form Fill is happening correctly*****************
 	if(sOSName.equalsIgnoreCase("android")) {
@@ -90,17 +90,17 @@ public class Ph_SCN_10528 extends BaseLib {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getText(), sLocName);
 	}
 	else {
-		System.out.println(ph_WorkOrderPo.getTxtProduct().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtZip().getAttribute("value"));
-		System.out.println(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtSite().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtContact().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtCountry().getAttribute("label"));
-		System.out.println(ph_WorkOrderPo.getTxtCity().getAttribute("value"));
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getAttribute("name"), sProdName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getAttribute("name"), sZipCode);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"), sIbName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getAttribute("name"), sLocName);
+//		System.out.println(ph_WorkOrderPo.getTxtProduct().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtZip().getAttribute("value"));
+//		System.out.println(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtSite().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtContact().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtCountry().getAttribute("label"));
+//		System.out.println(ph_WorkOrderPo.getTxtCity().getAttribute("value"));
+		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getAttribute("name"), sProdName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getAttribute("name"), sZipCode);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"), sIbName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getAttribute("name"), sLocName);
 	}
 	Dimension dim = driver.manage().window().getSize();
 	int height = dim.getHeight();
@@ -116,9 +116,9 @@ public class Ph_SCN_10528 extends BaseLib {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getText(), sCity);
 	}
 	else {
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getAttribute("value"), sContactName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getAttribute("value"), sCountry);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getAttribute("value"), sCity);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getAttribute("value"), sContactName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getAttribute("value"), sCountry);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getAttribute("value"), sCity);
 	}
 	// **********************************************************************
 	Thread.sleep(10000);

@@ -134,6 +134,8 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 			commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
 			ph_WorkOrderPo.geteleDelete().click();
 			Thread.sleep(5000);
+			ph_WorkOrderPo.geteleDelete().click();
+
 		}
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_WorkOrderPo.getEleOverViewTab().click();
