@@ -1714,9 +1714,9 @@ public WebElement geteleIsbillable() {
 	public WebElement getEleValidationToggle() {
 		return eleValidationToggle;
 	}
-	
+		
 	@AndroidFindBy(xpath = "//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']//XCUIElementTypeTextField")
 	private WebElement eleProformaInvoice;
 	public WebElement geteleProformaInvoice() {
 		return eleProformaInvoice;
