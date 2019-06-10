@@ -27,7 +27,7 @@ public class Ph_SCN_10529 extends BaseLib {
 	String sCountry = "Australia";
 	String sProcessName = "Auto_Regression_10529";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception {
 		
 //		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
@@ -69,7 +69,7 @@ public class Ph_SCN_10529 extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		ph_MorePo.syncData(commonUtility);
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+//		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		// ************Start of Scenario 1****************
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
@@ -85,11 +85,11 @@ public class Ph_SCN_10529 extends BaseLib {
 		ph_WorkOrderPo.getBtnClose().click();
 		ph_WorkOrderPo.getEleOverViewTab().click();
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getTxtProblemDescription());
-		ph_WorkOrderPo.getTxtProblemDescription().sendKeys("HarryProd Desc"+ "\n");
+		ph_WorkOrderPo.getTxtProblemDescription().sendKeys("HarryProd Desc");
 		ph_WorkOrderPo.getTxtProduct().click(); 
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		ph_WorkOrderPo.getElePartLnk().click();
-	//	Assert.assertTrue(ph_WorkOrderPo.getLkpEle(sProductName01).isDisplayed());-Failing need to verify with Sesha
+		Assert.assertTrue(ph_WorkOrderPo.getLkpEle(sProductName01).isDisplayed());//-Failing need to verify with Sesha
 		// ************End of Scenario 3******************
 		// ************Start of Scenario 4****************
 		Thread.sleep(10000);
