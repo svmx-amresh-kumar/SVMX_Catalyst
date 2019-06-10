@@ -6,8 +6,10 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -110,7 +112,8 @@ public class Ph_CreateNewPO {
 		getEleProformaInvoiceField().sendKeys(proformaInvoice);
 		Thread.sleep(1000);
 		getEleAdd().click();
-		
+		ExtentManager.logger.log(Status.INFO, "Created New Workorder with Account Name:"+accountName+", Contact Name:"+contactName+", Product Name:"+ProdutName
+				+", Priority:"+priority+", Billing Type:"+billingType+" Proforma Invoice:"+proformaInvoice);
 	}
 	
 	@FindBy(xpath="//*[@*[contains(.,'SEARCH_BAR')]]")

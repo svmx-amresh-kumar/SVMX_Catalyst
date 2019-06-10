@@ -79,10 +79,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		Thread.sleep(GenericLib.iMedSleep);
 		ph_MorePo.resetApp(commonUtility);
-		
-
 		// crete a wo
 		ph_CreateNewPo.getEleCreateNew().click();
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleCreateNewWorkOrder());
@@ -92,12 +89,14 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ph_CreateNewPo.getEleProformaInvoiceField().sendKeys(sProformainVoice);
 		Thread.sleep(1000);
 		ph_CreateNewPo.getEleAdd().click();
+		ExtentManager.logger.log(Status.INFO, "New Work Order is created with details as Priority:High, Billing Type: Loan, Proforma Invoice:"+sProformainVoice);
 		// create one case
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Recent_Item\", \"Priority\": \"High\", \"Description\": \"Description of Recent_item \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
 		String sObjectID = restServices.restCreate(sObjectApi, sJsonData);
 		sSqlQuery = "SELECT+CaseNumber+from+Case+Where+id+=\'" + sObjectID + "\'";
 		String sCaseID = restServices.restGetSoqlValue(sSqlQuery, "CaseNumber");
+		ExtentManager.logger.log(Status.INFO, "Case has been created through rest web service. Case Id:"+sCaseID);
 
 		ph_MorePo.syncData(commonUtility);
 
@@ -114,10 +113,10 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		String fetchedWOfromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
 		System.out.println(fetchedWOfromrecents);
 		Assert.assertTrue(fetchedWOfromrecents.equals(sworkOrderName), "workOrderName value is not displayed");
-		ExtentManager.logger.log(Status.PASS, "Workorder valaditation in recent item is successful");
+		ExtentManager.logger.log(Status.PASS, "Workorder valaditation in recent item is successful. Expected:"+sworkOrderName+", Actual:"+fetchedWOfromrecents);
 		// open case
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Cases", sCaseID, null);
-
+		ExtentManager.logger.log(Status.INFO, "Navigate to case:"+sCaseID);
 		Thread.sleep(2000);
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		Thread.sleep(1000);
@@ -125,7 +124,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		String fetchedcasefromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
 		System.out.println(fetchedcasefromrecents);
 		Assert.assertTrue(sCaseID.equals(fetchedcasefromrecents), "case value  is not displayed");
-		ExtentManager.logger.log(Status.PASS, " case valaditation in recent item is successful");
+		ExtentManager.logger.log(Status.PASS, "Cases valaditation in recent item is successful. Expected:"+sCaseID+", Actual:"+fetchedcasefromrecents);
 
 		
 		// create new custom record
@@ -134,7 +133,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ph_WorkOrderPo.getAutoTextBox().sendKeys(sProformainVoice);
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
-
+		ExtentManager.logger.log(Status.INFO, "New custom object is created.");
 		ph_MorePo.syncData(commonUtility);
 
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
@@ -149,7 +148,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		String Custom_ObjectName = restServices.restGetSoqlValue(sSoqlQuery1, "Name");
 		System.out.println(Custom_ObjectName);
 		Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName),"Custom object  value  is not displayed");
-		ExtentManager.logger.log(Status.PASS, " Custom object valaditation in recent item is successful");
+		ExtentManager.logger.log(Status.PASS, "Custom Objects valaditation in recent item is successful. Expected:"+Custom_ObjectName+", Actual:"+fetchedCustom_Objectfromrecents);
 
 		ph_MorePo.resetApp(commonUtility);
 		Thread.sleep(2000);
@@ -162,7 +161,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 					" Items are getting displayed in Recents tab even after erase and reinitializing app data");
 		}
 
-		ExtentManager.logger.log(Status.PASS, "Recent Items validation is successful");
+		ExtentManager.logger.log(Status.PASS, "Recent Items validation is successful as no records are getting displayed");
 
 	}
 

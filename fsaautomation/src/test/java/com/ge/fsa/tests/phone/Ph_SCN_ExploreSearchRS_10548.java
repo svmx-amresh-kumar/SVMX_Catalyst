@@ -46,64 +46,83 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccA\"}";
 		sAccountNameA=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sSerialNumber+"AccA and returned Account Id:"+sAccountNameA);
 		System.out.println(sAccountNameA);
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\""+"Hyderabad"+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameA );
+		ExtentManager.logger.log(Status.INFO, "Account has been updated through rest web service with Billing City as Hyderabad for Account Id:"+sAccountNameA);
+
 	
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccB\"}";
 		sAccountNameB=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sSerialNumber+"AccB and returned Account Id:"+sAccountNameB);
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameB );
+		ExtentManager.logger.log(Status.INFO, "Account has been updated through rest web service with Billing City as Bangalore for Account Id:"+sAccountNameB);
+
 
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccC\"}";
 		sAccountNameC=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sSerialNumber+"AccC and returned Account Id:"+sAccountNameC);
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameC );
+		ExtentManager.logger.log(Status.INFO, "Account has been updated through rest web service with Billing City as Bangalore for Account Id:"+sAccountNameC);
+
 
 		//Create Location
 		sLocationA = sSerialNumber+"LocA";
 		sObjectApi = "SVMXC__Site__c?";
 		sJsonData = "{\"Name\": \""+sLocationA+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Lewes\",\"SVMXC__Country__c\": \"United Kingdom\"}";
 		sLocationA = restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Location has been created through rest web service with Name:"+sLocationA+" and returned Location Id:"+sLocationA);
+
 		
 		//Create Location
 		sLocationB = sSerialNumber+"LocB";
 		sJsonData = "{\"Name\": \""+sLocationB+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Colombo\",\"SVMXC__Country__c\": \"SriLanka\"}";
 		sLocationB = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location has been created through rest web service with Name:"+sLocationB+" and returned Location Id:"+sLocationB);
+
 		//Create Location
 		sLocationC = sSerialNumber+"LocC";
 		sJsonData = "{\"Name\": \""+sLocationC+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}";
 		sLocationC = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location has been created through rest web service with Name:"+sLocationC+" and returned Location Id:"+sLocationC);
+
 		//Create Location
 		sLocationD = sSerialNumber+"LocD";
 		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
 		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location has been created through rest web service with Name:"+sLocationD+" and returned Location Id:"+sLocationD);
+
 		//Create Location
 		sLocationE = sSerialNumber+"LocE";
 		sJsonData ="{\"Name\": \""+sLocationE+"\", \"SVMXC__Stocking_Location__c\": false}" ;
 		sLocationE = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location has been created through rest web service with Name:"+sLocationE+" and returned Location Id:"+sLocationE);
+
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationA+"\"}";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
-		sWOName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		sWOName1 =restServices.restGetSoqlValue(sSqlQuery,"Name");
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with location:"+sLocationA+" Work Order Id:"+sObjectID);
+
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Company__c\":\""+sAccountNameB+"\",\"SVMXC__Priority__c\":\"High\",\"SVMXC__Site__c\":\""+sLocationE+"\"}";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
-		sWOName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		sWOName2 =restServices.restGetSoqlValue(sSqlQuery,"Name");
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with location:"+sLocationA+" Work Order Id:"+sObjectID);
+
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -111,6 +130,8 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName3 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with location:"+sLocationC+" Work Order Id:"+sObjectID);
+
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -118,6 +139,8 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName4 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with company:"+ sAccountNameA+", location:"+sLocationD+" Work Order Id:"+sObjectID);
+
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -125,6 +148,8 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with location:"+sLocationE+" Work Order Id:"+sObjectID);
+
 		
 //		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
 //		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");

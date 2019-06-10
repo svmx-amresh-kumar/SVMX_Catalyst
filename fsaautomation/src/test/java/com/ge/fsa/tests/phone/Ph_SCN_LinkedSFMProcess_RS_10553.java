@@ -43,17 +43,22 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		// Creating Account from API
 		sAccountName = "auto_account" + sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?", "{\"Name\":\"" + sAccountName + "\"}");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sAccountName+" and returned Account Id:"+sAccountId);
+
 
 		// Creating Product from API
 		sProductName = "auto_product1" + sRandomNumber;
 		String sProductId = restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
+		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name:"+sProductName+" and returned Account Id:"+sProductId);
 
 		// Creating Installed Product from API
 
 		sIBName = "auto_IB" + sRandomNumber;
-		restServices.restCreate("SVMXC__Installed_Product__c?",
+		String sIBId=restServices.restCreate("SVMXC__Installed_Product__c?",
 				"{\"Name\":\"" + sIBName + "\", \"SVMXC__Product__c\":\"" + sProductId
 						+ "\",\"SVMXC__Serial_Lot_Number__c\":\"" + sIBName + "\" }");
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Product as:"+sProductId+" and returned Installed Product Id:"+sIBId);
+
 
 		// Creating Contact from API
 		sFirstName = "auto_contact";
@@ -76,13 +81,11 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_MorePo.syncData(commonUtility);
 		// Click on the Work Order
-		//Thread.sleep(2000);
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
 		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);
-		//Thread.sleep(3000);
 //		Point coordinates=ph_WorkOrderPo.getChildLineAddedItem(sIBName).getLocation();
 //		System.out.println("x:"+coordinates.getX()+"y:"+coordinates.getY());
 //		Dimension dim=driver.manage().window().getSize();

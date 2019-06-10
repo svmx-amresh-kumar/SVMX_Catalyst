@@ -42,7 +42,9 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
+		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455";
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service. Case Id:"+sWorkOrderID);
+
 		
 		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
@@ -72,6 +74,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 	
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
+		ExtentManager.logger.log(Status.INFO, "Navigated to actions Create New Event of owkr Order from Work Orders of "+sExploreSearch);
 		//Set Start time for event
 		String[] deviceDate=commonUtility.getDeviceDate().split(" ");
 		String hours=deviceDate[3].substring(0, 2);
@@ -84,44 +87,42 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(Integer.parseInt(hours)+1), "00");
 		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getElesave().click();
-		
+		ExtentManager.logger.log(Status.INFO, "Creation of new event from work order is sccessful");
 		//Validation of auto update process
 		//Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
-		ExtentManager.logger.log(Status.PASS,"WorkOrder saved successfully.");
 		
 		//Navigation to Calendar
-		Thread.sleep(GenericLib.iHighSleep);
 		ph_CalendarPo.getEleCalendarBtn().click();
-		Thread.sleep(GenericLib.iMedSleep);
 		
-		//Validation of event on the calender
+		//Validation of event on the calendar
 		for(int i=0;i<ph_CalendarPo.getEleWOEventTitleTxt().size();i++){
 		    if(ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText().equals(sSubject))
 		    {
-		    	Assert.assertTrue(true,"Work Order event is not displayed on calender");
-		    	ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully in calender.");
+		    	Assert.assertTrue(true,"Work Order event is not displayed on calendar");
+		    	ExtentManager.logger.log(Status.PASS,"WorkOrder event is displayed successfully in calendar. Expected:"+sSubject+", Actual:"+ph_CalendarPo.getEleWOEventTitleTxt().get(i).getText());
 		    	break;
 			}
 		    else if(i==ph_CalendarPo.getEleWOEventTitleTxt().size()-1) {
-		    	Assert.assertTrue(false,"Work Order event is not displayed on calender");
-		    	ExtentManager.logger.log(Status.FAIL,"WorkOrder event is not displayed in calender.");
+		    	Assert.assertTrue(false,"Work Order event is not displayed on calendar");
+		    	ExtentManager.logger.log(Status.FAIL,"WorkOrder event is not displayed in calendar.");
 		    }
 		} 
 		
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.i30SecSleep);
-		try {
+		//try {
 			//Validation of event creation at server side after sync.
-			sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
-			Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sSubject), "Event is not created");
-			ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
-		}catch(Exception e)
-		{	try {	//Validation of event creation at server side after sync.
-				sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
-				Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").contains(sWOName1), "Event is not created");
-				ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
-			}	catch(Exception ex){throw ex;}
-		}
+			sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";
+			String dbSubject=restServices.restGetSoqlValue(sSqlQuery,"Name");
+			Assert.assertTrue(dbSubject.equals(sSubject), "Event is not created in DB.");
+			ExtentManager.logger.log(Status.PASS,"Work Order is validated in DB. Expected:"+sSubject+", actual:"+dbSubject);
+//		}catch(Exception e)
+//		{	try {	//Validation of event creation at server side after sync.
+//				sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				
+//				Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").contains(sWOName1), "Event is not created");
+//				ExtentManager.logger.log(Status.PASS,"Event  is successfully created.");
+//			}	catch(Exception ex){throw ex;}
+//		}
 		
 	}
 }
