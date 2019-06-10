@@ -603,7 +603,8 @@ public class Ph_WorkOrderPO {
 		return btnSeeResults;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeStaticText[@name='multiLineHeaderTitle']")
 	private WebElement lblHeader;
 	public WebElement getLblHeader() {
 		return lblHeader;
