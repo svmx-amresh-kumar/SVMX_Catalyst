@@ -2143,6 +2143,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		System.out.println("Element not found to click after scrolling");
+		ExtentManager.logger.log(Status.FAIL, "Element not found after scrolling");
 
 	}
 
