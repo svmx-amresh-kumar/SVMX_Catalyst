@@ -52,7 +52,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 	String sDate1DVR = "Auto_Date1 cannot be greater than Auto_Date2";
 	String sScheduledDateTimeDVR = "Scheduled_DateTime cannot be Today";
 	String sScheduledDateDVR = "Scheduled Date cannot be Today or Yesterday or Tommorow";
-
 	String sPartsLineQtyDVR = "Line Qty has to be more than 2 and WD cannot be Null";
 	String sPartsLinePriceDVR = "Line Price is Less than 2000";
 	String sBillingDVR = "Billing Type cannot be Loan";
@@ -90,7 +89,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		// sWOName="WO-00002400";
 
 		// Account Creation
-
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \"" + sAccountNameToCreate + "\"}";
 		sObjectAccID = restServices.restCreate(sObjectApi, sJsonData);
@@ -101,17 +99,17 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		// Creating Product from API
 		sProductName = "RS10550Product";
 		restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
-
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
-
+		
 		sObjectApi1 = "Account?";
 		sJsonData1 = "{\"Name\": \"" + sAccountNameToCreate1 + "\"}";
 		String sObjectAccID1 = restServices.restCreate(sObjectApi1, sJsonData1);
 		sSqlAccQuery1 = "SELECT+name+from+Account+Where+id+=\'" + sObjectAccID1 + "\'";
 		sAccountName1 = restServices.restGetSoqlValue(sSqlAccQuery1, "Name");
 		System.out.println(sAccountName1);
-
+		
+		//Validating the SFM process
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
+				sTestCaseID);
 	}
 
 	@Test(retryAnalyzer=Retry.class)
@@ -121,21 +119,16 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		// Optional configy sync
+		// Optional config sync
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
-		// Config sync for the process to come in FSA.
-		// toolsPo.configSync(commonsUtility);
-		Thread.sleep(GenericLib.iLowSleep);
-		// Data Sync for WO's created
+
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sFieldServiceName);
-
-		// commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
-
+		
 		// Setting up Data for DVR billing type picklist
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.custScrollToElement(ph_CreateNewPo.getElebillingtype());
@@ -144,7 +137,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		// Validation of picklist DVR billing type cannot be loan
 		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sBillingDVR).isDisplayed(),
 				"pickList DVR failed:Billing type cannot be Loan is not displayed");
-		ExtentManager.logger.log(Status.PASS, "picklist DVR validation PASS: " + sBillingDVR + " is displayed");
+		ExtentManager.logger.log(Status.PASS, "Picklist DVR validation PASS: " + sBillingDVR + " is displayed");
 
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), SBillingType);
 		try {
@@ -164,28 +157,24 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
 		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
 		ph_WorkOrderPo.getEleSaveLnk().click();
-
 		try {
 			Assert.assertFalse(ph_WorkOrderPo.getDvrText("Problem Description cannot be Null..").isDisplayed(),
 					"Required Field Validation failed");
 
 		} catch (Exception e) {
 			ExtentManager.logger.log(Status.PASS,
-					"PRoblem Description cannot be null is no longer displayed after entering text");
+					"Problem Description cannot be null is no longer displayed after entering text");
 		}
 
-		// Validation of
+		// Validation of confirmation
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sBooleanDVR), 3),
 				"Boolean Field confirmation failed.");
 		ph_WorkOrderPo.geteleConfirm().click();
-		ExtentManager.logger.log(Status.PASS, "Boolean field confirmationvalidation passed");
-
-		// ph_WorkOrderPo.geteleEntitlementPerformed().click();
+		ExtentManager.logger.log(Status.PASS, "Boolean field confirmationvalidation passed");		
 		
-		
-		//Setting up Auto_date1 greater than Auto_date2
+		//Setting up Auto_date1 greater than Auto_date2 and validating
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input()
 		); commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate1_Edit_Input(),
 		"June", "3", "2019");
@@ -203,7 +192,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		"June", "3", "2019");
 		 
 
-		/*
+		/* TO BE UNCOMMENTED AFTER FIXNIG KEYBOARD NUMBER ISSUE
 		//number DVR no of times assigned
 		commonUtility.custScrollToElement(ph_WorkOrderPo.
 		GetEleNoOfTimesAssigned_Edit_Input());
@@ -242,10 +231,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS, "DATE Literal Today validation passed");
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019");
-		// ph_WorkOrderPo.getElesave().click();
-		// Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(),
-		// "Look up DVR did not display, account cannot be same as Parnter Account ");
-
 		// eleAccountLookUp DVR
 		Thread.sleep(2000);
 		System.out.println("Begining account look upf");
@@ -260,11 +245,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 				"Lookup DVR passed Account cannot be same as Partner Account is displayed");
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleAccount(), sAccountName1);
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		// Assert.assertTrue(commonUtility.waitForElementNotVisible(ph_WorkOrderPo.getDvrText(sAccountDVR),
-		// 3), "Look up DVR did not display, account cannot be same as Parnter Account
-		// ");
-		// ExtentManager.logger.log(Status.PASS,"Lookup DVR passed Account cannot be
-		// same as Partner Account not displayed when accounts are different.");
 
 		/*
 		//Trying with no150 - sohuld throw DVR again.
@@ -304,7 +284,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleConfirm());
 		ph_WorkOrderPo.geteleConfirm().click();
 
-		// Adding Partts
+		// Adding Parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getelePartName(sProductName).click();
@@ -347,10 +327,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
 		ph_WorkOrderPo.getBtnSave().click();
 		ph_WorkOrderPo.getBtnSave().click();
-
-		//ph_WorkOrderPo.getEleBackButton().click();
-		/*if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-		}*/
+		
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
 				"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS, "OverView Tab is displayed post saving.");
