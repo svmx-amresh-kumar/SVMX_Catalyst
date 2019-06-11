@@ -50,15 +50,12 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 	//For SFM Process Sahi Script name
 	String sScriptName="Scenario_RS10584_Checklist_Attachments";
 	//Attachment questions
-	
 	String sAttachText ="AttachmentChecklistupload";
-
 	String sAttachmentQuestion1 = null;
 	String sAttachmentQ = "AttachmentQuestion1";
+	
 	public void prereq() throws Exception
 	{	
-		//SanityPreReq sp = new SanityPreReq();
-		//sp.SanityPreReq();
 		sSheetName ="RS_10584";
 		System.out.println("SCN_RS10581_Checklist_Attachment");
 		sTestCaseID = "SCN_ChecklistAttachment_RS-10584";
@@ -79,16 +76,18 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		System.out.println("WO no =" + sWOName);			
 		//sWOName = "WO-00004603";
 		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
-																											
 	}
 	
-	@Test()
-	//@Test(retryAnalyzer=Retry.class)
+	//@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10581() throws Exception {
 			
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		
+		//Running prerequisites
 		prereq();
+		
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);		
 
 		// Data Sync for WO's created
@@ -101,20 +100,22 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName + "");
 		
 		// Click on ChecklistName
-		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
-		System.out.println("clicked checklistname"+sChecklistName+"");
-		Thread.sleep(3000);
+		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();		
+		ExtentManager.logger.log(Status.INFO, "Clicked ChecklistProcess" + sChecklistName + "");
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
 		Thread.sleep(2000);
 		ph_ChecklistPO.geteleInProgress().click();
 		ph_ChecklistPO.checklistAttach(commonUtility, "Choose from Camera Roll","");
-		//ph_WorkOrderPo.getEleBackButton().click();
+		
+		//Submitting the checklist
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		ph_ChecklistPO.geteleCompleted().click();
+		
+		//retreiving completed checklist
 		ph_ChecklistPO.getelechecklistinstance().click();
 		ph_ChecklistPO.geteleInProgress().click();
 		
@@ -122,18 +123,14 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 
 		// ------------------SERVER SIDE VALIDATIONS
 		System.out.println("Validating if  attachment is syned to server.");
+		//The below 60seconds wait is must as attachment takes time to sync to server and there is no ways we can predict how long it takes.
 		Thread.sleep(60000);
-		Thread.sleep(GenericLib.i30SecSleep);
-		Thread.sleep(GenericLib.i30SecSleep);
-		Thread.sleep(GenericLib.iMedSleep);
 		String sSoqlchecklistid = "SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"
 				+ sWOName + "\')";
 		String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");
 		String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"
 				+ schecklistid + "\')";
-		// String sSoqlqueryAttachment =
-		// "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
-		restServices.getAccessToken();
+
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlAttachment, "Id");
 		assertNotNull(sAttachmentIDAfter);
 		ExtentManager.logger.log(Status.PASS, "attachment is synced to Server");

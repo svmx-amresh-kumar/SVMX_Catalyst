@@ -70,7 +70,7 @@ public class Ph_ChecklistPO
 	public WebElement getelecheckliststartnew(String sChecklistName)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return elecheckliststartnew = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New']"));
+			return elecheckliststartnew = driver.findElement(By.xpath("(//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New'])[last()]"));
 
 		}
 		else

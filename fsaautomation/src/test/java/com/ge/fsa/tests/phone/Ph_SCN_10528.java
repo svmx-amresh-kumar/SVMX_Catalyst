@@ -77,7 +77,7 @@ public class Ph_SCN_10528 extends BaseLib {
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 	ph_MorePo.syncData(commonUtility);
-//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	
 	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,"AutoReg10528");
 	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), sIbName1);

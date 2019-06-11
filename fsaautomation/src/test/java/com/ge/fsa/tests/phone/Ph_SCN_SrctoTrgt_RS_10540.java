@@ -32,109 +32,115 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 	String sObjectProID = null;
 	String sProductName = null;
 	String sQualificationCriteriaValidation = null;
-	//For SFM Process Sahi Script name
-	String sScriptName="SCN_SrctoTrgt_RS_10540_prerequisite";
-	Boolean bProcessCheckResult  = false;
+	// For SFM Process Sahi Script name
+	String sScriptName = "SCN_SrctoTrgt_RS_10540_prerequisite";
+	Boolean bProcessCheckResult = false;
 	String sTestCaseID = null;
-	
-	private void preRequiste() throws Exception { 
-		
+
+	private void preRequiste() throws Exception {
+
 		sTestCaseID = "SCN_SrctoTrgt_RS_10540";
 		restServices.getAccessToken();
 		sSerialNumber = commonUtility.generateRandomNumber("IB_10540_");
-		
 		sObjectApi = "Account?";
-		sJsonData = "{\"Name\": \""+sSerialNumber+""+"account\"}";
-		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
-		sAccountName =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		sJsonData = "{\"Name\": \"" + sSerialNumber + "" + "account\"}";
+		sObjectAccID = restServices.restCreate(sObjectApi, sJsonData);
+		sSqlQuery = "SELECT+name+from+Account+Where+id+=\'" + sObjectAccID + "\'";
+		sAccountName = restServices.restGetSoqlValue(sSqlQuery, "Name");
 
 		// Create product
-		sJsonData = "{\"Name\": \""+sSerialNumber+""+"product\", \"IsActive\": \"true\"}";
+		sJsonData = "{\"Name\": \"" + sSerialNumber + "" + "product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
-		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
-		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		
-		//Creation of dynamic IB1
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+sSerialNumber+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sSerialNumber+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
+		sObjectProID = restServices.restCreate(sObjectApi, sJsonData);
+		sSqlQuery = "SELECT+name+from+Product2+Where+id+=\'" + sObjectProID + "\'";
+		sProductName = restServices.restGetSoqlValue(sSqlQuery, "Name");
+
+		// Creation of dynamic IB1
+		sJsonData = "{\"SVMXC__Company__c\": \"" + sObjectAccID + "\", \"Name\": \"" + sSerialNumber
+				+ "\", \"SVMXC__Serial_Lot_Number__c\": \"" + sSerialNumber + "\", \"SVMXC__Product__c\": \""
+				+ sObjectProID + "\", \"SVMXC__Country__c\": \"United States\", \"SVMXC__City__c\": \"Liver Pool\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
-		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
-		sIBName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		sIBRecord = restServices.restCreate(sObjectApi, sJsonData);
+		sSqlQuery = "SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'" + sIBRecord + "\'";
+		sIBName1 = restServices.restGetSoqlValue(sSqlQuery, "Name");
 		System.out.println(sIBName1);
 
 		//Creation of dynamic IB2
 		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonUtility.generateRandomNumber("IB_10540_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonUtility.generateRandomNumber("IB_10540_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
-		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				
-		sIBName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
+		sIBRecord = restServices.restCreate(sObjectApi, sJsonData);
+		sSqlQuery = "SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'" + sIBRecord + "\'";
+		sIBName2 = restServices.restGetSoqlValue(sSqlQuery, "Name");
 		System.out.println(sIBName2);
 
-		//sIBName1 ="IB_10540_27092018155351";
-		//sIBName2 = "IB_10540_27092018155358";
-		
-/*		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
-*/		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+		// sIBName1 ="IB_10540_27092018155351";
+		// sIBName2 = "IB_10540_27092018155358";
 
-		
+		/*
+		 * genericLib.executeSahiScript(
+		 * "appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
+		 * Assert.assertTrue(commonUtility.verifySahiExecution(),
+		 * "Failed to execute Sahi script");
+		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID +
+		 * "Sahi verification is successful");
+		 */
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
+				sTestCaseID);
+
 	}
 
-	@Test(enabled = true, retryAnalyzer=Retry.class)
+	@Test(enabled = true, retryAnalyzer = Retry.class)
 	public void RS_10540Test() throws Exception {
-		
-	//	commonUtility.preReqSetup(genericLib);
+
+		// commonUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
-		
+
 		sTestID = "RS_10540";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ProcessName");
 		preRequiste();
-		
-		//Pre Login to app
+
+		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		
-		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
-	//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		ph_MorePo.getEleDataSync();
-	
-		//navigating to SFM
+
+		// navigating to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sIBName1, sFieldServiceName);
-		
-		//Validation of not qualifying Work Order
-		sQualificationCriteriaValidation =ph_WorkOrderPo.geteleCountryShouldbeItaly().getText();
-		Assert.assertTrue(sQualificationCriteriaValidation.equals("Country should be Italy"), "Qualification Criteria validation failed");
-		ExtentManager.logger.log(Status.PASS,"Qualification Criteria message Country should be Italy is displayed successfully");
-	
-		
-		ph_WorkOrderPo.getEleBackButton().click();
-		
-		//Navigation to SFM
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
-				sIBName2, sFieldServiceName);	
-		Thread.sleep(GenericLib.iLowSleep);
 
-		
+		// Validation of not qualifying Work Order
+		sQualificationCriteriaValidation = ph_WorkOrderPo.geteleCountryShouldbeItaly().getText();
+		Assert.assertTrue(sQualificationCriteriaValidation.equals("Country should be Italy"),
+				"Qualification Criteria validation failed");
+		ExtentManager.logger.log(Status.PASS,
+				"Qualification Criteria message Country should be Italy is displayed successfully");
+
+		ph_WorkOrderPo.getEleBackButton().click();
+
+		// Navigation to SFM
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
+				sIBName2, sFieldServiceName);
+		Thread.sleep(GenericLib.iLowSleep);
+		ExtentManager.logger.log(Status.INFO, "IB dynamically created and used is :" + sIBName1 + "");
+
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Thread.sleep(GenericLib.iLowSleep);
 
-		//Data Sync before triggering the API
+		// Data Sync before triggering the API
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
-		
-		//Validation of created custom object from IB
-		sSqlQuery ="SELECT+Name+from+Auto_Custom_Object10540__c+Where+Name=\'"+sIBName2+"\'";				
-		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"Name").equals(sIBName2), "IB to custom object is not created");
-		ExtentManager.logger.log(Status.PASS,"IB to Custome object is successfully created. validated through API");
-		
+
+		// Validation of created custom object from IB
+		sSqlQuery = "SELECT+Name+from+Auto_Custom_Object10540__c+Where+Name=\'" + sIBName2 + "\'";
+		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery, "Name").equals(sIBName2),
+				"IB to custom object is not created");
+		ExtentManager.logger.log(Status.PASS, "IB to Custome object is successfully created. validated through API");
+
 	}
 }

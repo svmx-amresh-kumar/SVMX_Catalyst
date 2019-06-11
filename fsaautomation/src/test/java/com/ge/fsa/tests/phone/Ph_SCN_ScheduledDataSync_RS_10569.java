@@ -104,6 +104,7 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		commonUtility.waitForElementNotVisible(ph_MorePo.getEleSyncing(), 300);
 		ExtentManager.logger.pass("After Data Sync",
 				MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+		
 		if (commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted())) {
 			System.out.println("Data Sync Completed Sucessfully");
 			ExtentManager.logger.log(Status.PASS, "Scheduled Data Sync is successfull");
@@ -111,7 +112,6 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 			System.out.println("Data Sync Failed");
 			// Verification of successful sync
 			ExtentManager.logger.log(Status.FAIL, "Scheduled Data Sync Failed");
-			Assert.assertTrue(2 < 1, "Data Sync Failed");
 		}
 
 		// Navigation to WO
@@ -139,10 +139,10 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 			System.out.println("Data Sync Failed");
 			// Verification of successful sync
 			ExtentManager.logger.log(Status.FAIL, "Scheduled Data Sync Failed");
-			Assert.assertTrue(2 < 1, "Data Sync Failed");
 		}
-		restServices.getAccessToken();
-
+		
+		
+		//Validating server side
 		sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "'";
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO, "SVMXC__Billing_Type__c");
 		Assert.assertTrue(sBillTypeServer.equals(sBillingType),
