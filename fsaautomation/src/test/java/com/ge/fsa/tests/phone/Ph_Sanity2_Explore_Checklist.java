@@ -144,7 +144,6 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.elechecklistRadioButtonQAns(sradioQuestion, "RadioTwo_selected").click();
 
 		}
-		
 		// Entering Checkbox Question
 		commonUtility.custScrollToElementAndClick(sMultiPicklistQuestion);
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -154,13 +153,6 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.getelechecklistcheckboxQAns(sCheckboxQuestion, "CheckBoxTwo_selected").click();
 
 		}
-/*		// Selecting MultiPicklist Question
-		commonUtility.custScrollToElement("MultiOn, MultiTwo");
-		ph_ChecklistPO.getelechecklistMultiPicklistQAns("4. MultiPicklist Question",
-		 "MultiOn, MultiTwo").click();
-		Thread.sleep(2000);
-		ph_ChecklistPO.geteleBackbutton().click();
-*/
 		// Entering Text question
 		commonUtility.custScrollToElementAndClick(stextQuestion);
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
