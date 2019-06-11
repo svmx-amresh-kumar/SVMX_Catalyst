@@ -43,7 +43,7 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		
 		sTestCaseID = "SCN_SrctoTrgt_RS_10542";
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("IB_10542_");
+		sSerialNumber = commonUtility.generateRandomNumber("IB_10542_");
 		
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"account\"}";
@@ -67,7 +67,7 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		System.out.println(sIBName1);
 
 		//Creation of dynamic IB2
-		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonUtility.generaterandomnumber("IB_10542_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
+		sJsonData = "{\"SVMXC__Company__c\": \""+sObjectAccID+"\", \"Name\": \""+commonUtility.generateRandomNumber("IB_10542_")+"\", \"SVMXC__Serial_Lot_Number__c\": \""+commonUtility.generateRandomNumber("IB_10542_")+"\", \"SVMXC__Product__c\": \""+sObjectProID+"\", \"SVMXC__Country__c\": \"Italy\", \"SVMXC__City__c\": \"Vatican\"}";
 		sObjectApi = "SVMXC__Installed_Product__c?";
 		sIBRecord=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBRecord+"\'";				

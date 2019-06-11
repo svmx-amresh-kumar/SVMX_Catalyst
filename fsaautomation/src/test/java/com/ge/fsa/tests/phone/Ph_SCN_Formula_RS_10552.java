@@ -76,7 +76,7 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib{
 	restServices = new RestServices();
 	genericLib = new GenericLib();
 	restServices.getAccessToken();
-	sSerialNumber = commonUtility.generaterandomnumber("RS_10552_");
+	sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
 //		
 //		//Creation of dynamic Work Order
 	sWOObejctApi="SVMXC__Service_Order__c?";

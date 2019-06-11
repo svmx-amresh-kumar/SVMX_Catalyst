@@ -92,7 +92,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		sSheetName = "RS_10544";
 		System.out.println("SCN_SourceObject_UPDATE_RS10544");
 
-		sProformainVoice = commonUtility.generaterandomnumber("Account");
+		sProformainVoice = commonUtility.generateRandomNumber("Account");
 		sTestIB = "RS-10544_SOU";
 		sTestIBID = sProformainVoice;
 

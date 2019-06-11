@@ -34,12 +34,12 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		commonUtility.execSahi(genericLib, sScriptName, sTestID);
 		
 		// Create Account
-		String sAccName = commonUtility.generaterandomnumber("Acc");
+		String sAccName = commonUtility.generateRandomNumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
 		System.out.println("Account Id is "+sAccId);
 		
 		// Creating Contact
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sFirstName = "auto_contact";
 		String sLastName = sRandomNumber;
 		String sContactName = sFirstName+" "+sLastName;
@@ -48,24 +48,24 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		System.out.println("Contact Id is "+sConId);		
 		
 		//Create IB
-		String sIbName = commonUtility.generaterandomnumber("IB");
-		String sIbNum = commonUtility.generaterandomnumber("IBNum");
+		String sIbName = commonUtility.generateRandomNumber("IB");
+		String sIbNum = commonUtility.generateRandomNumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum+"\",\"SVMXC__Country__c\": \"India\"}");
 		System.out.println("IB Id is "+sIbId);
 		
 		//Create Location
-		String sLocName = commonUtility.generaterandomnumber("Loc");
+		String sLocName = commonUtility.generateRandomNumber("Loc");
 		String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
         System.out.println("Loc Id is "+sLocId);
 		
 		//Create Product
-		String sProdName = commonUtility.generaterandomnumber("prod");
+		String sProdName = commonUtility.generateRandomNumber("prod");
 		String sProdId = restServices.restCreate("Product2?","{\"Name\": \""+sProdName+"\"}");
 		System.out.println("Product Id is "+sProdId);
 		
 		//Create IB with Top Level
-		String sIbName1 = commonUtility.generaterandomnumber("IB");
-		String sIbNum1 = commonUtility.generaterandomnumber("IBNum");
+		String sIbName1 = commonUtility.generateRandomNumber("IB");
+		String sIbNum1 = commonUtility.generateRandomNumber("IBNum");
 		String sIbId1 = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName1+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum1+"\",\"SVMXC__Country__c\": \""+sCountry+"\",\"SVMXC__City__c\": \""+sCity+"\",\"SVMXC__Zip__c\":\""+sZipCode+"\",\"SVMXC__Contact__c\":\""+sConId+"\",\"SVMXC__Product__c\":\""+sProdId+"\",\"SVMXC__Site__c\":\""+sLocId+"\",\"SVMXC__Top_Level__c\":\""+sIbId+"\"}");
 		System.out.println("New IB Id is "+sIbId1);
 		
