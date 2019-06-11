@@ -673,7 +673,7 @@ public class CommonUtility {
 	 * This method is used to generate the Random value times stamped with current
 	 * time
 	 */
-	public String generaterandomnumber(String value) {
+	public String generateRandomNumber(String value) {
 
 		String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis());
 		System.out.println(date);
@@ -1660,6 +1660,8 @@ public class CommonUtility {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
 			execSahi(genericLib, sScriptName, sTestCaseId);
+			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
 		}
