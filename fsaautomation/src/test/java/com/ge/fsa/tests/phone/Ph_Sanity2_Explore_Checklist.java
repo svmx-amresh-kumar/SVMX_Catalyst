@@ -105,13 +105,12 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 
-		//lauchNewApp("false");
+		lauchNewApp("false");
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
-		// toolsPo.configSync(commonsUtility);
 		
 		// Data Sync
 		ph_MorePo.syncData(commonUtility);
@@ -122,10 +121,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sWOName, sProcessname);
 		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :"+sWOName+"");
+		
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(5000);
+		Thread.sleep(1000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
@@ -144,6 +144,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 			ph_ChecklistPO.elechecklistRadioButtonQAns(sradioQuestion, "RadioTwo_selected").click();
 
 		}
+		
 		// Entering Checkbox Question
 		commonUtility.custScrollToElementAndClick(sMultiPicklistQuestion);
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -169,17 +170,8 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		else{
 			commonUtility.custScrollToElement(sdateTimeQuestion);}
 		
-		//commonUtility.setDateTime12Hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "5", "30", "AM");
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "00", "00");
-		String sDeviceDateTUF= commonUtility.getDeviceDate();
-		System.out.println("Device Date"+sDeviceDateTUF);        
-		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-		Date date = (Date)formatter.parse(sDeviceDateTUF);
-		SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/yyyy");
-		formatter1.setTimeZone(TimeZone.getTimeZone("GMT"));
-	    String sDeviceDateTimeFinal= formatter1.format(date);  
-	    System.out.println(sDeviceDateTimeFinal);  
-	
+		
 		// Entering Date question
 		commonUtility.custScrollToElement(snumberQuestion);
 		commonUtility.setSpecificDate(ph_ChecklistPO.getelechecklistdate(sdateQuestion), "January", "1", "2019");
@@ -230,6 +222,8 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	
 		// DateTime question
 		commonUtility.custScrollToElement(snumberQuestion);
+		String sDeviceDateTimeFinal = ph_ChecklistPO.get_device_date(commonUtility);
+	    System.out.println(sDeviceDateTimeFinal);  
 		String sDateTimeQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateTimeQuestion).getText();
 		Assert.assertTrue(sDateTimeQAns.contains((sDeviceDateTimeFinal)),
 				"Checklist DateTime answer --expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
@@ -248,12 +242,6 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		 * 
 		 */
 		
-		//radio button question
-		commonUtility.custScrollToElement(sCheckboxQuestion);
-	//	Boolean rbuttonresult =commonUtility.isDisplayedCust(ph_ChecklistPO.geteleRadioTwoSelected());
-	//	Assert.assertTrue(rbuttonresult);
-	//	ExtentManager.logger.log(Status.PASS,"Checklist Radiobutton answer sucessfull");
-
 		// Sync the Data
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iVHighSleep);
@@ -273,21 +261,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 				"checklist text question answer is not synced to server");
 		ExtentManager.logger.log(Status.PASS, "checklist text question answer is synced to server");
 
-		/*
-		 * Assert.assertTrue(ChecklistAnsjson.contains(snumberAns),
-		 * "checklist number answer sycned to server in checklist answer");
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"checklist number answer sycned to server in checklist answer");
-		 */
-		// Assert.assertTrue(ChecklistAnsjson.contains(formattedDate), "checklist date
-		// answer was not sycned to server in checklist answer");
-		// ExtentManager.logger.log(Status.PASS,"checklist date question answer synced
-		// to server");
-
-		// Assert.assertTrue(ChecklistAnsjson.contains(sformattedDatetime), "checklist
-		// datetime answer was not sycned to server in checklist answer");
-		// ExtentManager.logger.log(Status.PASS,"checklist datetime question answer
-		// synced to server");
+	
 
 		Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns),
 				"checklist picklist answer was not sycned to server in checklist answer");
@@ -323,9 +297,6 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		{
 			ph_ChecklistPO.geteleChecklistCompleted().click();
 		}
-
-			
-		
 		// Validation of values from client after Data Sync
 		
 		sPicklistAns = ph_ChecklistPO.getelechecklistPickListQAns(spicklistQuestion, "PicklOne").getText();
