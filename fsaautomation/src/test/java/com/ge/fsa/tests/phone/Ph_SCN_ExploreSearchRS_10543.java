@@ -32,7 +32,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("RS_10543_");
+		sSerialNumber = commonUtility.generateRandomNumber("RS_10543_");
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";

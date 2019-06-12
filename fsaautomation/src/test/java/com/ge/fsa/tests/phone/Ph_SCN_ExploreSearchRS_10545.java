@@ -54,70 +54,85 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	String sDateAfterTomTxt = null;
 	int iDay=0;
 	int iMonth=0;
-	
+	boolean configSync;
 	private void preRequiste() throws Exception  
 	{
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("");
+		sSerialNumber = commonUtility.generateRandomNumber("");
 		
 		//create AccountA with Hyderabad
 		sObjectApi = "Account?";
 		sJsonData =  "{\"Name\": \""+sSerialNumber+""+"AccA\"}";
 		sAccountNameA=restServices.restCreate(sObjectApi,sJsonData);
-		Thread.sleep(GenericLib.iMedSleep);
+		ExtentManager.logger.log(Status.INFO, "Account created through webservice with Name : "+sSerialNumber+" and returned Account : "+sAccountNameA);
 		
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\"Hyderabad\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameA );
+		ExtentManager.logger.log(Status.INFO, "Updating Account through webservice with City : Hyderabad for returned Account : "+sAccountNameA);
+
 
 		//create AccountB with Bangalore
 		sObjectApi = "Account?";
 		sJsonData =  "{\"Name\": \""+sSerialNumber+""+"AccB\"}";
 		sAccountNameB=restServices.restCreate(sObjectApi,sJsonData);
-		Thread.sleep(GenericLib.iMedSleep);
+		ExtentManager.logger.log(Status.INFO, "Account created through webservice with Name : "+sSerialNumber+" and returned Account : "+sAccountNameB);
+
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\""+"Bangalore"+"\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameB );
+		ExtentManager.logger.log(Status.INFO, "Updating Account through webservice with City : Bangalore for returned Account : "+sAccountNameB);
 
-		System.out.println("**************"+sAccountNameB);
+
 		//create AccountC with Manchester
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccC\"}";
 		sAccountNameC=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Account created through webservice with Name : "+sSerialNumber+" and returned Account : "+sAccountNameC);
+
+		
 		sObjectApi = "Account";
 		sJsonData="{\"BillingCity\":\"Manchester\"}";
 		restServices.restUpdaterecord(sObjectApi,sJsonData,sAccountNameC );
+		ExtentManager.logger.log(Status.INFO, "Updating Account through webservice with City : Manchester for returned Account : "+sAccountNameC);
+
 
 		//Create Location
 		sLocationA = sSerialNumber+"LocA";
 		sObjectApi = "SVMXC__Site__c?";
 		sJsonData = "{\"Name\": \""+sLocationA+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Lewes\",\"SVMXC__Country__c\": \"United Kingdom\"}";
 		sLocationA = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location created through webservice with Name : "+sSerialNumber+"LocA"+" and returned Location : "+sLocationA);
+
 		//Create Location
 		sLocationB = sSerialNumber+"LocB";
 		sJsonData = "{\"Name\": \""+sLocationB+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Rome\",\"SVMXC__Country__c\": \"Italy\"}";
 		sLocationB = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location created through webservice with Name : "+sSerialNumber+"LocB"+" and returned Location : "+sLocationB);
+
 		//Create Location
 		sLocationC = sSerialNumber+"LocC";
 		sJsonData = "{\"Name\": \""+sLocationC+"\", \"SVMXC__Stocking_Location__c\": true,\"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}";
 		sLocationC = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location created through webservice with Name : "+sSerialNumber+"LocC"+" and returned Location : "+sLocationC);
+
 		//Create Location
 		sLocationD = sSerialNumber+"LocD";
 		sJsonData ="{\"Name\": \""+sLocationD+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
 		sLocationD = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location created through webservice with Name : "+sSerialNumber+"LocD"+" and returned Location : "+sLocationD);
+
 		//Create Location
 		sLocationE = sSerialNumber+"LocE";
 		sJsonData ="{\"Name\": \""+sLocationE+"\", \"SVMXC__Stocking_Location__c\": false,\"SVMXC__Street__c\": \"Berlin\",\"SVMXC__Country__c\": \"Germany\"}" ;
 		sLocationE = restServices.restCreate(sObjectApi,sJsonData);
-		
+		ExtentManager.logger.log(Status.INFO, "Location created through webservice with Name : "+sSerialNumber+"LocE"+" and returned Location : "+sLocationE);
+
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"46\",\"SVMXC__Site__c\":\""+sLocationA+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectIDWO1=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder created through webservice with Location : "+sLocationA+" and returned WorkOrderId : "+sObjectIDWO1);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO1+"\'";				
 		sWOName1 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
@@ -125,6 +140,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"199\",\"SVMXC__Site__c\":\""+sLocationB+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectIDWO2=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder created through webservice with Location : "+sLocationB+" and returned WorkOrderId : "+sObjectIDWO2);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO2+"\'";				
 		sWOName2 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
@@ -132,6 +148,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"Medium\",\"Number__c\":\"14\",\"SVMXC__Site__c\":\""+sLocationC+"\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectIDWO3=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder created through webservice with Location : "+sLocationC+" and returned WorkOrderId : "+sObjectIDWO3);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO3+"\'";				
 		sWOName3 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
@@ -139,6 +156,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"High\",\"Number__c\":\"66\",\"SVMXC__Site__c\":\""+sLocationD+"\",\"SVMXC__Company__c\":\""+sAccountNameA+"\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectIDWO4=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder created through webservice with Location : "+sLocationD+" and returned WorkOrderId : "+sObjectIDWO4);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO4+"\'";				
 		sWOName4 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
@@ -146,6 +164,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Priority__c\":\"Low\",\"Number__c\":\"44\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectIDWO5=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder created through webservice and returned WorkOrderId : "+sObjectIDWO5);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectIDWO5+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		/*
@@ -155,6 +174,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
+		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
+
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
@@ -166,26 +187,6 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	{
 		sTestID = "RS_10545";
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-//		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
-//		if(Integer.parseInt(sDate[2])>28)
-//		{
-//			sDate[2]="1";
-//			iMonth=Integer.parseInt(sDate[1])+1;
-//			if(iMonth>12) {
-//				iMonth=01;
-//			}
-//			sDate[1]=""+iMonth;
-//		}
-//		sTodayDateTxt= sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-//	
-//		iDay=Integer.parseInt(sDate[2])+1;
-//		sDate[2]=""+iDay;
-//		sTomDateTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-//		
-//		iDay=Integer.parseInt(sDate[2])+1;
-//		sDate[2]=""+iDay;
-//		sDateAfterTomTxt = sDate[0]+"-"+sDate[1]+"-"+sDate[2];
-		//Thu May 30 11:30:26 GMT 2019
 		sDate=commonUtility.getDeviceDate().split(" ");
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal=Calendar.getInstance();
@@ -205,7 +206,9 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		//Config Sync for process
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		if(configSync) {
+			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		}
 		 
 //		//Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
@@ -323,7 +326,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem("Work Orders (CURRENTUSER)").click();
 		validateSearch(sWOName1);
-		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "Work Orders (CURRENTUSERID) --> No Records to display text is not displayed");
+		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "Work Orders (CURRENTUSER) --> No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Work Orders (CURRENTUSER) -->No Records to display text is successfully displayed");
 		
 		//Navigation to Work Orders (DATE LITERALS) Search

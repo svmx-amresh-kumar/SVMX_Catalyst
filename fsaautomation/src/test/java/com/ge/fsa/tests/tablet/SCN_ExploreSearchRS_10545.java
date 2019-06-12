@@ -59,7 +59,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	private void preRequiste() throws Exception  
 	{
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("");
+		sSerialNumber = commonUtility.generateRandomNumber("");
 		
 		//create AccountA with Hyderabad
 		sObjectApi = "Account?";

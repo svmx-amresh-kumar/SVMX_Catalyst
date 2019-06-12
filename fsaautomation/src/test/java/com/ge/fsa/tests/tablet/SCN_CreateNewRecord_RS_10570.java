@@ -21,11 +21,11 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		String sContactName = "Stuart Law";
 		String sProductName = "SampleProd";
 		
-		String sCoName = commonUtility.generaterandomnumber("customAction");
-		String sCaseSubject = commonUtility.generaterandomnumber("caseSub");
-		String sLocName = commonUtility.generaterandomnumber("Loc");
-		String sIBName = commonUtility.generaterandomnumber("IB");
-		String sEmailDomain = commonUtility.generaterandomnumber("Auto");
+		String sCoName = commonUtility.generateRandomNumber("customAction");
+		String sCaseSubject = commonUtility.generateRandomNumber("caseSub");
+		String sLocName = commonUtility.generateRandomNumber("Loc");
+		String sIBName = commonUtility.generateRandomNumber("IB");
+		String sEmailDomain = commonUtility.generateRandomNumber("Auto");
 		String sEmail = sEmailDomain+"@svmx.com";
 		
 		// Create Account

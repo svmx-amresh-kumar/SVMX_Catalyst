@@ -89,7 +89,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		sSheetName = "RS_10556";
 		String sTestCaseID = "RS-10556_mapping";
 
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		
 		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;

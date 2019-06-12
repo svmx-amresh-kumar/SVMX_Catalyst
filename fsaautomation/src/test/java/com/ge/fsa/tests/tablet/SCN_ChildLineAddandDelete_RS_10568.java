@@ -43,7 +43,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 
 
 		// To create a Work Order for Editing 
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");

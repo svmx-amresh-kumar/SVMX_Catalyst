@@ -6,8 +6,10 @@
     </listeners>
 <test name="Checklist">
 		<classes>
-		
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_1_RS_10577" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_2_RS_10578" />
 		</classes>
 	</test> <!-- Test -->
+		
 
 </suite> <!-- Suite -->

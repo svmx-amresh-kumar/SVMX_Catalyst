@@ -59,7 +59,7 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 	public void RS_10525_2months_event() throws Exception {
 		sSheetName ="RS_10525";
 		
-		String sProformainVoice = commonUtility.generaterandomnumber("Proforma");
+		String sProformainVoice = commonUtility.generateRandomNumber("Proforma");
 		String sTestIB="RS_10525_Calender_6";
 		String sTestIBID = sProformainVoice;
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
