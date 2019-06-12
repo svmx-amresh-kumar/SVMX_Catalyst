@@ -110,6 +110,16 @@ public class Ph_MorePO {
 		return eleSignOut;
 	}
 
+	@AndroidFindAll({
+		@AndroidBy(xpath="//*[@text='Sign Out']")})
+	@iOSXCUITFindAll({
+		@iOSXCUITBy(xpath="(//*[@*=\"Sign Out\"])[2]")})
+private WebElement eleSignOutpopup;
+
+	public WebElement getEleSignOutpopup() {
+		return eleSignOutpopup;
+	}
+	
 	@FindBy(xpath = "//*[@*='Syncing...']")
 	private WebElement eleSyncing;
 

@@ -48,35 +48,31 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	String sSqlQuery = null;
 	String sIBLastModifiedBy=null;
 	String sSheetName =null;
-	
+	String assertionMessage="";
 	WebElement productname=null;
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
+	Boolean bProcessCheckResult = false;
+	
 
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 	
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
 		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
 		String sTestCaseID="RS-10554_mapping";
 		String sID=sProformainVoice+"RS_10554_IB";
-	//sahi
+	
+		
+		//read from file
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+
 		
 		
-		/*
-		 * genericLib.executeSahiScript("appium/SCN_Mapping_RS_10554.sah",
-		 * "sTestCaseID"); if(commonsUtility.verifySahiExecution()) {
-		 * 
-		 * System.out.println("PASSED"); } else { System.out.println("FAILED");
-		 * 
-		 * 
-		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		 * "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
-		 * System.out.println("RS_10554");
-		 */
-		 
+		//sahi
+		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10554",sTestCaseID);
+		
+		
 		
 		//create Account
 		sObjectApi = "Account?";
@@ -125,19 +121,11 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 
 		
 		
-		
-		
-		//read from file
-				sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-				sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-				sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		
-		
 			//Pre Login to app
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
 			//config sync
-
+				ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 			Thread.sleep(GenericLib.iMedSleep);
 			
 			//Data Sync for WO's created
@@ -157,48 +145,55 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			
 			String fetchedaccount =ph_WorkOrderPo.getEleAccount().getText();
 			System.out.println(fetchedaccount);
-			try{Assert.assertTrue(fetchedaccount.equals(sAccountName));ExtentManager.logger.log(Status.PASS,"Account value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Account value mapping Failed before save ");}
+			assertionMessage= "Account value mapping before save  Expected = "+sAccountName +" Actual = "+fetchedaccount;
+			try{Assert.assertEquals(fetchedaccount,sAccountName);ExtentManager.logger.log(Status.PASS, assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			
 			String fetchedproduct =ph_WorkOrderPo.getEleProduct().getText();
 			System.out.println(fetchedproduct);
-			try{Assert.assertTrue(fetchedproduct.equals(sproductname));ExtentManager.logger.log(Status.PASS,"product value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"product value mapping Failed before save ");}
+			assertionMessage= "Product value mapping before save  Expected = "+sproductname +" Actual = "+fetchedproduct;
+			try{Assert.assertEquals(fetchedproduct,sproductname);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			String fetchedcomponent =ph_WorkOrderPo.getEleComponent().getText();
 			System.out.println(fetchedcomponent);
-			try{Assert.assertTrue(fetchedcomponent.equals(sIBname));ExtentManager.logger.log(Status.PASS,"component value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"component value mapping Failed before save ");}
+			assertionMessage= "Component value mapping before save  Expected = "+sIBname +" Actual = "+fetchedcomponent;
+			try{Assert.assertEquals(fetchedcomponent,sIBname);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			
 			
 			String fetchedScheduledDate =ph_WorkOrderPo.getEleScheduledDate().getText();
 			System.out.println(fetchedScheduledDate);
-			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful before save");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed before save ");}
+			assertionMessage= "Scheduled Date value mapping before save  Expected = "+fetchedScheduledDate +" Actual = "+"29/8/2018 ";
+			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			String fetchedScheduledDatetime =ph_WorkOrderPo.getEleScheduledDateTime().getText();
 			System.out.println(fetchedScheduledDatetime);
-			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful before save");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed ");}
+			assertionMessage= "Scheduled Datetime value mapping before save  Expected = "+stempDate +" Actual = "+fetchedScheduledDatetime;
+			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful before save");
 			
 				
 			commonUtility.gotToTabHorizontal("PARTS");
-			Thread.sleep(10000);
+			Thread.sleep(3000);
 			ph_WorkOrderPo.getEletapon(sproductname).click();
 			Thread.sleep(3000);
 			
 			String fetchedpart =ph_WorkOrderPo.getPart().getText();
 			System.out.println(fetchedpart);
-			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,"part value mapped Successful before save");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"part value mapping Failed before save ");}
+			assertionMessage= "Part value mapping before save  Expected = "+fetchedpart +" Actual = "+sproductname;
+			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			String fetcheddaterequired =ph_WorkOrderPo.getleDateRequired().getText();
 			System.out.println(fetcheddaterequired);
-			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed before save ");}
+			assertionMessage= "date required value mapping before save  Expected = "+fetcheddaterequired +"And Actual = "+"29/8/2018 ";
+			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			
 			ph_WorkOrderPo.geteleXsymbol().click();
@@ -219,26 +214,30 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			String sProductid = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Product__c");
 			String ProductQuery = "SELECT+Name+from+Product2+where+id=\'"+sProductid+"\'";
 			String sSoqlProductName  =restServices.restGetSoqlValue(ProductQuery,"Name"); 
-			try{assertEquals(sproductname, sSoqlProductName);ExtentManager.logger.log(Status.PASS,"Product value mapped Successful from the Server ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Product value mapping Failed from the Server");}
+			assertionMessage= "Product value mapping from the Server  Expected = "+sproductname +" Actual = "+sSoqlProductName;
+			try{assertEquals(sproductname, sSoqlProductName);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			System.out.println(sSoqlProductName);
 			
 			String sAccountid = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Company__c");
 			String AccountQuery = "SELECT+Name+from+Account+where+id=\'"+sAccountid+"\'";
 			String soqlAccounyName  =restServices.restGetSoqlValue(AccountQuery,"Name"); 
-			try{assertEquals(sAccountName, soqlAccounyName);ExtentManager.logger.log(Status.PASS,"Account value mapped Successful from the Server ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Account value mapping Failed from the Server ");}
+			assertionMessage= "Account value mapping from the Server  Expected = "+sAccountName +" Actual = "+soqlAccounyName;
+			try{assertEquals(sAccountName, soqlAccounyName);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			
 			String scomponentid = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Component__c");
 			String componentQuery = "SELECT+Name+from+SVMXC__Installed_Product__c+where+id=\'"+scomponentid+"\'";
 			String soqlcomponentName  =restServices.restGetSoqlValue(componentQuery,"Name"); 
-			try{assertEquals(sIBname, soqlcomponentName);ExtentManager.logger.log(Status.PASS,"Component value mapped Successful from the Server ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Component value mapping Failed from the Server");}
-			
+			assertionMessage= "Component value mapping from the Server  Expected = "+sIBname +" Actual = "+soqlcomponentName;
+			try{assertEquals(sIBname, soqlcomponentName);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
+		
 			String sScheduledDate = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date__c");
-			try{assertEquals("2018-08-29", sScheduledDate);ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful from the Server");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed from the Server from the Server ");}
+			assertionMessage= "Scheduled Date value mapping from the Server   Expected =" +"2018-08-29"+ "Actual = "+sScheduledDate;
+			try{assertEquals("2018-08-29", sScheduledDate);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 			 SimpleDateFormat parser2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -257,9 +256,9 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		        System.out.println("formateed dateTime"+sformattedDatetime1);
 		       
 			
-		
-			try{assertEquals(sformattedDatetime, sformattedDatetime1);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful from the Server");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed from the Server");}//change it later
+		        assertionMessage= "Scheduled Datetime value mapping from the Server  Expected = "+sformattedDatetime +" Actual = "+sformattedDatetime1;
+			try{assertEquals(sformattedDatetime, sformattedDatetime1);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 				
 	
 				
@@ -268,12 +267,14 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			String spartid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Product__c");
 			String partQuery = "SELECT+Name+from+Product2+where+id=\'"+spartid+"\'";
 			String soqlpartName  =restServices.restGetSoqlValue(partQuery,"Name"); 
-			try{assertEquals(sproductname, soqlpartName);ExtentManager.logger.log(Status.PASS,"Part value mapped Successful from the Server");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Part value mapping Failed from the Server");}
+			assertionMessage= "part value mapping from the Server  Expected = "+sproductname +" Actual = "+soqlpartName;
+			try{assertEquals(sproductname, soqlpartName);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 				
 			String srequesteddateDate = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Date_Requested__c");
-			try{assertEquals("2018-08-29", srequesteddateDate);ExtentManager.logger.log(Status.PASS,"Date_Requested value mapped Successful from the Server");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Date_Requested value mapping Failed from the Server");}
+			assertionMessage= "Date Requested value mapping from the Server  Expected = "+"2018-08-29"+" Actual = "+srequesteddateDate;
+			try{assertEquals("2018-08-29", srequesteddateDate);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			
 			//Validating after datasync
@@ -284,34 +285,38 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAccount());
 			 fetchedaccount = ph_WorkOrderPo.getEleAccount().getText();
 			System.out.println(fetchedaccount);
-			try{Assert.assertTrue(fetchedaccount.equals(sAccountName));ExtentManager.logger.log(Status.PASS,"Account value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Account value mapping Failed after datasync");}
+			assertionMessage= "Account value mapping after datasync Expected = "+fetchedaccount +" Actual = "+sAccountName;
+			try{Assert.assertTrue(fetchedaccount.equals(sAccountName));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleProduct());
 			  fetchedproduct = ph_WorkOrderPo.getEleProduct().getText();
 			System.out.println(fetchedproduct);
-			try{Assert.assertTrue(fetchedproduct.equals(sproductname));ExtentManager.logger.log(Status.PASS,"product value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"product value mapping Failed after datasync");}
+			assertionMessage= "Product value mapping after datasync Expected = "+fetchedproduct +" Actual = "+sproductname;
+			try{Assert.assertTrue(fetchedproduct.equals(sproductname));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleComponent());
 			  fetchedcomponent = ph_WorkOrderPo.getEleComponent().getText();
 			System.out.println(fetchedcomponent);
-			try{Assert.assertTrue(fetchedcomponent.equals(sIBname));ExtentManager.logger.log(Status.PASS,"component value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"component value mapping Failed after datasync");}
+			assertionMessage= "Component value mapping after datasync Expected = "+fetchedcomponent +" Actual = "+sIBname;
+			try{Assert.assertTrue(fetchedcomponent.equals(sIBname));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDate());
 			  fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText();
 			System.out.println(fetchedScheduledDate);
-			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"ScheduledDate value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDate value mapping Failed after datasync");}
+			assertionMessage= "Scheduled Date value mapping after datasync Expected = "+fetchedScheduledDate +" Actual = "+"29/8/2018 ";
+			try{assertEquals(fetchedScheduledDate,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDateTime());
 			  fetchedScheduledDatetime = ph_WorkOrderPo.getEleScheduledDateTime().getText();
 			System.out.println(fetchedScheduledDatetime);
-		
-			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,"ScheduledDatetime value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"ScheduledDatetime value mapping Failed after datasync");}
+			assertionMessage= "Scheduled Datetime value mapping after datasync Expected = "+stempDate +" Actual = "+fetchedScheduledDatetime;
+			try{Assert.assertEquals(stempDate,fetchedScheduledDatetime);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ExtentManager.logger.log(Status.PASS,"Work Order  Mapping is Successful After data sync");
 			
 			
@@ -323,16 +328,18 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getPart());
 			  fetchedpart = ph_WorkOrderPo.getPart().getText();
 			System.out.println(fetchedpart);
-			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,"part value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"part value mapping Failed after datasync");}
+			assertionMessage= "part value mapping after datasync Expected = "+fetchedpart +" Actual = "+sproductname;
+			try{Assert.assertTrue(fetchedpart.equals(sproductname));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 		
 		
 	
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getleDateRequired());
 			   fetcheddaterequired = ph_WorkOrderPo.getleDateRequired().getText();
 			System.out.println(fetcheddaterequired);
-			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,"date required value mapped Successful after datasync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"date required value mapping Failed after datasync");}
+			assertionMessage= "date required value mapping after datasync Expected = "+fetcheddaterequired +" Actual = "+"29/8/2018 ";
+			try{assertEquals(fetcheddaterequired,"29/8/2018 ");ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			ph_WorkOrderPo.geteleXsymbol().click();
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful After Data Sync");
@@ -344,18 +351,6 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	}
 
 	
-	
-	
-	
-	
-	  @AfterClass(enabled = true) public void deletedata() throws Exception {
-	  //Deleting data created
-	  
-	  restServices.restDeleterecord("Account",sObjectAccID);
-	  restServices.restDeleterecord("Product2",sObjectProID);
-	  restServices.restDeleterecord("SVMXC__Installed_Product__c",sObjectIBID);
-	  
-	  }
-	  
+
 	 	
 }

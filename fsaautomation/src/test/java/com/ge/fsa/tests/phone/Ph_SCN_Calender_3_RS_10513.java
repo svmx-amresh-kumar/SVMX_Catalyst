@@ -37,24 +37,17 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	String sFieldServiceName = null;
 	String sproductname = null;
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
+	
 	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
-	String techname = "a240t000000GglLAAS";
 	WebElement productname = null;
 	String sSheetName = null;
 
-	@BeforeMethod
-	public void initializeObject() throws IOException {
-
-	}
-
-	@Test()
-
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10513() throws Exception {
 		sSheetName = "RS_10513";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 
 		String sTestCaseID = "RS_10513_Calender_3";
 

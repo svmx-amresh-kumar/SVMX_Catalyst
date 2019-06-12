@@ -16,6 +16,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Ph_Calendar_6_RS_10525 extends BaseLib {
 
@@ -44,8 +45,8 @@ int iWhileCnt = 0;
 		
 	} 
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	
 	public void Ph_10525() throws Exception {
 		sSheetName ="RS_10525";
 	
@@ -104,7 +105,7 @@ int iWhileCnt = 0;
 		System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////");
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			//Creating all day event
+			//Creating one day event
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \"onedayAccount\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);

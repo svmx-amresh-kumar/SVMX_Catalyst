@@ -501,7 +501,7 @@ else {
 
 		Thread.sleep(3000);
 	try {
-			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
+			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 1);
 			if(getEleworkordernumonCalendar(Subject) != null){
 				System.out.println("Found WO " + Subject);
 			}
