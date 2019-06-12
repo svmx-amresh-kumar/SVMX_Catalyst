@@ -47,7 +47,7 @@ public void Scenario1Test() throws Exception
 //	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 //	Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 		// Login to the Application.

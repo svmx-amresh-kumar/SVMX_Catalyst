@@ -40,7 +40,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("RS_10548_");
+		sSerialNumber = commonUtility.generateRandomNumber("RS_10548_");
 		
 		//create Account
 		sObjectApi = "Account?";

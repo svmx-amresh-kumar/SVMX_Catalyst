@@ -87,18 +87,18 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				
 		
 	// Creating Product A 
-				String sProductAName = commonUtility.generaterandomnumber("ProdA");
+				String sProductAName = commonUtility.generateRandomNumber("ProdA");
 				String sProductAId = restServices.restCreate("Product2?","{\"Name\": \""+sProductAName+"\", \"IsActive\": \"true\"}");
 				String sProductNameA = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductAId+"\'", "Name");
 				System.out.println(sProductNameA);
 	// Creating Product B
-				String sProductBName = commonUtility.generaterandomnumber("ProdB");
+				String sProductBName = commonUtility.generateRandomNumber("ProdB");
 				String sProductBId = restServices.restCreate("Product2?","{\"Name\": \""+sProductBName+"\", \"IsActive\": \"true\"}");
 				String sProductNameB = restServices.restGetSoqlValue("SELECT+Name+from+Product2+Where+id+=\'"+sProductBId+"\'", "Name");
 				System.out.println(sProductNameB);
 				
 	// Creating Installed Base A 
-				String sInstalledBaseAName = commonUtility.generaterandomnumber("IBA");
+				String sInstalledBaseAName = commonUtility.generateRandomNumber("IBA");
 				String sIBIdA = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sInstalledBaseAName+"\", \"SVMXC__Product__c\": \""+sProductAId+"\"}");
 				String sInstalledProductAName = restServices.restGetSoqlValue("SELECT+Name+from+SVMXC__Installed_Product__c+Where+id+=\'"+sIBIdA+"\'", "Name");
 				

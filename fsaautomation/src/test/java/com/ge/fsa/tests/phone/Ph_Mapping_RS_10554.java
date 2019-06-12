@@ -57,7 +57,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	
 	public void RS_10554() throws Exception {
 		sSheetName ="RS_10554";
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS-10554_mapping";
 		String sID=sProformainVoice+"RS_10554_IB";
 	

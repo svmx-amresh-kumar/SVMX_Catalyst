@@ -22,19 +22,19 @@ public class Sanity4_PIQ extends BaseLib{
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		// Create Account
-		String sAccName = commonUtility.generaterandomnumber("Acc");
+		String sAccName = commonUtility.generateRandomNumber("Acc");
 		String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
 		System.out.println("Account Id Is "+sAccId);
 		//String accName1 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sAccId+"\'", "name");
 		
 		// Create Location
-		String sLocName = commonUtility.generaterandomnumber("Loc");
+		String sLocName = commonUtility.generateRandomNumber("Loc");
 		String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"SVMXC__Account__c\": \""+sAccId+"\", \"Name\": \""+sLocName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
 		System.out.println("Loc Id IS "+sLocId);
 		
 		// Create Installed Product
-		String sIbName = commonUtility.generaterandomnumber("IB");
-		String sIbNum = commonUtility.generaterandomnumber("IBNum");
+		String sIbName = commonUtility.generateRandomNumber("IB");
+		String sIbNum = commonUtility.generateRandomNumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum+"\",\"SVMXC__Country__c\": \"India\", \"SVMXC__Site__c\": \""+sLocId+"\" }");
 		System.out.println("IB id is "+sIbId);
 		

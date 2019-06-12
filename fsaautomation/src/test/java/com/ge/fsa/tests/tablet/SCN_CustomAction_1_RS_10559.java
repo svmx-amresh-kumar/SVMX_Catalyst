@@ -35,7 +35,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		//	System.out.println("WO no ="+sWOName);
 		//**********Create Product from API**********
-		String sProductName = commonUtility.generaterandomnumber("Prod");
+		String sProductName = commonUtility.generateRandomNumber("Prod");
 		restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");
 		String sProductId = restServices.restGetSoqlValue("SELECT+Id+from+Product2+Where+Name+=\'" + sProductName + "\'", "Id");
 		//	System.out.println(sProductId);

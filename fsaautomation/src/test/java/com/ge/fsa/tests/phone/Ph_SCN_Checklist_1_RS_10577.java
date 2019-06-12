@@ -100,7 +100,6 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		sSheetName = "RS_10577";
 		System.out.println("SCN_RS10577_Checklist_SOU");
-
 		sTestCaseID = "SCN_Checklist_1_RS-10577_SOU";
 		sCaseWOID = "DATA_SCN_Checklist_1_RS-10577_SOU";
 
@@ -126,7 +125,6 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	}
 
 	@Test(retryAnalyzer = Retry.class)
-
 	public void RS_10577() throws Exception {
 
 		// Running Pre-Req
@@ -156,22 +154,23 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
-		System.out.println("clicked checklistname");
-		Thread.sleep(3000);
+		ExtentManager.logger.log(Status.INFO, "Clicked ChecklistProcess" + sChecklistName + "");
+		Thread.sleep(2000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
 		Thread.sleep(2000);
 		try {
+			//untill app is stable this need to be there as sometimes its inprogress and sometimes completed.
 			ph_ChecklistPO.geteleInProgress().click();
 
 		} catch (Exception e) {
 			ph_ChecklistPO.geteleChecklistCompleted().click();
-			;
 		}
 
 		// Submitting Checklist
 		ph_ChecklistPO.geteleSubmitbtn().click();
+		ExtentManager.logger.log(Status.INFO, "Checklist is submitted");
 
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
@@ -195,14 +194,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		// 4.Date
 		sScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText().trim();
 		System.out.println(sScheduledDate);
-		System.out.println(sScheduledDateSOU);
-		String sDeviceDateTUF = commonUtility.getDeviceDate();
-		System.out.println("Device Date" + sDeviceDateTUF);
-		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-		Date date = (Date) formatter.parse(sDeviceDateTUF);
-		SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/yyyy");
-		formatter1.setTimeZone(TimeZone.getTimeZone("GMT"));
-		String sScheduledDateSOU = formatter1.format(date);
+		String sScheduledDateSOU= ph_ChecklistPO.get_device_date(commonUtility);	
 		System.out.println("Device retreived date:" + sScheduledDateSOU);
 		Assert.assertEquals(sScheduledDate, sScheduledDateSOU, "Date Source Object is not updated");
 		ExtentManager.logger.log(Status.PASS, "Source Object Update for Date with function Today Sucessfull");
@@ -293,7 +285,6 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		}
 		
 		// validating in server after source object update and if prefilled values are syned to server
-
 		sChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"
 				+ sWOName + "')";
 		sChecklistQueryval = restServices.restGetSoqlValue(sChecklistQuery, "SVMXC__Status__c");
@@ -313,14 +304,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		sSoqlProforma = "Select+SVMXC__Proforma_Invoice__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "'";
 		sSoqlNoOfTimes = "Select+SVMXC__NoOfTimesAssigned__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName
 				+ "'";
-		// String sSoqlSchedulesDate =
-		// "Select+SVMXC__Scheduled_Date__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'";
-		// String sSoqlScheduledDateTime =
-		// "Select+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'";
-
-		// String sSoqlqueryWO =
-		// "Select+Id+SVMXC__Billing_Type__c,+SVMXC__Proforma_Invoice__c,+SVMXC__NoOfTimesAssigned__c,+SVMXC__Scheduled_Date__c,+SVMXC__Scheduled_Date_Time__c+from+SVMXC__Service_Order__c+Where+Name+='\"+sWOName+\"'";
-		restServices.getAccessToken();
+		
 		// String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryWO,
 		// "Id");
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO, "SVMXC__Billing_Type__c");
@@ -328,21 +312,11 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		sNoOftimesServer = restServices.restGetSoqlValue(sSoqlNoOfTimes, "SVMXC__NoOfTimesAssigned__c");
 		sNoOftimesServer1 = sNoOftimesServer.substring(0, sNoOftimesServer.length() - 2);
 
-		// String sScheduledDateServer =
-		// restServices.restGetSoqlValue(sSoqlSchedulesDate,"SVMXC__Scheduled_Date__c");
-		// String sScheduledDateTimeServer =
-		// restServices.restGetSoqlValue(sSoqlScheduledDateTime,"SVMXC__Scheduled_Date_Time__c");
-
-		// System.out.println(sScheduledDateServer);
-		// System.out.println(sScheduledDateTimeServer);
 		Assert.assertTrue(sBillTypeServer.equals(sBillingTypeSOU), "Picklist source object not syned to server");
 		ExtentManager.logger.log(Status.PASS, "Picklist Source object update has synced to server");
 
 		Assert.assertTrue(sProformaServer.equals(sProformaInvoiceSOU), "Text source object not syned to server");
 		ExtentManager.logger.log(Status.PASS, "Text Source object update has synced to server");
-
-		
-
 	}
 
 }

@@ -92,6 +92,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 	 */
 		workOrderPo.addParts(commonUtility, workOrderPo, sProductName1);
 		// To verify if Billing Type = Warranty
+		
 		String sBillingTypeValue = workOrderPo.getEleBillingTypeValue().getAttribute("value");
 		Assert.assertEquals("Contract", sBillingTypeValue);
 		System.out.println(sBillingTypeValue);

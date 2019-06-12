@@ -56,7 +56,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		sSheetName ="RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS_10565_Recent_Items";
 		
 		//sahi
@@ -84,7 +84,7 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "CreateNewCustomrecord");
 		//String WOname1=GenericLib.readExcelData(GenericLib.sTestDataFile, "WorkOrder");
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 	    sProformainVoice = sRandomNumber;
 		
 	 

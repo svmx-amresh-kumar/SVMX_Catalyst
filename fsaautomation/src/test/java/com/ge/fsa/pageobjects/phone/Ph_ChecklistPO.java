@@ -70,7 +70,7 @@ public class Ph_ChecklistPO
 	public WebElement getelecheckliststartnew(String sChecklistName)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			return elecheckliststartnew = driver.findElement(By.xpath("//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New']"));
+			return elecheckliststartnew = driver.findElement(By.xpath("(//*[@text='"+sChecklistName+"'][@class='android.widget.TextView']/..//*[@text='Start New'])[last()]"));
 
 		}
 		else
@@ -389,6 +389,13 @@ public class Ph_ChecklistPO
 	@FindBy(xpath="(//*[@*[contains(.,'Number Cannot be 10')]])")
 	private WebElement eleChecklistDVRConfirmationtxt;
 	public WebElement geteleChecklistDVRConfirmationtxt()
+	{
+		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'Confirm')]])")
+	private WebElement eleConfirm;
+	public WebElement getEleConfirm()
 	{
 		return eleChecklistDVRConfirmationtxt;
 	}

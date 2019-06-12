@@ -341,8 +341,8 @@ public class Ph_WorkOrderPO {
 			eleIssuePopupTxt = driver.findElement(By.xpath(
 					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]/*[@*[contains(.,'" + sIssueTxt + "')]]"));
 		} else {
-			eleIssuePopupTxt = driver
-					.findElement(By.xpath("//*[@*[contains(.,'//*[@*[contains(.,'" + sIssueTxt + "')]]"));
+			eleIssuePopupTxt = driver.findElement(By.xpath(
+					"//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*[contains(.,'"+sIssueTxt+"')]]"));
 		}
 
 		return eleIssuePopupTxt;
@@ -437,7 +437,7 @@ public class Ph_WorkOrderPO {
 		return btnClose;
 	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]") //Works on both
+	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]")//Works on both IOS and Android
 	private List<WebElement> noAccContactsLst;
 
 	public List<WebElement> getNoAccContactsLst() {
@@ -554,11 +554,11 @@ public class Ph_WorkOrderPO {
 		return txtZip;
 	}
 
-	@FindBy(xpath = "(//*[@*='Save'])[last()]")
-	private WebElement btnSave;
+	@FindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'SFM.LAYOUT.LOOKUP.ITEM')]/android.widget.TextView[1]")
+	private List<WebElement> lkpLst;
 
-	public WebElement getBtnSave() {
-		return btnSave;
+	public List<WebElement> getLkpLst() {
+		return lkpLst;
 	}
 	
 //	@iOSXCUITFindBy(xpath="(//XCUIElementTypeStaticText[@name='Description']/..//XCUIElementTypeStaticText)[last()]")
@@ -603,7 +603,8 @@ public class Ph_WorkOrderPO {
 		return btnSeeResults;
 	}
 	
-	@FindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@AndroidFindBy(xpath="//android.widget.TextView[@content-desc='multiLineHeaderTitle']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeStaticText[@name='multiLineHeaderTitle']")
 	private WebElement lblHeader;
 	public WebElement getLblHeader() {
 		return lblHeader;
@@ -629,6 +630,15 @@ public class Ph_WorkOrderPO {
 	public WebElement getTxtScheduledDateTime() {
 		return txtScheduledDateTime;
 	}
+	
+	@FindBy(xpath = "(//*[@*='Save'])[last()]")
+	private WebElement btnSave;
+
+	public WebElement getBtnSave() {
+		return btnSave;
+	}
+	
+	
 	//-----------------------------
 
 
@@ -1714,16 +1724,17 @@ public WebElement geteleIsbillable() {
 	public WebElement getEleValidationToggle() {
 		return eleValidationToggle;
 	}
-	
+		
 	@AndroidFindBy(xpath = "//*[@text='Proforma Invoice']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Proforma Invoice']//XCUIElementTypeTextField")
 	private WebElement eleProformaInvoice;
 	public WebElement geteleProformaInvoice() {
 		return eleProformaInvoice;
 	}
 	
 	@AndroidFindBy(xpath = "//*[@text='Is Entitlement Performed']//following-sibling::*[@*='ON']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	//@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Entitlement Performed')]//XCUIElementTypeStaticText[@name='Yes']")
 	private WebElement eleEntPerformedOn;
 	public WebElement geteleEntPerformedOn() {
 		return eleEntPerformedOn;

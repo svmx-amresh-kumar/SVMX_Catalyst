@@ -441,7 +441,7 @@ public class CommonUtility {
 		//			try {
 		waitforElement(wElement, 30);
 		Assert.assertTrue(wElement.isDisplayed(), "Failed to scroll to search");
-		ExtentManager.logger.log(Status.PASS, "Search is successfull");
+		ExtentManager.logger.log(Status.INFO, "Search is successfull");
 		System.out.println("Search is displayed");
 		// break;
 		//			}catch(Exception e) {swipeUp();}			
@@ -673,7 +673,7 @@ public class CommonUtility {
 	 * This method is used to generate the Random value times stamped with current
 	 * time
 	 */
-	public String generaterandomnumber(String value) {
+	public String generateRandomNumber(String value) {
 
 		String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis());
 		System.out.println(date);
@@ -1651,7 +1651,7 @@ public class CommonUtility {
 
 			} else if (sProcessCheck.equals("Complete")) {
 				System.out.println(" SFM Process '"+sProcessName+"' already exists:Proceeding to FSA Automation:");
-				ExtentManager.logger.log(Status.PASS, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
+				ExtentManager.logger.log(Status.INFO, "SFM PROCESS '"+sProcessName+"' Already Exists and hence proceeding to FSA Client");
 				return false;
 
 			}
@@ -1660,6 +1660,8 @@ public class CommonUtility {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
 			execSahi(genericLib, sScriptName, sTestCaseId);
+			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
 		}
@@ -2143,6 +2145,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		System.out.println("Element not found to click after scrolling");
+		ExtentManager.logger.log(Status.FAIL, "Element not found after scrolling");
 
 	}
 

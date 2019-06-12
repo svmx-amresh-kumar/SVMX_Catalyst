@@ -61,7 +61,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 
 	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10556",sTestCaseID);
 

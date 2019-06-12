@@ -32,12 +32,12 @@ public class Ph_SCN_10528 extends BaseLib {
 //	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
 // **********Create Account**********
-    String sAccName = commonUtility.generaterandomnumber("Acc");
+    String sAccName = commonUtility.generateRandomNumber("Acc");
     String sAccId = restServices.restCreate("Account?","{\"Name\": \""+sAccName+"\" }");
     System.out.println("Account Id is "+sAccId);
 
 // **********Create Contact**********
-    String sRandomNumber = commonUtility.generaterandomnumber("");
+    String sRandomNumber = commonUtility.generateRandomNumber("");
     String sFirstName = "auto_contact";
     String sLastName = sRandomNumber;
     String sContactName = sFirstName+" "+sLastName;
@@ -46,25 +46,25 @@ public class Ph_SCN_10528 extends BaseLib {
     System.out.println("Contact Id is "+sConId);		
 			
 // **********Create IB**********
-	String sIbName = commonUtility.generaterandomnumber("IB");
-	String sIbNum = commonUtility.generaterandomnumber("IBNum");
+	String sIbName = commonUtility.generateRandomNumber("IB");
+	String sIbNum = commonUtility.generateRandomNumber("IBNum");
 	String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum+"\",\"SVMXC__Country__c\": \"India\"}");
 	System.out.println("IB Id is "+sIbId);
 			
 // **********Create Location**********
-	String sLocName = commonUtility.generaterandomnumber("Loc");
+	String sLocName = commonUtility.generateRandomNumber("Loc");
 	String sLocId = restServices.restCreate("SVMXC__Site__c?","{\"Name\": \""+sLocName+"\", \"SVMXC__Street__c\": \"Bangalore Area\",\"SVMXC__Country__c\": \"India\"}");
 	System.out.println("Loc Id is "+sLocId);
 			
 // **********Create Product**********
-	String sProdName = commonUtility.generaterandomnumber("prod");
+	String sProdName = commonUtility.generateRandomNumber("prod");
 	String sProdId = restServices.restCreate("Product2?","{\"Name\": \""+sProdName+"\"}");
 	System.out.println("Product Id is "+sProdId);
 			
 // **********Create IB with Top Level**********
-	String sIbName1 = commonUtility.generaterandomnumber("IB");
+	String sIbName1 = commonUtility.generateRandomNumber("IB");
 	System.out.println("sIbName1 "+sIbName1);
-	String sIbNum1 = commonUtility.generaterandomnumber("IBNum");
+	String sIbNum1 = commonUtility.generateRandomNumber("IBNum");
 	String sIbId1 = restServices.restCreate("SVMXC__Installed_Product__c?","{\"SVMXC__Company__c\": \""+sAccId+"\", \"Name\": \""+sIbName1+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbNum1+"\",\"SVMXC__Country__c\": \""+sCountry+"\",\"SVMXC__City__c\": \""+sCity+"\",\"SVMXC__Zip__c\":\""+sZipCode+"\",\"SVMXC__Contact__c\":\""+sConId+"\",\"SVMXC__Product__c\":\""+sProdId+"\",\"SVMXC__Site__c\":\""+sLocId+"\",\"SVMXC__Top_Level__c\":\""+sIbId+"\"}");
 	System.out.println("New IB Id is "+sIbId1);
 			
@@ -76,11 +76,11 @@ public class Ph_SCN_10528 extends BaseLib {
 			
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
-//	ph_MorePo.syncData(commonUtility);
-//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+	ph_MorePo.syncData(commonUtility);
+	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	
-	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders","WO-00013461","AutoReg10528");
-	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), "IB23052019105702");
+	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,"AutoReg10528");
+	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), sIbName1);
 	
 	// **********Assert if Form Fill is happening correctly*****************
 	if(sOSName.equalsIgnoreCase("android")) {
@@ -90,17 +90,17 @@ public class Ph_SCN_10528 extends BaseLib {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getText(), sLocName);
 	}
 	else {
-		System.out.println(ph_WorkOrderPo.getTxtProduct().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtZip().getAttribute("value"));
-		System.out.println(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtSite().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtContact().getAttribute("name"));
-		System.out.println(ph_WorkOrderPo.getTxtCountry().getAttribute("label"));
-		System.out.println(ph_WorkOrderPo.getTxtCity().getAttribute("value"));
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getAttribute("name"), sProdName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getAttribute("name"), sZipCode);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"), sIbName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getAttribute("name"), sLocName);
+//		System.out.println(ph_WorkOrderPo.getTxtProduct().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtZip().getAttribute("value"));
+//		System.out.println(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtSite().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtContact().getAttribute("name"));
+//		System.out.println(ph_WorkOrderPo.getTxtCountry().getAttribute("label"));
+//		System.out.println(ph_WorkOrderPo.getTxtCity().getAttribute("value"));
+		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getAttribute("name"), sProdName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getAttribute("name"), sZipCode);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"), sIbName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getAttribute("name"), sLocName);
 	}
 	Dimension dim = driver.manage().window().getSize();
 	int height = dim.getHeight();
@@ -116,9 +116,9 @@ public class Ph_SCN_10528 extends BaseLib {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getText(), sCity);
 	}
 	else {
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getAttribute("value"), sContactName);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getAttribute("value"), sCountry);
-//		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getAttribute("value"), sCity);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getAttribute("value"), sContactName);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getAttribute("value"), sCountry);
+		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getAttribute("value"), sCity);
 	}
 	// **********************************************************************
 	Thread.sleep(10000);

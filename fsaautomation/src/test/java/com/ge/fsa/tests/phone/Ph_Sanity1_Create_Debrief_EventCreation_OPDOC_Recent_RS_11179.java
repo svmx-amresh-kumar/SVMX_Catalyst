@@ -44,8 +44,6 @@ import org.openqa.selenium.Point;
 
 public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends BaseLib
 {
-
-
 	int iWhileCnt =0;
 	String sTestCaseID="Scenario-1"; String sCaseWOID=null; String sCaseSahiFile=null;
 	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
@@ -60,17 +58,15 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 	String slinepriceperunit = "1000";
 
 
-	@Test()
-	//@Test(retryAnalyzer=Retry.class)
+	//@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void iphone() throws Exception
 	{	
-
-
 /*	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 	Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 */
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
 
@@ -90,12 +86,14 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 
-
+		//Login
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
+		//Sync
 		ph_MorePo.syncData(commonUtility);
 
 		ph_CalendarPo.getEleCalendarBtn().click();
+		
 		//click on new icon
 		ph_CalendarPo.getEleCreateNewBtn().click();
 
@@ -121,6 +119,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		System.out.println(sProformainVoice);
 		ph_WorkOrderPo.getEleAdd().click();
 
+		//Sync Data
 		ph_MorePo.syncData(commonUtility);
 
 		// Collecting the Work Order number from the Server.
@@ -128,27 +127,25 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");
 		ph_MorePo.syncData(commonUtility);
+		
 		//open WO from recents
 		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sworkOrderName);
-		//Thread.sleep(2000);
 
 		// To create a new Event for the given Work Order
 		ph_WorkOrderPo.createNewEvent(commonUtility,sEventSubject,ph_CalendarPo);
 
+		//Sync Data post creation of new event
 		ph_MorePo.syncData(commonUtility);
 
 		// Open the Work Order from the calendar
 		ph_CalendarPo.openWoFromCalendar(sEventSubject);
 
 		//Adding parts to WO
-
 		// To add Labor, Parts , Travel , Expense
-
 		String sProcessname = "EditWoAutoTimesstamp";
 		ph_WorkOrderPo.selectAction(commonUtility,sProcessname);
 		// Adding the Parts, Labor,Travel, expense childlines to the Work Order
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
-
 		ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
 
@@ -167,19 +164,18 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		}
 
 		ph_MorePo.syncData(commonUtility);
+		//Work Order Service Report is a standard 
 		sPrintReportSearch = "Work Order Service Report";
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, "AUTOMATION SEARCH", "Work Orders",
 				sworkOrderName, sPrintReportSearch);	
+		//Have to hardcode wait as waitforelement did not work.
 		Thread.sleep(3000);
-		//ph_WorkOrderPo.selectAction(commonUtility,sPrintReportSearch);
 		ph_WorkOrderPo.getEleFinalize().click();
 		//Need to hardcode this 10 sec else the opdoc template isnt loading up and datasync fails.
 		Thread.sleep(10000);
-		ExtentManager.logger.log(Status.PASS,"OPDOC FINALIZE Button was clicked");
+		ExtentManager.logger.log(Status.PASS,"OPDOC FINALIZE Button was clicked and opdoc was generated");
 
 		// server validation 	
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 
@@ -205,33 +201,22 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		if(sChildlinesAfter.equals("0"))
 		{
 			ExtentManager.logger.log(Status.FAIL,"The Childlines After Sync is "+sChildlinesAfter);
-
-			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.FAILED, null);
-
 			System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
 		else
 		{
 			ExtentManager.logger.log(Status.PASS,"The Childlines After Sync is "+sChildlinesAfter);
-
-			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
 			System.out.println("The Childlines After Sync is "+sChildlinesAfter);
 		}
-
-		Thread.sleep(1000);
-
 		// Verification of the fields of the childlines of Type = Parts
 		JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
 		String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
 		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
-
 		String sProductName = restServices.restGetSoqlValue(sSoqlProductName,"Name");
 		String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
 		assertEquals(sProductName, sProductName);
 		assertEquals(sLineQtyParts, "1.0");
 		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Parts match");
-
-
 	}
 
 }

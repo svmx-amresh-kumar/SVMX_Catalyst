@@ -92,12 +92,10 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		sSheetName = "RS_10544";
 		System.out.println("SCN_SourceObject_UPDATE_RS10544");
 
-		sProformainVoice = commonUtility.generaterandomnumber("Account");
+		sProformainVoice = commonUtility.generateRandomNumber("Account");
 		sTestIB = "RS-10544_SOU";
 		sTestIBID = sProformainVoice;
-
-		// String time = driver.getDeviceTime();
-		// System.out.println(time);
+		
 		sScheduledDateSOU = driver.getDeviceTime().split(" ");
 		System.out.println(sScheduledDateSOU);
 		sTestCaseID = "SCN_SourceObjectUpdate_RS_10544";
@@ -145,32 +143,13 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		System.out.println("work Detail");
 		System.out.println(sworkDetail);
 
-		// Creating a servicemax event and assigning the work order to it.
-
-		/*
-		 * String sTech_Id =
-		 * GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,
-		 * sSelectConfigPropFile, "TECH_ID"); String sSoqlQueryTech =
-		 * "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"
-		 * +sTech_Id+"\'"; restServices.getAccessToken(); String sTechnician_ID =
-		 * restServices.restGetSoqlValue(sSoqlQueryTech,"Id"); String sEventName =
-		 * "AUTO_10544Event"; String sEventId =
-		 * restServices.restCreate("SVMXC__SVMX_Event__c?",
-		 * "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""
-		 * +sWorkOrderID+"\", \"SVMXC__Technician__c\":\""
-		 * +sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()
-		 * +"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\"}");
-		 */
-
-		// sWOName = "WO-00002177";
-
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
 				sTestCaseID);
 
 	}
 
 	@Test()
-	// @Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
 	public void RS_10544() throws Exception {
 
 		prerequisites();
@@ -200,7 +179,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 
 		// Adding Parts - to be uncommented after defect fix.
-		// ph_WorkOrderPo.addParts(commonUtility, sProductName);
+	   //ph_WorkOrderPo.addParts(commonUtility, sProductName);
 
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
@@ -218,7 +197,15 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 				"Picklist source object update failed billing type not set to warranty");
 		ExtentManager.logger.log(Status.PASS, "Picklist SOU Header sucessful in Client Expected: " + sBillingTypeSOU
 				+ "  Actual : " + sClientBillingTypeSOU + "");
-
+		
+		String sScheduledDateSOU  = ph_WorkOrderPo.getEleScheduledDate().getText();
+		String sTodaysDate = commonUtility.getDeviceDate().trim();
+		Assert.assertEquals(sScheduledDateSOU, sTodaysDate,
+				"Today source object update failed on Schedule Date");
+		ExtentManager.logger.log(Status.PASS, "Today Date Expected: " + sTodaysDate
+				+ "  Actual : " + sScheduledDateSOU + "");
+		
+		
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleURL());
 		sClientEleNoOfTimesAssignedSOU = ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getText();
 		Assert.assertEquals(sClientEleNoOfTimesAssignedSOU, sNooftimesAssignedSOU,
@@ -254,65 +241,8 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 				" No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS, "Text Area SOU Header sucessful in Client Expected : "
 				+ sProblemDescriptionSOU + " Actual: " + sClientProblemDesc + "");
+
 		
-		
-
-		/*
-		 * Assert.assertEquals(ph_WorkOrderPo.getEleEntitlementPerformedOn().getText(),
-		 * "Boolean  Source Object Update Header fail in Client");
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"Boolean  Source Object Update Header sucessful in Client");
-		 * 
-		 * // TO ALTER AFTER DATE AND DATETIME vALUES ARE FIXEd. /* String
-		 * sScheduledDateHeader =
-		 * workOrderPo.getScheduledDatevalue().getAttribute("value").toString();
-		 * System.out.println("Scheduled Date Header"+sScheduledDateHeader); String
-		 * sScheduledDateTimeHeader =
-		 * workOrderPo.getScheduledDatetimevalue().getAttribute("value").toString();
-		 * System.out.println("Scheduled Date Header"+sScheduledDateTimeHeader);
-		 */
-
-		/*
-		 * ph_WorkOrderPo.getPart().click();
-		 * 
-		 * commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
-		 * Thread.sleep(genericLib.iLowSleep);
-		 * 
-		 * // ph_WorkOrderPo.geteleAddedPart(sProductName).click(); //to be changed
-		 * after code fix to above one ph_WorkOrderPo.geteleRemoveablePart().click();
-		 * 
-		 * 
-		 * //Assert.assertEquals(workOrderPo.getelePart_Edit_Input().getAttribute(
-		 * "value").toString(),sProductName,"Part is not source object updated"); //
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"Part Child  Lookup Source Object Update Header sucessful in Client");
-		 * 
-		 * 
-		 * commonUtility.custScrollToElement(ph_WorkOrderPo.getEleBillingInformation());
-		 * Assert.assertEquals(ph_WorkOrderPo.geteleBillableQty().getText(),
-		 * "2","Child number soulce object updated failed");
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"Child NumberDataType Source Object Update Header sucessful in Client");
-		 * 
-		 * commonUtility.custScrollToElement(ph_WorkOrderPo.getEleStartDateTimeTxtFld())
-		 * ; Assert.assertEquals(ph_WorkOrderPo.getEleBillingInformation().getText(),
-		 * "Long Text area Source Object Updated"
-		 * ,"Long Text are is not source object updated");
-		 * ExtentManager.logger.log(Status.
-		 * PASS,"Child Text area Billing information  Source Object Update Header sucessful in Client"
-		 * );
-		 * 
-		 * //DATE AND DATETIME VALIDATIONS NEED TO ALERTED AFTER final confirmation.
-		 * String sDateRec =
-		 * workOrderPo.getElePart_DateReceived_Edit_Input().getAttribute("value").
-		 * toString(); System.out.println("DateReceived   "+sDateRec); String
-		 * sStartDateTime =
-		 * workOrderPo.getElePart_StartDateTime_Edit_Input().getAttribute("value").
-		 * toString(); System.out.println("StartDateTime   "+sStartDateTime);
-		 * 
-		 * //to close out of parts ph_WorkOrderPo.getEleBackButton().click();
-		 */
-
 		// to close out of work order
 		ph_WorkOrderPo.getEleBackButton().click();
 

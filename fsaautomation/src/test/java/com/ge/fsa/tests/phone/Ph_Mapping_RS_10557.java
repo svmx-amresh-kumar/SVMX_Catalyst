@@ -57,7 +57,7 @@ Boolean	bProcessCheckResult=false;
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 		

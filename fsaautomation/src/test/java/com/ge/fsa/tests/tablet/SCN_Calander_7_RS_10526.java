@@ -39,7 +39,7 @@ public void RS_10526() throws Exception
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";
 		// Login to the Application.

@@ -202,24 +202,19 @@ public class Ph_CalendarPO
 	{
 
 		Thread.sleep(3000);
-		
-		
 		System.out.println("scroll");
 		try {
 			commonUtility.waitforElement(getEleworkordernumonCalendar(Subject), 10);
 			if(getEleworkordernumonCalendar(Subject) != null){
 				System.out.println("Found WO " + Subject);
+				ExtentManager.logger.log(Status.PASS, "Work order found with Subject as: "+Subject);
 			}
-
 			else
 			{
 				System.out.println("Did not Find WO " + Subject);
-				throw new Exception("WorkOrder not found on the Calendar");	
-
+				throw new Exception("WorkOrder not found on the Calendar. Expected is:"+Subject);	
 			}
-
 		}
-
 		catch(Exception e){
 			System.out.println(e);
 			System.out.println("Did not Find WO " + Subject);

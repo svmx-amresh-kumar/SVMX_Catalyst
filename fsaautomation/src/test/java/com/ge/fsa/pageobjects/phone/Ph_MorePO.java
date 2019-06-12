@@ -240,7 +240,7 @@ private WebElement eleSignOutpopup;
 	getEleSyncBtn().click();
 	commonUtility.waitForElementNotVisible(getEleSyncBtn(),3);
 	System.out.println("Clicked on Sync button and waiting...");
-	ExtentManager.logger.pass("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+	ExtentManager.logger.info("After Config Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 	if(commonUtility.waitforElement(getEleConfigSyncCompleted(), 3)) {
 	ExtentManager.logger.log(Status.INFO,"Config Sync Completed sucessfully");
 }else {
@@ -263,7 +263,7 @@ private WebElement eleSignOutpopup;
 		System.out.println("Clicked on Sync Now and waiting...");
 		Thread.sleep(200);
 		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
-		ExtentManager.logger.pass("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+		ExtentManager.logger.info("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		
 		if(commonUtility.isDisplayedCust(getEleDataSynccompleted())) {
 			System.out.println("Data Sync Completed Sucessfully");

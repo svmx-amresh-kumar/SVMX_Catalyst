@@ -53,17 +53,16 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("SAN6_");
+		sSerialNumber = commonUtility.generateRandomNumber("SAN6_");
 		
-		//	sDeviceDate = driver.getDeviceTime().split(" ");
-
+		//Creating Product
 		sJsonData = "{\"Name\": \""+sSerialNumber+"\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
-		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		//sProductName = "";
+		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";		
 		
+		//Creating Case
+		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Sanity6 is validated\", \"Priority\": \"High\", \"Description\": \"Description of Sanity6 \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
@@ -76,11 +75,10 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	*/	
 	}
 
-	@Test()
-	//@Test(retryAnalyzer=Retry.class)
 	//@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario6Test() throws Exception {
-		 sSheetName ="SANITY6";
+		sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
@@ -93,7 +91,6 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
-		
 		//lauchNewApp("false");
 
 		//Pre Login to app
@@ -108,17 +105,10 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep); 
 		
 		//Navigation to SFM
-		
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName);
-		//sAppDate = workOrderPo.getEleScheduledDateTxt().getAttribute("value").split("/");
-		//System.out.println(Arrays.toString(sAppDate));
-		//System.out.println(Arrays.toString(sDeviceDate));
-		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
-		Thread.sleep(3000);
 		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
+		//need this wait as waitforelement did not work
 		Thread.sleep(3000);
-		
-		
 		commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
 		ph_WorkOrderPo.geteleRemoveablePart().click();
 		
@@ -133,13 +123,14 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		{
 			commonUtility.waitforElement(ph_WorkOrderPo.geteleDelete(), 3);
 			ph_WorkOrderPo.geteleDelete().click();
-			Thread.sleep(5000);
+			Thread.sleep(3000);
+			ph_WorkOrderPo.geteleDelete().click();
+
 		}
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_WorkOrderPo.getEleOverViewTab().click();
 		
 		//Set the order status
-		
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
 		Thread.sleep(GenericLib.iLowSleep);
 
@@ -150,7 +141,6 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//Add the workorder parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 		commonUtility.isDisplayedCust(ph_WorkOrderPo.geteleAddedPart(sProductName));
-		//Thread.sleep(3000);
 		ph_WorkOrderPo.geteleAddedPart(sProductName).click();
 		
 		//Validating Mapping for text. 
@@ -161,7 +151,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 			ph_WorkOrderPo.getEleWODesMappedTxt().click();
 
 		}
-		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is dispalyed successfully");
+		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is displayed successfully");
 		
 		//Validating Mapping for Number. 
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQty());
@@ -169,13 +159,11 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		String billableQtyapp=ph_WorkOrderPo.geteleBillableQty().getText();
 		Assert.assertTrue(billableQtyapp.equals(billableQfeed), "Billable Quantity mapped right!");
 		ExtentManager.logger.log(Status.PASS,"Billing Quantity Mapped successfully");
-		
 		ph_WorkOrderPo.geteleXsymbol().click();
 		commonUtility.isDisplayedCust(ph_WorkOrderPo.getElesave());
 		ph_WorkOrderPo.getElesave().click();
-		Thread.sleep(2000);
 		
-		//Validating sounrce object update.
+		//Validating Source  object update.
 		
 		ph_WorkOrderPo.navigatetoWO(commonUtility,ph_ExploreSearchPo, sExploreSearch,sExploreChildSearchTxt,sCaseID);
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleDescriptiontext());
@@ -202,16 +190,6 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		Assert.assertTrue(sProbdescWOClient.equals(sExpectedProbeDesc), "Source to Target Failed!");
 		ExtentManager.logger.log(Status.PASS,"Source to Target Process Sucessfull, WO Desc Expected :"+sExpectedProbeDesc+" Actual : "+sProbdescWOClient+"");
 
-
-		/*
-
-		//Save the workorder updates and validate
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Failed to save the work orer update");
-		ExtentManager.logger.log(Status.PASS,"Work Order Saved successfully");
-	
-	*/
 	}
 
 }

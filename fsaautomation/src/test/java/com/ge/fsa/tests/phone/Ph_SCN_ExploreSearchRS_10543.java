@@ -32,7 +32,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	private void preRequiste() throws Exception { 
 
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("RS_10543_");
+		sSerialNumber = commonUtility.generateRandomNumber("RS_10543_");
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -40,12 +40,16 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		sWoObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoObjectID+"\'";				
 		sWOName =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service. Work Order Id:"+sWoObjectID);
+
 		
 		sJsonData = "{\"Origin\": \"phone\", \"Subject\": \"Test RS_10543 Validation\", \"Priority\": \"High\", \"Description\": \"Description of RS_10543 \",\"Status\": \"Escalated\"}";
 		sObjectApi = "Case?";
 		sCaseObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
-		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
+		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber");
+		ExtentManager.logger.log(Status.INFO, "Case has been created through rest web service. Work Order Id:"+sCaseID);
+
 		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
@@ -92,7 +96,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		Thread.sleep(GenericLib.iHighSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getDownloadIcon(sWOName).isDisplayed(), "Download Icon is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Download Icon  is successfully displayed");
+		ExtentManager.logger.log(Status.INFO,"Download Icon  is successfully displayed");
 		
 		ph_ExploreSearchPo.getDownloadIcon(sWOName).click();
 		Thread.sleep(GenericLib.iHighSleep);
@@ -106,7 +110,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		Thread.sleep(3000);
 		//Validation of qualifying workorder with Issue found text error.
 		Assert.assertTrue(ph_WorkOrderPo.verifyWorkOrder().contains("View Work Order "+sWOName),"Word order event is not saved correctly.");
-		ExtentManager.logger.log(Status.PASS,"work order is saved successfully");
+		ExtentManager.logger.log(Status.INFO,"work order is saved successfully");
 		
 		//Steps for Case search
 		sExploreChildSearchTxt="Cases";
@@ -126,7 +130,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getDownloadIcon(sCaseID).isDisplayed(), "Download Icon is not displayed");
-		ExtentManager.logger.log(Status.PASS,"Download Icon  is successfully displayed");
+		ExtentManager.logger.log(Status.INFO,"Download Icon  is successfully displayed");
 		
 		ph_ExploreSearchPo.getDownloadIcon(sCaseID).click();
 		Thread.sleep(GenericLib.iHighSleep);

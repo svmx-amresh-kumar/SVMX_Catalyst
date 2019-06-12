@@ -89,7 +89,7 @@ public class TasksPO{
 	 */
 
 	public String addTask(CommonUtility commonUtility, String...sDesc) throws InterruptedException {
-		String desc = sDesc.length > 0 ? sDesc[0] : commonUtility.generaterandomnumber("TaskDesc");
+		String desc = sDesc.length > 0 ? sDesc[0] : commonUtility.generateRandomNumber("TaskDesc");
 		commonUtility.tap(getEleTasksIcn());	
 		Assert.assertTrue(getEleTasksLbl().isDisplayed(), "Tasks screen is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Tasks screen is displayed successfully");

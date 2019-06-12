@@ -58,8 +58,8 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		Thread.sleep(10000);
 		
 		// Create Installed Product
-		sIBName = commonUtility.generaterandomnumber("IB");
-		sIbSerialNum = commonUtility.generaterandomnumber("IBNum");
+		sIBName = commonUtility.generateRandomNumber("IB");
+		sIbSerialNum = commonUtility.generateRandomNumber("IBNum");
 		String sIbId = restServices.restCreate("SVMXC__Installed_Product__c?","{\"Name\": \""+sIBName+"\", \"SVMXC__Serial_Lot_Number__c\": \""+sIbSerialNum+"\",\"SVMXC__Country__c\": \"India\"}");
 		System.out.println("IB id is "+sIbId);
 		Thread.sleep(1000);

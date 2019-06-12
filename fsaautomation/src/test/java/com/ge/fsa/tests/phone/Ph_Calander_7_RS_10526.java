@@ -46,7 +46,7 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";
 		 

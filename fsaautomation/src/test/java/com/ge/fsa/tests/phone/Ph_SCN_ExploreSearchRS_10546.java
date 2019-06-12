@@ -33,19 +33,22 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 	private void preRequiste() throws Exception  
 	{
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("");
+		sSerialNumber = commonUtility.generateRandomNumber("");
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
 		sJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
 		sObjectID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
-		sWOName =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455"; 
+		sWOName =restServices.restGetSoqlValue(sSqlQuery,"Name"); //"WO-00000455";
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service. Work Order Id:"+sObjectID);
+
 		
 		// Create product
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"product\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectProID=restServices.restCreate(sObjectApi,sJsonData);
+		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name:"+sSerialNumber+" and returned Product Id:"+sObjectProID);
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectProID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
@@ -53,11 +56,13 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sSerialNumber+""+"AccA\"}";
 		sAccountNameA=restServices.restCreate(sObjectApi,sJsonData);
-		System.out.println(sAccountNameA);
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sSerialNumber+" and returned Account Id:"+sAccountNameA);
 		
 		//create Contact
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sSerialNumber+"\", \"LastName\": \"RS_10546\", \"AccountId\": \""+sAccountNameA+"\"}");
 		sContactName = sSerialNumber+" "+"RS_10546";
+		ExtentManager.logger.log(Status.INFO, "Contact has been created through rest web service with Name:"+sSerialNumber+" and returned Account Id:"+sContactName);
+
 		
 		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
@@ -123,7 +128,7 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		String appAccountCnt=ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText();
 		Assert.assertTrue(appAccountCnt.equals(sAccountCnt), "Invalid Account count is displayed. Expected:"+sAccountCnt
 				+" Actual:"+appAccountCnt);
-		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.Expected:"+sAccountCnt+" Actual:"+appAccountCnt);
+		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.Expected: "+sAccountCnt+" Actual:"+appAccountCnt);
 
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName, null);
