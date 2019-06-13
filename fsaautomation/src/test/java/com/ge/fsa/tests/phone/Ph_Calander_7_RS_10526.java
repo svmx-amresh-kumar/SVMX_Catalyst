@@ -34,13 +34,8 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 	String sContactName = null;
 	String sworkOrderID=null;
 
-	@BeforeMethod
-	public void initializeObject() throws IOException {
 
-	}
-
-	@Test()
-
+	@Test(retryAnalyzer=Retry.class)
 	public void Ph_10526() throws Exception {
 		
 
@@ -51,7 +46,7 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "Create Event from WO in Client";
 		 

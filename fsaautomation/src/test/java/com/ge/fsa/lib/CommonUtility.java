@@ -673,7 +673,7 @@ public class CommonUtility {
 	 * This method is used to generate the Random value times stamped with current
 	 * time
 	 */
-	public String generaterandomnumber(String value) {
+	public String generateRandomNumber(String value) {
 
 		String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis());
 		System.out.println(date);
@@ -1660,6 +1660,8 @@ public class CommonUtility {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
 			execSahi(genericLib, sScriptName, sTestCaseId);
+			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
 		}
@@ -1946,8 +1948,8 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/idevicedate").trim();
-			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-eea4f1b_3/bin/ideviceinfo");
+			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/idevicedate").trim();
+			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 

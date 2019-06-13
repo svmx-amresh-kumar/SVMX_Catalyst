@@ -1,6 +1,7 @@
 package com.ge.fsa.tests.phone;
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertEquals;
 import java.io.IOException;
@@ -42,42 +43,29 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 	String sIBLastModifiedBy=null;
 	String sObjectlocationID=null;
 String Location=null;
-	
+String assertionMessage="";
 	WebElement productname=null;
 	String sSheetName =null;
-	
+Boolean	bProcessCheckResult=false;
 	@BeforeMethod
 	public void initializeObject() throws IOException { 
 		
 	} 
 
-	@Test()
-	
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10557() throws Exception {
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		
-		String sProformainVoice = commonUtility.generaterandomnumber("AUTO");
+		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 		
+		
 		//sahi
-				/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
-				if(commonsUtility.verifySahiExecution()) {
-					
-					System.out.println("PASSED");
-				}
-				else 
-				{
-					System.out.println("FAILED");
-					
+		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10554",sTestCaseID);
+		
 
-					ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-					assertEquals(0, 1);
-				}
-				lauchNewApp("true");
-				System.out.println("RS_10557");
-		*/
 		
 		
 		//read from file
@@ -113,6 +101,8 @@ String Location=null;
 			//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
+		Thread.sleep(GenericLib.iMedSleep);
 			//datasync
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
@@ -137,15 +127,16 @@ String Location=null;
 		  //ph_WorkOrderPo.getEleComponent().click();
 		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleComponent(), sproductname); Thread.sleep(2000);
 		 
-		Thread.sleep(15000);
+		Thread.sleep(3000);
 			//add new line for parts
 		  commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk(), ph_WorkOrderPo.getStringParts());
 			Thread.sleep(3000);
 			String LocationWO = ph_WorkOrderPo.getEleToLocation().getText();
 			System.out.println(LocationWO);
 			Assert.assertNotNull(LocationWO);
-			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful  ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"(Lookup(Location)) value mapping Failed ");}
+			 assertionMessage = "Location value mapping before save Expected = "+Location +" Actual = "+LocationWO;
+			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ph_WorkOrderPo.getEleAdd().click();
 			
 			//Add new line for labor
@@ -155,9 +146,9 @@ String Location=null;
 			System.out.println(startdatetimeWO);
 			Assert.assertNotNull(startdatetimeWO);
 			
-			
-			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed ");}
+			 assertionMessage = "Scheduled DateTime value mapping before save Expected = "+ScheduledDateTimeWO +" Actual = "+startdatetimeWO;
+			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ph_WorkOrderPo.getEleAdd().click();
 			
 			//validating mapped values before save
@@ -167,8 +158,9 @@ String Location=null;
 			Thread.sleep(2000);
 			  LocationWO = ph_WorkOrderPo.getEleToLocation().getText();
 			 System.out.println(LocationWO);
-			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed before save ");}
+			 assertionMessage = "Location value mapping before save Expected = "+Location +" Actual = "+LocationWO;
+			try{Assert.assertTrue(Location.equals(LocationWO));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			
 			 //Labor
@@ -179,8 +171,9 @@ String Location=null;
 			Thread.sleep(2000);
 			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
 			 System.out.println(startdatetimeWO);
-			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful before save ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed before save ");}
+			 assertionMessage = "Scheduled DateTime value mapping before save Expected = "+ScheduledDateTimeWO +" Actual = "+startdatetimeWO;
+			 try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			Thread.sleep(2000);
 			
@@ -217,17 +210,19 @@ String Location=null;
 			String sLocationid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Requested_Location__c");
 			System.out.println("****************"+sLocationid);
 			String LocationQuery = "SELECT+Name+from+SVMXC__Site__c+where+id=\'"+sLocationid+"\'";
-			String soqllocationName  =restServices.restGetSoqlValue(LocationQuery,"Name"); 
-			try{assertEquals(Location, soqllocationName);ExtentManager.logger.log(Status.PASS,"(Lookup(Location)) value mapped Successful from server ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed from server ");}
+			String soqllocationName  =restServices.restGetSoqlValue(LocationQuery,"Name");
+			assertionMessage = "Location value mapping from server Expected = "+Location +" Actual = "+soqllocationName;
+			try{assertEquals(Location, soqllocationName);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 	
 			
 			//Collecting the labor from the Server.
 			JSONArray sJsonArraylabor = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Start_Date_and_Time__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Requested_Location__c+ = null+and+SVMXC__Start_Date_and_Time__c!=null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
 			String sstartdatetime = restServices.getJsonValue(sJsonArraylabor, "SVMXC__Start_Date_and_Time__c");
 			System.out.println("****************"+sstartdatetime);
-			try{assertEquals(sSoqlQueryscheduleddatewo, sstartdatetime);ExtentManager.logger.log(Status.PASS,"startdatetime value mapped Successful from server ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed from server ");}
+			 assertionMessage = "Scheduled DateTime value mapping from server Expected = "+sSoqlQueryscheduleddatewo +" Actual = "+sstartdatetime;
+			 try{assertEquals(sSoqlQueryscheduleddatewo, sstartdatetime);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ExtentManager.logger.log(Status.PASS,"Mapping is Successful from Server");
 
 		
@@ -243,8 +238,9 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleToLocation());
 			String fetchedlocation = ph_WorkOrderPo.getEleToLocation().getText();
 		System.out.println(fetchedlocation);
-			try{Assert.assertTrue(Location.equals(fetchedlocation));ExtentManager.logger.log(Status.PASS,"Location value mapped Successful after data sync ");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"Location value mapping Failed after data sync ");}
+		assertionMessage = "Location value mapping after data sync Expected = "+Location +" Actual = "+soqllocationName;
+			try{Assert.assertTrue(Location.equals(fetchedlocation));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			ph_WorkOrderPo.geteleXsymbol().click();
 			 
 			 //Labor
@@ -253,8 +249,9 @@ String Location=null;
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleStartDateTimeTxtFld());
 			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
 			 System.out.println(startdatetimeWO);
-			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,"startdatetime mapped Successful after data sync");}catch(AssertionError e) {System.out.println(e);
-			ExtentManager.logger.log(Status.FAIL,"startdatetime value mapping Failed after data sync ");}
+			 assertionMessage = "Scheduled DateTime value mapping after data sync Expected = "+sSoqlQueryscheduleddatewo +" Actual = "+sstartdatetime;
+			try{Assert.assertTrue(ScheduledDateTimeWO.equals(startdatetimeWO));ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			Thread.sleep(2000);
 			ph_WorkOrderPo.geteleXsymbol().click();
 			Thread.sleep(2000);
@@ -268,11 +265,5 @@ String Location=null;
 	
 	}
 
-	
-	  @AfterClass(enabled = true) public void deletedata() throws Exception {
-	  //Deleting data created
-	  restServices.restDeleterecord("Account",sObjectAccID);
-	  restServices.restDeleterecord("Product2",sObjectProID);
-	  restServices.restDeleterecord("SVMXC__Site__c",sObjectlocationID); }
 	
 }

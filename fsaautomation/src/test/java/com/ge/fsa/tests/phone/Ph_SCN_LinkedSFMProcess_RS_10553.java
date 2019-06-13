@@ -32,24 +32,28 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 	public void RS_10553() throws Exception {
 
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
+		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
+
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		System.out.println(LocalDate.now().plusDays(1L));
+		
 		// Have a config Sync
-		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		if(configSync) {
+			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		}
 		ph_MorePo.syncData(commonUtility);
 
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		// Creating Account from API
 		sAccountName = "auto_account" + sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?", "{\"Name\":\"" + sAccountName + "\"}");
-		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name:"+sAccountName+" and returned Account Id:"+sAccountId);
+		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Name : "+sAccountName+" and returned AccountId : "+sAccountId);
 
 
 		// Creating Product from API
 		sProductName = "auto_product1" + sRandomNumber;
 		String sProductId = restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
-		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name:"+sProductName+" and returned Account Id:"+sProductId);
+		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name : "+sProductName+" and returned AccountId : "+sProductId);
 
 		// Creating Installed Product from API
 
@@ -57,7 +61,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		String sIBId=restServices.restCreate("SVMXC__Installed_Product__c?",
 				"{\"Name\":\"" + sIBName + "\", \"SVMXC__Product__c\":\"" + sProductId
 						+ "\",\"SVMXC__Serial_Lot_Number__c\":\"" + sIBName + "\" }");
-		ExtentManager.logger.log(Status.INFO, "Account has been created through rest web service with Product as:"+sProductId+" and returned Installed Product Id:"+sIBId);
+		ExtentManager.logger.log(Status.INFO, "Installed Product has been created through rest web service with ProductId : "+sProductId+" and returned InstalledProductId : "+sIBId);
 
 
 		// Creating Contact from API
@@ -67,14 +71,16 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		System.out.println(sContactName);
 		String sContactId = restServices.restCreate("Contact?", "{\"FirstName\": \"" + sFirstName
 				+ "\", \"LastName\": \"" + sLastName + "\", \"AccountId\": \"" + sAccountId + "\"}");
+		ExtentManager.logger.log(Status.INFO, "Contact created through webservices with FirstName : "+sFirstName+" , LastName : "+sLastName+" , AccountId : "+sAccountId+
+				" and returned ContactId : "+sContactId);
 		// toolsPo.syncData(commonUtility);
 		// Creating the Work Order using API
 
 		String sWorkorderID = restServices.restCreate("SVMXC__Service_Order__c?", "{\"SVMXC__Company__c\": \""
 				+ sAccountId + "\", \"SVMXC__Contact__c\": \"" + sContactId + "\", \"SVMXC__Priority__c\": \"High\"}");
-		System.out.println("Work Order Id" + sWorkorderID);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder is created through webservice with Contact : "+sContactId+" and returned WorkOder : "+sWorkorderID);
+		System.out.println("Work OrderId" + sWorkorderID);
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+Id+=\'" + sWorkorderID + "\'";
-		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery, "Name");
 
 		// Syncing the Data of the Work Order
@@ -107,7 +113,6 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 
 		// Verifying if PS Lines are Visible and Part Lines are not Visible
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
-		//Thread.sleep(3000);
 		commonUtility.gotToTabHorizontal("PRODUCTS SERVICED");
 		if (ph_WorkOrderPo.getChildLineAddedItem(sIBName).isDisplayed() == true) {
 			ExtentManager.logger.log(Status.PASS, "The PS Lines are Added ");
@@ -116,7 +121,6 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 //			ph_WorkOrderPo.getEleMore().click();
 //			ph_WorkOrderPo.getEleManageWorkDetails().click();
 			commonUtility.clickPopup(ph_WorkOrderPo.getEleMore(), ph_WorkOrderPo.getEleManageWorkDetails());
-			//Thread.sleep(3000);
 			try {
 				ph_WorkOrderPo.getEleeleIBId(sProductName).isDisplayed();
 				ExtentManager.logger.log(Status.FAIL, "The Product from Parts is Saved - Not Expected Scenario");

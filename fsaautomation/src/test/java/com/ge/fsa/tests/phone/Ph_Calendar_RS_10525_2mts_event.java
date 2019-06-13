@@ -65,7 +65,6 @@ int iWhileCnt = 0;
 			
 			// Pre Login to app
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		
 
 		//create WO and Account
@@ -112,7 +111,6 @@ int iWhileCnt = 0;
 			sJsonData = "{\"Name\": \"Two_months_event\",\"SVMXC__Service_Order__c\": \""+sObjectAWOID+"\",\"SVMXC__Technician__c\": \""+TechName+"\",\"SVMXC__StartDateTime__c\": \""+starttimezero+"\", \"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\": \""+sObjectAWOID+"\"}";	
 
 
-		//	sJsonData = "{\"Name\":\"OneDayEvent\",\"SVMXC__Service_Order__c\":\""+sWOName+"\",\"SVMXC__StartDateTime__c\":\""+starttimezero+"\",\"SVMXC__EndDateTime__c\":\""+endtimezero+"\",\"SVMXC__WhatId__c\":\""+sObjectAWOID+"\"}";	
 			String sObjecteventID=restServices.restCreate(sObjectApi,sJsonData);
 			sSqlAccQuery ="SELECT+name+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sObjecteventID+"\'";				
 			String seventName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
@@ -124,7 +122,6 @@ int iWhileCnt = 0;
 			ph_MorePo.syncData(commonUtility);
 
 		
-		//String sWOName="WO-00002608";  String sObjectAWOID ="a2D0t000002Me4tEAC";
 			String sSoqlStartDateTime = "SELECT+SVMXC__StartDateTime__c+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sObjectAWOID+"\'";
 		 String sSoqlQueryStartDateTime = restServices.restGetSoqlValue(sSoqlStartDateTime, "SVMXC__StartDateTime__c");
 			System.out.println(sSoqlQueryStartDateTime);

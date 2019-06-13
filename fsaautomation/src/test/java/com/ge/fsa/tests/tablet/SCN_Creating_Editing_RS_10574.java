@@ -77,7 +77,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		
-		 sRandomNumber = commonUtility.generaterandomnumber("");
+		 sRandomNumber = commonUtility.generateRandomNumber("");
 		 sProformainVoice = "Proforma"+sRandomNumber;
 		 sEventSubject = "EventName_RS10574_1";
 		// sEventSubject2 = "EventName_RS10574_2";

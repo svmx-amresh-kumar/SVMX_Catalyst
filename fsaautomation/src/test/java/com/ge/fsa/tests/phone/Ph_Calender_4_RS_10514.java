@@ -60,7 +60,7 @@ public class Ph_Calender_4_RS_10514 extends BaseLib {
 
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sEventSubject = "EventName" + sRandomNumber;
 		// sahi
 

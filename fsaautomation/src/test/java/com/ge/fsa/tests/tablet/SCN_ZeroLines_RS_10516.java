@@ -48,7 +48,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		// Have a config Sync
 		toolsPo.configSync(commonUtility);
 		
-		String sRandomNumber = commonUtility.generaterandomnumber("");
+		String sRandomNumber = commonUtility.generateRandomNumber("");
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");

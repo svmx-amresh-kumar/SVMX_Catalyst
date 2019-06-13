@@ -33,7 +33,7 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 	private void preRequiste() throws Exception  
 	{
 		restServices.getAccessToken();
-		sSerialNumber = commonUtility.generaterandomnumber("");
+		sSerialNumber = commonUtility.generateRandomNumber("");
 		
 		//Creation of dynamic Work Order
 		sObjectApi="SVMXC__Service_Order__c?";
@@ -128,7 +128,7 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		String appAccountCnt=ph_ExploreSearchPo.getEleSearchListItemCount("Accounts").getText();
 		Assert.assertTrue(appAccountCnt.equals(sAccountCnt), "Invalid Account count is displayed. Expected:"+sAccountCnt
 				+" Actual:"+appAccountCnt);
-		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.Expected:"+sAccountCnt+" Actual:"+appAccountCnt);
+		ExtentManager.logger.log(Status.PASS,"Valid Accounts count is displayed.Expected: "+sAccountCnt+" Actual:"+appAccountCnt);
 
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Work Orders", sWOName, null);

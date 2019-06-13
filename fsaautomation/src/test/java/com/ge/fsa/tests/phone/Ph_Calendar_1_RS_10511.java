@@ -23,32 +23,29 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.Retry;
 
 public class Ph_Calendar_1_RS_10511 extends BaseLib {
 
 int iWhileCnt = 0;
 	
-	String sExploreSearch = null;
-	String sExploreChildSearchTxt = null;
+	
 	String sObjectAccID = null;
 	String sSqlAccQuery=null;
-	
 	String sObjectApi = null;
 	String sJsonData = null;
-	String sObjectAWOID=null; 
-	String sFieldServiceName = null;
-	String sSoqlwoid1=null;
-	String sSqlQuery = null;
 	String sSheetName =null;
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
-	public void Ph_10511() throws Exception {
+	String SFDC_Event1="A10511_SFDC_Event1";
+	String SFDC_Event2="A10511_SFDC_Event2";
+	String SFDC_Event3="A10511_SFDC_Event3";
+	String SVMX_Event1="A10511_SVMX_Event1";
+	String SVMX_Event2="A10511_SVMX_Event2";
+	String SVMX_Event3="A10511_SVMX_Event3";
 	
+
+	@Test(retryAnalyzer=Retry.class)
+	public void Ph_10511() throws Exception {
+
 	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		sSheetName ="RS_10511";
@@ -62,18 +59,9 @@ int iWhileCnt = 0;
   			assertEquals(0, 1);}
   		lauchNewApp("false"); 
   		System.out.println("RS_10511");
-	
-	//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
 		
-		String sWO_SFDC_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
 		String sWO_SFDC_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
-		String sWO_SFDC_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_3");		
-		String sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
-		String sWO_SVMX_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
 		
 		
 		String sSalesforceuser= GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
@@ -86,28 +74,28 @@ int iWhileCnt = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
 		ph_CalendarPo.getEleCalendarBtn().click();			
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event3");
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event1");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event1");
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SVMX_Event3");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event3");
+			ph_CalendarPo.custScroll(commonUtility,SFDC_Event1);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event1);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event2);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event3);
+			ph_CalendarPo.custScroll(commonUtility,SVMX_Event1);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event1);
+			ph_CalendarPo.custScroll(commonUtility,SVMX_Event2);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event2);
+			ph_CalendarPo.custScroll(commonUtility,SVMX_Event3);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event3);
 			ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//delete one SFDC and one SVMX event
 			System.out.println("delete one SFDC and one SVMX event");
 			sObjectApi = "Event?";
-			String sSqlEventQuery = "SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event1\'";				
+			String sSqlEventQuery = "SELECT+id+from+Event+Where+Subject+=\'"+SFDC_Event1+"\'";				
 			String sEventIdSFDC_1 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSFDC_1);
 			
 			sObjectApi = "SVMXC__SVMX_Event__c?";
-			String sSqlWOQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event1\'";				
+			String sSqlWOQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'"+SVMX_Event1+"\'";				
 			String sEventIdSVMX_1 =restServices.restGetSoqlValue(sSqlWOQuery,"Id"); 
 			System.out.println(sEventIdSVMX_1);
 			
@@ -119,13 +107,13 @@ int iWhileCnt = 0;
 			ph_MorePo.syncData(commonUtility);
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SFDC_Event1");
-			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SVMX_Event1");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event3");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event3");
+			ph_CalendarPo.custScroll(commonUtility,SFDC_Event1);
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,SFDC_Event1);
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,SVMX_Event1);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event2);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event3);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event2);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event3);
 			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +128,7 @@ int iWhileCnt = 0;
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSFDC_2 );
 
 			sObjectApi = "Event";
-			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
+			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'"+SFDC_Event2+"\'";				
 			String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSFDC_2);
 			//updating event
@@ -159,7 +147,7 @@ int iWhileCnt = 0;
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSVMX_2 );
 
 			sObjectApi = "SVMXC__SVMX_Event__c";
-			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10511_SVMX_Event2\'";				
+			sSqlEventQuery ="SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'"+SVMX_Event2+"\'";				
 			String sEventIdSVMX_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSVMX_2);
 			//updating event
@@ -169,14 +157,14 @@ int iWhileCnt = 0;
 			ph_MorePo.syncData(commonUtility);
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventdeletion(commonUtility,"A10511_SVMX_Event2");
+			ph_CalendarPo.custScroll(commonUtility,SFDC_Event2);
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,SFDC_Event2);
+			ph_CalendarPo.VerifyEventdeletion(commonUtility,SVMX_Event2);
 			
 			ph_MorePo.getEleMoreBtn().click();
 			ph_MorePo.getEleSignOut().click();
 			Thread.sleep(3000);
-			ph_MorePo.getEleSignOut().click();
+			ph_MorePo.getEleSignOutpopup().click();
 			
 			commonUtility.waitforElement(ph_LoginHomePo.getEleSignInBtn(),200);
 			System.out.println("Sign out successfully");
@@ -185,14 +173,14 @@ int iWhileCnt = 0;
 			ph_LoginHomePo.login(commonUtility, ph_MorePo,"TECH_USN_1");
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SFDC_Event2");
-			ph_CalendarPo.VerifyEventInCalender(commonUtility,"A10511_SVMX_Event2");
-			
+			ph_CalendarPo.custScroll(commonUtility,"SFDC_Event2");
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event2);
+			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event2);
+		
 			ph_MorePo.getEleMoreBtn().click();
 			ph_MorePo.getEleSignOut().click();
 			Thread.sleep(3000);
-			ph_MorePo.getEleSignOut().click();
+			ph_MorePo.getEleSignOutpopup().click();
 			
 			commonUtility.waitforElement(ph_LoginHomePo.getEleSignInBtn(),200);
 			System.out.println("Sign out successfully from tech2");
