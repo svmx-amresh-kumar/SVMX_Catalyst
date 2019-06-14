@@ -35,6 +35,7 @@ public class GenericLib
 	public static int iHighSleep = 8000;
 	public static int iMedSleep = 5000;
 	public static int iLowSleep = 2000;
+	public static int iAttachmentSleep = 120000;
 	public static int iProcessStatus=0;
 	public static long lWaitTime=2000;
 	public static String sAppBundleID = BaseLib.sApp_BundleID;
