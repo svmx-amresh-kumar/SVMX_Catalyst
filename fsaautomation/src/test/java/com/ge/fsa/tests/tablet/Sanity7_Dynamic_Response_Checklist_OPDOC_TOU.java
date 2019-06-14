@@ -190,6 +190,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		// Verifying if checklistopdoc is synced to server
 		  	System.out.println("Validating if OPDOC attachment is syned to server.");
 		  	Thread.sleep(GenericLib.iMedSleep);
+		  	Thread.sleep(100000);
 		  	Thread.sleep(GenericLib.iMedSleep);
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();

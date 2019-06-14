@@ -43,6 +43,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	String sWONameTV = null;
 	String sEventSubject = "Create Event from WO in Client";
 	String sChecklistName=null;
+	String sFileTitleafter1=null;
 	
 	//Attachment questions
 	
@@ -53,10 +54,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	
 	public void prereq() throws Exception
 	{	
-		sSheetName ="RS_10584";
+		sSheetName ="RS_12367";
 		System.out.println("SCN_RS10584_Checklist_Attachment");
-		sTestCaseID = "SCN_ChecklistAttachment_RS-10584";
-		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
+		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
+		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 
 		// Reading from the Excel sheet
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
@@ -126,25 +127,27 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		
 		//Enabling salesforce files
 		
-		  System.out.println("Setting the GBL037 to true");
-		  
-		  genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
-		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
-		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
-		  
-		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
-		  
-		  System.out.println("Setting the SET007 to Flase");
-		  genericLib.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
-		  
-		  toolsPo.Resetapp(commonUtility, exploreSearchPo);
+		/*
+		 * System.out.println("Setting the GBL037 to true");
+		 * 
+		 * genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
+		 * "sTestCaseID"); if(commonUtility.verifySahiExecution())
+		 * {System.out.println("PASSED"); } else { System.out.println("FAILED");
+		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		 * "Sahi verification failure"); assertEquals(0, 1); }
+		 * 
+		 * ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
+		 * 
+		 * System.out.println("Setting the SET007 to Flase");
+		 * genericLib.executeSahiScript(
+		 * "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
+		 * if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
+		 * { System.out.println("FAILED");
+		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		 * "Sahi verification failure"); assertEquals(0, 1); }
+		 * 
+		 * toolsPo.Resetapp(commonUtility, exploreSearchPo);
+		 */
 		 
 		  
 		  /*------------Upload from library- sales force files--------------*/ 
@@ -173,7 +176,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(90000);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
@@ -201,7 +204,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			  
 			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			  Thread.sleep(GenericLib.iLowSleep);
+			  Thread.sleep(30000);
+			  commonUtility.tap(checklistPo.geteleChecklistBackButton());
+			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+			  Thread.sleep(30000);
 			  
 			  try {
 				  WebElement Filedownload = driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
@@ -317,7 +323,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 String sContentdocid1 = "select ContentDocumentId from ContentDocumentLink where (id = \'"+sContentDocLinkIdafter1+"\')";
 			 String sContentdocidafter1 = restServices.restGetSoqlValue(sContentdocid1, "ContentDocumentId");
 			 String sFileTitle1 = "select Title from ContentDocument where Id=\'"+sContentdocidafter1+"\'";
-			 String sFileTitleafter1 = restServices.restGetSoqlValue(sFileTitle1, "Title");
+			 sFileTitleafter1 = restServices.restGetSoqlValue(sFileTitle1, "Title");
 			 System.out.println(sFileTitleafter1);
 			 ExtentManager.logger.log(Status.INFO,"File uplaoded is"+sFileTitleafter1);
 			 
@@ -424,7 +430,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  
 			  
 			 
-		
+				 /*------------Upload from library- sales force files--------------*/
 	
 	
 	
