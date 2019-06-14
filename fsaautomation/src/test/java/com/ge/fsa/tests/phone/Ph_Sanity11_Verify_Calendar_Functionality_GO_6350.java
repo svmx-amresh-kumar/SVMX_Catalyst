@@ -53,11 +53,9 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	String sFieldServiceName = null;
 	String sproductname = null;
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
 	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
-	String techname = "a240t000000GglLAAS";
 	WebElement productname = null;
 	String sSheetName = null;
 
@@ -66,11 +64,11 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	}
 
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 
 	public void Calender_6350() throws Exception {
 		//sSheetName = "RS_10513";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 
 		String sTestCaseID = "Calender_6350";
 
@@ -416,16 +414,14 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 				ph_CalendarPo.getEleAgendaView().click();
 				
 			Thread.sleep(3000);
-		//	commonUtility.swipeGeneric("down");
-		//	commonUtility.custScrollToElement(ph_CalendarPo.getEletopelement());
-			
+		
 		int Eventcount=	ph_CalendarPo.getEleAgendaViewcomponent().size();
 		System.out.println(Eventcount);
 	if(Eventcount==4)
 	{
 		ExtentManager.logger.log(Status.PASS,"PASS Verified agenda view for the current day ");	
 	}else {
-		//ExtentManager.logger.log(Status.FAIL,"FAIL Verified agenda view for the current day");
+		ExtentManager.logger.log(Status.FAIL,"FAIL Verified agenda view for the current day");
 	}
 	
 			

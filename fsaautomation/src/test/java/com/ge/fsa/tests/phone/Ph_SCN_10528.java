@@ -29,7 +29,7 @@ public class Ph_SCN_10528 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10528() throws Exception {
 	
-//	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+	commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
 // **********Create Account**********
     String sAccName = commonUtility.generateRandomNumber("Acc");
@@ -83,25 +83,10 @@ public class Ph_SCN_10528 extends BaseLib {
 	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), sIbName1);
 	
 	// **********Assert if Form Fill is happening correctly*****************
-	if(sOSName.equalsIgnoreCase("android")) {
 		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getText(), sProdName);
 		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getText(), sZipCode);
 		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getText(), sIbName);
 		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getText(), sLocName);
-	}
-	else {
-//		System.out.println(ph_WorkOrderPo.getTxtProduct().getAttribute("name"));
-//		System.out.println(ph_WorkOrderPo.getTxtZip().getAttribute("value"));
-//		System.out.println(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"));
-//		System.out.println(ph_WorkOrderPo.getTxtSite().getAttribute("name"));
-//		System.out.println(ph_WorkOrderPo.getTxtContact().getAttribute("name"));
-//		System.out.println(ph_WorkOrderPo.getTxtCountry().getAttribute("label"));
-//		System.out.println(ph_WorkOrderPo.getTxtCity().getAttribute("value"));
-		Assert.assertEquals(ph_WorkOrderPo.getTxtProduct().getAttribute("name"), sProdName);
-		Assert.assertEquals(ph_WorkOrderPo.getTxtZip().getAttribute("name"), sZipCode);
-		Assert.assertEquals(ph_WorkOrderPo.getTxtTopLevel().getAttribute("name"), sIbName);
-		Assert.assertEquals(ph_WorkOrderPo.getTxtSite().getAttribute("name"), sLocName);
-	}
 	Dimension dim = driver.manage().window().getSize();
 	int height = dim.getHeight();
 	int width = dim.getWidth();
@@ -109,22 +94,15 @@ public class Ph_SCN_10528 extends BaseLib {
 	int y = height / 2;
 	TouchAction ts = new TouchAction(driver);
 	ts.press(new PointOption().withCoordinates(x, y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(x, height-10)).release().perform();
-	Thread.sleep(2000);
-	if(sOSName.equalsIgnoreCase("android")) {
+	Thread.sleep(2000); 
 		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getText(), sContactName);
 		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getText(), sCountry);
 		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getText(), sCity);
-	}
-	else {
-		Assert.assertEquals(ph_WorkOrderPo.getTxtContact().getAttribute("value"), sContactName);
-		Assert.assertEquals(ph_WorkOrderPo.getTxtCountry().getAttribute("value"), sCountry);
-		Assert.assertEquals(ph_WorkOrderPo.getTxtCity().getAttribute("value"), sCity);
-	}
 	// **********************************************************************
 	Thread.sleep(10000);
 	ph_WorkOrderPo.getBtnSave().click();
 	ph_MorePo.getEleMoreBtn().click();
-	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);--Remove
 	ph_MorePo.syncData(commonUtility);
 	// **********Assert if Database is updated correctly after Save**********
 	String sDBCity = restServices.restGetSoqlValue("SELECT+SVMXC__City__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__City__c");

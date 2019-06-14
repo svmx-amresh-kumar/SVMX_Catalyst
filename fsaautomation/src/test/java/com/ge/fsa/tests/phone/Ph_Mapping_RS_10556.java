@@ -51,14 +51,9 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 	String SFMIsBillable = "true";
 	WebElement productname = null;
 	String sSheetName = null;
-
+	Boolean bProcessCheckResult = false;
 	
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
 	
 	public void RS_10556() throws Exception {
 		sSheetName = "RS_10556";
@@ -68,15 +63,9 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
-		
-		/*  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
-		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
-		  else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
-		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
-		  lauchNewApp("false"); System.out.println("RS_10556");
-		  */
-		 
+		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10556",sTestCaseID);
+
+
 
 		// read from file
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
@@ -88,8 +77,9 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		// config sync
-		// toolsPo.configSync(commonsUtility);
-	/*	Thread.sleep(GenericLib.iMedSleep);
+		//config sync
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
+	Thread.sleep(GenericLib.iMedSleep);
 
 		// datasync
 		//ph_MorePo.syncData(commonUtility);
@@ -97,13 +87,13 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			//open WO from calendar
 		
 		ph_CalendarPo.getEleCalendarBtn().click();
-		commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("Event_10556"),true);
+		//ph_CalendarPo.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("Event_10556"),true);
 		
 		ph_CalendarPo.getEleworkordernumonCalendar("Event_10556").click();
 		ph_CalendarPo.getEleworkordernumon(sworkordernumber).click();
 		
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-	*/	
+	
 		// to get orderstatus nd ordertype from workorder
 
 				JSONArray sJsonArrayWO1 = restServices.restGetSoqlJsonArray("Select+SVMXC__Order_Status__c,+SVMXC__Order_Type__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"+ sworkordernumber + "\'");
