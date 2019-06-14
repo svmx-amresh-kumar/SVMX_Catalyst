@@ -10,6 +10,7 @@ import static org.testng.Assert.assertNotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -112,8 +113,15 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 
 }
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	public void postscript() throws Exception
+	{
+		genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
+	
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_12367() throws Exception {
 
 		// Pre Login to app
@@ -428,38 +436,15 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 String sAttachmentNameAfter = restServices.restGetSoqlValue(sSoqlAttachmentName, "Name");
 				 ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter);
 			  
-			  
-			 
-				 /*------------Upload from library- sales force files--------------*/
 	
 	
 	
 	
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	}	
-	
+	@AfterMethod
+	public void tearDown() throws Exception {
+	postscript();
+	}
 	
 }

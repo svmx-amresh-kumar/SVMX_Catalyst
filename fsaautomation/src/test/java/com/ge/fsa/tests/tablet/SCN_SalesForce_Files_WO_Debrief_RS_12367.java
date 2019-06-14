@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -95,6 +96,13 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		   
 		 		 
 }
+	
+	public void postscript() throws Exception
+	{
+		genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_12367() throws Exception {
@@ -346,11 +354,13 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 	}
 	
 	
+	@AfterMethod
+	public void tearDown() throws Exception {
+	postscript();
 	
 	
 	
-	
-	
+	}
 	
 	
 	
