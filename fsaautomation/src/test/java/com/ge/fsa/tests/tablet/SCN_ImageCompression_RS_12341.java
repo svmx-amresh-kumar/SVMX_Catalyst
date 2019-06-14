@@ -175,7 +175,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  toolsPo.syncData(commonUtility); Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(60000);
+		  Thread.sleep(GenericLib.iAttachmentSleep);
 		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
 		  
@@ -247,7 +247,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		
 		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 Thread.sleep(GenericLib.iMedSleep);
@@ -320,7 +320,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 			
 		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(60000);
+		  Thread.sleep(GenericLib.iAttachmentSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  Thread.sleep(GenericLib.iMedSleep);
@@ -391,7 +391,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 toolsPo.syncData(commonUtility);
 		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 Thread.sleep(GenericLib.iMedSleep);

@@ -135,27 +135,27 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		
 		//Enabling salesforce files
 		
-		/*
-		 * System.out.println("Setting the GBL037 to true");
-		 * 
-		 * genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
-		 * "sTestCaseID"); if(commonUtility.verifySahiExecution())
-		 * {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		 * "Sahi verification failure"); assertEquals(0, 1); }
-		 * 
-		 * ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
-		 * 
-		 * System.out.println("Setting the SET007 to Flase");
-		 * genericLib.executeSahiScript(
-		 * "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		 * if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		 * { System.out.println("FAILED");
-		 * ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		 * "Sahi verification failure"); assertEquals(0, 1); }
-		 * 
-		 * toolsPo.Resetapp(commonUtility, exploreSearchPo);
-		 */
+		
+		  System.out.println("Setting the GBL037 to true");
+		  
+		  genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
+		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
+		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); }
+		  
+		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
+		  
+		  System.out.println("Setting the SET007 to Flase");
+		  genericLib.executeSahiScript(
+		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
+		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
+		  { System.out.println("FAILED");
+		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
+		  "Sahi verification failure"); assertEquals(0, 1); }
+		  
+		  toolsPo.Resetapp(commonUtility, exploreSearchPo);
+		 
 		 
 		  
 		  /*------------Upload from library- sales force files--------------*/ 
@@ -184,7 +184,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(90000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
@@ -252,7 +252,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  System.out.println("Validating if  File is syned to server.");
-			  Thread.sleep(60000); 
+			  Thread.sleep(GenericLib.iAttachmentSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  
 			  String sSoqlchecklistid4="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName2+"\')"; 
@@ -275,7 +275,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  System.out.println("Validating if  File is Deleted from server.");
-			  Thread.sleep(60000); 
+			  Thread.sleep(GenericLib.iAttachmentSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  
 			//Checking if file is deleted from server	
@@ -315,7 +315,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\')";
@@ -360,7 +360,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\')";
@@ -421,7 +421,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 Thread.sleep(GenericLib.i30SecSleep); 
 				 Thread.sleep(GenericLib.i30SecSleep);
 				 System.out.println("Validating if  File is syned to server.");
-				 Thread.sleep(60000);
+				 Thread.sleep(GenericLib.iAttachmentSleep);
 				 Thread.sleep(GenericLib.i30SecSleep);
 				 Thread.sleep(GenericLib.iMedSleep);
 				 String sSoqlchecklistid3 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\')";
