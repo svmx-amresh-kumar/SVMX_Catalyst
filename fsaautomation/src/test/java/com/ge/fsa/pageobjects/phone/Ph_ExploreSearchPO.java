@@ -4,20 +4,19 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.GenericLib;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
 public class Ph_ExploreSearchPO {
 	public Ph_ExploreSearchPO(AppiumDriver driver) {
@@ -63,32 +62,26 @@ public class Ph_ExploreSearchPO {
 		}
 	}
 	
-	@FindAll({ @FindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']"), @FindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]") })
-	// @FindBy(xpath="//*[@*='EXPLORE.SEARCH_BAR']")
+	
+	@AndroidBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']")
+	@iOSXCUITFindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]")
 	private WebElement eleExploreSearchTxtFld;
 
 	public WebElement getEleExploreSearchTxtFld() {
 		return eleExploreSearchTxtFld;
 	}
 
-	@FindBy(xpath = "//div[@class='x-component x-button x-button-button-sfmsearch-search x-component-button-sfmsearch-search x-button-no-icon x-stretched sfmsearch-search-button x-haslabel x-layout-box-item x-layout-hbox-item']//span[@class='x-button-label'][text()='Reset filter']")
-	// @FindBy(xpath="//span[text()='Reset filter']")
-	private WebElement eleResetFilerBtn;
 
-	public WebElement getEleResetFilerBtn() {
-		return eleResetFilerBtn;
-	}
-
-	@FindAll({ @FindBy(xpath = "//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']"),
-			@FindBy(xpath = "//XCUIElementTypeScrollView//*[contains(@name,'Item')]") })
+	@AndroidBy(xpath = "//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeScrollView//*[contains(@name,'Item')]")
 	private List<WebElement> searchListItems;
 
 	public List<WebElement> getSearchListItems() {
 		return searchListItems;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@class='android.widget.Switch'][@text='OFF']"),
-			@FindBy(xpath = "//*[@name='EXPLORE.SEARCH.INCLUDE_ONLINE_SWITCH']") })
+	@AndroidBy(xpath = "//*[@class='android.widget.Switch'][@text='OFF']")
+	@iOSXCUITFindBy(xpath = "//*[@name='EXPLORE.SEARCH.INCLUDE_ONLINE_SWITCH']")
 	private WebElement EleOnline;
 
 	public WebElement getEleOnline() {
