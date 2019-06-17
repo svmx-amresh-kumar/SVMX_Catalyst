@@ -15,6 +15,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
@@ -63,8 +64,8 @@ public class Ph_ExploreSearchPO {
 	}
 	
 	
-	@AndroidBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']")
-	@iOSXCUITFindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]")
+	@iOSXCUITFindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']")
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]")
 	private WebElement eleExploreSearchTxtFld;
 
 	public WebElement getEleExploreSearchTxtFld() {
@@ -72,7 +73,7 @@ public class Ph_ExploreSearchPO {
 	}
 
 
-	@AndroidBy(xpath = "//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']")
+	@AndroidFindBy(xpath = "//*[@class='android.widget.ScrollView']//*[@class='android.widget.TextView']")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeScrollView//*[contains(@name,'Item')]")
 	private List<WebElement> searchListItems;
 
@@ -80,7 +81,7 @@ public class Ph_ExploreSearchPO {
 		return searchListItems;
 	}
 
-	@AndroidBy(xpath = "//*[@class='android.widget.Switch'][@text='OFF']")
+	@AndroidFindBy(xpath = "//*[@class='android.widget.Switch'][@text='OFF']")
 	@iOSXCUITFindBy(xpath = "//*[@name='EXPLORE.SEARCH.INCLUDE_ONLINE_SWITCH']")
 	private WebElement EleOnline;
 
