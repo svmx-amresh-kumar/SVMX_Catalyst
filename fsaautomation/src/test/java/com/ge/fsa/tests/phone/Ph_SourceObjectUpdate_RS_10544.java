@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import org.json.JSONArray;
 import org.testng.Assert;
@@ -158,6 +159,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 
 		// Optional config based on process check
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
+		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName + "");
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
@@ -179,7 +181,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 
 		// Adding Parts - to be uncommented after defect fix.
-	   //ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
@@ -198,14 +200,27 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS, "Picklist SOU Header sucessful in Client Expected: " + sBillingTypeSOU
 				+ "  Actual : " + sClientBillingTypeSOU + "");
 		
-		String sScheduledDateSOU  = ph_WorkOrderPo.getEleScheduledDate().getText();
-		String sTodaysDate = commonUtility.getDeviceDate().trim();
+		String sScheduledDateSOU  = ph_WorkOrderPo.getEleScheduledDate().getText().trim();
+		String sTodaysDate = ph_ChecklistPO.get_device_date(commonUtility).trim();
 		Assert.assertEquals(sScheduledDateSOU, sTodaysDate,
 				"Today source object update failed on Schedule Date");
 		ExtentManager.logger.log(Status.PASS, "Today Date Expected: " + sTodaysDate
 				+ "  Actual : " + sScheduledDateSOU + "");
 		
+		String sScheduledDateTimeSOU  = ph_WorkOrderPo.getEleScheduledDateTime().getText().trim();
+		String dt = sTodaysDate;  // Start date
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+		Date datev = (Date) sdf.parse(dt);
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(dt));
+		c.add(Calendar.DATE, 1);  // number of days to add
+		String sTomsDate = sdf.format(c.getTime());  // dt is now the new date
 		
+		Assert.assertTrue(sScheduledDateTimeSOU.contains(sTomsDate), 
+				"Today source object update failed on Schedule Date");
+		ExtentManager.logger.log(Status.PASS, "Tommorrow Date Expected: " + sTomsDate
+				+ "  Actual : " + sScheduledDateTimeSOU + "");
+	
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleURL());
 		sClientEleNoOfTimesAssignedSOU = ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getText();
 		Assert.assertEquals(sClientEleNoOfTimesAssignedSOU, sNooftimesAssignedSOU,
