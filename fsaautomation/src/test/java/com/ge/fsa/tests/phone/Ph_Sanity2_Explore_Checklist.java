@@ -130,8 +130,14 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
 		Thread.sleep(2000);
-		ph_ChecklistPO.geteleInProgress().click();
+		
+		// to be reverted once number is fixed for android!
+		try {
+			ph_ChecklistPO.geteleChecklistCompleted().click();
 
+		} catch (Exception e) {
+			ph_ChecklistPO.geteleInProgress().click();
+		}
 		// Entering Picklist Question
 		ph_ChecklistPO.getelechecklistPickListQAns(spicklistQuestion, "PicklOne").click();
 		Thread.sleep(2000);
