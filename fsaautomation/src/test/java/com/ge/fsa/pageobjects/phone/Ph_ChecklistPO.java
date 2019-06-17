@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
@@ -282,13 +283,31 @@ public class Ph_ChecklistPO
 		
 	}
 	
-	@iOSXCUITFindBy(xpath="//*[@*='Add Image or Video'])[last()]")
+	
+	private WebElement eleChecklistAddImage;
+	public WebElement geteleChecklistAddImage(String sChecklistQ)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@text='Add Image or Video']"));
+		}
+		else
+		{																											
+			return driver.findElement(By.xpath("//*[contains(@label,'"+sChecklistQ+"')]//XCUIElementTypeOther[@name='Add Image or Video']"));
+		}	
+		
+		
+	}
+	
+	/*//*[contains(@label,'Photo')]
+	@iOSXCUITFindBy(xpath="//*[contains(@label,'"+sdates+"')]//*[@label='Add Image or Video']")
+
+	//@iOSXCUITFindBy(xpath="//*[@label='Add Image or Video'])")
 	@AndroidFindBy(xpath="//*[@text='Add Image or Video']")
 	private WebElement eleAddImageorVideo;
 	public WebElement geteleAddImageorVideo()
 	{
 		return eleAddImageorVideo;
-	}
+	}*/
 	
 	@iOSXCUITFindBy(xpath="//*[@*='Take Photo'])[last()]")
 	@AndroidFindBy(xpath="//*[@text='Take Photo']")
@@ -307,7 +326,7 @@ public class Ph_ChecklistPO
 	}
 	
 	
-	@iOSXCUITFindBy(xpath="//*[@*='Choose from Camera Roll'])[last()]")
+	@iOSXCUITFindBy(xpath="(//*[@label='Choose from Camera Roll'])[last()]")
 	@AndroidFindBy(xpath="//*[@text='Choose from Camera Roll']")
 	private WebElement eleChoosefromCameraRoll;
 	public WebElement geteleChoosefromCameraRoll()
@@ -315,7 +334,7 @@ public class Ph_ChecklistPO
 		return eleChoosefromCameraRoll;
 	}
 	
-	@iOSXCUITFindBy(xpath="//*[@*='Add'])[last()]")
+	@iOSXCUITFindBy(xpath="(//*[@*='Add'])[last()]")
 	@AndroidFindBy(xpath="//*[@text='Add']")
 	private WebElement eleAdd;
 	public WebElement geteleAdd()
@@ -336,37 +355,97 @@ public class Ph_ChecklistPO
 	
 	public void checklistAttach(CommonUtility commonUtility, String AttachmentAction, String checklistq) throws Exception
 	{
-		geteleAddImageorVideo().click();
-		if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
-			geteleTakePhoto().click();
-			AllowCamerabutton(commonUtility);
-			try {
-				Thread.sleep(3000);
-				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
-				e.get(0).click();
-			} catch (Exception e) {
-				List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByAccessibilityId("Shutter");
-				els1.get(0).click();
-			}
-			Thread.sleep(2000);
-			driver.findElementByAccessibilityId("Done").click();
-			geteleAdd().click();
-		}
+		geteleChecklistAddImage(checklistq).click();
 		
-		if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-			geteleTakeVideo().click();
-			AllowCamerabutton(commonUtility);
+		
+		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
+
+			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+				geteleTakePhoto().click();
+				AllowCamerabutton(commonUtility);
+				try {
+					Thread.sleep(3000);
+					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
+					e.get(0).click();
+				} catch (Exception e) {
+					List<MobileElement> els1 = (List<MobileElement>) driver.findElementsByAccessibilityId("Shutter");
+					els1.get(0).click();
+				}
+				Thread.sleep(2000);
+				driver.findElementByAccessibilityId("Done").click();
+				geteleAdd().click();
+			}
+
+			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+				geteleTakeVideo().click();
+				AllowCamerabutton(commonUtility);
+
+			}
+
+			if (AttachmentAction == "Choose from Camera Roll" || AttachmentAction == "choose from camera roll") {
+				geteleChoosefromCameraRoll().click();
+				// AllowCamerabutton(commonUtility);
+				Thread.sleep(5000);
+				WebElement sd = driver.findElement(By.xpath("(//android.view.ViewGroup[@content-desc='MEDIA_LIBRARY.IMAGE_CLICK'])[last()]"));
+				sd.click();
+				geteleAdd().click();
+				Thread.sleep(3000);
+			}
 
 		}
-		
-		if (AttachmentAction == "Choose from Camera Roll" || AttachmentAction == "choose from camera roll") {
-			geteleChoosefromCameraRoll().click();
-			//AllowCamerabutton(commonUtility);
-			Thread.sleep(5000);
-			WebElement sd = driver.findElement(By.xpath("(//android.view.ViewGroup[@content-desc='MEDIA_LIBRARY.IMAGE_CLICK'])[last()]"));
-			sd.click();
-			geteleAdd().click();
-			Thread.sleep(3000);
+
+		else
+		// for IOS
+		{
+			if (AttachmentAction == "Choose from Camera Roll" || AttachmentAction == "Choose from Camera Roll") {
+				geteleChoosefromCameraRoll().click();
+				Thread.sleep(3000);
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				AllowCamerabutton(commonUtility);
+				commonUtility.switchContext("Native");
+				WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("All Photos")));
+				el.click();
+				List<WebElement> photos = driver.findElements(MobileBy.className("XCUIElementTypeCell"));
+				int numPhotos = photos.size();
+				// commonsUtility.switchContext("Native");
+				WebElement elem = null;
+				Thread.sleep(5000);
+				List<WebElement> lsPhotoGrid = (List<WebElement>) driver.findElementByAccessibilityId("PhotosGridView").findElements(By.xpath("//*[contains(@label,'Photo')]"));
+				int count = lsPhotoGrid.size();
+				if (count == 0 || count == 1) {
+					ExtentManager.logger.log(Status.FAIL, "PLease add photos to Device and reexecute tests");
+				} else {
+					//-2 because last is giving the count element which is not clickable
+					count = lsPhotoGrid.size() - 2;
+					elem = lsPhotoGrid.get(count);
+					System.out.println(elem.getText());
+					driver.findElement(By.xpath("//*[contains(@label,'" + elem.getText() + "')]")).click();
+					System.out.println("finished Clicking");
+					geteleAdd().click();
+					Thread.sleep(10000);
+				}
+			}
+			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
+				Thread.sleep(GenericLib.iMedSleep);
+				AllowCamerabutton(commonUtility);
+				// commonUtility.switchContext("Native");
+				Thread.sleep(5000);
+				driver.findElementByAccessibilityId("Take Picture").click();
+				Thread.sleep(3000);
+				driver.findElementByAccessibilityId("Use Photo").click();
+			}
+
+			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
+				Thread.sleep(GenericLib.iMedSleep);
+				AllowCamerabutton(commonUtility);
+				// com.apple.camera
+				commonUtility.switchContext("Native");
+				driver.findElementByAccessibilityId("Record Video").click();
+				Thread.sleep(5000);
+				System.out.println("Recording 5 secs video");
+				driver.findElementByAccessibilityId("Stop Recording Video").click();
+				driver.findElementByAccessibilityId("Use Video").click();
+			}
 		}
 		
 	}

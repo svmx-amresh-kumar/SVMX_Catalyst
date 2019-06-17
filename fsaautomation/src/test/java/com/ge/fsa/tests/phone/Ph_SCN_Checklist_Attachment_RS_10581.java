@@ -117,8 +117,13 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		
 		//retreiving completed checklist
 		ph_ChecklistPO.getelechecklistinstance().click();
-		ph_ChecklistPO.geteleInProgress().click();
-		
+		// to be reverted once number is fixed for android!
+				try {
+					ph_ChecklistPO.geteleChecklistCompleted().click();
+
+				} catch (Exception e) {
+					ph_ChecklistPO.geteleInProgress().click();
+				}		
 		ph_MorePo.syncData(commonUtility);
 
 		// ------------------SERVER SIDE VALIDATIONS
