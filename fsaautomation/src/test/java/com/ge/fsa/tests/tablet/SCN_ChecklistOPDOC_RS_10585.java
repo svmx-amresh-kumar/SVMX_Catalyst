@@ -242,6 +242,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// Verifying if checklistopdoc is synced to server
 	  	System.out.println("Validating if OPDOC attachment is syned to server.");
 	  	Thread.sleep(GenericLib.i30SecSleep);
+	  	Thread.sleep(GenericLib.iAttachmentSleep);
 	  	Thread.sleep(GenericLib.iMedSleep);
 		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		sSoqlquerypdf = "Select+Name+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";

@@ -10,6 +10,7 @@ import static org.testng.Assert.assertNotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -43,6 +44,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	String sWONameTV = null;
 	String sEventSubject = "Create Event from WO in Client";
 	String sChecklistName=null;
+	String sFileTitleafter1=null;
 	
 	//Attachment questions
 	
@@ -53,10 +55,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	
 	public void prereq() throws Exception
 	{	
-		sSheetName ="RS_10584";
+		sSheetName ="RS_12367";
 		System.out.println("SCN_RS10584_Checklist_Attachment");
-		sTestCaseID = "SCN_ChecklistAttachment_RS-10584";
-		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
+		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
+		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 
 		// Reading from the Excel sheet
 		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
@@ -111,8 +113,15 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 
 }
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	public void postscript() throws Exception
+	{
+		genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
+	
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_12367() throws Exception {
 
 		// Pre Login to app
@@ -125,6 +134,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	/*------------------------Validating--Files are sending when Salesforce files are enabled-----------*/
 		
 		//Enabling salesforce files
+		
 		
 		  System.out.println("Setting the GBL037 to true");
 		  
@@ -145,6 +155,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		  "Sahi verification failure"); assertEquals(0, 1); }
 		  
 		  toolsPo.Resetapp(commonUtility, exploreSearchPo);
+		 
 		 
 		  
 		  /*------------Upload from library- sales force files--------------*/ 
@@ -173,7 +184,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
@@ -201,7 +212,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			  
 			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			  Thread.sleep(GenericLib.iLowSleep);
+			  Thread.sleep(30000);
+			  commonUtility.tap(checklistPo.geteleChecklistBackButton());
+			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
+			  Thread.sleep(30000);
 			  
 			  try {
 				  WebElement Filedownload = driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
@@ -238,7 +252,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  System.out.println("Validating if  File is syned to server.");
-			  Thread.sleep(60000); 
+			  Thread.sleep(GenericLib.iAttachmentSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  
 			  String sSoqlchecklistid4="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName2+"\')"; 
@@ -261,7 +275,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  System.out.println("Validating if  File is Deleted from server.");
-			  Thread.sleep(60000); 
+			  Thread.sleep(GenericLib.iAttachmentSleep);
 			  Thread.sleep(GenericLib.i30SecSleep);
 			  
 			//Checking if file is deleted from server	
@@ -301,7 +315,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\')";
@@ -317,7 +331,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 String sContentdocid1 = "select ContentDocumentId from ContentDocumentLink where (id = \'"+sContentDocLinkIdafter1+"\')";
 			 String sContentdocidafter1 = restServices.restGetSoqlValue(sContentdocid1, "ContentDocumentId");
 			 String sFileTitle1 = "select Title from ContentDocument where Id=\'"+sContentdocidafter1+"\'";
-			 String sFileTitleafter1 = restServices.restGetSoqlValue(sFileTitle1, "Title");
+			 sFileTitleafter1 = restServices.restGetSoqlValue(sFileTitle1, "Title");
 			 System.out.println(sFileTitleafter1);
 			 ExtentManager.logger.log(Status.INFO,"File uplaoded is"+sFileTitleafter1);
 			 
@@ -346,7 +360,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 Thread.sleep(GenericLib.i30SecSleep); 
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(60000);
+			 Thread.sleep(GenericLib.iAttachmentSleep);
 			 Thread.sleep(GenericLib.i30SecSleep);
 			 
 			 String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\')";
@@ -407,7 +421,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 Thread.sleep(GenericLib.i30SecSleep); 
 				 Thread.sleep(GenericLib.i30SecSleep);
 				 System.out.println("Validating if  File is syned to server.");
-				 Thread.sleep(60000);
+				 Thread.sleep(GenericLib.iAttachmentSleep);
 				 Thread.sleep(GenericLib.i30SecSleep);
 				 Thread.sleep(GenericLib.iMedSleep);
 				 String sSoqlchecklistid3 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\')";
@@ -422,38 +436,15 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 String sAttachmentNameAfter = restServices.restGetSoqlValue(sSoqlAttachmentName, "Name");
 				 ExtentManager.logger.log(Status.INFO,"Attachment uplaoded is"+sAttachmentNameAfter);
 			  
-			  
-			 
-		
 	
 	
 	
 	
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	}	
-	
+	@AfterMethod
+	public void tearDown() throws Exception {
+	postscript();
+	}
 	
 }

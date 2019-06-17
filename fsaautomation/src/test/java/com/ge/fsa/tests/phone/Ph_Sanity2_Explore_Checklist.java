@@ -67,6 +67,10 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// sWOName1 = "WO-00001615";
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
 				sTestCaseID);
+		
+		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 
 	}
 	
@@ -96,15 +100,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sPicklistAns = null;
 		String sTextQAns = null;
 		String sNumberQAns = null;
-		String sValue = "MultiOn, MultiTwo";
+		//String sValue = "MultiOn, MultiTwo";
 		String sProcessname = "Default title for Checklist";
 		String sDateExpected = "1/1/2019";
 
 		prereq();
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
-
 		lauchNewApp("false");
 
 		// Pre Login to app
@@ -114,7 +114,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		
 		// Data Sync
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(2000);
 		System.out.println(sWOName);
 
 		// Navigating to Checklist
@@ -236,7 +236,6 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		
 		// Sync the Data
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iVHighSleep);
 
 		// SERVER SIDE API VALIDATIONS
 
@@ -257,7 +256,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		Assert.assertTrue(ChecklistAnsjson.contains(spicklistAns),
 				"checklist picklist answer was not sycned to server in checklist answer");
-		ExtentManager.logger.log(Status.PASS, "checklist picklist question answer synced to server");
+		ExtentManager.logger.log(Status.PASS, "Checklist picklist question answer synced to server");
 
 		/*
 		 * Assert.assertTrue(ChecklistAnsjson.contains(sradioAns),

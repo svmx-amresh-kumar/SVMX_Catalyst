@@ -1,3 +1,3 @@
 #!/bin/bash 
 cd /auto/sahi_pro/userdata/bin 
-./testrunner.sh /auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/test_lab/test_cases/appium/SCN_option_to_remove_Choosefromlib_True.sah https://test.salesforce.com chrome
+./testrunner.sh /auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/test_lab/test_cases/appium/SCN_option_to_remove_Choosefromlib_False.sah https://test.salesforce.com chrome
