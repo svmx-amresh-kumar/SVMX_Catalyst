@@ -5,27 +5,15 @@
  */
 package com.ge.fsa.tests.phone;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.TimeZone;
 
-import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
-import com.ge.fsa.pageobjects.phone.Ph_MorePO;
-import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
-import io.appium.java_client.android.AndroidDriver;
 
 public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sTestCaseID = null;
@@ -93,7 +81,7 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		// sWOName = "WO-00001266";
 	}
 
-	// @Test()
+	//@Test()
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10578() throws Exception {
 		// Prerequisite script
@@ -184,23 +172,20 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 
 		System.out.println("Validated DateTime");
 
-		/*
-		 * //Validating confirmation
-		 * ph_ChecklistPO.getelechecklistNumberQAns(sConfirmationDVRq).sendKeys(
-		 * sConfirmationDVRAns);
-		 * 
-		 * ph_ChecklistPO.geteleSubmitbtn().click();
-		 * Assert.assertTrue(ph_ChecklistPO.getEleConfirm().isDisplayed(),
-		 * "Confirm button is not being displayed for confirmation dvr");
-		 * ExtentManager.logger.log(Status.PASS,
-		 * "Confirm button is displayed for confirmation DVR");
-		 * ExtentManager.logger.log(Status.PASS,
-		 * "DataValidation rule for confirmation Passed");
-		 * ph_ChecklistPO.getEleConfirm().click();
-		 */
+		
+		 //Validating confirmation
+		 ph_ChecklistPO.getelechecklistNumberQAns(sConfirmationDVRq).sendKeys(sConfirmationDVRAns);
+		 ph_ChecklistPO.geteleSubmitbtn().click();
+		 Assert.assertTrue(ph_ChecklistPO.getEleConfirm().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
+		 ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
+		 ExtentManager.logger.log(Status.PASS,"DataValidation rule for confirmation Passed");
+		 ph_ChecklistPO.getEleConfirm().click();
+		 
 
 		// Navigating to the checklist
 		Thread.sleep(GenericLib.iLowSleep);
+		//commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
+		commonUtility.custScrollToElement(sAdvancedDVRq, false);
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed(),
@@ -208,10 +193,12 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS, "DataValidation rule for Advanced DVR Passed");
 
 		commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();;
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("300");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 
 		ph_MorePo.syncData(commonUtility);
+		Thread.sleep(10000);
 		System.out.println(
 				"validating if checklist is synced to server.validate the checklist status and answers through API.");
 		String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"
