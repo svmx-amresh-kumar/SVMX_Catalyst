@@ -417,7 +417,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		
 		int Eventcount=	ph_CalendarPo.getEleAgendaViewcomponent().size();
 		System.out.println(Eventcount);
-	if(Eventcount==4)
+	if(Eventcount>1)
 	{
 		ExtentManager.logger.log(Status.PASS,"PASS Verified agenda view for the current day ");	
 	}else {
