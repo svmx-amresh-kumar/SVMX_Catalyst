@@ -197,6 +197,7 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("300");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 
+
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(10000);
 		System.out.println(
