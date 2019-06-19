@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -96,6 +97,13 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 		 
 }
 	
+	public void postscript() throws Exception
+	{
+		genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
+	}
+	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_12367() throws Exception {
 
@@ -150,7 +158,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 toolsPo.syncData(commonUtility);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
-		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 System.out.println("Validating if  File is syned to server.");
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 
@@ -189,7 +197,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
-		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 Thread.sleep(GenericLib.i30SecSleep); 
 		 
 		 String sSoqlWorkorderid1 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\'";
@@ -228,7 +236,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 Thread.sleep(GenericLib.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
 		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(60000);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 
 		 String sSoqlWorkorderid2 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\'";
 		 String sSoqlWorkorderidafter2 = restServices.restGetSoqlValue(sSoqlWorkorderid2, "Id");
@@ -312,7 +320,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  Thread.sleep(GenericLib.i30SecSleep); 
 		  Thread.sleep(GenericLib.i30SecSleep);
 		  System.out.println("Validating if  File is syned to server.");
-		  Thread.sleep(60000);
+		  Thread.sleep(GenericLib.iAttachmentSleep);
 		  Thread.sleep(GenericLib.i30SecSleep); 
 		  String sSoqlWorkorderidAtach = "select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\'";
 		  String sSoqlWorkorderidafterAtach = restServices.restGetSoqlValue(sSoqlWorkorderidAtach, "Id");
@@ -346,11 +354,13 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 	}
 	
 	
+	@AfterMethod
+	public void tearDown() throws Exception {
+	postscript();
 	
 	
 	
-	
-	
+	}
 	
 	
 	

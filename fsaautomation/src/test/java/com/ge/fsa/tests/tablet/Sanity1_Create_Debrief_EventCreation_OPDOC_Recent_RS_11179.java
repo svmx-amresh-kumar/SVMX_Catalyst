@@ -50,9 +50,7 @@ public void Scenario1Test() throws Exception
 		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sProformainVoice = "Proforma"+sRandomNumber;
 		String sEventSubject = "EventName"+sRandomNumber;
-		// Login to the Application.
-		loginHomePo.login(commonUtility, exploreSearchPo);
-//		toolsPo.syncData(commonsUtility);
+	//		toolsPo.syncData(commonsUtility);
 		// Creating Account from API
 		sAccountName = "auto_account"+sRandomNumber;
 		String sAccountId = restServices.restCreate("Account?","{\"Name\":\""+sAccountName+"\"}");
@@ -70,6 +68,8 @@ public void Scenario1Test() throws Exception
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		
 		lauchNewApp("false");
+		// Login to the Application.
+		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		
 		// Need to sync the data

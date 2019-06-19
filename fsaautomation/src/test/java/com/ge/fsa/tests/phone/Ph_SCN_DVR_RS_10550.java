@@ -80,11 +80,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
-		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
-				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?", "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}");
 		System.out.println(sWORecordID);
-		sWOName = restServices
-				.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
+		sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
 		// sWOName="WO-00002400";
 
@@ -99,20 +97,19 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		// Creating Product from API
 		sProductName = "RS10550Product";
 		restServices.restCreate("Product2?", "{\"Name\":\"" + sProductName + "\" }");
-		
+
 		sObjectApi1 = "Account?";
 		sJsonData1 = "{\"Name\": \"" + sAccountNameToCreate1 + "\"}";
 		String sObjectAccID1 = restServices.restCreate(sObjectApi1, sJsonData1);
 		sSqlAccQuery1 = "SELECT+name+from+Account+Where+id+=\'" + sObjectAccID1 + "\'";
 		sAccountName1 = restServices.restGetSoqlValue(sSqlAccQuery1, "Name");
 		System.out.println(sAccountName1);
-		
-		//Validating the SFM process
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
+
+		// Validating the SFM process
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);
 	}
 
-	@Test(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer = Retry.class)
 	public void RS_10550() throws Exception {
 
 		prerequisites();
@@ -123,102 +120,85 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(3000);
 
 		// Navigation to WO
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
-				sFieldServiceName);
-		
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+
 		// Setting up Data for DVR billing type picklist
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.custScrollToElement(ph_CreateNewPo.getElebillingtype());
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), sBillingTypeDVR);
 
 		// Validation of picklist DVR billing type cannot be loan
-		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sBillingDVR).isDisplayed(),
-				"pickList DVR failed:Billing type cannot be Loan is not displayed");
+		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sBillingDVR).isDisplayed(), "pickList DVR failed:Billing type cannot be Loan is not displayed");
 		ExtentManager.logger.log(Status.PASS, "Picklist DVR validation PASS: " + sBillingDVR + " is displayed");
 
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), SBillingType);
 		try {
-			Assert.assertFalse(ph_WorkOrderPo.getDvrText(sBillingDVR).isDisplayed(),
-					"pickList DVR failed:Billing type cannot be Loan is not displayed");
+			Assert.assertFalse(ph_WorkOrderPo.getDvrText(sBillingDVR).isDisplayed(), "pickList DVR failed:Billing type cannot be Loan is not displayed");
 
 		} catch (Exception e) {
-			ExtentManager.logger.log(Status.PASS,
-					"picklist DVR validation message is no longer displayed after switching billing type to :"
-							+ SBillingType + "");
+			ExtentManager.logger.log(Status.PASS, "picklist DVR validation message is no longer displayed after switching billing type to :" + SBillingType + "");
 		}
 
 		// Validation of TextArea
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Assert.assertTrue(ph_WorkOrderPo.getDvrText("Problem Description cannot be Null..").isDisplayed(),
-				"Required Field Validation failed");
+		Assert.assertTrue(ph_WorkOrderPo.getDvrText("Problem Description cannot be Null..").isDisplayed(), "Required Field Validation failed");
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleProblemDescriptiontxt());
 		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		try {
-			Assert.assertFalse(ph_WorkOrderPo.getDvrText("Problem Description cannot be Null..").isDisplayed(),
-					"Required Field Validation failed");
+			Assert.assertFalse(ph_WorkOrderPo.getDvrText("Problem Description cannot be Null..").isDisplayed(), "Required Field Validation failed");
 
 		} catch (Exception e) {
-			ExtentManager.logger.log(Status.PASS,
-					"Problem Description cannot be null is no longer displayed after entering text");
+			ExtentManager.logger.log(Status.PASS, "Problem Description cannot be null is no longer displayed after entering text");
 		}
 
 		// Validation of confirmation
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sBooleanDVR), 3),
-				"Boolean Field confirmation failed.");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sBooleanDVR), 3), "Boolean Field confirmation failed.");
 		ph_WorkOrderPo.geteleConfirm().click();
-		ExtentManager.logger.log(Status.PASS, "Boolean field confirmationvalidation passed");		
-		
-		//Setting up Auto_date1 greater than Auto_date2 and validating
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input()
-		); commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate1_Edit_Input(),
-		"June", "3", "2019");
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate2_Edit_Input()
-		); commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(),
-		"May", "3", "2019");
-		
-		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sDate1DVR).isDisplayed(),
-		"Date1 DVR did not display,Auto_Date1 cant be greater than Auto_date2");
-		ExtentManager.logger.log(Status.
-		PASS,"Auto_date1 DVR passed - Auto_Date1 can't be greater than Auto_Date2 displayed"
-		);
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate2_Edit_Input()
-		); commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(),
-		"June", "3", "2019");
-		 
+		ExtentManager.logger.log(Status.PASS, "Boolean field confirmationvalidation passed");
 
-		/* TO BE UNCOMMENTED AFTER FIXNIG KEYBOARD NUMBER ISSUE
-		//number DVR no of times assigned
-		commonUtility.custScrollToElement(ph_WorkOrderPo.
-		GetEleNoOfTimesAssigned_Edit_Input());
-		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("302");
-		ph_WorkOrderPo.getElesave().click(); Thread.sleep(3000);
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(
-		sNoDVR), 3), "Number DVR did not display,Number cannot be 302");
-		ExtentManager.logger.log(Status.PASS,"Number 302 displayed DVR Message :"
-		+sNoDVR+""); //Trying with no150 - should throw DVR again.
-		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
-		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
-		ph_WorkOrderPo.getElesave().click();
-		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sNoDVR).isDisplayed(),
-		"Number DVR did not display,Number cannot be 302");
-		ExtentManager.logger.log(Status.
-		PASS,"Validated if 150 displayed DVR Message :"+sNoDVR+"");
-		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
-		ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("20");*/
-		 
+		// Setting up Auto_date1 greater than Auto_date2 and validating
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
+		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate1_Edit_Input(), "June", "3", "2019");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate2_Edit_Input());
+		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(), "May", "3", "2019");
+
+		Assert.assertTrue(ph_WorkOrderPo.getDvrText(sDate1DVR).isDisplayed(), "Date1 DVR did not display,Auto_Date1 cant be greater than Auto_date2");
+		ExtentManager.logger.log(Status.PASS, "Auto_date1 DVR passed - Auto_Date1 can't be greater than Auto_Date2 displayed");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate2_Edit_Input());
+		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleAutoDate2_Edit_Input(), "June", "3", "2019");
+
+		/*
+		 * TO BE UNCOMMENTED AFTER FIXNIG KEYBOARD NUMBER ISSUE //number DVR no of times
+		 * assigned commonUtility.custScrollToElement(ph_WorkOrderPo.
+		 * GetEleNoOfTimesAssigned_Edit_Input());
+		 * ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("302");
+		 * ph_WorkOrderPo.getElesave().click(); Thread.sleep(3000);
+		 * Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(
+		 * sNoDVR), 3), "Number DVR did not display,Number cannot be 302");
+		 * ExtentManager.logger.log(Status.PASS,"Number 302 displayed DVR Message :"
+		 * +sNoDVR+""); //Trying with no150 - should throw DVR again.
+		 * ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
+		 * ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
+		 * ph_WorkOrderPo.getElesave().click();
+		 * Assert.assertTrue(ph_WorkOrderPo.getDvrText(sNoDVR).isDisplayed(),
+		 * "Number DVR did not display,Number cannot be 302");
+		 * ExtentManager.logger.log(Status.
+		 * PASS,"Validated if 150 displayed DVR Message :"+sNoDVR+"");
+		 * ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
+		 * ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("20");
+		 */
 
 		// Setting up scheduled DAtetime to today.
 		System.out.println("Validation of Datetime starts now");
 		commonUtility.custScrollToElement(ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTimeTxt(), 0, "0", "0");
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateTimeDVR), 3),
-				"DateTime Literal Today DVR did not trigger");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateTimeDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS, "DateTime Literal Today validation passed");
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTimeTxt(), 3, "0", "0");
 
@@ -226,8 +206,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.custScrollToElement(ph_WorkOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
 		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getEleScheduledDate());
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0");
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3),
-				"DateTime Literal Today DVR did not trigger");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS, "DATE Literal Today validation passed");
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019");
@@ -236,47 +215,44 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		System.out.println("Begining account look upf");
 		commonUtility.custScrollToElement(ph_CreateNewPo.getelePartnerAccountLookUp());
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
-		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getelePartnerAccountLookUp(),
-				sAccountName);
+		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getelePartnerAccountLookUp(), sAccountName);
 		ph_WorkOrderPo.getElesave().click();
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sAccountDVR), 3),
-				"Look up DVR did not display, account cannot be same as Parnter Account ");
-		ExtentManager.logger.log(Status.PASS,
-				"Lookup DVR passed Account cannot be same as Partner Account is displayed");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sAccountDVR), 3), "Look up DVR did not display, account cannot be same as Parnter Account ");
+		ExtentManager.logger.log(Status.PASS, "Lookup DVR passed Account cannot be same as Partner Account is displayed");
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getEleAccount(), sAccountName1);
 		ph_WorkOrderPo.getEleSaveLnk().click();
 
 		/*
-		//Trying with no150 - sohuld throw DVR again.
-		commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
-		workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
-		
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sNoDVR).isDisplayed(),
-		"Number DVR did not display,Number cannot be 302");
-		ExtentManager.logger.log(Status.PASS,"Number 150 displayed DVR Message ");
-		
-		try {
-		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(),
-		"Look up DVR did not display, account cannot be same as Parnter Account ");
-		ExtentManager.logger.log(Status.FAIL,"Account DVR should not be displayed");
-		
-		} catch (Exception e) {
-		ExtentManager.logger.log(Status.PASS,"Account DVR is no longer displayed");
-		
-		  }*/
-		 
+		 * //Trying with no150 - sohuld throw DVR again.
+		 * commonUtility.tap(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input());
+		 * workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().clear();
+		 * workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys("150");
+		 * workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().sendKeys(Keys.ENTER);
+		 * 
+		 * commonUtility.tap(workOrderPo.getEleSaveLnk());
+		 * commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
+		 * Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sNoDVR).isDisplayed(),
+		 * "Number DVR did not display,Number cannot be 302");
+		 * ExtentManager.logger.log(Status.PASS,"Number 150 displayed DVR Message ");
+		 * 
+		 * try {
+		 * Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sAccountDVR).isDisplayed(),
+		 * "Look up DVR did not display, account cannot be same as Parnter Account ");
+		 * ExtentManager.logger.log(Status.FAIL,"Account DVR should not be displayed");
+		 * 
+		 * } catch (Exception e) {
+		 * ExtentManager.logger.log(Status.PASS,"Account DVR is no longer displayed");
+		 * 
+		 * }
+		 */
+
 		Thread.sleep(GenericLib.iLowSleep);
 		ph_CalendarPo.getEleCalendarBtn().click();
 		Thread.sleep(GenericLib.iLowSleep);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 
 		// navigating to SFM
-		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
-				sFieldServiceName);
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
@@ -290,8 +266,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_WorkOrderPo.getelePartName(sProductName).click();
 
 		// validation of Parts DVR
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sPartsLineQtyDVR), 3),
-				"PARts Line qty cannot be less than 2 and work description cannot be null");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sPartsLineQtyDVR), 3), "PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS, "Parts lineqty dvr displayed");
 		ph_WorkOrderPo.getEleValidationToggle().click();
 
@@ -310,10 +285,8 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 
 		}
 
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(), 3),
-				sPartsLinePriceDVR);
-		ExtentManager.logger.log(Status.PASS,
-				"Parts DVR PASS :Line Quantity confirmation message displayed" + sPartsLinePriceDVR + "");
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(), 3), sPartsLinePriceDVR);
+		ExtentManager.logger.log(Status.PASS, "Parts DVR PASS :Line Quantity confirmation message displayed" + sPartsLinePriceDVR + "");
 		ph_WorkOrderPo.geteleConfirm().click();
 		ExtentManager.logger.log(Status.PASS, "Clicked on Confirm button");
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -327,9 +300,8 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_WorkOrderPo.geteleWorkDescription().sendKeys("Testeer");
 		ph_WorkOrderPo.getBtnSave().click();
 		ph_WorkOrderPo.getBtnSave().click();
-		
-		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
-				"Overview tab is not displayed, might not have saved correctly please check!");
+
+		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3), "Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS, "OverView Tab is displayed post saving.");
 
 	}

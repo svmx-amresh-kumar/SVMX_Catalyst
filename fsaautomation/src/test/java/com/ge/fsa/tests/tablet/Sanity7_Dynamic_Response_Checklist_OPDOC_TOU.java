@@ -185,7 +185,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
 		 commonUtility.tap(calendarPO.getEleCalendarIcn());	
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(GenericLib.iAttachmentSleep);
 		 
 		// Verifying if checklistopdoc is synced to server
 		  	System.out.println("Validating if OPDOC attachment is syned to server.");
