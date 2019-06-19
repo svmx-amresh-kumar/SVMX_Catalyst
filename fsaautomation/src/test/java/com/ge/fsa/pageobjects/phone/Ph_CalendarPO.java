@@ -5,26 +5,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindAll;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-
-
+import io.appium.java_client.pagefactory.iOSXCUITBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindAll;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 
 public class Ph_CalendarPO
 {
@@ -82,8 +82,6 @@ public class Ph_CalendarPO
 	}
 	
 	
-	
-	
 	private WebElement eleAppointmentdate;
 	public WebElement getEleAppointmentdate(String Subject)
 	{
@@ -99,11 +97,11 @@ public class Ph_CalendarPO
 	}
 	
 	
+	
+	@AndroidFindAll({@AndroidBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
+		@AndroidBy(xpath="//*[@text='Subject']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")})
+	@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")
 
-
-	@FindAll({@FindBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
-		@FindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])"),
-		@FindBy(xpath="//*[@text='Subject']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")})
 	private WebElement eleCalendarEventSubject;
 	public WebElement getEleCalendarEventSubject()
 	{
@@ -177,7 +175,6 @@ public class Ph_CalendarPO
 	}
 
 
-
 	public void openWoFromCalendar(String Subject) throws Exception 
 	{
 
@@ -222,24 +219,23 @@ public class Ph_CalendarPO
 		}
 	}
 
-
-	@FindAll({@FindBy(xpath="//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-		@FindBy(xpath="//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name='Start Date Time*']/../XCUIElementTypeOther"),@FindBy(xpath="//XCUIElementTypeStaticText[@name='StartDateTime*']/../XCUIElementTypeOther")})
+	@AndroidFindAll({ @AndroidBy(xpath = "//*[@text='StartDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+			@AndroidBy(xpath = "//*[@text='Start Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']") })
+	@iOSXCUITFindAll({ @iOSXCUITBy(xpath = "//XCUIElementTypeStaticText[@name='Start Date Time*']/../XCUIElementTypeOther"), @iOSXCUITBy(xpath = "//XCUIElementTypeStaticText[@name='StartDateTime*']/../XCUIElementTypeOther") })
 	private WebElement eleStartDateTimecal;
-	public WebElement geteleStartDateTimecal()
-	{
-		return eleStartDateTimecal;
-	}	
 
-	@FindAll({@FindBy(xpath="//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-		@FindBy(xpath="//*[@text='End Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
-	@FindBy(xpath="//XCUIElementTypeStaticText[@name='End Date Time*']/../XCUIElementTypeOther"),@FindBy(xpath="//XCUIElementTypeStaticText[@name='EndDateTime*']/../XCUIElementTypeOther")})
+	public WebElement geteleStartDateTimecal() {
+		return eleStartDateTimecal;
+	}
+
+	@AndroidFindAll({ @AndroidBy(xpath = "//*[@text='EndDateTime*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']"),
+			@AndroidBy(xpath = "//*[@text='End Date Time*']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView']") })
+	@iOSXCUITFindAll({ @iOSXCUITBy(xpath = "//XCUIElementTypeStaticText[@name='End Date Time*']/../XCUIElementTypeOther"), @iOSXCUITBy(xpath = "//XCUIElementTypeStaticText[@name='EndDateTime*']/../XCUIElementTypeOther") })
 	private WebElement eleEndDateTimecal;
-	public WebElement geteleEndDateTimecal()
-	{
+
+	public WebElement geteleEndDateTimecal() {
 		return eleEndDateTimecal;
-	}	
+	}
 
 
 	private WebElement eleWOendpoint;
@@ -264,7 +260,6 @@ public class Ph_CalendarPO
 	}
 
 	
-	
 	private WebElement eleeventtime;
 	public WebElement getEleeventtime(String Subject)
 	{
@@ -278,7 +273,6 @@ public class Ph_CalendarPO
 		}
 	
 	}
-	
 	
 	
 	private WebElement eleeventdate;
@@ -295,9 +289,7 @@ public class Ph_CalendarPO
 	
 	}
 	
-	
-	
-	
+
 	private List<WebElement> eleWOEventTitleTxt;
 	public List<WebElement> getEleWOEventTitleTxt(){
 		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -308,8 +300,8 @@ public class Ph_CalendarPO
 		}
 	}
 	
-	@FindAll({@FindBy(xpath="//*[@*='CALENDAR.DATE_SELECTED']"),
-	@FindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_SELECTED\"]/android.view.ViewGroup[2]")})
+	@AndroidFindBy(xpath="//*[@*='CALENDAR.DATE_SELECTED']")
+	@iOSXCUITFindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_SELECTED\"]/android.view.ViewGroup[2]")
 	private WebElement elecurrentdatedot;
 	public WebElement getlecurrentdatedot()
 	{
@@ -410,15 +402,13 @@ public class Ph_CalendarPO
 	}
 	
 	
-	@FindAll({@FindBy(xpath="//*[@*='Agenda View']"),@FindBy(xpath="//XCUIElementTypeButton[@name=\"Agenda View\"]")})
+	@AndroidFindBy(xpath="//*[@*='Agenda View']")
+	@iOSXCUITFindBy(xpath="//XCUIElementTypeButton[@name=\"Agenda View\"]")
 	private WebElement eleAgendaView;
 	public WebElement getEleAgendaView()
 	{
 		return eleAgendaView;
 	}
-	
-
-	
 	
 	
 	private List<WebElement> eleAgendaViewcomponent;
@@ -451,7 +441,6 @@ public class Ph_CalendarPO
 	}
 
 	
-	
 	public void validateeventlocation(String workordername,String startcalDate,String endcalDate,int hrs,CommonUtility commonUtility) throws Exception 
 	{
 		Thread.sleep(3000);
@@ -460,8 +449,7 @@ public class Ph_CalendarPO
 		  startcalDate = startcalDate+":00";
 		 endcalDate=endcalDate+":00"; 
 		 
-		
-		 
+			 
 		 custScroll(commonUtility,workordername);
 		 Thread.sleep(2000);
 		 Point startDate=getEleWOendpoint(startcalDate).getLocation(); 
