@@ -554,7 +554,8 @@ public class Ph_WorkOrderPO {
 		return txtZip;
 	}
 
-	@FindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'SFM.LAYOUT.LOOKUP.ITEM')]/android.widget.TextView[1]")
+	@AndroidFindBy(xpath = "//android.view.ViewGroup[contains(@content-desc,'SFM.LAYOUT.LOOKUP.ITEM')]/android.widget.TextView[1]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='[Product Code]']/preceding-sibling::XCUIElementTypeStaticText")
 	private List<WebElement> lkpLst;
 
 	public List<WebElement> getLkpLst() {

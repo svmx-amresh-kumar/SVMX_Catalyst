@@ -1637,7 +1637,7 @@ public class CommonUtility {
 			String sScriptName, String sTestCaseId) throws Exception {
 		String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
-						+ sProcessName + "\'",
+						+ sProcessName + "\'"+"ORDER+BY+SVMXC__Dispatch_Process_Status__c+ASC",
 				"SVMXC__Dispatch_Process_Status__c");
 		System.out.println("sProcess check" + sProcessCheck);
 
