@@ -260,7 +260,8 @@ public class CommonUtility {
 		if (clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 			switchContext("Webview");
-			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
+			Assert.fail("" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
+			//Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
 
 		switchContext("Webview");
@@ -2145,7 +2146,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		System.out.println("Element not found to click after scrolling");
-		ExtentManager.logger.log(Status.FAIL, "Element not found after scrolling");
+		ExtentManager.logger.log(Status.INFO, "Element not found after scrolling");
 
 	}
 
