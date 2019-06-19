@@ -1738,6 +1738,36 @@ public WebElement geteleIsbillable() {
 	private WebElement eleEntPerformedOn;
 	public WebElement geteleEntPerformedOn() {
 		return eleEntPerformedOn;
-}
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'SFM.LAYOUT.DETAILS.HEADER')]]/*")
+	private WebElement eleWorkDetailCount;
+	public WebElement getEleWorkDetailCount() {
+		return eleWorkDetailCount;
+	}
+	
+	@AndroidFindBy(xpath="//*[@*[contains(.,'ItemCount')]]//*[@class='android.widget.ImageView']")
+	private WebElement eleAttachedImage;
+	public WebElement getEleAttachedImage() {
+		return eleAttachedImage;
+	}
+	
+	@AndroidFindBy(xpath="//*[@text='Title']/following-sibling::*[1]/*[@class='android.widget.EditText']")
+	private WebElement eleImageTitle;
+	public WebElement getEleImageTitle() {
+		return eleImageTitle;
+	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM.')]])[last()]")
+	private WebElement eleWorkDetailItem;
+	public WebElement getEleWorkDetailsItem() {
+		return eleWorkDetailItem;
+	}
+	
+	@FindBy(xpath="(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM.')]]/*[1])[last()]")
+	private WebElement eleWorkDetailItemCheckbox;
+	public WebElement getEleWorkDetailsItemCheckbox() {
+		return eleWorkDetailItemCheckbox;
+	}
 
 }
