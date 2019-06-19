@@ -1580,12 +1580,13 @@ public WebElement geteleCustomerDowntoggle() {
 	public WebElement geteleAccountnotNUll() {
 		return eleAccountnotNUll;
 	}
-	@FindAll({ @FindBy(xpath = "//*[@text='Is Billable']//following-sibling::*[@*='ON']"),
-		@FindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Billable')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]") })
-private WebElement eleIsbillable;
 
-public WebElement geteleIsbillable() {
-	return eleIsbillable;
+	@AndroidFindBy(xpath = "//*[@text='Is Billable']//following-sibling::*[@*='ON']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Is Billable')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
+	private WebElement eleIsbillable;
+
+	public WebElement geteleIsbillable() {
+		return eleIsbillable;
 }
 	
 	
@@ -1661,8 +1662,8 @@ public WebElement geteleIsbillable() {
 	public WebElement geteleDelete() {
 		return eleDelete;
 	}
-	@FindAll({ @FindBy(xpath = "(//*[@*[contains(.,'Case Reason')]])[last()]/following-sibling::*[1]"),
-		@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[1]") })
+	@iOSXCUITFindBy(xpath = "(//*[@*[contains(.,'Case Reason')]])[last()]/following-sibling::*[1]")
+	@AndroidFindBy(xpath = "//*[@class='android.widget.TextView'][@text='Billing Type']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[1]")
 	private WebElement eleCaseReasonField;
 
 	public WebElement getEleCaseReasonField() {
