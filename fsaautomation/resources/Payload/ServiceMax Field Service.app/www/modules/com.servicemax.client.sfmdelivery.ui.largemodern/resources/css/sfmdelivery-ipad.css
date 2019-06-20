@@ -1,0 +1,508 @@
+.svmx-sfmd-sfmlist-header{
+	font-weight: bold !important;
+	color: #fff !important;
+}
+
+.svmx-sfmd-wait-cursor{	
+	cursor:wait;
+}
+
+.svmx-sfmd-standard-action-btn{	
+	width:31px !important;
+	height:31px !important;
+}
+
+.svmx-sfmd-custom-action-btn{	
+	height:31px !important;
+}
+
+.svmx-sfmd-chatter-icon{	
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat left -35px;	
+}
+
+.svmx-sfmd-save-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -35px;	
+}
+
+.svmx-sfmd-quicksave-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -35px;
+}
+
+.svmx-sfmd-cancel-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -121px -35px;
+}
+
+.svmx-sfmd-setting-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -140px;
+}
+
+.svmx-sfmd-reset-filter-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px top !important;
+}
+
+.svmx-sfmd-add-line-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px top !important;
+}
+
+.svmx-sfmd-help-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat 0 -72px;
+}
+
+.svmx-sfmd-cache-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -72px;
+}
+
+.svmx-sfmd-saveandnew-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat 0 -96px;
+}
+
+.svmx-sfmd-current-datetime-icon{	
+	width:16px !important;
+	height:16px !important;
+	border:none !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -72px;
+}
+
+.svmx-sfmd-multi-add-line-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px top !important;
+}
+
+.svmx-sfmd-delete-icon{
+	margin-top: 4px;
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -72px !important;
+	margin-left: 7px;
+	cursor: pointer;
+}
+
+.svmx-sfmd-edit-icon{
+	margin-top: 4px;
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -72px !important;
+	margin-left: 2px;
+	cursor: pointer;
+}
+
+.svmx-sfmd-tb-delete-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -72px !important;
+}
+
+.svmx-sfmd-tb-edit-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -72px !important;
+}
+
+.svmx-sfmd-bubble-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	cursor: pointer;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -96px !important;
+}
+
+.svmx-sfmd-popup-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -96px !important;
+}
+
+.svmx-sfmd-previous-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -96px !important;		
+}
+
+.svmx-sfmd-next-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -96px !important;
+}
+
+.svmx-sfmd-first-record-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -120px !important;
+}
+
+.svmx-sfmd-last-record-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -120px !important;
+}
+
+.svmx-sfmd-info-icon{
+	width:13px !important;
+	height:15px !important;	
+	display:inline-block !important;
+	margin-right: 3px;
+	cursor: pointer;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -120px !important;
+}
+
+.svmx-sfmd-iconmode-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -140px;	
+}
+
+.svmx-sfmd-textmode-icon{
+	display:block !important;
+	width:24px !important;
+	height:24px !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -140px;	
+}
+
+.svmx-search-info{
+	text-align: center;
+}
+
+.svmx-listcomposite-emptytext-indicator{
+	width:16px !important;
+	height:16px !important;
+	display: inline-block;	
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat left -140px !important;
+	margin: 0 0 0 6px;
+}
+
+.svmx-listcomposite-emptytext{
+	padding: 0;
+	display: inline-block;
+}
+
+.svmx-tool-flow{
+	width:15px !important;
+	height:15px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px top !important;
+}
+
+.svmx-tool-tab{
+	width:15px !important;
+	height:15px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -140px !important;
+}
+
+.svmx-sfmd-dismiss-all-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -82px -170px !important;
+}
+
+.svmx-sfmd-hide-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -170px !important;
+}
+
+.svmx-sfmd-redirect-icon{
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	cursor: pointer !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat left -170px !important;
+}
+
+.svmx-sfmd-redirect-disabled-icon{
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat left -201px !important;
+}
+
+.svmx-sfmd-dismiss-icon {
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	cursor: pointer !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -144px -170px !important;
+}
+
+.svmx-sfmd-error-indicator-icon{
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-error-animation-ipad.gif) no-repeat left top !important;
+}
+
+.svmx-sfmd-quick-save-indicator-icon {
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-quick-save-animation-ipad.gif) no-repeat left top !important;
+}
+
+.svmx-sfmd-discard-unresolved-lookup-icon {
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -120px -201px !important;	
+}
+
+.svmx-sfmd-view-processes-navigation-icon {
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -201px !important;	
+}
+
+.svmx-sfmd-search-icon{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -170px !important;
+}
+
+#svmx_sfm_delivery_root_container_header .svmx-panel-header-text-default{
+	font-weight: bold !important;
+	color: #0C4371 !important;
+	display: block !important;
+}
+
+.svmx-sfmd-detail-actions-icon {
+	width:14px !important;
+	height:14px !important;
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -87px -201px !important;
+}
+
+.svmx-sfmd-view-attachments-icon {
+	width:24px !important;
+	height:24px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat left -229px !important;	
+}
+
+.svmx-sfm-body-background{
+	background: #fff !important;
+}
+
+.svmx-sfm-bubble-content-background{
+	background: none !important;
+}
+
+.svmx-sfm-bubble-content-value{
+	text-align: left !important;
+}
+
+.svmx-sfm-bubble-content-value div{
+	font-weight: bold !important;
+}
+
+.svmx-sfmd-sfmlist-header-readonly-indicator{
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -149px -120px !important;
+	float: left;
+	margin-right: 2px;
+}
+
+.svmx-sfmd-sfmlist-header-readonly-header{
+	display:inline-block !important;
+}
+
+.svmx-requiredfield-header .svmx-requiredfield{
+	display:inline-block !important;
+	height:13px;
+	margin-left: 0;
+	float: left;
+	margin-top: 1px;
+}
+
+.svmx-requiredfield-header .svmx-sfmd-sfmlist-header-required{
+	display:inline-block !important;
+	padding-left: 3px !important;
+}
+
+td.svmx-action-col-cell{
+	vertical-align: middle !important;
+}
+
+.svmx-sfmd-lookup-advfilter-expand-icon {
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -41px -201px !important;
+}
+
+.svmx-sfmd-lookup-advfilter-collapse-icon {
+	width:16px !important;
+	height:16px !important;	
+	display:inline-block !important;
+	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -65px -201px !important;
+}
+
+.svmx-sfmd-lookup-advfilter-container {
+	border: 1px solid #616161;
+	border-top: none;
+}
+
+/* Error UI  */
+
+.svmx-sfmd-error-component .svmx-toolbar-default, .svmx-sfmd-error-component .svmx-nlg .svmx-toolbar-default {
+	background: #ebebeb url(../images/error_ui_toolbar_bg_ipad.gif) repeat-x left bottom !important;
+	border: 1px solid #bfbfbf !important;	
+}
+
+.svmx-sfmd-error-component .svmx-grid-header-ct {
+	border: 1px solid #bfbfbf !important;
+}
+
+.svmx-sfmd-error-component .svmx-column-header, .svmx-sfmd-error-component .svmx-column-header-over, .svmx-sfmd-error-component .svmx-column-header-sort-ASC, .svmx-sfmd-error-component .svmx-column-header-sort-DESC {
+	background: #ebebeb url(../images/error_ui_toolbar_bg_ipad.gif) repeat-x left bottom !important;
+}
+
+.svmx-sfmd-error-component .svmx-grid-with-col-lines .svmx-grid-cell, .svmx-sfmd-error-component .svmx-column-header-sort-ASC, .svmx-sfmd-error-component .svmx-column-header-sort-DESC, .svmx-sfmd-error-component .svmx-column-header {
+	border-right-color: #bfbfbf !important;
+}
+
+.svmx-sfmd-error-component .svmx-panel .svmx-grid-body {
+	border-color: #bfbfbf !important;
+	border-top:none !important;
+}
+
+.svmx-sfmd-error-component .svmx-grid-row .svmx-grid-cell-special, .svmx-sfmd-error-component .svmx-grid-row .svmx-grid-cell {
+	background-color: #f6f6f6 !important;
+}
+
+.svmx-sfmd-error-component .svmx-grid-row-alt .svmx-grid-cell-special, 
+.svmx-sfmd-error-component .svmx-grid-row-alt .svmx-grid-cell, 
+.svmx-sfmd-error-component .svmx-grid-row-alt .svmx-grid-rowwrap-div {
+	background-color: #eeeeee !important;
+}
+
+.svmx-sfmd-error-component .svmx-form-text{
+	border-color: #b9b9b9 !important;
+}
+
+.svmx-sfmd-error-component .svmx-text-filter-icon .svmx-form-item-body .svmx-form-text {	
+	background: url(../images/svmx-sfm-ipad-sprite.png) no-repeat -166px -117px !important;
+}
+
+.svmx-sfmd-error-component .svmx-column-header-inner {
+	font-size: 12px;
+	font-weight: bold;
+	padding-top: 7px !important;
+	height: 31px !important;
+}
+
+.svmx-sfmd-error-component .svmx-fit-item {
+	background: #fbfbfb;
+}
+
+.svmx-sfmd-error-component .svmx-column-header-inner .svmx-column-header-text {
+	color: #000;
+}
+
+.svmx-form-invalid-field:focus {
+	border:1px solid #C30 !important;
+	background-image: none !important;
+}
+
+/* Grid Header jumping issue fix */
+
+.svmx-grid .svmx-column-header-inner .svmx-column-header-text{
+	display: inline-block !important;
+}
+
+.svmx-grid .svmx-column-header-inner {
+	padding-top: 7px !important; 
+}
+
+.svmx-grid-checkcolumn-contentalign-right {
+	float: right !important;
+}
+
+.svmx-grid-checkcolumn-contentalign-left {
+	text-align: left !important;
+}
+
+.svmx-grid-checkcolumn-contentalign-center {
+	margin : 0 auto !important;
+}
+
+.svmx-grid-radiocolumn-contentalign-right {
+	float: right !important;
+}
+
+.svmx-grid-radiocolumn-contentalign-left {
+	text-align: left !important;
+}
+
+.svmx-grid-radiocolumn-contentalign-center {
+	margin : 0 auto !important;
+}
+
+.svmx-sfmd-section-row-bg {
+	background-color: #FFF !important;
+}
+
+.svmx-sfmd-error-cmp-error-detail {
+	width: 100% !important;
+	word-wrap: break-word !important;
+}
+
+/* End - Grid Header jumping issue fix */
+
+.svmx-sfmd-dirtystate-icon {
+	width:7px !important;
+ 	height:7px !important; 
+ 	display:block !important;
+ 	background:url(../images/svmx-sfm-ipad-sprite.png) no-repeat -106px -201px !important;
+ 	margin : 0 0 0 -7px;
+}
+
+.svmx-tab-icon-text-left .svmx-tab-inner {
+	padding-left: 0px !important;
+}
