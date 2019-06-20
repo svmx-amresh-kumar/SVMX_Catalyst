@@ -74,7 +74,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
 		
 		//Set Start time for event
-		commonUtility.setDateTime24hrs(workOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
+		commonUtility.setDateTime24hrs(workOrderPo.getEleStartDateAndTimeTxtFld(), 0, "0", "0");
 		
 		//Edit the subject
 		commonUtility.switchContext("Webview");
@@ -82,7 +82,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		//Set end time
 		commonUtility.switchContext("Webview");
-		commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
+		commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 1, "0", "0");
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		
