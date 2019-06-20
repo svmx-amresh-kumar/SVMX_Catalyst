@@ -482,5 +482,17 @@ public class Ph_ChecklistPO
 		return sTodayDate;
 	}
 	
-	
+			private WebElement eleGeneric;
+	public WebElement geteleGeneric(String sChecklistQ)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[@text='"+sChecklistQ+"']"));
+		}
+		else
+		{																											
+			return driver.findElement(By.xpath("//*[contains(@*,'"+sChecklistQ+"')]"));
+		}	
+		
+		
+	}
 }

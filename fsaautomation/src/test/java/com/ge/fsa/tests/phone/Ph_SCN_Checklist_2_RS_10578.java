@@ -179,13 +179,17 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		 Assert.assertTrue(ph_ChecklistPO.getEleConfirm().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		 ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
 		 ExtentManager.logger.log(Status.PASS,"DataValidation rule for confirmation Passed");
-		 ph_ChecklistPO.getEleConfirm().click();
+		 Thread.sleep(2000);
 		 
-
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			commonUtility.custScrollToElement(sAdvancedDVRq, false);
+		}
+		 
+		 ph_ChecklistPO.getEleConfirm().click();
 		// Navigating to the checklist
 		Thread.sleep(GenericLib.iLowSleep);
 		//commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
-		commonUtility.custScrollToElement(sAdvancedDVRq, false);
+		//commonUtility.custScrollToElement(sAdvancedDVRq, false);
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed(),
@@ -199,7 +203,6 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(10000);
 		System.out.println(
 				"validating if checklist is synced to server.validate the checklist status and answers through API.");
 		String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"
