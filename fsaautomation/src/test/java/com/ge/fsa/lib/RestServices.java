@@ -3,28 +3,24 @@ package com.ge.fsa.lib;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-
-import com.ge.fsa.lib.GenericLib;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import org.apache.commons.codec.binary.Base64;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.google.gson.JsonArray;
 
 public class RestServices 
 {
@@ -216,6 +212,10 @@ public class RestServices
 	 	System.out.println("Returned value for "+getvalue+" = "+msgString);
 		returnvalue= msgString;
 		
+		}
+		else if(getvalue=="allvalues"){
+			JSONArray arr=json.getJSONArray("records");
+			returnvalue=arr.toString();
 		}
 		//For "records" we first get the records array and then we extract the JSON key value pair from one level within
 		else
@@ -495,6 +495,23 @@ public class RestServices
 	            }
 	     }
 	 }
+	 public String encodeFileToBase64Binary(File file){
+         String encodedfile = null;
+         try {
+             FileInputStream fileInputStreamReader = new FileInputStream(file);
+             byte[] bytes = new byte[(int)file.length()];
+             fileInputStreamReader.read(bytes);
+             encodedfile = new String(Base64.encodeBase64(bytes), "UTF-8");
+         } catch (FileNotFoundException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         } catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+
+         return encodedfile;
+     }
 	 
 		public static void main(String[] args) throws IOException {
 		      RestServices restServices = new RestServices();

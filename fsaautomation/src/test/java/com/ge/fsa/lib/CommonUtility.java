@@ -1330,8 +1330,8 @@ public class CommonUtility {
 				 cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 
 			}
+			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				int breakCount=0;
 				//Phone needs multiple calls to date picker to set the correct date
 				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().equals(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
@@ -1340,7 +1340,12 @@ public class CommonUtility {
 			}
 			else {
 				//Tablet
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				sTimeHrs=String.valueOf(Integer.parseInt(sTimeHrs));
+				//sTimeHrs="5 o'clock";
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+					breakCount++;
+				}
 
 			}
 
@@ -1353,8 +1358,12 @@ public class CommonUtility {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
 				}
-			}else {
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}
+			else {
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeMin);
+					breakCount++;
+				}
 			}
 
 		}
