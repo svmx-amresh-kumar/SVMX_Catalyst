@@ -1394,11 +1394,17 @@ import io.appium.java_client.TouchAction;
 	
 		public void createNewEvent(CommonUtility commonUtility, String sSubject, String sDescription) throws InterruptedException
 		{
+			int hrs = 0;
+			try {
+				hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
+			} catch (Exception e) {
+
+			}
 			selectAction(commonUtility, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"05", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,"06","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,Integer.toString(hrs), "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,Integer.toString(hrs + 2),"00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
