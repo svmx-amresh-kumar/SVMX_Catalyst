@@ -266,10 +266,8 @@ private WebElement eleSignOutpopup;
 		getEleMoreBtn().click();
 		System.out.println("Begining Data Sync");
 		getEleDataSync().click();
-		Thread.sleep(200);
 		getEleSyncNow().click();
 		System.out.println("Clicked on Sync Now and waiting...");
-		Thread.sleep(200);
 		commonUtility.waitForElementNotVisible(getEleSyncing(), 300);
 		ExtentManager.logger.info("After Data Sync", MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		
@@ -280,7 +278,7 @@ private WebElement eleSignOutpopup;
 			System.out.println("Data Sync Failed");
 			//Verification of successful sync
 			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
-			Assert.assertTrue(2<1, "Data Sync Failed");
+			Assert.fail("Data Sync Failed");
 		}
 		
 		commonUtility.press(getEleMoreBtn().getLocation());

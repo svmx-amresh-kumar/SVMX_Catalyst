@@ -190,23 +190,35 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 		//commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
 		//commonUtility.custScrollToElement(sAdvancedDVRq, false);
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5");
-		ph_ChecklistPO.geteleSubmitbtn().click();
-		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed(),
-				"DataValidation rule failed for Advanced DVR ");
-		ExtentManager.logger.log(Status.PASS, "DataValidation rule for Advanced DVR Passed");
-
 		commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();;
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5");
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Less than 10 works");
+		ph_ChecklistPO.geteleSubmitbtn().click();
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
+
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("9");
+		ph_ChecklistPO.geteleSubmitbtn().click();
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Less than 10 Boundry value 9 works fine");
+		 
+		
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("101");
+		ph_ChecklistPO.geteleSubmitbtn().click();
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
+		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Greater than 100 101 works");
+
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("300");
 		ph_ChecklistPO.geteleSubmitbtn().click();
-
 
 		ph_MorePo.syncData(commonUtility);
 		System.out.println(
 				"validating if checklist is synced to server.validate the checklist status and answers through API.");
-		String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"
-				+ sWOName + "')";
+			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"
+					+ sWOName + "')";
 		String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");
 		Assert.assertTrue(ChecklistQueryval.contains(schecklistStatus), "checklist completed is not synced to server");
 		ExtentManager.logger.log(Status.PASS, "Checklist Completed status is displayed in Salesforce after sync");
