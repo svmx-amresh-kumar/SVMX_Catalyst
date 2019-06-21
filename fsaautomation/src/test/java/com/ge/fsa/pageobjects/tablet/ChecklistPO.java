@@ -4,6 +4,8 @@ package com.ge.fsa.pageobjects.tablet;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rotatable;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -417,6 +419,28 @@ public class ChecklistPO{
 		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 		System.out.println(sWorkOrderID);
 		
+	}
+	
+	public void validateChecklistServiceReport(CommonUtility commonUtility,WorkOrderPO workOrderPo, String sPrintReportSearch, String sWorkOrderID, String sImageName ) throws InterruptedException
+	{	
+	
+		workOrderPo.selectAction(commonUtility, sPrintReportSearch);
+		Thread.sleep(4000);
+		Assert.assertTrue(geteleChecklistReporttxt().isDisplayed(), "Checklist Report is not displayed in OPDOC.");
+		ExtentManager.logger.log(Status.PASS,"Checklist Report OPDOC is displayed successfully");
+		Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"Work Order no is not displayed in OPDOC report");
+		ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
+		System.out.println(sWorkOrderID); 
+		/*
+		 * commonUtility.switchContext("Native"); WebElement Fileinopdoc =
+		 * driver.findElementByAccessibilityId(sImageName);
+		 * commonUtility.custScrollToElement(Fileinopdoc);
+		 * Assert.assertTrue(commonUtility.waitforElement(Fileinopdoc,3),
+		 * "Attachment is present in opdoc"); ExtentManager.logger.log(Status.
+		 * PASS,"Attachment is present in opdoc as expected");
+		 * commonUtility.switchContext("WebView");
+		 */
+
 	}	
 	
 	
@@ -671,7 +695,7 @@ if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
   WebElement photoios = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios + "')]"));
   //Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
   //ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
-  
+  Thread.sleep(GenericLib.iAttachmentSleep);
    photoios.click();
 	
 		

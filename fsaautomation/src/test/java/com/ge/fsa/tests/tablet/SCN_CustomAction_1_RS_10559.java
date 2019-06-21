@@ -89,15 +89,16 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		}
 		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
 		Thread.sleep(GenericLib.i30SecSleep);
-		try{
-			workOrderPo.getEleActionsLnk().click();
-		}
-		catch (Exception e) {
-			commonUtility.tap(workOrderPo.getEleActionsLnk());
-		}
-		
-		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+//		try{
+//			workOrderPo.getEleActionsLnk().click();
+//		}
+//		catch (Exception e) {
+//			commonUtility.tap(workOrderPo.getEleActionsLnk());
+//		}
+//		
+//		Thread.sleep(GenericLib.iLowSleep);
+//		commonUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
+		workOrderPo.selectAction(commonUtility, "EDIT_WORKORDER_MAPPING");
 		workOrderPo.getEleclickparts(sProductName).click();
 		commonUtility.tap(workOrderPo.getEleclickparts(sProductName),20,20);
 		Thread.sleep(5000);

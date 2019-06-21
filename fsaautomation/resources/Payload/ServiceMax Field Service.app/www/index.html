@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Enable all requests, inline styles, and eval() -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.gstatic.com https://*.googleapis.com https://*.newrelic.com https://bam.nr-data.net; img-src * 'self' data: https:;">
+
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" id="viewport" content="user-scalable=no, width=device-width" />
+    <title>ServiceMax Field Service Application</title>
+    <script type="text/javascript" src="./modules/com.servicemax.client.ui.ext6modernloader/src/ext6/ext-modern-all-debug.js" defer></script>
+    <script type="text/javascript" src="./bundle.js" defer></script>
+    <script type="text/javascript" charset="utf-8">
+    var args = window.location.hash;
+    var results = args.split("=");
+    if (results && results.length>=2 && results[0] === "#newRelic") {
+      var newRelicInfo = results[1];
+      var newRelicJson = JSON.parse(newRelicInfo);
+      if (newRelicJson.enabled &&  newRelicJson.enabled === "1") {
+        window.newRelicJson = newRelicJson;
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("src", "./modules/com.servicemax.newrelic/resources/newrelic/newRelic.js");
+        head.appendChild(script);
+    }
+   }
+</script>
+
+  </head>
+  <body>
+    <div id="client_display_root"></div>
+  </body>
+</html>

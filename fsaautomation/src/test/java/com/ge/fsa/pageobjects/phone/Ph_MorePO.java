@@ -132,6 +132,14 @@ private WebElement eleSignOutpopup;
 	public WebElement getElePreparingDownload() {
 		return elePreparingDownload;
 	}
+	
+	@FindBy(xpath = "//*[@*='Smart sync in progress...']")
+	private WebElement eleSmartSync;
+
+	public WebElement getEleSmartSync() {
+		return eleSmartSync;
+	}
+	
 	@FindBy(xpath = "//*[@*[contains(.,'Downloading...')]]")
 	private WebElement eleDownloading;
 

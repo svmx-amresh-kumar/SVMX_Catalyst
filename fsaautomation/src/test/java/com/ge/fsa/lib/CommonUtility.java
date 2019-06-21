@@ -260,7 +260,8 @@ public class CommonUtility {
 		if (clickPassed == false && tapPassed == false) {
 			System.out.println("Tap Exception : " + tapExp);
 			switchContext("Webview");
-			Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
+			Assert.fail("" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
+			//Assert.assertTrue(1 < 2, "" + ExtentManager.logger.log(Status.FAIL, "Tap Exception : " + tapExp));
 		}
 
 		switchContext("Webview");
@@ -1329,8 +1330,8 @@ public class CommonUtility {
 				 cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 
 			}
+			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				int breakCount=0;
 				//Phone needs multiple calls to date picker to set the correct date
 				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().equals(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
@@ -1339,7 +1340,12 @@ public class CommonUtility {
 			}
 			else {
 				//Tablet
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				sTimeHrs=String.valueOf(Integer.parseInt(sTimeHrs));
+				//sTimeHrs="5 o'clock";
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+					breakCount++;
+				}
 
 			}
 
@@ -1352,8 +1358,12 @@ public class CommonUtility {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
 				}
-			}else {
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}
+			else {
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeMin);
+					breakCount++;
+				}
 			}
 
 		}
@@ -1637,7 +1647,7 @@ public class CommonUtility {
 			String sScriptName, String sTestCaseId) throws Exception {
 		String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
-						+ sProcessName + "\'",
+						+ sProcessName + "\'"+"ORDER+BY+SVMXC__Dispatch_Process_Status__c+ASC",
 				"SVMXC__Dispatch_Process_Status__c");
 		System.out.println("sProcess check" + sProcessCheck);
 
@@ -2145,7 +2155,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		System.out.println("Element not found to click after scrolling");
-		ExtentManager.logger.log(Status.FAIL, "Element not found after scrolling");
+		ExtentManager.logger.log(Status.INFO, "Element not found after scrolling");
 
 	}
 

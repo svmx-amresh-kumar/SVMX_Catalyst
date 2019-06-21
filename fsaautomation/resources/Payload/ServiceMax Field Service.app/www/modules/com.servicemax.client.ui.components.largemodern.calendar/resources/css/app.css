@@ -1,0 +1,409 @@
+.floating-panel {
+    padding: 6px;
+    background: #f2f2f2 url("../images/svmx-cal-popup-arrow.png") no-repeat center center;
+    width: 50px;
+    height: 42px;
+    position: absolute;
+    -webkit-border-radius: 0 0 0.5em 0.5em;
+	-moz-border-radius: 0 0 0.5em 0.5em;
+	-ms-border-radius: 0 0 0.5em 0.5em;
+	-o-border-radius: 0 0 0.5em 0.5em;
+	border-radius: 0 0 0.5em 0.5em;
+	-webkit-box-shadow: 0 4px 7px -4px #999999;
+	   -moz-box-shadow: 0 4px 7px -4px #999999;
+	        box-shadow: 0 4px 7px -4px #999999;
+}
+
+#areaTapSwipe .x-anchor {
+    display: none;
+}
+
+/* month cal */
+.sfmevent-button-container {
+    background-color: #FFFFFF;
+}
+
+
+/*TimeSlots*/
+.sfmevent-day-timeslots {
+    height: 50px;
+}
+
+.sfmevent-day {
+  /*position:relative;*/
+}
+
+.sfmevent-day .sfmevent-content {
+  font-size: 13px;
+  font-weight:400;
+  color:#6b6b6b;
+}
+
+
+.sfmevent-location-container {
+  text-align: left;
+  position:absolute;
+  top:3px;
+  left:31px;
+}
+
+div.sfmevent-week .sfmevent-location-container {
+    left:5px;
+    z-index: 299;
+    width:85%;
+    word-wrap: break-word;
+}
+
+.sfmevent-day .sfmevent-location-container {
+  width:100%;
+  word-wrap: break-word;
+}
+
+/*Event Object*/
+.touch-calendar-view div.event-bar {
+  -webkit-border-radius: 0;
+  padding: 2px;
+  font-size: 0.7em !important;
+  background-color: #F2F1F0;
+  border:none;
+  color: #434343 !important;
+  letter-spacing: -0.2px
+}
+
+.touch-calendar-view div.event-bar .sfmevent-colorbar {
+  padding-top: 6px;
+  position: absolute;
+  top:0px;
+  left:0px;
+  width: 24px;
+  height: 102%;
+  margin-top: -3px;
+  margin-left: -2px;
+  background-color: #797979;
+}
+
+.touch-calendar-view div.event-bar div.sfmevent-week .sfmevent-colorbar {
+  width: 4px;
+}
+
+.sfmevent-colorbar {
+}
+
+
+.touch-calendar-view div.event-bar .sfmevent-colorbar-High {
+  /*background-color: #FF3300 !important; */
+}
+.touch-calendar-view div.event-bar .sfmevent-colorbar-Medium {
+  /*background-color: #0099FF !important; */
+}
+.touch-calendar-view div.event-bar .sfmevent-colorbar-Low {
+ /* background-color: #33CC99 !important;*/
+
+}
+.touch-calendar-view div.event-bar .sfmevent-colorbar-Other {
+  /*background-color: #797979 !important; */
+}
+
+
+.touch-calendar-view div.event-bar .sfmevent-container {
+    padding-left: 10px;
+    width: auto;
+}
+
+.touch-calendar-view div.event-bar div.sfmevent-week .sfmevent-container {
+    padding-left: 4px;
+}
+
+.sfmevent-day-indicator {
+    font-weight: 200;
+    text-align: center;
+    font-size:0.95em;
+    border-radius: 7px;
+    width:50px;
+    background-color:#797979;
+    color:#fff;
+    padding:3px;
+}
+
+.sfmevent-long-duration {
+  /*position:absolute; */
+  right:10px;
+}
+
+
+
+
+.sfmevent-title, .sfmevent-non-wo-title  {
+  font-weight: 400;
+  text-align: left;
+  font-size: 17px;
+  letter-spacing: -0.2px;
+  margin-top: 0px;
+  color: #333333;
+}
+
+
+.sfmevent-day .sfmevent-title,
+.sfmevent-day .sfmevent-non-wo-title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333333;
+}
+
+/* Week View */
+
+.sfmevent-week .sfmevent-title,
+.sfmevent-week .sfmevent-non-wo-title,
+.sfmevent-week .sfmevent-account {
+  font-size: 12px;
+  word-wrap: break-word;
+}
+
+.sfmevent-week .sfmevent-day-indicator {
+  margin-bottom: 6px;
+}
+
+.sfmevent-week .sfmevent-icon-sla,
+.sfmevent-week .sfmevent-icon-conflict,
+.sfmevent-week .sfmevent-icon-High {
+  font-size: 2em !important;
+}
+/*.sfmevent-week .sfmevent-content {
+  color:#6B6B6B;
+  font-size: 13px;
+}*/
+
+.sfmevent-account {
+
+}
+
+.sfmevent-subject-container sfmevent-short-duration {
+
+}
+
+.sfmevent-location {
+  color:#797979;
+  font-size: 14px;
+  text-align: left;
+  letter-spacing: -0.2px;
+}
+
+/* TODO: Conflict icon */
+.sfmevent-icon-conflict {
+  float: right;
+  margin-right: 1px;
+  /* margin-top: 3px; */
+  /* width: 36px; */
+  font-family: 'svmx-icons', !important;
+  /* height: 36px; */
+  color: #ffffff !important;
+  font-size: 2.1em !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+/* TODO: SLA icon */
+.sfmevent-icon-sla {
+    float: right;
+    margin-right: 0px;
+    /* margin-top: 3px; */
+    /* width: 36px; */
+    font-family: 'svmx-icons', !important;
+    /* height: 36px; */
+    color: #ffffff !important;
+    font-size: 2em !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.sfmevent-icon-High {
+  float: right;
+  margin-right: 2px;
+  padding-left: 19px;
+  /* margin-top: 3px; */
+  /* width: 36px; */
+  font-family: 'svmx-icons', !important;
+  /* height: 36px; */
+  color: #ffffff !important;
+  font-size: 2.2em !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+.sfmevent-icon-edit {
+  position:absolute;
+  right: 0px;
+  float: right;
+  margin-right: 3px;
+  margin-top: 3px;
+  width: 36px;
+  font-family: 'svmx-icons', !important;
+  height: 36px;
+  color: #FF6633 !important;
+  font-size: 2.850em !important;
+  z-index: 300 !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.sfmevent-icon-edit-weekview {
+  /*position:absolute;
+  right: 0px;
+  top: 0px;
+  float: right;
+  margin-right: 3px;
+  margin-top: 3px;
+  width: 36px;
+  height: 36px;*/
+  font-family: 'svmx-icons', !important;
+  color: #FF6633 !important;
+  font-size: 2.850em !important;
+  z-index: 300 !important;
+    font-family: 'svmx-icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.sfmevent-icons {
+    z-index: 300 !important;
+    position:relative;
+}
+
+.sfmevent-icon-edit-hidden {
+  display: none;
+}
+
+.sfmevent-icon-edit:before{content:"\e911";}
+.sfmevent-icon-edit-weekview:before{
+  content:"\e911";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+}
+.sfmevent-icon-conflict:before {content: "\e608";}
+.sfmevent-icon-High:before{content: "\e60b";}
+.sfmevent-icon-sla:before{content: "\e609";}
+
+.event-bar:hover .sfmevent-icon-edit-hidden {
+  display: block;
+}
+
+/* Hide this icons during hover and only show edit icon */
+.event-bar:hover div.sfmevent-week .to-hide-icon {
+  display: none;
+}
+
+
+/* Div containing the event record on a month day */
+.sfmevent-month {
+  font-weight: normal;
+  text-align: left;
+  display: list-item;
+  list-style-type: disc;
+  /* margin-right: 0.25em; */
+  /* margin-left: 15px; */
+  list-style-position: inside;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+li.sfmevent-month.sfmevent-more {
+  color:#2F70AB;
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+.touch-calendar-view thead th li.sfmevent-month.sfmevent-more span {
+  color:#2F70AB;
+}
+
+
+/* Month Event Object */
+.touch-calendar-view div.sfmevent-bar-month {
+  font-size: 0.9em !important;
+  color: #434343 !important;
+  position: absolute;
+  z-index: 100;
+  text-align: left;
+  padding: 1em 0.875em 1em 0em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.touch-calendar-view div.sfmevent-bar-month .sfmevent-container {
+    padding-left: 10px;
+    width: auto;
+}
+
+.touch-calendar-view div.sfmevent-bar-month.sfmevent-bar-selected {
+  background-color: #E1C370;
+}
+
+.touch-calendar-view div.sfmevent-bar-month.wrap-end {
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+}
+.touch-calendar-view div.sfmevent-bar-month.wrap-start {
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+}
+
+/**
+overwrite ../scss/Ext.ux.TouchCalendarEvents.scss
+black backgroud and white text
+*/
+.touch-calendar-view div.event-bar.event-bar-selected {
+  background-color: #000000;
+	color: #ffffff !important;
+}
+
+/* Event bar additional styles */
+.sfmevent-subject-top-border::after{
+  content: '';
+  width: 100%;
+  height: 5px;
+  border-top: 1px solid #E6E4E2;
+  display: inline-block;
+}
+
+.sfmevent-day-title {
+  font-size: 18px !important;
+}
+
+.sfmevent-day-subtitle {
+  font-size: 16px !important;
+}
+
+.sfmevent-day-subject {
+  font-size: 14px !important;
+}
+
+.sfmevent-week-title, .sfmevent-week-subtitle {
+  font-size: 12px !important;
+}
+
+.sfmevent-week-subject {
+  font-size: 12px !important;
+}
+
+.sfmevent-week .sfmevent-title {
+  font-weight: 500 !important;
+}

@@ -1394,11 +1394,17 @@ import io.appium.java_client.TouchAction;
 	
 		public void createNewEvent(CommonUtility commonUtility, String sSubject, String sDescription) throws InterruptedException
 		{
+			int hrs = 0;
+			try {
+				hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
+			} catch (Exception e) {
+
+			}
 			selectAction(commonUtility, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0,"05", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0,"06","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,Integer.toString(hrs), "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,Integer.toString(hrs + 2),"00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -2365,6 +2371,7 @@ import io.appium.java_client.TouchAction;
 		@FindAll
 		 ({@FindBy(xpath="//*[contains(text(),'Start Date and Time')][@class = 'x-label-text-el']/../..//input"),
 			@FindBy(xpath="//*[contains(text(),'StartDateandTime')][@class = 'x-label-text-el']/../..//input"),
+			@FindBy(xpath="//*[contains(text(),'StartDateTime')][@class = 'x-label-text-el']/../..//input"),
 			@FindBy(xpath="//*[text()='Start Date and Time']/../..//div[@class='x-innerhtml']/../..//input")})
 		
 		private WebElement eleStartDateAndTimeTxtFld;
@@ -2375,7 +2382,8 @@ import io.appium.java_client.TouchAction;
 		
 		@FindAll
 		 ({@FindBy(xpath="//*[contains(text(),'End Date and Time')][@class = 'x-label-text-el']/../..//input"),
-			@FindBy(xpath="//*[contains(text(),'EndDateandTime')][@class = 'x-label-text-el']/../..//input")})
+			@FindBy(xpath="//*[contains(text(),'EndDateandTime')][@class = 'x-label-text-el']/../..//input"),
+			@FindBy(xpath="//*[contains(text(),'EndDateTime')][@class = 'x-label-text-el']/../..//input")})
 		private WebElement eleEndDateAndTimeTxtFld;
 		public WebElement getEleEndDateAndTimeTxtFld()
 		{

@@ -63,10 +63,10 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// sWOName1 = "WO-00001615";
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);
 
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS, "Sahi verification is successful");
-
+*/
 	}
 
 	// @Test()
@@ -180,7 +180,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// Opening Completed Checklist
 		ph_ChecklistPO.geteleCompleted().click();
 		Thread.sleep(3000);
-		ph_ChecklistPO.geteleName().click();
+		
+		ph_ChecklistPO.getelechecklistinstance().click();
+		
+		//in build 598 [name] was displayed when checklist was completed.
+		//ph_ChecklistPO.geteleName().click();
 		Thread.sleep(3000);
 
 		// to be reverted once number is fixed for android!

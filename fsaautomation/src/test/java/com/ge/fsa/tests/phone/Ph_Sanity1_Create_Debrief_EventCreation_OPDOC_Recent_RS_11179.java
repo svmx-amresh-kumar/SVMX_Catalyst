@@ -212,9 +212,9 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 		JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray("Select+SVMXC__Actual_Quantity2__c,+SVMXC__Actual_Price2__c,+SVMXC__Product__c,+SVMXC__Activity_Type__c,+SVMXC__Start_Date_and_Time__c,+SVMXC__End_Date_and_Time__c,+SVMXC__Expense_Type__c,+SVMXC__Work_Description__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Line_Type__c='Parts'+AND+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')");
 		String sProductID = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Product__c");
 		String sSoqlProductName = "Select+Name+from+Product2+where+Id=\'"+sProductID+"\'";
-		String sProductName = restServices.restGetSoqlValue(sSoqlProductName,"Name");
+		String sProductName2 = restServices.restGetSoqlValue(sSoqlProductName,"Name");
 		String sLineQtyParts = restServices.getJsonValue(sJsonArrayExpenses, "SVMXC__Actual_Quantity2__c");
-		assertEquals(sProductName, sProductName);
+		assertEquals(sProductName2, sProductName);
 		assertEquals(sLineQtyParts, "1.0");
 		ExtentManager.logger.log(Status.PASS,"The fields of Childlines of Type Parts match");
 	}

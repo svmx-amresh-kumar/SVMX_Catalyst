@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function initMap() {
+        document.body.style.margin = '0px';
+        SVMXMapIframe.initialize();
+      }
+    </script>
+  <link rel="stylesheet" href="./modules/com.servicemax.client.sfmeventmap.ui.largemodern/resources/map.css"></link>
+    <script type="text/javascript" src="./modules/com.servicemax.client.sfmeventmap.ui.largemodern/src/mapinfobox.js"></script>
+    <script type="text/javascript" src="./modules/com.servicemax.client.sfmeventmap.ui.largemodern/src/mapcontainer.js"></script>
+    <script>
+      var mainWindow = window.parent;
+      var deviceInfo = mainWindow.SVMX && mainWindow.SVMX.getClient().getApplicationParameter('device-info');
+      if(deviceInfo && deviceInfo['device-platform']) {
+        var channel = deviceInfo['device-platform'];
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://maps.googleapis.com/maps/api/js?client=gme-servicemaxinc&sensor=true&channel="+channel+"&callback=initMap";
+        head.appendChild(script);
+      }
+    </script>
+    </head>
+  <body>
+    <div id="map_display" class="svmx-map-display"></div>
+  </body>
+</html>
