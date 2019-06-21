@@ -22,8 +22,8 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 
 	String sObjectIBID =null ;
 	
-	String sIBname=null ;
-	String sCaseSahiFile = null;
+	
+	
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sObjectAccID = null;
@@ -31,55 +31,41 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 	String sObjectProID=null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	//String sAccountName = "Proforma04092018185618account";
 	String sAccountName =null;
 	String sFieldServiceName = null;
-	//String sproductname = "Proforma04092018185618product";
 	String sproductname =null;
-	//String sInstalledproductID="RS_10557_InstalledProduct_Auto";
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String[] sAppDate = null;
-	String sIBLastModifiedBy=null;
 	String sObjectlocationID=null;
-String Location=null;
-String assertionMessage="";
+	String Location=null;
+	String assertionMessage="";
 	WebElement productname=null;
 	String sSheetName =null;
-Boolean	bProcessCheckResult=false;
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
+	Boolean	bProcessCheckResult=false;
+	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10557() throws Exception {
 		sSheetName ="RS_10557";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+	
 		
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS-10557_mapping";
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 		
-		
-		//sahi
-		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10554",sTestCaseID);
-		
-
-		
-		
 		//read from file
-				sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-				sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-				sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-	
+		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+
+		//sahi
+		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10557",sTestCaseID);
+		
+		
 	
 		sObjectApi = "Account?";
 		sJsonData = "{\"Name\": \""+sProformainVoice+""+"account\"}";
 		sObjectAccID=restServices.restCreate(sObjectApi,sJsonData);
 		sSqlAccQuery ="SELECT+name+from+Account+Where+id+=\'"+sObjectAccID+"\'";				
 		sAccountName =restServices.restGetSoqlValue(sSqlAccQuery,"Name"); 
-		//sProductName1="v1";
 		System.out.println(sAccountName);
 		// Create product
 		sJsonData = "{\"Name\": \""+sProformainVoice+""+"product\", \"IsActive\": \"true\"}";
@@ -94,7 +80,6 @@ Boolean	bProcessCheckResult=false;
 		sObjectlocationID=restServices.restCreate(sObjectApi,sJsonData);
 		String sSqllocQuery = "SELECT+name+from+SVMXC__Site__c+Where+id+=\'"+sObjectlocationID+"\'";				
 		Location =restServices.restGetSoqlValue(sSqllocQuery,"Name"); 
-		//sProductName1="v1";
 		System.out.println(Location);
 		
 		
@@ -112,20 +97,14 @@ Boolean	bProcessCheckResult=false;
 			Thread.sleep(5000);
 			//navigate to sfm
 			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, sExploreChildSearchTxt, sInstalledproductID,sFieldServiceName );	
-			
-			
-			
 			//fill the values to to fields
-			//commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0");
 			commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleScheduledDateTime(), 0,"0", "0"); //set start time to Today
 
-			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getText();//change
+			String ScheduledDateTimeWO = ph_WorkOrderPo.getEleScheduledDateTime().getText();
 		
-		  //Thread.sleep(2000); ph_WorkOrderPo.getEleSite().click();
 		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleSite(), Location);
 		  
-		  //ph_WorkOrderPo.getEleComponent().click();
-		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleComponent(), sproductname); Thread.sleep(2000);
+		  ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_WorkOrderPo.getEleComponent(), sproductname);
 		 
 		Thread.sleep(3000);
 			//add new line for parts
@@ -166,7 +145,6 @@ Boolean	bProcessCheckResult=false;
 			 //Labor
 			
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getStringLabor());
-			//commonUtility.custScrollToElement(ph_WorkOrderPo.getEleOntoplabor());
 			ph_WorkOrderPo.getEletapon(startdatetimeWO).click();
 			Thread.sleep(2000);
 			 startdatetimeWO = ph_WorkOrderPo.getEleStartDateTimeTxtFld().getText();
@@ -186,13 +164,11 @@ Boolean	bProcessCheckResult=false;
 			Thread.sleep(GenericLib.iMedSleep);
 			Thread.sleep(15000);
 ///////////////////////validation from server//////////////////////////////////////////////////	
-		//	String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+SVMXC__Company__c+=\'"+sObjectAccID+"\'+AND+SVMXC__Product__c+=\'"+sObjectProID+"\'";
 			String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sInstalledproductID+"\'";
 			restServices.getAccessToken();
 			String sIBID = restServices.restGetSoqlValue(sSoqlQuery,"Id");
 			System.out.println(sIBID);
 				
-			
 			
 			// Collecting the Work Order number from the Server.
 			String sSoqlQuerywo = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sIBID+"\'";
@@ -204,8 +180,7 @@ Boolean	bProcessCheckResult=false;
 		String sSoqlQueryscheduleddatewo = restServices.restGetSoqlValue(sSoqlscheduleddatewo, "SVMXC__Scheduled_Date_Time__c");
 		System.out.println(sSoqlQueryscheduleddatewo);
 	
-		
-			//Collecting the parts from the Server.
+		//Collecting the parts from the Server.
 			JSONArray sJsonArrayparts = restServices.restGetSoqlJsonArray("SELECT+SVMXC__Requested_Location__c+from+SVMXC__Service_Order_Line__c+where+SVMXC__Start_Date_and_Time__c+ = null+and+SVMXC__Requested_Location__c!=null+and+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+= \'"+sworkOrdername+"\')");
 			String sLocationid = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Requested_Location__c");
 			System.out.println("****************"+sLocationid);

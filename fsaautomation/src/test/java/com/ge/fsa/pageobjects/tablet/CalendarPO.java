@@ -4,6 +4,8 @@ package com.ge.fsa.pageobjects.tablet;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -447,6 +449,17 @@ public class CalendarPO
 	        String stempDate =  formatter1.format(dTempDate1);
 	        System.out.println("Converted to date "+stempDate); 
 		return stempDate;
+	
+		/* //adding 7 hours to set to UTC/GMT time.. this is from PST timezone as 
+    	Instant insDate =dTempDate1.toInstant().minus(7, ChronoUnit.HOURS);
+        System.out.println("7 aded to instant"+insDate); 
+        
+       String sformattedDatetime = formatter1.format(dTempDate1);
+        dTempDate1 = Date.from(insDate);
+        sformattedDatetime = formatter1.format((dTempDate1));  
+        System.out.println("formateed dateTime"+sformattedDatetime);
+*/
+	
 	}
 	
 	@FindBy(xpath="//span[@class='x-label-text-el'][contains(text(),'Subject')]/../../div[@class='x-body-el x-widthed']//input")

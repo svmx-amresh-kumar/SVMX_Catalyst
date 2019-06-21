@@ -63,7 +63,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
-		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10556",sTestCaseID);
+	//	 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10556",sTestCaseID);
 
 
 
@@ -78,7 +78,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 
 		// config sync
 		//config sync
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
+	//	ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 	Thread.sleep(GenericLib.iMedSleep);
 
 		// datasync
@@ -88,7 +88,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 		ph_CalendarPo.getEleCalendarBtn().click();
 		//ph_CalendarPo.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("Event_10556"),true);
-		
+		ph_CalendarPo.custScroll(commonUtility,"Event_10556");
 		ph_CalendarPo.getEleworkordernumonCalendar("Event_10556").click();
 		ph_CalendarPo.getEleworkordernumon(sworkordernumber).click();
 		

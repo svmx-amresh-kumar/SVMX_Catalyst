@@ -27,9 +27,7 @@ import com.ge.fsa.lib.Retry;
 
 public class Ph_Calendar_1_RS_10511 extends BaseLib {
 
-int iWhileCnt = 0;
-	
-	
+
 	String sObjectAccID = null;
 	String sSqlAccQuery=null;
 	String sObjectApi = null;
@@ -51,15 +49,12 @@ int iWhileCnt = 0;
 		sSheetName ="RS_10511";
 		String sTestCaseID="RS_10511_Calender_1";
 		//sahi
- 		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
-  		if(commonUtility.verifySahiExecution()) {
-  			System.out.println("PASSED");
-  		}else{System.out.println("FAILED");
-  		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);}
-  		lauchNewApp("false"); 
-  		System.out.println("RS_10511");
-		
+ 	
+  		 	genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah", sTestCaseID);
+			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+
+  		
 		String sWO_SFDC_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
 		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
 		
@@ -68,9 +63,7 @@ int iWhileCnt = 0;
 		String sTechname2 = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
 	
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-			//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 			
-			//ph_MorePo.syncData(commonUtility);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
 		ph_CalendarPo.getEleCalendarBtn().click();			
