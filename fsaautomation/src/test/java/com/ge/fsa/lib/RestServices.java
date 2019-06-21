@@ -212,10 +212,6 @@ public class RestServices
 		returnvalue= msgString;
 		
 		}
-		else if(getvalue=="allvalues"){
-			JSONArray arr=json.getJSONArray("records");
-			returnvalue=arr.toString();
-		}
 		//For "records" we first get the records array and then we extract the JSON key value pair from one level within
 		else
 		{
