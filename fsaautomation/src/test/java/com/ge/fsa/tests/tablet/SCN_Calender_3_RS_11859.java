@@ -40,8 +40,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	
 
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_11859() throws Exception {
 		sSheetName ="RS_11859";
 		
