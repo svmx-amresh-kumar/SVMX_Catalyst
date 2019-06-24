@@ -40,21 +40,12 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sObjectAccID = null;
-//	String sSqlAccQuery=null;
-	// String sObjectProID=null;
-	// String sObjectApi = null;
-	// String sJsonData = null;
-	// String sAccountName = "Proforma04092018185618account";
-	// String sAccountName =null;
+
 	String sFieldServiceName = null;
-	// String sproductname = "Proforma04092018185618product";
-	// String sproductname =null;
-	// String sInstalledproductID="RS_10557_InstalledProduct_Auto";
-	// String sSqlQuery = null;
+	
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
-	// String sObjectlocationID=null;
-//String Location=null;
+	
 	String SFMBillingtype = "Empowerment";
 	String SFMcontact = "C10556_ Auto";
 	String SFMCustomerDown = "true";
@@ -92,13 +83,13 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		
-	/*	  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
-		  lauchNewApp("false"); System.out.println("RS_10556");*/
-		  
+		  lauchNewApp("false"); System.out.println("RS_10556");
+		 
 		 
 
 		// read from file
