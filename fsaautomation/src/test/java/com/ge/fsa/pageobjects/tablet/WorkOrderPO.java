@@ -764,7 +764,7 @@ import io.appium.java_client.TouchAction;
 			return eleDescriptionTxt;
 		}
 	
-		@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-innerhtml']/span")
+		@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-input-body-el']/textarea")
 		private WebElement eleWODesMappedTxt;
 		public WebElement getEleWODesMappedTxt()
 		{
@@ -1854,7 +1854,7 @@ import io.appium.java_client.TouchAction;
 		}
 	
 	
-		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span)[2]")
+		@FindBy(xpath="(//*[text()='Problem Description']/../..//div[@class='x-innerhtml']/../..//textarea)[2]")
 		private WebElement ProblemDescription;
 		public WebElement getProblemDescription()
 		{

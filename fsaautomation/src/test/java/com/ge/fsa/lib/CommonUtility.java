@@ -429,7 +429,7 @@ public class CommonUtility {
 
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			.moveTo(new PointOption().withCoordinates(x, y+5)).release().perform();
 			break;
 
 		}
@@ -1342,6 +1342,7 @@ public class CommonUtility {
 				//Tablet
 				sTimeHrs=String.valueOf(Integer.parseInt(sTimeHrs));
 				//sTimeHrs="5 o'clock";
+			
 				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 					breakCount++;
