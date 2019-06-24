@@ -115,8 +115,8 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS, "Before sync service order count Expected : 0 , Actual : "+sWoCountBeforeSync);
 		
 		//Perform Data Sync
-		ph_MorePo.getEleMoreBtn().click();
 		ph_WorkOrderPo.getBtnClose().click();
+		ph_MorePo.getEleMoreBtn().click();
 		ph_MorePo.syncData(commonUtility);
 		
 		//Check if Records are present in DB after Sync
