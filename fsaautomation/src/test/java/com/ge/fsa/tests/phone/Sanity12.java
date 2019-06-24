@@ -49,7 +49,7 @@ public class Sanity12 extends BaseLib {
 	String sSqlAccQuery;
 	String[] sDeviceDate;
 	String sAttachmentID;
-	String sImageName="TestImage";
+	String sImageName="TestImage_1.jpg";
 	String sActionsName = "EditWoAutoTimesstamp";
 
 	public void prerequisite() throws Exception {
@@ -109,8 +109,8 @@ public class Sanity12 extends BaseLib {
 		sExpenseId4 = restServices.restCreate("SVMXC__Service_Order_Line__c?", "{\"SVMXC__Line_Status__c\":\"Open\",\"SVMXC__Line_Type__c\":\"Expenses\",\"SVMXC__Service_Order__c\":\"" + sWorkOrderID + "\",\"RecordTypeId\":\"" + sRecordTypeId + "\",\"SVMXC__Product__c\":\"" + sProductId1 + "\"}");
 
 		// Creating and associating a work detail to the work Order (Attchements)
-		String file = restServices.encodeFileToBase64Binary(new File("/auto/SVMX_Catalyst/fsaautomation/resources/imageData/TestImage_1.jpg"));
-		sAttachmentID = restServices.restCreate("Attachment?", "{\"ContentType\":\"image/png\",\"Name\":\""+sImageName+"\",\"ParentId\":\""+sWorkOrderID+"\",\"Body\":\"" + file + "\"}");
+		String file = restServices.encodeFileToBase64Binary(new File("/auto/SVMX_Catalyst/fsaautomation/resources/imageData/"+sImageName));
+		sAttachmentID = restServices.restCreate("Attachment?", "{\"ContentType\":\"image/jpeg\",\"Name\":\""+sImageName+"\",\"ParentId\":\""+sWorkOrderID+"\",\"Body\":\"" + file + "\"}");
 
 		// creating an event for workorder with 1 hour
 		sDeviceDate = commonUtility.getDeviceDate().split(" ");
@@ -127,7 +127,7 @@ public class Sanity12 extends BaseLib {
 		String sEndDateTime = sdf.format(cal.getTime());
 
 		sObjectApi = "SVMXC__SVMX_Event__c?";
-		sJsonData = "{\"Name\": \"Sanity12\",\"SVMXC__Service_Order__c\": \"" + sWorkOrderID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + sWorkOrderID
+		sJsonData = "{\"Name\": \"Sanity12 "+sWOName+"\",\"SVMXC__Service_Order__c\": \"" + sWorkOrderID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + sWorkOrderID
 				+ "\"}";
 
 		String sObjecteventID = restServices.restCreate(sObjectApi, sJsonData);
@@ -135,111 +135,120 @@ public class Sanity12 extends BaseLib {
 		String sEventName = restServices.restGetSoqlValue(sSqlAccQuery, "Name");
 		System.out.println(sEventName);
 
-		genericLib.executeSahiScript("Sanity12_prerequisite.sah", sTestID);
+		genericLib.executeSahiScript("appium/Sanity12_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10556() throws Exception {
-		prerequisite();
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		ph_MorePo.syncData(commonUtility);
-		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName);
-		ph_WorkOrderPo.selectAction(commonUtility, sActionsName);
-		commonUtility.gotToTabHorizontal("PARTS");
-		int partsCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(partsCount==3, "Parts count is not matching after creation from server.");
-		ExtentManager.logger.log(Status.PASS, "Parts added from server and displayed count is matching. Expected : 3, Actual : "+partsCount);
-		commonUtility.gotToTabHorizontal("LABOR");
-		int laborCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(laborCount==2, "Labor count is not matching after creation from server.");
-		ExtentManager.logger.log(Status.PASS, "Labor added from server and displayed count is matching. Expected : 2, Actual : "+laborCount);
-		commonUtility.gotToTabHorizontal("EXPENSES");
-		int expensesCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(expensesCount==4, "Expenses count is not matching after creation from server.");
-		ExtentManager.logger.log(Status.PASS, "Expenses added from server and displayed count is matching. Expected : 4, Actual : "+expensesCount);
-		commonUtility.gotToTabHorizontal("IMAGES & VIDEOS");
-		int attachmentCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(attachmentCount==1, "Attachment count is not matching after creation from server.");
-		ExtentManager.logger.log(Status.PASS, "Attachment added from server and displayed count is matching. Expected : 1, Actual : "+attachmentCount);
-		ph_WorkOrderPo.getEleAttachedImage().click();
-		String dbImageName=ph_WorkOrderPo.getEleImageTitle().getText();
-		Assert.assertTrue(sImageName.equals(dbImageName)," Image names are not matching");
-		ExtentManager.logger.log(Status.PASS, "Image names are matching. Expected : "+sImageName+" , Actual : "+dbImageName);
-		ph_WorkOrderPo.getEleBackButton().click();
-		ph_WorkOrderPo.addParts(commonUtility, sProductName);
-		int newWorkDetailCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(newWorkDetailCount==partsCount+1," Parts count is not matching after adding");
-		ExtentManager.logger.log(Status.PASS, "Parts count is matching after adding from app. Expected : "+(partsCount+1)+" , Actual : "+newWorkDetailCount);
-		commonUtility.gotToTabHorizontal("EXPENSES");
-		commonUtility.longPress(ph_WorkOrderPo.getEleWorkDetailsItem());
-		ph_WorkOrderPo.getEleWorkDetailsItemCheckbox().click();
-		ph_WorkOrderPo.geteleDelete().click();
-		Thread.sleep(2000);
-		ph_WorkOrderPo.geteleDelete().click();
-		ph_WorkOrderPo.getEleBackButton().click();
-		newWorkDetailCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(newWorkDetailCount==expensesCount-1," Expenses count is not matching after deleting");
-		ExtentManager.logger.log(Status.PASS, "Expenses count is matching after deleting from app. Expected : "+(expensesCount-1)+" , Actual : "+newWorkDetailCount);
-		ph_WorkOrderPo.getElesave().click();
-		ph_MorePo.getEleDataSync().click();
-		commonUtility.waitForElementNotVisible(ph_MorePo.getEleSmartSync(), 15);
-		if(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted())) {
-			System.out.println("Data Sync Completed Sucessfully");
-			ExtentManager.logger.log(Status.INFO,"Data Sync is successfull");
-		}else {
-			System.out.println("Data Sync Failed");
-			//Verification of successful sync
-			ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
-			Assert.assertTrue(2<1, "Data Sync Failed");
+		try {
+			prerequisite();
+			ph_LoginHomePo.login(commonUtility, ph_MorePo);
+			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			ph_MorePo.syncData(commonUtility);
+			ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName);
+			ph_WorkOrderPo.selectAction(commonUtility, sActionsName);
+			commonUtility.gotToTabHorizontal("PARTS");
+			int partsCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(partsCount==3, "Parts count is not matching after creation from server.");
+			ExtentManager.logger.log(Status.PASS, "Parts added from server and displayed count is matching. Expected : 3, Actual : "+partsCount);
+			commonUtility.gotToTabHorizontal("LABOR");
+			int laborCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(laborCount==2, "Labor count is not matching after creation from server.");
+			ExtentManager.logger.log(Status.PASS, "Labor added from server and displayed count is matching. Expected : 2, Actual : "+laborCount);
+			commonUtility.gotToTabHorizontal("EXPENSES");
+			int expensesCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(expensesCount==4, "Expenses count is not matching after creation from server.");
+			ExtentManager.logger.log(Status.PASS, "Expenses added from server and displayed count is matching. Expected : 4, Actual : "+expensesCount);
+			commonUtility.gotToTabHorizontal("IMAGES & VIDEOS");
+			int attachmentCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(attachmentCount==1, "Attachment count is not matching after creation from server.");
+			ExtentManager.logger.log(Status.PASS, "Attachment added from server and displayed count is matching. Expected : 1, Actual : "+attachmentCount);
+			ph_WorkOrderPo.getEleAttachedImage().click();
+			String dbImageName=ph_WorkOrderPo.getEleImageTitle().getText();
+			Assert.assertTrue(sImageName.equals(dbImageName)," Image names are not matching");
+			ExtentManager.logger.log(Status.PASS, "Image names are matching. Expected : "+sImageName+" , Actual : "+dbImageName);
+			ph_WorkOrderPo.getEleBackButton().click();
+			ph_WorkOrderPo.getEleBackButton().click();
+			ph_WorkOrderPo.selectAction(commonUtility, sActionsName);
+			ph_WorkOrderPo.addParts(commonUtility, sProductName);
+			int newWorkDetailCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(newWorkDetailCount==partsCount+1," Parts count is not matching after adding");
+			ExtentManager.logger.log(Status.PASS, "Parts count is matching after adding from app. Expected : "+(partsCount+1)+" , Actual : "+newWorkDetailCount);
+			commonUtility.gotToTabHorizontal("EXPENSES");
+			commonUtility.longPress(ph_WorkOrderPo.getEleWorkDetailsItem());
+			ph_WorkOrderPo.getEleWorkDetailsItemCheckbox().click();
+			ph_WorkOrderPo.geteleDelete().click();
+			Thread.sleep(2000);
+			ph_WorkOrderPo.geteleDelete().click();
+			ph_WorkOrderPo.getEleBackButton().click();
+			newWorkDetailCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(newWorkDetailCount==expensesCount-1," Expenses count is not matching after deleting");
+			ExtentManager.logger.log(Status.PASS, "Expenses count is matching after deleting from app. Expected : "+(expensesCount-1)+" , Actual : "+newWorkDetailCount);
+			ph_WorkOrderPo.getElesave().click();
+			Thread.sleep(10000);
+			ph_MorePo.getEleDataSync().click();
+			//commonUtility.waitForElementNotVisible(ph_MorePo.getEleSmartSync(), 15);
+			if(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted())) {
+				System.out.println("Data Sync Completed Sucessfully");
+				ExtentManager.logger.log(Status.INFO,"Data Sync is successfull");
+			}else {
+				System.out.println("Data Sync Failed");
+				//Verification of successful sync
+				ExtentManager.logger.log(Status.FAIL,"Data Sync Failed");
+				Assert.assertFalse(false, "Data Sync Failed");
+			}
+			
+			commonUtility.press(ph_MorePo.getEleMoreBtn().getLocation());
+			expensesCount= expensesCount - 1;
+			partsCount=partsCount + 1;
+			ph_CalendarPo.getEleCalendarBtn().click();
+			ph_CalendarPo.VerifyEventInCalender(commonUtility, "Sanity12 "+sWOName);
+			
+	
+			
+			//query for extracting work detail by line type wise and verifying the count with app
+			JSONArray arr=restServices.restGetSoqlJsonArray("SELECT count(Id),SVMXC__Line_Type__c FROM SVMXC__Service_Order_Line__c WHERE SVMXC__Service_Order__c = '"+sWorkOrderID+"' Group by SVMXC__Line_Type__c");
+			Iterator ite=arr.iterator();
+			Map<String,Integer> workDetails= new HashMap<>();
+			while(ite.hasNext()) {
+				JSONObject obj=(JSONObject) ite.next();
+				workDetails.put(obj.getString("SVMXC__Line_Type__c"), obj.getInt("expr0"));
+			}
+			Assert.assertTrue(partsCount==workDetails.get("Parts"), "Parts count is not matching after deleting from app.");
+			ExtentManager.logger.log(Status.PASS, "Parts are correctly synced to server after deleting from app. Expected : "+partsCount+", Actual : "+workDetails.get("Parts"));
+			Assert.assertTrue(laborCount==workDetails.get("Labor"), "Labor count is not matching after deleting from app.");
+			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced to server after deleting from app. Expected : "+laborCount+", Actual : "+workDetails.get("Labor"));
+			Assert.assertTrue(partsCount==workDetails.get("Expenses"), "Expenses count is not matching after deleting from app.");
+			ExtentManager.logger.log(Status.PASS, "Expenses are correctly synced to server after deleting from app. Expected : "+expensesCount+", Actual : "+workDetails.get("Expenses"));
+			int dbAttachmentCount=Integer.parseInt(restServices.restGetSoqlValue("SELECT count(Id) FROM Attachment WHERE ParentId ='"+sWorkOrderID+"'", "expr0"));
+			Assert.assertTrue(dbAttachmentCount==attachmentCount,"Attachment count is not matching after deleting from app.");
+			ExtentManager.logger.log(Status.PASS, "Attachments are correctly synced to server after deleting from app. Expected : "+attachmentCount+", Actual : "+dbAttachmentCount);
+			
+			//deleting some work details from server
+			restServices.restDeleterecord("SVMXC__Service_Order_Line__c", sPartId1);
+			restServices.restDeleterecord("SVMXC__Service_Order_Line__c", sLaborId1);
+			
+			//verification of deleted workdetails in app after data sync
+			ph_MorePo.syncData(commonUtility);
+			ph_RecentsItemsPo.selectRecentsItem(commonUtility, sWOName);
+			commonUtility.gotToTabHorizontal("PARTS");
+			partsCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(partsCount==workDetails.get("Parts") - 1, "Parts count is not matching after deletind from server");
+			ExtentManager.logger.log(Status.PASS, "Parts are correctly synced after deleting from server. Expected : 3, Actual : "+partsCount);
+			commonUtility.gotToTabHorizontal("LABOR");
+			laborCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
+			Assert.assertTrue(laborCount==workDetails.get("labor") - 1, "Labor count is not matching after deleting from server");
+			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced after deleting from server. Expected : 2, Actual : "+laborCount);
 		}
-		
-		commonUtility.press(ph_MorePo.getEleMoreBtn().getLocation());
-		expensesCount= expensesCount - 1;
-		partsCount=partsCount + 1;
-		ph_CalendarPo.getEleCalendarBtn().click();
-		ph_CalendarPo.VerifyEventInCalender(commonUtility, "Sanity12");
-		
-
-		
-		//query for extracting work detail by line type wise and verifying the count with app
-		String temp=restServices.restGetSoqlValue("SELECT count(Id),SVMXC__Line_Type__c FROM SVMXC__Service_Order_Line__c WHERE SVMXC__Service_Order__c = '"+sWorkOrderID+"' Group by SVMXC__Line_Type__c", "allvalues");
-		JSONArray arr=new JSONArray(temp);
-		Iterator ite=arr.iterator();
-		Map<String,Integer> workDetails= new HashMap<>();
-		while(ite.hasNext()) {
-			JSONObject obj=(JSONObject) ite.next();
-			workDetails.put(obj.getString("SVMXC__Line_Type__c"), obj.getInt("expr0"));
+		catch(Exception e) {
+			e.printStackTrace();
 		}
-		Assert.assertTrue(partsCount==workDetails.get("Parts"), "Parts count is not matching after deleting from app.");
-		ExtentManager.logger.log(Status.PASS, "Parts are correctly synced to server after deleting from app. Expected : "+partsCount+", Actual : "+workDetails.get("Parts"));
-		Assert.assertTrue(laborCount==workDetails.get("Labor"), "Labor count is not matching after deleting from app.");
-		ExtentManager.logger.log(Status.PASS, "Labor are correctly synced to server after deleting from app. Expected : "+laborCount+", Actual : "+workDetails.get("Labor"));
-		Assert.assertTrue(partsCount==workDetails.get("Expenses"), "Expenses count is not matching after deleting from app.");
-		ExtentManager.logger.log(Status.PASS, "Expenses are correctly synced to server after deleting from app. Expected : "+expensesCount+", Actual : "+workDetails.get("Expenses"));
-		int dbAttachmentCount=Integer.parseInt(restServices.restGetSoqlValue("SELECT count(Id) FROM Attachment WHERE ParentId ='"+sWorkOrderID+"'", "expr0"));
-		Assert.assertTrue(dbAttachmentCount==attachmentCount,"Attachment count is not matching after deleting from app.");
-		ExtentManager.logger.log(Status.PASS, "Attachments are correctly synced to server after deleting from app. Expected : "+attachmentCount+", Actual : "+dbAttachmentCount);
-		
-		//deleting some work details from server
-		restServices.restDeleterecord("SVMXC__Service_Order_Line__c", sPartId1);
-		restServices.restDeleterecord("SVMXC__Service_Order_Line__c", sLaborId1);
-		
-		//verification of deleted workdetails in app after data sync
-		ph_MorePo.syncData(commonUtility);
-		ph_RecentsItemsPo.selectRecentsItem(commonUtility, sWOName);
-		commonUtility.gotToTabHorizontal("PARTS");
-		partsCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(partsCount==workDetails.get("Parts") - 1, "Parts count is not matching after deletind from server");
-		ExtentManager.logger.log(Status.PASS, "Parts are correctly synced after deleting from server. Expected : 3, Actual : "+partsCount);
-		commonUtility.gotToTabHorizontal("LABOR");
-		laborCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-		Assert.assertTrue(laborCount==workDetails.get("labor") - 1, "Labor count is not matching after deleting from server");
-		ExtentManager.logger.log(Status.PASS, "Labor are correctly synced after deleting from server. Expected : 2, Actual : "+laborCount);
-		
-		genericLib.executeSahiScript("Sanity12_postcleanup.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		finally {
+			genericLib.executeSahiScript("appium/Sanity12_postcleanup.sah", sTestID);
+			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+		}
 	}
 }

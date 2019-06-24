@@ -115,7 +115,7 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 //
 //			}
 			
-			ph_WorkOrderPo.addLabor(commonUtility, sProcessname);
+			ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 			ph_WorkOrderPo.getEleSaveLnk().click();
 			try {
 				ph_WorkOrderPo.getEleChildLine1IssueFound().isDisplayed();
