@@ -263,7 +263,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  commonUtility.tap(workOrderPo.getEleAttacheddoc());
 		  Thread.sleep(GenericLib.iHighSleep);
 		  WebElement Filedownload = driver.findElement(By.xpath("//div[@class='sfm-delivery-detail-name sfm-list-header sfm-attachment-header-name '][text()='" + sFileTitleafter + "']"));
-		  Assert.assertTrue(commonUtility.waitforElement(Filedownload,3), "Files are downloading as expected");
+		  Assert.assertTrue(commonUtility.waitforElement(Filedownload,10), "Files are downloading as expected");
 		  ExtentManager.logger.log(Status.PASS,"Files are downloading as expected");
 		  
 		//Checking whether files are removed from server when deleted from client

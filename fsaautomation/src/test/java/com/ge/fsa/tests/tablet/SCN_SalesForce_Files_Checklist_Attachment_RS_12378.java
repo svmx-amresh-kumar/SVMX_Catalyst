@@ -120,8 +120,8 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
-	@Test(retryAnalyzer=Retry.class)
-	//@Test()
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_12367() throws Exception {
 
 		// Pre Login to app
@@ -219,12 +219,12 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  
 			  try {
 				  WebElement Filedownload = driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
-				  Assert.assertTrue(commonUtility.waitforElement(Filedownload,3), "Files are downloading as expected");
+				  Assert.assertTrue(commonUtility.waitforElement(Filedownload,10), "Files are downloading as expected");
 				  ExtentManager.logger.log(Status.PASS,"Files are downloading as expected");
 				  }
 			  catch (Exception e) {
 					  WebElement FiledownloadC = driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating sfm-attachment-cloud-icon']"));
-					  Assert.assertTrue(commonUtility.waitforElement(FiledownloadC,3), "Files are downloading as expected");
+					  Assert.assertTrue(commonUtility.waitforElement(FiledownloadC,10), "Files are downloading as expected");
 					  ExtentManager.logger.log(Status.PASS,"Files are downloading as expected");
 					  
 				  }

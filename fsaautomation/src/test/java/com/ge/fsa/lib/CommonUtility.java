@@ -1333,18 +1333,15 @@ public class CommonUtility {
 			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().equals(sTimeHrs) && breakCount<20) {
-					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(2).getText().equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(2).sendKeys(sTimeHrs);
 					breakCount++;
 				}
 			}
 			else {
 				//Tablet
-				sTimeHrs=String.valueOf(Integer.parseInt(sTimeHrs));
-				//sTimeHrs="5 o'clock";
-			
-				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
-					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(2).sendKeys(sTimeHrs);
 					breakCount++;
 				}
 
@@ -1361,8 +1358,8 @@ public class CommonUtility {
 				}
 			}
 			else {
-				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
-					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeMin);
+				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
+					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
 				}
 			}
