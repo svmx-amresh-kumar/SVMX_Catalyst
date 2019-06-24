@@ -8,7 +8,9 @@
 		<classes>
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_1_RS_10577" />
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_2_RS_10578" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_4_RS_10580" />
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_Attachment_RS_10581" />
+		
 		</classes>
 	</test> <!-- Test -->
 		
