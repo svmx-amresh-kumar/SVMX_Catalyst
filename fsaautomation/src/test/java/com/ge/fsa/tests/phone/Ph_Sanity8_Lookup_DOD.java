@@ -36,6 +36,8 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in
 		// Mobile Configuration
+		try
+		{
 		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		lauchNewApp("false");
@@ -149,14 +151,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 		}
 
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-		try {
-			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		} catch (Exception e) {
-			genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-			genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		}
+		
 
 		ph_MorePo.syncData(commonUtility);
 		JSONArray sJsonArrayExpenses = restServices.restGetSoqlJsonArray(
@@ -171,7 +166,20 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 		assertEquals("1.0", sLineQtyParts);
 		ExtentManager.logger.log(Status.PASS, "Data is correctly saved. ProductName Expected : " + sProductNameA
 				+ ", Actual : " + sProductName2 + " , Line Quantity Expected : 1.0, Actual :" + sLineQtyParts);
-
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+			try {
+				Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+			} catch (Exception e) {
+				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+			}
+		}
 	}
 
 }
