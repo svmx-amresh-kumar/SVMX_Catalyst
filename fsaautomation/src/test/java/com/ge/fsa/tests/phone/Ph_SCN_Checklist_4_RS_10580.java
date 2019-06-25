@@ -183,7 +183,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Exit Criteria for section passed");
 			
 			 Integer iSectionSize =  ph_ChecklistPO.geteleGenericList("Section Two").size();
-			 if(iSectionSize>0)
+			 if(iSectionSize==0)
 			 {
 					ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 3");
 			 }
@@ -218,7 +218,8 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 
 
 		iSectionSize =  ph_ChecklistPO.geteleGenericList("Section Two").size();
-		 if(iSectionSize>0)
+		
+		 if(iSectionSize==0)
 		 {
 				ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 4");
 		 }
@@ -230,10 +231,10 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		// moving back to main checklist page sections
 		ph_ChecklistPO.geteleBackbutton().click();
 		
-		//Clicking on Section1
-			ph_ChecklistPO.getElementSection(0).click();
-			commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq));
-			ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
+		// Clicking on Section1
+		ph_ChecklistPO.getElementSection(0).click();
+		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq));
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
 		//	ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("55");
 			
 			
@@ -350,11 +351,11 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 			ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
 
 			
-			iSectionSize =  ph_ChecklistPO.geteleGenericList("Section Two").size();
-			System.out.println(ph_ChecklistPO.geteleGenericList("Section Two").size());
+			iSectionSize =  ph_ChecklistPO.geteleGenericList("Section One").size();
+			System.out.println(ph_ChecklistPO.geteleGenericList("Section One").size());
 						
 			
-			 if(iSectionSize>0)
+			 if(iSectionSize==0)
 			 {
 					ExtentManager.logger.log(Status.PASS,"Entry Criteria of section validated Section two is not displayed");
 			 }
