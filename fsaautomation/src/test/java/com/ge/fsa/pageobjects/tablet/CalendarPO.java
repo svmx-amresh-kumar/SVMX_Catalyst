@@ -332,7 +332,7 @@ public class CalendarPO
 	
 	public void VerifyWOInCalender(CommonUtility commonUtility, String workordername) throws Exception 
 	{
-	
+		gettaponcalevent(workordername).getLocation();
 		Thread.sleep(3000);
 		try {
 		commonUtility.waitforElement(getEleworkordernumonCalendarWeek(workordername), 10);
@@ -559,8 +559,8 @@ public class CalendarPO
 	
 	public void VerifyWOInCalenderafterconfchange(CommonUtility commonUtility, String workordername) throws Exception 
 	{
-	
-		Thread.sleep(3000);
+		gettaponcalevent(workordername).getLocation();
+				Thread.sleep(3000);
 
 		commonUtility.waitforElement(getelegetWOnum(workordername), 10);
 		

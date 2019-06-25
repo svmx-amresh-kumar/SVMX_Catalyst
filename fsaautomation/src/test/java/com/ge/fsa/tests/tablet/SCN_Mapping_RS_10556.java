@@ -83,7 +83,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		
-		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		 genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
