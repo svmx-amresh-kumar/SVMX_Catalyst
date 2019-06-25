@@ -40,8 +40,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	
 
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_11859() throws Exception {
 		sSheetName ="RS_11859";
 		
@@ -104,8 +104,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		  
 		  toolsPo.syncData(commonUtility);
 		  
-		  sObjectApi = "Event"; restServices.getAccessToken(); sSqlEventQuery
-		  ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";
+		  sObjectApi = "Event"; restServices.getAccessToken(); 
+		  sSqlEventQuery ="SELECT+Id+from+Event+Where+Subject+=\'Create SFDC event from new button\'";
 		  sEventIdSFDC =restServices.restGetSoqlValue(sSqlEventQuery,"Id");
 		  System.out.println("created event id from server:"+sEventIdSFDC);
 		  Assert.assertNotNull(sEventIdSFDC, "Record not found");

@@ -429,7 +429,7 @@ public class CommonUtility {
 
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			.moveTo(new PointOption().withCoordinates(x, y+5)).release().perform();
 			break;
 
 		}
@@ -1333,15 +1333,15 @@ public class CommonUtility {
 			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(2).getText().equals(sTimeHrs) && breakCount<20) {
-					getEleDatePickerPopUp().get(2).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 					breakCount++;
 				}
 			}
 			else {
 				//Tablet
-				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
-					getEleDatePickerPopUp().get(2).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 					breakCount++;
 				}
 

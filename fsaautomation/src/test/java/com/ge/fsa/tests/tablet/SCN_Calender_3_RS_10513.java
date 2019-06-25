@@ -56,12 +56,12 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		String sTestCaseID="RS_10513_Calender_3";
 	
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
 		
-/*		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
+		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah"); 
 		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -69,7 +69,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		  
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
 		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
-		  System.out.println("RS-10513");*/
+		  System.out.println("RS-10513");
 		 
 	
 	//read from file
@@ -112,7 +112,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			calendarPO.getelesubjectcal().sendKeys("SVMX Event from calender New button");
 			commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
+			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"13","00");
 			commonUtility.tap(workOrderPo.getEleClickSave());
 			
 			toolsPo.syncData(commonUtility);
@@ -197,6 +197,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		commonUtility.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 		
 		//commonsUtility.tap(calendarPO.geteleEndDateTime());
+		
+	//	commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
 		commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
 		if(BaseLib.sOSName=="ios") {
 		commonUtility.switchContext("Native");
@@ -270,7 +272,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 
-	//Server create 14 days event
+	
 	 
 	 
 	}

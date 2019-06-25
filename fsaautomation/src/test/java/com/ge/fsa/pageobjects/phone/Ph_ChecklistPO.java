@@ -253,6 +253,34 @@ public class Ph_ChecklistPO
 		}	
 	}
 	
+	
+	private WebElement eleNumberQAnswithMoreInfo;
+	public WebElement geteleNumberQAnswithMoreInfo(String sNumberQuestion)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleNumberQAnswithMoreInfo = driver.findElement(By.xpath("//*[@text='"+sNumberQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText']"));
+		}
+		else
+		{																											
+			return eleNumberQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']//XCUIElementTypeTextField"));
+		}	
+	}
+	
+	private WebElement eleTextQAnswithMoreInfo;
+	public WebElement geteleTextQAnswithMoreInfo(String sTextQuestion)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return eleTextQAnswithMoreInfo = driver.findElement(By.xpath("//*[@text='"+sTextQuestion+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.EditText']"));
+		}
+		else
+		{																											
+			return eleTextQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']//XCUIElementTypeTextView"));
+		}	
+		
+
+	}
+	
+	
 	private WebElement elechecklistinstance;
 	public WebElement getelechecklistinstance() 
 	{
@@ -455,11 +483,19 @@ public class Ph_ChecklistPO
 		return eleChecklistDVRtxt;
 	}
 	
-	@FindBy(xpath="(//*[@*[contains(.,'Number Cannot be 10')]])")
+	@FindBy(xpath="//*[@*[contains(.,'Number Cannot be 10')]]")
 	private WebElement eleChecklistDVRConfirmationtxt;
 	public WebElement geteleChecklistDVRConfirmationtxt()
 	{
 		return eleChecklistDVRConfirmationtxt;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'Number cannot be greater than 100')]]")
+	//@FindBy(xpath="//*[@*[contains(.,'Number Cannot be greater than 100')]]")
+	private WebElement eleChecklistNumberDVR;
+	public WebElement geteleChecklistNumberDVR()
+	{
+		return eleChecklistNumberDVR;
 	}
 	
 	@FindBy(xpath="(//*[@*[contains(.,'Confirm')]])[last()]")
@@ -482,7 +518,23 @@ public class Ph_ChecklistPO
 		return sTodayDate;
 	}
 	
-			private WebElement eleGeneric;
+			private WebElement eleGenericList;
+	public List<WebElement> geteleGenericList(String sChecklistQ)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElements(By.xpath("//*[@text='"+sChecklistQ+"']"));
+		}
+		else
+		{																											
+			return driver.findElements(By.xpath("//*[contains(@*,'"+sChecklistQ+"')]"));
+		}	
+		
+		
+		
+	}
+	
+	
+	private WebElement eleGeneric;
 	public WebElement geteleGeneric(String sChecklistQ)
 	{
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -494,5 +546,24 @@ public class Ph_ChecklistPO
 		}	
 		
 		
+		
 	}
+	
+	
+	private WebElement eleChecklistNextButton;
+	public WebElement geteleChecklistNextButton()
+	{
+	return driver.findElementByAccessibilityId("SFM.CHECKLIST.NEXT");
+		
+	}
+	
+	private WebElement eleSection;
+	public WebElement getElementSection(Integer nos)
+	{
+	return driver.findElementByAccessibilityId("SFM.CHECKLIST.SECTION-"+nos+"");
+		
+	}
+	
+
+	
 }

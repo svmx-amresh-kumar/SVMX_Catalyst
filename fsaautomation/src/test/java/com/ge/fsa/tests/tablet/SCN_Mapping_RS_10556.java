@@ -40,21 +40,12 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sObjectAccID = null;
-//	String sSqlAccQuery=null;
-	// String sObjectProID=null;
-	// String sObjectApi = null;
-	// String sJsonData = null;
-	// String sAccountName = "Proforma04092018185618account";
-	// String sAccountName =null;
+
 	String sFieldServiceName = null;
-	// String sproductname = "Proforma04092018185618product";
-	// String sproductname =null;
-	// String sInstalledproductID="RS_10557_InstalledProduct_Auto";
-	// String sSqlQuery = null;
+	
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
-	// String sObjectlocationID=null;
-//String Location=null;
+	
 	String SFMBillingtype = "Empowerment";
 	String SFMcontact = "C10556_ Auto";
 	String SFMCustomerDown = "true";
@@ -92,13 +83,13 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		
-		  genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		 genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  lauchNewApp("false"); System.out.println("RS_10556");
-		  
+		 
 		 
 
 		// read from file
@@ -115,11 +106,12 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// datasync
-		toolsPo.syncData(commonUtility);
+		//toolsPo.syncData(commonUtility);
 		Thread.sleep(GenericLib.iMedSleep);
 
 		// calendarPO.openWoFromCalendar(commonsUtility, sworkordernumber);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
+		calendarPO.gettaponcalevent(sworkordernumber).getLocation();
 		commonUtility.tap(calendarPO.gettaponcalevent(sworkordernumber), 15, 60);
 		Thread.sleep(GenericLib.iMedSleep);
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
@@ -167,7 +159,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "contact(Lookup) value mapping Failed ");
 		}
 
-		String fetchCustomerDown = workOrderPo.getCustomerDown().getAttribute("checked");
+		String fetchCustomerDown = workOrderPo.getEleCustomerDownOnRdBtn().getAttribute("value");
 		System.out.println(fetchCustomerDown);
 		try {
 			Assert.assertEquals(fetchCustomerDown, SFMCustomerDown);
@@ -178,7 +170,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		}
 
 		Thread.sleep(GenericLib.iMedSleep);
-		String fetchProblemDescription = workOrderPo.getProblemDescription().getText();
+		String fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("value");
 		System.out.println(fetchProblemDescription);
 		try {
 			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype));
@@ -287,7 +279,8 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProductName = "P10556_Auto";
 
 		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
-		commonUtility.tap(workOrderPo.openpartsontap());
+		//commonUtility.tap(workOrderPo.openpartsontap());
+		commonUtility.tap(workOrderPo.getpartsontaptap(sProductName));
 
 		// Verifying mapping before save on child
 		System.out.println(
@@ -332,7 +325,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "LinePerUnit(Currency) value mapping Failed ");
 		}
 
-		String fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getText();
+		String fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getAttribute("value");
 		System.out.println(fetchworkdescription);
 		try {
 			Assert.assertTrue(fetchworkdescription.equals(SFMWorkdiscription));
@@ -895,7 +888,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "LinePerUnit value mapping Failed ");
 		}
 
-		fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getText();
+		fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getAttribute("value");
 		System.out.println(fetchworkdescription);
 		try {
 			Assert.assertTrue(fetchworkdescription.equals(SFMWorkdiscription));
