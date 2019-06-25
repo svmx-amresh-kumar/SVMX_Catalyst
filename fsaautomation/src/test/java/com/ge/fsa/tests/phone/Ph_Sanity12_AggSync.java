@@ -20,7 +20,7 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
-public class Sanity12 extends BaseLib {
+public class Ph_Sanity12_AggSync extends BaseLib {
 	String sWorkOrderID;
 	String sTestID = "Sanity12";
 	String sProductId1;
