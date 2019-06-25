@@ -29,7 +29,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception{
 		
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		//commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 		
 		// Create Product without Description
 		String sProductName = "AshProd";
@@ -107,10 +107,11 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonUtility.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(genericLib.iLowSleep);
 //		commonsUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
-		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("HarryProd Desc");
+//		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("HarryProd Desc");
+		workOrderPo.getProblemDescription().sendKeys("HarryProd Desc");
 		Thread.sleep(3000);
 	//	workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
-		commonUtility.tap(workOrderPo.getEleUpdateLnk()); 
+//		commonUtility.tap(workOrderPo.getEleUpdateLnk()); 
 		Thread.sleep(3000);
 		Thread.sleep(genericLib.iLowSleep);
 		commonUtility.tap(workOrderPo.getElePartLnk());
