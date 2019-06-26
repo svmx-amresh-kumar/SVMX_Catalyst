@@ -1956,7 +1956,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			//Confgure the path "/usr/local/Cellar/libimobiledevice/HEAD*/bin/" in "~/.bash_profile" on the machine first.
+			execCommand("cd /usr/local/Cellar/libimobiledevice/HEAD*/bin/");
 			String dateInString=execCommand("idevicedate").trim();
 			String _cmd = execCommand("ideviceinfo");
 			String[] IOBufferList = _cmd.split("\n"); 
