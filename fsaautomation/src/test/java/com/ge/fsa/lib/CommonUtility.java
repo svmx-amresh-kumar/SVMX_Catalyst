@@ -2334,7 +2334,7 @@ public class CommonUtility {
 
 		//Try to scroll
 		int i;
-		for (i = 0; i <= 5; i++) {
+		for (i = 0; i <= 10; i++) {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
@@ -2348,7 +2348,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		
-		for (i = 0; i <=5; i++) {
+		for (i = 0; i <=10; i++) {
 			swipeGeneric("down");
 			try {
 				Thread.sleep(300);
