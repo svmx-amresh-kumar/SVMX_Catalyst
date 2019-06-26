@@ -93,7 +93,6 @@ public class workBench extends BaseLib
 
 	//@Test(retryAnalyzer=Retry.class)
 	@Test
-
 public void workBenchAnd() throws Exception
 {	
 	
@@ -102,24 +101,6 @@ public void workBenchAnd() throws Exception
 		System.out.println(commonUtility.getDeviceDate());
 		System.out.println(commonUtility.getDeviceDate());
 
-		
-		String sValue ="4. Advanced Expression DVR";
-		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
-
-		//commonUtility.custScrollToElement(ph_ChecklistPO.geteleGeneric("4. Advanced Expression DVR"));
-		 ph_ChecklistPO.getEleConfirm().click();
-
-		//ph_ChecklistPO.checklistAttach(commonUtility, "Choose from Camera Roll","");
-
-		String sProductName = "auto_product";
-		String  sProcessname = "EditWoAutoTimesstamp";
-		String sEventSubject = "susy";
-		String sworkOrderName = "WO-00013653";
-		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
-
-		System.out.println("NOWWW");
-		Thread.sleep(15000);
-		System.out.println();;
 		/*WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 		commonUtility.longPress(wElement,32,32);
 */
