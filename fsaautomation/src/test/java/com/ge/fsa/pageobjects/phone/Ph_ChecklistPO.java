@@ -563,7 +563,18 @@ public class Ph_ChecklistPO
 	return driver.findElementByAccessibilityId("SFM.CHECKLIST.SECTION-"+nos+"");
 		
 	}
+	@FindBy(xpath="//*[@*[contains(.,'1 in progress')]]")
+	private WebElement ele1inProgress;
+	public WebElement getEle1Progess()
+	{
+		return ele1inProgress;
+	}
 	
-
+	@FindBy(xpath="//*[@*='Finalize']")
+	private WebElement eleFinalize;
+	public WebElement geteleFinalize()
+	{
+		return eleFinalize;
+	}
 	
 }
