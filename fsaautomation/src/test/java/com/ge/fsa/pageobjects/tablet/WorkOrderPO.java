@@ -601,7 +601,7 @@ import io.appium.java_client.TouchAction;
 	
 	
 		//verifying ProblemDescription in WorkOrder
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span")
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/*")
 		private WebElement eleProblemDescriptionlbl;
 		public WebElement geteleProblemDescriptionlbl()
 		{
