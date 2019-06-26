@@ -95,11 +95,11 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_CalendarPo.getEleCreateNewEvent().click();
 		ph_CalendarPo.getEleCalendarEventSubject().click();
-		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
+		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject+"\n");
 
-	int	hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
-	commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, Integer.toString(hrs), "00");
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, Integer.toString(hrs + 3), "00");
+	String	hrs = commonUtility.gethrsfromdevicetime();
+	commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d", Integer.parseInt(hrs) + 3), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -202,13 +202,13 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_CalendarPo.getEleCreateNewEvent().click();
 		ph_CalendarPo.getEleCalendarEventSubject().click();
-		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(SFDC_Event);
+		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(SFDC_Event+"\n");
 
 
 		 
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, Integer.toString(hrs), "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
 		//add one hr to device time
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, Integer.toString(hrs + 3), "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d",Integer.parseInt(hrs) + 3), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
