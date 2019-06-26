@@ -286,7 +286,7 @@ public class Ph_CalendarPO
 			eleeventdate=driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]/android.view.ViewGroup/android.widget.TextView[2]"));
 			return eleeventdate;
 		}else {
-			eleeventdate=driver.findElement(By.xpath("//*[@name='CALENDAR.APPOINTMENT."+Subject+"']"));
+			eleeventdate=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[2]"));
 			return eleeventdate;
 		}
 	
