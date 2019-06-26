@@ -1956,8 +1956,16 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/idevicedate").trim();
-			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/ideviceinfo");
+			String dateInString="";
+			String _cmd ="";
+			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
+				 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/ideviceinfo");
+					
+			}else {
+			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/idevicedate").trim();
+			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/ideviceinfo");
+			}
 			String[] IOBufferList = _cmd.split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
