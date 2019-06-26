@@ -44,6 +44,7 @@ import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.TapOptions;
@@ -73,7 +74,7 @@ public class workBench extends BaseLib
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
 	
-	
+
 
 //	@FindBy(xpath="//XCUIElementTypeOther[@type='XCUIElementTypeOther']")	
 //	private List<WebElement> picPic;
@@ -95,18 +96,33 @@ public class workBench extends BaseLib
 
 public void workBenchAnd() throws Exception
 {	
-		//Thread.sleep(10000);
+	
+		System.out.println("Now");
+		Thread.sleep(270);
+		System.out.println(commonUtility.getDeviceDate());
+		System.out.println(commonUtility.getDeviceDate());
+
+		
+		String sValue ="4. Advanced Expression DVR";
+		driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\""+sValue+"\"))"));
+
+		//commonUtility.custScrollToElement(ph_ChecklistPO.geteleGeneric("4. Advanced Expression DVR"));
+		 ph_ChecklistPO.getEleConfirm().click();
+
+		//ph_ChecklistPO.checklistAttach(commonUtility, "Choose from Camera Roll","");
+
 		String sProductName = "auto_product";
 		String  sProcessname = "EditWoAutoTimesstamp";
 		String sEventSubject = "susy";
 		String sworkOrderName = "WO-00013653";
 		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		//System.out.println("NOWWW");
+		System.out.println("NOWWW");
 		Thread.sleep(15000);
-		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
+		System.out.println();;
+		/*WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 		commonUtility.longPress(wElement,32,32);
-
+*/
 		
 		//commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
 
