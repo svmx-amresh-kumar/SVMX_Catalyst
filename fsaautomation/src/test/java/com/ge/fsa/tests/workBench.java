@@ -98,6 +98,7 @@ public void workBenchAnd() throws Exception
 	
 		System.out.println("Now");
 		Thread.sleep(270);
+		System.out.println(genericLib.executeDeviceDateShellFile("idevicedate"));
 		System.out.println(commonUtility.getDeviceDate());
 		System.out.println(commonUtility.getDeviceDate());
 

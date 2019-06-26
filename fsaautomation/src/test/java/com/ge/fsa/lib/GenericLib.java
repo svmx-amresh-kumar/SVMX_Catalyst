@@ -133,6 +133,35 @@ public class GenericLib
 		writer.close();
 	}
 	
+	public String executeDeviceDateShellFile(String sLibMobileDeviceCommandFile) throws Exception
+	{
+		File file = new File(sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh");
+		file.createNewFile();
+		FileWriter writer = new FileWriter(file);
+		writer.write("#!/bin/bash \ncd /usr/local/Cellar/libimobiledevice/HEAD*/bin \n"+sLibMobileDeviceCommandFile);
+		writer.flush();
+		writer.close();
+		
+		File file2 = new File(GenericLib.sShellFile);
+		Runtime.getRuntime().exec("chmod u+x " +file2);
+		
+		try {
+			processBuilder= new ProcessBuilder(file2.getPath());
+			process = processBuilder.start(); // Start the process.
+			process.waitFor(); // Wait for the process to finish.
+			
+			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
+			//Set the path  of sahi reports
+			
+			return process.getOutputStream().toString();
+			
+		} catch (Exception e) {
+			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
+			ExtentManager.logger.log(Status.FAIL," failed");
+			throw e;
+		}
+	}
+	
 	
 	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
 	{	
