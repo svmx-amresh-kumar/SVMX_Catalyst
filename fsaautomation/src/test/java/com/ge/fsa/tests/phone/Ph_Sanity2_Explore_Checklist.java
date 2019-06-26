@@ -4,6 +4,8 @@
 package com.ge.fsa.tests.phone;
 
 import java.util.Date;
+
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -155,16 +157,17 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		}
 		// Entering Text question
-		commonUtility.custScrollToElementAndClick(stextQuestion);
+		commonUtility.custScrollToElement(stextQuestion);
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
+		driver.findElement(By.xpath("//*[@*[contains(.,'"+stextQuestion+"')]]")).click();
 		// Entering DateTime question
-		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
-		} else {
-			commonUtility.custScrollToElement(sdateTimeQuestion);
-		}
+//		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+//			commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
+//		} else {
+//			commonUtility.custScrollToElement(sdateTimeQuestion);
+//		}
 
-		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "00", "00");
+		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
 		// Entering Date question
 		commonUtility.custScrollToElement(snumberQuestion);

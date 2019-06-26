@@ -93,13 +93,13 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"No Records text is successfully displayed");
 		
 		ph_ExploreSearchPo.getEleOnline().click();
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(7000);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getDownloadIcon(sWOName).isDisplayed(), "Download Icon is not displayed");
 		ExtentManager.logger.log(Status.INFO,"Download Icon  is successfully displayed");
 		
 		ph_ExploreSearchPo.getDownloadIcon(sWOName).click();
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(7000);
 		ph_ExploreSearchPo.getEleSearchListItem(sWOName).click();
 		
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
@@ -121,19 +121,18 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt).click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID + "\n");
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records text is successfully displayed");
 		
 		ph_ExploreSearchPo.getEleOnline().click();
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(7000);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getDownloadIcon(sCaseID).isDisplayed(), "Download Icon is not displayed");
 		ExtentManager.logger.log(Status.INFO,"Download Icon  is successfully displayed");
 		
 		ph_ExploreSearchPo.getDownloadIcon(sCaseID).click();
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(7000);
 		ph_ExploreSearchPo.getEleSearchListItem(sCaseID).click();
 		
 		//Update case reason from server 
@@ -151,24 +150,19 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.selectFromLookupSearchList(commonUtility,ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt), sCaseID);
-		Thread.sleep(GenericLib.iMedSleep);
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
 		//Validation that case reason is not updated
 		Assert.assertTrue(ph_WorkOrderPo.getEleCaseReasonField().getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
 		ExtentManager.logger.log(Status.PASS,"Case reason is not updated, as Refresh from Saleforce is not done");
 		ph_WorkOrderPo.getEle("--None--").click();
 		ph_WorkOrderPo.getEleBackButton().click();
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Selecting Case reason to Existing Problem to make sure sfm is working fine.
 		//ph_WorkOrderPo.selectAction(commonUtility, "Refresh from Salesforce");
 		ph_MorePo.syncData(commonUtility);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		//Validation of Case reason is not updated.
 		Assert.assertTrue(ph_WorkOrderPo.getEleCaseReasonField().getText().equals("Existing problem"), " Case reason is updated after refresh from salesforce");
@@ -179,9 +173,8 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleCaseReasonField(), "Complex functionality");
 		ph_WorkOrderPo.getElesave().click();
 		Assert.assertTrue(ph_WorkOrderPo.verifyWorkOrder().contains("View Support Case Details "+sCaseID),"Case details is not saved correctly.");
-
+		ph_WorkOrderPo.getEleBackButton().click();	
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
 		
 		sSqlQuery ="SELECT+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoObjectID+"\'";				
 		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"SVMXC__Billing_Type__c").equals("Contract"), "Work Order is not updated with contract ");

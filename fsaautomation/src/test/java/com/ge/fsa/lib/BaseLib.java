@@ -144,6 +144,13 @@ public class BaseLib {
 	public static String sApp_BundleID = null;
 	public static String sNo_Reset = null;
 	public static String sApp_Name = null;
+	public static String sIOSPlatformVersion = null;
+	public static String sAndroidPlatformVersion = null;
+	public static String sOAUTHUrl = null;
+	public static String SClientId = null;
+	public static String sClientSecret = null;
+	public static String sCreateURL = null;
+
 
 	//Execution legends
 	public static String sRunningSymbol = ">>";
@@ -209,22 +216,22 @@ public class BaseLib {
 		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 		
-		sAndroidDeviceName = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
+		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sAndroidDeviceName);
 		
-		sAndroidDeviceName = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
+		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidDeviceName);
 		
-		sAndroidDeviceName = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
+		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
 		System.out.println("[BaseLib] OAUTH_URL : " + sAndroidDeviceName);
 		
-		sAndroidDeviceName = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
+		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_ID : " + sAndroidDeviceName);
 		
-		sAndroidDeviceName = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
+		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_SECRET : " + sAndroidDeviceName);
 	
-		sAndroidDeviceName = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
+		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
 		System.out.println("[BaseLib] CREATE_URL : " + sAndroidDeviceName);
 		
 		sURL = System.getenv("URL") != null ? System.getenv("URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
@@ -272,9 +279,9 @@ public class BaseLib {
 				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION"));
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sAndroidPlatformVersion);
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, sAndroidDeviceName);
 				if(sDeviceType.equalsIgnoreCase("phone")) {
 					//Ignore the AutoWebview setting for phone
 						System.out.println("Setting AUTO_WEBVIEW to false");
@@ -318,8 +325,8 @@ public class BaseLib {
 				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".ipa";
 				app = new File(sAppPath);
 				capabilities = new DesiredCapabilities();
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME"));
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sIOSPlatformVersion);
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_DEVICE_NAME"));
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
