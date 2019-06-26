@@ -217,22 +217,22 @@ public class BaseLib {
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 		
 		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
-		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sIOSPlatformVersion);
 		
 		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
-		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidPlatformVersion);
 		
 		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
-		System.out.println("[BaseLib] OAUTH_URL : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] OAUTH_URL : " + sOAUTHUrl);
 		
 		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
-		System.out.println("[BaseLib] CLIENT_ID : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] CLIENT_ID : " + SClientId);
 		
 		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
-		System.out.println("[BaseLib] CLIENT_SECRET : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] CLIENT_SECRET : " + sClientSecret);
 	
 		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
-		System.out.println("[BaseLib] CREATE_URL : " + sAndroidDeviceName);
+		System.out.println("[BaseLib] CREATE_URL : " + sCreateURL);
 		
 		sURL = System.getenv("URL") != null ? System.getenv("URL") : GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
 		System.out.println("[BaseLib] URL : " + sURL);
