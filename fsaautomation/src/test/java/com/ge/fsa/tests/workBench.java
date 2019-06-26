@@ -98,9 +98,9 @@ public void workBenchAnd() throws Exception
 	
 		System.out.println("Now");
 		Thread.sleep(270);
-		System.out.println(genericLib.executeDeviceDateShellFile("idevicedate"));
-		System.out.println(commonUtility.getDeviceDate());
-		System.out.println(commonUtility.getDeviceDate());
+		System.out.println("Date = "+genericLib.executeDeviceDateShellFile("idevicedate", commonUtility));
+//		System.out.println(commonUtility.getDeviceDate());
+//		System.out.println(commonUtility.getDeviceDate());
 
 		/*WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 		commonUtility.longPress(wElement,32,32);
