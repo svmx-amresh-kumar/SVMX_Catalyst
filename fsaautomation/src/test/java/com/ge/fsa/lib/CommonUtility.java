@@ -1956,7 +1956,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=executeLibiMobileDeviceExecFile("ideviceinfo");
+			String dateInString=executeLibiMobileDeviceExecFile("idevicedate");
 //			String _cmd ="";
 //			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 //				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
@@ -1966,7 +1966,7 @@ public class CommonUtility {
 //			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/idevicedate").trim();
 //			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/ideviceinfo");
 //			}
-			String[] IOBufferList = executeLibiMobileDeviceExecFile("idevicedate").split("\n"); 
+			String[] IOBufferList = executeLibiMobileDeviceExecFile("ideviceinfo").split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
 				if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
@@ -1977,7 +1977,7 @@ public class CommonUtility {
 			String dateFormat="E MMM d HH:mm:ss z yyyy";
 			ZoneId defaultZoneId = TimeZone.getDefault().toZoneId();
 			System.out.println("TimeZone : " + defaultZoneId);
-			LocalDateTime ldt = LocalDateTime.parse(dateInString.replaceAll("  ", " 0"), DateTimeFormatter.ofPattern(dateFormat));
+			LocalDateTime ldt = LocalDateTime.parse(dateInString.trim().replaceAll("  ", " 0"), DateTimeFormatter.ofPattern(dateFormat));
 			ZonedDateTime fromDateTime = ldt.atZone(defaultZoneId);
 			ZoneId toZoneId = ZoneId.of(value);
 			ZonedDateTime toDateTime = fromDateTime.withZoneSameInstant(toZoneId);

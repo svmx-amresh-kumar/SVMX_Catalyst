@@ -1,1 +1,78 @@
-Thu Jun 27 15:12:00 IST 2019
+ActivationState: Activated
+ActivationStateAcknowledged: true
+BasebandActivationTicketVersion: V2
+BasebandCertId: 2315222105
+BasebandChipID: 241889
+BasebandFactoryMasterKeyHash: 0CBE95067D0AA64C5D73189436BC7A5DDD342580BB65C100E5C9EAE9AF09E4BB
+BasebandKeyHashInformation: 
+ AKeyStatus: 2
+ SKeyHash: u+/tcCwvaQ+1Y9t40I4yegCEmB28mALlaROhaIVGBWo=
+ SKeyStatus: 0
+BasebandMasterKeyHash: 8CB15EE4C8002199070D9500BB8FB183B02713A5CA2A6B92DB5E75CE15536182
+BasebandRegionSKU: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+BasebandSerialNumber: RRb0FA==
+BasebandStatus: BBInfoAvailable
+BasebandVersion: 3.31.00
+BluetoothAddress: 94:f6:d6:a5:9c:0e
+BoardId: 2
+BrickState: false
+BuildVersion: 16D57
+CPUArchitecture: arm64
+CarrierBundleInfoArray[0]: 
+CertID: 2315222105
+ChipID: 32789
+ChipSerialNo: RRb0FA==
+DeviceClass: iPhone
+DeviceColor: 1
+DeviceName: Mohanlal
+DieID: 2384901150081070
+EthernetAddress: 94:f6:d6:a4:0b:91
+FirmwareVersion: iBoot-4513.230.10
+FusingStatus: 3
+HardwareModel: D20AP
+HardwarePlatform: t8015
+HasSiDP: true
+HostAttached: true
+InternationalMobileEquipmentIdentity: 354898097411721
+MLBSerialNumber: C7H90570TXTJ0Y1AF
+MobileEquipmentIdentifier: 35489809741172
+MobileSubscriberCountryCode: 
+MobileSubscriberNetworkCode: 
+ModelNumber: MQ6K2
+NonVolatileRAM: 
+ auto-boot: dHJ1ZQ==
+ backlight-level: MTQ5OQ==
+ boot-args: 
+ bootdelay: MA==
+ com.apple.System.tz0-size: MHgxN0NDMDAw
+PartitionType: GUID_partition_scheme
+PasswordProtected: false
+PkHash: if98WU1oTt+jcaZlvUC9AOG/rlbJxZpIN+cg7Rv1bCY=
+ProductName: iPhone OS
+ProductType: iPhone10,1
+ProductVersion: 12.1.4
+ProductionSOC: true
+ProtocolVersion: 2
+ProximitySensorCalibration: f3oABTIAHgD/d0BBZNgNQgAAyEL7hxhBD7EDQgAAFkP7hxhBD7EDQgAAFkMWYLFC9+CZwJV/g0QD7oJEMGiERKrAhEShA8lBlq/RQRy86EF7HexBAAAgQp/E7EIBaQJCAABIQisLpkMZcKVDMy73RXLMXEOXZxgiARsIDkEGiEWif4hDBJUqRQMAAAAAAACC
+RegionInfo: LL/A
+SIMStatus: kCTSIMSupportSIMStatusNotInserted
+SIMTrayStatus: kCTSIMSupportSIMTrayInsertedNoSIM
+SerialNumber: C8QY7Y3GJC6C
+SoftwareBehavior: EQAAAAAAAAAAAAAAAAAAAA==
+SoftwareBundleVersion: 
+SupportedDeviceFamilies[1]: 
+ 0: 1
+TelephonyCapability: true
+TimeIntervalSince1970: 1561634063.311887
+TimeZone: GMT
+TimeZoneOffsetFromUTC: 0.000000
+TrustedHostAttached: true
+UniqueChipID: 2384901150081070
+UniqueDeviceID: 17fb08f63c4886cce70d6de3d344a08776f22a4a
+UseRaptorCerts: true
+Uses24HourClock: false
+WiFiAddress: 94:f6:d6:a5:d0:f1
+WirelessBoardSerialNumber: F001450E0B5
+kCTPostponementInfoPRLName: 0
+kCTPostponementInfoServiceProvisioningState: false
+kCTPostponementStatus: kCTPostponementStatusActivated
