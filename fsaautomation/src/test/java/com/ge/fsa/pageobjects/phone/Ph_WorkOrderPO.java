@@ -149,7 +149,7 @@ public class Ph_WorkOrderPO {
 	}
 
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
-			throws InterruptedException, ParseException {
+			throws Exception {
 		System.out.println("Creating New Event");
 		String	hrs = commonUtility.gethrsfromdevicetime();
 		
