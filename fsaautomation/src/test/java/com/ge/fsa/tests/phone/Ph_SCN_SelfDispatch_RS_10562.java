@@ -86,7 +86,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
-		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(Integer.parseInt(hours)+1), "00");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, String.format("%02d", Integer.parseInt(hours)+1), "00");
 		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getElesave().click();
 		ExtentManager.logger.log(Status.INFO, "Creation of new event from work order is successful");

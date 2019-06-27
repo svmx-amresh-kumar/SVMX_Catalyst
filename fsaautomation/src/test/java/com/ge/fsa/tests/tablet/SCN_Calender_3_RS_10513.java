@@ -29,39 +29,30 @@ import io.appium.java_client.TouchAction;
 
 public class SCN_Calender_3_RS_10513 extends BaseLib {
 
-	int iWhileCnt = 0;
 	
-	String sExploreSearch = null;
-	String sExploreChildSearchTxt = null;
+	
 	String sSqlEventQuery = null;
 	String sSqlWOQuery=null;
 	String sObjectProID=null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	//String sAccountName = "Proforma30082018102823account";
 	String sAccountName =null;
 	String sFieldServiceName = null;
-//String sproductname = "Proforma30082018102823product";
-	String sproductname =null;
+
 	String sSqlQuery = null;
-	String[] sDeviceDate = null;
+	
 	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1=null;
 	String sEventIdSVMX=null;
-	String techname="a240t000000GglLAAS";
-	WebElement productname=null;
+	
+	
 	String sSheetName =null;
 	
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
-	@Test(retryAnalyzer=Retry.class)
-	
+	//@Test(retryAnalyzer=Retry.class)
+	@Test()
 	public void RS_10513() throws Exception {
 		sSheetName ="RS_10513";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 	
 		String sTestCaseID="RS_10513_Calender_3";
 	
@@ -82,9 +73,6 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		 
 	
 	//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
 		
 		String sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
 		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
@@ -92,7 +80,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		
 			//Pre Login to app
-			loginHomePo.login(commonUtility, exploreSearchPo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 	
 			//config sync
 			//toolsPo.configSync(commonsUtility);
@@ -124,7 +112,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			
 			calendarPO.getelesubjectcal().sendKeys("SVMX Event from calender New button");
 			commonUtility.setDateTime24hrs(calendarPO.geteleStartDateTimesvmx(), 0,"10", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
+			commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"13","00");
 			commonUtility.tap(workOrderPo.getEleClickSave());
 			
 			toolsPo.syncData(commonUtility);
@@ -136,7 +124,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 			 Assert.assertNotNull(sEventIdSVMX, "Record not found");;
 			ExtentManager.logger.log(Status.PASS,"Create SVMX event from Create New Option is Successful");
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
-//Assert nt null
+//Assert nt null     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		//	On server/DC, edit one of the events created
 			
@@ -160,7 +148,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 				toolsPo.syncData(commonUtility);
 			
 			String stempDate=calendarPO.convertedformate(endtimezero);
-		
+			
 			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
 		
@@ -209,6 +197,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		commonUtility.tap(calendarPO.getelepenciliconcal(sWO_SVMX_1),20,20);
 		
 		//commonsUtility.tap(calendarPO.geteleEndDateTime());
+		
+	//	commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTimesvmx(), 0,"11","00");
 		commonUtility.setDateTime24hrs(calendarPO.geteleEndDateTime(), 0,"15","00");
 		if(BaseLib.sOSName=="ios") {
 		commonUtility.switchContext("Native");
@@ -282,7 +272,9 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS," On client, create an SVMX event longer than 14 days is successful");
         System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 
-	//Server create 14 days event
+	
+	 
+	 
 	}
 	
 	

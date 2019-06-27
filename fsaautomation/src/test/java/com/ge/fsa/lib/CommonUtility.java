@@ -429,7 +429,7 @@ public class CommonUtility {
 
 			touchAction.longPress(new PointOption().withCoordinates(x, y))
 			.waitAction(new WaitOptions().withDuration(Duration.ofMillis(2000)))
-			.moveTo(new PointOption().withCoordinates(xOff, y)).release().perform();
+			.moveTo(new PointOption().withCoordinates(x, y+5)).release().perform();
 			break;
 
 		}
@@ -1330,17 +1330,20 @@ public class CommonUtility {
 				 cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 
 			}
+			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				int breakCount=0;
 				//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().equals(sTimeHrs) && breakCount<20) {
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
 					breakCount++;
 				}
 			}
 			else {
 				//Tablet
-				getEleDatePickerPopUp().get(1).sendKeys(sTimeHrs);
+				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+					breakCount++;
+				}
 
 			}
 
@@ -1349,12 +1352,16 @@ public class CommonUtility {
 			int breakCount=0;
 			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Phone needs multiple calls to date picker to set the correct date
-				while(!getEleDatePickerPopUp().get(2).getText().equals(sTimeMin) && breakCount<20) {
+				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
 				}
-			}else {
-			getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+			}
+			else {
+				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
+					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
+					breakCount++;
+				}
 			}
 
 		}
@@ -1544,7 +1551,7 @@ public class CommonUtility {
 		String data = "";
 		data = new String(Files.readAllBytes(Paths.get(filePath)));
 
-		System.out.println("sahiResultCommon.txt file read as = " + data);
+		System.out.println("PATH: "+filePath+" file read as = " + data);
 		return data;
 
 	}
@@ -1938,7 +1945,7 @@ public class CommonUtility {
 		}
 	}
 
-	public String getDeviceDate() throws ParseException{
+	public String getDeviceDate() throws Exception{
 		String returnDate="";
 		if (BaseLib.sOSName.equalsIgnoreCase("Android")) {
 			switchContext("native");
@@ -1949,9 +1956,17 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/idevicedate").trim();
-			String _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-4727a86_3/bin/ideviceinfo");
-			String[] IOBufferList = _cmd.split("\n"); 
+			String dateInString=executeLibiMobileDeviceExecFile("ideviceinfo");
+//			String _cmd ="";
+//			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+//				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
+//				 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/ideviceinfo");
+//					
+//			}else {
+//			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/idevicedate").trim();
+//			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/ideviceinfo");
+//			}
+			String[] IOBufferList = executeLibiMobileDeviceExecFile("idevicedate").split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
 				if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
@@ -2327,7 +2342,7 @@ public class CommonUtility {
 
 		//Try to scroll
 		int i;
-		for (i = 0; i <= 5; i++) {
+		for (i = 0; i <= 10; i++) {
 			swipeGeneric("up");
 			try {
 				Thread.sleep(300);
@@ -2341,7 +2356,7 @@ public class CommonUtility {
 			}catch(Exception e){}
 		}
 		
-		for (i = 0; i <=5; i++) {
+		for (i = 0; i <=10; i++) {
 			swipeGeneric("down");
 			try {
 				Thread.sleep(300);
@@ -2402,7 +2417,7 @@ public class CommonUtility {
 	}
 
 	
-	public String gethrsfromdevicetime() throws ParseException {
+	public String gethrsfromdevicetime() throws Exception {
 		System.out.println(getDeviceDate());
 		String[] time =getDeviceDate().split(" ");
 		System.out.println("############"+time[3]);
@@ -2426,10 +2441,9 @@ public class CommonUtility {
 	 * Function to return the offset day as string
 	 * @param value
 	 * @return
-	 * @throws ParseException
+	 * @throws Exception 
 	 */ 
-	public String adddaystocurrentday(int value) throws ParseException {
-
+	public String adddaystocurrentday(int value) throws Exception {
 
 		String[] date = getDeviceDate().split(" ");
 		Calendar cal=Calendar.getInstance();
@@ -2454,7 +2468,40 @@ public class CommonUtility {
 	
 	}
 
+	/**
+	 * Function to execute and return the values for libimobiledevice contents like for devicedate,device id etc
+	 * @param sLibMobileDeviceExecFile
+	 * @param commonUtility
+	 * @return
+	 * @throws Exception
+	 */
+	public String executeLibiMobileDeviceExecFile(String sLibMobileDeviceExecFile) throws Exception
+	{
+		String sDirPath = System.getProperty("user.dir");
+		String sShellPath = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh";
+		String sOutPutFile = "/auto/SVMX_Catalyst/Executable/tempFileToRead.txt";
+		
+		File file = new File(sShellPath);
+		file.createNewFile();
+		FileWriter writer = new FileWriter(file);
+		writer.write("#!/bin/bash \n cd /usr/local/Cellar/libimobiledevice/ \nfilename=$(ls)\necho $filename  \n$filename/bin/"+sLibMobileDeviceExecFile+" > "+sOutPutFile);
+		writer.flush();
+		writer.close();
+		
+		
+		// File file2 = new File(sShellPath);
+		Runtime.getRuntime().exec("chmod 777 " + file);
 
+		File fileLibDivice = new File("/usr/local/Cellar/libimobiledevice/*/bin/" + sLibMobileDeviceExecFile);
+		Runtime.getRuntime().exec("chmod 777 " + fileLibDivice);
+
+		ProcessBuilder processBuilder = new ProcessBuilder(file.getPath());
+		Process process = processBuilder.start(); // Start the process.
+		process.waitFor(); // Wait for the process to finish.
+
+		String sDataRead = readTextFile(sOutPutFile);
+		return sDataRead;
+	}
 	
 
 	

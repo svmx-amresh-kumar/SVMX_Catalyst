@@ -27,12 +27,13 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sIBName = null;
+	String sProcessname = "SFM Process for RS-10553";
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10553() throws Exception {
 
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
+		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessname, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
 
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -88,7 +89,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		ph_MorePo.syncData(commonUtility);
 		// Click on the Work Order
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);
-		String sProcessname = "SFM Process for RS-10553";// Need to pass this from the Excel sheet
+		// Need to pass this from the Excel sheet
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessname);
 		// To Add a PS Line to the Work Order and Parts to the Work ORder
 		ph_WorkOrderPo.addPSLines(commonUtility, sIBName);

@@ -1,0 +1,168 @@
+
+/* line 8, ../scss/skin1.scss */
+.touch-calendar-view table {
+  background: white;
+}
+/* line 14, ../scss/skin1.scss */
+.touch-calendar-view table.week td {
+  vertical-align: top;
+}
+/* line 26, ../scss/skin1.scss */
+.touch-calendar-view table.day tr.selected td {
+  background-image: none;
+  border: none;
+  text-shadow: none;
+}
+/* line 32, ../scss/skin1.scss */
+.touch-calendar-view table.day tr.selected td.label {
+  background-color: transparent;
+}
+/* line 43, ../scss/skin1.scss */
+.touch-calendar-view table.day tr.half-hour td.time-block {
+  /*border-top: 1px solid #efefef;*/
+}
+/* line 49, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td {
+  border: none;
+  background-image: none;
+  background-color: white;
+  text-align: right;
+}
+/* line 56, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td.time-block {
+  background-color: #fff;
+  height: 20px;
+  border-bottom: 1px solid #E6E4E2;
+}
+/* line 62, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td.time-block.selected {
+  background-color: #fff;
+}
+/* line 68, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td .label {
+  width: 53px;
+  padding: 0 10px 0 0;
+  border-bottom: 1px solid #E6E4E2;
+}
+table.day tr.half-hour td.label {
+	border-top: 1px solid #fff !important;
+}
+.touch-calendar-view table.day tr.sfmevent-day-timeslots  td.label {
+	border-bottom: 1px solid #fff !important;
+}
+.touch-calendar-view table.day tr.half-hour td.label {
+	border-bottom: 1px solid #E6E4E2 !important;
+}
+/* line 73, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td .label .hour {
+  font-weight: normal !important;
+  /*font-family: 'Roboto-Medium' !important;*/
+  color: #434343 !important;
+  font-size: 0.80em !important;
+  padding-left: 0.3em;
+}
+
+/* line 80, ../scss/skin1.scss */
+.touch-calendar-view table.day tr td .label .am-pm {
+  font-weight: normal !important;
+  color: #797979 !important;
+  font-size: 0.80em !important;
+  /*font-family: 'Roboto-Light' !important;*/
+  margin-left: 4px !important;
+}
+/* line 97, ../scss/skin1.scss */
+.touch-calendar-view tbody td {
+  background-color: white;
+  background: none;
+  /*border-right: 1px solid #EDEDED;
+  border-top: 1px solid #EDEDED;*/
+  border-bottom: none;
+  border-left: none;
+  padding: 0 5px 0 0;
+  font-size: 1.250em;
+  color: #6B6B6B;
+}
+
+.touch-calendar-view tbody td.weekend {
+	color: #AEAEAE;
+}
+/* line 108, ../scss/skin1.scss */
+.touch-calendar-view tbody td.today {
+  background-color: #fff;
+  background-image: none;
+  color: ;
+}
+
+.touch-calendar-view tbody td.today span {
+  background-color: #E15001;
+  background-image: none;
+  border-radius:5000px;
+  color: #fff;
+  height:50px;
+  text-align:center;
+  width:50px;
+  padding:6px;
+}
+
+/* line 117, ../scss/skin1.scss */
+.touch-calendar-view tbody td.unselectable {
+  color: #EEE;
+  background-image: none;
+}
+/* line 123, ../scss/skin1.scss */
+.touch-calendar-view tbody td.selected {
+  background: none;
+  background-color: #E0E0E0;
+  border: 0px solid #999;
+  text-shadow: none;
+  color: #3F4E5E;
+}
+/* line 132, ../scss/skin1.scss */
+.touch-calendar-view tbody td.today.selected {
+  background: none;
+  background-color: #fff;
+  color: white;
+}
+/* line 141, ../scss/skin1.scss */
+.touch-calendar-view thead {
+  background-color: #F2F1F0;
+  background-image: none;
+}
+/* line 146, ../scss/skin1.scss */
+.touch-calendar-view thead th {
+  border-bottom: none;
+}
+
+.touch-calendar-view table.month thead th {
+  padding-top: 12px;
+  font-size: 1em !important;
+}
+
+/* line 160, ../scss/skin1.scss */
+.touch-calendar-view thead th span {
+  font-weight: normal;
+  top: 10px;
+  color: #666;
+}
+
+
+.touch-calendar-view thead th .sfmevent-month span {
+  height: auto;
+  left: -4px;
+  position: relative;
+  text-align: left;
+  top: 0px;
+  width: 100%;
+  color: #333333;
+  z-index: 999;
+  line-height: 120%;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+}
+
+.touch-calendar-view table.month tr td.time-block {
+  text-align:left;
+  padding-left:8px;
+  padding-top:8px;
+}

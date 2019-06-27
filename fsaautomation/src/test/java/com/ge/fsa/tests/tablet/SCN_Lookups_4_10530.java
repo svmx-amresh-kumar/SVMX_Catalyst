@@ -195,7 +195,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		Thread.sleep(GenericLib.iLowSleep);
 			commonUtility.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
 			commonUtility.tap(workOrderPo.getBtnApply());
-		    String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
+		    String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c='"+sLocId1+"'+and+SVMXC__Product__c!=null)";
 		    JSONArray jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
 		    ArrayList<String> sArrOfProd = restServices.getJsonArr(jSonArr, "Name");
 		    prodList = workOrderPo.getProductListInLkp();

@@ -81,7 +81,7 @@ public void Scenario1Test() throws Exception
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 	//	 Select the Work Order from the Recent items
 		
@@ -133,7 +133,7 @@ public void Scenario1Test() throws Exception
 //		
 		// Verifying if the Attachment is NULL before Sync
 		String sSoqlQueryattachBefore = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		String sAttachmentidBefore = restServices.restGetSoqlValue(sSoqlQueryattachBefore, "Id");
 		// This will verify if the Id retrived from the Work Order's attachment is not null.
 		assertNull(sAttachmentidBefore); 
@@ -158,16 +158,13 @@ public void Scenario1Test() throws Exception
 		Thread.sleep(genericLib.i30SecSleep);
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(genericLib.i30SecSleep);
-		toolsPo.syncData(commonUtility);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
-		restServices.getAccessToken();
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
 		assertNotNull(sAttachmentIDAfter);
 		
 		// Verifying the childlines of the Same Work Order
 		String sSoqlQueryChildlineAfter = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"+sworkOrderName+"\')";
-		restServices.getAccessToken();
 		String sChildlinesAfter = restServices.restGetSoqlValue(sSoqlQueryChildlineAfter, "totalSize");	
 		if(sChildlinesAfter.equals("0"))
 		{

@@ -53,7 +53,7 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 		System.out.println("SCN_CustomPicklist_RS_10547");
 		String sProcessname = "RS_10547CreateWOfromIB";
 		
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10548_prerequisite", "Custom Picklist");
+		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessname, "SCN_Explore_RS_10548_prerequisite", "Custom Picklist");
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		if(configSync) {

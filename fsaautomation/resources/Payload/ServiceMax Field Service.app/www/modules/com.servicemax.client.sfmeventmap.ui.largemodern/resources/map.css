@@ -1,0 +1,118 @@
+.svmx-sfmevent-marker-popup{
+    font-size:14px;
+    width:330px;
+    height:170px;
+    box-shadow:1px 2px 3px rgba(0, 0, 0, 0.3);
+    position:relative;
+    background:#fafafa;
+    background:-moz-linear-gradient(top,#fafafa 0%,#f2f2f2 79%,#f2f2f2 100%);
+    background:-webkit-linear-gradient(top,#fafafa 0%,#f2f2f2 79%,#f2f2f2 100%);
+    background:linear-gradient(to bottom,#fafafa 0%, #f2f2f2 79%, #f2f2f2 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#f2f2f2',GradientType=0 )
+}
+.svmx-sfmevent-marker-popup:after{
+    top:100%;
+    left:50%;
+    border:solid transparent;
+    content:" ";
+    height:0;
+    width:0;
+    position:absolute;
+    pointer-events:none;
+    border-color:transparent transparent #f2f2f2 #f2f2f2;
+    border-top-color:#f2f2f2;
+    border-width:25px;
+    margin-left:-30px;
+    transform-origin:0 0;
+    transform:rotate(-45deg);
+    box-shadow:-3px 2px 3px rgba(0, 0, 0, 0.3)
+}
+.svmx-sfmevent-marker-top-section{
+    border-bottom:solid 1px #e6e4e2;
+    padding:10px;
+    text-align:center;
+    position:relative;
+    overflow:hidden
+}
+.svmx-sfmevent-marker-title{
+    color:#333;
+    font-size:18px;
+    max-width:200px;
+    margin:0 auto;
+    overflow:hidden;
+    display:block;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    text-align:center
+}
+.svmx-sfmevent-marker-details{
+    color:#2f70ab;
+    position:absolute;
+    top:12px;
+    right:10px
+}
+.svmx-sfmevent-marker-body{
+    padding:10px;
+    clear:left;
+    position:relative
+}
+.svmx-sfmevent-marker-time{
+    font-size:28px;
+    color:#333
+}
+.svmx-sfmevent-marker-date{
+    color:#6b6b6b;
+    position:absolute;
+    right:10px;
+    top:15px
+}
+.svmx-sfmevent-marker-addr-dir-wrap{
+    position:relative;
+    max-height:70px;
+    overflow:hidden
+}
+.svmx-sfmevent-marker-address{
+    color:#6b6b6b;
+    margin-top:5px;
+    max-width:200px;
+    max-height:70px;
+    display:block;
+    white-space:pre-line;
+    text-overflow:ellipsis;
+    overflow:hidden
+}
+.svmx-sfmevent-marker-directions-btn{
+    color:#2f70ab;
+    position:absolute;
+    right:10px;
+    bottom:0px;
+    display:block;
+    text-align:center;
+    white-space:pre-line
+}
+@font-face {
+    font-family: 'svmx-icons';
+    src: url('./../../com.servicemax.client.ui.modern.themes.orange/resources/theme-orange/fonts/svmx-icons.eot?lq31ah');
+    src: url('./../../com.servicemax.client.ui.modern.themes.orange/resources/theme-orange/fonts/svmx-icons.eot?lq31ah#iefix') format('embedded-opentype'), url('./../../com.servicemax.client.ui.modern.themes.orange/resources/theme-orange/fonts/svmx-icons.ttf?lq31ah') format('truetype'), url('./../../com.servicemax.client.ui.modern.themes.orange/resources/theme-orange/fonts/svmx-icons.woff?lq31ah') format('woff'), url('./../../com.servicemax.client.ui.modern.themes.orange/resources/theme-orange/fonts/svmx-icons.svg?lq31ah#svmx-icons') format('svg');
+}
+.svmx-sfmevent-marker-directions-btn:before{
+    color:#2f70ab;
+    content:'\e912';
+    font-size:26px;
+    display:block;
+    text-align:center;
+    font-family:'svmx-icons' !important;
+    speak:none;
+    font-style:normal;
+    font-weight:normal;
+    font-variant:normal;
+    text-transform:none;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
+}
+.svmx-map-display {
+	position: absolute !important;
+	width: 100%;
+	height: 100%;
+}

@@ -26,22 +26,11 @@ import com.ge.fsa.lib.Retry;
 public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sExploreSearch = null;
-	String sExploreChildSearchTxt = null;
-	String sSqlEventQuery = null;
-	String sSqlWOQuery = null;
-	String sObjectProID = null;
-	String sObjectApi = null;
-	String sJsonData = null;
-	String sAccountName = null;
-	String sFieldServiceName = null;
-	String sproductname = null;
-	String sSqlQuery = null;
 	
-	String sEventIdSVMX14 = null;
+	String sSqlEventQuery = null;
+	String sObjectApi = null;
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
-	WebElement productname = null;
 	String sSheetName = null;
 
 	@Test(retryAnalyzer=Retry.class)
@@ -58,21 +47,16 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		// sahi
 
 	
-		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		  if(commonUtility.verifySahiExecution()) {
-		  
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  
-		  
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
-		  System.out.println("RS-10513");
+		 genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", sTestCaseID);
+			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+			lauchNewApp("true");
+		
+	
 		 
 		 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-
-		
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		Thread.sleep(GenericLib.iMedSleep);
 		ph_MorePo.syncData(commonUtility);
@@ -83,14 +67,12 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		Thread.sleep(3000);
 		ph_CalendarPo.custScroll(commonUtility,"A10513_SVMX_Event1");
 
-		//commonUtility.custScrollcalender(ph_CalendarPo.getEleworkordernumonCalendar("A10513_SVMX_Event1"),true);
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A10513_SVMX_Event2");
 
 		ExtentManager.logger.log(Status.PASS, "Two events are displayed in calendar");
 
-		System.out.println(
-				"//////////////////////////////////////////////////////////////////////////////////////////////");
+		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		// Create SVMX event from Create New Option
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -115,19 +97,21 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		// On server/DC, edit one of the events created
 
-		sObjectApi = "SVMXC__SVMX_Event__c";
+		//sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event1\'";
 		sEventIdSVMX_1 = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 		System.out.println(sEventIdSVMX_1);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Calendar now1 = Calendar.getInstance();
 		now1.set(Calendar.HOUR, 11);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
 		String endtimezero = sdf.format(now1.getTime());
 		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);
+		System.out.println(endtimezero);*/
+		
+		String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(11);
 
 		String sWOJson = "{\"SVMXC__EndDateTime__c\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSVMX_1);
@@ -135,9 +119,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		ph_MorePo.syncData(commonUtility);
 
 		
-		
-		
-		sObjectApi = "SVMXC__SVMX_Event__c";
+		//sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
 		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
 		System.out.println(sEventenddatetimeserver);
@@ -165,7 +147,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		System.out.println("get end  time:"+getappointmenttime[1]);
 		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
 		System.out.println("datetimefromclient"+datetimefromclient);
-		//Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
+		Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
 		
 		 
 		  ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful"); System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////" );
@@ -188,7 +170,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 			Thread.sleep(3000);
 			ph_MorePo.syncData(commonUtility);
 
-			sObjectApi = "SVMXC__SVMX_Event__c";
+			//sObjectApi = "SVMXC__SVMX_Event__c";
 			sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" + sEventSubject14days + "'";
 			sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 			System.out.println("created event id from server:" + sEventIdSVMX);

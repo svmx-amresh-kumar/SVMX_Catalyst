@@ -160,11 +160,12 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.longPress(workOrderPo.getProblemDescription());
 		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
-		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
-		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
-		Thread.sleep(GenericLib.iLowSleep);
-		commonUtility.tap(workOrderPo.getEleUpdateLnk());
+		workOrderPo.getProblemDescription().sendKeys("Hello Work");
+//		commonUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
+//		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
+//		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
+//		Thread.sleep(GenericLib.iLowSleep);
+//		commonUtility.tap(workOrderPo.getEleUpdateLnk());
 		Thread.sleep(GenericLib.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 				
@@ -205,7 +206,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 
 
 		//setting ScehduledDatetime to other than today		
-		commonUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(), 2, "5", "5");
+		commonUtility.setDateTime24hrs(workOrderPo.getEleScheduledDateTimeTxt(), 2, "05", "05");
 		//commonsUtility.setSpecificDateYear(workOrderPo.getEleScheduledDateTimeTxt(),"February", "3", "2019");
 	
 		//setting scheduled date other than today
@@ -275,7 +276,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
 		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		commonUtility.tap(workOrderPo.openpartsontap());
+		commonUtility.tap(workOrderPo.getpartsontaptap(sProductName));
 		workOrderPo.getEleLineQtyTxtFld().clear();
 		workOrderPo.getEleLineQtyTxtFld().sendKeys("3");
 		workOrderPo.getEleLinePerUnitTxtFld().sendKeys("100");

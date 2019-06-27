@@ -30,7 +30,7 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 		
 		System.out.println("SCN_RS10516_ZeroLines");
 		String sProcessname = "SFMProcessforRS_10516";
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, sProcessname, "SCN_RS10516_ZeroLines");
+		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessname, "scenario_10516", "SCN_RS10516_ZeroLines");
 
 		
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -115,7 +115,7 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 //
 //			}
 			
-			ph_WorkOrderPo.addLabor(commonUtility, sProcessname);
+			ph_WorkOrderPo.addLabor(commonUtility, sProductName);
 			ph_WorkOrderPo.getEleSaveLnk().click();
 			try {
 				ph_WorkOrderPo.getEleChildLine1IssueFound().isDisplayed();

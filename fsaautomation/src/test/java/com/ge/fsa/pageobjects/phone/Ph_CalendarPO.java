@@ -2,6 +2,9 @@ package com.ge.fsa.pageobjects.phone;
 
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -383,6 +386,19 @@ public class Ph_CalendarPO
 	        System.out.println("Converted to date "+stempDate); 
 		return stempDate;
 	}
+	
+	
+	public String Addinghrstosfdcformat(int hrs) throws Exception 
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Calendar now1 = Calendar.getInstance();
+		now1.set(Calendar.HOUR, hrs);
+		now1.set(Calendar.MINUTE, 0);
+		now1.set(Calendar.SECOND, 0);
+		String endtimezero = sdf.format(now1.getTime());
+		System.out.println(endtimezero);
+		return endtimezero;
+	}
 
 	//XCUIElementTypeOther[@name="CALENDAR.CARET_DOWN"]
 	@FindBy(xpath="//*[@*='CALENDAR.CARET_DOWN']")
@@ -582,9 +598,5 @@ else {
 			
 		}
 			
-	
-
-	
-
 	
 }

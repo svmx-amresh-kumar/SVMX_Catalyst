@@ -237,7 +237,7 @@ public class Ph_WorkOrderPO {
 		} else {
 			// return
 			// driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'ITEM')]"));
-			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sValue + "']"));
+			return driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name='" + sValue + "'])[last()]"));
 		}
 
 	}
@@ -1776,7 +1776,8 @@ public class Ph_WorkOrderPO {
 		return eleWorkDetailItem;
 	}
 	
-	@FindBy(xpath="(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM.')]]/*[1])[last()]")
+	@AndroidFindBy(xpath="(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM.')]]/*[1])[last()]")
+	@iOSXCUITFindBy(xpath="(//*[@*[contains(.,'SFM.LAYOUT.CHILDLINELIST.LISTITEM.')]]/*)[last()]")
 	private WebElement eleWorkDetailItemCheckbox;
 	public WebElement getEleWorkDetailsItemCheckbox() {
 		return eleWorkDetailItemCheckbox;

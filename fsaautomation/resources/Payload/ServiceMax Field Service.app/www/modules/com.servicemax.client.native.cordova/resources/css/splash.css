@@ -1,0 +1,155 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.svmx_splash_fade_to_blue {
+    -webkit-transition: background 2s ease;
+    background: #2a94d6;
+}
+
+.svmx_splash {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../images/BackgroundGradient.png);
+    -webkit-transition: opacity 2s;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.svmx_splash_logo {
+    content: url(../images/SmaxClover.png);
+    max-width: 60vw;
+    margin-left: 20vw;
+    margin-top: 7.5vh;
+}
+
+.svmx_splash_text {
+    content: url(../images/SmaxLogotype.png);
+    max-width: 60vw;
+    margin-left: 20vw;
+    margin-top: 2vh;
+}
+
+.svmx_splash_release_text {
+    content: url(../images/ReleaseDate.png);
+    position: absolute;
+    right: 1.5vh;
+    top: 1.5vh;
+    max-height: 3vw;
+}
+
+.svmx_splash_signin {
+    content: url(../images/SignInButton.png);
+    max-width: 45vw;
+    margin-left: 27.5vw;
+    margin-top: 12.5vh;
+}
+
+/* New Splash Screen Styles */
+
+@media (orientation: portrait) {
+    .svmx_splash_new {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        background: url(../images/BackgroundImagePortrait.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -webkit-transition: opacity 2s;
+        opacity: 1;
+        overflow: hidden;
+    }
+}
+@media (orientation: landscape) {
+    .svmx_splash_new {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        background: url(../images/BackgroundImageLandscape.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        -webkit-transition: opacity 2s;
+        opacity: 1;
+        overflow: hidden;
+    }
+}
+
+
+.svmx_splash_logo_cell_new{
+    position:absolute;
+    top:43vh;
+    left:14vw;
+}
+
+.svmx_splash_logo_new {
+    /*
+    content: url(../images/Tiles.png);
+    float:left;
+    max-width: 60vw;
+    margin-top:1vh;
+    */
+}
+
+.svmx_splash_text_new {
+    /*
+    content: url(../images/LogoText.png);
+    float:left;
+    max-width: 60vw;
+    margin-left: 1vw;
+    */
+}
+
+.svmx_splash_signin_cell_new{
+    position:absolute;
+    bottom:14vh;
+    width:100%;
+}
+
+.svmx_splash_signin_new {
+    content: url(../images/SignInButtonNew.png);
+    max-width: 45vw;
+    position:relative;
+    margin: 0 auto;
+    height : 93px;
+}
+
+.svmx_splash_release_text_new {
+    position: absolute;
+    right: 1.5vh;
+    bottom: 1.5vh;
+    max-height: 3vw;
+}
+
+@media (min-width: 75vh), (orientation: landscape) {
+    .svmx_splash_logo {
+        max-width: 45vh;
+        margin-left: calc(50vw - 22.5vh);
+    }
+
+    .svmx_splash_text {
+        max-width: 50vh;
+        margin-left: calc(50vw - 25vh);
+    }
+
+    .svmx_splash_signin {
+        max-width: 40vh;
+        margin-left: calc(50vw - 20vh);
+    }
+
+    .svmx_splash_release_text {
+        max-height: 2.25vh;
+    }
+}
+
+@media all and (orientation:portrait){
+    .svmx_splash_logo_new{
+        margin-top:0;
+    }
+
+}

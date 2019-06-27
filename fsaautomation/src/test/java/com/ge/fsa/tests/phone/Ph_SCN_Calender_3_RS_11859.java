@@ -25,36 +25,17 @@ import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 
-	int iWhileCnt = 0;
-	String sExploreSearch = null;
-	String sExploreChildSearchTxt = null;
 	String sSqlEventQuery = null;
-	String sSqlWOQuery = null;
-	String sObjectProID = null;
 	String sObjectApi = null;
-	String sJsonData = null;
-	String sAccountName = null;
-	String sFieldServiceName = null;
-	String sproductname = null;
-	String sSqlQuery = null;
-	String[] sDeviceDate = null;
-	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1 = null;
-	String sEventIdSVMX = null;
-	String techname = "a240t000000GglLAAS";
-	WebElement productname = null;
-	String sSheetName = null;
-
-	@BeforeMethod
-	public void initializeObject() throws IOException {
-
-	}
-
+	String sEventIdSFDC = null;
+	String sSheetName =null;
+	
 	@Test()
 
 	public void Calender_3_RS_11859() throws Exception {
 		//sSheetName = "RS_10513";
-		sDeviceDate = driver.getDeviceTime().split(" ");
+		
 
 		String sTestCaseID = "Calender_3_RS_11859";
 
@@ -82,15 +63,14 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 
 		Thread.sleep(3000);
-		//commonUtility.custScrollToElement("//*[@text='A11859_SFDC_Event1']",true);
+		
 		ph_CalendarPo.custScroll(commonUtility,"A11859_SFDC_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A11859_SFDC_Event1");
 		ph_CalendarPo.VerifyWOInCalender(commonUtility, "A11859_SFDC_Event2");
 
 		ExtentManager.logger.log(Status.PASS, "Two events are displayed in calendar");
 
-		System.out.println(
-				"//////////////////////////////////////////////////////////////////////////////////////////////");
+		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		// Create SVMX event from Create New Option
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -124,14 +104,7 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 		  System.out.println(sEventIdSVMX_1);
 		  
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		Calendar now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 11);
-		now1.set(Calendar.MINUTE, 0);
-		now1.set(Calendar.SECOND, 0);
-		String endtimezero = sdf.format(now1.getTime());
-		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);
+		  String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(11);
 
 		String sWOJson="{\"EndDateTime\":\""+endtimezero+"\"}";
 		  restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSVMX_1);
@@ -166,7 +139,7 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 		System.out.println("get end  time:"+getappointmenttime[1]);
 		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
 		System.out.println("datetimefromclient"+datetimefromclient);
-		//Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
+		Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
 		
 		 
 		  ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful"); System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////" );
@@ -217,7 +190,7 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 			sObjectApi = "Event";
 		
 			sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" + sEventSubject14days + "'";
-			sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
+			String sEventIdSVMX = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 			System.out.println("created event id from server:" + sEventIdSVMX);
 			Assert.assertNull(sEventIdSVMX, "Record not found");
 			ExtentManager.logger.log(Status.PASS, "Create SFDC event from from client more than 14 days successful");

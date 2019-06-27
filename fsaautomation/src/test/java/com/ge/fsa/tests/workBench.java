@@ -44,6 +44,7 @@ import com.ge.fsa.pageobjects.browser.Br_LoginHomePO;
 import com.ge.fsa.pageobjects.phone.Ph_RecentsItemsPO;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.TapOptions;
@@ -73,7 +74,7 @@ public class workBench extends BaseLib
 	String sLineQty = "10.0";
 	String slinepriceperunit = "1000";
 	
-	
+
 
 //	@FindBy(xpath="//XCUIElementTypeOther[@type='XCUIElementTypeOther']")	
 //	private List<WebElement> picPic;
@@ -92,21 +93,18 @@ public class workBench extends BaseLib
 
 	//@Test(retryAnalyzer=Retry.class)
 	@Test
-
 public void workBenchAnd() throws Exception
 {	
-		//Thread.sleep(10000);
-		String sProductName = "auto_product";
-		String  sProcessname = "EditWoAutoTimesstamp";
-		String sEventSubject = "susy";
-		String sworkOrderName = "WO-00013653";
-		//ph_LoginHomePo.login(commonUtility, ph_MorePo);
+	
+		System.out.println("Now");
+		Thread.sleep(270);
+		System.out.println("Date = "+commonUtility.getDeviceDate()+"   device info= "+commonUtility.executeLibiMobileDeviceExecFile("ideviceinfo"));
+		//System.out.println(commonUtility.getDeviceDate());
+	//System.out.println(commonUtility.getDeviceDate());
 
-		//System.out.println("NOWWW");
-		Thread.sleep(15000);
-		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
+		/*WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 		commonUtility.longPress(wElement,32,32);
-
+*/
 		
 		//commonUtility.longPress(ph_WorkOrderPo.geteleRemoveablePart());
 

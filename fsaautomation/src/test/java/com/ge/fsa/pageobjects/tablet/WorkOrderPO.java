@@ -601,7 +601,7 @@ import io.appium.java_client.TouchAction;
 	
 	
 		//verifying ProblemDescription in WorkOrder
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span")
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/*")
 		private WebElement eleProblemDescriptionlbl;
 		public WebElement geteleProblemDescriptionlbl()
 		{
@@ -764,7 +764,7 @@ import io.appium.java_client.TouchAction;
 			return eleDescriptionTxt;
 		}
 	
-		@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-innerhtml']/span")
+		@FindBy(xpath="//span[text()='Work Description']/../..//div[@class='x-input-body-el']/textarea")
 		private WebElement eleWODesMappedTxt;
 		public WebElement getEleWODesMappedTxt()
 		{
@@ -1394,11 +1394,17 @@ import io.appium.java_client.TouchAction;
 	
 		public void createNewEvent(CommonUtility commonUtility, String sSubject, String sDescription) throws InterruptedException
 		{
+			int hrs = 0;
+			try {
+				hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
+			} catch (Exception e) {
+
+			}
 			selectAction(commonUtility, "Create New Event From Work Order");
 			Assert.assertTrue(getEleNewEventTxt().isDisplayed(), "New Event screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"New Event screen is displayed successfully");		
-			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"05", "00"); //set start time to Today
-			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,"06","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,Integer.toString(hrs), "00"); //set start time to Today
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 0,Integer.toString(hrs + 2),"00"); //set end time
 			getEleSubjectTxtFld().sendKeys(sSubject);
 			//getEleDescriptionTxtFld().click();
 			//getEleDescriptionTxtFld().sendKeys(sDescription);
@@ -1848,7 +1854,7 @@ import io.appium.java_client.TouchAction;
 		}
 	
 	
-		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/span)[2]")
+		@FindBy(xpath="(//*[text()='Problem Description']/../..//div[@class='x-innerhtml']/../..//textarea)[2]")
 		private WebElement ProblemDescription;
 		public WebElement getProblemDescription()
 		{

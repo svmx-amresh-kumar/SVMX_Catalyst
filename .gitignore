@@ -20,3 +20,4 @@ fsaautomation/bin/testng.xml
 fsaautomation/.project
 fsaautomation/ExtentReports/*
 fsaautomation/Screenshot/*
+/auto/SVMX_Catalyst/Executable/*

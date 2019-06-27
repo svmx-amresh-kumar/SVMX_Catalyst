@@ -1,0 +1,122 @@
+/* Scrollbar theming for IE Browsers */
+html, body{
+	scrollbar-face-color: #9ddaf0 !important;
+	scrollbar-shadow-color: #9ddaf0 !important;
+	scrollbar-highlight-color:#9ddaf0 !important;
+	scrollbar-3dlight-color: #71bcd7 !important;
+	scrollbar-darkshadow-color: #71bcd7 !important;
+	scrollbar-track-color: #c5e8f5 !important;
+	scrollbar-arrow-color: #2a8bae !important;
+}
+
+/* Scrollbar theming for Webkit browsers (Chrome & Safari) */
+/* Turn on a 13x13 scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 11px;
+}
+ 
+::-webkit-scrollbar-button:vertical {
+    background-color: red !important;
+    border: 1px dashed blue !important;
+}
+ 
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block !important;
+}
+ 
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none !important;
+}
+ 
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:vertical:increment {
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+}
+ 
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:vertical:decrement {
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:horizontal:increment {
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+    border-bottom: none !important; 
+}
+ 
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:horizontal:decrement {
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+    border-bottom: none !important;
+}
+ 
+::-webkit-scrollbar-track:vertical {
+    background-color: blue !important;
+    border: 1px solid #71bcd7 !important;
+}
+ 
+/* Top area above thumb and below up button */
+::-webkit-scrollbar-track-piece:vertical:start {
+    border: 1px solid #71bcd7 !important;    
+}
+ 
+/* Bottom area below thumb and down button */
+::-webkit-scrollbar-track-piece:vertical:end {
+    border: 1px solid #71bcd7 !important;
+}
+ 
+/* Track below and above */
+::-webkit-scrollbar-track-piece {
+    background-color: #c5e8f5 !important;
+}
+ 
+/* The thumb itself */
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px !important;
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+    background: #9ddaf0 url(../images/svmx_sfm_relaxed_sprite.png) no-repeat -171px 1px !important;
+    border: 1px solid #71bcd7 !important;
+    height:13px !important;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+    background: #9ddaf0 url(../images/svmx_sfm_relaxed_sprite.png) no-repeat -171px -95px !important;
+    border: 1px solid #71bcd7 !important;
+    height:13px !important;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    height: 50px !important;
+    background-color: #9ddaf0 !important;
+    border: 1px solid #71bcd7 !important;
+    border-bottom: none !important;
+}
+
+::-webkit-scrollbar-button:horizontal:decrement {
+    background: #9ddaf0 url(../images/svmx_sfm_relaxed_sprite.png) no-repeat -172px -139px !important;
+    border: 1px solid #71bcd7 !important;
+    width:12px !important;
+    height:13px !important;
+    border-bottom: none !important;
+}
+
+::-webkit-scrollbar-button:horizontal:increment {
+    background: #9ddaf0 url(../images/svmx_sfm_relaxed_sprite.png) no-repeat -171px -169px !important;
+    border: 1px solid #71bcd7 !important;
+    width:12px !important;
+    height:13px !important;
+    border-bottom: none !important;
+}

@@ -4,6 +4,8 @@
 package com.ge.fsa.tests.phone;
 
 import java.util.Date;
+
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -63,10 +65,10 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// sWOName1 = "WO-00001615";
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);
 
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS, "Sahi verification is successful");
-
+*/
 	}
 
 	// @Test()
@@ -155,16 +157,17 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 
 		}
 		// Entering Text question
-		commonUtility.custScrollToElementAndClick(stextQuestion);
+		commonUtility.custScrollToElement(stextQuestion);
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
+		driver.findElement(By.xpath("//*[@*[contains(.,'"+stextQuestion+"')]]")).click();
 		// Entering DateTime question
-		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
-		} else {
-			commonUtility.custScrollToElement(sdateTimeQuestion);
-		}
+//		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+//			commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
+//		} else {
+//			commonUtility.custScrollToElement(sdateTimeQuestion);
+//		}
 
-		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "00", "00");
+		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
 		// Entering Date question
 		commonUtility.custScrollToElement(snumberQuestion);
@@ -180,7 +183,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// Opening Completed Checklist
 		ph_ChecklistPO.geteleCompleted().click();
 		Thread.sleep(3000);
-		ph_ChecklistPO.geteleName().click();
+		
+		ph_ChecklistPO.getelechecklistinstance().click();
+		
+		//in build 598 [name] was displayed when checklist was completed.
+		//ph_ChecklistPO.geteleName().click();
 		Thread.sleep(3000);
 
 		// to be reverted once number is fixed for android!
