@@ -135,65 +135,6 @@ public class GenericLib
 		writer.close();
 	}
 	
-	public String executeDeviceDateShellFile(String sLibMobileDeviceCommandFile,CommonUtility commonUtility) throws Exception
-	{
-		String sShellPath = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh";
-		String sShellPath3 = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable2.sh";
-
-		String sOutPutFile = "/auto/SVMX_Catalyst/Executable/tempFileToRead.txt";
-		File file = new File(sShellPath);
-		file.createNewFile();
-		FileWriter writer = new FileWriter(file);
-		writer.write("#!/bin/bash \ncd /usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin \n"+sLibMobileDeviceCommandFile+" > "+sOutPutFile+" \n"+sLibMobileDeviceCommandFile+"\nexit");
-		writer.flush();
-		writer.close();
-		
-		//File file2 = new File(sShellPath);
-		Runtime.getRuntime().exec("chmod u+x " +file);
-
-		
-		try {
-			processBuilder= new ProcessBuilder(file.getPath());
-			process = processBuilder.start(); // Start the process.
-			process.waitFor(); // Wait for the process to finish.
-			
-			//Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
-			//Set the path  of sahi reports
-//BufferedReader valueRead = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			//return valueRead.readLine().trim();
-			byte[] b = new byte[1024]; 
-			int readBytes; 
-			StringBuilder sb = new StringBuilder(); 
-			InputStream in = process.getInputStream(); 
-			try { 
-				while ((readBytes = in.read(b)) != -1) { 
-					sb.append(new String(b, 0, readBytes)); 
-				} 
-
-			} catch (IOException e) { 
-				e.printStackTrace(); 
-			} finally { 
-				try { 
-					in.close(); 
-				} catch (IOException e) { 
-					e.printStackTrace(); 
-				} 
-				try { 
-					process.destroy(); 
-				}catch (IllegalThreadStateException e){ 
-					e.printStackTrace(); 
-				} 
-			} 
-			return sb.toString(); 
-			//return commonUtility.readTextFile(sOutPutFile);
-			
-		} catch (Exception e) {
-			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			System.out.println("Error = "+e);
-			ExtentManager.logger.log(Status.FAIL," failed");
-			throw e;
-		}
-	}
 	
 	
 	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
