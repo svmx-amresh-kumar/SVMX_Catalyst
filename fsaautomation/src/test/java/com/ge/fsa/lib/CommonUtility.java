@@ -1551,7 +1551,7 @@ public class CommonUtility {
 		String data = "";
 		data = new String(Files.readAllBytes(Paths.get(filePath)));
 
-		System.out.println("sahiResultCommon.txt file read as = " + data);
+		System.out.println("PATH: "+filePath+" file read as = " + data);
 		return data;
 
 	}
