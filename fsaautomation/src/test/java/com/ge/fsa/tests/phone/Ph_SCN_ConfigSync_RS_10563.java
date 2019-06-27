@@ -26,7 +26,6 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no ="+sWOName);
-		sWOName="WO-00018177";
 		String sProcessName = "Auto_Reg_10563";
 		String sOpDocProcessName = "Auto_OPDOC_10563";
 		String sTestCaseID = "RS_10563_configSync_edit";
@@ -38,7 +37,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);	
 //		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 //		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-//		lauchNewApp("false");
+		lauchNewApp("false");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		ph_MorePo.syncData(commonUtility);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
@@ -51,7 +50,10 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		//**************** End of Scenario 1 ****************
 		//*************** Start of Scenario 2 ***************
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch).click();
-		ph_ExploreSearchPo.getEleSearchListItem("Work Orders").click();
+		try {
+			ph_ExploreSearchPo.getEleSearchListItem("Work Orders").click();
+		}
+		catch (Exception e) {}
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName + "\\n");
 		} else {
