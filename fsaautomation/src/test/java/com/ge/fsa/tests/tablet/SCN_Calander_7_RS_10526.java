@@ -80,6 +80,7 @@ public void RS_10526() throws Exception
 		// Syncing the Data
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(5000);
+		commonUtility.tap(calendarPO.getEleCalendarClick());
 		calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
 		
 		 sSoqlQuery = "SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
