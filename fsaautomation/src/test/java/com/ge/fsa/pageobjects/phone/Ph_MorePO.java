@@ -235,8 +235,10 @@ private WebElement eleSignOutpopup;
 
 	public void configSync(CommonUtility commonUtility, Ph_CalendarPO ph_CalendarPo) throws InterruptedException, IOException {
 	getEleMoreBtn().click();
-	getEleSyncBtn().click();
-	System.out.println("Clicked on Sync button");
+	if(commonUtility.isDisplayedCust(getEleSyncBtn())) {
+		getEleSyncBtn().click();
+		System.out.println("Clicked on Sync button");
+	}
 	getEleRunConfigSync().click();
 	System.out.println("Clicked on run config button");
 	try {getElePerformConfigSync().click();}catch(Exception e) {}

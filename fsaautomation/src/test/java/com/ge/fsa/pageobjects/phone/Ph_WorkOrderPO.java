@@ -1,5 +1,6 @@
 package com.ge.fsa.pageobjects.phone;
 
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -148,17 +149,13 @@ public class Ph_WorkOrderPO {
 	}
 
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
-			throws InterruptedException {
+			throws Exception {
 		System.out.println("Creating New Event");
-		int hrs = 0;
-		try {
-			hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
-		} catch (Exception e) {
-
-		}
+		String	hrs = commonUtility.gethrsfromdevicetime();
+		
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "00");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "00");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, hrs, "00");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, String.format("%02d", Integer.parseInt(hrs) + 2), "00");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -434,6 +431,14 @@ public class Ph_WorkOrderPO {
 
 	public WebElement getBtnClose() {
 		return btnClose;
+	}
+	
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Filter']/preceding::android.view.ViewGroup")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
+	private WebElement btnFltrClose;
+
+	public WebElement getBtnFltrClose() {
+		return btnFltrClose;
 	}
 
 	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]")//Works on both IOS and Android
