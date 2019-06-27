@@ -1945,7 +1945,7 @@ public class CommonUtility {
 		}
 	}
 
-	public String getDeviceDate() throws ParseException{
+	public String getDeviceDate() throws Exception{
 		String returnDate="";
 		if (BaseLib.sOSName.equalsIgnoreCase("Android")) {
 			switchContext("native");
@@ -1958,15 +1958,15 @@ public class CommonUtility {
 			String value="";
 			String dateInString="";
 			String _cmd ="";
-			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
-				 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/ideviceinfo");
-					
-			}else {
-			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/idevicedate").trim();
-			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/ideviceinfo");
-			}
-			String[] IOBufferList = _cmd.split("\n"); 
+//			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+//				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
+//				 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/ideviceinfo");
+//					
+//			}else {
+//			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/idevicedate").trim();
+//			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/ideviceinfo");
+//			}
+			String[] IOBufferList = executeDeviceDateShellFile("idevicedate").split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
 				if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
@@ -2417,7 +2417,7 @@ public class CommonUtility {
 	}
 
 	
-	public String gethrsfromdevicetime() throws ParseException {
+	public String gethrsfromdevicetime() throws Exception {
 		System.out.println(getDeviceDate());
 		String[] time =getDeviceDate().split(" ");
 		System.out.println("############"+time[3]);
@@ -2441,10 +2441,9 @@ public class CommonUtility {
 	 * Function to return the offset day as string
 	 * @param value
 	 * @return
-	 * @throws ParseException
+	 * @throws Exception 
 	 */ 
-	public String adddaystocurrentday(int value) throws ParseException {
-
+	public String adddaystocurrentday(int value) throws Exception {
 
 		String[] date = getDeviceDate().split(" ");
 		Calendar cal=Calendar.getInstance();
@@ -2469,7 +2468,40 @@ public class CommonUtility {
 	
 	}
 
+	/**
+	 * Function to execute and return the values for libimobiledevice contents like for devicedate,device id etc
+	 * @param sLibMobileDeviceExecFile
+	 * @param commonUtility
+	 * @return
+	 * @throws Exception
+	 */
+	public String executeDeviceDateShellFile(String sLibMobileDeviceExecFile) throws Exception
+	{
+		String sDirPath = System.getProperty("user.dir");
+		String sShellPath = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh";
+		String sOutPutFile = "/auto/SVMX_Catalyst/Executable/tempFileToRead.txt";
+		
+		File file = new File(sShellPath);
+		file.createNewFile();
+		FileWriter writer = new FileWriter(file);
+		writer.write("#!/bin/bash \n cd /usr/local/Cellar/libimobiledevice/ \nfilename=$(ls)\necho $filename  \n$filename/bin/"+sLibMobileDeviceExecFile+" > "+sOutPutFile);
+		writer.flush();
+		writer.close();
+		
+		
+		// File file2 = new File(sShellPath);
+		Runtime.getRuntime().exec("chmod 777 " + file);
 
+		File fileLibDivice = new File("/usr/local/Cellar/libimobiledevice/*/bin/" + sLibMobileDeviceExecFile);
+		Runtime.getRuntime().exec("chmod 777 " + fileLibDivice);
+
+		ProcessBuilder processBuilder = new ProcessBuilder(file.getPath());
+		Process process = processBuilder.start(); // Start the process.
+		process.waitFor(); // Wait for the process to finish.
+
+		String sDataRead = readTextFile(sOutPutFile);
+		return sDataRead;
+	}
 	
 
 	

@@ -135,39 +135,7 @@ public class GenericLib
 		writer.close();
 	}
 	
-	/**
-	 * Function to execute and return the values for libimobiledevice contents like for devicedate,device id etc
-	 * @param sLibMobileDeviceExecFile
-	 * @param commonUtility
-	 * @return
-	 * @throws Exception
-	 */
-	public String executeDeviceDateShellFile(String sLibMobileDeviceExecFile,CommonUtility commonUtility) throws Exception
-	{
-		String sShellPath = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh";
-		String sOutPutFile = "/auto/SVMX_Catalyst/Executable/tempFileToRead.txt";
-		
-		File file = new File(sShellPath);
-		file.createNewFile();
-		FileWriter writer = new FileWriter(file);
-		writer.write("#!/bin/bash \n cd /usr/local/Cellar/libimobiledevice/ \nfilename=$(ls)\necho $filename  \n$filename/bin/"+sLibMobileDeviceExecFile+" > "+sOutPutFile);
-		writer.flush();
-		writer.close();
-		
-		
-		// File file2 = new File(sShellPath);
-		Runtime.getRuntime().exec("chmod 777 " + file);
-
-		File fileLibDivice = new File("/usr/local/Cellar/libimobiledevice/*/bin/" + sLibMobileDeviceExecFile);
-		Runtime.getRuntime().exec("chmod 777 " + fileLibDivice);
-
-		processBuilder = new ProcessBuilder(file.getPath());
-		process = processBuilder.start(); // Start the process.
-		process.waitFor(); // Wait for the process to finish.
-
-		String sDataRead = commonUtility.readTextFile(sOutPutFile);
-		return sDataRead;
-	}
+	
 	
 	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
 	{	
