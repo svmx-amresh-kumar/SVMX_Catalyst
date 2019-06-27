@@ -29,13 +29,13 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sProcessName = "Auto_10530_Regression";
 	String sScriptName = "Scenario_10530";
 	String sSearchTxt = "HarryProd";
-	
+	String sScriptName1 = "Scenario_10530_edit";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		//	commonsUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 			   
 			//**********Create Product1**********
 			String sProdName1 = "P1_10530";
@@ -177,9 +177,6 @@ public class Ph_SCN_10530 extends BaseLib {
 			Thread.sleep(3000);
 			ph_WorkOrderPo.getElelookupsearch().clear();
 			ph_WorkOrderPo.getLnkFilter().click();
-			if(sOSName.equalsIgnoreCase("ios")) {
-				ph_WorkOrderPo.getLnkFilter().click();
-			}
 			ph_WorkOrderPo.getChkboxFilter().click();
 			ph_WorkOrderPo.getBtnSeeResults().click();
 			String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'"+sLocId1+"\'+and+SVMXC__Product__c!=null)";
@@ -191,7 +188,6 @@ public class Ph_SCN_10530 extends BaseLib {
 		    for(WebElement we:prodList) {
 		    	sProdList.add(we.getText());
 		    }
-		    System.out.println(sArrOfProd);
 		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList));
@@ -200,6 +196,21 @@ public class Ph_SCN_10530 extends BaseLib {
 			ph_WorkOrderPo.getBtnClose().click();
 			commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 			ph_WorkOrderPo.getElePartLnk().click();
+			soqlquery="select+SVMXC__Product_Name__c+from+SVMXC__Installed_Product__c+where+RecordType.name=\'IB002\'+and+SVMXC__Status__c=\'shipped\'";
+			jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
+		    sArrOfProd = restServices.getJsonArr(jSonArr, "SVMXC__Product_Name__c");
+		    prodList = ph_WorkOrderPo.getLkpLst();
+		    sProdList = new ArrayList<String>();     	
+		    for(WebElement we:prodList) {
+		    	sProdList.add(we.getText());
+		    }
+		    Collections.sort(sArrOfProd);
+		    Collections.sort(sProdList);
+		    System.out.println(sArrOfProd);
+		    System.out.println(sProdList);
+		    Assert.assertTrue(sArrOfProd.equals(sProdList));
+		    // ************End of Scenario 3******************
+		    // ************Start of Scenario 4****************
 			ph_WorkOrderPo.getLnkFilter().click();
 			if(sOSName.equalsIgnoreCase("ios")) {
 				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("name").toLowerCase().contains("checked"));
@@ -207,7 +218,22 @@ public class Ph_SCN_10530 extends BaseLib {
 			else {
 				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("content-desc").toLowerCase().contains("checked"));	
 			}
-			// ************End of Scenario 3****************
+			// ************End of Scenario 4****************
+			// *************Edit Sahi Process***************
+			commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
+			// ************Start of Scenario 5****************
+			ph_WorkOrderPo.getBtnFltrClose().click();
+			ph_WorkOrderPo.getBtnClose().click();
+			Thread.sleep(3000); //Included to avoid Stale Element Exception
+			ph_WorkOrderPo.getBtnClose().click();
+			Thread.sleep(3000);
+			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
+			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblProduct());
+			ph_WorkOrderPo.getLnkFilter().click();
+			System.out.println(ph_WorkOrderPo.getChkboxFilter().getAttribute("clickable"));
+			Assert.assertEquals(ph_WorkOrderPo.getChkboxFilter().getAttribute("clickable"), "false");
+			// ************End of Scenario 5****************
 } 			
 
 }
