@@ -1,5 +1,6 @@
 package com.ge.fsa.pageobjects.phone;
 
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -148,17 +149,13 @@ public class Ph_WorkOrderPO {
 	}
 
 	public void createNewEvent(CommonUtility commonUtility, String sSubject, Ph_CalendarPO ip_CalendarPo)
-			throws InterruptedException {
+			throws Exception {
 		System.out.println("Creating New Event");
-		int hrs = 0;
-		try {
-			hrs = Integer.parseInt(commonUtility.gethrsfromdevicetime());
-		} catch (Exception e) {
-
-		}
+		String	hrs = commonUtility.gethrsfromdevicetime();
+		
 		selectAction(commonUtility, "Create New Event From Work Order");
-		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, Integer.toString(hrs), "00");
-		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs + 2), "00");
+		commonUtility.setDateTime24hrs(getEleStartDateTimeTxtFld(), 0, hrs, "00");
+		commonUtility.setDateTime24hrs(getEleEndDateTimeTxtFld(), 0, String.format("%02d", Integer.parseInt(hrs) + 2), "00");
 		getEleSubjectTxtFld().sendKeys(sSubject);
 		Thread.sleep(2000);
 		getEleSaveLnk().click();
@@ -1327,6 +1324,14 @@ public class Ph_WorkOrderPO {
 	public WebElement geteleBillableQty() {
 		return eleBillableQty;
 	}
+	
+	@AndroidFindBy(xpath = "//*[@text='Billable Qty']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Billable Qty']")
+	private WebElement eleBillableQtyLbl;
+
+	public WebElement geteleBillableQtyLbl() {
+		return eleBillableQtyLbl;
+	}
 
 	@FindBy(xpath = "//*[@text='[Use Price From Pricebook/Contract]'][@class='android.widget.TextView']")
 	private WebElement eleusePriceBookcontract;
@@ -1349,7 +1354,8 @@ public class Ph_WorkOrderPO {
 			@FindBy(xpath = "//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 			@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description*']"),
-			@FindBy(xpath = "//XCUIElementTypeOther[@name='Problem Description']//XCUIElementTypeTextView") })
+			//@FindBy(xpath = "//XCUIElementTypeOther[@name='Problem Description']//XCUIElementTypeStaticText ") 
+			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Problem Description']/following-sibling::*/*")})
 	private WebElement eleProblemDescriptiontxt;
 
 	public WebElement geteleProblemDescriptiontxt() {

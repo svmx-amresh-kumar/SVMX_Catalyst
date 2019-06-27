@@ -69,10 +69,9 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001550";
-	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
-		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		 ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
-	*/	
+		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");	
 	}
 
 	//@Test()
@@ -154,7 +153,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Work Order Description Mapped is displayed successfully");
 		
 		//Validating Mapping for Number. 
-		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQty());
+		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleBillableQtyLbl());
 		String billableQfeed = "2";
 		String billableQtyapp=ph_WorkOrderPo.geteleBillableQty().getText();
 		Assert.assertTrue(billableQtyapp.equals(billableQfeed), "Billable Quantity mapped right!");
@@ -179,7 +178,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
 		String sQosqlquery = "SELECT+id,SVMXC__Case__c,Name+FROM+SVMXC__Service_Order__c+where+SVMXC__Case__c+in+(select+id+from+Case+where+CaseNumber+=\'"+sCaseID+"\')";
 		//String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sQosqlquery,"Name");
 		ExtentManager.logger.log(Status.PASS,"Work Order Created sucessfully though source target process linked to case :"+sCaseID+"  and wo :"+sworkOrderName+" ");
 
