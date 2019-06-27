@@ -1956,7 +1956,7 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString=executeDeviceDateShellFile("ideviceinfo");
+			String dateInString=executeLibiMobileDeviceExecFile("ideviceinfo");
 //			String _cmd ="";
 //			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 //				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
@@ -1966,7 +1966,7 @@ public class CommonUtility {
 //			 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/idevicedate").trim();
 //			 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/HEAD-8510a9b_3/bin/ideviceinfo");
 //			}
-			String[] IOBufferList = executeDeviceDateShellFile("idevicedate").split("\n"); 
+			String[] IOBufferList = executeLibiMobileDeviceExecFile("idevicedate").split("\n"); 
 			for (String item: IOBufferList) { 
 				String[] subItemList = item.split(":"); 
 				if (subItemList.length == 2 && subItemList[0].equals("TimeZone")) { 
@@ -2475,7 +2475,7 @@ public class CommonUtility {
 	 * @return
 	 * @throws Exception
 	 */
-	public String executeDeviceDateShellFile(String sLibMobileDeviceExecFile) throws Exception
+	public String executeLibiMobileDeviceExecFile(String sLibMobileDeviceExecFile) throws Exception
 	{
 		String sDirPath = System.getProperty("user.dir");
 		String sShellPath = sDirPath+"//..//Executable//sLibMobileDeviceCommandFileExecutable.sh";
