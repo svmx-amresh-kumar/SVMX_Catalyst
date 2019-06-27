@@ -21,15 +21,16 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 {
 	
 	
-	int iWhileCnt =0;
-	String sExploreSearch=null;String sWorkOrderID=null; String sWOJsonData=null;String sWOName=null; String sFieldServiceName=null; String sProductName1=null;String sProductName2=null; 
-	String sActivityType=null;String sPrintReportSearch="Auto_PrintServiceReport";
 	String sAccountName = null;
 	String sProductName = null;
 	String sFirstName = null;
 	String sLastName = null;
 	String sContactName = null;
-	String sworkOrderID=null;
+	String sworkOrderID = null;
+	String sSoqlQuery = null;
+	String sworkOrderName = null;
+	String sSqlWOQuery = null;
+	String sEventsuject = null;
 
 	@Test(retryAnalyzer=Retry.class)
 public void RS_10526() throws Exception
