@@ -435,6 +435,14 @@ public class Ph_WorkOrderPO {
 	public WebElement getBtnClose() {
 		return btnClose;
 	}
+	
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Filter']/preceding::android.view.ViewGroup")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther[@name='APP.BACK_BUTTON'])[last()]")
+	private WebElement btnFltrClose;
+
+	public WebElement getBtnFltrClose() {
+		return btnFltrClose;
+	}
 
 	@FindBy(xpath = "//*[@*[contains(.,'Account ID')]]")//Works on both IOS and Android
 	private List<WebElement> noAccContactsLst;
