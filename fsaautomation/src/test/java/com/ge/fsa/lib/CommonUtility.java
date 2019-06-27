@@ -1956,8 +1956,8 @@ public class CommonUtility {
 		}
 		else if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			String value="";
-			String dateInString="";
-			String _cmd ="";
+			String dateInString=executeDeviceDateShellFile("ideviceinfo");
+//			String _cmd ="";
 //			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 //				 dateInString=execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/idevicedate").trim();
 //				 _cmd = execCommand("/usr/local/Cellar/libimobiledevice/1.2.0_3/bin/ideviceinfo");
