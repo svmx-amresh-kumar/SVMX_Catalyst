@@ -180,6 +180,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
+		Thread.sleep(3000);
 		//ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		String WOfromcalender = ph_CalendarPo.getEleworkordernumon(WOname).getText();
 		System.out.println(WOfromcalender);
@@ -289,6 +290,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
+	Thread.sleep(3000);
 	//ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
 	   WOfromcalender = ph_CalendarPo.getEleworkordernumon(WOname1).getText();
 	System.out.println(WOfromcalender);
