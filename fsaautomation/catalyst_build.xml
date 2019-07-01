@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- WARNING: Eclipse auto-generated file.
               Any modifications will be overwritten.
@@ -144,8 +143,7 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-  
-  
+   
 	<!-- SAHI PRO INVOCATION PART -->
 	 <target name="startSahi" >
 	 	<exec executable="/bin/sh" os="Mac OS X">
