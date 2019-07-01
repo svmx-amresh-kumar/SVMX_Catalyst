@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_10527 extends BaseLib {
@@ -69,7 +69,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoID+"\'", "Name");
 //	System.out.println("Wo ID "+sWOName);
 	
-	bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sProcessName, sScriptName,sTestCaseID);
+	bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 	
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	

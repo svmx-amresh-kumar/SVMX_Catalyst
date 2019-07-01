@@ -118,8 +118,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		// sWOName = "WO-00005043";
 
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);
 
 	}
 
@@ -127,7 +126,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	public void RS_10577() throws Exception {
 
 		// Running Pre-Req
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 
 		// Resinstall the app
 		lauchNewApp("false");

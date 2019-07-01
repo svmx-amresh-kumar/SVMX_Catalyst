@@ -57,7 +57,7 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
 
 		//sahi
-		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10557",sTestCaseID);
+		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, "SCN_Mapping_RS_10557", sTestCaseID);
 		
 		
 	

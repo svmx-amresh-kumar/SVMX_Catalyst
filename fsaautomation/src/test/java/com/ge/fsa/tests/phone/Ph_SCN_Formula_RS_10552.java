@@ -8,7 +8,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 
@@ -75,7 +75,6 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib{
 		System.out.println("sPreviousDate *****"+sPreviousDate);
 //		
 	restServices = new RestServices();
-	genericLib = new GenericLib();
 	restServices.getAccessToken();
 	sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
 //		

@@ -103,7 +103,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
 		//	String sEventName = "AUTO_10586Event";
 			//String sEventId = restServices.restCreate("SVMXC__SVMX_Event__c?", "{\"Name\":\""+sEventName+"\", \"SVMXC__Service_Order__c\":\""+sWORecordID+"\", \"SVMXC__Technician__c\":\""+sTechnician_ID+"\", \"SVMXC__StartDateTime__c\":\""+LocalDate.now()+"\", \"SVMXC__EndDateTime__c\": \""+LocalDate.now().plusDays(1L)+"\",\"SVMXC__WhatId__c\":\""+sWORecordID+"\"}");
-				bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+				bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 		//sWOName="WO-00002612";
 	}

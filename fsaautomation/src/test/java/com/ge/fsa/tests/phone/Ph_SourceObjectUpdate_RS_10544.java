@@ -144,8 +144,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		System.out.println("work Detail");
 		System.out.println(sworkDetail);
 
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 
 	}
 

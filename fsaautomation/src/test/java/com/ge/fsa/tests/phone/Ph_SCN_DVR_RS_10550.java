@@ -106,7 +106,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		System.out.println(sAccountName1);
 
 		// Validating the SFM process
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 	}
 
 	@Test(retryAnalyzer = Retry.class)

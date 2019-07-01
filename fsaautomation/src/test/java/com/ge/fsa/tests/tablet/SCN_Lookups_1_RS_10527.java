@@ -32,7 +32,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");

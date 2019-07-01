@@ -56,7 +56,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");
 		

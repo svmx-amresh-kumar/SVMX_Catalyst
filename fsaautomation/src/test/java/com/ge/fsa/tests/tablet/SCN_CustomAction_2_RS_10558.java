@@ -23,7 +23,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 //		System.out.println(sWORecordID);

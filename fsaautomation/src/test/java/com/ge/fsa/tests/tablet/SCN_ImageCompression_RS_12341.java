@@ -123,7 +123,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  "SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID3 +
 		  "\'", "Name"); System.out.println("WO no =" + sWOName3);
 		 
-		  bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);
+		  bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);
 		 
 		 	}
 	

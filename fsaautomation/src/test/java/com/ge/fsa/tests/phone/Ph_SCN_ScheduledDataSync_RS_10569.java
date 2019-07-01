@@ -74,7 +74,7 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10569() throws Exception {
 
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		// lauchNewApp("false");
 

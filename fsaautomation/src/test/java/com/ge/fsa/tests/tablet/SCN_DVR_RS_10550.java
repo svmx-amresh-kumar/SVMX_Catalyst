@@ -96,7 +96,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 				sProductName = "RS10550Product";
 				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");	
 				
-				bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+				bProcessCheckResult =commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);		
 		
 				
 	}

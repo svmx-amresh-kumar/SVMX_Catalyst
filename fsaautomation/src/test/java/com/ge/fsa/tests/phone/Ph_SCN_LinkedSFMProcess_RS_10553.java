@@ -33,7 +33,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 	public void RS_10553() throws Exception {
 
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessname, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
+		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
 
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

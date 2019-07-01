@@ -174,7 +174,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
+		boolean configSync=commonUtility.ProcessCheck(restServices, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
 
 		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");

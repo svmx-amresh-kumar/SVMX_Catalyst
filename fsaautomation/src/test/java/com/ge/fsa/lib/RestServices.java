@@ -508,18 +508,5 @@ public class RestServices
          return encodedfile;
      }
 	 
-		public static void main(String[] args) throws IOException {
-		      RestServices restServices = new RestServices();
-//		      String sCaseObjectID="5003D000003BGQjQAO";
-//		      String sObjectApi = "SVMXC__Case__c";
-//		      String   sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
-		      String soqlquery="Select+Name+from+product2+where+id+=\'01t3D000003iJR8QAM\'";
-//		      String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
-		      JSONArray test = restServices.restGetSoqlJsonArray(soqlquery);
-		      System.out.println("Json is "+test);
-		     String hello = restServices.restGetSoqlValue(soqlquery, "Name");
-		      // Select SVMXC__Product__r.Name from SVMXC__Product_Stock__c where SVMXC__Location__r.name='InventoryLoc2_10530' and SVMXC__Product__c!=null
-		     System.out.println("abcded "+hello); 
-		       
-		   }
+
 }

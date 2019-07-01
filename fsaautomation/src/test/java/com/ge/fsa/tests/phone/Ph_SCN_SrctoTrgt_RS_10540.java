@@ -84,8 +84,7 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID +
 		 * "Sahi verification is successful");
 		 */
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 
 	}
 

@@ -48,7 +48,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID = "RS_10565_Recent_Items";
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, "Create New Custom object", "SCN_RecentItems_RS_10565", sTestCaseID);
+		boolean configSync=commonUtility.ProcessCheck(restServices, "Create New Custom object", "SCN_RecentItems_RS_10565", sTestCaseID);
 
 		// read from file
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");

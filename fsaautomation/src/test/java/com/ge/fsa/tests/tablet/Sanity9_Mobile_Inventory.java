@@ -15,7 +15,7 @@ public class Sanity9_Mobile_Inventory extends BaseLib {
 public void Scenario9Test() throws Exception
 {
 	
-	commonUtility.preReqSetup(genericLib);
+	commonUtility.preReqSetup();
 	// Resinstall the app
 	lauchNewApp("false");
 	

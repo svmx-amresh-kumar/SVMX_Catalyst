@@ -50,7 +50,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
 		
 		
-		configSync=commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestID);
+		configSync=commonUtility.ProcessCheck(restServices, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestID);
 		
 		
 	}

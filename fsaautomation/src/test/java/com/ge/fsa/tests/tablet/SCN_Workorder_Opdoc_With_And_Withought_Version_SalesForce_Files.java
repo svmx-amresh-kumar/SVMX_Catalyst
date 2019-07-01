@@ -82,7 +82,7 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		 */
 	 
 	 			  
-	bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sWorkorderOpDocName, sScriptName, sTestCaseID);  
+	bProcessCheckResult =commonUtility.ProcessCheck(restServices, sWorkorderOpDocName, sScriptName, sTestCaseID);  
 		
 }
 	

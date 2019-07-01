@@ -1654,7 +1654,7 @@ public class CommonUtility {
 		return result;
 	}
 
-	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
+	public void execSahi(String sScriptName, String sTestCaseID) throws Exception {
 		executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
 		if(verifySahiExecution()) {
 
@@ -1670,8 +1670,8 @@ public class CommonUtility {
 		}
 	}
 
-	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
-			String sScriptName, String sTestCaseId) throws Exception {
+	public boolean ProcessCheck(RestServices restServices, String sProcessName, String sScriptName,
+			String sTestCaseId) throws Exception {
 		String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
 						+ sProcessName + "\'"+"ORDER+BY+SVMXC__Dispatch_Process_Status__c+ASC",
@@ -1696,7 +1696,7 @@ public class CommonUtility {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			execSahi(genericLib, sScriptName, sTestCaseId);
+			execSahi(sScriptName, sTestCaseId);
 			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
@@ -1830,7 +1830,7 @@ public class CommonUtility {
 	 * @param genericLib
 	 * @throws Exception
 	 */
-	public void preReqSetup(GenericLib genericLib) throws Exception {
+	public void preReqSetup() throws Exception {
 
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in
 		// Mobile Configuration
@@ -1846,7 +1846,7 @@ public class CommonUtility {
 	}
 
 
-	public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
+	public String servicemaxServerVersion(RestServices restServices) throws Exception
 	{
 		String sMajorVersion = "";
 		String sMinorVersion = "";

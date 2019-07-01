@@ -53,7 +53,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sCaseWOID = "SCN_Creating_Editing_RS_10574";
 		sSheetName = "RS_10574";
 		sSubject = "Testing " + sTestCaseID;
-		configSync=commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestCaseID);
+		configSync=commonUtility.ProcessCheck(restServices, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestCaseID);
 
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
 

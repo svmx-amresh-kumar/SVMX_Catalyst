@@ -27,7 +27,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 //		// Resinstall the app
 //		lauchNewApp("false");
 //		//Execute Sahi
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 		
 		//**********Create Work Orderfrom API**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");

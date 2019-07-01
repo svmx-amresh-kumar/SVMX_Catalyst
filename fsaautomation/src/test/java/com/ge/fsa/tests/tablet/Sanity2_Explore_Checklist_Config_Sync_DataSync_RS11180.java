@@ -65,7 +65,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");
 		
@@ -89,7 +89,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 
 		String sradioQuestion ="RadioButton Question";

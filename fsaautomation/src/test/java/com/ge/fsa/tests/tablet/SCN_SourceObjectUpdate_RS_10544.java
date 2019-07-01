@@ -140,7 +140,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 					
 			//	sWOName = "WO-00002177";
 			
-			bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+			bProcessCheckResult =commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);		
 
 			}
 			

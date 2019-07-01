@@ -32,7 +32,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sExploreSearch = "WO SEARCH";
 		
 		// Add Processes
-		commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
+		commonUtility.execSahi(sScriptName1, sTestCaseID);
 		
 		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
@@ -58,7 +58,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		
 		//Edit Processes
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 	
 		toolsPo.configSync(commonUtility);
 		Thread.sleep(CommonUtility.iMedSleep);

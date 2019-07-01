@@ -86,7 +86,6 @@ public class BaseLib {
 	
 	public BrowserType browser = BrowserType.CHROME;
 	//------------------------------------
-	public GenericLib genericLib = null;
 	public RestServices restServices = null;
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
@@ -400,7 +399,6 @@ public class BaseLib {
 		}
 
 		// Initialize all the page objects and libraries
-		genericLib = new GenericLib();
 		restServices = new RestServices();
 		loginHomePo = new LoginHomePO(driver);
 		exploreSearchPo = new ExploreSearchPO(driver);
@@ -434,7 +432,7 @@ public class BaseLib {
 
 
 		try {
-			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices, genericLib);
+			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

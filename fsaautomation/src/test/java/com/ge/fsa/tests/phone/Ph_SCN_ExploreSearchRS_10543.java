@@ -60,7 +60,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");
 		

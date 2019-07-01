@@ -101,7 +101,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		System.out.println(sWORecordID2);
 		sWOName2= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID2 + "\'", "Name");
 		System.out.println("WO no =" + sWOName2);
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sChecklistName, sTestCaseID);		
 
 	
 	}

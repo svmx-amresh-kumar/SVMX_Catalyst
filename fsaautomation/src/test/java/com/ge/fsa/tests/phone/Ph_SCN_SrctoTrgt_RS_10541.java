@@ -79,8 +79,7 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sIBName2 = restServices.restGetSoqlValue(sSqlQuery, "Name");
 		System.out.println(sIBName2);
 
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 
 	}
 

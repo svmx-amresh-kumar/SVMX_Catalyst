@@ -88,7 +88,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		
 		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 
 		//sWOName1 = "WO-00001615";

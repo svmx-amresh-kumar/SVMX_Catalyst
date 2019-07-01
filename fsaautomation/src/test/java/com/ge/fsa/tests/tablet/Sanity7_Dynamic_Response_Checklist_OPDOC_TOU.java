@@ -68,7 +68,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		String sChecklistPickListdynamicQuestionAns;
 		String sTargetObjectUpdateValue = "Target Object Update";
 		String sChecklistStatus = "Completed";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sChecklistName, sTestCaseID);		
 
 		//sWOName = "WO-00000415";
 							

@@ -113,7 +113,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 				sWOName3 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 				System.out.println("WO no =" + sWOName3);
 		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 				
 		//sWOName1 = "WO-00001615";
