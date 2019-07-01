@@ -8,7 +8,9 @@
     </listeners>
   <test name="WorkBench_2">
 		<classes>
-			<class name="com.ge.fsa.tests.tablet.SCN_Calander_7_RS_10526" />
+			<class name="com.ge.fsa.tests.tablet.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
+			<class name="com.ge.fsa.tests.tablet.Sanity1_Create_Debrief_Event" />
+			
 			
 			</classes>
 			</test>
