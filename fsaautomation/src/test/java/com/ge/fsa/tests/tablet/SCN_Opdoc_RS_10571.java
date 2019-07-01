@@ -46,7 +46,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 //		iValToIncrease = Integer.parseInt(GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.execSahi(sScriptName, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");

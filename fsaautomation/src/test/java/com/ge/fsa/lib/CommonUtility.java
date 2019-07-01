@@ -1657,21 +1657,6 @@ public class CommonUtility {
 		return result;
 	}
 
-	public void execSahi(String sScriptName, String sTestCaseID) throws Exception {
-		executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
-		if(verifySahiExecution()) {
-
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
-	}
 
 	public boolean ProcessCheck(RestServices restServices, String sProcessName, String sScriptName,
 			String sTestCaseId) throws Exception {
@@ -1699,7 +1684,7 @@ public class CommonUtility {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			execSahi(sScriptName, sTestCaseId);
+			executeSahiScript(sScriptName, sTestCaseId);
 			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
@@ -2746,7 +2731,8 @@ public class CommonUtility {
 			throw e;
 		}
 		
-		
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+
 	}
 	
 	/**

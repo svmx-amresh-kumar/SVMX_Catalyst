@@ -66,7 +66,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);
 
 /*		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		ExtentManager.logger.log(Status.PASS, "Sahi verification is successful");
 */
 	}

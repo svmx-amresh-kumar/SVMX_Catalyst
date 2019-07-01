@@ -29,7 +29,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception{
 		
-		commonUtility.execSahi(sScriptName, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
 		
 		// Create Product without Description
 		String sProductName = "AshProd";

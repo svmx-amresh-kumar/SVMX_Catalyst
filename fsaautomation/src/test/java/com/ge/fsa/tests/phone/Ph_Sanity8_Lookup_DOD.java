@@ -39,7 +39,7 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 		try
 		{
 		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		lauchNewApp("false");
 		System.out.println("Scenario 8");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -173,11 +173,11 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 		finally {
 			commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 			try {
-				Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+				
 			} catch (Exception e) {
 				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-				Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+				
 			}
 		}
 	}

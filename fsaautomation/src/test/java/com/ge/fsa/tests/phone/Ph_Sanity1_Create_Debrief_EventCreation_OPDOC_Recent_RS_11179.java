@@ -63,7 +63,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 	public void iphone() throws Exception
 	{	
 /*	commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-	Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+	
 	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 */
 		String sRandomNumber = commonUtility.generateRandomNumber("");

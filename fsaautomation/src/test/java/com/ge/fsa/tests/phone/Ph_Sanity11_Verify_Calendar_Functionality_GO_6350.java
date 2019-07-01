@@ -78,7 +78,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		// sahi
 
 		commonUtility.executeSahiScript("appium/Ph_FON_6350.sah", sTestCaseID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
  
 		// Pre Login to app
@@ -191,7 +191,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		//setting to SFDC event
 		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", sTestCaseID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);

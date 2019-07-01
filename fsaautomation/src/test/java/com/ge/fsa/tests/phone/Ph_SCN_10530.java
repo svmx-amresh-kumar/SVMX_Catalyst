@@ -35,7 +35,7 @@ public class Ph_SCN_10530 extends BaseLib {
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.execSahi(sScriptName, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
 			   
 			//**********Create Product1**********
 			String sProdName1 = "P1_10530";
@@ -220,7 +220,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			// ************End of Scenario 4****************
 			// *************Edit Sahi Process***************
-			commonUtility.execSahi(sScriptName1, sTestCaseID);
+			commonUtility.executeSahiScript(sScriptName1, sTestCaseID);
 			// ************Start of Scenario 5****************
 			ph_WorkOrderPo.getBtnFltrClose().click();
 			ph_WorkOrderPo.getBtnClose().click();
