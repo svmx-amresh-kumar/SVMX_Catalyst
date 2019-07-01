@@ -23,7 +23,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
@@ -66,8 +65,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		 
 	
 	//read from file		
-		String sWO_SFDC_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
-		String sWO_SFDC_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SFDC_2");
 		
 		
 		

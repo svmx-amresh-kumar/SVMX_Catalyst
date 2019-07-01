@@ -24,7 +24,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -75,12 +74,12 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
-		sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
-		sProductName10533 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
+		sProductName10533 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10533);
 		
 		

@@ -20,7 +20,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -73,12 +72,12 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistOpDocName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistOpDocName");
 		// Rest to Create Workorder - Work Order -
 		
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -106,7 +105,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
@@ -117,7 +116,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sSection1Q2).sendKeys(sNumberSectionJumpAns);
 		commonUtility.tap(checklistPo.geteleNext());	
@@ -133,7 +132,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		
 		commonUtility.tap(checklistPo.geteleBacktoChecklistslnk());	
 		commonUtility.tap(checklistPo.geteleSavePopUp());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		System.out.println("checklistname is"+sChecklistName);
 		String wAppChecklistStatus = checklistPo.getEleChecklistStatusLbl(sChecklistName).getText();				
 		System.out.println("printing wappcheckliststatus"+wAppChecklistStatus);	
@@ -142,9 +141,9 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
 		//Validating in the server if checklist status is synced as inprogress
@@ -163,7 +162,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));
 		// submitting the checklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		
 		commonUtility.clickAllowPopUp();
@@ -178,7 +177,7 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validating in the server if checklist status is synced as completed
 		System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
@@ -191,16 +190,16 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(ChecklistAnsjson.contains(sNumberSectionJumpAns), "Answer is synced to server");
 		ExtentManager.logger.log(Status.PASS,"Section One Answer is synced to server");
 	
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());		
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 
 		// Navigate to Field Service process
 		//workOrderPo.selectAction(commonsUtility, sChecklistOpDocName);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//Navigating to checklistOPDOC process
 		checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo, sChecklistOpDocName,sWOName);
 	  	checklistPo.geteleChecklistOPDOCRow();
@@ -231,20 +230,20 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
 	//	commonsUtility.tap(workOrderPo.getEleCancelLink());
 		commonUtility.tap(workOrderPo.geteleOPDOCCancelLnk());
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		// Verifying if checklistopdoc is synced to server
 	  	System.out.println("Validating if OPDOC attachment is syned to server.");
-	  	Thread.sleep(GenericLib.i30SecSleep);
-	  	Thread.sleep(GenericLib.iAttachmentSleep);
-	  	Thread.sleep(GenericLib.iMedSleep);
+	  	Thread.sleep(CommonUtility.i30SecSleep);
+	  	Thread.sleep(CommonUtility.iAttachmentSleep);
+	  	Thread.sleep(CommonUtility.iMedSleep);
 		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		sSoqlquerypdf = "Select+Name+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		sSoqlquerypdf1 = restServices.restGetSoqlValue(sSoqlquerypdf, "Name");	

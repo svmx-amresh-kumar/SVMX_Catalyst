@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 
@@ -209,7 +209,7 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, Integer.toString(hrs+1), "00");
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		ExtentManager.logger.log(Status.INFO, "Created New Event From Work Order");
 		
 		// Validation of auto update process

@@ -20,7 +20,6 @@ import com.ge.fsa.lib.CommonUtility;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
@@ -56,7 +55,7 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 
 		
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		ph_MorePo.syncData(commonUtility);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		// verify WO event is present or not

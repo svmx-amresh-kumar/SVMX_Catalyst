@@ -13,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -96,11 +95,11 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		sCaseWOID = "Data_SCN_Checklist_4_RS-10580_Sections";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 	
 
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
@@ -138,7 +137,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 
 		// Navigating to Checklist
@@ -264,7 +263,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
 		
 		ph_ChecklistPO.getEleConfirm().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sSectionThreeQ1ValidAns1);
 
 

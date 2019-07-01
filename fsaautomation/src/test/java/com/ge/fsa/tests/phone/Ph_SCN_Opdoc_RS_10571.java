@@ -18,7 +18,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
@@ -35,12 +34,12 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreChildSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreChildSearch");
 		System.out.println(sExploreChildSearchTxt);
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
-		sProbDesc = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProcessName");
+		sProbDesc = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProbDesc");
 		System.out.println("The Value is "+sProbDesc);
 		
 		//**********Create Processes on Sahi**********
@@ -57,11 +56,11 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 		
 		//************Perform Data Sync************
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//************Perform Config Sync************
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//************Navigate to SFM************
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);

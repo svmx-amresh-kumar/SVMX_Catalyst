@@ -21,7 +21,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -73,16 +72,16 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
+		sProductName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName);
 		
-		sProductName2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Product2 Name");
+		sProductName2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName3,"Product2 Name");
 		System.out.println(sProductName2);
-		sIBName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
+		sIBName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sIBName);	
 		
 		String sTestDataValue2 = "SCN_GetPriceNotCovered_RS_10532";
-		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
+		String sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Work Order Number");
 	
 		// To navigate to the Work Order
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	

@@ -9,7 +9,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
@@ -98,16 +97,16 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		lauchNewApp("false");
 
 		sTestID = "RS_10540";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ProcessName");
 		preRequiste();
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		ph_MorePo.getEleDataSync();
 
@@ -127,15 +126,15 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		// Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sIBName2, sFieldServiceName);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		ExtentManager.logger.log(Status.INFO, "IB dynamically created and used is :" + sIBName1 + "");
 
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// Data Sync before triggering the API
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Validation of created custom object from IB
 		sSqlQuery = "SELECT+Name+from+Auto_Custom_Object10540__c+Where+Name=\'" + sIBName2 + "\'";

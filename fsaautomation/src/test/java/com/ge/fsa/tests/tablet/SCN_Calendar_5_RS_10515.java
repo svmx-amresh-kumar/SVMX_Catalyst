@@ -20,7 +20,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
@@ -79,12 +78,12 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		  
 		 
 
-		sWO_SVMX_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_1");
-		sWO_SVMX_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_2");
-		sWO_SVMX_3 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_3");
-		sWO_SVMX_4 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_4");
-		sWO_SVMX_5 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_5");
-		sWO_SVMX_6 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WO_SVMX_6");
+		sWO_SVMX_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_1");
+		sWO_SVMX_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_2");
+		sWO_SVMX_3 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_3");
+		sWO_SVMX_4 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_4");
+		sWO_SVMX_5 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_5");
+		sWO_SVMX_6 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_6");
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 

@@ -29,7 +29,6 @@ import com.ge.fsa.lib.CommonUtility;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.AppiumDriver;
@@ -86,7 +85,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 

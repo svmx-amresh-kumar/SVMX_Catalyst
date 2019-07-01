@@ -12,7 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -84,9 +84,9 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
      	
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility); // To get the work Order and Products
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility); // To get the SFM Wizard
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		commonUtility.tap(workOrderPo.getElePartLnk());
 		List<WebElement> productList = new ArrayList<WebElement>();
@@ -99,13 +99,13 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		commonUtility.getElesearchTap().clear();
 		commonUtility.getElesearchTap().sendKeys(sProductName);
 		commonUtility.tap(commonUtility.getElesearchButton());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		String sProductOptn = workOrderPo.getLblLookupOptns().getText();
 		System.out.println(sProductOptn);
 		assertEquals(sProductOptn, sProductName); // Step 2
 		commonUtility.tap(workOrderPo.getLnkLookupCancel());
 		commonUtility.longPress(workOrderPo.getProblemDescription());
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 //		commonsUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder());
 //		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("HarryProd Desc");
 		workOrderPo.getProblemDescription().sendKeys("HarryProd Desc");
@@ -113,7 +113,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	//	workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 //		commonUtility.tap(workOrderPo.getEleUpdateLnk()); 
 		Thread.sleep(3000);
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getElePartLnk());
 		commonUtility.tap(commonUtility.getElesearchTap());
 		commonUtility.getElesearchTap().clear();
@@ -132,7 +132,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 		System.out.println(sLocationOptn01); 
 		assertEquals(sLocationOptn01, sLocName); //Covers Step 4
 		commonUtility.tap(workOrderPo.getLnkLookupCancel());
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.setPickerWheelValue(workOrderPo.geteleCountry_Edit_Lst(), sCountry);	
 		commonUtility.tap(workOrderPo.getlblSite()); 
 		List<WebElement> locList = new ArrayList<WebElement>();
@@ -152,7 +152,7 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 //		System.out.println(sLocationOptn02); 
 //		assertEquals(sLocationOptn02, sLocName01); //Covers Step 5
 		commonUtility.tap(workOrderPo.getLnkLookupCancel());
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 //		workOrderPo.getLblContact().click();
 		commonUtility.tap(workOrderPo.getTxtContact()); 
 		List<WebElement> contactList = new ArrayList<WebElement>();

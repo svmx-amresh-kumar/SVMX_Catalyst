@@ -11,7 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
@@ -58,13 +58,13 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 		System.out.println(sCurrentDate);
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility); 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action");
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		commonUtility.tap(workOrderPo.getEleActionsLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleActionsTxt("EDIT_WORKORDER_MAPPING"),20,20);
 	//	commonsUtility.tap(workOrderPo.getEleLblStateName());
 		Thread.sleep(5000);
@@ -88,7 +88,7 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 			commonUtility.tap(workOrderPo.geteleDiscardChangesbutton());
 		}
 		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sWOName, "10559_Action_Child");
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 //		try{
 //			workOrderPo.getEleActionsLnk().click();
 //		}

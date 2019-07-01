@@ -20,7 +20,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
@@ -56,10 +55,10 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //Work Order for Files --upload from library
@@ -113,7 +112,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		prereq();
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 	/*------------------------Validating--Files are sending when Salesforce files are enabled-----------*/
 		
@@ -146,22 +145,22 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 		 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 		 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		 workOrderPo.WorkorderAttach(commonUtility, "Choose from Library");
-		 Thread.sleep(GenericLib.iHighSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
 		 commonUtility.tap(workOrderPo.getEleSaveLnk());
 		 ExtentManager.logger.log(Status.PASS, "Work Order Attachment Choose from library added sucessfull");
-		 Thread.sleep(GenericLib.iHighSleep);
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep);
 		 
 		 //Server validation
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
-		 Thread.sleep(GenericLib.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
 		 System.out.println("Validating if  File is syned to server.");
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 
 		 String sSoqlWorkorderid = "select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\'";
 		 String sSoqlWorkorderidafter = restServices.restGetSoqlValue(sSoqlWorkorderid, "Id");
@@ -184,22 +183,22 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWONameTP);
 		 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 		 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		 workOrderPo.WorkorderAttach(commonUtility, "Take Photo");
-		 Thread.sleep(GenericLib.iHighSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
 		 commonUtility.tap(workOrderPo.getEleSaveLnk());
 		 ExtentManager.logger.log(Status.PASS, "Work Order Attachment Take Photo added sucessfull");
-		 Thread.sleep(GenericLib.iHighSleep);
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep);
 		 
 		 //Server validation
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
-		 Thread.sleep(GenericLib.iAttachmentSleep);
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 
 		 String sSoqlWorkorderid1 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\'";
 		 String sSoqlWorkorderidafter1 = restServices.restGetSoqlValue(sSoqlWorkorderid1, "Id");
@@ -222,22 +221,22 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWONameTV);
 		 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 		 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		 workOrderPo.WorkorderAttach(commonUtility, "Take Video");
-		 Thread.sleep(GenericLib.iHighSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
 		 commonUtility.tap(workOrderPo.getEleSaveLnk());
 		 ExtentManager.logger.log(Status.PASS, "Work Order Attachment Take Video added sucessfull");
-		 Thread.sleep(GenericLib.iHighSleep);
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep);
 		 
 		 //Server validation
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
 		 System.out.println("Validating if  File is syned to server.");
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
 		 
 		 String sSoqlWorkorderid2 = "select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\'";
 		 String sSoqlWorkorderidafter2 = restServices.restGetSoqlValue(sSoqlWorkorderid2, "Id");
@@ -262,7 +261,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		  commonUtility.tap(workOrderPo.getEleAttacheddoc());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  WebElement Filedownload = driver.findElement(By.xpath("//div[@class='sfm-delivery-detail-name sfm-list-header sfm-attachment-header-name '][text()='" + sFileTitleafter + "']"));
 		  Assert.assertTrue(commonUtility.waitforElement(Filedownload,10), "Files are downloading as expected");
 		  ExtentManager.logger.log(Status.PASS,"Files are downloading as expected");
@@ -308,21 +307,21 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 		  commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		  workOrderPo.WorkorderAttach(commonUtility, "Choose from Library");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  commonUtility.tap(workOrderPo.getEleSaveLnk());
 		  ExtentManager.logger.log(Status.PASS, "Work Order Attachment Choose from library added sucessfull");
 		  
 		  
 		  //Server validation
 		  toolsPo.syncData(commonUtility);
-		  Thread.sleep(GenericLib.i30SecSleep); 
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep); 
+		  Thread.sleep(CommonUtility.i30SecSleep);
 		  System.out.println("Validating if  File is syned to server.");
-		  Thread.sleep(GenericLib.iAttachmentSleep);
-		  Thread.sleep(GenericLib.i30SecSleep); 
+		  Thread.sleep(CommonUtility.iAttachmentSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep); 
 		  String sSoqlWorkorderidAtach = "select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\'";
 		  String sSoqlWorkorderidafterAtach = restServices.restGetSoqlValue(sSoqlWorkorderidAtach, "Id");
 		  String sSoqlFileAtach = "select Id,LinkedEntityID,ContentDocumentID,ContentDocument.Title from ContentDocumentLink where (LinkedEntityID = \'"+sSoqlWorkorderidafterAtach+"\')";
@@ -348,7 +347,7 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		  commonUtility.tap(workOrderPo.getEleAttacheddoc());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  WebElement AttachDownload = driver.findElement(By.xpath("//div[@class='sfm-delivery-detail-name sfm-list-header sfm-attachment-header-name '][text()='" + sAttachmentNameAfter + "']"));
 		  Assert.assertTrue(commonUtility.waitforElement(AttachDownload,3), "Attachments are downloading as expected");
 		  ExtentManager.logger.log(Status.PASS,"Attachments are downloading as expected");

@@ -8,7 +8,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
@@ -63,20 +62,20 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";
 
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sIssueTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "IssueText");
-		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sIssueTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "IssueText");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "BillingType");
 		preRequiste();
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1,sFieldServiceName);
@@ -87,10 +86,10 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		ph_WorkOrderPo.getEleBackButton().click();
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName2,sFieldServiceName);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), sBillingType);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 
 		//Validation of qualifying workorder with Issue found text error.
@@ -101,13 +100,13 @@ public class Ph_Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		Assert.assertTrue(ph_WorkOrderPo.getEleIssuePopupTxt(sIssueTxt).isDisplayed(), "Error popup is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Error popup Issue found is displayed successfully");
 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		ph_WorkOrderPo.getEleBackButton().click();
 		try {ph_WorkOrderPo.getEleDiscardChangesButton().click();}catch(Exception e) {}
 
 		//Navigation to WO
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		//Selecting Billing Type to contract to make sure sfm is working fine.
 		ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getEleBillingTypeField(), "Courtesy");

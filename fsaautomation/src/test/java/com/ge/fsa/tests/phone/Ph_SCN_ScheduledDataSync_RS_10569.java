@@ -21,7 +21,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_MorePO;
 
@@ -49,12 +48,12 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sCaseWOID = "DATA_SCN_ScheduledDataSync_RS_10569";
 		sSheetName = "RS_10569";
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
 		System.out.println(sExploreSearch);
 
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
 		// sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
 		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah", sTestCaseID);
@@ -83,12 +82,12 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Perform Config Sync
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_WorkOrderPo.getEleBackButton().click();
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Create work Order
 		restServices.getAccessToken();

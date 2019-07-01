@@ -12,7 +12,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_SelfDispatch_RS_10562 extends BaseLib {
@@ -54,9 +53,9 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 	public void RS_10562Test() throws Exception {
 		
 		sTestID = "RS_10562";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
 		preRequiste();
 		sSubject = "Testing "+sWOName1+" "+sTestID;
 		
@@ -65,11 +64,11 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		//Config Sync
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Data Sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 	
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sFieldServiceName);
@@ -85,7 +84,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonUtility.switchContext("Webview");
 		commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 1, "0", "0");
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
@@ -93,10 +92,10 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		
 		//Navigation to Calendar
 		commonUtility.tap(calendarPO.getEleCalendarIcn());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		
 		commonUtility.tap(calendarPO.getEleCalendarIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Validation of event on the calender
@@ -109,7 +108,7 @@ public class SCN_SelfDispatch_RS_10562 extends BaseLib {
 		} 
 		
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		try {
 			//Validation of event creation at server side after sync.
 			sSqlQuery ="SELECT+Name+from+SVMXC__SVMX_Event__c+Where+SVMXC__Service_Order__c=\'"+sWorkOrderID+"\'";				

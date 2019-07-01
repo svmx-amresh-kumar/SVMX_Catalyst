@@ -16,7 +16,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 
 public class Ph_Calendar_2_RS_10512 extends BaseLib {
 
@@ -61,10 +60,10 @@ String sTestCaseID="RS_10512_Calender_2";
 		  lauchNewApp("false");
 	*/
 		
-		 sWO_SVMX_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
-		 sWO_SVMX_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
-		 sWO_SVMX_3 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
-		 sWO_SVMX_4 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_4");
+		 sWO_SVMX_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_1");
+		 sWO_SVMX_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_2");
+		 sWO_SVMX_3 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_3");
+		 sWO_SVMX_4 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
 		 ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//config sync

@@ -16,7 +16,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_Calendar_6_RS_10525 extends BaseLib {
@@ -65,8 +64,8 @@ int iWhileCnt = 0;
 			assertEquals(0, 1);
 		}
 	
-		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
-			String TechName = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		String sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WorkOrder Number");
+			String TechName = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			
 			
@@ -74,7 +73,7 @@ int iWhileCnt = 0;
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_MorePo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//get Wo is and event start date and end date.
 			String sSoqlwoid= "SELECT+id+from+SVMXC__Service_Order__c+Where+Name=\'"+sworkOrderName+"\'";

@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -23,12 +22,12 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 	public void RS_10528() throws Exception {
 		
 		String sTestID = "RS_10528"; 
-		String sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		String sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		String sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		String sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
+		String sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		String sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
 		String sZipCode = "51203";
-		String sCountry = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "Country");
-		String sCity = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "City");
+		String sCountry = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "Country");
+		String sCity = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "City");
 		String sScriptName = "Scenario_10528";
 		
 		
@@ -77,9 +76,9 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		commonUtility.tap(workOrderPo.getLblComponent());
 		commonUtility.lookupSearch(sIbName1);
@@ -114,7 +113,7 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		
 		
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.syncData(commonUtility);
 		
 		String sDBCity = restServices.restGetSoqlValue("SELECT+SVMXC__City__c+from+SVMXC__Service_Order__c+Where+name+=\'"+sWOName+"\'", "SVMXC__City__c");

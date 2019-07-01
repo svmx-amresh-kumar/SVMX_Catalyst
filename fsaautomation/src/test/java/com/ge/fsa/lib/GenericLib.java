@@ -17,25 +17,7 @@ import com.aventstack.extentreports.Status;
 
 public class GenericLib 
 {
-	public static String sDirPath = System.getProperty("user.dir");
-	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
-	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
-	public static String sResources = sDirPath+"//resources";
-	public static String sConfigFile =  sResources+"//select_config_file.properties";//sResources+"//config_local.properties";
-	public static String sTestDataFile = sResources + "//TestData.xlsx";
-	public static String sConfigPropertiesExcelFile = sResources + "//config_properties.xlsx";
-	public static int iVHighSleep = 10000;
-	public static int i30SecSleep = 10000;
-	public static int iHighSleep = 8000;
-	public static int iMedSleep = 5000;
-	public static int iLowSleep = 2000;
-	public static int iAttachmentSleep = 120000;
-	public static int iProcessStatus=0;
-	public static long lWaitTime=2000;
-	public static String sAppBundleID = BaseLib.sApp_BundleID;
-	ProcessBuilder processBuilder = null;
-	Process process=null;
-	
+
 	
 
 	

@@ -13,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.MobileBy;
@@ -69,11 +68,11 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-9726";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //WorkOrder for Choose from Library 
@@ -109,7 +108,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		prereq();
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 /*------------------------------------------option for choose from library -------------------------------------------------------*/
 		//Set the setting SET007 to True
@@ -145,7 +144,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  commonUtility.tap(workOrderPo.getEleAttacheddoc());
 		  commonUtility.tap(workOrderPo.getEleAddAttachedImagesLnk());
 		  commonUtility.switchContext("WebView");
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
 		  
 		  //Checking for Option Choose from Library
@@ -179,7 +178,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  commonUtility.tap(workOrderPo.getEleAttacheddoc());
 		  commonUtility.tap(workOrderPo.getEleAddAttachedImagesLnk());
 		  commonUtility.switchContext("WebView");
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
 		  
 		  //Checking for Option Choose from Library
@@ -196,10 +195,10 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  
 		 // Navigating to the WO Attachment section
 		  workOrderPo.WorkorderAttach(commonUtility, "Choose from Library");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  commonUtility.tap(workOrderPo.getEleSaveLnk());
 		  ExtentManager.logger.log(Status.PASS, "Work Order Attachment Choose from library added sucessfull");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		
 		
 
@@ -212,10 +211,10 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 			
 		 // Navigating to the WO Attachment section
 		  workOrderPo.WorkorderAttach(commonUtility, "Take Video");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  commonUtility.tap(workOrderPo.getEleSaveLnk());
 		  ExtentManager.logger.log(Status.PASS, "Work Order Attachment Take video added sucessfull");
-		  Thread.sleep(GenericLib.iHighSleep);	
+		  Thread.sleep(CommonUtility.iHighSleep);	
 
 /*------------------------------------------Take Photo ---------------------------------------------*/
 		  lauchNewApp("true");
@@ -227,10 +226,10 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		
 		 // Navigating to the WO Attachment section
 		  workOrderPo.WorkorderAttach(commonUtility, "Take Photo");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  commonUtility.tap(workOrderPo.getEleSaveLnk());
 		  ExtentManager.logger.log(Status.PASS, "Work Order Attachment Take Photo added sucessfull");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 				
 				
 				
@@ -240,14 +239,14 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  //Navigating back to WorkOrder Screen as Tools button will not be visible from checklists
 		  //checklistPo.navigateBacktoWorkOrder(commonUtility);	
 		  toolsPo.syncData(commonUtility);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
 				
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(GenericLib.iAttachmentSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.iAttachmentSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 		  String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')"; 
 		  //String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		  restServices.getAccessToken();
@@ -261,9 +260,9 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 				
 		  System.out.println("Validating if  attachment is syned to server.");
 		  Thread.sleep(60000);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 		  String sSoqlAttachment1 = "SELECT Id FROM Attachment where ParentId in(select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\')"; 
 		  //String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		  restServices.getAccessToken();
@@ -276,10 +275,10 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  
 			
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(GenericLib.iAttachmentSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.iAttachmentSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 		  String sSoqlAttachment2 = "SELECT Id FROM Attachment where ParentId in(select id from SVMXC__Service_Order__c where name =\'"+sWOName2+"\')"; 
 		  //String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 		  restServices.getAccessToken();

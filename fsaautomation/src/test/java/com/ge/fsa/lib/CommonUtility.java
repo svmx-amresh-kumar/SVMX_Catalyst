@@ -104,6 +104,25 @@ public class CommonUtility {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
+	
+	
+	private WebElement pheleSearchListItem;
+	public static String sAppBundleID = BaseLib.sApp_BundleID;
+	public static long lWaitTime=2000;
+	public static int iProcessStatus=0;
+	public static int iAttachmentSleep = 120000;
+	public static int iLowSleep = 2000;
+	public static int iMedSleep = 5000;
+	public static int iHighSleep = 8000;
+	public static int i30SecSleep = 10000;
+	public static int iVHighSleep = 10000;
+	public static String sDirPath = System.getProperty("user.dir");
+	public static String sResources = sDirPath+"//resources";
+	public static String sConfigPropertiesExcelFile = sResources + "//config_properties.xlsx";
+	public static String sTestDataFile = sResources + "//TestData.xlsx";
+	public static String sConfigFile =  sResources+"//select_config_file.properties";//sResources+"//config_local.properties";
+	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
+	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
@@ -282,7 +301,7 @@ public class CommonUtility {
 	public void singleTap(Point point) throws InterruptedException {
 		touchAction = new TouchAction(driver);
 		touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	}
 
 
@@ -292,7 +311,7 @@ public class CommonUtility {
 		touchAction = new TouchAction(driver);
 		touchAction.moveTo(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
 		.tap(new TapOptions().withTapsCount(iTapCount)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	}
 
 	// Customised touch LongPress
@@ -331,7 +350,7 @@ public class CommonUtility {
 //			.perform();
 //			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 //			.perform();
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			switchContext("Webview");
 			break;
 
@@ -342,7 +361,7 @@ public class CommonUtility {
 			touchAction.longPress(new PointOption().withCoordinates(x,y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
 //			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 //			.perform();
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 
 		}
@@ -350,7 +369,7 @@ public class CommonUtility {
 
 	// Customised touch Doubletap
 	public void doubleTap(WebElement element) throws InterruptedException {
-		waitforElement(element, GenericLib.i30SecSleep);
+		waitforElement(element, CommonUtility.i30SecSleep);
 
 		point = element.getLocation();
 		touchAction = new TouchAction(driver);
@@ -358,7 +377,7 @@ public class CommonUtility {
 		// touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)
 		// element)).perform();
 		touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) element)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 	}
 
@@ -370,11 +389,11 @@ public class CommonUtility {
 		switchContext("Native");
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	case "ios":
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		break;
 		
 		}
@@ -866,7 +885,7 @@ public class CommonUtility {
 			}
 
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -983,7 +1002,7 @@ public class CommonUtility {
 
 			}
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -1081,7 +1100,7 @@ public class CommonUtility {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 		}
 		switchContext("Webview");
 	}
@@ -1170,7 +1189,7 @@ public class CommonUtility {
 			}
 
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -1694,7 +1713,7 @@ public class CommonUtility {
 	 */
 	public void clickAllowPopUp() throws InterruptedException {
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		switchContext("Native");
 		try {
 			try {
@@ -1713,9 +1732,9 @@ public class CommonUtility {
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
 		} 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 	}
 
@@ -1942,7 +1961,7 @@ public class CommonUtility {
 	 */
 	public void injectJenkinsPropertiesForSahi() {
 		String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
-		String sConfigExcelPath = GenericLib.sConfigPropertiesExcelFile;
+		String sConfigExcelPath = CommonUtility.sConfigPropertiesExcelFile;
 		String sConfigExcelSheetName = BaseLib.sSelectConfigPropFile;
 		try {
 	
@@ -2388,7 +2407,7 @@ public class CommonUtility {
 		return searchLookup;
 	}
 
-	private WebElement pheleSearchListItem;
+	
 	public WebElement getEleSearchListItem(String sName)
 	{
 		return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
@@ -2597,7 +2616,7 @@ public class CommonUtility {
 		FileOutputStream fos =null;
 		try {
 	
-			fis = new FileInputStream(GenericLib.sTestDataFile);
+			fis = new FileInputStream(CommonUtility.sTestDataFile);
 			Workbook wb = (Workbook) WorkbookFactory.create(fis);
 			Sheet sht = wb.getSheet("sTestCaseID");
 			int iRowNum = sht.getLastRowNum();
@@ -2616,7 +2635,7 @@ public class CommonUtility {
 					break;
 				}
 			}
-			fos = new FileOutputStream(GenericLib.sTestDataFile);
+			fos = new FileOutputStream(CommonUtility.sTestDataFile);
 			wb.write(fos);
 			
 			wb.close();
@@ -2696,7 +2715,7 @@ public class CommonUtility {
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
 		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
-		File file = new File(GenericLib.sShellFile);
+		File file = new File(CommonUtility.sShellFile);
 		Runtime.getRuntime().exec("chmod u+x " +file);
 		
 		try {

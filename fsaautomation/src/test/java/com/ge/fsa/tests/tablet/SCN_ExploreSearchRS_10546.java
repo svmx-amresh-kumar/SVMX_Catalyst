@@ -8,7 +8,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ExploreSearchRS_10546 extends BaseLib {
@@ -70,7 +69,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	public void RS_10546Test() throws Exception 
 	{
 		sTestID = "RS_10549";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		preRequiste();
 
 		//Pre Login to app
@@ -78,11 +77,11 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		
 		//Config Sync for process
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		
 		//Navigation to SFM search
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
@@ -122,25 +121,25 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Work Orders", sWOName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sWOName).isDisplayed(), sWOName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sWOName+" is successfully displayed");
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Contacts", sContactName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sContactName).isDisplayed(), sContactName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sContactName+" is successfully displayed");
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Products", sProductName, null);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sProductName).isDisplayed(), sProductName +" is not displayed");
 		ExtentManager.logger.log(Status.PASS,sProductName+" is successfully displayed");
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Accounts", sSerialNumber+"AccA", null);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleObjectTxt(sSerialNumber+"AccA").isDisplayed(), sSerialNumber+"AccA is not displayed");
 		ExtentManager.logger.log(Status.PASS,sSerialNumber+"AccA is successfully displayed");
 		

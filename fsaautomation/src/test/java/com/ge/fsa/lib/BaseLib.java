@@ -190,16 +190,16 @@ public class BaseLib {
 		System.out.println("[BaseLib] Server Org Type = " + sOrgType);
 		
 		// Select the appropriate config file On setting USE_PROPERTY_FILE to "config_automation_build" the config_automation_build excel sheet will be used to get data 
-		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : CommonUtility.getConfigValue(GenericLib.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
+		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : CommonUtility.getConfigValue(CommonUtility.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
 
 		System.out.println("[BaseLib] Running On Profile : " + sSelectConfigPropFile);
-		System.out.println("[BaseLib] Reading Config Properties From : " + GenericLib.sConfigFile);
+		System.out.println("[BaseLib] Reading Config Properties From : " + CommonUtility.sConfigFile);
 
 		// Select the OS from Run_On_Platform from jenkins or local
-		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();//GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();
+		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();//GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();
 		System.out.println("[BaseLib] OS Name = " + sOSName);
 
-		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "DEVICE_TYPE").toLowerCase();
+		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "DEVICE_TYPE").toLowerCase();
 		System.out.println("[BaseLib] Device Type = " + sDeviceType);
 		
 		// Get the build number from jenkins
@@ -207,53 +207,53 @@ public class BaseLib {
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
 		
 		//Get UDID
-		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
+		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
 		
-		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME");
+		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME");
 		System.out.println("[BaseLib] APP_NAME : " + sApp_Name);
 		
-		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
+		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
 		
-		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
+		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sIOSPlatformVersion);
 		
-		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
+		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidPlatformVersion);
 		
-		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
+		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
 		System.out.println("[BaseLib] OAUTH_URL : " + sOAUTHUrl);
 		
-		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
+		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_ID : " + SClientId);
 		
-		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
+		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_SECRET : " + sClientSecret);
 	
-		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
+		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
 		System.out.println("[BaseLib] CREATE_URL : " + sCreateURL);
 		
-		sURL = System.getenv("URL") != null ? System.getenv("URL") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
+		sURL = System.getenv("URL") != null ? System.getenv("URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
 		System.out.println("[BaseLib] URL : " + sURL);
 		
-		sXcode_SigninID = System.getenv("XCODE_SIGNID") != null ? System.getenv("XCODE_SIGNID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID").toLowerCase();
+		sXcode_SigninID = System.getenv("XCODE_SIGNID") != null ? System.getenv("XCODE_SIGNID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID").toLowerCase();
 		System.out.println("[BaseLib] XCODE_SIGNID : " + sXcode_SigninID);
 		
-		sXcode_OrgID = System.getenv("XCODE_ORGID") != null ? System.getenv("XCODE_ORGID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID").toLowerCase();
+		sXcode_OrgID = System.getenv("XCODE_ORGID") != null ? System.getenv("XCODE_ORGID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID").toLowerCase();
 		System.out.println("[BaseLib] XCODE_ORGID : " + sXcode_OrgID);
 		
-		sAutomation_Name = System.getenv("AUTOMATION_NAME") != null ? System.getenv("AUTOMATION_NAME") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME").toLowerCase();
+		sAutomation_Name = System.getenv("AUTOMATION_NAME") != null ? System.getenv("AUTOMATION_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME").toLowerCase();
 		System.out.println("[BaseLib] AUTOMATION_NAME : " + sAutomation_Name);
 		
-		sUpdate_BundleID = System.getenv("UPDATE_BUNDLEID") != null ? System.getenv("UPDATE_BUNDLEID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID").toLowerCase();
+		sUpdate_BundleID = System.getenv("UPDATE_BUNDLEID") != null ? System.getenv("UPDATE_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID").toLowerCase();
 		System.out.println("[BaseLib] UPDATE_BUNDLEID : " + sUpdate_BundleID);
 		
 		
-		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
+		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
 		System.out.println("[BaseLib] APP_BUNDLEID : " + sApp_BundleID);
 		
-		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET").toLowerCase();
+		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET").toLowerCase();
 		System.out.println("[BaseLib] NO_RESET : " + sNo_Reset);
 		
 	}
@@ -276,7 +276,7 @@ public class BaseLib {
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
-				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".apk";
+				sAppPath = CommonUtility.sResources + "//" + sApp_Name + ".apk";
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
@@ -295,7 +295,7 @@ public class BaseLib {
 						capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
 						capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
 					}
-				capabilities.setCapability("noReset", Boolean.parseBoolean(CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
+				capabilities.setCapability("noReset", Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
 				
 				capabilities.setCapability("autoGrantPermissions", true);
@@ -322,15 +322,15 @@ public class BaseLib {
 
 			try { // IOS Drivers
 
-				sAppPath = GenericLib.sResources + "//" + sApp_Name + ".ipa";
+				sAppPath = CommonUtility.sResources + "//" + sApp_Name + ".ipa";
 				app = new File(sAppPath);
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sIOSPlatformVersion);
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_DEVICE_NAME"));
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME"));
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_DEVICE_NAME"));
+				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-				capabilities.setCapability(MobileCapabilityType.UDID, CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID"));
+				capabilities.setCapability(MobileCapabilityType.UDID, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID"));
 				if(sDeviceType.equalsIgnoreCase("phone")) {
 				//Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
@@ -352,11 +352,11 @@ public class BaseLib {
 
 
 				}
-				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
-				capabilities.setCapability("xcodeOrgId", CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID"));
-				capabilities.setCapability("xcodeSigningId", CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID"));
-				capabilities.setCapability("updatedWDABundleId", CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID"));
+				capabilities.setCapability("xcodeOrgId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID"));
+				capabilities.setCapability("xcodeSigningId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID"));
+				capabilities.setCapability("updatedWDABundleId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID"));
 				capabilities.setCapability("startIWDP", true);
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
@@ -480,8 +480,8 @@ public class BaseLib {
 		default:
 			
 		// Installing fresh by default
-		CommonUtility.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", sResetMode);
-		System.out.println("[BaseLib] Initialized App Start mode to = " + CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
+		CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", sResetMode);
+		System.out.println("[BaseLib] Initialized App Start mode to = " + CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
 
 		try {
 			setAPP();
@@ -491,7 +491,7 @@ public class BaseLib {
 		}
 
 		// Resetting to true always first for next execution
-		CommonUtility.writeExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", "true");
+		CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", "true");
 		System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
 		}
 	}

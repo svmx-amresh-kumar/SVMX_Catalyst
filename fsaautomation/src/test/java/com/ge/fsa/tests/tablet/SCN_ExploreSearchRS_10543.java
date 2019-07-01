@@ -8,7 +8,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ExploreSearchRS_10543 extends BaseLib {
@@ -62,10 +61,10 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
-		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";
@@ -76,11 +75,11 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		
 		//Config Sync for process
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Navigation to SFM
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
@@ -89,31 +88,31 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		commonUtility.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
-		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(CommonUtility.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		commonUtility.longPress(workOrderPo.getEleIncludeOnlineRdBtn());
 		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleCloudIcn().isDisplayed(), "Cloud Icon is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Cloud Icon  is successfully displayed");
 		
 		commonUtility.tap(workOrderPo.getEleCloudIcn(),20,20);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		commonUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sWOName),10,10);
 		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//workOrderPo.getEleActionsLnk().click();
 		commonUtility.tap(workOrderPo.getEleActionsLnk());	
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonUtility.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
 
@@ -131,29 +130,29 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		
 		//Navigation to SFM
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonUtility.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
-		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(CommonUtility.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID);
 		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleNoRecordsTxt().isDisplayed(), "No Records to display text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records to display text is successfully displayed");
 		
 		commonUtility.longPress(workOrderPo.getEleIncludeOnlineRdBtn());
 		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(workOrderPo.getEleCloudIcn().isDisplayed(), "Cloud Icon is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Cloud Icon  is successfully displayed");
 		
 		commonUtility.tap(workOrderPo.getEleCloudIcn(),20,20);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sCaseID),10,10);
 		
 		//Update case reason from server 
@@ -167,7 +166,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Navigation to Case edit process
@@ -175,24 +174,24 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		Thread.sleep(10000);
 
 		//Navigation to SFM
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		Thread.sleep(10000);
 		commonUtility.longPress(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 		commonUtility.longPress(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 		exploreSearchPo.getEleExploreSearchTxtFld().click();
 		
-		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+		try {exploreSearchPo.getEleResetFilerBtn().click();Thread.sleep(CommonUtility.iMedSleep);}catch(Exception e) {}
 		exploreSearchPo.getEleExploreSearchTxtFld().clear();
 		exploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sCaseID);
 		commonUtility.tap(exploreSearchPo.getEleExploreSearchBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleWorkOrderIDTxt(sCaseID),10,10);
 		
 		commonUtility.tap(workOrderPo.getEleActionsLnk());	
 		commonUtility.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonUtility.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//Validation that case reason is not updated
 		try{workOrderPo.getEleCaseReasonLst().click();}catch(Exception e) {commonUtility.tap(workOrderPo.getEleCaseReasonLst());}
 		commonUtility.switchContext("Native");
@@ -200,7 +199,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		try {
 			Assert.assertTrue(commonUtility.getElePickerWheelPopUp().getText().equals("--None--"), " Case reason is updated before refresh from salesforce");
 			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.getEleDonePickerWheelBtn().click();
 		}
 		catch(Exception e) {
@@ -208,30 +207,30 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
 			commonUtility.getElePicklistValue("--None--").click();
 		}
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Selecting Case reason to Existing Problem to make sure sfm is working fine.
 		commonUtility.tap(workOrderPo.getEleActionsLnk());	
 		commonUtility.getSearch(workOrderPo.getEleActionsTxt("Refresh from Salesforce"));
 		commonUtility.tap(workOrderPo.getEleActionsTxt("Refresh from Salesforce"),20,20);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		commonUtility.tap(workOrderPo.getEleActionsLnk());	
 		commonUtility.getSearch(workOrderPo.getEleActionsTxt(sFieldServiceName));
 		commonUtility.tap(workOrderPo.getEleActionsTxt(sFieldServiceName),20,20);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validation of Case reason is not updated.
 		try{workOrderPo.getEleCaseReasonLst().click();}catch(Exception e) {commonUtility.tap(workOrderPo.getEleCaseReasonLst());}
 		commonUtility.switchContext("Native");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		try {
 			Assert.assertTrue(commonUtility.getElePickerWheelPopUp().getText().equals("Existing problem"), " Case reason is updated before refresh from salesforce");
 			ExtentManager.logger.log(Status.PASS,"Case reason is not updated, Needs Refresh from Saleforce ");
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.getEleDonePickerWheelBtn().click();
 			
 		}
@@ -241,7 +240,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 			commonUtility.getElePicklistValue("Existing problem").click();
 		}
 		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		
 		commonUtility.setPickerWheelValue(workOrderPo.getEleCaseReasonLst(), "Complex functionality");
@@ -252,7 +251,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Saved successfully text is displayed successfully");
 		
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		sSqlQuery ="SELECT+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+id+=\'"+sWoObjectID+"\'";				
 		Assert.assertTrue(restServices.restGetSoqlValue(sSqlQuery,"SVMXC__Billing_Type__c").equals("Contract"), "Work Order is not updated with contract ");
@@ -272,18 +271,18 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		finally
 		{	try {
 				postCleanup();toolsPo.syncData(commonUtility);
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				if(bExecutionFlag) {
 				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 
 			}catch(Exception e) {
 				postCleanup();toolsPo.syncData(commonUtility);
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				if(bExecutionFlag) {
 				ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + "Testcase execution failed");}
 			}
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		}
 	}
 	

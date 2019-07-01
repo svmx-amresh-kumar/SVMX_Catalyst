@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527_b extends BaseLib {
@@ -80,15 +80,15 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		List<WebElement> contactList = new ArrayList<WebElement>();
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sFieldProcessName);
 		//******Validate 4th Case******
 		workOrderPo.addParts(commonUtility, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(workOrderPo.getLblPartContact());
 		contactList = workOrderPo.getcontactListInLkp();
 		System.out.println("Contacts without Account "+contactList.size());
@@ -124,7 +124,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		
 		//******Validate 6th Case******
 		commonUtility.tap(workOrderPo.getLnkFilters());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 //		System.out.println(workOrderPo.getCheckBoxAccount().isSelected());
 		if(workOrderPo.getCheckBoxAccount().isSelected()&&sOSName.equals("ios")) {
 			commonUtility.tap(workOrderPo.getcheckBoxAccount01(),20,20);
@@ -134,7 +134,7 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 		}
 		commonUtility.tap(workOrderPo.getBtnApply());
 		commonUtility.lookupSearchOnly(sSearchTxt);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Accounts "+contactList.size());
 //		commonsUtility.tap(workOrderPo.getLnkLookupCancel());

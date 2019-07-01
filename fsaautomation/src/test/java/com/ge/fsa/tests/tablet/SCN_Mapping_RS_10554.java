@@ -23,7 +23,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Mapping_RS_10554 extends BaseLib {
@@ -130,25 +129,25 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 		
 		
 		//read from file
-				sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-				sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-				sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+				sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
 		
 		
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);
 			//config sync
 			//toolsPo.configSync(commonsUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//Data Sync for WO's created
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//Navigation to SFM
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBname, sFieldServiceName);
 			
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			
 			
 			//validating mapped values before save
@@ -200,7 +199,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			commonUtility.tap(workOrderPo.getEleSaveLnk());
 			
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			
 			// Collecting the Work Order number from the Server.
 			String sSoqlQuery = "SELECT+name+from+SVMXC__Service_Order__c+Where+SVMXC__Component__c+=\'"+sObjectIBID+"\'";
@@ -304,7 +303,7 @@ public class SCN_Mapping_RS_10554 extends BaseLib {
 			
 			
 			commonUtility.tap(workOrderPo.getpartsontapedit(sproductname));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 		
 			 fetchedpart =workOrderPo.getElePartLaborLkUp().getAttribute("value");
 			System.out.println(fetchedpart);

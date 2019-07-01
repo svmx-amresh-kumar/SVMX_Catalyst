@@ -15,7 +15,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.MobileBy;
@@ -86,11 +85,11 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS-12341";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		//Work Order for Value None 
@@ -138,7 +137,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 		 // Data Sync for WO's created
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.iMedSleep);
+		 Thread.sleep(CommonUtility.iMedSleep);
 		
 /*------------------------------------------------ Image Compression Set to None-----------------------------------*/
 		
@@ -156,7 +155,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  
 		  // Navigating to the checklist
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility,sAttachmentQ);
 		  ExtentManager.logger.log(Status.INFO,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput(
@@ -167,17 +166,17 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		  ExtentManager.logger.log(Status.INFO,
 		  "Checklist is submitted sucessfully for Work Order" + sWOName);
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  
 		  //server side validation //Navigating back to Work order
 		  commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		  commonUtility.tap(toolsPo.getEleToolsIcn());
-		  toolsPo.syncData(commonUtility); Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  toolsPo.syncData(commonUtility); Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(GenericLib.iAttachmentSleep);
-		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.iAttachmentSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep); Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 		  
 		  String sSoqlchecklistid3="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName+"\')"; 
 		  String schecklistid3 =restServices.restGetSoqlValue(sSoqlchecklistid3, "Id"); 
@@ -227,7 +226,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 				
 		 // Navigating to the checklist
 		 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		 Thread.sleep(GenericLib.iLowSleep);
+		 Thread.sleep(CommonUtility.iLowSleep);
 		 checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		 ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -236,7 +235,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 commonUtility.tap(checklistPo.eleChecklistSubmit());
 		 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		 ExtentManager.logger.log(Status.INFO, "Checklist is submitted sucessfully for Work Order" + sWOName1);
-		 Thread.sleep(GenericLib.iHighSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
 		
 		 //server side validation
 		 //Navigating back to Work order
@@ -245,12 +244,12 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 	    
 		 toolsPo.syncData(commonUtility);
 		
-		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); Thread.sleep(CommonUtility.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(GenericLib.iAttachmentSleep);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
-		 Thread.sleep(GenericLib.iMedSleep);
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
+		 Thread.sleep(CommonUtility.iMedSleep);
 		  
 		 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName1+"\')";
 		 String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");	
@@ -299,7 +298,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 					
 		  // Navigating to the checklist
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		  ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -308,7 +307,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		  ExtentManager.logger.log(Status.INFO, "Checklist is submitted sucessfully for Work Order" + sWOName2);
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 			
 		  //server side validation
 		  //Navigating back to Work order
@@ -318,12 +317,12 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		    
 		  toolsPo.syncData(commonUtility);
 			
-		  Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep); Thread.sleep(CommonUtility.i30SecSleep);
 		  System.out.println("Validating if  attachment is syned to server.");
-		  Thread.sleep(GenericLib.iAttachmentSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.i30SecSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.iAttachmentSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 			  
 		  String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName2+"\')";
 		  String schecklistid1 = restServices.restGetSoqlValue(sSoqlchecklistid1, "Id");	
@@ -372,7 +371,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 						
 		 // Navigating to the checklist
 		 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		 Thread.sleep(GenericLib.iLowSleep);
+		 Thread.sleep(CommonUtility.iLowSleep);
 		 checklistPo.checklistAttach(commonUtility,"Choose from Library",sAttachmentQ);
 		 ExtentManager.logger.log(Status.INFO, "Checklist Attachment Choose from library added sucessfull");
 		 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -381,7 +380,7 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 commonUtility.tap(checklistPo.eleChecklistSubmit());
 		 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		 ExtentManager.logger.log(Status.INFO, "Checklist is submitted sucessfully for Work Order" + sWOName3);
-		 Thread.sleep(GenericLib.iHighSleep);
+		 Thread.sleep(CommonUtility.iHighSleep);
 				
 		 //server side validation
 		 //Navigating back to Work order
@@ -389,12 +388,12 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 		 commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 		 commonUtility.tap(toolsPo.getEleToolsIcn());
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep); Thread.sleep(GenericLib.i30SecSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); Thread.sleep(CommonUtility.i30SecSleep);
 		 System.out.println("Validating if  attachment is syned to server.");
-		 Thread.sleep(GenericLib.iAttachmentSleep);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
-		 Thread.sleep(GenericLib.iMedSleep);
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
+		 Thread.sleep(CommonUtility.iMedSleep);
 				  
          String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name = \'"+sWOName3+"\')";
 		 String schecklistid2 = restServices.restGetSoqlValue(sSoqlchecklistid2, "Id");	

@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_2_RS_10558 extends BaseLib {
@@ -32,10 +32,10 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFMWithIcon(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 //		workOrderPo.navigateToWOSFM(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, "10558_Action");
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
 		Set<String> contextNames = driver.getContextHandles();
 //		System.out.println(contextNames.size());
@@ -64,7 +64,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 		}
 		else {
 			driver.context(contextNames.toArray()[contextNames.size()-1].toString());
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			url = driver.getCurrentUrl();
 		}
 		

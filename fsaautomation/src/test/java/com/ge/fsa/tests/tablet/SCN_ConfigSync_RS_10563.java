@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ConfigSync_RS_10563 extends BaseLib {
@@ -39,12 +39,12 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		lauchNewApp("false");
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		Assert.assertTrue(exploreSearchPo.getEleSearchNameTxt(sExploreSearch).isDisplayed());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sWOName, sProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessName(sProcessName).isDisplayed());
 		commonUtility.tap(workOrderPo.getEleCancelLink());
@@ -52,16 +52,16 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sWOName, sOpDocProcessName);
 		Assert.assertTrue(workOrderPo.getEleProcessNameLsMode(sOpDocProcessName).isDisplayed());
 		workOrderPo.getEleDoneBtnLsMode().click();
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		
 		//Edit Processes
 		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
 	
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		commonUtility.tap(exploreSearchPo.getEleSearchItem("WO SEARCH"));
 		Assert.assertTrue(exploreSearchPo.getEleSearchItem("Cases").isDisplayed());

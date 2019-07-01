@@ -12,7 +12,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 
 public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files extends BaseLib {
 	
@@ -57,10 +56,10 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		//sWorkorderOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkorderOpDocName");
 		sWorkorderOpDocName= "OPDOC_WorkOrderOPDOC_Files_Enables";
 		
@@ -97,7 +96,7 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
 	
-	   Thread.sleep(GenericLib.iMedSleep);
+	   Thread.sleep(CommonUtility.iMedSleep);
 	   
 	   commonUtility.executeSahiScript("appium/SCN_Work_Order_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
 		if(commonUtility.verifySahiExecution()) 
@@ -113,19 +112,19 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		workOrderPo.WorkorderAttach(commonUtility, "Choose from Library");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		ExtentManager.logger.log(Status.PASS, "Work Order Attachment Choose from library added sucessfull");
-		Thread.sleep(GenericLib.iHighSleep);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		 
 		 //Server validation
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.i30SecSleep); 
-		 Thread.sleep(GenericLib.i30SecSleep);
-		 Thread.sleep(GenericLib.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep);
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
 		 System.out.println("Validating if  File is syned to server.");
-		 Thread.sleep(GenericLib.i30SecSleep); 
+		 Thread.sleep(CommonUtility.i30SecSleep); 
 		 
 		 String sSoqlWorkorderid = "select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\'";
 		 String sSoqlWorkorderidafter = restServices.restGetSoqlValue(sSoqlWorkorderid, "Id");
@@ -151,14 +150,14 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		   workOrderPo.selectAction(commonUtility, sWorkorderOpDocName);
 		 //List<WebElement> e =driver.findElements(By.xpath("//*[contains(@label,'SCN_ChecklistOPDOC_Files_allversions')]"));
 		   commonUtility.tap(workOrderPo.getEleDoneLnk());
-		   Thread.sleep(GenericLib.i30SecSleep);
+		   Thread.sleep(CommonUtility.i30SecSleep);
 		   ((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			 toolsPo.syncData(commonUtility);
-			 Thread.sleep(GenericLib.iMedSleep); 
-			 Thread.sleep(GenericLib.iMedSleep);
+			 Thread.sleep(CommonUtility.iMedSleep); 
+			 Thread.sleep(CommonUtility.iMedSleep);
 			 Thread.sleep(20000); 
 			 String sSoqlWorkorderid3 =
 			 "select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\'"; 

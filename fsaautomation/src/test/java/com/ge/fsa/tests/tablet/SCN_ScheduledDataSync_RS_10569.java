@@ -19,7 +19,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
@@ -48,12 +47,12 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sCaseWOID = "DATA_SCN_ScheduledDataSync_RS_10569";	
 		sSheetName = "RS_10569";
 		//Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
 		System.out.println(sExploreSearch);
 		
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
 		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah",sTestCaseID);
@@ -83,11 +82,11 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		// Perform Config Sync
 		toolsPo.configSync(commonUtility);		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Create work Order
 		restServices.getAccessToken();
@@ -99,17 +98,17 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	
 		// Wait for 5-8 minutes as scheduled data sync will need to start trigger
 		commonUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		//Verification of successful sync
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		ExtentManager.logger.log(Status.PASS,"Scheduled Data Sync is successfull");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 
 		//Navigation to WO	
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					     
 		ExtentManager.logger.log(Status.PASS,"Work Order Created before scheduled sync is synced from server to FSA");
 		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeLst(), sBillingType);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 	    commonUtility.tap(toolsPo.getEleToolsIcn());	
 		Assert.assertTrue(toolsPo.getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
@@ -118,7 +117,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		
 	//waiting for 5 bare minimum as we need to see capture the refreshing view for scheduled Data Sync.
 		commonUtility.waitforElement(toolsPo.getEleRefreshingViewTxt(),400);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		Assert.assertTrue(toolsPo.getEleSuccessTxt().isDisplayed(), "Data sync is not successfull");
 		restServices.getAccessToken();
 		

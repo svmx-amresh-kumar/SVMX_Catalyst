@@ -16,9 +16,8 @@ import org.testng.Assert;
 	import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-	import com.ge.fsa.lib.GenericLib;
-	
-	import io.appium.java_client.AppiumDriver;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -1424,20 +1423,20 @@ import io.appium.java_client.TouchAction;
 		public void validateServiceReport(CommonUtility commonUtility, String sPrintReportSearch, String sWorkOrderID) throws InterruptedException
 		{	
 			selectAction(commonUtility, sPrintReportSearch);
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			Assert.assertTrue(getEleWOServiceReportTxt(sPrintReportSearch).isDisplayed(), "Work Order Service Report is not displayed.");
 			ExtentManager.logger.log(Status.PASS,"Work Order Service Report is displayed successfully");		
 			Assert.assertTrue(getEleWONumberTxt(sWorkOrderID).isDisplayed(),"WO updated report details is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Work order updated details for the work order "+sWorkOrderID);
 			
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			//commonsUtility.tap(getEleDoneLnk());
 			getEleDoneLnk().click();
 	
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 //			ExtentManager.logger.log(Status.PASS,"Creation of WO event is successfull and Work Order Screen is displayed successfully");
@@ -1647,7 +1646,7 @@ import io.appium.java_client.TouchAction;
 		{
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
 	
 			// Select the Work Order
@@ -1663,7 +1662,7 @@ import io.appium.java_client.TouchAction;
 			try {
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch),20,20);
 			Thread.sleep(3000);
 			commonUtility.waitforElement(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt), 3);			
@@ -1687,7 +1686,7 @@ import io.appium.java_client.TouchAction;
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
@@ -1712,10 +1711,10 @@ import io.appium.java_client.TouchAction;
 		//Navigate to WorkOrder Screen with a child search present
 		public void navigatetoWO(CommonUtility commonUtility, ExploreSearchPO exploreSearchPo, String sExploreSearch, String sExploreChildSearchTxt, String sWOName) throws InterruptedException {
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			//exploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			commonUtility.tap(exploreSearchPo.getEleSearchNameTxt(sExploreSearch));
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.tap(exploreSearchPo.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 	
 			// Select the Work Order
@@ -1739,7 +1738,7 @@ import io.appium.java_client.TouchAction;
 			commonUtility.tap(exploreSearchPO.getEleSearchNameTxt(sExploreSearch));
 			commonUtility.tap(exploreSearchPO.getEleExploreChildSearchTxt(sExploreChildSearchTxt));
 			exploreSearchPO.getEleExploreSearchTxtFld().click();
-			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(GenericLib.iMedSleep);}catch(Exception e) {}
+			try {exploreSearchPO.getEleResetFilerBtn().click();Thread.sleep(CommonUtility.iMedSleep);}catch(Exception e) {}
 			exploreSearchPO.getEleExploreSearchTxtFld().clear();
 			exploreSearchPO.getEleExploreSearchTxtFld().sendKeys(sWoName);
 			commonUtility.tap(exploreSearchPO.getEleExploreSearchBtn());
@@ -2423,7 +2422,7 @@ import io.appium.java_client.TouchAction;
 		public void AllowCamerabutton(CommonUtility commonUtility) throws Exception
 		{
 			commonUtility.switchContext("Native");
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 	try {
 		driver.findElementByAccessibilityId("OK").click();
 
@@ -2485,7 +2484,7 @@ import io.appium.java_client.TouchAction;
 				}
 
 				if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-					Thread.sleep(GenericLib.iMedSleep);
+					Thread.sleep(CommonUtility.iMedSleep);
 					commonUtility.switchContext("Native");
 					Thread.sleep(3000);
 					List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
@@ -2497,7 +2496,7 @@ import io.appium.java_client.TouchAction;
 					driver.findElementByAccessibilityId("Done").click();
 				}
 				commonUtility.switchContext("Webview");
-				Thread.sleep(GenericLib.i30SecSleep);
+				Thread.sleep(CommonUtility.i30SecSleep);
 			} else
 			// For IOS
 			{
@@ -2531,7 +2530,7 @@ import io.appium.java_client.TouchAction;
 					}
 				}
 				if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
-					Thread.sleep(GenericLib.iMedSleep);
+					Thread.sleep(CommonUtility.iMedSleep);
 					AllowCamerabutton(commonUtility);
 					commonUtility.switchContext("Native");
 					Thread.sleep(5000);
@@ -2541,7 +2540,7 @@ import io.appium.java_client.TouchAction;
 				}
 
 				if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-					Thread.sleep(GenericLib.iMedSleep);
+					Thread.sleep(CommonUtility.iMedSleep);
 					AllowCamerabutton(commonUtility);
 					;
 					// com.apple.camera
@@ -2553,10 +2552,10 @@ import io.appium.java_client.TouchAction;
 					driver.findElementByAccessibilityId("Use Video").click();
 				}
 				commonUtility.switchContext("Webview");
-				Thread.sleep(GenericLib.i30SecSleep);
+				Thread.sleep(CommonUtility.i30SecSleep);
 			}
 			commonUtility.switchContext("Webview");
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 		
 		
 		}
@@ -2605,18 +2604,18 @@ import io.appium.java_client.TouchAction;
 		public void DeletingAttachement (CommonUtility commonUtility, String sImageTitle) throws InterruptedException
 		
 		{   commonUtility.tap(getEleAttacheddoc());
-		    Thread.sleep(GenericLib.iHighSleep);
+		    Thread.sleep(CommonUtility.iHighSleep);
 		    commonUtility.tap(geteleSelectbutton());
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			//commonUtility.switchContext("Native");
 			
 			//commonUtility.tap(geteledeleteicon());
 			commonUtility.tap(driver.findElement(By.xpath("//div[text()='" + sImageTitle +"']")));
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			//commonUtility.tap(geteleActionbutton());
 			commonUtility.tap(geteledeleteicon());
 			commonUtility.tap(geteleDeletebutton());
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			commonUtility.tap(getEleSaveLnk());
 			
 		}

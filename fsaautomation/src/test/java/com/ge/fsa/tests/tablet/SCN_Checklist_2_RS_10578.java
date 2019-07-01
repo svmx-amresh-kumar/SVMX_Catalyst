@@ -17,7 +17,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -68,11 +67,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		sCaseWOID = "DATA_SCN_Checklist_2_RS-10578_DVR";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -98,7 +97,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
@@ -106,7 +105,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).sendKeys("5");
 		commonUtility.tap(checklistPo.geteleNext());
 		Assert.assertTrue(checklistPo.geteleChecklistAdvanceDVR().isDisplayed(), "DataValidation rule failed for Advanced DVR ");	 	
@@ -156,7 +155,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleDVRConfirmBtn());
 	    //checklistPo.geteleChecklistAnsDate(sDateTimeq).click();
 		commonUtility.setDateTime24hrs(checklistPo.geteleChecklistAnsDate(sDateTimeq), -3, "05", "05");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	    //commonsUtility.tap(commonsUtility.getEleDonePickerWheelBtn());
 	  
 	    //checklistPo.geteleChecklistAnsDate(sDateq).click();
@@ -172,7 +171,7 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// Assert.assertTrue(checklistPo.geteleChecklistDVRtxt().isDisplayed(), "DataValidation rule failed for datetime");	 	
 		//ExtentManager.logger.log(Status.PASS,"DataValidation rule for date Field Passed :greater than today error thrown");
 		
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		// DVR BOUNDARY validations
 		checklistPo.geteleChecklistAnsNumber(sAdvancedDVRq).clear();
@@ -198,9 +197,9 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		// tapping next button
 	//	commonsUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//commonsUtility.tap(checklistPo.eleChecklistSubmit());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// submitting of checklist
 		commonUtility.clickAllowPopUp();
@@ -215,11 +214,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS, "Back to Work Order after submitting checklist passed");
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		toolsPo.syncData(commonUtility);
 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 
 		// Navigate to Field Service process

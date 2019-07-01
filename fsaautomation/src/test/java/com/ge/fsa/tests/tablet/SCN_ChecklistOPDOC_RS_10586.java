@@ -32,7 +32,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
@@ -81,12 +80,12 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");	
-		sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");	
+		sChecklistOpDocName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistOpDocName");
 		
 		//Creation of Work Order
 		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -98,7 +97,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		
 		//Creating a servicemax event and assigning the work order to it.
 		
-		 sTech_Id = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		 sTech_Id = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 		 sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 			restServices.getAccessToken();
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");
@@ -152,14 +151,14 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 			//toolsPo.configSync(commonsUtility);
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 
 			//System.out.println("Going to Enter checklist");
 			commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 			String sNumberStaticAnsApp = checklistPo.geteleChecklistAnsNumber(sNumberStaticQ).getAttribute("value");
 			Assert.assertTrue(sNumberStaticAnsApp.equals(sNumberStaticAns), "Static response with Number datatype failed");
@@ -236,7 +235,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		 	commonUtility.tap(checklistPo.geteleNext());
 	 	
 			// submitting the checklist
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 			//try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 			commonUtility.clickAllowPopUp();
@@ -254,7 +253,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			commonUtility.tap(checklistPo.geteleShowCompletedChecklist());
 			//System.out.println("tapped on completed checklist");
 			commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
-			Thread.sleep(genericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			//System.out.println("tapped on completed checklist");
 			
 			//-------------------OPDOC------------------------------ 
@@ -346,25 +345,25 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			// workOrderPo.getEleDoneLnk().click();
 			
 			commonUtility.tap(workOrderPo.getEleDoneLnk());
-			Thread.sleep(GenericLib.iHighSleep);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			Thread.sleep(GenericLib.i30SecSleep);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			
 			//Navigation back to Work Order after Service Report
 			Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 			ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-			Thread.sleep(GenericLib.iVHighSleep);
+			Thread.sleep(CommonUtility.iVHighSleep);
 
 			// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 			// System.out.println(ans);
 			commonUtility.tap(calendarPO.getEleCalendarIcn());
 			 toolsPo.syncData(commonUtility);
-			 Thread.sleep(GenericLib.iLowSleep);
+			 Thread.sleep(CommonUtility.iLowSleep);
 			 
 			/* commonsUtility.tap(exploreSearchPo.getEleExploreIcn());
 			 Thread.sleep(genericLib.iLowSleep);
@@ -380,10 +379,10 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 			 
 			 //Validation in Server if OPDOC is synced sucessfully.
 	
-				Thread.sleep(GenericLib.iHighSleep);
-				Thread.sleep(GenericLib.iHighSleep);
-				Thread.sleep(GenericLib.i30SecSleep);
-				Thread.sleep(GenericLib.iAttachmentSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
+				Thread.sleep(CommonUtility.i30SecSleep);
+				Thread.sleep(CommonUtility.iAttachmentSleep);
 
 				System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 				String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";

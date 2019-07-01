@@ -20,7 +20,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
@@ -109,11 +108,11 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		sCaseWOID = "DATA_SCN_Checklist_1_RS-10577_SOU";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -156,7 +155,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
@@ -166,7 +165,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// System.out.println("validating pre filled text question is showing up");
 		sTextAns = checklistPo.geteleChecklistAnswerTextArea(sTextq).getAttribute("value");
@@ -203,7 +202,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// tapping next button
 		commonUtility.tap(checklistPo.geteleNext());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// submitting of checklist
 		commonUtility.clickAllowPopUp();
@@ -218,7 +217,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS, "Back to Work Order after submitting checklist passed");
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// Navigate to SFM processes
 		workOrderPo.selectAction(commonUtility, sEditProcessName);
@@ -284,7 +283,7 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 		commonUtility.tap(workOrderPo.getEleDiscardChanges());
 
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		// Navigation to WO
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);

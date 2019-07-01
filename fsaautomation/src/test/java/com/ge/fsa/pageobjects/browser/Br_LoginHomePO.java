@@ -16,7 +16,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
 import io.appium.java_client.AppiumDriver;
@@ -94,15 +93,15 @@ public class Br_LoginHomePO
 		String sUser = sUserTypeFromPropertiesFile.length>1?sUserTypeFromPropertiesFile[0]:"";
 		
 		if(sUser.equalsIgnoreCase("TECH_USN_1")) {
-			 sUn = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN_1");
-			 sPwd = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD_1");
+			 sUn = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN_1");
+			 sPwd = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD_1");
 		}else if(sUser.equalsIgnoreCase("TECH_USN")){
-		 sUn = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
-		 sPwd = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
+		 sUn = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
+		 sPwd = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
 		}else {
 			//default
-			 sUn = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
-			 sPwd = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
+			 sUn = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN");
+			 sPwd = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD");
 		}
 		
 		

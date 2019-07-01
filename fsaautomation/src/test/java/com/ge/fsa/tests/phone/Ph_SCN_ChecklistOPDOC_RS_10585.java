@@ -13,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
@@ -66,12 +65,12 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
-		sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
+		sChecklistOpDocName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ChecklistOpDocName");
 		// Rest to Create Workorder - Work Order -
 
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -98,7 +97,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Navigating to Checklist
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sProcessname);
@@ -200,7 +199,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Thread.sleep(3000);
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Validating in the server if checklist status is synced as completed
 		System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
@@ -213,7 +212,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(ChecklistAnsjson.contains(sNumberSectionJumpAns), "Answer is synced to server");
 		ExtentManager.logger.log(Status.PASS, "Section One Answer is synced to server");
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo,
 		// sExploreSearch, sExploreChildSearchTxt, sWOName);
@@ -235,9 +234,9 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// Verifying if checklistopdoc is synced to server
 		System.out.println("Validating if OPDOC attachment is syned to server.");
-		Thread.sleep(GenericLib.i30SecSleep);
-		Thread.sleep(GenericLib.iAttachmentSleep);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
+		Thread.sleep(CommonUtility.iAttachmentSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "\')";
 		sSoqlquerypdf = "Select+Name+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "\')";
 		sSoqlquerypdf1 = restServices.restGetSoqlValue(sSoqlquerypdf, "Name");

@@ -19,7 +19,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_Mapping_RS_10556 extends BaseLib {
@@ -75,21 +74,21 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 
 		// read from file
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		String sworkordernumber = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "WorkOrder Number");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		String sworkordernumber = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WorkOrder Number");
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		//config sync
 		//ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
-	Thread.sleep(GenericLib.iMedSleep);
+	Thread.sleep(CommonUtility.iMedSleep);
 
 		// datasync
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 			//open WO from calendar
 
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -694,7 +693,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			
 			
 			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, "Work Orders", sworkordernumber,"EDIT_WORKORDER_MAPPING" );	
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			 fetchedOrderStatus = ph_WorkOrderPo.geteleOrderStatus().getText();
 			System.out.println(fetchedOrderStatus);

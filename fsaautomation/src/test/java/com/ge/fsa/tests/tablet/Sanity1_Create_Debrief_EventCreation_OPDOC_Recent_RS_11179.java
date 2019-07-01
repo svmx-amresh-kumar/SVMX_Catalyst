@@ -12,6 +12,7 @@ import static org.testng.Assert.assertNull;
 import org.json.JSONArray;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -155,9 +156,9 @@ public void Scenario1Test() throws Exception
 			System.out.println("The attachment before Sync is "+sChildlinesBefore);
 		}
 		// Syncing the Data
-		Thread.sleep(genericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		// Verifying the Work details and the service report
 		String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkOrderName+"\')";
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	

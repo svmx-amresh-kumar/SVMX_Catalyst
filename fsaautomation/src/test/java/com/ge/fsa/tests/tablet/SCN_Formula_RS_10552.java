@@ -110,9 +110,9 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 	public void SCN_RS_10552() throws Exception {
 		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app
@@ -120,16 +120,16 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		
 		//Config Sync for process
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 			
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		sFieldServiceName="RS_10552Process";
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validation of Next Scheduled date, Actual Onsite Response, Customer OFF button
 		Assert.assertTrue(sAutoDate.contains(workOrderPo.getEleDateTimeLst().get(2).getAttribute("value")),"Next Scheduled Date is not set to 1st day of the created month in next year.");
@@ -145,25 +145,25 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		//Validation of Order status and change the status
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Closed"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is open.");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		
 		//Validation of Autocheck box off for Billing type contract
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Contract.");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validation of Billing type not changed and changing the billing type
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleWOBillingTypeCaseLst(),"Contract","Courtesy"), " Billing type is not contract.");
 		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Open"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS,"Order status is still open as customer down is OFF");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		
 		//Validating for check box is OFF when Billing type is Coutesy
@@ -173,7 +173,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Billing Type Contract.");
 		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//Validating for check box is OFF when Billing type is Coutesy
 		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
 		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
@@ -181,7 +181,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		//Addition of Parts
 		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
 		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Enter line price in parts
 		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
@@ -203,10 +203,10 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		
 		//Save the parts details
 		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validation of formula after adding parts
 		workOrderPo.getEleAutoActivityMonthTxtFld().click();
@@ -227,24 +227,24 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Auto Call Line price is displayed as expected.");
 		
 		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 			
 		//Validating for change of order status when customer down is on.
 		commonUtility.longPress(workOrderPo.getEleCustomerDownRdBtn());
 		Assert.assertTrue(workOrderPo.getEleCustomerDownOnRdBtn().isDisplayed(), " Customer Down is not ON");
 		ExtentManager.logger.log(Status.PASS,"Customer down is set to ON");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Update the WorkOrder and validate if the Order status is now changed
 		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Completed");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.switchContext("Webview");
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		Assert.assertTrue(workOrderPo.getEleThisRecorddoesnotMeetTxt().isDisplayed(), "WorkOrder status is changed after customer down is checked");
 		ExtentManager.logger.log(Status.PASS,"Order status is successfully changed once the customer down is checked");
 		

@@ -17,7 +17,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Calender_4_RS_10514 extends BaseLib {
@@ -147,7 +146,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
 		      //  stechname = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "TechName2");
-				sSalesforceuser = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName,"Salesforceuser");
+				sSalesforceuser = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Salesforceuser");
 				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  

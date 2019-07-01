@@ -14,7 +14,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_Mapping_RS_10557 extends BaseLib {
@@ -53,9 +52,9 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 		
 		//read from file
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
 
 		//sahi
 		 bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_Mapping_RS_10557",sTestCaseID);
@@ -88,10 +87,10 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 			//datasync
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		ph_WorkOrderPo.createInstalledProduct(commonUtility,ph_CalendarPo,sAccountName, sproductname, sInstalledproductID,ph_ExploreSearchPo);
 
 			
@@ -162,7 +161,7 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS,"Work details  Mapping is Successful before save");
 			Thread.sleep(4000);
 			ph_MorePo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			Thread.sleep(15000);
 ///////////////////////validation from server//////////////////////////////////////////////////	
 			String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+Name+=\'"+sInstalledproductID+"\'";
@@ -205,10 +204,10 @@ public class Ph_Mapping_RS_10557 extends BaseLib {
 			
 			System.out.println("Validating mapping after data sync");
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );	
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		
 			commonUtility.gotToTabHorizontal("PARTS");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 			ph_WorkOrderPo.geteleRemoveablePart().click();
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleToLocation());

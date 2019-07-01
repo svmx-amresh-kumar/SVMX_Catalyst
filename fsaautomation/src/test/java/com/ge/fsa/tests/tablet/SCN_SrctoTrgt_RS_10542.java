@@ -11,7 +11,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
@@ -80,19 +79,19 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10542Test() throws Exception {
 		sTestID = "RS_10542";	
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
 		preRequiste();
 			
 		//Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName1, sFieldServiceName);
@@ -102,11 +101,11 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Error popup Country should be Italy is displayed successfully");
 		
 		commonUtility.tap(workOrderPo.getEleOKBtn());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sIBName2, sFieldServiceName);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//Validation of auto update process
 		Assert.assertTrue(workOrderPo.getEleIBAccountIDTxt().getAttribute("value").equals(sAccountName), "Account is not displayed.");
@@ -119,29 +118,29 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		//Set the schedule Date for future date by 2 days
 		if(BaseLib.sOSName.equals("ios") ){
 			workOrderPo.getEleIBScheduledTxtFld().click();
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.setDatePicker(1, 2);
 			commonUtility.getEleDonePickerWheelBtn().click();
 			commonUtility.switchContext("Webview");}
 		else{
 			commonUtility.tap(workOrderPo.getEleIBScheduledTxtFld());
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.setDatePicker(1, 2);
 			commonUtility.switchContext("native");
 			commonUtility.getCalendarDone().click();
 			commonUtility.switchContext("Webview");
 			}
 		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//Save the case created by IB
 		commonUtility.tap(workOrderPo.getEleClickSave());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//driver.activateApp(GenericLib.sAppBundleID);
 		
 		//Config Sync
 		commonUtility.tap(toolsPo.getEleToolsIcn());
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//Validation of WorkOrder from IB
 		sSqlQuery="SELECT+Name+FROM+SVMXC__Service_Order__c+WHERE+SVMXC__Company__r.Name+=\'"+sSerialNumber+"account"+"\'";

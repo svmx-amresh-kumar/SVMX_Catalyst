@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -128,14 +127,14 @@ public class ExploreSearchPO
 		//getEleExploreSearchTxtFld().click();
 			//getEleExploreSearchTxtFld().click();
 		Thread.sleep(3000);
-	try {getEleResetFilerBtn().click();Thread.sleep(GenericLib.iLowSleep);}catch(Exception e) {}
+	try {getEleResetFilerBtn().click();Thread.sleep(CommonUtility.iLowSleep);}catch(Exception e) {}
 		commonUtility.tap(getEleExploreSearchTxtFld());
 		getEleExploreSearchTxtFld().clear();
 		
 		getEleExploreSearchTxtFld().sendKeys(sWOName);
 		commonUtility.tap(getEleExploreSearchBtn());
 		commonUtility.tap(getEleWorkOrderIDTxt(sWOName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	}
 	
 	

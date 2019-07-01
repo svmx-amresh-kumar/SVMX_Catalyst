@@ -17,7 +17,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib {
@@ -62,11 +61,11 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 
 		// Reading from the Excel sheet
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		//Work Order for Files --upload from library
 		
@@ -130,7 +129,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		prereq();
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 	/*------------------------Validating--Files are sending when Salesforce files are enabled-----------*/
 		
@@ -164,10 +163,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 			 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 			 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-			 Thread.sleep(GenericLib.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep); 
 			 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			 Thread.sleep(GenericLib.iLowSleep);
+			 Thread.sleep(CommonUtility.iLowSleep);
 			 checklistPo.checklistAttach(commonUtility, "Choose from Library", sAttachmentQ);
 			 ExtentManager.logger.log(Status.PASS, "Checklist Attachment Choose from library added sucessfull");
 			 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -176,17 +175,17 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 commonUtility.tap(checklistPo.eleChecklistSubmit());
 			 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			 ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWOName);
-			 Thread.sleep(GenericLib.iHighSleep);
+			 Thread.sleep(CommonUtility.iHighSleep);
 			 checklistPo.navigateBacktoWorkOrder(commonUtility);
 			 
 			 
 			//Server validation
 			 toolsPo.syncData(commonUtility);
-			 Thread.sleep(GenericLib.i30SecSleep); 
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(GenericLib.iAttachmentSleep);
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.iAttachmentSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 
 			 String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
 			 String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");
@@ -209,7 +208,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  toolsPo.Resetapp(commonUtility, exploreSearchPo);
 			  lauchNewApp("true");
 			  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,sWOName);	
-			  Thread.sleep(GenericLib.iMedSleep);
+			  Thread.sleep(CommonUtility.iMedSleep);
 			  workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			  
 			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
@@ -239,7 +238,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 					  
 			// Navigating to the checklist
 			  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			  Thread.sleep(GenericLib.iLowSleep);
+			  Thread.sleep(CommonUtility.iLowSleep);
 			  checklistPo.checklistAttach(commonUtility, "Choose from Library",sAttachmentQ); 
 			  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 			  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -250,11 +249,11 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  checklistPo.navigateBacktoWorkOrder(commonUtility);	  
 					  
 			  toolsPo.syncData(commonUtility); 
-			  Thread.sleep(GenericLib.i30SecSleep);
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  System.out.println("Validating if  File is syned to server.");
-			  Thread.sleep(GenericLib.iAttachmentSleep);
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.iAttachmentSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  
 			  String sSoqlchecklistid4="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName2+"\')"; 
 			  String schecklistid4 =restServices.restGetSoqlValue(sSoqlchecklistid4, "Id"); 
@@ -273,11 +272,11 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  checklistPo.DeleteAttachement(commonUtility, sChecklistName);
 			  checklistPo.navigateBacktoWorkOrder(commonUtility);		
 			  toolsPo.syncData(commonUtility);
-			  Thread.sleep(GenericLib.i30SecSleep);
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  System.out.println("Validating if  File is Deleted from server.");
-			  Thread.sleep(GenericLib.iAttachmentSleep);
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.iAttachmentSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  
 			//Checking if file is deleted from server	
 			  assertNotNull(sSoqlFileafter4);
@@ -296,10 +295,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWONameTP);
 			 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 			 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-			 Thread.sleep(GenericLib.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep); 
 			 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			 Thread.sleep(GenericLib.iLowSleep);
+			 Thread.sleep(CommonUtility.iLowSleep);
 			 checklistPo.checklistAttach(commonUtility, "Take Photo", sAttachmentQ);
 			 ExtentManager.logger.log(Status.PASS, "Checklist Attachment Take Photo added sucessfull");
 			 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -308,16 +307,16 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 commonUtility.tap(checklistPo.eleChecklistSubmit());
 			 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			 ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWONameTP);
-			 Thread.sleep(GenericLib.iHighSleep);
+			 Thread.sleep(CommonUtility.iHighSleep);
 			 checklistPo.navigateBacktoWorkOrder(commonUtility);
 			 
 			//Server validation
 			 toolsPo.syncData(commonUtility);
-			 Thread.sleep(GenericLib.i30SecSleep); 
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(GenericLib.iAttachmentSleep);
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.iAttachmentSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 
 			 String sSoqlchecklistid1 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTP+"\')";
 			 String schecklistid1 = restServices.restGetSoqlValue(sSoqlchecklistid1, "Id");
@@ -341,10 +340,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWONameTV);
 			 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 			 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-			 Thread.sleep(GenericLib.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep); 
 			 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 			 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-			 Thread.sleep(GenericLib.iLowSleep);
+			 Thread.sleep(CommonUtility.iLowSleep);
 			 checklistPo.checklistAttach(commonUtility, "Take Video", sAttachmentQ);
 			 ExtentManager.logger.log(Status.PASS, "Checklist Attachment Take Video added sucessfull");
 			 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -353,16 +352,16 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			 commonUtility.tap(checklistPo.eleChecklistSubmit());
 			 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			 ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWONameTV);
-			 Thread.sleep(GenericLib.iHighSleep);
+			 Thread.sleep(CommonUtility.iHighSleep);
 			 checklistPo.navigateBacktoWorkOrder(commonUtility);
 			 
 			//Server validation
 			 toolsPo.syncData(commonUtility);
-			 Thread.sleep(GenericLib.i30SecSleep); 
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep); 
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 System.out.println("Validating if  File is syned to server.");
-			 Thread.sleep(GenericLib.iAttachmentSleep);
-			 Thread.sleep(GenericLib.i30SecSleep);
+			 Thread.sleep(CommonUtility.iAttachmentSleep);
+			 Thread.sleep(CommonUtility.i30SecSleep);
 			 
 			 String sSoqlchecklistid2 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWONameTV+"\')";
 			 String schecklistid2 = restServices.restGetSoqlValue(sSoqlchecklistid2, "Id");
@@ -402,10 +401,10 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName1);
 				 workOrderPo.createNewEvent(commonUtility,sEventSubject, "Test Description");
 				 commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
-				 Thread.sleep(GenericLib.i30SecSleep); 
+				 Thread.sleep(CommonUtility.i30SecSleep); 
 				 workOrderPo.selectAction(commonUtility, sFieldServiceName);
 				 commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-				 Thread.sleep(GenericLib.iLowSleep);
+				 Thread.sleep(CommonUtility.iLowSleep);
 				 checklistPo.checklistAttach(commonUtility, "Choose from Library", sAttachmentQ);
 				 ExtentManager.logger.log(Status.PASS, "Checklist Attachment Choose from library added sucessfull");
 				 commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -414,17 +413,17 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 				 commonUtility.tap(checklistPo.eleChecklistSubmit());
 				 commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 				 ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWOName1);
-				 Thread.sleep(GenericLib.iHighSleep);
+				 Thread.sleep(CommonUtility.iHighSleep);
 				 checklistPo.navigateBacktoWorkOrder(commonUtility);
 				 
 				//Server validation
 				 toolsPo.syncData(commonUtility);
-				 Thread.sleep(GenericLib.i30SecSleep); 
-				 Thread.sleep(GenericLib.i30SecSleep);
+				 Thread.sleep(CommonUtility.i30SecSleep); 
+				 Thread.sleep(CommonUtility.i30SecSleep);
 				 System.out.println("Validating if  File is syned to server.");
-				 Thread.sleep(GenericLib.iAttachmentSleep);
-				 Thread.sleep(GenericLib.i30SecSleep);
-				 Thread.sleep(GenericLib.iMedSleep);
+				 Thread.sleep(CommonUtility.iAttachmentSleep);
+				 Thread.sleep(CommonUtility.i30SecSleep);
+				 Thread.sleep(CommonUtility.iMedSleep);
 				 String sSoqlchecklistid3 ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\')";
 				 String schecklistid3 = restServices.restGetSoqlValue(sSoqlchecklistid3, "Id");	
 				 String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid3+"\')"; 

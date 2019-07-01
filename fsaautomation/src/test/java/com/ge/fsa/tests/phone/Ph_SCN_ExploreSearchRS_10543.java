@@ -7,7 +7,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
@@ -66,10 +65,10 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
-		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";
@@ -88,7 +87,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt).click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName + "\n");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records text is successfully displayed");
@@ -208,7 +207,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 //			}
 			postCleanup();
 			ph_MorePo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		}
 	}
 	

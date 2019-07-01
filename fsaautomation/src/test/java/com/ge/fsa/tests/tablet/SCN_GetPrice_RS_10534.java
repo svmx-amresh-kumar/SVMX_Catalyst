@@ -21,7 +21,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -73,13 +72,13 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
-		String sworkOrderName2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number2");
-		String sProductName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2, "Product Name ");
+		String sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "Work Order Number");
+		String sworkOrderName2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "Work Order Number2");
+		String sProductName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2, "Product Name ");
 		System.out.println(sworkOrderName2);
 	/** 
 	 * To enter the DOD of the Work Order	

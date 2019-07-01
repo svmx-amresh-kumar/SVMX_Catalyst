@@ -22,7 +22,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -76,27 +75,27 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// get Product from the RS-10531
 		String sTestDataValue = "SCN_GetPrice_RS_10531";
-		sProductName10531 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
+		sProductName10531 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10531);
 		// To get the Work Order Name
-		sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		
 		// get Product 2 from the RS-10539
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName210539 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Product2 Name");
+		sProductName210539 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName3,"Product2 Name");
 		System.out.println(sProductName210539);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
+		sInstalledProduct10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		// get Product from the RS-10538
-		sProductName10538 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
+		sProductName10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
 //		
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
