@@ -326,7 +326,7 @@ public class CommonUtility {
 			break;
 
 		case "ios":
-
+			switchContext("Webview");
 			// For IOS
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(x,y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
