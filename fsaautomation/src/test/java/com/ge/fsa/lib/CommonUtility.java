@@ -133,12 +133,10 @@ public class CommonUtility {
 		return elePickerWheelPopUp;
 	}
 
-	@FindAll({@FindBy(xpath = "//XCUIElementTypeButton[@name='Done']"),@FindBy(xpath = "//*[@name='Done']"),@FindBy(id="SFM.LAYOUT.DATETIMEFIELD.DATEPICKER_DONE")})
+	@FindAll({@FindBy(xpath = "//*[@*='Done']"),@FindBy(xpath = "//XCUIElementTypeButton[@name='Done']"),@FindBy(xpath = "//*[@name='Done']"),@FindBy(id="SFM.LAYOUT.DATETIMEFIELD.DATEPICKER_DONE")})
 	private WebElement eleDonePickerWheelBtn;
 
 	public WebElement getEleDonePickerWheelBtn() throws InterruptedException {
-		//Adding Delay on pourpose
-		Thread.sleep(2000);
 		return eleDonePickerWheelBtn;
 	}
 
