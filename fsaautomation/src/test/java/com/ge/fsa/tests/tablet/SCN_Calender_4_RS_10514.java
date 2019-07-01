@@ -11,6 +11,9 @@ import static org.testng.Assert.assertEquals;
 import java.io.IOException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
@@ -42,18 +45,14 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
 	String sSheetName =null;
+	String sTestCaseID="RS_10514_Calender_4";
 	
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
+ 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10514() throws Exception {
 		sSheetName ="RS_10514";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	
-		String sTestCaseID="RS_10514_Calender_4";
 	
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
@@ -237,8 +236,24 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");	
 	  		
 	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
-			
+	
      
+	}
+	@AfterMethod
+	public void resetPermission() throws Exception{
+		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
+  		if(commonUtility.verifySahiExecution()) {
+  			
+  			System.out.println("PASSED");
+  		}
+  		else 
+  		{
+  			System.out.println("FAILED");
+  			
+
+  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
+  			assertEquals(0, 1);
+  		}
 	}
 	
 	

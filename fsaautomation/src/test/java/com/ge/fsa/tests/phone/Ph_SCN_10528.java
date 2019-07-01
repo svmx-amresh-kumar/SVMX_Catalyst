@@ -30,7 +30,7 @@ public class Ph_SCN_10528 extends BaseLib {
 	Boolean bProcessCheckResult;
 	String sProcessName = "AutoReg10528";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10528() throws Exception {
 	
 	bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sProcessName, sScriptName,sTestCaseID);
@@ -81,7 +81,7 @@ public class Ph_SCN_10528 extends BaseLib {
 	ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 	ph_MorePo.syncData(commonUtility);
-	
+	ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 	
 	ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,sProcessName);
 	ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_WorkOrderPo.getLblComponent(), sIbName1);

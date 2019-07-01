@@ -47,16 +47,16 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
+//		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
+//		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
+//		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+//		commonUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
 		

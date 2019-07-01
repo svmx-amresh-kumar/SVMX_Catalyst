@@ -11,7 +11,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10570Test() throws Exception {
 		
 		String sTestCaseID = "RS_10570";

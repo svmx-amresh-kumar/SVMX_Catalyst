@@ -287,6 +287,7 @@ public class CommonUtility {
 
 	// Customised touch LongPress
 	public void longPress(WebElement wElement,int... optionalOffsetPointsxy) throws InterruptedException {
+		Thread.sleep(3000);
 		int x = 0;
 		int y = 0;
 		Point point = wElement.getLocation();

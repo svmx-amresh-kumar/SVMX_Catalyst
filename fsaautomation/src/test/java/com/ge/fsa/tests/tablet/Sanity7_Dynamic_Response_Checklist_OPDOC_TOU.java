@@ -142,7 +142,6 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 
 		commonUtility.tap(checklistPo.eleChecklistSubmit());
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-
 		commonUtility.longPress(checklistPo.geteleChecklistPopupSubmit());
 		
 		
