@@ -31,7 +31,7 @@ public class Ph_SCN_10529 extends BaseLib {
 	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception {
 		
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sProcessName, sScriptName,sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName,sTestCaseID);
 		
 		// Create Product without Description
 		String sProductName = "AshProd";
