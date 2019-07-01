@@ -17,6 +17,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -47,15 +48,15 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sCaseWOID = "DATA_SCN_ScheduledDataSync_RS_10569";	
 		sSheetName = "RS_10569";
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
 		System.out.println(sExploreSearch);
 		
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah",sTestCaseID);
+		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah",sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
@@ -64,7 +65,7 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	public void postscript() throws Exception
 	{
 		// running the Sahi Script Post check - to reset scheduled data sync back to 1000
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah",sTestCaseID);
+		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah",sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		//lauchNewApp("true");

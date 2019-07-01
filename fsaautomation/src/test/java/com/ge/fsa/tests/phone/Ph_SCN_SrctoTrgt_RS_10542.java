@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -87,9 +88,9 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	public void RS_10542Test() throws Exception {
 		
 		sTestID = "RS_10542";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID, "ProcessName");
 		preRequiste();
 
 		// Pre Login to app

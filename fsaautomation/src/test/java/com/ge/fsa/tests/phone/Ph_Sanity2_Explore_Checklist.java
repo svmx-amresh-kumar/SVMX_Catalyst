@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -50,13 +51,13 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		sCaseWOID = "RS_2389_checklistID";
 
 		// Extracting Excel Data
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
 		// sFieldServiceName =
 		// GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,
 		// "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
@@ -65,7 +66,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		// sWOName1 = "WO-00001615";
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);
 
-/*		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS, "Sahi verification is successful");
 */

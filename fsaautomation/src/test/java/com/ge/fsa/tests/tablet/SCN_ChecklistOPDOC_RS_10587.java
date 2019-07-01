@@ -12,6 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -73,15 +74,15 @@ public class SCN_ChecklistOPDOC_RS_10587 extends BaseLib {
 		//sCaseWOID = "Data_SCN_ChecklistOPDOC_1_RS-10585";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistNameAllVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_AllVersions");
-		sChecklistNameFirstVersion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_FirstVersion");
-		sChecklistNameLastVersion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_LastVersion");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistNameAllVersions = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_AllVersions");
+		sChecklistNameFirstVersion = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_FirstVersion");
+		sChecklistNameLastVersion = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName_LastVersion");
 
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
 
 		// Rest to Create Workorder - Work Order -
 		

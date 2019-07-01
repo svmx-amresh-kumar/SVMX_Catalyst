@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -44,11 +45,11 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sChecklistOpDocName =GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sChecklistOpDocName =CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
 	
 		
 		

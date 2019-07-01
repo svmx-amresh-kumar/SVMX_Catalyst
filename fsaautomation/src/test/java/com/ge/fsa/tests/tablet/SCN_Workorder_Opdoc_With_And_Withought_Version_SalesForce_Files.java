@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
@@ -56,10 +57,10 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 		sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 		
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		//sWorkorderOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkorderOpDocName");
 		sWorkorderOpDocName= "OPDOC_WorkOrderOPDOC_Files_Enables";
 		
@@ -98,7 +99,7 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 	
 	   Thread.sleep(GenericLib.iMedSleep);
 	   
-	   genericLib.executeSahiScript("appium/SCN_Work_Order_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
+	   commonUtility.executeSahiScript("appium/SCN_Work_Order_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
 		if(commonUtility.verifySahiExecution()) 
 		{
 			System.out.println("PASSED"); 

@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -54,7 +55,7 @@ int iWhileCnt = 0;
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
-	genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
+	commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
 		if(commonUtility.verifySahiExecution()) {
 			System.out.println("PASSED");
 		}
@@ -64,8 +65,8 @@ int iWhileCnt = 0;
 			assertEquals(0, 1);
 		}
 	
-		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
-			String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
+			String TechName = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			
 			

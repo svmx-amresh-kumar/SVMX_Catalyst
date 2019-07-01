@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 
@@ -59,7 +60,7 @@ int iWhileCnt = 0;
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	
 	
-	String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+	String TechName = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			
 			

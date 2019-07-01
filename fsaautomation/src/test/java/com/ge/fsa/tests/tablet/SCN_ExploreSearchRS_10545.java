@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -156,7 +157,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -166,7 +167,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 	public void RS_10545Test() throws Exception 
 	{
 		sTestID = "RS_10545";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
 		if(Integer.parseInt(sDate[2])>28)
 		{

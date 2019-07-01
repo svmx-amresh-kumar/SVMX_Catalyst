@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -55,7 +56,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 	public void prerequisite() throws Exception {
 
 		// Work Order Creation
-		sTechName=GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		sTechName=CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 		sWorkOrderID = restServices.restCreate("SVMXC__Service_Order__c?",
 				"{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"Low\"}");
 		System.out.println(sWorkOrderID);
@@ -135,7 +136,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 		String sEventName = restServices.restGetSoqlValue(sSqlAccQuery, "Name");
 		System.out.println(sEventName);
 
-		genericLib.executeSahiScript("appium/Sanity12_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/Sanity12_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
@@ -246,7 +247,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			e.printStackTrace();
 		}
 		finally {
-			genericLib.executeSahiScript("appium/Sanity12_postcleanup.sah", sTestID);
+			commonUtility.executeSahiScript("appium/Sanity12_postcleanup.sah", sTestID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		}

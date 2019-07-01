@@ -104,11 +104,11 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		sCaseWOID = "DATA_SCN_Checklist_1_RS-10577_SOU";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -47,7 +48,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -61,10 +62,10 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";
@@ -287,7 +288,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	}
 	
 	private void postCleanup() throws Exception { 
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	

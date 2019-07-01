@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -59,7 +60,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
-		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
+		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
   		if(commonUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -91,7 +92,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			System.out.println(e);
 		}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
+		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
   		if(commonUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -146,7 +147,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
 		      //  stechname = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "TechName2");
-				sSalesforceuser = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"Salesforceuser");
+				sSalesforceuser = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName,"Salesforceuser");
 				stechname="Auto_Tech_1";//Add to config page
 		        
 		        //Globel setting should be set to servicemax event for tech2  
@@ -190,7 +191,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		
-			genericLib.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
+			commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
 	  		if(commonUtility.verifySahiExecution()) {
 	  			
 	  			System.out.println("PASSED");

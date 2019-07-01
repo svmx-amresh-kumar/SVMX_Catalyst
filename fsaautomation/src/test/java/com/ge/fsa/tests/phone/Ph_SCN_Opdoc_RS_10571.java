@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -34,12 +35,12 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreChildSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreChildSearch");
 		System.out.println(sExploreChildSearchTxt);
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
-		sProbDesc = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
+		sProbDesc = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
 		System.out.println("The Value is "+sProbDesc);
 		
 		//**********Create Processes on Sahi**********

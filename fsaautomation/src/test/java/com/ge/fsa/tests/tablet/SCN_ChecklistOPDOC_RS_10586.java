@@ -30,6 +30,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -80,12 +81,12 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");	
-		sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");	
+		sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
 		
 		//Creation of Work Order
 		 sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -97,7 +98,7 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		
 		//Creating a servicemax event and assigning the work order to it.
 		
-		 sTech_Id = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		 sTech_Id = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 		 sSoqlQueryTech = "SELECT+Id+from+SVMXC__Service_Group_Members__c+Where+SVMXC__Salesforce_User__c+=\'"+sTech_Id+"\'";
 			restServices.getAccessToken();
 			 sTechnician_ID = restServices.restGetSoqlValue(sSoqlQueryTech,"Id");

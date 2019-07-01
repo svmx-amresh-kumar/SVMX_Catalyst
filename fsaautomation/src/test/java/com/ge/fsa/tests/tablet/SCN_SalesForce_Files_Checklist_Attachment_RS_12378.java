@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -61,11 +62,11 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		//Work Order for Files --upload from library
 		
@@ -115,7 +116,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	
 	public void postscript() throws Exception
 	{
-		genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+		commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
@@ -138,7 +139,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		
 		  System.out.println("Setting the GBL037 to true");
 		  
-		  genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
+		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
 		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
 		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
@@ -147,7 +148,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
 		  
 		  System.out.println("Setting the SET007 to Flase");
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
@@ -385,7 +386,7 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 			  //Disabling salesforce files
 			  lauchNewApp("true");
 			  
-			  genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",
+			  commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",
 			  "sTestCaseID"); if(commonUtility.verifySahiExecution())
 			  {System.out.println("PASSED"); } else { System.out.println("FAILED");
 			  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +

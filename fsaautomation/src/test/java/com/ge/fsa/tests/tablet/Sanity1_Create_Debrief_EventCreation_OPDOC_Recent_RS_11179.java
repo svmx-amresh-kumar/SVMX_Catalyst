@@ -44,7 +44,7 @@ public void Scenario1Test() throws Exception
 	String sTestDataValue = "SCN_RS_11179";
 	sSheetName ="RS_11179";
 	
-//	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+//	commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 //	Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		String sRandomNumber = commonUtility.generateRandomNumber("");

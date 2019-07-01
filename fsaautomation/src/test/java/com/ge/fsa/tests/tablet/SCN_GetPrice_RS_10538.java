@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -63,7 +64,7 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		Thread.sleep(50000);
 
 	//	 To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10538.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10538.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -85,8 +86,8 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		Thread.sleep(genericLib.iMedSleep);
 //		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
-		String sProductName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Product Name ");
+		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
+		String sProductName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Product Name ");
 		System.out.println(sworkOrderName);
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process

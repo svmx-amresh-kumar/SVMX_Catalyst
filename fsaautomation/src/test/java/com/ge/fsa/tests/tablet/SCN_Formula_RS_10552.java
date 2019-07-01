@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
@@ -97,7 +98,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		genericLib.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
+		commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		
@@ -109,9 +110,9 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 	public void SCN_RS_10552() throws Exception {
 		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app

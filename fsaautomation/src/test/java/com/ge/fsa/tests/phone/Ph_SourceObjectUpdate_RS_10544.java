@@ -23,6 +23,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -103,10 +104,10 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		sCaseWOID = "Data_SCN_SourceObjectUpdate_RS_10544";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
 
 		// Account Creation
 		sObjectApi = "Account?";

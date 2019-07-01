@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -51,10 +52,10 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, "Create New Custom object", "SCN_RecentItems_RS_10565", sTestCaseID);
 
 		// read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ViewProcessNameCustom");
-		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "CreateNewCustomrecord");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "ViewProcessNameCustom");
+		String sFieldServiceName2 = CommonUtility.readExcelData(GenericLib.sTestDataFile, sSheetName, "CreateNewCustomrecord");
 		// String WOname1=GenericLib.readExcelData(GenericLib.sTestDataFile, "WorkOrder");
 
 		String sRandomNumber = commonUtility.generateRandomNumber("");

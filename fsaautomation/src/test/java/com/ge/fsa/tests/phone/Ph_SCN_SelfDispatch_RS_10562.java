@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -45,9 +46,9 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sWOName1 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455";
 		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service. CaseId : "+sWorkOrderID);
 		sTestID = "RS_10562";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		
 		
 		configSync=commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestID);

@@ -26,7 +26,8 @@ import org.testng.annotations.Test;
 
 	import com.aventstack.extentreports.Status;
 	import com.ge.fsa.lib.BaseLib;
-	import com.ge.fsa.lib.ExtentManager;
+import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 	import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
@@ -76,15 +77,15 @@ import io.appium.java_client.touch.offset.PointOption;
 			sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 			sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 			
-			sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-			sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-			sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-			sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-			sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocName");
-			sChecklistNameAllVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistAllVersion");
-			sChecklistNameFirstVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistFirstVersion");
-			sChecklistNameLastVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistLastVersion");
-			sChecklistOpDocNameForversion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocNameVersions");
+			sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+			sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+			sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+			sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+			sChecklistOpDocName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocName");
+			sChecklistNameAllVersions = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistAllVersion");
+			sChecklistNameFirstVersions = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistFirstVersion");
+			sChecklistNameLastVersions = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistLastVersion");
+			sChecklistOpDocNameForversion = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocNameVersions");
 			
 			
 			
@@ -111,7 +112,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		
 		public void postscript() throws Exception
 		{
-			genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+			commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		}
@@ -130,21 +131,21 @@ import io.appium.java_client.touch.offset.PointOption;
 		  
 		
 		
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID
 		  +"Sahi verification failure"); assertEquals(0, 1); }
 		  
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled_Versions.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  
-		  genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
+		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
 		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
 		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
@@ -153,7 +154,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
 		  
 		  System.out.println("Setting the SET007 to Flase");
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");

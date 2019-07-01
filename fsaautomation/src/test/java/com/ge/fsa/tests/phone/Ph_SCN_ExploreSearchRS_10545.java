@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -176,7 +177,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 		
 		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
 
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -186,7 +187,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib{
 	public void RS_10545Test() throws Exception 
 	{
 		sTestID = "RS_10545";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		sDate=commonUtility.getDeviceDate().split(" ");
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal=Calendar.getInstance();

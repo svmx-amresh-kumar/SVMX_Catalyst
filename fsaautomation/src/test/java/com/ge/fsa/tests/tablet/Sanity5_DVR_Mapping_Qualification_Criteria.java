@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -54,7 +55,7 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
 		sWOName2 =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
 
-	/*	genericLib.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
+	/*	commonUtility.executeSahiScript("appium/scenario5_prerequisite.sah", sTestCaseID);
 		//Assert.assertTrue(commonsUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 */
@@ -65,11 +66,11 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 		sSheetName ="SANITY5";
 		sTestCaseID = "SANITY5";
 
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "IssueText");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sIssueTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "IssueText");
+		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "BillingType");
 		preRequiste();
 
 		

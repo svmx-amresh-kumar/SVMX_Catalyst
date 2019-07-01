@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -59,7 +60,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sSerialNumber+"\", \"LastName\": \"RS_10546\", \"AccountId\": \""+sAccountNameA+"\"}");
 		sContactName = sSerialNumber+" "+"RS_10546";
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -69,7 +70,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	public void RS_10546Test() throws Exception 
 	{
 		sTestID = "RS_10549";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		preRequiste();
 
 		//Pre Login to app

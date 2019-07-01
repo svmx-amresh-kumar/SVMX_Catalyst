@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -22,12 +23,12 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 	public void RS_10528() throws Exception {
 		
 		String sTestID = "RS_10528"; 
-		String sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		String sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		String sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		String sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		String sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		String sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		String sZipCode = "51203";
-		String sCountry = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Country");
-		String sCity = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "City");
+		String sCountry = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "Country");
+		String sCity = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "City");
 		String sScriptName = "Scenario_10528";
 		
 		

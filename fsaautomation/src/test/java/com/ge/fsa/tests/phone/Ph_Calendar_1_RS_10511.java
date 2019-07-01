@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -50,17 +51,17 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 		String sTestCaseID="RS_10511_Calender_1";
 		//sahi
  	
-  		 	genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah", sTestCaseID);
+  		 	commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah", sTestCaseID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 
   		
-		String sWO_SFDC_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
-		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
+		String sWO_SFDC_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
+		String sWO_SVMX_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
 		
 		
-		String sSalesforceuser= GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
-		String sTechname2 = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
+		String sSalesforceuser= CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
+		String sTechname2 = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
 	
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			

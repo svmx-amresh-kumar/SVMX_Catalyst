@@ -69,7 +69,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001550";
-		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+		commonUtility.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");	
 	}
@@ -81,12 +81,12 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
-		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
-		sOrderStatus = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
+		sIssueTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
+		sOrderStatus = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
+		sBillingType = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";

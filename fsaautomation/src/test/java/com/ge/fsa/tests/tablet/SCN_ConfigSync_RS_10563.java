@@ -34,7 +34,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		// Add Processes
 		commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
 		
-		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		lauchNewApp("false");
 		loginHomePo.login(commonUtility, exploreSearchPo);	

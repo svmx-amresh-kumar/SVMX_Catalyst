@@ -47,7 +47,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		// sahi
 
 	
-		 genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", sTestCaseID);
+		 commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", sTestCaseID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 			lauchNewApp("true");

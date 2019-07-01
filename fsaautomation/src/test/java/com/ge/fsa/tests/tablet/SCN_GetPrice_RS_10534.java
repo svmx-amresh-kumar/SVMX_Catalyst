@@ -19,6 +19,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -53,7 +54,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		sSheetName2 = "RS_10538";
 		System.out.println("SCN_GetPrice_RS_10534");
 		// To run the Sahi Script before the Execution of Appium
-		genericLib.executeSahiScript("appium/Scenario_10534_before.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10534_before.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -76,9 +77,9 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 		// Get the Work Order from the sheet
 		String sTestDataValue1 = "SCN_GetPrice_RS_10534";
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
-		String sworkOrderName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number2");
-		String sProductName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2, "Product Name ");
+		String sworkOrderName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number");
+		String sworkOrderName2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "Work Order Number2");
+		String sProductName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName2, "Product Name ");
 		System.out.println(sworkOrderName2);
 	/** 
 	 * To enter the DOD of the Work Order	
@@ -461,7 +462,7 @@ public class SCN_GetPrice_RS_10534 extends BaseLib {
 			//NXGReports.addStep("Testcase " + sTestCaseID + "The Childlines After Sync is "+sChildlinesAfter, LogAs.PASSED, null);
 			System.out.println("The Childlines After Sync is "+sChildlines2);
 		}
-		genericLib.executeSahiScript("appium/Scenario_10534_after.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10534_after.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

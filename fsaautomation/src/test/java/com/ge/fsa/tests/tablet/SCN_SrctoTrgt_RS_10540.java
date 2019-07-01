@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -71,7 +72,7 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		//sIBName1 ="IB_10540_27092018155351";
 		//sIBName2 = "IB_10540_27092018155358";
 		
-		genericLib.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -86,9 +87,9 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		lauchNewApp("false");
 		
 		sTestID = "RS_10540";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
 		preRequiste();
 		
 		//Pre Login to app

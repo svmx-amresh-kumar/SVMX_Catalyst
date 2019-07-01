@@ -27,6 +27,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -72,7 +73,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
-  		genericLib.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
+  		commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
   		if(commonUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -89,18 +90,18 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
   		System.out.println("RS_10511");
 	
 	//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
 		
-		String sWO_SFDC_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
-		String sWO_SFDC_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
-		String sWO_SFDC_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_3");		
-		String sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
-		String sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
-		String sWO_SVMX_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
-		String sSalesforceuser= GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
-		String sTechname2 = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
+		String sWO_SFDC_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_3 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_3");		
+		String sWO_SVMX_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
+		String sWO_SVMX_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
+		String sWO_SVMX_3 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
+		String sSalesforceuser= CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
+		String sTechname2 = CommonUtility.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
 	
 		//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);

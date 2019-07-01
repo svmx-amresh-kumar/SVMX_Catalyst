@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -126,7 +127,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sObjectID+"\'";				
 		sWOName5 =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10548_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -135,7 +136,7 @@ public class SCN_ExploreSearchRS_10548 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		
 		try {
 		preRequiste();

@@ -18,7 +18,7 @@ public class Sanity4_PIQ extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario4Test() throws Exception {
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		// Create Account

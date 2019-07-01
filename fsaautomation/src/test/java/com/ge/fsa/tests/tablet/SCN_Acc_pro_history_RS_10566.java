@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -60,7 +61,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
+		  commonUtility.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
 		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -104,10 +105,10 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ViewProcessNameAccPro");
-		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ViewProcessNameAccPro");
+		String sFieldServiceName2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 			//Pre Login to app

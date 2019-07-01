@@ -78,11 +78,11 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		//WorkOrder for Choose from Library
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
@@ -121,7 +121,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		/*------------------------------------------option for choose from library -------------------------------------------------------*/
 		//Set the setting SET007 to True
 	
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_True.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
@@ -156,7 +156,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  lauchNewApp("true");
 		  
 		  //Set the setting SET007 to False 
-		  genericLib.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
+		  commonUtility.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +"Sahi verification failure"); assertEquals(0, 1); }

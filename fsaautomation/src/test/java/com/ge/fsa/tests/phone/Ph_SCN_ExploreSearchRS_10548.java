@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -157,7 +158,7 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
 		
 		preRequiste();
 		

@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -68,11 +69,11 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-9726";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sChecklistName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 		  //WorkOrder for Choose from Library 
@@ -113,7 +114,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 /*------------------------------------------option for choose from library -------------------------------------------------------*/
 		//Set the setting SET007 to True
 		
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_True.sah",
 		  "sTestCaseID"); if(commonUtility.verifySahiExecution()) {
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -121,7 +122,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  "Sahi verification failure"); assertEquals(0, 1); }
 		  
 		/*
-		 * genericLib.executeSahiScript("appium/Checklist_preRequisite.sah",
+		 * commonUtility.executeSahiScript("appium/Checklist_preRequisite.sah",
 		 * sTestCaseID); Assert.assertTrue(commonUtility.verifySahiExecution(),
 		 * "Failed to execute Sahi script");
 		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
@@ -155,7 +156,7 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		  lauchNewApp("true");
 		
 		//Set the setting SET007 to False
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");

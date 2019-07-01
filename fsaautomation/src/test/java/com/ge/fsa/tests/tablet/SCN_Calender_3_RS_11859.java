@@ -21,6 +21,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
@@ -52,7 +53,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
+		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
 		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -65,8 +66,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		 
 	
 	//read from file		
-		String sWO_SFDC_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
-		String sWO_SFDC_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
+		String sWO_SFDC_1 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_1");
+		String sWO_SFDC_2 = CommonUtility.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SFDC_2");
 		
 		
 		
