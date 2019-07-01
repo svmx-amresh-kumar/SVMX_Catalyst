@@ -13,8 +13,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 
@@ -73,7 +73,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		sSubject = "Testing "+sTestCaseID;
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard
-		genericLib.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
+		commonUtility.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		
@@ -192,14 +192,14 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		PreRequisites1();	
 		//Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		// Perform Config Sync
 		//toolsPo.configSync(commonsUtility);		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// Need to sync the data
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		// Creating the Work Order
 		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonUtility);
@@ -222,10 +222,10 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		System.out.println("Sucessfully validated Create Event from WorkOrder after creating workOrder from FSA App");
 		
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 //------------------Script to read a work Order and create an Event for it.----------------		
 		
 		//Navigation to SFM
@@ -253,14 +253,14 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 //				commonsUtility.switchContext("Webview");
 				commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateAndTimeTxtFld(), 0,"0","0");
 				commonUtility.tap(workOrderPo.getEleSaveLnk());
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 
 				//Validation of auto update process
 				Assert.assertTrue(workOrderPo.getEleSavedSuccessTxt().isDisplayed(), "Update process is not successful.");
 				ExtentManager.logger.log(Status.PASS,"Event saved successfully.");
 				
 				commonUtility.tap(calendarPO.getEleCalendarIcn());
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 				//toolsPo.syncData(commonsUtility);
 				syncwithConflict();
 
@@ -272,7 +272,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 
 				// Perform Config Sync
 			//	toolsPo.configSync(commonsUtility);		
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 			
 				syncwithConflict();
 					//workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);

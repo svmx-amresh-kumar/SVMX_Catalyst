@@ -13,8 +13,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
@@ -35,14 +35,14 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 				
-				genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah");
+				commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah");
 				Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
 	public void postscript() throws Exception
 	{
-		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah",sTestCaseID);
+		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah",sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
@@ -50,18 +50,18 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10561() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");	
 		prerequisites();
 	// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility);
 		ExtentManager.logger.log(Status.PASS,"First Config sync is sucessfull after setting value");
 		System.out.println("First Config Sync sucessfull after setting value");
 		System.out.println("Begining wait to check for config sync due is displayed after 5 minutes");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//need to wait for a minimum of 5 minutes for the pop up to show up
 		Thread.sleep(400000);
 		System.out.println("wait ended to check for config sync due is displayed after 5 minutes");
@@ -80,8 +80,8 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 			System.out.println("Could not find the popup config sync pop up button this time");
 		}	*/
 		
-		Thread.sleep(GenericLib.i30SecSleep);
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 		Thread.sleep(40000);
 		//Getting the value of 1 in Tools icon as there is a config sync due
 		sConfigSyncDueBadge =  toolsPo.geeteleConflictBadge().getText();
@@ -104,7 +104,7 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		
 		
 		//Performing config after resetting config sync setting back to 600 and validate if badge is still visible.
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		toolsPo.configSync(commonUtility);
 		System.out.println("Second Config Sync sucessfull after resetting value");
 		

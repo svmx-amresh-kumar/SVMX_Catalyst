@@ -13,7 +13,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.MobileBy;
@@ -78,11 +77,11 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		sCaseWOID = "Data_SCN_ChecklistAttachment_RS_10584";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		//WorkOrder for Choose from Library
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
@@ -102,7 +101,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		System.out.println(sWORecordID2);
 		sWOName2= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID2 + "\'", "Name");
 		System.out.println("WO no =" + sWOName2);
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sChecklistName, sTestCaseID);		
 
 	
 	}
@@ -116,12 +115,12 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		/*------------------------------------------option for choose from library -------------------------------------------------------*/
 		//Set the setting SET007 to True
 	
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_True.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
@@ -145,7 +144,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  //driver.findElementByAccessibilityId("Attach").click();
 		  //commonsUtility.switchContext("WebView");
 		  checklistPo.clickAttach(commonUtility);
-		  commonUtility.switchContext("WebView"); Thread.sleep(GenericLib.iLowSleep);
+		  commonUtility.switchContext("WebView"); Thread.sleep(CommonUtility.iLowSleep);
 		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
 		  
 		  //Checking for Option Choose from Library
@@ -156,7 +155,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  lauchNewApp("true");
 		  
 		  //Set the setting SET007 to False 
-		  genericLib.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
+		  commonUtility.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +"Sahi verification failure"); assertEquals(0, 1); }
@@ -179,7 +178,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  //driver.findElementByAccessibilityId("Attach").click();
 		  //commonsUtility.switchContext("WebView");
 		  checklistPo.clickAttach(commonUtility);
-		  commonUtility.switchContext("WebView"); Thread.sleep(GenericLib.iLowSleep);
+		  commonUtility.switchContext("WebView"); Thread.sleep(CommonUtility.iLowSleep);
 		  System.out.println(checklistPo.getElechoosefromlib().isDisplayed());
 		  
 		  //Checking for Option Choose from Library
@@ -197,7 +196,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		checklistPo.checklistAttach(commonUtility, "Choose from Library", sAttachmentQ);
 		ExtentManager.logger.log(Status.PASS, "Checklist Attachment Choose from library added sucessfull");
 		commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -206,21 +205,21 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		commonUtility.tap(checklistPo.eleChecklistSubmit());
 		commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		ExtentManager.logger.log(Status.PASS, "Checklist is submitted sucessfully for Work Order" + sWOName);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		
 		// Navigating back to work Orders
 		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 		System.out.println("Tapped on default title for checklist");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(checklistPo.geteleShowCompletedChecklist(), 15, 18);
 		commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"),
 				sAttachText, "Attachment Text is not "+sAttachText+"displayed");
 		ExtentManager.logger.log(Status.PASS, "Attachment text"+sAttachText +"is visible in completed Checklist" + sChecklistName);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		commonUtility.tap(checklistPo.eleChecklistImage(), 20, 20);
 		commonUtility.switchContext("Native");
 		
@@ -244,11 +243,11 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 
 			    workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,sWOName1);	
-			    Thread.sleep(GenericLib.iMedSleep);
+			    Thread.sleep(CommonUtility.iMedSleep);
 				workOrderPo.selectAction(commonUtility, sFieldServiceName);
 				// Navigating to the checklist
 				commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 				//assertFalse(commonsUtility.isDisplayedCust(checklistPo.eleAttachNew()));
 				//ExtentManager.logger.log(Status.PASS,"Attach New link is not visible");
 				checklistPo.checklistAttach(commonUtility, "Take Video",sAttachmentQ);
@@ -258,7 +257,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				//assertEquals(checklistPo.eleAttachNew().isDisplayed(),true);
 				//ExtentManager.logger.log(Status.PASS,"Attach New link visible after attaching video");
 				commonUtility.switchContext("WebView");
-				Thread.sleep(GenericLib.iHighSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
 				commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
 				checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").sendKeys("AttachmentChecklistupload");
 				commonUtility.tap(checklistPo.geteleNext());
@@ -270,17 +269,17 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 				workOrderPo.selectAction(commonUtility, sFieldServiceName);
 				System.out.println("Tapped on default title for checklist");
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 				commonUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
 				commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 				
 				Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"), sAttachText, "Attachment Text is displayed");
 				ExtentManager.logger.log(Status.PASS,"Attachment text is visible for video attachment in completed Checklist:"+sChecklistName);
-				Thread.sleep(GenericLib.iHighSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
 				
 				commonUtility.tap(checklistPo.eleChecklistVideo(),20,20);
 				commonUtility.switchContext("Native");
-				Thread.sleep(GenericLib.iHighSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
 				
 		if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
 			((AndroidDriver<MobileElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -318,7 +317,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				workOrderPo.selectAction(commonUtility, sFieldServiceName);
 				// Navigating to the checklist
 				commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 				checklistPo.checklistAttach(commonUtility, "Take Photo",sAttachmentQ);
 				ExtentManager.logger.log(Status.PASS,"Checklist Attachment Take Photo added sucessfull");
 				commonUtility.switchContext("WebView");
@@ -333,13 +332,13 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 				workOrderPo.selectAction(commonUtility, sFieldServiceName);
 				System.out.println("Tapped on default title for checklist");
-				Thread.sleep(GenericLib.iLowSleep);
+				Thread.sleep(CommonUtility.iLowSleep);
 				commonUtility.tap(checklistPo.geteleShowCompletedChecklist(),15,18);
 				commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 				
 				Assert.assertEquals(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1").getAttribute("value"), sAttachText, "Attachment Text is displayed");
 				ExtentManager.logger.log(Status.PASS,"Attachment text is visible for take photo in completed Checklist:"+sChecklistName);
-				Thread.sleep(GenericLib.iHighSleep);
+				Thread.sleep(CommonUtility.iHighSleep);
 				commonUtility.tap(checklistPo.eleChecklistImage(),20,20);
 				commonUtility.switchContext("Native");
 				
@@ -361,14 +360,14 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 				//Navigating back to WorkOrder Screen as Tools button will not be visible from checklists
 				//checklistPo.navigateBacktoWorkOrder(commonsUtility);	
 				toolsPo.syncData(commonUtility);
-				Thread.sleep(GenericLib.i30SecSleep);
-			  	Thread.sleep(GenericLib.i30SecSleep);
+				Thread.sleep(CommonUtility.i30SecSleep);
+			  	Thread.sleep(CommonUtility.i30SecSleep);
 				
 				System.out.println("Validating if  attachment is syned to server.");
-				Thread.sleep(GenericLib.iAttachmentSleep);
-			  	Thread.sleep(GenericLib.i30SecSleep);
-			  	Thread.sleep(GenericLib.i30SecSleep);
-			  	Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iAttachmentSleep);
+			  	Thread.sleep(CommonUtility.i30SecSleep);
+			  	Thread.sleep(CommonUtility.i30SecSleep);
+			  	Thread.sleep(CommonUtility.iMedSleep);
 			  	String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')";
 			  	String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");	
 			  	String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"+schecklistid+"\')"; 

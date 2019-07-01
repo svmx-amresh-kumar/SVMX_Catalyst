@@ -10,8 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 /**
@@ -69,7 +70,7 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 		System.out.println(sContactName);
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// Creating the Work Order - To create the Childlines
 		createNewPO.createWorkOrder(commonUtility,sAccountName,sContactName, sProductName, "Medium", "Loan", sProformainVoice);
 		toolsPo.syncData(commonUtility);

@@ -22,8 +22,8 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -56,7 +56,7 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		sSheetName3 = "RS_10537";
 		System.out.println("SCN_GetPriceSCON_RS_10537");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10537.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10537.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -76,23 +76,23 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// get Product from the RS-10539
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
-		sProductName10539 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product2 Name");
+		sProductName10539 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Product2 Name");
 		System.out.println(sProductName10539);
 		// get Product from the RS-10538
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
-		sProductName10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
+		sProductName10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
+		sInstalledProduct10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		
 		// get Work Order from the RS-10537
 		String sTestDataValue3 = "SCN_GetPrice_RS_10537";
-		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName3,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		

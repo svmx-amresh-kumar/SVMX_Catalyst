@@ -20,7 +20,6 @@ import com.ge.fsa.lib.CommonUtility;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
@@ -47,7 +46,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		// sahi
 
 	
-		 genericLib.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", sTestCaseID);
+		 commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah", sTestCaseID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 			lauchNewApp("true");
@@ -58,7 +57,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		ph_MorePo.syncData(commonUtility);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		// verify WO event is present or not

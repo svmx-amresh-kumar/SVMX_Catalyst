@@ -21,8 +21,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 
@@ -92,10 +92,10 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 				
 
 				//Reading from the Excel sheet
-				sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-				sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-				sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-				sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+				sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+				sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+				sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+				sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 					
 				
 				//Account Creation
@@ -140,7 +140,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 					
 			//	sWOName = "WO-00002177";
 			
-			bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+			bProcessCheckResult =commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);		
 
 			}
 			
@@ -156,22 +156,22 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//toolsPo.configSync(commonsUtility);			
 		
 		//Navigation to WO	
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//Set the order status
 		
 		System.out.println("Waiting to set order status");
 		commonUtility.setPickerWheelValue(workOrderPo.geteleOrderStatusEditMandatoryValue(), sOrderStatus);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//SEtting Account
 		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.lookupSearch(sAccountName);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());	
 		
@@ -182,7 +182,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
 		}
 		
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		commonUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 		
@@ -243,7 +243,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	    
 	    commonsUtility.tap(workOrderPo.getEleDoneBtn()); */ 
 	    commonUtility.tap(workOrderPo.getEleClickSave());
-	    Thread.sleep(genericLib.iMedSleep);
+	    Thread.sleep(CommonUtility.iMedSleep);
 		//commonsUtility.tap(workOrderPo.geteleBacktoWorkOrderlnk());
 
 		toolsPo.syncData(commonUtility);
@@ -291,9 +291,9 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 	    
 		
 		//Validation of SOURCE OBJECT UPDATE AFTER SERVER Verification back in client
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
 		

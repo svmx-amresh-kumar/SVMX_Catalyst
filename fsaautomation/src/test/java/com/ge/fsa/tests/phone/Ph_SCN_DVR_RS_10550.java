@@ -16,8 +16,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -73,10 +73,10 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		String sAccountNameToCreate1 = "Auto_10550_Account1";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
 
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
@@ -106,7 +106,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		System.out.println(sAccountName1);
 
 		// Validating the SFM process
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 	}
 
 	@Test(retryAnalyzer = Retry.class)
@@ -126,7 +126,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 
 		// Setting up Data for DVR billing type picklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.custScrollToElement(ph_CreateNewPo.getElebillingtype());
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), sBillingTypeDVR);
 
@@ -208,7 +208,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0");
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS, "DATE Literal Today validation passed");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019");
 		// eleAccountLookUp DVR
 		Thread.sleep(2000);
@@ -246,9 +246,9 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		 * }
 		 */
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		ph_CalendarPo.getEleCalendarBtn().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 
 		// navigating to SFM

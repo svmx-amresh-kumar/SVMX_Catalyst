@@ -21,8 +21,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -65,7 +66,7 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 		Thread.sleep(1000);
 		// To sync the Data
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Installed Products", sIBName);	
 		String sProcessname = "RS_10547CreateWOfromIB";// Standard SFM Process
 		Thread.sleep(2000);

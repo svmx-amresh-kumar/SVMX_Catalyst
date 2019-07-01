@@ -18,7 +18,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_ExploreSearchPO;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
@@ -69,7 +68,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001550";
-		genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+		commonUtility.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");	
 	}
@@ -81,12 +80,12 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
-		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
-		sOrderStatus = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ProcessName");
+		sIssueTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "IssueText");
+		sOrderStatus = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "OrderStatus");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
@@ -97,11 +96,11 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		//Config Sync for process
 		ph_MorePo.OptionalConfigSync(commonUtility,ph_CalendarPo,bProcessCheckResult);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		//Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		
 		//Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,sExploreSearch,sExploreChildSearchTxt,sCaseID,sFieldServiceName);
@@ -131,11 +130,11 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		//Set the order status
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		//billing type
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), "Loan");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		//Add the workorder parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);

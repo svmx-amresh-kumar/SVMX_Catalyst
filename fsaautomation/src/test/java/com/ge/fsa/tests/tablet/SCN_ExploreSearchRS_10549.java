@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_ExploreSearchRS_10549 extends BaseLib {
@@ -17,7 +17,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 	
 	private void preRequiste() throws Exception  
 	{
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
@@ -26,7 +26,7 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 	public void RS_10549Test() throws Exception 
 	{
 		sTestID = "RS_10549";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		
 	try {
 		preRequiste();
@@ -36,11 +36,11 @@ public class SCN_ExploreSearchRS_10549 extends BaseLib {
 
 		//Config Sync for process
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 
 		//Navigation to SFM
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());

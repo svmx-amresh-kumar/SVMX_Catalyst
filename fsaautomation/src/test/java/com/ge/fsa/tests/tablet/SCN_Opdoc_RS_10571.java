@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Opdoc_RS_10571 extends BaseLib{
@@ -35,18 +35,18 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void SCN_Opdoc_RS_10571() throws Exception {
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestCaseID,"ExploreChildSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreChildSearch");
 		System.out.println(sExploreChildSearchTxt);
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProcessName");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProcessName");
 		System.out.println(sFieldServiceName);
-		sProbDesc = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestCaseID, "ProbDesc");
+		sProbDesc = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProbDesc");
 		System.out.println("The Value is "+sProbDesc);
 //		iValToIncrease = Integer.parseInt(GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");
@@ -59,11 +59,11 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		
 		//************Perform Data Sync************
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//************Perform Config Sync************
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//************Navigate to SFM************
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
@@ -74,7 +74,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		iValNoOfTimesAssigned = Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value"));
 		Assert.assertEquals(workOrderPo.getTxtNumber().getAttribute("value"),"10");
 		commonUtility.tap(workOrderPo.getEleClickSave());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.selectAction(commonUtility, "Auto_Regression_10571");
 		workOrderPo.getEleDoneLnk().click();
 //		commonsUtility.tap(workOrderPo.getEleDoneLnk());

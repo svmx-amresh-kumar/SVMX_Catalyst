@@ -20,8 +20,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -55,7 +55,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		sSheetName3 = "RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10531");
 		// To run the Sahi Script before the Execution of Appium - 10531
-		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah");
+		commonUtility.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -75,27 +75,27 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// get Product from the RS-10531
 		String sTestDataValue = "SCN_GetPrice_RS_10531";
-		sProductName10531 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
+		sProductName10531 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10531);
 		// To get the Work Order Name
-		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
 		
 		
 		// get Product 2 from the RS-10539
 		String sTestDataValue2 = "SCN_GetPrice_RS_10538";
 		String sTestDataValue3 = "SCN_GetPriceSCON_RS_10539";
-		sProductName210539 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName3,"Product2 Name");
+		sProductName210539 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName3,"Product2 Name");
 		System.out.println(sProductName210539);
 		
 		// get IB from the RS-10538
-		sInstalledProduct10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Installed Product Name");
+		sInstalledProduct10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Installed Product Name");
 		System.out.println(sInstalledProduct10538);
 		// get Product from the RS-10538
-		sProductName10538 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName2,"Product Name ");
+		sProductName10538 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName2,"Product Name ");
 		System.out.println(sProductName10538);
 //		
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
@@ -174,7 +174,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		
 		// ==========================================================================================================
 		 //To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
-		genericLib.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah");
+		commonUtility.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");

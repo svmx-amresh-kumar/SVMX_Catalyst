@@ -16,7 +16,7 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -362,7 +362,7 @@ public class Ph_ChecklistPO
 	
 	public void AllowCamerabutton(CommonUtility commonUtility) throws Exception {
 		commonUtility.switchContext("Native");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		try {
 			driver.findElementByAccessibilityId("OK").click();
 
@@ -444,7 +444,7 @@ public class Ph_ChecklistPO
 				}
 			}
 			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				AllowCamerabutton(commonUtility);
 				// commonUtility.switchContext("Native");
 				Thread.sleep(5000);
@@ -454,7 +454,7 @@ public class Ph_ChecklistPO
 			}
 
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				AllowCamerabutton(commonUtility);
 				// com.apple.camera
 				commonUtility.switchContext("Native");

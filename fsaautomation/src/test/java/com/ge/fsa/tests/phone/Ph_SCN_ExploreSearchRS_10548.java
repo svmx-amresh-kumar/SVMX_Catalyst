@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
@@ -150,14 +150,14 @@ public class Ph_SCN_ExploreSearchRS_10548 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with Location : "+sLocationE+" WorkOrder : "+sObjectID);
 
 		
-		configSync=commonUtility.ProcessCheck(restServices, genericLib, sExploreSearch, "SCN_Explore_RS_10548_prerequisite", sTestID);
+		configSync=commonUtility.ProcessCheck(restServices, sExploreSearch, "SCN_Explore_RS_10548_prerequisite", sTestID);
 
 	}
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10548Test() throws Exception {
 		sTestID = "RS_10548";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		
 		preRequiste();
 		

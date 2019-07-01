@@ -26,8 +26,8 @@ import org.testng.annotations.Test;
 
 	import com.aventstack.extentreports.Status;
 	import com.ge.fsa.lib.BaseLib;
-	import com.ge.fsa.lib.ExtentManager;
-	import com.ge.fsa.lib.GenericLib;
+import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
@@ -76,15 +76,15 @@ import io.appium.java_client.touch.offset.PointOption;
 			sTestCaseID = "SCN_Workoreder_Attachment_RS-12367";
 			sCaseWOID = "Data_SCN_Workoreder_Attachment_RS-12367";
 			
-			sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-			sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-			sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-			sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-			sChecklistOpDocName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocName");
-			sChecklistNameAllVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistAllVersion");
-			sChecklistNameFirstVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistFirstVersion");
-			sChecklistNameLastVersions = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistLastVersion");
-			sChecklistOpDocNameForversion = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "sChecklistOpDocNameVersions");
+			sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+			sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+			sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+			sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+			sChecklistOpDocName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "sChecklistOpDocName");
+			sChecklistNameAllVersions = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistAllVersion");
+			sChecklistNameFirstVersions = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistFirstVersion");
+			sChecklistNameLastVersions = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistLastVersion");
+			sChecklistOpDocNameForversion = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "sChecklistOpDocNameVersions");
 			
 			
 			
@@ -111,7 +111,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		
 		public void postscript() throws Exception
 		{
-			genericLib.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
+			commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
 			Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		}
@@ -126,25 +126,25 @@ import io.appium.java_client.touch.offset.PointOption;
 			// Data Sync for WO's created
 			toolsPo.syncData(commonUtility);
 		
-		   Thread.sleep(GenericLib.iMedSleep);
+		   Thread.sleep(CommonUtility.iMedSleep);
 		  
 		
 		
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID
 		  +"Sahi verification failure"); assertEquals(0, 1); }
 		  
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled_Versions.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
 		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
 		  
-		  genericLib.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
+		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
 		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
 		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
@@ -153,7 +153,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
 		  
 		  System.out.println("Setting the SET007 to Flase");
-		  genericLib.executeSahiScript(
+		  commonUtility.executeSahiScript(
 		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
 		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
 		  { System.out.println("FAILED");
@@ -173,7 +173,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch,sExploreChildSearchTxt, sWOName); 
 		  workOrderPo.selectAction(commonUtility,sFieldServiceName);
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library",sAttachmentQ); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestion1"));
@@ -183,17 +183,17 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 		  ExtentManager.logger.log(Status.PASS,"Checklist is submitted sucessfully for Work Order" + sWOName);
 		  System.out.println("Checklist is submitted sucessfully");
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  checklistPo.navigateBacktoWorkOrder(commonUtility);
 		  
 		  
 		  //Server validation 
 		  toolsPo.syncData(commonUtility);
-		  Thread.sleep(GenericLib.i30SecSleep); 
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep); 
+		  Thread.sleep(CommonUtility.i30SecSleep);
 		  System.out.println("Validating if  File is syned to server.");
 		  Thread.sleep(60000); 
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
 		  
 		  String sSoqlchecklistid ="SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\')"; 
 		  String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id"); 
@@ -216,14 +216,14 @@ import io.appium.java_client.touch.offset.PointOption;
 		  checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo,sChecklistOpDocName,sWOName,sFileTitleafter);
 		  System.out.println("OPDoc validation submitted successfully");
 		  commonUtility.tap(workOrderPo.getEleDoneLnk());
-		  Thread.sleep(GenericLib.i30SecSleep);
+		  Thread.sleep(CommonUtility.i30SecSleep);
 		  ((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  ((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		  Thread.sleep(GenericLib.i30SecSleep); 
+		  Thread.sleep(CommonUtility.i30SecSleep); 
 		  toolsPo.syncData(commonUtility);
-		  Thread.sleep(GenericLib.iMedSleep);
-		  Thread.sleep(GenericLib.iMedSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
+		  Thread.sleep(CommonUtility.iMedSleep);
 		  Thread.sleep(20000); 
 		  System.out.println("Opdoc is synced to server");
 		  String sSoqlWorkorderid2 = "select id from SVMXC__Service_Order__c where name =\'"+sWOName+"\'"; 
@@ -255,7 +255,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  sExploreSearch,sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility,sFieldServiceName);
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameAllVersions));
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionAllVersion");
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionAllVersion"));
@@ -271,9 +271,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,
 		  sExploreSearch,sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility,sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionAllVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionAllVersion"));
@@ -288,9 +288,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true"); 
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameAllVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library", "AttachmentQuestionAllVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionAllVersion"));
@@ -298,7 +298,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleNext());
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  System.out.println("Third Checklist sumitted successfully For All versions");
 		  ExtentManager.logger.log(Status.INFO,"Third Checklist sumitted successfully For All versions");
 		 
@@ -307,9 +307,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch,
 		  sExploreChildSearchTxt, sWOName1); 
 		  workOrderPo.selectAction(commonUtility,sFieldServiceName); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameFirstVersions)); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionFirstVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionFirstVersion"));
@@ -324,9 +324,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true"); 
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionFirstVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionFirstVersion"));
@@ -334,7 +334,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleNext());
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  System.out.println("Second Checklist sumitted successfully For First versions");
 		  ExtentManager.logger.log(Status.INFO,"Second Checklist sumitted successfully For First versions");
 		  
@@ -342,9 +342,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true");
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameFirstVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionFirstVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionFirstVersion"));
@@ -352,7 +352,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleNext());
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  System.out.println("Third Checklist sumitted successfully For First versions");
 		  ExtentManager.logger.log(Status.INFO,"Third Checklist sumitted successfully For First versions");
 		  
@@ -360,9 +360,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true");
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch,sExploreChildSearchTxt, sWOName1); 
 		  workOrderPo.selectAction(commonUtility,sFieldServiceName); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.geteleChecklistName(sChecklistNameLastVersions));
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionLastVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionLastVersion"));
@@ -377,9 +377,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true"); 
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionLastVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionLastVersion"));
@@ -387,7 +387,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleNext());
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  System.out.println("Second Checklist sumitted successfully For Last versions");
 		  ExtentManager.logger.log(Status.INFO,"Second Checklist sumitted successfully For Last versions");
 		  
@@ -395,9 +395,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		  lauchNewApp("true"); 
 		  workOrderPo.navigatetoWO(commonUtility, exploreSearchPo,sExploreSearch, sExploreChildSearchTxt, sWOName1);
 		  workOrderPo.selectAction(commonUtility, sFieldServiceName);
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  commonUtility.tap(checklistPo.getEleStartNewLnk(sChecklistNameLastVersions),20,20); 
-		  Thread.sleep(GenericLib.iLowSleep);
+		  Thread.sleep(CommonUtility.iLowSleep);
 		  checklistPo.checklistAttach(commonUtility, "Choose from Library","AttachmentQuestionLastVersion"); 
 		  ExtentManager.logger.log(Status.PASS,"Checklist Attachment Choose from library added sucessfull");
 		  commonUtility.tap(checklistPo.geteleChecklistAnswerInput("AttachmentQuestionLastVersion"));
@@ -405,7 +405,7 @@ import io.appium.java_client.touch.offset.PointOption;
 		  commonUtility.tap(checklistPo.geteleNext());
 		  commonUtility.tap(checklistPo.eleChecklistSubmit());
 		  commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
-		  Thread.sleep(GenericLib.iHighSleep);
+		  Thread.sleep(CommonUtility.iHighSleep);
 		  System.out.println("Third Checklist sumitted successfully For Last versions");
 		  ExtentManager.logger.log(Status.INFO,"Third Checklist sumitted successfully For Last versions");
 		  
@@ -418,14 +418,14 @@ import io.appium.java_client.touch.offset.PointOption;
 		   workOrderPo.selectAction(commonUtility, sChecklistOpDocNameForversion);
 		 //List<WebElement> e =driver.findElements(By.xpath("//*[contains(@label,'SCN_ChecklistOPDOC_Files_allversions')]"));
 		   commonUtility.tap(workOrderPo.getEleDoneLnk());
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  ((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-			  Thread.sleep(GenericLib.iHighSleep);
+			  Thread.sleep(CommonUtility.iHighSleep);
 			  ((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-			  Thread.sleep(GenericLib.i30SecSleep);
+			  Thread.sleep(CommonUtility.i30SecSleep);
 			  toolsPo.syncData(commonUtility);
-			  Thread.sleep(GenericLib.iMedSleep); 
-			  Thread.sleep(GenericLib.iMedSleep);
+			  Thread.sleep(CommonUtility.iMedSleep); 
+			  Thread.sleep(CommonUtility.iMedSleep);
 			  Thread.sleep(20000); 
 			  String sSoqlWorkorderid3 =
 			  "select id from SVMXC__Service_Order__c where name =\'"+sWOName1+"\'"; 

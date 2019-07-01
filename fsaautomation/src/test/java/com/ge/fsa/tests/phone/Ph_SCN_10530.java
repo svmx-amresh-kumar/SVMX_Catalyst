@@ -13,7 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 
@@ -35,7 +35,7 @@ public class Ph_SCN_10530 extends BaseLib {
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+		commonUtility.execSahi(sScriptName, sTestCaseID);
 			   
 			//**********Create Product1**********
 			String sProdName1 = "P1_10530";
@@ -220,7 +220,7 @@ public class Ph_SCN_10530 extends BaseLib {
 			}
 			// ************End of Scenario 4****************
 			// *************Edit Sahi Process***************
-			commonUtility.execSahi(genericLib, sScriptName1, sTestCaseID);
+			commonUtility.execSahi(sScriptName1, sTestCaseID);
 			// ************Start of Scenario 5****************
 			ph_WorkOrderPo.getBtnFltrClose().click();
 			ph_WorkOrderPo.getBtnClose().click();

@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
@@ -43,7 +43,7 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		}
 		
 		//Create Process on Sahi
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessName, sScriptName, sTestCaseID);
+		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 		
 		//Login to GoApp
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

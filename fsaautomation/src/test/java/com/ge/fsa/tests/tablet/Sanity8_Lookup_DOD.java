@@ -33,7 +33,7 @@ public class Sanity8_Lookup_DOD extends BaseLib
 	public void Scenario8Test() throws Exception
 	{
 	// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
+		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		
 		System.out.println("Scenario 8");
@@ -159,10 +159,10 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				}
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
-				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 				try{Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");}
-				catch(Exception e){genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-				genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				catch(Exception e){commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 				Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 				}
 

@@ -14,8 +14,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
@@ -63,7 +63,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		//sCaseID="00001147";
-	/*	genericLib.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
+	/*	commonUtility.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 	*/	
@@ -75,12 +75,12 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";
 
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "ProcessName");
-		sIssueTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "IssueText");
-		sOrderStatus = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "OrderStatus");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName , "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "ProcessName");
+		sIssueTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "IssueText");
+		sOrderStatus = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "OrderStatus");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName , "BillingType");
 		preRequiste();
 		//sCaseID = "00001161";
 		//sProductName="SANITY6";
@@ -91,11 +91,11 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		
 		//Config Sync for process
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep); 
+		Thread.sleep(CommonUtility.iMedSleep); 
 		
 		//Navigation to SFM
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sCaseID, sFieldServiceName);
@@ -103,15 +103,15 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		System.out.println(Arrays.toString(sAppDate));
 		System.out.println(Arrays.toString(sDeviceDate));
 		//Assert.assertEquals(sAppDate[1], sDeviceDate[3], "Date is current device date");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		//Set the order status
 		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCaseLst(), sOrderStatus);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		//Set the billing type
 		commonUtility.setPickerWheelValue(workOrderPo.getEleBillingTypeCaseLst(), sBillingType);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	
 		try {
 			System.out.println("Need to be Handled successfully");
@@ -123,7 +123,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 			
 			commonUtility.tap(workOrderPo.getEleOKBtn());
 			System.out.println("Handled successfully");
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		}catch(Exception e){
 			
 		}

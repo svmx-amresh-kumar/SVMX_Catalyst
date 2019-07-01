@@ -33,17 +33,17 @@ public class RestServices
 	//To Fetch Access Token
 	public void getAccessToken() throws IOException
 	{
-		URL url = new URL(GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "OAUTH_URL"));
+		URL url = new URL(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "OAUTH_URL"));
         HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setRequestMethod("POST");
 		httpsUrlCon.setRequestProperty("User-Agent", USER_AGENT);
 		httpsUrlCon.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		
 		String urlParameters = "grant_type=password"
-				+ "&client_id="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CLIENT_ID")
-				+ "&client_secret="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CLIENT_SECRET")
-				+ "&username="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN")
-				+ "&password="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD");
+				+ "&client_id="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CLIENT_ID")
+				+ "&client_secret="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CLIENT_SECRET")
+				+ "&username="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN")
+				+ "&password="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD");
 		httpsUrlCon.setDoOutput(true);
 		
 		DataOutputStream dataOpStream = new DataOutputStream(httpsUrlCon.getOutputStream());
@@ -99,15 +99,15 @@ public class RestServices
 	{getAccessToken();
 		soqlquery = parseQuery(soqlquery);
 //		System.out.println("Soql Query is "+soqlquery);
-		String sURL = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "WONAME_URL")+soqlquery;
+		String sURL = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -162,15 +162,15 @@ public class RestServices
 		getAccessToken();
 		soqlquery = parseQuery(soqlquery);
 		
-		String sURL = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "WONAME_URL")+soqlquery;
+		String sURL = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "WONAME_URL")+soqlquery;
 		URL url = new URL(sURL);
 		System.out.println(sURL);
 		HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 		httpsUrlCon.setDoOutput(true);
 		httpsUrlCon.setRequestMethod("GET");
 		httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-		httpsUrlCon.setRequestProperty("Username",GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+		httpsUrlCon.setRequestProperty("Username",CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 		String returnvalue = null;
 		
 		BufferedReader bufferedReader = null;
@@ -280,9 +280,9 @@ public class RestServices
 	 public  String restCreate(String sSoObjectName,String sWOJson) throws IOException
 	 {
 		 getAccessToken();
-	 	URL url = new URL(GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName
-	 			+ "Username="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN")
-	 			+ "&Password="+GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+	 	URL url = new URL(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName
+	 			+ "Username="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN")
+	 			+ "&Password="+CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 	     httpsUrlCon.setDoOutput(true);
 	  	httpsUrlCon.setRequestMethod("POST");
@@ -354,7 +354,7 @@ public class RestServices
 		
 		
 			//soqlquery = parseQuery(soqlquery);
-			String sURL = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId;
+			String sURL = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId;
 			URL url = new URL(sURL);
 			System.out.println(sURL);
 			
@@ -362,8 +362,8 @@ public class RestServices
 			httpsUrlCon.setDoOutput(true);
 			httpsUrlCon.setRequestMethod("DELETE");
 			httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-			httpsUrlCon.setRequestProperty("Username",GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
-			httpsUrlCon.setRequestProperty("Password", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+			httpsUrlCon.setRequestProperty("Username",CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
+			httpsUrlCon.setRequestProperty("Password", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 			
 			
 			BufferedReader bufferedReader = null;
@@ -408,7 +408,7 @@ public class RestServices
 	 public  void restUpdaterecord(String sSoObjectName,String sWOJson,String RecordId) throws IOException
 	 {
 		 getAccessToken();
-		 String sURL = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
+		 String sURL = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
 			URL url = new URL(sURL);
 			System.out.println(sURL);
 	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
@@ -419,8 +419,8 @@ public class RestServices
 	  	httpsUrlCon.setRequestMethod("POST");
 	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
 	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	 	httpsUrlCon.setRequestProperty("Username",GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+	 	httpsUrlCon.setRequestProperty("Username",CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
+		httpsUrlCon.setRequestProperty("Password", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 	 	
 	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
@@ -451,7 +451,7 @@ public class RestServices
 	 public  void resttechUpdaterecord(String sSoObjectName,String sWOJson,String RecordId) throws IOException
 	 {
 		 getAccessToken();
-		 String sURL = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
+		 String sURL = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "CREATE_URL")+sSoObjectName+"/"+RecordId+"/"+"?_HttpMethod=PATCH";
 			URL url = new URL(sURL);
 			System.out.println(sURL);
 	     HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
@@ -462,8 +462,8 @@ public class RestServices
 	  	httpsUrlCon.setRequestMethod("POST");
 	 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
 	 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+sAccessToken);
-	 	httpsUrlCon.setRequestProperty("Username",GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN") );
-		httpsUrlCon.setRequestProperty("Password", GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD"));
+	 	httpsUrlCon.setRequestProperty("Username",CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN") );
+		httpsUrlCon.setRequestProperty("Password", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD"));
 	 	
 	 	System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
@@ -508,18 +508,5 @@ public class RestServices
          return encodedfile;
      }
 	 
-		public static void main(String[] args) throws IOException {
-		      RestServices restServices = new RestServices();
-//		      String sCaseObjectID="5003D000003BGQjQAO";
-//		      String sObjectApi = "SVMXC__Case__c";
-//		      String   sJsonData="{\"Reason\":\""+"Existing problem"+"\"}";
-		      String soqlquery="Select+Name+from+product2+where+id+=\'01t3D000003iJR8QAM\'";
-//		      String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c=\'a2O3D000000KGuyUAG\'+and+SVMXC__Product__c!=null)";
-		      JSONArray test = restServices.restGetSoqlJsonArray(soqlquery);
-		      System.out.println("Json is "+test);
-		     String hello = restServices.restGetSoqlValue(soqlquery, "Name");
-		      // Select SVMXC__Product__r.Name from SVMXC__Product_Stock__c where SVMXC__Location__r.name='InventoryLoc2_10530' and SVMXC__Product__c!=null
-		     System.out.println("abcded "+hello); 
-		       
-		   }
+
 }

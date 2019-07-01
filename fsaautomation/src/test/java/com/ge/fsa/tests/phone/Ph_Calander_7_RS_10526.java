@@ -19,7 +19,6 @@ import com.ge.fsa.lib.CommonUtility;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_Calander_7_RS_10526 extends BaseLib {
@@ -67,9 +66,9 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 		restServices.restCreate("Contact?", "{\"FirstName\": \"" + sFirstName + "\", \"LastName\": \"" + sLastName
 				+ "\", \"AccountId\": \"" + sAccountId + "\"}");
 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		// Creating the Work Order
 		ph_CalendarPo.getEleCalendarBtn().click();

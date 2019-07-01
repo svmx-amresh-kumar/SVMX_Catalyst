@@ -22,8 +22,8 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -54,7 +54,7 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah");
+		commonUtility.executeSahiScript("appium/SCN_GetPrice_RS_10533.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -74,12 +74,12 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// get Product from the RS-10533
 		String sTestDataValue = "SCN_GetPrice_RS_10533";
-		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Work Order Number");
 		System.out.println(sworkOrderName);
-		sProductName10533 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName1,"Product Name");
+		sProductName10533 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName1,"Product Name");
 		System.out.println(sProductName10533);
 		
 		

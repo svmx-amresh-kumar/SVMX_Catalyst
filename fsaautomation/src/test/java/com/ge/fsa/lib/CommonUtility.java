@@ -17,11 +17,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -63,6 +69,10 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,6 +104,25 @@ public class CommonUtility {
 	int iWhileCnt = 0;
 	long lElapsedTime = 0L;
 	Point point = null;
+	
+	
+	private WebElement pheleSearchListItem;
+	public static String sAppBundleID = BaseLib.sApp_BundleID;
+	public static long lWaitTime=2000;
+	public static int iProcessStatus=0;
+	public static int iAttachmentSleep = 120000;
+	public static int iLowSleep = 2000;
+	public static int iMedSleep = 5000;
+	public static int iHighSleep = 8000;
+	public static int i30SecSleep = 10000;
+	public static int iVHighSleep = 10000;
+	public static String sDirPath = System.getProperty("user.dir");
+	public static String sResources = sDirPath+"//resources";
+	public static String sConfigPropertiesExcelFile = sResources + "//config_properties.xlsx";
+	public static String sTestDataFile = sResources + "//TestData.xlsx";
+	public static String sConfigFile =  sResources+"//select_config_file.properties";//sResources+"//config_local.properties";
+	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
+	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
@@ -272,7 +301,7 @@ public class CommonUtility {
 	public void singleTap(Point point) throws InterruptedException {
 		touchAction = new TouchAction(driver);
 		touchAction.tap(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	}
 
 
@@ -282,7 +311,7 @@ public class CommonUtility {
 		touchAction = new TouchAction(driver);
 		touchAction.moveTo(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset))
 		.tap(new TapOptions().withTapsCount(iTapCount)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	}
 
 	// Customised touch LongPress
@@ -322,18 +351,18 @@ public class CommonUtility {
 //			.perform();
 //			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 //			.perform();
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			switchContext("Webview");
 			break;
 
 		case "ios":
-
+			switchContext("Webview");
 			// For IOS
 			touchAction = new TouchAction(driver);
 			touchAction.longPress(new PointOption().withCoordinates(x,y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(10000))).release().perform();
 //			touchAction.longPress(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).release()
 //			.perform();
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 
 		}
@@ -341,7 +370,7 @@ public class CommonUtility {
 
 	// Customised touch Doubletap
 	public void doubleTap(WebElement element) throws InterruptedException {
-		waitforElement(element, GenericLib.i30SecSleep);
+		waitforElement(element, CommonUtility.i30SecSleep);
 
 		point = element.getLocation();
 		touchAction = new TouchAction(driver);
@@ -349,7 +378,7 @@ public class CommonUtility {
 		// touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption)
 		// element)).perform();
 		touchAction.tap(new TapOptions().withTapsCount(2).withElement((ElementOption) element)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 	}
 
@@ -361,11 +390,11 @@ public class CommonUtility {
 		switchContext("Native");
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	case "ios":
 		touchAction = new TouchAction(driver);
 		touchAction.press(new PointOption().withCoordinates(point.getX() + xOffset, point.getY() + yOffset)).perform();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		break;
 		
 		}
@@ -857,7 +886,7 @@ public class CommonUtility {
 			}
 
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -974,7 +1003,7 @@ public class CommonUtility {
 
 			}
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -1072,7 +1101,7 @@ public class CommonUtility {
 				getEleDonePickerWheelBtn().click();
 			}
 
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 		}
 		switchContext("Webview");
 	}
@@ -1161,7 +1190,7 @@ public class CommonUtility {
 			}
 
 			switchContext("Webview");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			break;
 		}
 		switchContext("Webview");
@@ -1626,8 +1655,8 @@ public class CommonUtility {
 		return result;
 	}
 
-	public void execSahi(GenericLib genericLib, String sScriptName, String sTestCaseID) throws Exception {
-		genericLib.executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
+	public void execSahi(String sScriptName, String sTestCaseID) throws Exception {
+		executeSahiScript("appium/" + sScriptName + ".sah", sTestCaseID);
 		if(verifySahiExecution()) {
 
 			System.out.println("PASSED");
@@ -1642,8 +1671,8 @@ public class CommonUtility {
 		}
 	}
 
-	public boolean ProcessCheck(RestServices restServices, GenericLib genericLib, String sProcessName,
-			String sScriptName, String sTestCaseId) throws Exception {
+	public boolean ProcessCheck(RestServices restServices, String sProcessName, String sScriptName,
+			String sTestCaseId) throws Exception {
 		String sProcessCheck = restServices.restGetSoqlValue(
 				"SELECT+SVMXC__Dispatch_Process_Status__c+FROM+SVMXC__ServiceMax_Processes__c+WHERE SVMXC__Name__c =\'"
 						+ sProcessName + "\'"+"ORDER+BY+SVMXC__Dispatch_Process_Status__c+ASC",
@@ -1668,7 +1697,7 @@ public class CommonUtility {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			execSahi(genericLib, sScriptName, sTestCaseId);
+			execSahi(sScriptName, sTestCaseId);
 			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
@@ -1685,7 +1714,7 @@ public class CommonUtility {
 	 */
 	public void clickAllowPopUp() throws InterruptedException {
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		switchContext("Native");
 		try {
 			try {
@@ -1704,9 +1733,9 @@ public class CommonUtility {
 		} catch (Exception e) {
 			System.out.println("  ***** Suppresed exception as popups not displayed");
 		} 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		switchContext("Webview");
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 	}
 
@@ -1802,23 +1831,23 @@ public class CommonUtility {
 	 * @param genericLib
 	 * @throws Exception
 	 */
-	public void preReqSetup(GenericLib genericLib) throws Exception {
+	public void preReqSetup() throws Exception {
 
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in
 		// Mobile Configuration
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
-		genericLib.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
-		genericLib.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
+		executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
 		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
 	}
 
 
-	public String servicemaxServerVersion(RestServices restServices, GenericLib genericLib) throws Exception
+	public String servicemaxServerVersion(RestServices restServices) throws Exception
 	{
 		String sMajorVersion = "";
 		String sMinorVersion = "";
@@ -1933,7 +1962,7 @@ public class CommonUtility {
 	 */
 	public void injectJenkinsPropertiesForSahi() {
 		String sFilePath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/project_config/appium_config/jenkinsProp_config.sah";
-		String sConfigExcelPath = GenericLib.sConfigPropertiesExcelFile;
+		String sConfigExcelPath = CommonUtility.sConfigPropertiesExcelFile;
 		String sConfigExcelSheetName = BaseLib.sSelectConfigPropFile;
 		try {
 	
@@ -2379,7 +2408,7 @@ public class CommonUtility {
 		return searchLookup;
 	}
 
-	private WebElement pheleSearchListItem;
+	
 	public WebElement getEleSearchListItem(String sName)
 	{
 		return eleSearchListItem = driver.findElement(By.xpath("//*[@class='android.widget.TextView'][@text='"+sName+"']"));
@@ -2503,9 +2532,244 @@ public class CommonUtility {
 		String sDataRead = readTextFile(sOutPutFile);
 		return sDataRead;
 	}
+
+	public static void writeExcelData(String sFilePath, String sSheetName, String sKey, String sValue) throws IOException {
+		String sData = null;
+		FileInputStream fis = null;
+		FileOutputStream fos =null;
+		try {
+	
+			fis = new FileInputStream(sFilePath);
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet(sSheetName);
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 0; i <= iRowNum; i++) {
+				int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						//System.out.println("row"+i+"  column"+j);
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
+							sht.getRow(i+1).createCell(j).setCellValue(sValue);
+							break;
+							}
+					}
+					break;
+				
+			}
+			fos = new FileOutputStream(sFilePath);
+			wb.write(fos);
+			
+			wb.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		fos.close();
+		
+	}
+
+	public static String readExcelData(String sFilePath, String sSheetName, String sKey) throws IOException {
+		String sData = null;
+		FileInputStream fis = new FileInputStream(sFilePath);
+		
+		try {
+	
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet(sSheetName);
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 0; i < iRowNum; i++) {
+				
+				//if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
+					int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{sData = sht.getRow(i+1).getCell(j).toString();
+							break;
+							}
+							
+					}
+					
+				
+				//}
+			}
+			wb.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		fis.close();
+		return sData;
+	}
+
+	/*
+	 * @author: LAKSHMI BS Description: To write test data from excel sheet
+	 */
+	public static void setExcelData(String sTestCaseID, String sKey, String sValue) throws IOException {
+		String sData = null;
+		FileInputStream fis = null;
+		FileOutputStream fos =null;
+		try {
+	
+			fis = new FileInputStream(CommonUtility.sTestDataFile);
+			Workbook wb = (Workbook) WorkbookFactory.create(fis);
+			Sheet sht = wb.getSheet("sTestCaseID");
+			int iRowNum = sht.getLastRowNum();
+			int k = 0;
+			for (int i = 1; i <= iRowNum; i++) {
+				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
+					int iCellNum = sht.getRow(i).getLastCellNum();
+					
+					for(int j=0;j<iCellNum;j++)
+					{
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
+							sht.getRow(i+1).createCell(j).setCellValue(sValue);
+							}
+					}
+					break;
+				}
+			}
+			fos = new FileOutputStream(CommonUtility.sTestDataFile);
+			wb.write(fos);
+			
+			wb.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		fos.close();
+		
+	}
+
+	/*
+	 * @author: LAKSHMI BS Description: To set the settings data in dc_config.properties
+	 * data from config file
+	 */
+	public static void setConfigValue(String sFile, String sKey, String sValue) {
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(new File(sFile));
+			prop.load(fis);
+			fis.close();
+	
+			FileOutputStream fos = new FileOutputStream(new File(sFile));
+			prop.setProperty(sKey, sValue);
+			prop.store(fos, "Updating folder path");
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * @author: LAKSHMI BS Description: To read the basic environment settings from dc_config.properties
+	 * data from config file
+	 */
+	public static String getConfigValue(String sFile, String sKey) {
+		Properties prop = new Properties();
+		String sValue = null;
+		try {
+			InputStream input = new FileInputStream(sFile);
+			prop.load(input);
+			sValue = prop.getProperty(sKey);
+	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sValue;
+	}
 	
 
+	public void createShellFile(String sSahiFile) throws IOException
+	{
+		String sSahiShellFile = System.getProperty("user.dir")+"//..//Executable//sahiExecutable.sh";
+		File file = new File(sSahiShellFile);
+		file.createNewFile();
+		FileWriter writer = new FileWriter(file);
+		writer.write("#!/bin/bash \ncd /auto/sahi_pro/userdata/bin \n./testrunner.sh /auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/svmx/test_lab/test_cases/" + sSahiFile + " https://test.salesforce.com chrome");
+		writer.flush();
+		writer.close();
+	}
 	
+	
+	
+	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
+	{	
+		
+		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
+		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
+		//If not triggered from jenkins use local path
+		String sActualLogPath = System.getenv("Run_On_Platform") == null ? "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" :  "offlineSahiLogs/" ;
+		
+		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
+		//Create Shell script to execute Sahi file
+		createShellFile(sSahiScript);
+		File file = new File(CommonUtility.sShellFile);
+		Runtime.getRuntime().exec("chmod u+x " +file);
+		
+		try {
+			ProcessBuilder processBuilder= new ProcessBuilder(file.getPath());
+			Process process = processBuilder.start(); // Start the process.
+			process.waitFor(); // Wait for the process to finish.
+			
+			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
+			//Set the path  of sahi reports
+			
+			if(BaseLib.sSelectConfigPropFile.equalsIgnoreCase("automation_build") || BaseLib.sSelectConfigPropFile.equalsIgnoreCase("fsa_track_build")) {
+				//first reference the log file name from local path ,then build a path for the build machine where we archive these logs
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+
+			}else {
+				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
+
+			}
+			
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully");
+				
+		} catch (Exception e) {
+			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] failed");
+			throw e;
+		}
+		
+		
+	}
+	
+	/**
+	 * Return the last modified file name for a specific extension
+	 * 
+	 * @param filePath
+	 * @param pattern
+	 * @param ext
+	 * @return
+	 */
+	public String getLastModifiedFile(String filePath, String pattern, String ext) {
+		File lastModifiedFile = null;
+		File dir = new File(filePath);
+		FileFilter fileFilter = new WildcardFileFilter(pattern + ext);
+		File[] files = dir.listFiles(fileFilter);
+
+		if (files.length > 0) {
+			// The newest file comes first after sorting
+			Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+			lastModifiedFile = files[0];
+		}
+
+		System.out.println("Fetching Last Modified File : " + lastModifiedFile.getName().toString());
+		return lastModifiedFile.getName().toString();
+	}
 
 
 

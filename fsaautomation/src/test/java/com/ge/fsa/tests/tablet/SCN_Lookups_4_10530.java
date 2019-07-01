@@ -15,8 +15,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 
@@ -169,19 +169,19 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		
 		//**********Perform a Data Sync**********
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//**********Perform a Config Sync**********
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//**********Launch Process**********
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(workOrderPo.getLblProduct());
 		Thread.sleep(30000);
 		commonUtility.lookupSearchOnly(sSearchTxt); //As validating all products fails when the count exceeds 250 due to FSA limitation trimming the search result by searching for the product
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		List<WebElement> prodList = new ArrayList<WebElement>();
 		prodList = workOrderPo.getProductListInLkp();
 //		System.out.println(prodList.size());
@@ -190,9 +190,9 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 //		System.out.println(sProdCount);
 		Assert.assertEquals(prodList.size(),Integer.parseInt(sProdCount)); //Scenario 1
 		commonUtility.tap(workOrderPo.getBtnReset());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		commonUtility.tap(workOrderPo.getLnkFilters());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(workOrderPo.getCheckBoxUserTrunk(),20,20);
 			commonUtility.tap(workOrderPo.getBtnApply());
 		    String soqlquery="Select+Name+from+product2+where+id+in+(Select+SVMXC__Product__c+from+SVMXC__Product_Stock__c+where+SVMXC__Location__c='"+sLocId1+"'+and+SVMXC__Product__c!=null)";
@@ -227,7 +227,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
-		    Thread.sleep(GenericLib.iHighSleep);
+		    Thread.sleep(CommonUtility.iHighSleep);
 			commonUtility.tap(workOrderPo.getLnkFilters());
 			Assert.assertTrue(workOrderPo.getChkBoxComplexFilter().isSelected()); //Scenario 5
 	}

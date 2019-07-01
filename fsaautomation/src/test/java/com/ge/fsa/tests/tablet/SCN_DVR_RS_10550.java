@@ -16,8 +16,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_DVR_RS_10550 extends BaseLib{	
@@ -70,10 +70,10 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		String sAccountNameToCreate = "Auto_10550_Account";
 		
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 			
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
@@ -96,7 +96,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 				sProductName = "RS10550Product";
 				restServices.restCreate("Product2?","{\"Name\":\""+sProductName+"\" }");	
 				
-				bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName, sTestCaseID);		
+				bProcessCheckResult =commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);		
 		
 				
 	}
@@ -110,10 +110,10 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 
 		//Config sync for the process to come in FSA.
 		//toolsPo.configSync(commonsUtility);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 					
 		//Navigation to WO	
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);				
@@ -125,7 +125,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		workOrderPo.geteleWorkOrderLeftPane_View();
 		
 		//Setting up Data for DVR billing type picklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.setPickerWheelValue(workOrderPo.geteleBillingType_Edit_Lst(), sBillingTypeDVR);
 		
 		//Setting up Auto_date1 greater than Auto_date2		
@@ -146,10 +146,10 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	   commonsUtility.switchContext("WebView");   */
 	   commonUtility.setSpecificDate(workOrderPo.getEleScheduledDateLst(), "0", "0", "0"); 
 	   
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		
-		Thread.sleep(GenericLib.iLowSleep);		
+		Thread.sleep(CommonUtility.iLowSleep);		
 		//Required Field Validation
 		Assert.assertTrue(workOrderPo.getEleIssueFoundTxt().isDisplayed(), "Issue found error is not displayed");
 		ExtentManager.logger.log(Status.PASS,"Issue found is displayed successfully");
@@ -157,16 +157,16 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sProbDescRequired).isDisplayed(), "Required field message did not show up. Problem Description is empty");
 		ExtentManager.logger.log(Status.PASS,"Required Field Problem Description message displayed- the field problem description is required");	
 		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.longPress(workOrderPo.getProblemDescription());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		workOrderPo.getProblemDescription().sendKeys("Hello Work");
 //		commonUtility.tap(workOrderPo.geteleProblemDesc_Edit_WorkOrder(),20,20);
 //		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys("Hello Work");
 //		workOrderPo.geteleProblemDesc_Edit_WorkOrderPopup().sendKeys(Keys.ENTER);
 //		Thread.sleep(GenericLib.iLowSleep);
 //		commonUtility.tap(workOrderPo.getEleUpdateLnk());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 				
 		//Validation of the DVR's
@@ -199,7 +199,7 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 		
 		//Account Lookup
 		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(workOrderPo.getEleAccount_Edit_Input());
 		commonUtility.lookupSearch(sAccountName);
 		
@@ -263,16 +263,16 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	} catch (AssertionError e) {
 		ExtentManager.logger.log(Status.INFO,"Did not get the verbiage work order saved sucessfully will try for work order element");						
 	}	
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		workOrderPo.addParts(commonUtility, workOrderPo,sProductName);
 		commonUtility.tap(workOrderPo.getEleSaveLnk());
 		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(workOrderPo.getEleIssuePopupTxt(sPartsLineQtyDVR).isDisplayed(), "PARts Line qty cannot be less than 2 and work description cannot be null");
 		ExtentManager.logger.log(Status.PASS,"Parts lineqty dvr displayed");
 		commonUtility.tap(workOrderPo.getEleIssueFoundTxt());

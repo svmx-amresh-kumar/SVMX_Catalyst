@@ -4,8 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Sanity9_Mobile_Inventory extends BaseLib {
@@ -15,7 +15,7 @@ public class Sanity9_Mobile_Inventory extends BaseLib {
 public void Scenario9Test() throws Exception
 {
 	
-	commonUtility.preReqSetup(genericLib);
+	commonUtility.preReqSetup();
 	// Resinstall the app
 	lauchNewApp("false");
 	
@@ -23,14 +23,14 @@ public void Scenario9Test() throws Exception
 			loginHomePo.login(commonUtility, exploreSearchPo);
 			//toolsPo.configSync(commonsUtility);
 			
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			Assert.assertTrue(inventoryPo.geteleInventoryIcn().isDisplayed(), "Inventory Icon Mobile Inventory is not dipslayed");		
 			//NXGReports.addStep("Parts icon Mobile Inventory is visible", LogAs.PASSED, null);
 			ExtentManager.logger.log(Status.PASS,"Parts icon Mobile Inventory is visible");
 
 			System.out.println("mobile inventory tab is visible....");
 			commonUtility.tap(inventoryPo.geteleInventoryIcn());
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 			Assert.assertTrue(inventoryPo.geteleMyStockTab().isDisplayed(), "My Stock tab is not dipslayed");		
 			//NXGReports.addStep("My Stock tab is visible", LogAs.PASSED, null);

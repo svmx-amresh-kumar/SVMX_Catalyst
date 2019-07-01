@@ -24,8 +24,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.CreateNewPO;
 
@@ -83,7 +83,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 
 		
-		 genericLib.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
+		 commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
 		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
 		  else { System.out.println("FAILED");
 		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
@@ -93,27 +93,27 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		 
 
 		// read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		String sworkordernumber = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "WorkOrder Number");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		String sworkordernumber = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WorkOrder Number");
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		// config sync
 		// toolsPo.configSync(commonsUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// datasync
 		//toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// calendarPO.openWoFromCalendar(commonsUtility, sworkordernumber);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
 		calendarPO.gettaponcalevent(sworkordernumber).getLocation();
 		commonUtility.tap(calendarPO.gettaponcalevent(sworkordernumber), 15, 60);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 		// to get orderstatus nd ordertype from workorder
@@ -169,7 +169,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "CustomerDown(Checkbox) value mapping Failed ");
 		}
 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		String fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("value");
 		System.out.println(fetchProblemDescription);
 		try {
@@ -412,7 +412,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		// datasync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// collecting data from server
 
@@ -691,7 +691,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt,
 				sworkordernumber, "EDIT_WORKORDER_MAPPING");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		fetchedOrderStatus = workOrderPo.getEleOrderStatusCaseLst().getAttribute("value");
 		System.out.println(fetchedOrderStatus);
@@ -733,7 +733,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "CustomerDown value mapping Failed ");
 		} // change it
 
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		fetchProblemDescription = workOrderPo.getProblemDescription().getText();
 		System.out.println(fetchProblemDescription);
 		try {

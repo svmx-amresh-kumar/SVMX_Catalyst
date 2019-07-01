@@ -13,8 +13,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -89,11 +89,11 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		sCaseWOID = "Data_SCN_Checklist_3_RS-10579_Entry_Exit_Criteria";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
@@ -129,7 +129,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		System.out.println("WO no =" + sWOName4);				
 		//sWOName1 = "WO-00001615";		
 		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 		
 	}
@@ -143,7 +143,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
@@ -154,7 +154,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		// Navigating to the checklist
 		commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		
 		//commonsUtility.tap(checklistPo.geteleChecklistAnsDate(sDateq));
@@ -186,17 +186,17 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).sendKeys(sSectionThreeq1Ans);
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));	
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(snumberwithoutjump);
 		commonUtility.tap(checklistPo.geteleNext());	
 		//checklistPo.geteleChecklistSectionNametab(sSection2Name).click();
 		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection2Name));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(2));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		String sTempVal = checklistPo.geteleChecklistAnswerTextArea(sSectionThreeq1).getAttribute("value");
 		Assert.assertEquals(sTempVal, sSectionThreeq1Ans, "Section switch has caused data loss");
 		ExtentManager.logger.log(Status.PASS,"There is no data loss in switching sections");
@@ -205,7 +205,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));
 		
 		// submitting the checklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.clickAllowPopUp();
 		commonUtility.switchContext("WebView");
 		commonUtility.tap(checklistPo.eleChecklistSubmit());			
@@ -218,14 +218,14 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 		
 		//Navigating back to work Orders
 		commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
-		Thread.sleep(GenericLib.iMedSleep);		
+		Thread.sleep(CommonUtility.iMedSleep);		
 		Assert.assertEquals(workOrderPo.geteleProblemDescriptionlbl().getText(), sProblemDescriptionSOUServer, "Problem Description source object update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for Problem Description");
 
 		Assert.assertEquals(workOrderPo.geteleBillingTypelbl().getText(), sBillingTpeSOUServer, "Billing Type source update not updated sucessfully in Work Order");
 		ExtentManager.logger.log(Status.PASS,"Source Object update sucessfull for billing type in Work Order");
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 		//-------------Validating work order not satisfying Qualification Criteria---------------- 
 		System.out.println("Validating work order not satisfying Qualification Criteria");
@@ -246,7 +246,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 				ExtentManager.logger.log(Status.PASS,"Qualification criteria not met checklist not displayed");
 			}
 			
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 
 					//Validating Work not satisfying checklist entry criteria		
 			System.out.println("Validating workorder not satisfying checklsit entry criteria");
@@ -254,16 +254,16 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			//Navigating back to work Orders
 			commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());
 			commonUtility.tap(calendarPO.getEleCalendarClick());
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 			
 			// Navigate to Field Service process
 			workOrderPo.selectAction(commonUtility, sFieldServiceName);
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			// Navigating to the checklist
 			commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 							
 			try {
@@ -285,10 +285,10 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			commonUtility.tap(checklistPo.geteleBacktoWorkOrderlnk());		
 			
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 
 			commonUtility.tap(calendarPO.getEleCalendarClick());
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName4);
 			workOrderPo.selectAction(commonUtility, sFieldServiceName);
@@ -299,11 +299,11 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			commonUtility.tap(checklistPo.geteleSectionNextBtn(1));
 			//checklistPo.geteleChecklistHelpIcn().click();
 			commonUtility.tap(checklistPo.geteleChecklistHelpIcn(sAttachmentQ));
-			Thread.sleep(GenericLib.iLowSleep);
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			System.out.println("Context count " + driver.getContextHandles().size());
 			Set contextNames = driver.getContextHandles();
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 			System.out.println(driver.getContext());
 			
 			if(sOSName.contains("android")) {
@@ -314,7 +314,7 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 			}
 			else {
 				driver.context(contextNames.toArray()[contextNames.size()-1].toString());
-				Thread.sleep(GenericLib.i30SecSleep);
+				Thread.sleep(CommonUtility.i30SecSleep);
 				url = driver.getCurrentUrl();
 			}
 			

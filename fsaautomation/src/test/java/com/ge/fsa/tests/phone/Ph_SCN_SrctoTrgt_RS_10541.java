@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
@@ -79,8 +79,7 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		sIBName2 = restServices.restGetSoqlValue(sSqlQuery, "Name");
 		System.out.println(sIBName2);
 
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sFieldServiceName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, sScriptName, sTestCaseID);
 
 	}
 
@@ -88,9 +87,9 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 	public void RS_10541Test() throws Exception {
 		sTestID = "RS_10541";
 
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ProcessName");
 
 		preRequiste();
 		// Pre Login to app
@@ -100,11 +99,11 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 
 		// toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Data Sync
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// navigating to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
@@ -119,21 +118,21 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 				"Qualification Criteria message Country should be Italy is displayed successfully");
 
 		ph_WorkOrderPo.getEleBackButton().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt,
 				sIBName2, sFieldServiceName);
 		ExtentManager.logger.log(Status.INFO, "IB dynamically created and used is :" + sIBName2 + "");
 
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		ph_WorkOrderPo.getEleSaveLnk().click();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 
 		// Data Sync before triggering the API
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Validation of created Case object from IB
 		sSqlQuery = "SELECT+CaseNumber+from+Case+WHERE+Subject=\'" + sIBName2 + "\'";

@@ -24,8 +24,8 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
@@ -66,10 +66,10 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	
 	//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		String TechName = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 		
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);
@@ -77,11 +77,11 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 		
 		//config sync
 			//toolsPo.configSync(commonsUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//Data Sync for WO's created
 			//toolsPo.syncData(commonsUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		

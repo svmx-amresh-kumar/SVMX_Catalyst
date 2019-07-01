@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 
@@ -21,7 +21,7 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 	private void preRequiste() throws Exception  
 	{
 
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
@@ -30,7 +30,7 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 	public void RS_10549Test() throws Exception 
 	{
 		sTestID = "RS_10549";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		
 	try {
 		preRequiste();
@@ -40,7 +40,7 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 		
 		//Config sync for the process to come in FSA.
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		//Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
 

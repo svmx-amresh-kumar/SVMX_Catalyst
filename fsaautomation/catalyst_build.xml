@@ -143,16 +143,7 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="RestServices">
-        <java classname="com.ge.fsa.lib.RestServices" failonerror="true" fork="yes">
-            <classpath refid="run.RestServices.classpath"/>
-        </java>
-    </target>
-    <target name="GenericLib">
-        <java classname="com.ge.fsa.lib.GenericLib" failonerror="true" fork="yes">
-            <classpath refid="run.GenericLib.classpath"/>
-        </java>
-    </target>
+   
 	<!-- SAHI PRO INVOCATION PART -->
 	 <target name="startSahi" >
 	 	<exec executable="/bin/sh" os="Mac OS X">

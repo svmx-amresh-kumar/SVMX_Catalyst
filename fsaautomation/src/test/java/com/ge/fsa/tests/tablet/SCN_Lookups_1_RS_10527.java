@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Lookups_1_RS_10527 extends BaseLib {
@@ -32,7 +32,9 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 		
-//		commonUtility.execSahi(genericLib, sScriptName, sTestCaseID);
+
+		commonUtility.execSahi(sScriptName, sTestCaseID);
+
 		
 		// Create Account
 		String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");
@@ -79,10 +81,10 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 //		String sProdName = "a1";
 		loginHomePo.login(commonUtility, exploreSearchPo);	
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		String sAllCon = restServices.restGetSoqlValue("SELECT+Count()+from+Contact+Where+Name+=\'"+sSearchTxt+"\'", "totalSize");
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 		//******Validate 1st Case******
 		commonUtility.tap(workOrderPo.getLblContact());
@@ -117,7 +119,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		}
 		//******Validate 3rd Case******
 		commonUtility.tap(workOrderPo.getLnkFilters());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 //		WebElement toTap=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[2]"));
 //		commonsUtility.tap(toTap);
 //		WebElement toTap1=driver.findElement(By.xpath("//span[contains(text(),'Account:')]/ancestor::div[1]"));
@@ -130,7 +132,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		}
 		commonUtility.tap(workOrderPo.getBtnApply());
 		commonUtility.lookupSearchOnly(sSearchTxt);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		contactList = workOrderPo.getcontactListInLkp();
 //		System.out.println("All Contacts displayed on FSA "+contactList.size());
 //		System.out.println("All Contacts fetched from Database ="+sAllCon);
@@ -165,7 +167,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 		workOrderPo.addParts(commonUtility, workOrderPo, sProdName);
 		workOrderPo.getLblChildPart(sProdName).click();
 		commonUtility.tap(workOrderPo.getLblChildPart(sProdName));
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		commonUtility.tap(workOrderPo.getlblToLocation());
 		List<WebElement> locList1 = new ArrayList<WebElement>();
 		locList1 = workOrderPo.getLocListInLkp();

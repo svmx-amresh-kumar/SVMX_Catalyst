@@ -22,8 +22,8 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Calendar_6_RS_10525 extends BaseLib {
@@ -63,7 +63,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
-		genericLib.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
+		commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
   		if(commonUtility.verifySahiExecution()) {
   			
   			System.out.println("PASSED");
@@ -81,22 +81,22 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		
 	
 	//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		String sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WorkOrder Number");
-		String TechName = GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		String sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WorkOrder Number");
+		String TechName = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);
 		
 			
 		//config sync
 		//	toolsPo.configSync(commonsUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//Data Sync for WO's created
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		
 		
 

@@ -15,7 +15,7 @@ import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -484,9 +484,9 @@ public class ChecklistPO{
 	
 	public void Allowlocationbutton() throws InterruptedException
 	{
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 	}
 	
@@ -494,7 +494,7 @@ public class ChecklistPO{
 	public void AllowCamerabutton(CommonUtility commonUtility) throws Exception
 	{
 		commonUtility.switchContext("Native");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 try {
 	driver.findElementByAccessibilityId("OK").click();
 
@@ -567,7 +567,7 @@ try {
 			}
 
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				commonUtility.switchContext("Native");
 				Thread.sleep(3000);
 				List<WebElement> e = driver.findElementsByAccessibilityId("Shutter");
@@ -579,7 +579,7 @@ try {
 				driver.findElementByAccessibilityId("Done").click();
 			}
 			commonUtility.switchContext("Webview");
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 		} else
 		// For IOS
 		{
@@ -613,7 +613,7 @@ try {
 				}
 			}
 			if (AttachmentAction == "Take Photo" || AttachmentAction == "take photo") {
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				AllowCamerabutton(commonUtility);
 				commonUtility.switchContext("Native");
 				Thread.sleep(5000);
@@ -623,7 +623,7 @@ try {
 			}
 
 			if (AttachmentAction == "Take Video" || AttachmentAction == "take video") {
-				Thread.sleep(GenericLib.iMedSleep);
+				Thread.sleep(CommonUtility.iMedSleep);
 				AllowCamerabutton(commonUtility);
 				;
 				// com.apple.camera
@@ -635,10 +635,10 @@ try {
 				driver.findElementByAccessibilityId("Use Video").click();
 			}
 			commonUtility.switchContext("Webview");
-			Thread.sleep(GenericLib.i30SecSleep);
+			Thread.sleep(CommonUtility.i30SecSleep);
 		}
 		commonUtility.switchContext("Webview");
-		Thread.sleep(GenericLib.i30SecSleep);
+		Thread.sleep(CommonUtility.i30SecSleep);
 	}
 
 	public void checklistAttach(CommonUtility commonUtility, String checklistq) throws Exception
@@ -695,7 +695,7 @@ if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
   WebElement photoios = driver.findElement(By.xpath("//*[contains(@label,'" + sImagenameforios + "')]"));
   //Assert.assertTrue(commonUtility.waitforElement(photoios, 3), "Photo is Not present in gallary please airdrop the testimageforcom from resource");
   //ExtentManager.logger.log(Status.FAIL, "Please airdrop the testimageforcom from resource");
-  Thread.sleep(GenericLib.iAttachmentSleep);
+  Thread.sleep(CommonUtility.iAttachmentSleep);
    photoios.click();
 	
 		
@@ -705,7 +705,7 @@ if (com.ge.fsa.lib.BaseLib.sOSName.contains("android")) {
   System.out.println("finished Clicking");
   Thread.sleep(10000);
   commonUtility.switchContext("Webview");
-  Thread.sleep(GenericLib.i30SecSleep);
+  Thread.sleep(CommonUtility.i30SecSleep);
   }}
 	
 public void clickAttach(CommonUtility commonUtility) throws InterruptedException {
@@ -790,9 +790,9 @@ public WebElement geteleConfirmDeleteButton()
 					
 			// Navigating to the checklist
 	        commonUtility.tap(geteleChecklistName(sChecklistName));
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			commonUtility.tap(geteleChecklistTitlebutton());
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 			commonUtility.waitforElement(wElement, 30000);
 			commonUtility.longPress(wElement,32,32);
@@ -801,7 +801,7 @@ public WebElement geteleConfirmDeleteButton()
 			commonUtility.switchContext("Native");
 			commonUtility.tap(driver.findElementByAccessibilityId("Delete"));
 			System.out.println("File is Deleted from server");
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			commonUtility.tap(geteleChecklistBackButton());
 			commonUtility.tap(geteleeleSaveButton());
 			navigateBacktoWorkOrder(commonUtility);

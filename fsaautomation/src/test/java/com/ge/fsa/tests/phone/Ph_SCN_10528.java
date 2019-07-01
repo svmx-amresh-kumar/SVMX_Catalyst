@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
@@ -33,7 +33,7 @@ public class Ph_SCN_10528 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10528() throws Exception {
 	
-	bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sProcessName, sScriptName,sTestCaseID);
+	bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 	
 // **********Create Account**********
     String sAccName = commonUtility.generateRandomNumber("Acc");

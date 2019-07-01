@@ -10,7 +10,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
 
@@ -30,7 +30,7 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 		
 		System.out.println("SCN_RS10516_ZeroLines");
 		String sProcessname = "SFMProcessforRS_10516";
-		boolean configSync=commonUtility.ProcessCheck(restServices, genericLib, sProcessname, "scenario_10516", "SCN_RS10516_ZeroLines");
+		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "scenario_10516", "SCN_RS10516_ZeroLines");
 
 		
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

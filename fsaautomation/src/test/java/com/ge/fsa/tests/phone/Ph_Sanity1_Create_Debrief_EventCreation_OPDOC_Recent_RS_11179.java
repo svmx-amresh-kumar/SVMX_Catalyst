@@ -26,7 +26,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
+
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_CalendarPO;
 import com.ge.fsa.pageobjects.phone.Ph_LoginHomePO;
@@ -62,7 +62,7 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 	@Test(retryAnalyzer=Retry.class)
 	public void iphone() throws Exception
 	{	
-/*	genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+/*	commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 	Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 */

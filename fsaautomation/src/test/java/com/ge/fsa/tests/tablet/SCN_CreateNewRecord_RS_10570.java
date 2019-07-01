@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
@@ -47,11 +46,11 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		
 		//********Perform Data Sync********
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//********Perform Config Sync********
 		toolsPo.configSync(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//********Creating Work Order from FSA********
 		commonUtility.tap(createNewPO.getEleCreateNew());
@@ -110,7 +109,7 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 		
 		//********Perform Data Sync********
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//********Check if Records are present in DB after Sync********
 		String sLocCountAfterSync = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+name+=\'"+sLocName+"\'", "totalSize");

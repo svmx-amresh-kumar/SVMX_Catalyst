@@ -21,8 +21,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.CreateNewPO;
 
@@ -74,7 +74,7 @@ String Location=null;
 		String sInstalledproductID=sProformainVoice+"RS_10557_IB";
 	
 		//sahi
-				/*genericLib.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
+				/*commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10557.sah", "sTestCaseID");
 				if(commonsUtility.verifySahiExecution()) {
 					
 					System.out.println("PASSED");
@@ -116,20 +116,20 @@ String Location=null;
 		System.out.println(Location);
 		
 		//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
 		
 		
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);
 			//config sync
 			//toolsPo.configSync(commonsUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		
 			//datasync
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			createNewPO.createInstalledProduct(commonUtility,sAccountName, sproductname, sInstalledproductID);
 			
@@ -178,7 +178,7 @@ String Location=null;
 			commonUtility.tap(workOrderPo.getEleSaveLnk());
 			
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			
 		//	String sSoqlQuery = "SELECT+Id+from+SVMXC__Installed_Product__c+Where+SVMXC__Company__c+=\'"+sObjectAccID+"\'+AND+SVMXC__Product__c+=\'"+sObjectProID+"\'";
@@ -220,7 +220,7 @@ String Location=null;
 			
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, "Work Orders", sworkOrdername,"EDIT_WORKORDER_MAPPING" );
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			
 			commonUtility.tap(workOrderPo.getpartsontapedit("0.000"));

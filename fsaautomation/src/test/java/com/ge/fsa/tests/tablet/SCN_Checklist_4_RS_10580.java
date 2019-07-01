@@ -10,8 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
 
@@ -90,11 +90,11 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		sCaseWOID = "Data_SCN_Checklist_4_RS-10580_Sections";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 	
 
 		// Rest to Create Workorder -Standard Work Order - Satisfies Qualification Criteria and Checklist Entry Criteria
@@ -113,7 +113,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 				sWOName3 = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 				System.out.println("WO no =" + sWOName3);
 		
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 				
 		//sWOName1 = "WO-00001615";
@@ -132,7 +132,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 
 		// Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
@@ -143,7 +143,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberDVRAns);
 		// tapping next button
@@ -214,7 +214,7 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection3Name));
 		//checklistPo.geteleChecklistSectionNametab(sSection3Name).click();		
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).sendKeys(sNumberDVRAns);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));	
 		
 		Assert.assertFalse(checklistPo.geteleChecklistDVRNoGreaterthan100txt().isDisplayed(), "DataValidation confirmation failed");	 	
@@ -224,14 +224,14 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 		Assert.assertTrue(checklistPo.geteleDVRConfirmBtn().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
 		commonUtility.tap(checklistPo.geteleDVRConfirmBtn());
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).clear();
 		checklistPo.geteleChecklistAnsNumber(sSectionThreeErrorQ).sendKeys(sSectionThreeQ1ValidAns1);	
 
 		commonUtility.tap(checklistPo.geteleSectionNextBtn(3));	
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.tap(checklistPo.geteleChecklistSectionNametab(sSection1Name));
-		Thread.sleep(genericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		
 		checklistPo.geteleChecklistAnsNumber(sNumberq).clear();
 		checklistPo.geteleChecklistAnsNumber(sNumberq).sendKeys(sNumberSectionwithoutjump2);
@@ -284,16 +284,16 @@ public class SCN_Checklist_4_RS_10580 extends BaseLib {
 			System.out.println("Validating workorder not satisfying checklsit entry criteria");
 		
 			commonUtility.tap(calendarPO.getEleCalendarClick());
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(exploreSearchPo.getEleExploreIcn());
 			workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 			
 			// Navigate to Field Service process
 			workOrderPo.selectAction(commonUtility, sFieldServiceName);
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			// Navigating to the checklist
 			commonUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 							
 			try {

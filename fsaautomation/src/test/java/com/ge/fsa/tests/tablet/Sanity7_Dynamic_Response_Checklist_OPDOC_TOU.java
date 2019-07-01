@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
@@ -44,11 +44,11 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		
 
 		//Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
-		sChecklistOpDocName =GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistOpDocName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
+		sChecklistOpDocName =CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistOpDocName");
 	
 		
 		
@@ -68,7 +68,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		String sChecklistPickListdynamicQuestionAns;
 		String sTargetObjectUpdateValue = "Target Object Update";
 		String sChecklistStatus = "Completed";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sChecklistName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sChecklistName, sTestCaseID);		
 
 		//sWOName = "WO-00000415";
 							
@@ -79,7 +79,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 
 		//Data Sync for WO's created
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		//toolsPo.configSync(commonsUtility);			
 		
 		//Navigation to WO
@@ -95,7 +95,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		// Navigating to the checklist
 		commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 		//commonsUtility.longPress();
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 			
 		System.out.println("validating dynamic response,checking if work order no is populated inside answer ");
 		sDynamicResponseTextAnswer = checklistPo.geteleChecklistAnswerTextArea(sDynamicResponseTextQuestion).getAttribute("value");
@@ -119,14 +119,14 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		//tapping next button
 		commonUtility.tap(checklistPo.geteleNext());
 		// submitting the checklist
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		commonUtility.tap(checklistPo.eleChecklistSubmit());
 	//	try{driver.findElement(By.xpath("//XCUIElementTypeAlert//XCUIElementTypeButton[@name='Allow']")).click();}catch(Exception e) {}
 
 		//Validation of required question lbl and issue found txt.
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
 		ExtentManager.logger.log(Status.PASS,"checklist required question validation passed");
 
@@ -168,28 +168,28 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 
 	
 		commonUtility.tap(workOrderPo.getEleDoneLnk());
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		
 		//Navigation back to Work Order after Service Report
 		Assert.assertTrue(checklistPo.getEleActionsLnk().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS,"Creation of Checklist OPDOC passed");
 
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 		// String ans= workOrderPo.geteleProblemDescriptionlbl().getText();
 		// System.out.println(ans);
 		 Assert.assertTrue(workOrderPo.geteleProblemDescriptionlbl().getText().equals(sTargetObjectUpdateValue), "Target Object UPDATE did not happen");
 		 commonUtility.tap(calendarPO.getEleCalendarIcn());	
 		 toolsPo.syncData(commonUtility);
-		 Thread.sleep(GenericLib.iAttachmentSleep);
+		 Thread.sleep(CommonUtility.iAttachmentSleep);
 		 
 		// Verifying if checklistopdoc is synced to server
 		  	System.out.println("Validating if OPDOC attachment is syned to server.");
-		  	Thread.sleep(GenericLib.iMedSleep);
-		  	Thread.sleep(GenericLib.iMedSleep);
+		  	Thread.sleep(CommonUtility.iMedSleep);
+		  	Thread.sleep(CommonUtility.iMedSleep);
 			String sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"\')";
 			restServices.getAccessToken();
 			String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");	
@@ -210,8 +210,8 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 			Assert.assertTrue(sTargetObjectUpdateValue.equals(targetobjectupdateOL), "Target Object Value is not updated to server");
 			ExtentManager.logger.log(Status.PASS,"Target Object Update Value is updated to server");
 			//Validate if checklist is updated to server
-			Thread.sleep(GenericLib.iHighSleep);
-			Thread.sleep(GenericLib.iHighSleep);		
+			Thread.sleep(CommonUtility.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);		
 			System.out.println("validating if checklist is synced to server.validate the checklist status and answers through API.");
 			String ChecklistQuery = "select+SVMXC__Status__c,SVMXC__ChecklistJSON__c+from+SVMXC__Checklist__c+where+SVMXC__Work_Order__c+in+(SELECT+id+from+SVMXC__Service_Order__c+where+name+=\'"+sWOName+"')";
 			String ChecklistQueryval = restServices.restGetSoqlValue(ChecklistQuery, "SVMXC__Status__c");	

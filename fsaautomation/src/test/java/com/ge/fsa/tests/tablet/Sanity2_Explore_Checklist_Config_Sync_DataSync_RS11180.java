@@ -21,8 +21,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 import io.appium.java_client.TouchAction;
@@ -65,7 +65,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario2_checklist() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");
 		
@@ -76,11 +76,11 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		//sWOJsonData = "{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Bangalore\"}";
 		
 		//Extracting Excel Data
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
 		//sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ChecklistName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ChecklistName");
 		System.out.println("---------- "+ sChecklistName+"        &&&&&  ");
 		// Creation of dynamic Work Order
 		restServices.getAccessToken();
@@ -89,7 +89,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");
 		System.out.println("WO no = "+sWOName);
 		//sWOName="WO-00000695";
-		bProcessCheckResult =commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName, sTestCaseID);		
+		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 
 
 		String sradioQuestion ="RadioButton Question";
@@ -111,14 +111,14 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 		    toolsPo.OptionalConfigSync(toolsPo, commonUtility, bProcessCheckResult);
 			//toolsPo.configSync(commonsUtility);
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			System.out.println(sWOName);
 			//sWOName="WO-00004920";
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);					
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			commonUtility.tap(checklistPo.geteleChecklistName(sChecklistName));
 			//commonsUtility.longPress(checklistPo.geteleChecklistName(sChecklistName));
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			
 			//System.out.println("Entering Text Question Answer");
 			commonUtility.tap(checklistPo.geteleChecklistAnswerTextArea(stextQuestion));
@@ -203,19 +203,19 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 
 		 	
 			// submitting the checklist
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			System.out.println(driver.getContext());
 			commonUtility.tap(checklistPo.eleChecklistSubmit());	
-			Thread.sleep(GenericLib.iHighSleep);
+			Thread.sleep(CommonUtility.iHighSleep);
 			
 			try{commonUtility.clickAllowPopUp();}catch(Exception e) {}
 			commonUtility.switchContext("WebView");
 			// tapping on the validation sucessfull checklist popup
 			commonUtility.tap(checklistPo.geteleChecklistPopupSubmit());
 			System.out.println("finished clicking on submit popup.");
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 
 			
 			// Tapping on Show Completed Checklists
@@ -225,7 +225,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			//System.out.println("going to tap on the completedchecklist");
 			commonUtility.tap(checklistPo.geteleCompletedChecklistName(sChecklistName));
 			//System.out.println("tapped on completed checklist");
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			
 			
@@ -259,7 +259,7 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 			
 			// Sync the Data
 			 toolsPo.syncData(commonUtility);		
-			 Thread.sleep(GenericLib.iVHighSleep);
+			 Thread.sleep(CommonUtility.iVHighSleep);
 			
 			 									//SERVER SIDE API VALIDATIONS
 			 

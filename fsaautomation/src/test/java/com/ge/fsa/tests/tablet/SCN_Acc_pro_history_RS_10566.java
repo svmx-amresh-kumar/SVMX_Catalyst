@@ -15,8 +15,8 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
@@ -60,7 +60,7 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		//sahi
 		
-		  genericLib.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
+		  commonUtility.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
 		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -104,24 +104,24 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		
 		//read from file
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "ViewProcessNameAccPro");
-		String sFieldServiceName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ViewProcessNameAccPro");
+		String sFieldServiceName2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "EditProcessName");
 		
 		
 			//Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);
 			//config sync
 			toolsPo.configSync(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//datasync
 			toolsPo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname1, null);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			String fetchedProducthistory =workOrderPo.getProductHistory().getText();
 			System.out.println(fetchedProducthistory);
@@ -132,9 +132,9 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			assertTrue(fetchedAccounthistory.contains("( 0 )"));
 			
 			workOrderPo.selectAction(commonUtility, sFieldServiceName2);
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(workOrderPo.getEleSaveLnk());
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname2, null);
 
@@ -156,9 +156,9 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 			assertEquals(AccHisWO1,WOname1 );
 			
 			workOrderPo.selectAction(commonUtility, sFieldServiceName2);
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(workOrderPo.getEleSaveLnk());
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			
 			workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, WOname3, null);
 

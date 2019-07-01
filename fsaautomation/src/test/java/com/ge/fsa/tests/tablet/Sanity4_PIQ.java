@@ -10,15 +10,15 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Sanity4_PIQ extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario4Test() throws Exception {
-		genericLib.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
 		// Create Account
@@ -47,7 +47,7 @@ public class Sanity4_PIQ extends BaseLib{
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		toolsPo.configSync(commonUtility);
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iLowSleep);
+		Thread.sleep(CommonUtility.iLowSleep);
 		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", woName, "Open tree view");
 		
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sAccName).isDisplayed(),"Account not displayed in Tree View");
@@ -56,7 +56,7 @@ public class Sanity4_PIQ extends BaseLib{
 		ExtentManager.logger.log(Status.PASS,"Location displayed on Tree View");
 		Assert.assertTrue(workOrderPo.getEleOnTreeView(sIbName).isDisplayed(),"Installed Product not displayed in Tree View");
 		ExtentManager.logger.log(Status.PASS,"Installed Product displayed on Tree View");
-		Thread.sleep(GenericLib.iHighSleep);
+		Thread.sleep(CommonUtility.iHighSleep);
 	
 		
 	}

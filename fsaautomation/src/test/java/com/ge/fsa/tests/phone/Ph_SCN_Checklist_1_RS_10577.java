@@ -18,7 +18,6 @@ import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.phone.Ph_WorkOrderPO;
@@ -104,11 +103,11 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		sCaseWOID = "DATA_SCN_Checklist_1_RS-10577_SOU";
 
 		// Reading from the Excel sheet
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ProcessName");
-		sChecklistName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "ChecklistName");
-		sEditProcessName = GenericLib.readExcelData(GenericLib.sTestDataFile, sSheetName, "EditProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
+		sChecklistName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ChecklistName");
+		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
 
 		// Rest to Create Workorder
 		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
@@ -119,8 +118,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		System.out.println("WO no =" + sWOName);
 		// sWOName = "WO-00005043";
 
-		bProcessCheckResult = commonUtility.ProcessCheck(restServices, genericLib, sChecklistName, sScriptName,
-				sTestCaseID);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);
 
 	}
 
@@ -128,7 +126,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	public void RS_10577() throws Exception {
 
 		// Running Pre-Req
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 
 		// Resinstall the app
 		lauchNewApp("false");
@@ -145,7 +143,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Navigating to Checklist
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
@@ -229,7 +227,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 		ph_WorkOrderPo.getEleBackButton().click();
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sEditProcessName);

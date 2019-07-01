@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
@@ -51,7 +51,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Case has been created through rest web service. Work Order Id:"+sCaseID);
 
 		
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -60,15 +60,15 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
-		commonUtility.preReqSetup(genericLib);
+		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");
 		
 		sTestID = "RS_10543";
-		sExploreSearch = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreSearch");
-		sExploreChildSearchTxt = GenericLib.readExcelData(GenericLib.sTestDataFile, sTestID,"ExploreChildSearch");
-		sFieldServiceName = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "ProcessName");
-		sBillingType = GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "BillingType");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
+		sBillingType = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "BillingType");
 		try {
 		preRequiste();
 		//sWOName="WO-00007492";
@@ -87,7 +87,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreChildSearchTxt).click();
 		ph_ExploreSearchPo.getEleExploreSearchTxtFld().sendKeys(sWOName + "\n");
-		Thread.sleep(GenericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		
 		Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), "No Records text is not displayed");
 		ExtentManager.logger.log(Status.PASS,"No Records text is successfully displayed");
@@ -207,12 +207,12 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 //			}
 			postCleanup();
 			ph_MorePo.syncData(commonUtility);
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 		}
 	}
 	
 	private void postCleanup() throws Exception { 
-		genericLib.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
 		Assert.assertTrue(commonUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	

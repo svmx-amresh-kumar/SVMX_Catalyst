@@ -21,8 +21,8 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.ExploreSearchPO;
 import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
@@ -50,7 +50,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		genericLib.executeSahiScript("appium/Scenario_10539.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10539.sah");
 		if(commonUtility.verifySahiExecution()) {
 			
 			System.out.println("PASSED");
@@ -70,16 +70,16 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		//toolsPo.configSync(commonsUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(genericLib.iMedSleep);
+		Thread.sleep(CommonUtility.iMedSleep);
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
-		sworkOrderName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"Work Order Number");
+		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Work Order Number");
 		System.out.println(sworkOrderName);
-		sProductName1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"Product1 Name");
+		sProductName1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Product1 Name");
 		System.out.println(sProductName1);
-		sProductName2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"Product2 Name");
+		sProductName2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Product2 Name");
 		System.out.println(sProductName2);
-		sSCONName = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName,"ServiceContract Name");
+		sSCONName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"ServiceContract Name");
 		System.out.println(sSCONName);
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
 		String sProcessname = "Record T&M";// Standard SFM Process

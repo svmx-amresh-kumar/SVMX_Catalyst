@@ -11,7 +11,6 @@ import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
@@ -179,7 +178,7 @@ public class ToolsPO
 	 */
 	public void syncData(CommonUtility commonUtility) throws InterruptedException
 	{
-		GenericLib.lWaitTime=2000;
+		CommonUtility.lWaitTime=2000;
 		
 		//Navigation to Tools screen
 		commonUtility.tap(getEleToolsIcn());	
@@ -219,7 +218,7 @@ public class ToolsPO
 	 */
 		public void configSync(CommonUtility commonUtility) throws InterruptedException
 		{
-			GenericLib.lWaitTime=2000;
+			CommonUtility.lWaitTime=2000;
 			
 			//Navigation to Tools screen
 			commonUtility.tap(getEleToolsIcn());	
@@ -228,9 +227,9 @@ public class ToolsPO
 
 			
 			commonUtility.tap(geteleSyncConfigNowLnk());
-			Thread.sleep(GenericLib.iLowSleep);
+			Thread.sleep(CommonUtility.iLowSleep);
 			commonUtility.tap(getEleOkBtn());
-			Thread.sleep(GenericLib.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);
 			//Canceling sync in order to reset the config sync status.
 			commonUtility.waitforElement(eleCancelConfigSyncBtn, 30);
 			commonUtility.tap(eleCancelConfigSyncBtn,20,20);
@@ -259,7 +258,7 @@ public class ToolsPO
 		
 		public void Resetapp(CommonUtility commonUtility,ExploreSearchPO exploreSearchPo) throws InterruptedException
 		{
-			GenericLib.lWaitTime=2000;
+			CommonUtility.lWaitTime=2000;
 			commonUtility.tap(getEleToolsIcn());	
 			Assert.assertTrue(getEleSyncDataNowLnk().isDisplayed(), "Tools screen is not displayed");
 			ExtentManager.logger.log(Status.PASS,"Tools screen is displayed successfully");

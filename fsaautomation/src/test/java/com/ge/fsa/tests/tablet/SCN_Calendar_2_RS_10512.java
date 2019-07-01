@@ -18,8 +18,8 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
+import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
-import com.ge.fsa.lib.GenericLib;
 import com.ge.fsa.lib.Retry;
 import com.ge.fsa.pageobjects.tablet.CalendarPO;
 
@@ -65,7 +65,7 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		
 		
 		
-		  genericLib.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
+		  commonUtility.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
 		  if(commonUtility.verifySahiExecution()) {
 		  
 		  System.out.println("PASSED"); } else { System.out.println("FAILED");
@@ -80,10 +80,10 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 		lauchNewApp("false");
 	
 		
-		 sWO_SVMX_1 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_1");
-		 sWO_SVMX_2 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_2");
-		 sWO_SVMX_3 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_3");
-		 sWO_SVMX_4 = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "WO_SVMX_4");
+		 sWO_SVMX_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_1");
+		 sWO_SVMX_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_2");
+		 sWO_SVMX_3 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_3");
+		 sWO_SVMX_4 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_4");
   	//Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		//config sync
