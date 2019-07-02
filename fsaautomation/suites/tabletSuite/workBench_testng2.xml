@@ -8,8 +8,9 @@
     </listeners>
   <test name="WorkBench_2">
 		<classes>
-			<class name="com.ge.fsa.tests.tablet.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
 			<class name="com.ge.fsa.tests.tablet.Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" />
+					<class name="com.ge.fsa.tests.tablet.Sanity7_Dynamic_Response_Checklist_OPDOC_TOU" />
+		
 		</classes>
 			</test>
 </suite> <!-- Suite -->
