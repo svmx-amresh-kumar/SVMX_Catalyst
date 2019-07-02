@@ -1509,7 +1509,7 @@ import io.appium.java_client.TouchAction;
 	
 			Thread.sleep(2000);
 			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
-			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  1,"9","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(),  1,"09","00"); //set end time
 	
 			//		workOrderPo.setTime(commonsUtility, workOrderPo.getEleStartDateTimeTxtFld(), 1, "6");  // Sets start date time
 			//		workOrderPo.setTime(commonsUtility, workOrderPo.getEleEndDateTimeTxtFld(), 1, "8");    // Sets end date time
@@ -1557,7 +1557,7 @@ import io.appium.java_client.TouchAction;
 			commonUtility.tap(workOrderPo.getEleAddTravelLnk());
 	
 			commonUtility.setDateTime24hrs(getEleStartDateAndTimeTxtFld(), 0,"0", "0"); //set start time to Today
-			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 1,"9","00"); //set end time
+			commonUtility.setDateTime24hrs(getEleEndDateAndTimeTxtFld(), 1,"09","00"); //set end time
 			//			workOrderPo.setTime(commonsUtility, workOrderPo.getEleStartDateTimeTxtFld(), 1, "5");  // Sets start date time
 			//			workOrderPo.setTime(commonsUtility, workOrderPo.getEleEndDateTimeTxtFld(), 1, "9");    // Sets end date time
 	
