@@ -31,7 +31,7 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 		String sScriptName = "Scenario_10528";
 		
 		
-		commonUtility.executeSahiScript(sScriptName, sTestID);
+//		commonUtility.executeSahiScript(sScriptName, sTestID);
 		
 		// Create Account
 		String sAccName = commonUtility.generateRandomNumber("Acc");

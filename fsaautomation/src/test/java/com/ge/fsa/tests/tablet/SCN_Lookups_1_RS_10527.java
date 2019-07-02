@@ -33,7 +33,7 @@ public class SCN_Lookups_1_RS_10527 extends BaseLib {
 	public void RS_10527() throws Exception {
 		
 
-		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
+//		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
 
 		
 		// Create Account

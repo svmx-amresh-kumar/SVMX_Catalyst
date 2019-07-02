@@ -32,7 +32,7 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 	String sSearchTxt = "HarryProd";
 	
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
@@ -206,7 +206,6 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 		    for(WebElement we:prodList) {
 		    	sProdList.add(we.getText());
 		    }
-//		    System.out.println(sProdList);
 		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 2
@@ -216,14 +215,10 @@ public class SCN_Lookups_4_10530 extends BaseLib {
 			jSonArr = restServices.restGetSoqlJsonArray(soqlquery);
 		    sArrOfProd = restServices.getJsonArr(jSonArr, "SVMXC__Product_Name__c");
 		    prodList = workOrderPo.getProductListInLkp();
-//		    System.out.println(prodList);
-//		    System.out.println(prodList.size());
-//		    System.out.println(sArrOfProd);
 		    sProdList = new ArrayList<String>();     	
 		    for(WebElement we:prodList) {
 		    	sProdList.add(we.getText());
 		    }
-//		    System.out.println(sProdList);
 		    Collections.sort(sArrOfProd);
 		    Collections.sort(sProdList);
 		    Assert.assertTrue(sArrOfProd.equals(sProdList)); //Scenario 4
