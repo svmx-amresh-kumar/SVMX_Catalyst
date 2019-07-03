@@ -23,7 +23,7 @@ import com.ge.fsa.lib.Retry;
 public class SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	String sTestCaseID = "RS_10571";
-	String sScriptName = "RS_10571_prerequisite";
+	String sScriptName = "appium/RS_10571_prerequisite.sah";
 	String sWORecordID = null;
 	String sWOName = null;
 	String  sExploreSearch = null;
@@ -33,7 +33,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 //	int iValToIncrease = 0;
 	int iValNoOfTimesAssigned = 0;
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void SCN_Opdoc_RS_10571() throws Exception {
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
@@ -46,7 +46,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 //		iValToIncrease = Integer.parseInt(GenericLib.readExcelData(GenericLib.sTestDataFile,sTestID, "Increased"));
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.executeSahiScript(sScriptName);
+//		commonUtility.executeSahiScript(sScriptName);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");
@@ -70,7 +70,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"");
 		Assert.assertEquals(workOrderPo.getScheduledDatetimevalue().getAttribute("value"),"");
-		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),null);
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),"");//Check on Android
 		iValNoOfTimesAssigned = Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value"));
 		Assert.assertEquals(workOrderPo.getTxtNumber().getAttribute("value"),"10");
 		commonUtility.tap(workOrderPo.getEleClickSave());
@@ -91,8 +91,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		Assert.assertEquals(Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value")),iValNoOfTimesAssigned);
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"1/1/2019");
 		Assert.assertTrue(workOrderPo.getScheduledDatetimevalue().getAttribute("value").contains(sCurrentDate));
-//		System.out.println(workOrderPo.getProblemDescription().getAttribute("value"));
-		Assert.assertEquals(workOrderPo.getProblemDescription().getText(),sProbDesc);
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),sProbDesc);//Check on Android
 				
 	}
 }
