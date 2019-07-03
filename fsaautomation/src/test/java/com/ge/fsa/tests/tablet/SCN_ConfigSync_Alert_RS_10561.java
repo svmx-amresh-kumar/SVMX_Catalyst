@@ -36,14 +36,14 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in Mobile Configuration
 				
 				commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Pre.sah");
-				Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+				
 				ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
 	public void postscript() throws Exception
 	{
-		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah",sTestCaseID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 		

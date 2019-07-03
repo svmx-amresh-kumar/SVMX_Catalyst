@@ -70,8 +70,7 @@ public class SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		System.out.println(sIBName2);
 		
 		
-		commonUtility.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		commonUtility.executeSahiScript("appium/SCN_SrctoTrgt_RS_10542_prerequisite.sah");
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 	}

@@ -66,16 +66,8 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		// sahi
 
 		
+
 		  commonUtility.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
-		  if(commonUtility.verifySahiExecution()) {
-		  
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  
-		  
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
-		  System.out.println("RS_10515");
-		  
 		 
 
 		sWO_SVMX_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_1");

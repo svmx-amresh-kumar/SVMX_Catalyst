@@ -59,7 +59,7 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		restServices.restCreate("Contact?","{\"FirstName\": \""+sSerialNumber+"\", \"LastName\": \"RS_10546\", \"AccountId\": \""+sAccountNameA+"\"}");
 		sContactName = sSerialNumber+" "+"RS_10546";
 		
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		

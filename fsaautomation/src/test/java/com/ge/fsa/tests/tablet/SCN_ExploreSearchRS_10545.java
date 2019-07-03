@@ -156,7 +156,7 @@ public class SCN_ExploreSearchRS_10545 extends BaseLib
 		restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		*/
 		
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		

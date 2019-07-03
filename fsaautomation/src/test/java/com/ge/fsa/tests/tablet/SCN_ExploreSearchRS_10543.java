@@ -47,7 +47,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 		sSqlQuery ="SELECT+CaseNumber+from+Case+Where+id+=\'"+sCaseObjectID+"\'";				
 		sCaseID  =restServices.restGetSoqlValue(sSqlQuery,"CaseNumber"); 
 		
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -287,7 +287,7 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	}
 	
 	private void postCleanup() throws Exception { 
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	

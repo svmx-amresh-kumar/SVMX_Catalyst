@@ -114,16 +114,11 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		//Set the setting SET007 to True
 		
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_True.sah",
-		  "sTestCaseID"); if(commonUtility.verifySahiExecution()) {
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
-		  
+		  "appium/SCN_option_to_remove_Choosefromlib_True.sah"); 
 		/*
 		 * commonUtility.executeSahiScript("appium/Checklist_preRequisite.sah",
-		 * sTestCaseID); Assert.assertTrue(commonUtility.verifySahiExecution(),
-		 * "Failed to execute Sahi script");
+		 * sTestCaseID); 
+
 		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
 		 * "Sahi verification is successful");
 		 * 
@@ -156,11 +151,9 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 		
 		//Set the setting SET007 to False
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_option_to_remove_Choosefromlib_False.sah");
+		 
+
 				   
 		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to Flase");
 				  

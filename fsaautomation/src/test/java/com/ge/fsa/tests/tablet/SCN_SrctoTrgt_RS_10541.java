@@ -71,8 +71,8 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 		//sIBName1 ="IB_10542_16102018172046";
 		//sIBName2 = "IB_10541_22102018144716";
 		
-		commonUtility.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah", sTestID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		commonUtility.executeSahiScript("appium/SCN_SrctoTrgt_RS_10541_prerequisite.sah");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 		}

@@ -74,7 +74,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		//sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites -to set New event from Work Order into Wizard
 		commonUtility.executeSahiScript("appium/SCN_SelfDispatch_RS_10562_prerequisite.sah");
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		
 		 sRandomNumber = commonUtility.generateRandomNumber("");

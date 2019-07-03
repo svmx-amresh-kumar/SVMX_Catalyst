@@ -52,16 +52,8 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		//sahi
 		
-		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
-		  if(commonUtility.verifySahiExecution()) {
-		  
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  
-		  
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("false");
-		  System.out.println("RS-11859");
 		 
+		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
 		 
 	
 	//read from file		

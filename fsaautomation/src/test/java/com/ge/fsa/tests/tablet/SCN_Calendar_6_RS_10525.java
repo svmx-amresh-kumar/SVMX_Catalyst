@@ -63,19 +63,8 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
-		commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
-  		if(commonUtility.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
+		
+  		commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
   		lauchNewApp("true");
   		System.out.println("RS_10525");
 		

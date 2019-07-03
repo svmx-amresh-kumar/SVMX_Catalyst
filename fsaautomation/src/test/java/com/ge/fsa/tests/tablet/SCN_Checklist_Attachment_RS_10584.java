@@ -121,11 +121,8 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		//Set the setting SET007 to True
 	
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_True.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
-		  else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_option_to_remove_Choosefromlib_True.sah");
+		 
 		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
 		  
 		  //perform a config sync 
@@ -155,10 +152,7 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 		  lauchNewApp("true");
 		  
 		  //Set the setting SET007 to False 
-		  commonUtility.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
-		  else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +"Sahi verification failure"); assertEquals(0, 1); }
+		  commonUtility.executeSahiScript("appium/SCN_option_to_remove_Choosefromlib_False.sah");
 		  
 		  ExtentManager.logger.log(Status.PASS,"Setting SET007 has been set to True");
 		  

@@ -32,9 +32,9 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sExploreSearch = "WO SEARCH";
 		
 		// Add Processes
-		commonUtility.executeSahiScript(sScriptName1, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName1);
 		
-		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
+	//	commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 		
 		lauchNewApp("false");
 		loginHomePo.login(commonUtility, exploreSearchPo);	
@@ -58,7 +58,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		((Rotatable)driver).rotate(ScreenOrientation.PORTRAIT);
 		
 		//Edit Processes
-		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName);
 	
 		toolsPo.configSync(commonUtility);
 		Thread.sleep(CommonUtility.iMedSleep);

@@ -50,7 +50,7 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 		String sTestCaseID="RS_10511_Calender_1";
 		//sahi
  	
-  		 	commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah", sTestCaseID);
+  		 	commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 
   		

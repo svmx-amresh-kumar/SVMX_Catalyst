@@ -56,18 +56,7 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		System.out.println("SCN_GetPriceSCON_RS_10531");
 		// To run the Sahi Script before the Execution of Appium - 10531
 		commonUtility.executeSahiScript("appium/SCN_GetPrice_RS_10531.sah");
-		if(commonUtility.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-	}
+		
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
@@ -175,18 +164,6 @@ public class SCN_GetPrice_RS_10531 extends BaseLib {
 		// ==========================================================================================================
 		 //To run the Sahi Automation Script to set the Work Order to Not Covered on Sahi Part
 		commonUtility.executeSahiScript("appium/SCN_GetProce_Rs_10531_Middletestcase.sah");
-		if(commonUtility.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
 		
 		
 		// Have a config Sync
