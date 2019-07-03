@@ -103,7 +103,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sDateExpected = "1/1/2019";
 
 		prereq();
-		lauchNewApp("false");
+		//lauchNewApp("false");
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -161,11 +161,11 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ChecklistPO.getelechecklistTextQAns(stextQuestion).sendKeys(stextAns);
 		driver.findElement(By.xpath("//*[@*[contains(.,'"+stextQuestion+"')]]")).click();
 		// Entering DateTime question
-//		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-//			commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
-//		} else {
-//			commonUtility.custScrollToElement(sdateTimeQuestion);
-//		}
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.custScrollToElement(sdateTimeQuestion);
+		} else {
+			commonUtility.custScrollToElement(sdateTimeQuestion);
+		}
 
 		commonUtility.setDateTime24hrs(ph_ChecklistPO.getelechecklistdate(sdateTimeQuestion), 0, "0", "0");
 
@@ -191,48 +191,48 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		Thread.sleep(3000);
 
 		// to be reverted once number is fixed for android!
-		try {
-			ph_ChecklistPO.geteleChecklistCompleted().click();
-
-		} catch (Exception e) {
-			ph_ChecklistPO.geteleInProgress().click();
-		}
+//		try {
+//			ph_ChecklistPO.geteleChecklistCompleted().click();
+//
+//		} catch (Exception e) {
+//			ph_ChecklistPO.geteleInProgress().click();
+//		}
 		// ------------------------validating values after submitting ---------
 
 		// picklist validation
-		sPicklistAns = ph_ChecklistPO.getelechecklistPickListQAns(spicklistQuestion, "PicklOne").getText();
+		sPicklistAns = ph_ChecklistPO.geteleCheckListQAns(spicklistQuestion.substring(3)).getText();
 		Assert.assertTrue(sPicklistAns.equals(sPicklistval), "Picklist answer --expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 		ExtentManager.logger.log(Status.PASS, "picklist answer sucessfull expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 
 		// Text question
-		commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
-		sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue(stextQuestion, stextAns).getText();
+		commonUtility.custScrollToElementAndClick(sdateTimeQuestion.substring(3));
+		sTextQAns = ph_ChecklistPO.geteleCheckListQAns(stextQuestion.substring(3)).getText();
 		Assert.assertTrue(sTextQAns.contains(stextAns));
 		ExtentManager.logger.log(Status.PASS, "Checklist Text answer sucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
 
 		// Date question
-		commonUtility.custScrollToElement(snumberQuestion);
-		String sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion).getText();
+		commonUtility.custScrollToElement(snumberQuestion.substring(3));
+		String sDateQAns = ph_ChecklistPO.geteleCheckListQAns(sdateQuestion.substring(3)).getText();
 		Assert.assertTrue(sDateQAns.contains((sDateExpected)), "Checklist Date answer --expected: " + sDateExpected + " actual: " + sDateQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist Date answer sucessfull expected: " + sDateQAns + " actual: " + sDateQAns + "");
 
 		// DateTime question
-		commonUtility.custScrollToElement(snumberQuestion);
+		commonUtility.custScrollToElement(snumberQuestion.substring(3));
 		String sDeviceDateTimeFinal = ph_ChecklistPO.get_device_date(commonUtility);
 		System.out.println(sDeviceDateTimeFinal);
-		String sDateTimeQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateTimeQuestion).getText();
+		String sDateTimeQAns = ph_ChecklistPO.geteleCheckListQAns(sdateTimeQuestion.substring(3)).getText();
 		Assert.assertTrue(sDateTimeQAns.contains((sDeviceDateTimeFinal)), "Checklist DateTime answer --expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist Date answer sucessfull expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
 
 		// Number question
-		commonUtility.custScrollToElementAndClick(snumberQuestion);
+		commonUtility.custScrollToElementAndClick(snumberQuestion.substring(3));
 		Thread.sleep(3000);
-		sNumberQAns = ph_ChecklistPO.getelechecklistNumberQAns(snumberQuestion).getText().trim();
+		sNumberQAns = ph_ChecklistPO.geteleCheckListQAns(snumberQuestion.substring(3)).getText().trim();
 		// sNumberQAns
 		// =ph_ChecklistPO.getelechecklistTextQAnsValue(snumberQuestion,snumberAns).getText();
 		Assert.assertTrue(sNumberQAns.equals(snumberAns), "Checklist Text answer --expected: " + snumberAns + " actual: " + sNumberQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist Text answer sucessfull expected: " + snumberAns + " actual: " + sNumberQAns + "");
-
+		ph_ChecklistPO.geteleBackbutton().click();
 		// Sync the Data
 		ph_MorePo.syncData(commonUtility);
 
@@ -272,44 +272,44 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ChecklistPO.getelechecklistinstance().click();
 
 		// to be reverted once number is fixed for android!
-		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
-			try {
-				ph_ChecklistPO.geteleInProgress().click();
-
-			} catch (Exception e) {
-				ph_ChecklistPO.geteleChecklistCompleted().click();
-			}
-
-		} else {
-			ph_ChecklistPO.geteleChecklistCompleted().click();
-		}
+//		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+//			try {
+//				ph_ChecklistPO.geteleInProgress().click();
+//
+//			} catch (Exception e) {
+//				ph_ChecklistPO.geteleChecklistCompleted().click();
+//			}
+//
+//		} else {
+//			ph_ChecklistPO.geteleChecklistCompleted().click();
+//		}
 		// Validation of values from client after Data Sync
 
-		sPicklistAns = ph_ChecklistPO.getelechecklistPickListQAns(spicklistQuestion, "PicklOne").getText();
+		sPicklistAns = ph_ChecklistPO.geteleCheckListQAns(spicklistQuestion.substring(3)).getText();
 		Assert.assertTrue(sPicklistAns.equals(sPicklistval), "Picklist answer client post sync --expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 		ExtentManager.logger.log(Status.PASS, "picklist answer client post sync sucessfull expected: " + sPicklistval + " actual: " + sPicklistAns + "");
 
 		// Text question
-		commonUtility.custScrollToElementAndClick(sdateTimeQuestion);
-		sTextQAns = ph_ChecklistPO.getelechecklistTextQAnsValue(stextQuestion, stextAns).getText();
+		commonUtility.custScrollToElementAndClick(sdateTimeQuestion.substring(3));
+		sTextQAns = ph_ChecklistPO.geteleCheckListQAns(stextQuestion.substring(3)).getText();
 		Assert.assertTrue(sTextQAns.contains(stextAns));
 		ExtentManager.logger.log(Status.PASS, "Checklist Text answer client post syncsucessfull expected: " + stextAns + " actual: " + sTextQAns + "");
 
 		// Date question
-		commonUtility.custScrollToElement(snumberQuestion);
-		sDateQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateQuestion).getText();
+		commonUtility.custScrollToElement(snumberQuestion.substring(3));
+		sDateQAns = ph_ChecklistPO.geteleCheckListQAns(sdateQuestion.substring(3)).getText();
 		Assert.assertTrue(sDateQAns.contains((sDateExpected)), "Checklist Text client post syncanswer --expected: " + sDateExpected + " actual: " + sDateQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist Text client post answer sucessfull expected: " + sDateQAns + " actual: " + sDateQAns + "");
 
 		// DateTime question
-		commonUtility.custScrollToElement(snumberQuestion);
-		sDateTimeQAns = ph_ChecklistPO.getelechecklistDateQAnsValue(sdateTimeQuestion).getText();
+		commonUtility.custScrollToElement(snumberQuestion.substring(3));
+		sDateTimeQAns = ph_ChecklistPO.geteleCheckListQAns(sdateTimeQuestion.substring(3)).getText();
 		Assert.assertTrue(sDateTimeQAns.contains((sDeviceDateTimeFinal)), "Checklist DateTime client post sync  answer --expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist DateTime client post sync sucessfull expected: " + sDeviceDateTimeFinal + " actual: " + sDateTimeQAns + "");
 
-		commonUtility.custScrollToElementAndClick(snumberQuestion);
+		commonUtility.custScrollToElementAndClick(snumberQuestion.substring(3));
 		Thread.sleep(3000);
-		sNumberQAns = ph_ChecklistPO.getelechecklistNumberQAns(snumberQuestion).getText().trim();
+		sNumberQAns = ph_ChecklistPO.geteleCheckListQAns(snumberQuestion.substring(3)).getText().trim();
 		Assert.assertTrue(sNumberQAns.equals(snumberAns), "Checklist Text answer --expected: " + snumberAns + " actual: " + sNumberQAns + "");
 		ExtentManager.logger.log(Status.PASS, "Checklist Numnbe answer post sync sucessfull expected: " + snumberAns + " actual: " + sNumberQAns + "");
 
