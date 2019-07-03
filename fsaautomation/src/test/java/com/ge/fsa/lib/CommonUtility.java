@@ -1622,7 +1622,7 @@ public class CommonUtility {
 		String sFilePath = "/auto/SVMX_Catalyst/Executable/sahiResultCommon.txt";
 		Boolean result = false;
 		try {
-			sahiResultCommon = this.readTextFile(sFilePath);
+			sahiResultCommon = readTextFile(sFilePath);
 
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -1683,7 +1683,6 @@ public class CommonUtility {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
 			executeSahiScript(sScriptName, sTestCaseId);
-			Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
@@ -1821,13 +1820,10 @@ public class CommonUtility {
 		// running the Sahi Script Pre-requisites - To make My Records to All Records in
 		// Mobile Configuration
 		executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
 		executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
-		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
 		executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
-		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
 
 	}
 
@@ -2729,7 +2725,7 @@ public class CommonUtility {
 			throw e;
 		}
 		
-		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script is failed");
+		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script has failed");
 
 	}
 	
