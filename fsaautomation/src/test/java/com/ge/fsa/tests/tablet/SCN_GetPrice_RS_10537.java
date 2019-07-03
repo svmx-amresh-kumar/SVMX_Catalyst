@@ -57,18 +57,7 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		System.out.println("SCN_GetPriceSCON_RS_10537");
 		// To run the Sahi Script before the Execution of Appium - 10539
 		commonUtility.executeSahiScript("appium/Scenario_10537.sah");
-		if(commonUtility.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+		
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync

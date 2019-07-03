@@ -64,7 +64,7 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Contact has been created through rest web service with Name:"+sSerialNumber+" and returned Account Id:"+sContactName);
 
 		
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		

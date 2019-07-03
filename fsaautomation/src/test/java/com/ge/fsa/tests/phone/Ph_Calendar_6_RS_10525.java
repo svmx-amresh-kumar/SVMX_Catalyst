@@ -54,8 +54,8 @@ int iWhileCnt = 0;
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 	//sahi
-	commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah");
-		if(commonUtility.verifySahiExecution()) {
+	
+		if(commonUtility.executeSahiScript("appium/SCN_Calendar_6_RS_10525.sah")) {
 			System.out.println("PASSED");
 		}
 		else 

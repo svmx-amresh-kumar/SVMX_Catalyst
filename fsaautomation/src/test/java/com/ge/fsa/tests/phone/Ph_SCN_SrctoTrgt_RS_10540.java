@@ -79,8 +79,7 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 		/*
 		 * commonUtility.executeSahiScript(
 		 * "appium/SCN_SrctoTrgt_RS_10540_prerequisite.sah", sTestID);
-		 * Assert.assertTrue(commonUtility.verifySahiExecution(),
-		 * "Failed to execute Sahi script");
+
 		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID +
 		 * "Sahi verification is successful");
 		 */

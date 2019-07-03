@@ -111,8 +111,8 @@ import io.appium.java_client.touch.offset.PointOption;
 		
 		public void postscript() throws Exception
 		{
-			commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
-			Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+			commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah");
+			
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 		}
 		
@@ -131,34 +131,22 @@ import io.appium.java_client.touch.offset.PointOption;
 		
 		
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID
-		  +"Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled.sah");
+		  
 		  
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled_Versions.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
-		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_Checklist_OPDoc_when_Files_Enabled_Versions.sah");
+		 
 		  
-		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
-		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
-		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah");
+
 		  
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
 		  
 		  System.out.println("Setting the SET007 to Flase");
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_option_to_remove_Choosefromlib_False.sah");
+		  
 		  
 		  toolsPo.Resetapp(commonUtility, exploreSearchPo);
 		 

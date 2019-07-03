@@ -98,16 +98,9 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 	
 	   Thread.sleep(CommonUtility.iMedSleep);
 	   
-	   commonUtility.executeSahiScript("appium/SCN_Work_Order_OPDoc_when_Files_Enabled.sah", "sTestCaseID");
-		if(commonUtility.verifySahiExecution()) 
-		{
-			System.out.println("PASSED"); 
-			} else
-	   { 
-		System.out.println("FAILED");
-		ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID+"Sahi verification failure");
-		assertEquals(0, 1);
-		}
+	   commonUtility.executeSahiScript("appium/SCN_Work_Order_OPDoc_when_Files_Enabled.sah");
+		
+
 		
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);

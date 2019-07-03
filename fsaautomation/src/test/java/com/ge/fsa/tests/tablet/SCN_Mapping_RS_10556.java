@@ -84,10 +84,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		
 		 commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah") ;
-		  if(commonUtility.verifySahiExecution()) { System.out.println("PASSED"); }
-		  else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " +
-		  sTestCaseID+"Sahi verification failure"); assertEquals(0, 1); }
+		  
 		  lauchNewApp("false"); System.out.println("RS_10556");
 		 
 		 

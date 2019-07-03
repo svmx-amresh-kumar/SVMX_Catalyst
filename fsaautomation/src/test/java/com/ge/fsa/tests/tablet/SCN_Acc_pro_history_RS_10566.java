@@ -60,15 +60,8 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 		
 		//sahi
 		
-		  commonUtility.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah"); 
-		  if(commonUtility.verifySahiExecution()) {
-		  
-		  System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  
-		  
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); } lauchNewApp("true");
-		  System.out.println("RS_10566");
+		 
+		  commonUtility.executeSahiScript("appium/SCN_Acc_Pro_His_RS_10566.sah");
 		 
 		
 		//create Account

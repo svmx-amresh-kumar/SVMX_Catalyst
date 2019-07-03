@@ -1682,7 +1682,7 @@ public class CommonUtility {
 		} catch (NullPointerException e) {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
-			executeSahiScript(sScriptName, sTestCaseId);
+			executeSahiScript(sScriptName);
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
@@ -2686,10 +2686,12 @@ public class CommonUtility {
 	
 	
 	
-	public void executeSahiScript(String sSahiScript, String... sTestCaseID ) throws Exception
+	public boolean executeSahiScript(String sSahiScript,Boolean... bSoftFail ) throws Exception
 	{	
 		
-		String sMessage = sTestCaseID.length > 0 ? sTestCaseID[0] : sSahiScript;
+		boolean bSoftFailFlag = bSoftFail.length > 0 ? bSoftFail[0] : false;
+		String sMessage = sSahiScript;
+
 		String sSahiLogPath = "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/";
 		//If not triggered from jenkins use local path
 		String sActualLogPath = System.getenv("Run_On_Platform") == null ? "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" :  "offlineSahiLogs/" ;
@@ -2725,7 +2727,21 @@ public class CommonUtility {
 			throw e;
 		}
 		
-		Assert.assertTrue(verifySahiExecution(), "Execution of Sahi script has failed");
+		//Verifying after the complete Sahi run with no internal errors or failures
+		if(verifySahiExecution()) {
+		return true;
+		}else {
+		ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] failed");
+		//if you want the execution to continue after sahi failure
+		if(bSoftFailFlag) {
+			System.out.println("Execution of Sahi script has failed, but continuing execution as bSoftFlag is set to true");
+		}else {
+		//Stop execution completely
+		Assert.assertTrue(false, "Execution of Sahi script has failed, stopping execution ");
+		}
+		return false;
+		}
+		 
 
 	}
 	

@@ -97,7 +97,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
 		sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
 		
-		commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
+		commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
 		

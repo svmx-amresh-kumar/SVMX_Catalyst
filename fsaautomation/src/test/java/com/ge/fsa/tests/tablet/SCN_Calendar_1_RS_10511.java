@@ -72,19 +72,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		//sahi
+  		
   		commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
-  		if(commonUtility.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
   		lauchNewApp("true"); 
   		System.out.println("RS_10511");
 	

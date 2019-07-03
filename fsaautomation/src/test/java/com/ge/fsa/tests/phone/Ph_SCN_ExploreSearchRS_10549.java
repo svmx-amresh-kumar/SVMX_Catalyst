@@ -21,7 +21,7 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 	private void preRequiste() throws Exception  
 	{
 
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10549_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}

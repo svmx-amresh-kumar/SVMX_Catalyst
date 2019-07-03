@@ -99,8 +99,8 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 	
 	public void postscript() throws Exception
 	{
-		commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",sTestCaseID);
-		Assert.assertTrue(commonUtility.verifySahiExecution(), "Failed to execute Sahi script");
+		commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah");
+		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 	
@@ -121,21 +121,14 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		
 		  System.out.println("Setting the GBL037 to true");
 		  
-		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah",
-		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
-		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  commonUtility.executeSahiScript("appium/SCN_Enabling_Salesforce_Files.sah"); 
 		  
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to True");
 		  
 		  System.out.println("Setting the SET007 to Flase");
 		  commonUtility.executeSahiScript(
-		  "appium/SCN_option_to_remove_Choosefromlib_False.sah", "sTestCaseID");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else
-		  { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  "appium/SCN_option_to_remove_Choosefromlib_False.sah");
+		 
 		  
 		  toolsPo.Resetapp(commonUtility, exploreSearchPo);
 		 
@@ -281,11 +274,8 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 		  //Disabling salesforce files
 		  lauchNewApp("true");
 		  
-		  commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah",
-		  "sTestCaseID"); if(commonUtility.verifySahiExecution())
-		  {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
+		  commonUtility.executeSahiScript("appium/SCN_Disabling_Salesforce_Files.sah"); 
+
 		  
 		  System.out.println("Setting the GBL037 is set to False");
 		  ExtentManager.logger.log(Status.PASS,"Setting GBL037 has been set to False");

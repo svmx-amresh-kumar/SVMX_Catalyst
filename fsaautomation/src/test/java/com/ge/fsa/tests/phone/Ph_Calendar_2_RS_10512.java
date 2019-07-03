@@ -53,10 +53,7 @@ String sTestCaseID="RS_10512_Calender_2";
 		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		//sahi
 		/* commonUtility.executeSahiScript("appium/SCN_Calendar_2_RS-10512.sah");
-		  if(commonUtility.verifySahiExecution()) {System.out.println("PASSED"); } else { System.out.println("FAILED");
-		  ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID +
-		  "Sahi verification failure"); assertEquals(0, 1); }
-		  System.out.println("RS_10512");
+		  
 		  lauchNewApp("false");
 	*/
 		

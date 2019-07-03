@@ -51,7 +51,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 		ExtentManager.logger.log(Status.INFO, "Case has been created through rest web service. Work Order Id:"+sCaseID);
 
 		
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
@@ -212,7 +212,7 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	}
 	
 	private void postCleanup() throws Exception { 
-		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah", sTestID);
+		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10543_postcleanup.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	

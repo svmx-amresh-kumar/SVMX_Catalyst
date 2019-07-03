@@ -52,18 +52,7 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		
 		System.out.println("SCN_GetPriceNotCovered_RS_10532");
 		commonUtility.executeSahiScript("appium/Scenario_10532.sah");
-		if(commonUtility.verifySahiExecution()) {
-			
-			System.out.println("PASSED");
-		}
-		else 
-		{
-			System.out.println("FAILED");
-			
-
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-			assertEquals(0, 1);
-		}
+		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
 		toolsPo.configSync(commonUtility);

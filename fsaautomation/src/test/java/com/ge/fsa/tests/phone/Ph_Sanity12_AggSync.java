@@ -135,7 +135,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 		String sEventName = restServices.restGetSoqlValue(sSqlAccQuery, "Name");
 		System.out.println(sEventName);
 
-		commonUtility.executeSahiScript("appium/Sanity12_prerequisite.sah", sTestID);
+		commonUtility.executeSahiScript("appium/Sanity12_prerequisite.sah");
 		
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
@@ -246,7 +246,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			e.printStackTrace();
 		}
 		finally {
-			commonUtility.executeSahiScript("appium/Sanity12_postcleanup.sah", sTestID);
+			commonUtility.executeSahiScript("appium/Sanity12_postcleanup.sah");
 			
 			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		}

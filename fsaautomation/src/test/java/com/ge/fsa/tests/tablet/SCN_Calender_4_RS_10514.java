@@ -59,18 +59,7 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		
 		//sahi
 		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
-  		if(commonUtility.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
+  		
   		lauchNewApp("true");
   		System.out.println("RS_10514");
 	
@@ -90,19 +79,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			System.out.println(e);
 		}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
-  		if(commonUtility.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
+		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah");
+  		
   		lauchNewApp("true");
   		System.out.println("RS_10514");
 		
@@ -189,19 +167,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			
 		
-			commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah", "sTestCaseID");
-	  		if(commonUtility.verifySahiExecution()) {
-	  			
-	  			System.out.println("PASSED");
-	  		}
-	  		else 
-	  		{
-	  			System.out.println("FAILED");
-	  			
-
-	  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-	  			assertEquals(0, 1);
-	  		}
+			commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah");
+	  		
 	  		lauchNewApp("true");
 	  		System.out.println("RS_10514");	
 	  		
@@ -241,19 +208,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	}
 	@AfterMethod
 	public void resetPermission() throws Exception{
-		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah", "sTestCaseID");
-  		if(commonUtility.verifySahiExecution()) {
-  			
-  			System.out.println("PASSED");
-  		}
-  		else 
-  		{
-  			System.out.println("FAILED");
-  			
-
-  			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestCaseID + "Sahi verification failure");
-  			assertEquals(0, 1);
-  		}
+		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah");
+  		
 	}
 	
 	

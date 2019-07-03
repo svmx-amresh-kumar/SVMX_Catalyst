@@ -159,10 +159,10 @@ public class Sanity8_Lookup_DOD extends BaseLib
 				}
 				
 				// running the Sahi Script Pre-requisites - To make My Records to All Records in Mobile Configuration
-				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 				try{}
-				catch(Exception e){commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
-				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
+				catch(Exception e){commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+				commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 				
 				}
 

@@ -34,7 +34,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sExploreSearch = "WO SEARCH";
 		
 		//*************** Execute Sahi Script ***************
-		commonUtility.executeSahiScript(sScriptName1, sTestCaseID);	
+		commonUtility.executeSahiScript(sScriptName1);	
 //		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
 //		
 		lauchNewApp("false");
@@ -74,7 +74,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		//*************** Start of Scenario 4 ***************
 		ph_WorkOrderPo.getBtnFinalize().click();
 		//********** Sahi script to Edit Processes **********
-		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
+		commonUtility.executeSahiScript(sScriptName);
 		Thread.sleep(10000);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
