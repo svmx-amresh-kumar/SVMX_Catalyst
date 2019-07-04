@@ -21,7 +21,7 @@ import io.appium.java_client.touch.offset.PointOption;
 public class Ph_SCN_10529 extends BaseLib {
 	
 	String sTestCaseID = "RS_10529";
-	String sScriptName = "Scenario_10529";
+	String sScriptName = "appium/Scenario_10529.sah";
 	String sExploreSearch = "AUTOMATION SEARCH";
 	String sExploreChildSearch = "Work Orders";
 	String sCountry = "Australia";

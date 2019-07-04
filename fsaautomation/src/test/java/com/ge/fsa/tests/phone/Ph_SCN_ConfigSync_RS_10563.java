@@ -29,8 +29,8 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		String sProcessName = "Auto_Reg_10563";
 		String sOpDocProcessName = "Auto_OPDOC_10563";
 		String sTestCaseID = "RS_10563_configSync_edit";
-		String sScriptName = "Scenario_RS_10563_configSync_edit";
-		String sScriptName1 = "Scenario_RS_10563_configSync";
+		String sScriptName = "appium/Scenario_RS_10563_configSync_edit.sah";
+		String sScriptName1 = "appium/Scenario_RS_10563_configSync.sah";
 		String sExploreSearch = "WO SEARCH";
 		
 		//*************** Execute Sahi Script ***************

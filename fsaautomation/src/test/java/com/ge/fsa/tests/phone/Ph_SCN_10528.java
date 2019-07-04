@@ -23,7 +23,7 @@ import io.appium.java_client.touch.offset.PointOption;
 public class Ph_SCN_10528 extends BaseLib {
 	
 	String sTestCaseID = "RS_10528";
-	String sScriptName = "Scenario_10528";
+	String sScriptName = "appium/Scenario_10528.sah";
 	String sZipCode = "51203";
 	String sCountry = "India";
 	String sCity = "Bangalore";

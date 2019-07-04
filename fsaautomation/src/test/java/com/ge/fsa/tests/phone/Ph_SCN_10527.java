@@ -23,7 +23,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	String sLocName = "Ricardo";
 	String sLocName1 = "Nashville";
 	String sTestCaseID = "RS_10527";
-	String sScriptName = "Scenario_10527";
+	String sScriptName = "appium/Scenario_10527.sah";
 	Boolean bProcessCheckResult;
 	String sProcessName = "Auto_Reg_10527";
 	

@@ -19,7 +19,7 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 	public void RS_10570Test() throws Exception {
 		
 		String sTestCaseID = "RS_10570";
-		String sScriptName = "Scenario_10570";
+		String sScriptName = "appium/Scenario_10570.sah";
 		String sProcessName = "SFM_10570";
 		String sAccountName = "Acme";
 		String sContactName = "Stuart Law";

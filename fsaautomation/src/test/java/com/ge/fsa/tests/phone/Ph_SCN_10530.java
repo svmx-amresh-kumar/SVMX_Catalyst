@@ -27,9 +27,9 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sExploreSearch = "AUTOMATION SEARCH";
 	String sExploreChildSearch = "Work Orders";
 	String sProcessName = "Auto_10530_Regression";
-	String sScriptName = "Scenario_10530";
+	String sScriptName = "appium/Scenario_10530.sah";
 	String sSearchTxt = "HarryProd";
-	String sScriptName1 = "Scenario_10530_edit";
+	String sScriptName1 = "appium/Scenario_10530_edit.sah";
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {

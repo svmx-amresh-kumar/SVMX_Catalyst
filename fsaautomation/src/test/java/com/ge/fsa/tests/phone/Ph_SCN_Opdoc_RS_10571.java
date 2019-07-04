@@ -23,7 +23,7 @@ import com.ge.fsa.lib.Retry;
 public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	String sTestCaseID = "RS_10571";
-	String sScriptName = "RS_10571_prerequisite";
+	String sScriptName = "appium/RS_10571_prerequisite.sah";
 	String sWORecordID = null;
 	String sWOName = null;
 	String sExploreSearch = null;
