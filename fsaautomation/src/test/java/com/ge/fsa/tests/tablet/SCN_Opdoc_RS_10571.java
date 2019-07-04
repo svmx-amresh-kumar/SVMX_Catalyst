@@ -90,7 +90,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		System.out.println("Value to increase "+iValNoOfTimesAssigned);
 		Assert.assertEquals(Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value")),iValNoOfTimesAssigned);
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"1/1/2019");
-		Assert.assertTrue(workOrderPo.getScheduledDatetimevalue().getAttribute("value").contains(sCurrentDate));
+//		Assert.assertTrue(workOrderPo.getScheduledDatetimevalue().getAttribute("value").contains(sCurrentDate));
 		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),sProbDesc);//Check on Android
 				
 	}
