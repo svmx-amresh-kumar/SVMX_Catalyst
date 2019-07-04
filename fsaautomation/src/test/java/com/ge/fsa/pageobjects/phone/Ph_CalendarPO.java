@@ -303,8 +303,9 @@ public class Ph_CalendarPO
 		}
 	}
 	
-	@AndroidFindBy(xpath="//*[@*='CALENDAR.DATE_SELECTED']")
-	@iOSXCUITFindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_SELECTED\"]/android.view.ViewGroup[2]")
+//	@AndroidFindBy(xpath="//*[@*='CALENDAR.DATE_SELECTED']")
+//	@iOSXCUITFindBy(xpath="//android.view.ViewGroup[@content-desc=\"CALENDAR.DATE_SELECTED\"]/android.view.ViewGroup[2]")
+	@FindBy(xpath="//*[@*='CALENDAR.DATE_SELECTED']")
 	private WebElement elecurrentdatedot;
 	public WebElement getlecurrentdatedot()
 	{

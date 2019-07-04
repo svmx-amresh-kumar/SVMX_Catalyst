@@ -577,4 +577,15 @@ public class Ph_ChecklistPO
 		return eleFinalize;
 	}
 	
+	public WebElement geteleCheckListQAns(String sPicklistQuestion)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return elechecklistPickListQAns = driver.findElement(By.xpath("//*[@text='"+sPicklistQuestion+"'][@class='android.widget.TextView']/following-sibling::*"));
+		}
+		else
+		{
+			return elechecklistPickListQAns = driver.findElement(By.xpath("//*[@name='"+sPicklistQuestion+"']/following-sibling::*"));
+		}		
+	}
+	
 }
