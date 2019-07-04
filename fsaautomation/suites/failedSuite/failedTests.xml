@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Failed suite">
-  <test thread-count="5" name="failedTest">
-    <classes>
-      <class name="com.ge.fsa.tests.workBench"/>
-    </classes>
-  </test> <!-- failedTest -->
+	<test thread-count="5" name="failedTest">
+		<classes>
+			<class
+				name="com.ge.fsa.tests.tablet.Sanity6_SourcetoTarget_Formula_Mapping_SOU" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ExploreSearchRS_10546" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ExploreSearchRS_10549" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_Acc_pro_history_RS_10566" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10581" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10584" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_ImageCompression_RS_12341" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Mapping_RS_10556" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calendar_5_RS_10515" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calendar_6_RS_10525" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calendar_1_RS_10511" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calender_3_RS_10513" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calender_3_RS_11859" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Calender_4_RS_10514" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_LinkedSFMProcess_RS_10553" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_SourceObjectUpdate_RS_10544" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ZeroLines_RS_10516" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SrctoTrgt_RS_10540" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SrctoTrgt_RS_10541" />
+			<class name="com.ge.fsa.tests.tablet.SCN_SrctoTrgt_RS_10542" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_CustomAction_1_RS_10559" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_CustomAction_2_RS_10558" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Lookups_3_RS_10529" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Formula_RS_10552" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Opdoc_RS_10571" />
+			<class name="com.ge.fsa.tests.tablet.SCN_ConfigSync_RS_10563" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_Creating_Editing_RS_10574" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10538" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPriceSCON_RS_10539" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10536" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10537" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10531" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10533" />
+			<class
+				name="com.ge.fsa.tests.tablet.SCN_GetPriceNotCovered_RS_10532" />
+			<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10534" />
+		</classes>
+	</test> <!-- failedTest -->
 </suite> <!-- Failed suite -->
