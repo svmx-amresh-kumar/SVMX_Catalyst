@@ -16,7 +16,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sExploreSearch = "AUTOMATION SEARCH";
 	String sExploreChildSearch = "Work Orders";
 	String sProcessName = "10558_Action";
-	String sScriptName = "SCN_CustomAction_RS_10558";
+	String sScriptName = "appium/SCN_CustomAction_RS_10558.sah";
 	String sTestCaseID = "RS_10558";
 	String url = "";
 

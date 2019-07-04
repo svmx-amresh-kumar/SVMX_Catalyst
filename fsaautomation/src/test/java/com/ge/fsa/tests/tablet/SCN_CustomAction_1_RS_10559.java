@@ -16,7 +16,7 @@ import com.ge.fsa.lib.Retry;
 
 public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
-	String sScriptName = "SCN_CustomAction_RS_10559";
+	String sScriptName = "appium/SCN_CustomAction_RS_10559.sah";
 	String sTestCaseID = "RS_10559";
 	
 	@Test(retryAnalyzer=Retry.class)
