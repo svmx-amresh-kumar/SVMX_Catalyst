@@ -103,7 +103,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sDateExpected = "1/1/2019";
 
 		prereq();
-		//lauchNewApp("false");
+		lauchNewApp("false");
 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
