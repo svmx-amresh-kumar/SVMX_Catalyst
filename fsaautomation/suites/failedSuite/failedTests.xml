@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite">
+  <test thread-count="5" name="failedTest">
+    <classes>
+      <class name="com.ge.fsa.tests.workBench"/>
+    </classes>
+  </test> <!-- failedTest -->
+</suite> <!-- Failed suite -->

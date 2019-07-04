@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +48,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.TestNG;
+import org.testng.xml.XmlClass;
+import org.testng.xml.XmlSuite;
+import org.testng.xml.XmlTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
@@ -68,6 +73,7 @@ import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -123,7 +129,7 @@ public class CommonUtility {
 	public static String sConfigFile =  sResources+"//select_config_file.properties";//sResources+"//config_local.properties";
 	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
 	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
-
+	public static String sXmlFilePath = "/auto/SVMX_Catalyst/fsaautomation/suites/failedSuite/failedTests.xml";
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -1593,7 +1599,9 @@ public class CommonUtility {
 	 * @param data
 	 * @throws IOException
 	 */
-	public void writeTextFile(String filePath, String data) throws IOException {
+	public void writeTextFile(String filePath, String data,Boolean... bppend) throws IOException {
+		
+		Boolean appendFlag = bppend.length>0?bppend[0]:false;
 
 		File file = new File(filePath);
 		// Create the file
@@ -1602,12 +1610,14 @@ public class CommonUtility {
 		} else {
 			System.out.println("File already exists.");
 		}
+		
+		
 
 		// Write Content an create the shell or bat file
-		FileWriter writer = new FileWriter(file);
+		FileWriter writer = new FileWriter(file,appendFlag);
 		writer.write(data);
 		writer.close();
-		System.out.println("sahiResultCommon.txt file Write as = " + data);
+		System.out.println("File path "+filePath+" Written data = " + data);
 
 	}
 
@@ -2769,7 +2779,79 @@ public class CommonUtility {
 		return lastModifiedFile.getName().toString();
 	}
 
+//Generation of XML files START
+	private static Map<String, List<String>> transformToMap(String[][] data) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String[] aData : data) {
+            String key = aData[1];
+            List<String> classes = map.computeIfAbsent(key, k -> new ArrayList<>());
+            classes.add(aData[0]);
+        }
+        return map;
+    }
 
+    private static void generateTestSuiteXML(String sXmlFilePath, Map<String, List<String>> dbArr, Map<String, String> parameters) throws IOException {
+		
 
+        //Create an instance on TestNG
+        TestNG myTestNG = new TestNG();
 
+        //Create an instance of XML Suite and assign a name for it.
+        XmlSuite suite = new XmlSuite();
+        suite.setName("Failed suite");
+        suite.setParameters(parameters);
+        dbArr.forEach((key, value) -> {
+            XmlTest xmlTest = new XmlTest(suite);
+            xmlTest.setName(key);
+            value.forEach(eachValue -> {
+                XmlClass xmlClass = new XmlClass(eachValue, false);
+                xmlTest.getClasses().add(xmlClass);
+            });
+        }); 
+
+        //Add the suite to the list of suites.
+        List<XmlSuite> suites = new ArrayList<>();
+        suites.add(suite);
+
+        System.out.println(suite.toXml());
+        
+        File fileDir = new File(System.getProperty("user.dir") + "/suites/failedSuite");
+		try {
+			fileDir.mkdir();
+		} catch (Exception e) {
+			System.out.println("[BaseLib] Exception in creating ExtentReports directory for Reports " + e);
+		}
+		
+        File file = new File(sXmlFilePath);
+		// Create the file
+		if (file.createNewFile()) {
+			System.out.println("File is created!");
+		} else {
+			System.out.println("File already exists.");
+		}
+		
+		FileWriter writer = new FileWriter(file,false);
+		writer.write(suite.toXml());
+		writer.close();
+		
+        //Set the list of Suites to the testNG object you created earlier.
+        myTestNG.setXmlSuites(suites);
+    }
+    
+    public void createFailedTestSuiteXML(ArrayList<String> sFailedTestNameArray){
+   	 String[][] data = new String[sFailedTestNameArray.size()][2];
+     try {
+    	 for(int i=0;i<sFailedTestNameArray.size();i++) {
+    		 data[i][0]=sFailedTestNameArray.get(i);
+    		 data[i][1]="failedTest";
+    	 }
+
+   
+		generateTestSuiteXML(sXmlFilePath,transformToMap(data), Collections.emptyMap());
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    }
+  //Generation of XML files END
 }
