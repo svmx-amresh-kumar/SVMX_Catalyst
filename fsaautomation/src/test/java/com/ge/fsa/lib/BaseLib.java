@@ -274,7 +274,12 @@ public class BaseLib {
 		} catch (Exception e) {
 			System.out.println("[BaseLib] Exception in creating ExtentReports directory for Reports " + e);
 		}
-		
+		 File fileDir = new File(System.getProperty("user.dir") + "/suites/failedSuite");
+			try {
+				fileDir.mkdir();
+			} catch (Exception e) {
+				System.out.println("[BaseLib] Exception in creating failedSuite directory for Reruns " + e);
+			}
 
 		switch (sOSName) {
 		case "android":
