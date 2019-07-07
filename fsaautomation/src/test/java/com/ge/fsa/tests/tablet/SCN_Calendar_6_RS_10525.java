@@ -50,10 +50,7 @@ public class SCN_Calendar_6_RS_10525 extends BaseLib {
 	WebElement productname=null;
 	String sSheetName =null;
 	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
+	
 	//@Test(retryAnalyzer=Retry.class)
 	@Test()
 	public void RS_10525() throws Exception {

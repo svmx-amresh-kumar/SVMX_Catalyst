@@ -110,8 +110,8 @@ public class LoginHomePO
 		String sUn = null;
 		String sPwd = null;
 		
-		String sUser = sUserTypeFromPropertiesFile.length>1?sUserTypeFromPropertiesFile[0]:"";
-		
+		//String sUser = sUserTypeFromPropertiesFile.length>1?sUserTypeFromPropertiesFile[0]:"";
+		String sUser = (sUserTypeFromPropertiesFile.length)==1?sUserTypeFromPropertiesFile[0]:"";
 		if(sUser.equalsIgnoreCase("TECH_USN_1")) {
 			 sUn = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_USN_1");
 			 sPwd = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "TECH_PWD_1");

@@ -62,8 +62,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		//sahi
 		
 		 
-		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		  lauchNewApp("false");
+		//  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
+		//  lauchNewApp("false");
 	
 	//read from file
 		
@@ -180,7 +180,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		Thread.sleep(3000);
 		try {
 			commonUtility.Enablepencilicon(calendarPO.getelegetsubject(sWO_SVMX_1));
-			Thread.sleep(3000);}
+			Thread.sleep(3000);
+			}
 			catch (Exception e) {
 				commonUtility.Enablepencilicon(calendarPO.getsubjectformultiday(sWO_SVMX_1));
 			}
