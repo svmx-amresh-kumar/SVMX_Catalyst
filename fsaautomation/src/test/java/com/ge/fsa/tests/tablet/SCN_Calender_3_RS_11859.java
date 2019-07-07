@@ -54,7 +54,7 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 		
 		 
 		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-11859.sah");
-		 
+		  lauchNewApp("false");
 	
 	//read from file		
 		String sWO_SFDC_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SFDC_1");

@@ -41,14 +41,11 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 	String sproductname =null;
 	String sWO_SVMX_1=null;
 	String sWO_SVMX_2=null;String sWO_SVMX_3=null;String sWO_SVMX_4=null;
-	String techname="a240t000000GglLAAS";
+	
 	WebElement productname=null;
 	String sSheetName =null;
 	
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
+
 
 	@Test(retryAnalyzer=Retry.class)
 	

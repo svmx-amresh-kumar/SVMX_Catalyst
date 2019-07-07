@@ -63,7 +63,7 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		
 		 
 		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		 
+		  lauchNewApp("false");
 	
 	//read from file
 		
