@@ -1098,7 +1098,7 @@ import io.appium.java_client.TouchAction;
 	
 	
 	
-		@FindBy(xpath="//span[@class='x-button-label'][text()='Labor (0): You must add at least one line to save this record.']")
+		@FindBy(xpath="//span[@class='x-button-label'][text()='Labor: You must add at least one line to save this record.']")
 		private WebElement eleNoLaborEntry;
 		public WebElement getEleNoLaborEntry()
 		{
@@ -1106,7 +1106,7 @@ import io.appium.java_client.TouchAction;
 		}
 	
 	
-		@FindBy(xpath="//span[@class='x-button-label'][text()='Parts (0): You have not created any lines. Do you still want to save?']")
+		@FindBy(xpath="//span[@class='x-button-label'][text()='Parts: You have not created any lines. Do you still want to save?']")
 		private WebElement eleNoPartsEntry;
 		public WebElement getEleNoPartsEntry()
 		{
