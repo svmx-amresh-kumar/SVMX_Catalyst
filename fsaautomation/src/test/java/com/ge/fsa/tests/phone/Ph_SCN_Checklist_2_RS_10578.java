@@ -173,7 +173,7 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 
 		
 		 //Validating confirmation
-		 ph_ChecklistPO.getelechecklistNumberQAns(sConfirmationDVRq).sendKeys(sConfirmationDVRAns);
+		 ph_ChecklistPO.getelechecklistNumberQAns(sConfirmationDVRq).sendKeys(sConfirmationDVRAns+"\n");
 		 ph_ChecklistPO.geteleSubmitbtn().click();
 		 Assert.assertTrue(ph_ChecklistPO.getEleConfirm().isDisplayed(),"Confirm button is not being displayed for confirmation dvr");
 		 ExtentManager.logger.log(Status.PASS,"Confirm button is displayed for confirmation DVR");
@@ -190,27 +190,27 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 		//commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
 		//commonUtility.custScrollToElement(sAdvancedDVRq, false);
 		commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq));
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5");
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("5"+"\n");
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
 		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Less than 10 works");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
 
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("9");
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("9"+"\n");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
 		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Less than 10 Boundry value 9 works fine");
 		 
 		
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("101");
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("101"+"\n");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistAdvanceDVR().isDisplayed());
 		ExtentManager.logger.log(Status.PASS,"Advance Validation Rule Greater than 100 101 works");
 
 		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).clear();
-		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("300");
+		ph_ChecklistPO.getelechecklistNumberQAns(sAdvancedDVRq).sendKeys("300"+"\n");
 		ph_ChecklistPO.geteleSubmitbtn().click();
 
 		ph_MorePo.syncData(commonUtility);

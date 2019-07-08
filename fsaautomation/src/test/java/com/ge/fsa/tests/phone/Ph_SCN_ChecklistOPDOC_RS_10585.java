@@ -6,6 +6,7 @@ package com.ge.fsa.tests.phone;
 
 import static org.testng.Assert.assertNotNull;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -122,7 +123,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// Clicking on Section1
 		ph_ChecklistPO.getElementSection(0).click();
 
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection1Q2).sendKeys(sNumberSectionJumpAns);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection1Q2).sendKeys(sNumberSectionJumpAns+"\n");
 
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 
@@ -181,11 +182,10 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		ph_ChecklistPO.getElementSection(2).click();
 
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection3q1).sendKeys("ok");
-
+		driver.findElement(By.xpath("//*[@*='"+sSection3q1+"']")).click();
 		ph_ChecklistPO.geteleSubmitbtn().click();
 
 		// VT check if something can be done for all these back buttons?
-
 		ph_ChecklistPO.geteleBackbutton().click();
 		Thread.sleep(3000);
 
@@ -244,7 +244,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(sSoqlquerypdf1.contains("pdf"), "fileformat stored is not pdf");
 		ExtentManager.logger.log(Status.PASS, "file is in pdf format in server");
 
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");
 		assertNotNull(sAttachmentIDAfter);
 		ExtentManager.logger.log(Status.PASS, "OPDOC is synced to Server");

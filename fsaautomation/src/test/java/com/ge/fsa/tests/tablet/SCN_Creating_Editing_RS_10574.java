@@ -206,7 +206,7 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 		Thread.sleep(2000);
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"+sProformainVoice+"\'";
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery,"Name");	
 		// Select the Work Order from the Recent items
 		recenItemsPO.clickonWorkOrder(commonUtility, sworkOrderName);
@@ -278,9 +278,13 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 					//workOrderPo.navigatetoWO(commonsUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName);
 					commonUtility.tap(calendarPO.getEleCalendarClick());
 					Thread.sleep(3000);
-					calendarPO.VerifyWOInCalender(commonUtility,sworkOrderName);
-					ExtentManager.logger.log(Status.PASS,"WorkOrder not found as deleted from server.");
-
+					try{
+						calendarPO.getEleworkordernumonCalendarWeek(sworkOrderName);
+						ExtentManager.logger.log(Status.FAIL,"WorkOrder found even after deleting from server.");
+					}
+					catch(Exception e) {
+						ExtentManager.logger.log(Status.PASS,"WorkOrder not found as deleted from server.");
+					}
 					//ExtentManager.logger.log(Status.PASS,"Event is no longer displayed in calendar");
 
 			
