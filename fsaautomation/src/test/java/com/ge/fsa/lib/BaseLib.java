@@ -576,7 +576,10 @@ public class BaseLib {
 				e.printStackTrace();
 			}
 			System.out.println("[BaseLib] Failed Test = "+sTestClassName);
+			//Add to failed suite only if retry has failed
+			if(!sRetryState.equalsIgnoreCase("RETRY")) {
 			sFailedTestNameArray.add(sTestClassName);
+			}
 		} else {
 
 			System.out.println("[BaseLib] "+getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + sTestClassName + " STATUS : PASSED"+" "+sRetryState);
