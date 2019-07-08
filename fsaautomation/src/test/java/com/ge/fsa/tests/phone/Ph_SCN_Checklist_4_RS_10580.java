@@ -165,11 +165,11 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ph_ChecklistPO.getElementSection(0).click();
 		
 		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq));
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sNumberDVRAns);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sNumberDVRAns+"\n");
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistNumberDVR().isDisplayed(), "DataValidation rule failed for number error");	 	
 		ExtentManager.logger.log(Status.PASS,"DataValidation rule for Number Passed");
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sNumberSectionJumpAns);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sNumberSectionJumpAns+"\n");
 		
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		
@@ -196,7 +196,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ph_ChecklistPO.getElementSection(0).click();
 		System.out.println("tapped on section one");
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sSectionOneJump2);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys(sSectionOneJump2+"\n");
 		
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleGeneric("Section Three").isDisplayed(), "Exit Criteria in Checklist Failed");	 	
@@ -211,9 +211,9 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ph_ChecklistPO.getElementSection(0).click();
 		
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("55");
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionOneQ1).sendKeys(sSectionOneQAns);
-
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("55"+"\n");
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionOneQ1).sendKeys(sSectionOneQAns+"\n");
+		driver.findElement(By.xpath("//*[@*='"+sSectionOneQ1+"']")).click();
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 
 
@@ -237,10 +237,13 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
 		//	ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("55");
 			
-			
+			driver.findElement(By.xpath("//*[@*='"+sNumberq+"']")).click();
 			commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionOneQ1));
 			ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionOneQ1).clear();
 			ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionOneQ1).sendKeys(sSectionOneQAnsNoJ);
+			driver.findElement(By.xpath("//*[@*='"+sSectionOneQ1+"']")).click();
+
+			//question
 			ph_ChecklistPO.geteleChecklistNextButton().click();
 			Assert.assertTrue(ph_ChecklistPO.geteleGeneric("Section Three").isDisplayed(), "Exit Criteria in Checklist Failed");	 	
 			ExtentManager.logger.log(Status.PASS,"No Jumping section is pass");
@@ -252,10 +255,10 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 			ph_ChecklistPO.getElementSection(2).click();
 			
 		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ));
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sNumberDVRAns);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sNumberDVRAns+"\n");
 		Assert.assertTrue(commonUtility.isDisplayedCust(ph_ChecklistPO.geteleChecklistNumberDVR()),"DataValidation confirmation failed");
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).clear();
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeConfirmationQ).sendKeys(sSectionThreeConfirmationAns);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeConfirmationQ).sendKeys(sSectionThreeConfirmationAns+"\n");
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		Assert.assertTrue(ph_ChecklistPO.geteleChecklistDVRConfirmationtxt().isDisplayed(), "DataValidation rule failed for number confirmation");	
 		
@@ -264,8 +267,10 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		
 		ph_ChecklistPO.getEleConfirm().click();
 		Thread.sleep(CommonUtility.iLowSleep);
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sSectionThreeQ1ValidAns1);
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sSectionThreeQ1ValidAns1+"\n");
+		//driver.findElement(By.xpath("//*[@*='"+sSectionThreeErrorQ+"']")).click();
 
+		//question
 
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		
@@ -278,12 +283,15 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		
 		
 		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionTwoQ1));
-		ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionTwoQ1).clear();;
-
+		ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionTwoQ1).clear();
+		driver.findElement(By.xpath("//*[@*='"+sSectionTwoQ1+"']")).click();
+		//question
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		
 		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ));
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).clear();
+		driver.findElement(By.xpath("//*[@*='"+sSectionThreeErrorQ+"']")).click();
+
 		//ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionThreeErrorQ).sendKeys(sNumberSectionwithoutjump2);
 
 		
@@ -299,7 +307,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		//Section4
 		commonUtility.custScrollToElementAndClick(ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionFourQ3));
 		ph_ChecklistPO.geteleTextQAnswithMoreInfo(sSectionFourQ3).sendKeys(sSectionFourQ3Ans);
-	    
+		driver.findElement(By.xpath("//*[@*='"+sSectionFourQ3+"']")).click();
 		ph_ChecklistPO.geteleSubmitbtn().click();
 	    
 		//to return out of checklist

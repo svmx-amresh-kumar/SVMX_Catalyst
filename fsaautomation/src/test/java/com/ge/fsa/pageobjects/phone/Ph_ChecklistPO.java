@@ -249,7 +249,7 @@ public class Ph_ChecklistPO
 		}
 		else
 		{																											
-			return elechecklistNumberQAns = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']//XCUIElementTypeTextField"));
+			return elechecklistNumberQAns = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']/following-sibling::*//*[contains(@type,'XCUIElementTypeText')]"));
 		}	
 	}
 	
@@ -262,7 +262,7 @@ public class Ph_ChecklistPO
 		}
 		else
 		{																											
-			return eleNumberQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']//XCUIElementTypeTextField"));
+			return eleNumberQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sNumberQuestion+"']/following-sibling::*//*[contains(@type,'XCUIElementTypeText')]"));
 		}	
 	}
 	
@@ -274,7 +274,7 @@ public class Ph_ChecklistPO
 		}
 		else
 		{																											
-			return eleTextQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']//XCUIElementTypeTextView"));
+			return eleTextQAnswithMoreInfo = driver.findElement(By.xpath("//*[@name='"+sTextQuestion+"']/following-sibling::*//*[contains(@type,'XCUIElementTypeText')]"));
 		}	
 		
 
@@ -526,7 +526,8 @@ public class Ph_ChecklistPO
 		}
 		else
 		{																											
-			return driver.findElements(By.xpath("//*[contains(@*,'"+sChecklistQ+"')]"));
+			//return driver.findElements(By.xpath("//*[@*[contains(.,'"+sChecklistQ+"')]]"));
+			return driver.findElements(By.xpath("//*[@*='"+sChecklistQ+"']"));
 		}	
 		
 		
@@ -542,7 +543,7 @@ public class Ph_ChecklistPO
 		}
 		else
 		{																											
-			return driver.findElement(By.xpath("//*[contains(@*,'"+sChecklistQ+"')]"));
+			return driver.findElement(By.xpath("//*[@*[contains(.,'"+sChecklistQ+"')]]"));
 		}	
 		
 		
