@@ -11,6 +11,7 @@
 
 package com.ge.fsa.tests.phone;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -261,7 +262,13 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_WorkOrderPo.geteleConfirm().click();
 
 		// Adding Parts
-		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		//ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
+		commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk());
+		ph_WorkOrderPo.getElelookupsearch().click();
+		ph_WorkOrderPo.getElelookupsearch().sendKeys(sProductName + "\n");
+		ph_WorkOrderPo.getEleSearchListItemFirst(sProductName).click();
+		ph_WorkOrderPo.getEleAddSelected().click();
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		ph_WorkOrderPo.getelePartName(sProductName).click();
 

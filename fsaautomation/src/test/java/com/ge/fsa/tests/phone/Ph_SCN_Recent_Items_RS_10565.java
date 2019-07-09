@@ -73,8 +73,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElePriorityField(), "High");
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getEleBillingTypeField(), "Loan");
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleProformaInvoiceField());
-		ph_CreateNewPo.getEleProformaInvoiceField().sendKeys(sProformainVoice);
-		Thread.sleep(1000);
+		ph_CreateNewPo.getEleProformaInvoiceField().sendKeys(sProformainVoice+"\n");
 		ph_CreateNewPo.getEleAdd().click();
 		ExtentManager.logger.log(Status.INFO, "New Work Order is created with details as Priority:High, Billing Type: Loan, Proforma Invoice : "+sProformainVoice);
 		
@@ -105,7 +104,6 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		// open case
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Cases", sCaseID, null);
 		ExtentManager.logger.log(Status.INFO, "Navigate to case : "+sCaseID);
-		Thread.sleep(2000);
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		Thread.sleep(1000);
 		
@@ -121,7 +119,6 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleCreateNewCustomObject());
 		ph_WorkOrderPo.getAutoTextBox().sendKeys(sProformainVoice);
 		ph_WorkOrderPo.getEleAdd().click();
-		Thread.sleep(3000);
 		ExtentManager.logger.log(Status.INFO, "New custom object is created.");
 		ph_MorePo.syncData(commonUtility);
 
@@ -140,7 +137,6 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS, "Custom Objects valaditation in recent item is successful. Expected : "+Custom_ObjectName+", Actual : "+fetchedCustom_Objectfromrecents);
 
 		ph_MorePo.resetApp(commonUtility);
-		Thread.sleep(2000);
 
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		try {

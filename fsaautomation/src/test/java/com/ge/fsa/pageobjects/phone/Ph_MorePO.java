@@ -90,7 +90,7 @@ public class Ph_MorePO {
 
 	// return
 	@AndroidFindBy(xpath = "//*[@text='Sync Now']")
-	@iOSXCUITFindBy(xpath = "//*[@*='Sync Now']/*")
+	@iOSXCUITFindAll({@iOSXCUITBy(xpath = "//*[@*='Sync Now']/*"),@iOSXCUITBy(xpath="//*[@*='Sync Now']")})
 	private WebElement eleSyncNow;
 
 	public WebElement getEleSyncNow() {
