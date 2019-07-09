@@ -955,7 +955,7 @@ public class CommonUtility {
 
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
+				Date currentDate = convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 				Date monthDate = convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(monthDate);
@@ -1062,15 +1062,15 @@ public class CommonUtility {
 			}else {
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				//if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 					//UK Date Format
 					currentDate=convertStringToDate("E dd MMM yyyy", date);
-					}
-					else
-					{
-					//US DateFormat
-					currentDate=convertStringToDate("E, MMM dd yyyy", date);
-					}
+//					}
+//					else
+//					{
+//					//US DateFormat
+//					currentDate=convertStringToDate("E, MMM dd yyyy", date);
+//					}
 				
 				Date monthDate=convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
@@ -1140,7 +1140,7 @@ public class CommonUtility {
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Date currentDate=convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
@@ -1318,7 +1318,7 @@ public class CommonUtility {
 			switchContext("Native");
 			date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Date currentDate=convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
 			getCalendarDone().click();
 			if(dateTime.equalsIgnoreCase("datetime")) {
@@ -2333,7 +2333,7 @@ public class CommonUtility {
 					wElement = driver.findElement(By.xpath(xpathString));
 					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
-						wElement.click();
+						//wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 						System.out.println("Element found after scrolling");
 						return;
