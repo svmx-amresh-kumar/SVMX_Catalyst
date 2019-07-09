@@ -32,19 +32,22 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	String sProbDesc = null;
 	int iValNoOfTimesAssigned = 0;
 	String sDate = "1/1/2019";
+	Boolean bProcessCheckResult;
+	String sProcessName = "Auto_Regression_10571";
 	
 	@Test//(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
-		System.out.println(sExploreSearch);
+//		System.out.println(sExploreSearch);
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreChildSearch");
-		System.out.println(sExploreChildSearchTxt);
+//		System.out.println(sExploreChildSearchTxt);
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProcessName");
+//		System.out.println(sFieldServiceName);
 		sProbDesc = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestCaseID, "ProbDesc");
-		System.out.println("The Value is "+sProbDesc);
+//		System.out.println("The Value is "+sProbDesc);
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.executeSahiScript(sScriptName);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 		
 		//**********Create Work Order with No of Times Assigned**********
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"Number__c\":\"10\"}");
@@ -60,8 +63,7 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 		Thread.sleep(CommonUtility.iMedSleep);
 		
 		//************Perform Config Sync************
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(CommonUtility.iMedSleep);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		
 		//************Navigate to SFM************
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
@@ -74,7 +76,7 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 		Assert.assertEquals(ph_WorkOrderPo.getTxtNumber().getText(),"10");	
 		ExtentManager.logger.log(Status.PASS,"Values fetched before the Process call are correct");
 		ph_WorkOrderPo.getBtnClose().click();
-		ph_WorkOrderPo.selectAction(commonUtility, "Auto_Regression_10571");
+		ph_WorkOrderPo.selectAction(commonUtility, sProcessName);
 		Thread.sleep(3000);
 		ph_WorkOrderPo.getBtnFinalize().click();
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
