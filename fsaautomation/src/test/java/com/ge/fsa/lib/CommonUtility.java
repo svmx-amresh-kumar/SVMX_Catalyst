@@ -834,15 +834,14 @@ public class CommonUtility {
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-			//UK Date Format
+//			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			currentDate=convertStringToDate("E dd MMM yyyy", date);
-			}
-			else
-			{
-			//US DateFormat
-			currentDate=convertStringToDate("E, MMM dd yyyy", date);
-			}
+//			}
+//			else
+//			{
+//			//US DateFormat
+//			currentDate=convertStringToDate("E, MMM dd yyyy", date);
+//			}
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
