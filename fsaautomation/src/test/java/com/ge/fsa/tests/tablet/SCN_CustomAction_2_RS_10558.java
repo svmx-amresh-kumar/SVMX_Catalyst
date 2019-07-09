@@ -74,7 +74,7 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 //        Thread.sleep(GenericLib.iMedSleep);
 //        loginHomePo.geteleMotoGpLogin().click();
 //        Thread.sleep(GenericLib.iMedSleep);
-
+        
 		
 	}
 	

@@ -59,6 +59,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		
 		//Edit Processes
 		commonUtility.executeSahiScript(sScriptName);
+		
 	
 		toolsPo.configSync(commonUtility);
 		Thread.sleep(CommonUtility.iMedSleep);
@@ -69,8 +70,7 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		commonUtility.tap(exploreSearchPo.getEleWOSearch(sWOName));
 		workOrderPo.selectAction(commonUtility, sProcessName);
 		Assert.assertTrue(workOrderPo.getTxtCity().isDisplayed());
-		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());
-			
+		Assert.assertTrue(workOrderPo.getTxtCountry().isDisplayed());	
 	}
 
 }
