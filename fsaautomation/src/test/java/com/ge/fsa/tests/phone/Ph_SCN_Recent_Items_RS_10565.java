@@ -100,7 +100,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		Thread.sleep(1000);
 		String fetchedWOfromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
 		System.out.println(fetchedWOfromrecents);
-		Assert.assertTrue(fetchedWOfromrecents.equals(sworkOrderName), "workOrderName value is not displayed");
+		Assert.assertTrue(fetchedWOfromrecents.contains(sworkOrderName), "workOrderName value is not displayed. Expected : "+sworkOrderName+" , Actual : "+fetchedWOfromrecents);
 		ExtentManager.logger.log(Status.PASS, "Workorder valaditation in recent item is successful. Expected : "+sworkOrderName+", Actual : "+fetchedWOfromrecents);
 		// open case
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, "Cases", sCaseID, null);
@@ -112,7 +112,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		// commonsUtility.tap(recenItemsPO.gettaponobject("Case ("));
 		String fetchedcasefromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
 		System.out.println(fetchedcasefromrecents);
-		Assert.assertTrue(sCaseID.equals(fetchedcasefromrecents), "case value  is not displayed");
+		Assert.assertTrue(fetchedcasefromrecents.contains(sCaseID), "case value  is not displayed.  Expected : "+sCaseID+" , Actual : "+fetchedcasefromrecents);
 		ExtentManager.logger.log(Status.PASS, "Cases valaditation in recent item is successful. Expected : "+sCaseID+", Actual : "+fetchedcasefromrecents);
 
 		
@@ -136,7 +136,7 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 				+ "\'";
 		String Custom_ObjectName = restServices.restGetSoqlValue(sSoqlQuery1, "Name");
 		System.out.println(Custom_ObjectName);
-		Assert.assertTrue(fetchedCustom_Objectfromrecents.equals(Custom_ObjectName),"Custom object  value  is not displayed");
+		Assert.assertTrue(fetchedCustom_Objectfromrecents.contains(Custom_ObjectName),"Custom object  value  is not displayed. Expected : "+Custom_ObjectName+", Actual : "+fetchedCustom_Objectfromrecents);
 		ExtentManager.logger.log(Status.PASS, "Custom Objects valaditation in recent item is successful. Expected : "+Custom_ObjectName+", Actual : "+fetchedCustom_Objectfromrecents);
 
 		ph_MorePo.resetApp(commonUtility);

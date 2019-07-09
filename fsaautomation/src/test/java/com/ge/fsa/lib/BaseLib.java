@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +79,8 @@ public class BaseLib {
 	public static String geUsn ="212678248";
 	public static String gePwd = "R0nald0h";
 	public static String path = "";
+	public static ArrayList<String> sFailedTestNameArray=new ArrayList();
+	public static String sTestClassName=null;
 	
 	enum BrowserType{
 		
@@ -271,6 +274,12 @@ public class BaseLib {
 		} catch (Exception e) {
 			System.out.println("[BaseLib] Exception in creating ExtentReports directory for Reports " + e);
 		}
+		 File fileDir = new File(System.getProperty("user.dir") + "/suites/failedSuite");
+			try {
+				fileDir.mkdir();
+			} catch (Exception e) {
+				System.out.println("[BaseLib] Exception in creating failedSuite directory for Reruns " + e);
+			}
 
 		switch (sOSName) {
 		case "android":
@@ -503,7 +512,7 @@ public class BaseLib {
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}
-		System.out.println(getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
+		System.out.println("[BaseLib] "+getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
 		
 		if(sOSName.equalsIgnoreCase("browser")) {
@@ -546,13 +555,14 @@ public class BaseLib {
 
 	@AfterMethod
 	public void endReport(ITestResult result, ITestContext context) {
+		sTestClassName=result.getMethod().getRealClass().toString().replaceAll("class ", "");
 		lInitTimeEndMilliSec = System.currentTimeMillis();
 		long sTimeDiff = getDateDiffInMin(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
 		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
 		System.out.println("[BaseLib] Total time for execution : " + sTimeDiff + " min");
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
-			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : FAILED"+" "+sRetryState);
+			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + sTestClassName + " STATUS : FAILED"+" "+sRetryState);
 			if (sOSName.equalsIgnoreCase("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -565,9 +575,14 @@ public class BaseLib {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("[BaseLib] Failed Test = "+sTestClassName);
+			//Add to failed suite only if retry has failed
+			if(!sRetryState.equalsIgnoreCase("RETRY")) {
+			sFailedTestNameArray.add(sTestClassName);
+			}
 		} else {
 
-			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + result.getMethod().getRealClass().getSimpleName() + " STATUS : PASSED"+" "+sRetryState);
+			System.out.println("[BaseLib] "+getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + sTestClassName + " STATUS : PASSED"+" "+sRetryState);
 
 		}
 
@@ -599,6 +614,7 @@ public class BaseLib {
 
 	@AfterClass
 	public void tearDownDriver() {
+		commonUtility.createFailedTestSuiteXML(sFailedTestNameArray);
 		Retry.isRetryRun = false;
 		ExtentManager.extent.flush();
 		// try{driver.quit();}catch(Exception e) {};

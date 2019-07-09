@@ -122,13 +122,12 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 				
-		      //  stechname = GenericLib.readExcelData(GenericLib.sTestDataFile,sSheetName, "TechName2");
-				sSalesforceuser = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Salesforceuser");
-				stechname="Auto_Tech_1";//Add to config page
-		        
+		     				
+				String TechName = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
+
 		        //Globel setting should be set to servicemax event for tech2  
 		        sObjectApi = "SVMXC__Service_Group_Members__c";
-				sSqlEventQuery ="SELECT+id+from+SVMXC__Service_Group_Members__c+Where+Name+=\'"+stechname+"\'";	//add to sheet			
+				sSqlEventQuery ="SELECT+id+from+SVMXC__Service_Group_Members__c+Where+Name+=\'"+TechName+"\'";	//add to sheet			
 				String techID =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 				System.out.println(techID);
 				//updating event
@@ -161,8 +160,16 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 			commonUtility.tap(toolsPo.geteleSignOutBtn());
 			commonUtility.tap(toolsPo.getelepopSignOutBtn());
 			Thread.sleep(5000);
+			
+			
+			sObjectApi = "SVMXC__Service_Group_Members__c";
+			String salsforceID ="SELECT+SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+Id+=\'"+TechName+"\'";					
+			String getsalsforceID =restServices.restGetSoqlValue(salsforceID,"SVMXC__Salesforce_User__c"); 
+			System.out.println(getsalsforceID);
+			
+			
 			System.out.println(sSalesforceuser);
-				 String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\""+sSalesforceuser+"\"}";
+				 String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\""+getsalsforceID+"\"}";
 				restServices.restUpdaterecord(sObjectApi,sWOJson1,techID );
 				
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 			

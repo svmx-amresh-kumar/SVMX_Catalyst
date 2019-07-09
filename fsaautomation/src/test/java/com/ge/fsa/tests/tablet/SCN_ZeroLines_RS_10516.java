@@ -63,7 +63,7 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 		sContactName = sFirstName+" "+sLastName;
 		System.out.println(sContactName);
 		String sContactId = restServices.restCreate("Contact?","{\"FirstName\": \""+sFirstName+"\", \"LastName\": \""+sLastName+"\", \"AccountId\": \""+sAccountId+"\"}");
-		toolsPo.syncData(commonUtility);
+		//toolsPo.syncData(commonUtility);
 		// Creating the Work Order using API
 		
 		String sWorkorderID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__Company__c\": \""+sAccountId+"\", \"SVMXC__Contact__c\": \""+sContactId+"\", \"SVMXC__Priority__c\": \"High\"}");

@@ -51,15 +51,9 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 	String[] sDeviceDate = null;
 	String[] sAppDate = null;
 	String sIBLastModifiedBy=null;
-	String techname="a240t000000GglLAAS";
 	WebElement productname=null;
 	String sSheetName =null;
 	
-	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10511() throws Exception {
@@ -108,6 +102,7 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			Thread.sleep(3000);
 			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
+			
 			calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_1);
 			calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_2);
 			calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_3);
@@ -141,8 +136,9 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			Thread.sleep(3000);
 			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_1);
-			calendarPO.VerifyWOInCalender(commonUtility,sWO_SVMX_1);
+			calendarPO.geteleWOendpoint("09:00").getLocation();
+			calendarPO.VerifyWOInCalenderException(commonUtility,sWO_SFDC_1);
+			calendarPO.VerifyWOInCalenderException(commonUtility,sWO_SVMX_1);
 			ExtentManager.logger.log(Status.PASS,"Event deletion is successful");
 			System.out.println("///////////////////////////////////////////////////////////////////////////////////");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,12 +152,19 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 			String sWOJson="{\"SVMXC__Group_Member__c\":\""+sTechname2+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sWOIdSFDC_2 );
 
+			sObjectApi = "SVMXC__Service_Group_Members__c";
+			String salsforceID ="SELECT+SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+Id+=\'"+sTechname2+"\'";					
+			String getsalsforceID =restServices.restGetSoqlValue(salsforceID,"SVMXC__Salesforce_User__c"); 
+			System.out.println(getsalsforceID);
+			
+			
+			
 			sObjectApi = "Event";
 			sSqlEventQuery ="SELECT+id+from+Event+Where+Subject+=\'A10511_SFDC_Event2\'";				
 			String sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
 			System.out.println(sEventIdSFDC_2);
 			//updating event
-			 sWOJson="{\"OwnerId\":\""+sSalesforceuser+"\"}";
+			 sWOJson="{\"OwnerId\":\""+getsalsforceID+"\"}";
 			restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSFDC_2 );
 			
 			
@@ -187,8 +190,8 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 		
 			commonUtility.tap(calendarPO.getEleCalendarClick());
 			Thread.sleep(3000);
-			calendarPO.VerifyWOInCalender(commonUtility,sWO_SFDC_2);
-			calendarPO.VerifyWOInCalender(commonUtility,sWO_SVMX_2);
+			calendarPO.VerifyWOInCalenderException(commonUtility,sWO_SFDC_2);
+			calendarPO.VerifyWOInCalenderException(commonUtility,sWO_SVMX_2);
 			
 		
 			commonUtility.tap(toolsPo.getEleToolsIcn());

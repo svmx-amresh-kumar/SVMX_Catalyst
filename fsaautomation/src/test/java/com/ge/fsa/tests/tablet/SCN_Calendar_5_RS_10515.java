@@ -49,10 +49,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	String sIBLastModifiedBy = null;
 	String sSheetName = null;
 
-	@BeforeMethod
-	public void initializeObject() throws IOException {
 
-	}
 
 	@Test()
 	public void RS_10512() throws Exception {
@@ -68,7 +65,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		
 
 		  commonUtility.executeSahiScript("appium/SCN_Calender_5_RS-10515.sah");
-		 
+		  lauchNewApp("false");
 
 		sWO_SVMX_1 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_1");
 		sWO_SVMX_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WO_SVMX_2");

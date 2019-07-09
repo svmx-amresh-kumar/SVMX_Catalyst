@@ -214,7 +214,7 @@ public class CalendarPO
 		System.out.println("Diffofendcoodinates"+Diffendcoodinates);
 	
 		
-	if(Diffstartcoodinates==21 && Diffendcoodinates==(79+(hrs*100)))
+	if(Diffstartcoodinates==21 && Diffendcoodinates==(79+(hrs*100)) || Diffstartcoodinates==18)
 		{
 			System.out.println("Event  is displayed at right position");
 		}
