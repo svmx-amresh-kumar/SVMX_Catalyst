@@ -211,8 +211,12 @@ public class Ph_LoginHomePO
 					//Change to sandbox first if not already
 					if(!commonUtility.waitforElement(getEleLoginBtn(),1)) {
 						getEleSettingsbtn().click();
+						try {
 						getEleProductionBtn().click();
 						getEleSandbocURlbtn().click();
+						}catch(Exception e) {
+							
+						}
 						getEleBackbtn().click();
 						getEleBackbtn().click();	
 					}

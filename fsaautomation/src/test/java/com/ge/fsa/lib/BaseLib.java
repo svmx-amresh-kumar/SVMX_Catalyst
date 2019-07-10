@@ -293,7 +293,7 @@ public class BaseLib {
 	 */
 	public void setAppCapabilities() throws Exception {
 
-		// Create all he required directories
+		// Create all the required directories
 		File file = new File(System.getProperty("user.dir") + "/../Executable");
 		try {
 			file.mkdir();
@@ -315,6 +315,7 @@ public class BaseLib {
 
 		// ----------------------------------------------------------------------------
 
+		// Based on OS/Device type set the appropriate capabilities
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
@@ -441,16 +442,16 @@ public class BaseLib {
 			chromeDriver.get(sURL);
 			break;
 		}
-		
-		//----------------------------------------------------------------------------
+
+		// ----------------------------------------------------------------------------
 
 		// Initialize all page objects and libraries
-		
-		//Common
+
+		// Common
 		restServices = new RestServices();
 		commonUtility = new CommonUtility(driver);
 
-		//Tablet
+		// Tablet
 		loginHomePo = new LoginHomePO(driver);
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
@@ -476,12 +477,11 @@ public class BaseLib {
 		br_CalendarPO = new Br_CalendarPO(chromeDriver);
 		br_LoginHomePO = new Br_LoginHomePO(chromeDriver);
 
-		// Fetch the salesforce version
+		// Fetch the SalesForce version
 		try {
 			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("!! [BaseLib] Exception in fetching SalesForce Version : " + sSuiteTestName + " : " + e);
 		}
 
 		// Set the waits depending on the device/env
@@ -515,8 +515,9 @@ public class BaseLib {
 			try {
 				setAppCapabilities();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+
 			}
 			break;
 
@@ -529,8 +530,8 @@ public class BaseLib {
 			try {
 				setAppCapabilities();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
 			}
 
 			// Resetting to true always first for next execution
@@ -542,6 +543,7 @@ public class BaseLib {
 	@BeforeMethod
 	/**
 	 * Starting the Reports
+	 * 
 	 * @param result
 	 * @param context
 	 * @throws IOException
@@ -571,6 +573,7 @@ public class BaseLib {
 
 	/**
 	 * Initialize driver for browser
+	 * 
 	 * @throws InterruptedException
 	 */
 	public void initDriver() throws InterruptedException {
@@ -601,6 +604,7 @@ public class BaseLib {
 	@AfterMethod
 	/**
 	 * Generating the report on finishing the run
+	 * 
 	 * @param result
 	 * @param context
 	 */
@@ -623,8 +627,8 @@ public class BaseLib {
 			try {
 				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("!! [BaseLib] Exception in reporting : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in reporting capabilities : " + sSuiteTestName + " : " + e);
 			}
 			System.out.println("[BaseLib] Failed Test = " + sTestClassName);
 			// Add to failed suite only if retry has failed
@@ -671,8 +675,18 @@ public class BaseLib {
 	public void tearDownDriver() {
 		commonUtility.createFailedTestSuiteXML(sFailedTestNameArray);
 		Retry.isRetryRun = false;
+		sRetryState = "";
 		ExtentManager.extent.flush();
-		// try{driver.quit();}catch(Exception e) {};
+
+		// Quit the drivers after class also
+		try {
+			driver.quit();
+		} catch (Exception e) {
+		}
+		try {
+			chromeDriver.quit();
+		} catch (Exception e) {
+		}
 	}
 
 }
