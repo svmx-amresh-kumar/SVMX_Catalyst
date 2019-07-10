@@ -968,8 +968,8 @@ public class Ph_WorkOrderPO {
 		return eleAddButton;
 	}
 
-	@AndroidFindBy(xpath = "//*[./*[@text='Remove']]")
-	@iOSXCUITFindBy(xpath = "//*[@name='Remove']/*")
+	@AndroidFindBy(xpath = "(//*[./*[@text='Remove']])[last()]")
+	@iOSXCUITFindBy(xpath = "(//*[@name='Remove'])[last()]")
 	private WebElement eleRemoveButton;
 
 	public WebElement getEleRemoveButton() {
