@@ -1602,7 +1602,7 @@ public class Ph_WorkOrderPO {
 		return eleCountryshouldbeItaly;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@text[contains(.,'Account can')]]"), @FindBy(xpath = "//*[@*='NULL']") })
+	@FindAll({ @FindBy(xpath = "//*[contains(@text,'Account can')]"), @FindBy(xpath = "//*[@*[contains(.,'NULL')]]") })
 	private WebElement eleAccountnotNUll;
 
 	public WebElement geteleAccountnotNUll() {

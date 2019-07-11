@@ -330,5 +330,12 @@ public class ToolsPO
 		{
 			return setimagecompression;
 		}
+		public void signOut(CommonUtility commonUtility) throws InterruptedException{
+			commonUtility.tap(getEleToolsIcn());
+			commonUtility.tap(geteleSignOutBtn());
+			commonUtility.tap(getelepopSignOutBtn());
+			Thread.sleep(10000);
+			System.out.println("Sign out successfully");
+		}
 		
 }

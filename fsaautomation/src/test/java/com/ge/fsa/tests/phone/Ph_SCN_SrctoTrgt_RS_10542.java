@@ -108,7 +108,7 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 		// Validation of not qualifying Work Order
 		Thread.sleep(2000);
 		sQualificationCriteriaValidation = ph_WorkOrderPo.geteleAccountnotNUll().getText().replaceAll("'", "");
-		Assert.assertTrue(sQualificationCriteriaValidation.equals("Account cant be NULL"),
+		Assert.assertTrue(sQualificationCriteriaValidation.contains("Account cant be NULL"),
 				"Qualification Criteria validation failed");
 		ExtentManager.logger.log(Status.PASS,
 				"Qualification Criteria message Account can't be null displayed successfully");
