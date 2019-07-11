@@ -676,7 +676,6 @@ public class BaseLib {
 		commonUtility.createFailedTestSuiteXML(sFailedTestNameArray);
 		Retry.isRetryRun = false;
 		sRetryState = "";
-		ExtentManager.extent.flush();
 
 		// Quit the drivers after class also
 		try {
