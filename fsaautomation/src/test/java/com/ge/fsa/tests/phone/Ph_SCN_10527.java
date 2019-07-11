@@ -27,7 +27,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	Boolean bProcessCheckResult;
 	String sProcessName = "Auto_Reg_10527";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 	
 	// ******Creating Account******x

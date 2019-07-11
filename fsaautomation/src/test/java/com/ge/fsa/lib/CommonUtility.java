@@ -1557,9 +1557,9 @@ public class CommonUtility {
 
 		String sSuccessString = null;
 		int lElapsedTime = 0;
-
+		waitforElement(wElement, lTime);
 		while (lElapsedTime != lTime) {
-			waitforElement(wElement, 1);
+			Thread.sleep(500);
 			// Ignore Errors from string not found and wait
 			try {
 				sSuccessString = wElement.getText();
@@ -2763,10 +2763,8 @@ public class CommonUtility {
 				System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed : exit code : "+process.exitValue());
 				ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed: exit code : "+process.exitValue());
 
-			}else {
-				System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution passed : exit code : "+process.exitValue());
-			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully : exit code : "+process.exitValue());	
 			}
+			//Continue to verification of full execution
 			
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
@@ -2778,6 +2776,9 @@ public class CommonUtility {
 		
 		//Verifying after the complete Sahi run with no internal errors or failures
 		if(verifySahiExecution()) {
+			System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution passed : exit code : "+process.exitValue());
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully : exit code : "+process.exitValue());	
+			
 		return true;
 		}else {
 		ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] failed");

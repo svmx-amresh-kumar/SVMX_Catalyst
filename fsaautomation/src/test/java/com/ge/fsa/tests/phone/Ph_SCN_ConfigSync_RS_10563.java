@@ -35,8 +35,6 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		
 		//*************** Execute Sahi Script ***************
 		commonUtility.executeSahiScript(sScriptName1);	
-//		commonUtility.executeSahiScript("appium/Scenario_RS_10561_ConfigSync_Alert_Post.sah");
-//		
 		lauchNewApp("false");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		ph_MorePo.syncData(commonUtility);

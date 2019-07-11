@@ -28,7 +28,7 @@ public class Ph_SCN_10529 extends BaseLib {
 	String sProcessName = "Auto_Regression_10529";
 	Boolean bProcessCheckResult;
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception {
 		
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName,sTestCaseID);
