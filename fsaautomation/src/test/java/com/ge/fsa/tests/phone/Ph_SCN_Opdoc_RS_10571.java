@@ -35,7 +35,7 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	Boolean bProcessCheckResult;
 	String sProcessName = "Auto_Regression_10571";
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 //		System.out.println(sExploreSearch);
