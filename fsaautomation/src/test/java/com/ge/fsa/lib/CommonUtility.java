@@ -1557,9 +1557,9 @@ public class CommonUtility {
 
 		String sSuccessString = null;
 		int lElapsedTime = 0;
-
+		waitforElement(wElement, lTime);
 		while (lElapsedTime != lTime) {
-			waitforElement(wElement, 1);
+			Thread.sleep(500);
 			// Ignore Errors from string not found and wait
 			try {
 				sSuccessString = wElement.getText();
