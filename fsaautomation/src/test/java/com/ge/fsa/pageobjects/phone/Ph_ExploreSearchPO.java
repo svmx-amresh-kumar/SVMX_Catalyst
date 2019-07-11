@@ -64,8 +64,8 @@ public class Ph_ExploreSearchPO {
 	}
 	
 	
-	@iOSXCUITFindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']")
-	@AndroidFindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]")
+	//@iOSXCUITFindBy(xpath = "//*[@*='EXPLORE.SEARCH_BAR']")
+	@FindBy(xpath = "//*[@*[contains(.,'SEARCH_BAR')]]")
 	private WebElement eleExploreSearchTxtFld;
 
 	public WebElement getEleExploreSearchTxtFld() {

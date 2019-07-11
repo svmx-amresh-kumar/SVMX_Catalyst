@@ -63,37 +63,26 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseLib {
 
+	// ----------------------------------------------------------------------------
+
+	// Declaring drivers
 	public AppiumDriver driver = null;
 	public WebDriver chromeDriver = null;
-	
-	
 	// Added for Browser
 	public WebDriver webDriver = null;
-	public static Actions actionTest = null;
-	public static JavascriptExecutor js = null;
-	
-	public Br_LoginPagePO loginPagePo = null;
-	public Br_HomePagePO homePagePo = null;
-	
-	public static String testUrl = "https://www.bryntum.com/examples/scheduler/animations/";
-	public static String geUsn ="212678248";
-	public static String gePwd = "R0nald0h";
-	public static String path = "";
-	public static ArrayList<String> sFailedTestNameArray=new ArrayList();
-	public static String sTestClassName=null;
-	
-	enum BrowserType{
-		
-		FIREFOX,CHROME,EDGE,SAFARI;
-	}
-	
-	public BrowserType browser = BrowserType.CHROME;
-	//------------------------------------
+
+	// ----------------------------------------------------------------------------
+
+	// Including all page object references
+
+	// Common
 	public RestServices restServices = null;
+	public CommonUtility commonUtility = null;
+
+	// Tablet
 	public LoginHomePO loginHomePo = null;
 	public ExploreSearchPO exploreSearchPo = null;
 	public WorkOrderPO workOrderPo = null;
-	public CommonUtility commonUtility = null;
 	public ChecklistPO checklistPo = null;
 	public ToolsPO toolsPo = null;
 	public CreateNewPO createNewPO = null;
@@ -101,9 +90,8 @@ public class BaseLib {
 	public CalendarPO calendarPO = null;
 	public TasksPO tasksPo = null;
 	public InventoryPO inventoryPo = null;
-	
-	//iphone
-	
+
+	// Phone
 	public Ph_LoginHomePO ph_LoginHomePo = null;
 	public Ph_MorePO ph_MorePo = null;
 	public Ph_CalendarPO ph_CalendarPo = null;
@@ -112,29 +100,42 @@ public class BaseLib {
 	public Ph_ExploreSearchPO ph_ExploreSearchPo = null;
 	public Ph_ChecklistPO ph_ChecklistPO = null;
 	public Ph_CreateNewPO ph_CreateNewPo = null;
-	
 
-	//browser
-	public Br_CalendarPO br_CalendarPO =null;
-	public Br_LoginHomePO br_LoginHomePO =null;
+	// Browser
+	public Br_CalendarPO br_CalendarPO = null;
+	public Br_LoginHomePO br_LoginHomePO = null;
+	public Br_LoginPagePO loginPagePo = null;
+	public Br_HomePagePO homePagePo = null;
+	public static Actions actionTest = null;
+	public static JavascriptExecutor js = null;
 
-	
+	public static String testUrl = "https://www.bryntum.com/examples/scheduler/animations/";
+	public static String geUsn = "212678248";
+	public static String gePwd = "R0nald0h";
+	public static String path = "";
+	public static ArrayList<String> sFailedTestNameArray = new ArrayList();
+	public static String sTestClassName = null;
 
+	enum BrowserType {
 
+		FIREFOX, CHROME, EDGE, SAFARI;
+	}
 
+	public BrowserType browser = BrowserType.CHROME;
+
+	// ----------------------------------------------------------------------------
+
+	// Declaring all variables
 	DesiredCapabilities capabilities = null;
-	public String sAppPath = null;
 	File app = null;
+	public String sAppPath = null;
 	public static String sOSName = null;
-	public static String sDeviceType =null;
+	public static String sDeviceType = null;
 	public static String sSelectConfigPropFile = null;
 	public static String sSuiteTestName = null;
 	public static String sSalesforceServerVersion = null;
 	public static String sBuildNo = null;
 	public static String sTestName = null;
-	public static String sBaseTimeStamp = null;
-	public static long lInitTimeStartMilliSec;
-	public static long lInitTimeEndMilliSec;
 	public static String sOrgType = null;
 	public static String sUDID = null;
 	public static String sAndroidDeviceName = null;
@@ -152,15 +153,23 @@ public class BaseLib {
 	public static String SClientId = null;
 	public static String sClientSecret = null;
 	public static String sCreateURL = null;
+	public static String sBaseTimeStamp = null;
+	public static long lInitTimeStartMilliSec;
+	public static long lInitTimeEndMilliSec;
 
-
-	//Execution legends
+	// Execution legends
 	public static String sRunningSymbol = ">>";
 	public static String sCompletedSymbol = "^^";
 	public static String sRetrySymbol = "<<";
 	public static String sRetryState = "";
 
-
+	/**
+	 * Get the time difference in minutes
+	 * 
+	 * @param lInitTimeStart
+	 * @param lInitTimeEnd
+	 * @return
+	 */
 	public long getDateDiffInMin(long lInitTimeStart, long lInitTimeEnd) {
 
 		long diffInMillies = Math.abs(lInitTimeStart - lInitTimeEnd);
@@ -168,6 +177,11 @@ public class BaseLib {
 		return sDiff;
 	}
 
+	/**
+	 * Get the base time stamp on start
+	 * 
+	 * @return
+	 */
 	public String getBaseTimeStamp() {
 		sBaseTimeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		// System.out.println(sBaseTimeStamp);
@@ -175,9 +189,16 @@ public class BaseLib {
 	}
 
 	@BeforeSuite
-	public void startServer(ITestContext context) throws IOException {
+	/**
+	 * Start the server logs, mainly for For reporting purpose, does not impact
+	 * executions
+	 * 
+	 * @param context
+	 * @throws IOException
+	 */
+	public void startServerLogs(ITestContext context) throws IOException {
 
-		// For report naming purpose, does not impact executions
+		// For report and naming purpose, does not impact executions
 		sTestName = context.getCurrentXmlTest().getClasses().toString().replaceAll("XmlClass class=", "").replaceAll("\\[\\[", "").replaceAll("\\]\\]", "").replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("com.ge.fsa.tests.", "");
 		sSuiteTestName = context.getSuite().getName();
 
@@ -186,82 +207,93 @@ public class BaseLib {
 		System.out.println("[BaseLib] Excuting Tests : " + sTestName);
 
 		// Get all jenkins parameters from env
-		//Check if jenkins is setting the Select_Config_Properties_For_Build else use local file
-		
+		// Check if jenkins is setting the Select_Config_Properties_For_Build else use
+		// local file
+
 		sOrgType = System.getenv("Org_Type") != null ? System.getenv("Org_Type") : "base";
 		System.out.println("[BaseLib] Server Org Type = " + sOrgType);
-		
-		// Select the appropriate config file On setting USE_PROPERTY_FILE to "config_automation_build" the config_automation_build excel sheet will be used to get data 
+
+		// Select the appropriate config file On setting USE_PROPERTY_FILE to
+		// "config_automation_build" the config_automation_build excel sheet will be
+		// used to get data
 		sSelectConfigPropFile = System.getenv("Select_Config_Properties_For_Build") != null ? System.getenv("Select_Config_Properties_For_Build").toLowerCase() : CommonUtility.getConfigValue(CommonUtility.sConfigFile, "USE_PROPERTY_FILE").toLowerCase();
 
 		System.out.println("[BaseLib] Running On Profile : " + sSelectConfigPropFile);
 		System.out.println("[BaseLib] Reading Config Properties From : " + CommonUtility.sConfigFile);
 
 		// Select the OS from Run_On_Platform from jenkins or local
-		sOSName = System.getenv("Run_On_Platform") != null?System.getenv("Run_On_Platform").toLowerCase():CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();//GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();
+		sOSName = System.getenv("Run_On_Platform") != null ? System.getenv("Run_On_Platform").toLowerCase() : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "PLATFORM_NAME").toLowerCase();// GenericLib.readExcelData(GenericLib.sConfigPropertiesExcelFile,sSelectConfigPropFile,
+																																																											// "PLATFORM_NAME").toLowerCase();
 		System.out.println("[BaseLib] OS Name = " + sOSName);
 
-		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "DEVICE_TYPE").toLowerCase();
+		sDeviceType = System.getenv("Device_Type") != null ? System.getenv("Device_Type") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "DEVICE_TYPE").toLowerCase();
 		System.out.println("[BaseLib] Device Type = " + sDeviceType);
-		
+
 		// Get the build number from jenkins
 		sBuildNo = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : "local";
 		System.out.println("[BaseLib] BUILD_NUMBER : " + sBuildNo);
-		
-		//Get UDID
-		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID").toLowerCase();
+
+		// Get UDID
+		sUDID = System.getenv("UDID") != null ? System.getenv("UDID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "UDID").toLowerCase();
 		System.out.println("[BaseLib] UDID_IOS : " + sUDID);
-		
-		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_NAME");
+
+		sApp_Name = System.getenv("APP_NAME") != null ? System.getenv("APP_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "APP_NAME");
 		System.out.println("[BaseLib] APP_NAME : " + sApp_Name);
-		
-		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
+
+		sAndroidDeviceName = System.getenv("ANDROID_DEVICE_NAME") != null ? System.getenv("ANDROID_DEVICE_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "ANDROID_DEVICE_NAME").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_DEVICE_NAME : " + sAndroidDeviceName);
-		
-		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
+
+		sIOSPlatformVersion = System.getenv("IOS_PLATFORM_VERSION") != null ? System.getenv("IOS_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "IOS_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] IOS_PLATFORM_VERSION : " + sIOSPlatformVersion);
-		
-		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
+
+		sAndroidPlatformVersion = System.getenv("ANDROID_PLATFORM_VERSION") != null ? System.getenv("ANDROID_PLATFORM_VERSION") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "ANDROID_PLATFORM_VERSION").toLowerCase();
 		System.out.println("[BaseLib] ANDROID_PLATFORM_VERSION : " + sAndroidPlatformVersion);
-		
-		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
+
+		sOAUTHUrl = System.getenv("OAUTH_URL") != null ? System.getenv("OAUTH_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "OAUTH_URL").toLowerCase();
 		System.out.println("[BaseLib] OAUTH_URL : " + sOAUTHUrl);
-		
-		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
+
+		SClientId = System.getenv("CLIENT_ID") != null ? System.getenv("CLIENT_ID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "CLIENT_ID").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_ID : " + SClientId);
-		
-		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
+
+		sClientSecret = System.getenv("CLIENT_SECRET") != null ? System.getenv("CLIENT_SECRET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "CLIENT_SECRET").toLowerCase();
 		System.out.println("[BaseLib] CLIENT_SECRET : " + sClientSecret);
-	
-		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "CREATE_URL").toLowerCase();
+
+		sCreateURL = System.getenv("CREATE_URL") != null ? System.getenv("CREATE_URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "CREATE_URL").toLowerCase();
 		System.out.println("[BaseLib] CREATE_URL : " + sCreateURL);
-		
-		sURL = System.getenv("URL") != null ? System.getenv("URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "URL").toLowerCase();
+
+		sURL = System.getenv("URL") != null ? System.getenv("URL") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "URL").toLowerCase();
 		System.out.println("[BaseLib] URL : " + sURL);
-		
-		sXcode_SigninID = System.getenv("XCODE_SIGNID") != null ? System.getenv("XCODE_SIGNID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID").toLowerCase();
+
+		sXcode_SigninID = System.getenv("XCODE_SIGNID") != null ? System.getenv("XCODE_SIGNID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "XCODE_SIGNID").toLowerCase();
 		System.out.println("[BaseLib] XCODE_SIGNID : " + sXcode_SigninID);
-		
-		sXcode_OrgID = System.getenv("XCODE_ORGID") != null ? System.getenv("XCODE_ORGID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID").toLowerCase();
+
+		sXcode_OrgID = System.getenv("XCODE_ORGID") != null ? System.getenv("XCODE_ORGID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "XCODE_ORGID").toLowerCase();
 		System.out.println("[BaseLib] XCODE_ORGID : " + sXcode_OrgID);
-		
-		sAutomation_Name = System.getenv("AUTOMATION_NAME") != null ? System.getenv("AUTOMATION_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME").toLowerCase();
+
+		sAutomation_Name = System.getenv("AUTOMATION_NAME") != null ? System.getenv("AUTOMATION_NAME") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "AUTOMATION_NAME").toLowerCase();
 		System.out.println("[BaseLib] AUTOMATION_NAME : " + sAutomation_Name);
-		
-		sUpdate_BundleID = System.getenv("UPDATE_BUNDLEID") != null ? System.getenv("UPDATE_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID").toLowerCase();
+
+		sUpdate_BundleID = System.getenv("UPDATE_BUNDLEID") != null ? System.getenv("UPDATE_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "UPDATE_BUNDLEID").toLowerCase();
 		System.out.println("[BaseLib] UPDATE_BUNDLEID : " + sUpdate_BundleID);
-		
-		
-		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
+
+		sApp_BundleID = System.getenv("APP_BUNDLEID") != null ? System.getenv("APP_BUNDLEID") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "APP_BUNDLEID").toLowerCase();
 		System.out.println("[BaseLib] APP_BUNDLEID : " + sApp_BundleID);
-		
-		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET").toLowerCase();
+
+		sNo_Reset = System.getenv("NO_RESET") != null ? System.getenv("NO_RESET") : CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET").toLowerCase();
 		System.out.println("[BaseLib] NO_RESET : " + sNo_Reset);
-		
+
 	}
 
 	// @BeforeClass
-	public void setAPP() throws Exception {
+	/**
+	 * Set all the App capabilities and do logical operations based on
+	 * phone/tablet/browser to set appropriate capabilities
+	 * 
+	 * @throws Exception
+	 */
+	public void setAppCapabilities() throws Exception {
+
+		// Create all the required directories
 		File file = new File(System.getProperty("user.dir") + "/../Executable");
 		try {
 			file.mkdir();
@@ -274,13 +306,16 @@ public class BaseLib {
 		} catch (Exception e) {
 			System.out.println("[BaseLib] Exception in creating ExtentReports directory for Reports " + e);
 		}
-		 File fileDir = new File(System.getProperty("user.dir") + "/suites/failedSuite");
-			try {
-				fileDir.mkdir();
-			} catch (Exception e) {
-				System.out.println("[BaseLib] Exception in creating failedSuite directory for Reruns " + e);
-			}
+		File fileDir = new File(System.getProperty("user.dir") + "/suites/failedSuite");
+		try {
+			fileDir.mkdir();
+		} catch (Exception e) {
+			System.out.println("[BaseLib] Exception in creating failedSuite directory for Reruns " + e);
+		}
 
+		// ----------------------------------------------------------------------------
+
+		// Based on OS/Device type set the appropriate capabilities
 		switch (sOSName) {
 		case "android":
 			try { // Android Drivers
@@ -290,34 +325,35 @@ public class BaseLib {
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sAndroidPlatformVersion);
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, sAndroidDeviceName);
-				if(sDeviceType.equalsIgnoreCase("phone")) {
-					//Ignore the AutoWebview setting for phone
-						System.out.println("Setting AUTO_WEBVIEW to false");
-						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
-						capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
-						capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
-						capabilities.setCapability("ignoreUnimportantViews",true);
+				if (sDeviceType.equalsIgnoreCase("phone")) {
+					// Ignore the AutoWebview setting for phone
+					System.out.println("Setting AUTO_WEBVIEW to false");
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
+					capabilities.setCapability("appPackage", "com.servicemaxinc.fsa");
+					capabilities.setCapability("appActivity", "com.servicemaxinc.fsa.MainActivity");
+					capabilities.setCapability("ignoreUnimportantViews", true);
 
-					}else{
-						capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
-						capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
-						capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
-					}
-				capabilities.setCapability("noReset", Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
+				} else {
+					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
+					capabilities.setCapability("appPackage", "com.servicemaxinc.svmxfieldserviceapp");
+					capabilities.setCapability("appActivity", "com.servicemaxinc.svmxfieldserviceapp.ServiceMaxMobileAndroid");
+				}
+				capabilities.setCapability("noReset", Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET")));
 				// capabilities.setCapability("nativeWebTap", true);
-				
+
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
-				//capabilities.setCapability("setWebContentsDebuggingEnabled", true);
+				// capabilities.setCapability("setWebContentsDebuggingEnabled", true);
 				capabilities.setCapability("automationName", "uiautomator2");
 				capabilities.setCapability("unicodeKeyboard", true);
 				capabilities.setCapability("resetKeyboard", true);
 				capabilities.setCapability("autoAcceptAlerts", true);
 
-			//	driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+				// driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),
+				// capabilities);
 				driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 				Thread.sleep(2000);
@@ -325,6 +361,8 @@ public class BaseLib {
 				throw e;
 			}
 			break;
+
+		// ----------------------------------------------------------------------------
 
 		case "ios":
 
@@ -335,48 +373,44 @@ public class BaseLib {
 				capabilities = new DesiredCapabilities();
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, sOSName);
 				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, sIOSPlatformVersion);
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "IOS_DEVICE_NAME"));
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "AUTOMATION_NAME"));
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "IOS_DEVICE_NAME"));
+				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "AUTOMATION_NAME"));
 				capabilities.setCapability(MobileCapabilityType.APP, sAppPath);
-				capabilities.setCapability(MobileCapabilityType.UDID, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UDID"));
-				if(sDeviceType.equalsIgnoreCase("phone")) {
-				//Ignore the AutoWebview setting for phone
+				capabilities.setCapability(MobileCapabilityType.UDID, CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "UDID"));
+				if (sDeviceType.equalsIgnoreCase("phone")) {
+					// Ignore the AutoWebview setting for phone
 					System.out.println("Setting AUTO_WEBVIEW to false");
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, false);
 					capabilities.setCapability("sendKeyStrategy", "setValue");
-					capabilities.setCapability("wdaEventloopIdleDelay",15);
-					capabilities.setCapability("useNewWDA",false);
-					capabilities.setCapability("waitForQuiescence",false);
-					//capabilities.setCapability("ignoreUnimportantViews",true);
-					//Dont use for Go App
-					//capabilities.setCapability("autoAcceptAlerts", true);
+					capabilities.setCapability("wdaEventloopIdleDelay", 15);
+					capabilities.setCapability("useNewWDA", false);
+					capabilities.setCapability("waitForQuiescence", false);
+					// capabilities.setCapability("ignoreUnimportantViews",true);
+					// Dont use for Go App
+					// capabilities.setCapability("autoAcceptAlerts", true);
 
-				
-				}else{
-					//Only For Ipad
+				} else {
+					// Only For Ipad
 					capabilities.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
 					capabilities.setCapability("sendKeyStrategy", "grouped");
 					capabilities.setCapability("autoAcceptAlerts", true);
 
-
 				}
-				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")));
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, Boolean.parseBoolean(CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET")));
 				capabilities.setCapability(MobileCapabilityType.SUPPORTS_ALERTS, true);
-				capabilities.setCapability("xcodeOrgId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_ORGID"));
-				capabilities.setCapability("xcodeSigningId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "XCODE_SIGNID"));
-				capabilities.setCapability("updatedWDABundleId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "UPDATE_BUNDLEID"));
+				capabilities.setCapability("xcodeOrgId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "XCODE_ORGID"));
+				capabilities.setCapability("xcodeSigningId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "XCODE_SIGNID"));
+				capabilities.setCapability("updatedWDABundleId", CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "UPDATE_BUNDLEID"));
 				capabilities.setCapability("startIWDP", true);
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability("locationServicesAuthorized", true);
 				capabilities.setCapability("locationServicesEnabled", true);
 				capabilities.setCapability("clearSystemFiles", true);
 				capabilities.setCapability("newCommandTimeout", 5000);
-				//capabilities.setCapability("showXcodeLog", true);
-				//Use this capability for fixing slow launch of app
-				//capabilities.setCapability("useNewWDA",true);
-				
-				
-				
+				// capabilities.setCapability("showXcodeLog", true);
+				// Use this capability for fixing slow launch of app
+				// capabilities.setCapability("useNewWDA",true);
+
 				driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 				Thread.sleep(2000);
@@ -385,44 +419,51 @@ public class BaseLib {
 			}
 
 			break;
-			
+
+		// ----------------------------------------------------------------------------
+
 		case "browser":
-			
-			System.out.println("OS type = "+System.getProperty("os.name"));
-			
-			if(//For Mac OS X
-				System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
-				System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver/");
-			}else {
-				//For Windows
-				System.setProperty("webdriver.chrome.driver","C:/List_of_Jar/chromedriver.exe");
+
+			System.out.println("[BaseLib] OS type = " + System.getProperty("os.name"));
+
+			if (// For Mac OS X
+			System.getProperty("os.name").equalsIgnoreCase("Mac OS X")) {
+				System.setProperty("[BaseLib]  webdriver.chrome.driver", "/usr/local/bin/chromedriver/");
+			} else {
+				// For Windows
+				System.setProperty("[BaseLib]  webdriver.chrome.driver", "C:/List_of_Jar/chromedriver.exe");
 
 			}
 
 			// Initialize browser
-			chromeDriver= new ChromeDriver();
-			 
+			chromeDriver = new ChromeDriver();
+
 			// Initialize the driver
 			chromeDriver.get(sURL);
 			break;
 		}
 
-		// Initialize all the page objects and libraries
+		// ----------------------------------------------------------------------------
+
+		// Initialize all page objects and libraries
+
+		// Common
 		restServices = new RestServices();
+		commonUtility = new CommonUtility(driver);
+
+		// Tablet
 		loginHomePo = new LoginHomePO(driver);
 		exploreSearchPo = new ExploreSearchPO(driver);
 		workOrderPo = new WorkOrderPO(driver);
 		toolsPo = new ToolsPO(driver);
-		commonUtility = new CommonUtility(driver);
-		restServices = new RestServices();
 		createNewPO = new CreateNewPO(driver);
 		recenItemsPO = new RecentItemsPO(driver);
 		calendarPO = new CalendarPO(driver);
 		tasksPo = new TasksPO(driver);
 		checklistPo = new ChecklistPO(driver);
 		inventoryPo = new InventoryPO(driver);
-		
-		//iPhone
+
+		// Phone
 		ph_LoginHomePo = new Ph_LoginHomePO(driver);
 		ph_MorePo = new Ph_MorePO(driver);
 		ph_CalendarPo = new Ph_CalendarPO(driver);
@@ -432,35 +473,30 @@ public class BaseLib {
 		ph_ExploreSearchPo = new Ph_ExploreSearchPO(driver);
 		ph_CreateNewPo = new Ph_CreateNewPO(driver);
 
-		//browser
+		// Browser
 		br_CalendarPO = new Br_CalendarPO(chromeDriver);
 		br_LoginHomePO = new Br_LoginHomePO(chromeDriver);
 
-		
-
-
-
+		// Fetch the SalesForce version
 		try {
 			sSalesforceServerVersion = commonUtility.servicemaxServerVersion(restServices);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		if(sOSName.equalsIgnoreCase("browser")) {
-			ExtentManager.getInstance(chromeDriver);
-			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		}else if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
-			ExtentManager.getInstance(driver);
-			//Setting wait for 1 sec only for this method reverting when exiting
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		}else {
-			ExtentManager.getInstance(driver);
-		//reverting wait to 10 seconds
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			System.out.println("!! [BaseLib] Exception in fetching SalesForce Version : " + sSuiteTestName + " : " + e);
 		}
 
+		// Set the waits depending on the device/env
+		if (sOSName.equalsIgnoreCase("browser")) {
+			ExtentManager.getInstance(chromeDriver);
+			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} else if (BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			ExtentManager.getInstance(driver);
+			// Setting wait for 1 sec only for this method reverting when exiting
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} else {
+			ExtentManager.getInstance(driver);
+			// reverting wait to 10 seconds
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
 
 	}
 
@@ -469,41 +505,49 @@ public class BaseLib {
 	 * existing(true) APP, by passing the sResetMode parameter as "true" or "false"
 	 * 
 	 * @param sResetMode
-	 * @throws IOException 
+	 * @throws IOException
 	 * @throws Exception
 	 */
 	public void lauchNewApp(String sResetMode) throws IOException {
 
-		switch(sOSName) {
+		switch (sOSName) {
 		case "browser":
 			try {
-				setAPP();
+				setAppCapabilities();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+
 			}
 			break;
-			
+
 		default:
-			
-		// Installing fresh by default
-		CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", sResetMode);
-		System.out.println("[BaseLib] Initialized App Start mode to = " + CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET")+" : [false is reinstall and true is reuse]");
 
-		try {
-			setAPP();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			// Installing fresh by default
+			CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET", sResetMode);
+			System.out.println("[BaseLib] Initialized App Start mode to = " + CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET") + " : [false is reinstall and true is reuse]");
 
-		// Resetting to true always first for next execution
-		CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "NO_RESET", "true");
-		System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
+			try {
+				setAppCapabilities();
+			} catch (Exception e) {
+				System.out.println("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in setting app capabilities : " + sSuiteTestName + " : " + e);
+			}
+
+			// Resetting to true always first for next execution
+			CommonUtility.writeExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "NO_RESET", "true");
+			System.out.println("[BaseLib] Initialized Driver ** = " + driver.toString() + "** ");
 		}
 	}
 
 	@BeforeMethod
+	/**
+	 * Starting the Reports
+	 * 
+	 * @param result
+	 * @param context
+	 * @throws IOException
+	 */
 	public void startReport(ITestResult result, ITestContext context) throws IOException {
 		lInitTimeStartMilliSec = System.currentTimeMillis();
 		lauchNewApp("true");
@@ -512,57 +556,68 @@ public class BaseLib {
 		if (sSuiteTestName != null) {
 			System.out.println(getBaseTimeStamp() + " -- RUNNING TEST SUITE : " + sSuiteTestName);
 		}
-		System.out.println("[BaseLib] "+getBaseTimeStamp() + " "+sRunningSymbol+" RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
+		System.out.println("[BaseLib] " + getBaseTimeStamp() + " " + sRunningSymbol + " RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
-		
-		if(sOSName.equalsIgnoreCase("browser")) {
-			//do nothing
-		}else{
-		if(sDeviceType.equalsIgnoreCase("phone")) {
-			//Ignore rotation
-			}else{
-		driver.rotate((ScreenOrientation.LANDSCAPE));
-		driver.rotate((ScreenOrientation.PORTRAIT));
+
+		if (sOSName.equalsIgnoreCase("browser")) {
+			// do nothing
+		} else {
+			if (sDeviceType.equalsIgnoreCase("phone")) {
+				// Ignore rotation
+			} else {
+				driver.rotate((ScreenOrientation.LANDSCAPE));
+				driver.rotate((ScreenOrientation.PORTRAIT));
 			}
 		}
 	}
-	
+
+	/**
+	 * Initialize driver for browser
+	 * 
+	 * @throws InterruptedException
+	 */
 	public void initDriver() throws InterruptedException {
-		
-		if(browser==BrowserType.CHROME) {
-			path = System.getProperty("user.dir")+"/resources/chromedriver";
-			System.setProperty("webdriver.chrome.driver",path);
-			webDriver = new ChromeDriver();	
-		}
-		else {
-			path = System.getProperty("user.dir")+"/resources/geckodriver";
-			System.setProperty("webdriver.gecko.driver",path);
+
+		if (browser == BrowserType.CHROME) {
+			path = System.getProperty("user.dir") + "/resources/chromedriver";
+			System.setProperty("webdriver.chrome.driver", path);
+			webDriver = new ChromeDriver();
+		} else {
+			path = System.getProperty("user.dir") + "/resources/geckodriver";
+			System.setProperty("webdriver.gecko.driver", path);
 			webDriver = new FirefoxDriver();
 		}
-		
+
 		actionTest = new Actions(webDriver);
-		js = (JavascriptExecutor)webDriver;
-		
+		js = (JavascriptExecutor) webDriver;
+
 		webDriver.manage().window().maximize();
 		webDriver.get(testUrl);
-		
+
 		loginPagePo = new Br_LoginPagePO(webDriver);
 		homePagePo = new Br_HomePagePO(webDriver);
-		
+
 		Thread.sleep(15000);
-		
+
 	}
 
 	@AfterMethod
+	/**
+	 * Generating the report on finishing the run
+	 * 
+	 * @param result
+	 * @param context
+	 */
 	public void endReport(ITestResult result, ITestContext context) {
-		sTestClassName=result.getMethod().getRealClass().toString().replaceAll("class ", "");
+		sTestClassName = result.getMethod().getRealClass().toString().replaceAll("class ", "");
 		lInitTimeEndMilliSec = System.currentTimeMillis();
 		long sTimeDiff = getDateDiffInMin(lInitTimeStartMilliSec, lInitTimeEndMilliSec);
-		//System.out.println("[BaseLib] Last Context Exited From : " + driver.getContext());
+		// System.out.println("[BaseLib] Last Context Exited From : " +
+		// driver.getContext());
 		System.out.println("[BaseLib] Total time for execution : " + sTimeDiff + " min");
 
 		if (result.getStatus() == ITestResult.FAILURE || result.getStatus() == ITestResult.SKIP) {
-			System.out.println(getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + sTestClassName + " STATUS : FAILED"+" "+sRetryState);
+			System.out.println(getBaseTimeStamp() + " " + sCompletedSymbol + " COMPLETED TEST CLASS : " + sTestClassName + " STATUS : FAILED" + " " + sRetryState);
 			if (sOSName.equalsIgnoreCase("android")) {
 				Set contextNames = driver.getContextHandles();
 				driver.context(contextNames.toArray()[0].toString());
@@ -572,21 +627,21 @@ public class BaseLib {
 			try {
 				ExtentManager.logger.fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("!! [BaseLib] Exception in reporting : " + sSuiteTestName + " : " + e);
+				ExtentManager.logger("!! [BaseLib] Exception in reporting capabilities : " + sSuiteTestName + " : " + e);
 			}
-			System.out.println("[BaseLib] Failed Test = "+sTestClassName);
-			//Add to failed suite only if retry has failed
-			if(!sRetryState.equalsIgnoreCase("RETRY")) {
-			sFailedTestNameArray.add(sTestClassName);
+			System.out.println("[BaseLib] Failed Test = " + sTestClassName);
+			// Add to failed suite only if retry has failed
+			if (!sRetryState.equalsIgnoreCase("RETRY")) {
+				sFailedTestNameArray.add(sTestClassName);
 			}
 		} else {
 
-			System.out.println("[BaseLib] "+getBaseTimeStamp() + " "+sCompletedSymbol+" COMPLETED TEST CLASS : " + sTestClassName + " STATUS : PASSED"+" "+sRetryState);
+			System.out.println("[BaseLib] " + getBaseTimeStamp() + " " + sCompletedSymbol + " COMPLETED TEST CLASS : " + sTestClassName + " STATUS : PASSED" + " " + sRetryState);
 
 		}
 
-		// Avoid duplicate test results in reports on retry
+		// To avoid duplicate test results in reports on retry
 		if (Retry.isRetryRun) {
 			Retry.isRetryRun = false;
 			// Remove the failed first try
@@ -601,6 +656,7 @@ public class BaseLib {
 			ExtentManager.extent.flush();
 		}
 
+		// Quit the drivers
 		try {
 			driver.quit();
 		} catch (Exception e) {
@@ -613,11 +669,24 @@ public class BaseLib {
 	}
 
 	@AfterClass
+	/**
+	 * Tear down, generating failed test xml file and flushing the reports
+	 */
 	public void tearDownDriver() {
 		commonUtility.createFailedTestSuiteXML(sFailedTestNameArray);
 		Retry.isRetryRun = false;
+		sRetryState = "";
 		ExtentManager.extent.flush();
-		// try{driver.quit();}catch(Exception e) {};
+
+		// Quit the drivers after class also
+		try {
+			driver.quit();
+		} catch (Exception e) {
+		}
+		try {
+			chromeDriver.quit();
+		} catch (Exception e) {
+		}
 	}
 
 }

@@ -77,7 +77,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		ph_CalendarPo.getEleCalendarBtn().click();
 		ph_CalendarPo.getEleCreateNewEvent().click();
 		ph_CalendarPo.getEleCalendarEventSubject().click();
-		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject);
+		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject+"\n");
 
 		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "05", "00");
 
@@ -161,7 +161,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		  ph_CalendarPo.getEleCalendarBtn().click();
 			ph_CalendarPo.getEleCreateNewEvent().click();
 			ph_CalendarPo.getEleCalendarEventSubject().click();
-			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject14days);
+			ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject14days+"\n");
 
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "05", "00");
 			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 16, "07", "00");

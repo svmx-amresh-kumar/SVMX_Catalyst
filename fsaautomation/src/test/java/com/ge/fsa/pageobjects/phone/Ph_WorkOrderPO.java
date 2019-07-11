@@ -237,6 +237,18 @@ public class Ph_WorkOrderPO {
 		}
 
 	}
+	
+	public WebElement getEleSearchListItemFirst(String sValue) {
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//*[contains(@text,'" + sValue
+					+ "')]/../..//*[contains(@content-desc,'I')]/*[contains(@text,'" + sValue + "')]"));
+		} else {
+			// return
+			// driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'ITEM')]"));
+			return driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='" + sValue + "']"));
+		}
+
+	}
 
 	@FindBy(xpath = "(//*[@*='Part Lookup'])[last()]")
 	private WebElement elepartlookup;
@@ -956,8 +968,8 @@ public class Ph_WorkOrderPO {
 		return eleAddButton;
 	}
 
-	@AndroidFindBy(xpath = "//*[./*[@text='Remove']]")
-	@iOSXCUITFindBy(xpath = "//*[@name='Remove']/*")
+	@AndroidFindBy(xpath = "(//*[./*[@text='Remove']])[last()]")
+	@iOSXCUITFindBy(xpath = "(//*[@name='Remove'])[last()]")
 	private WebElement eleRemoveButton;
 
 	public WebElement getEleRemoveButton() {
@@ -1642,7 +1654,8 @@ public class Ph_WorkOrderPO {
 		return retText;
 	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]//*[@*='You must add at least one Labor to save.']")
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]]//*[@*='You must add at least one Labor to save.']")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'SFM.VALIDATION.LIST.ANCHOR_BUTTON')]][@*='Labor You must add at least one Labor to save.']")
 	private WebElement eleNoLaborError;
 
 	public WebElement getEleNoLaborError() {
@@ -1664,7 +1677,8 @@ public class Ph_WorkOrderPO {
 		}
 	}
 
-	@FindBy(xpath = "//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='1 ERROR(S)']")
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]]//*[@*='1 ERROR(S)']")
+	@iOSXCUITFindBy(xpath = "//*[@*[contains(.,'SFM.VALIDATION.LIST.TOGGLE_BUTTON')]][@*='1 ERROR(S)']")
 	private WebElement eleChildLine1IssueFound;
 
 	public WebElement getEleChildLine1IssueFound() {

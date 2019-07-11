@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
@@ -188,7 +190,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 					ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 3");
 			 }
 			 else
-					ExtentManager.logger.log(Status.FAIL,"Section two is visible and section was not jumped from 1 to 3");
+					ExtentManager.logger.log(Status.FAIL,"Section two is visible and section was not jumped from 1 to 3",MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		//moving back to main checklist page sections
 		ph_ChecklistPO.geteleBackbutton().click();
 		
@@ -224,7 +226,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 				ExtentManager.logger.log(Status.PASS,"Section two is not clickable as section was jumped from 1 to 4");
 		 }
 		 else
-				ExtentManager.logger.log(Status.FAIL,"Section two is visible and section was not jumped from 1 to 4");
+				ExtentManager.logger.log(Status.FAIL,"Section two is visible and section was not jumped from 1 to 4",MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		ExtentManager.logger.log(Status.PASS,"Multiple Q same section jump-Section Three is not clickable as section was jumped from 1 to 4");
 		
 		
@@ -368,7 +370,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 					ExtentManager.logger.log(Status.PASS,"Entry Criteria of section validated Section two is not displayed");
 			 }
 			 else
-					ExtentManager.logger.log(Status.FAIL,"Entry Criteria of section failed Section two is  displayed");
+					ExtentManager.logger.log(Status.FAIL,"Entry Criteria of section failed Section two is  displayed",MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 
 			
 			

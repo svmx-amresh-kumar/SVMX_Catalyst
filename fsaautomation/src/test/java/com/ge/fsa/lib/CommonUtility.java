@@ -130,6 +130,7 @@ public class CommonUtility {
 	public static String sShellFile = sDirPath+"//..//Executable//sahiExecutable.sh";
 	public static String sDataFile =  sDirPath+"//..//Executable//data.properties";
 	public static String sXmlFilePath = "/auto/SVMX_Catalyst/fsaautomation/suites/failedSuite/failedTests.xml";
+	private static String sStartSahiShellFile = sDirPath+"//..//Executable//startSahi.sh";;
 
 	@FindBy(className = "XCUIElementTypePickerWheel")
 	// @FindBy(className="android.widget.ListView")
@@ -955,7 +956,7 @@ public class CommonUtility {
 
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				Date currentDate = convertStringToDate("E, MMM dd yyyy", date);
+				Date currentDate = convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 				Date monthDate = convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(monthDate);
@@ -1062,15 +1063,15 @@ public class CommonUtility {
 			}else {
 				String date = getDatePicker().getText();
 				date = date + " " + getYearPicker().getText();
-				if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+				//if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 					//UK Date Format
 					currentDate=convertStringToDate("E dd MMM yyyy", date);
-					}
-					else
-					{
-					//US DateFormat
-					currentDate=convertStringToDate("E, MMM dd yyyy", date);
-					}
+//					}
+//					else
+//					{
+//					//US DateFormat
+//					currentDate=convertStringToDate("E, MMM dd yyyy", date);
+//					}
 				
 				Date monthDate=convertStringToDate("MMMM", sMonth);
 				Calendar cal = Calendar.getInstance();
@@ -1140,7 +1141,7 @@ public class CommonUtility {
 			Thread.sleep(3000);
 			String date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Date currentDate=convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
 			cal.add(Calendar.DAY_OF_MONTH, iDaysToScroll);
@@ -1318,7 +1319,7 @@ public class CommonUtility {
 			switchContext("Native");
 			date = getDatePicker().getText();
 			date = date + " " + getYearPicker().getText();
-			Date currentDate=convertStringToDate("E, MMM dd yyyy", date);
+			Date currentDate=convertStringToDate("E dd MMM yyyy", date);//E, MMM dd yyyy
 			date= new SimpleDateFormat("MM/dd/yy").format(currentDate);
 			getCalendarDone().click();
 			if(dateTime.equalsIgnoreCase("datetime")) {
@@ -2333,7 +2334,7 @@ public class CommonUtility {
 					wElement = driver.findElement(By.xpath(xpathString));
 					if(waitforElement(wElement,1)) {
 						point = wElement.getLocation();
-						wElement.click();
+						//wElement.click();
 						System.out.println("Found Coordinates ヽ(´▽`)/ : " + point.getX() + "---" + point.getY());
 						System.out.println("Element found after scrolling");
 						return;
@@ -2681,7 +2682,7 @@ public class CommonUtility {
 		return sValue;
 	}
 	
-
+	
 	public void createShellFile(String sSahiFile) throws IOException
 	{
 		String sSahiShellFile = System.getProperty("user.dir")+"//..//Executable//sahiExecutable.sh";
@@ -2693,7 +2694,35 @@ public class CommonUtility {
 		writer.close();
 	}
 	
-	
+	public void startSahiShellFile() throws Exception
+	{
+		String sSahiShellFile = sStartSahiShellFile;//System.getProperty("user.dir")+"//..//Executable//startSahi.sh";
+		File file = new File(sSahiShellFile);
+		file.createNewFile();
+		FileWriter writer = new FileWriter(file);
+		//Kill any open sahi instance and open a new one
+		writer.write("#!/bin/bash \nps -ef | grep Dashboard | grep -v grep | awk '{print $2}' | xargs kill -9 \ncd /auto/sahi_pro/userdata/bin/ \n./start_dashboard.sh ");
+		writer.flush();
+		writer.close();
+		
+		// Start Sahi shell files 
+				File fileStartSahi = new File(CommonUtility.sStartSahiShellFile );
+				Runtime.getRuntime().exec("chmod u+x " +fileStartSahi);
+				ProcessBuilder processBuilderSahi =null;
+				Process processSahi =null;
+				try {
+					processBuilderSahi= new ProcessBuilder(fileStartSahi.getPath());
+					processSahi = processBuilderSahi.start(); // Start the process.
+					processSahi.waitFor(15, TimeUnit.SECONDS);
+				} catch (Exception e) {
+					//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
+					System.out.println("Starting Sahi failed "+e);
+					ExtentManager.logger.log(Status.FAIL,"Starting Sahi failed "+e);
+					processSahi.destroyForcibly();
+					throw e;
+				}
+	}
+
 	
 	public boolean executeSahiScript(String sSahiScript,Boolean... bSoftFail ) throws Exception
 	{	
@@ -2706,14 +2735,17 @@ public class CommonUtility {
 		String sActualLogPath = System.getenv("Run_On_Platform") == null ? "/auto/sahi_pro/userdata/scripts/Sahi_Project_Lightning/offlineSahiLogs/" :  "offlineSahiLogs/" ;
 		
 		System.out.println("Executing Sahi Pro Script : "+sSahiScript);
+		startSahiShellFile();
+		
 		//Create Shell script to execute Sahi file
 		createShellFile(sSahiScript);
 		File file = new File(CommonUtility.sShellFile);
 		Runtime.getRuntime().exec("chmod u+x " +file);
-		
+		ProcessBuilder processBuilder =null;
+		Process process =null;
 		try {
-			ProcessBuilder processBuilder= new ProcessBuilder(file.getPath());
-			Process process = processBuilder.start(); // Start the process.
+			 processBuilder= new ProcessBuilder(file.getPath());
+			 process = processBuilder.start(); // Start the process.
 			process.waitFor(); // Wait for the process to finish.
 			
 			Assert.assertTrue(process.exitValue()==0, "Sahi script Passed");
@@ -2727,12 +2759,20 @@ public class CommonUtility {
 				sActualLogPath = sActualLogPath+getLastModifiedFile(sSahiLogPath, "*__*.","html");
 
 			}
+			if(process.exitValue()>0) {
+				System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed : exit code : "+process.exitValue());
+				ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed: exit code : "+process.exitValue());
+
+			}else {
+				System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution passed : exit code : "+process.exitValue());
+			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully : exit code : "+process.exitValue());	
+			}
 			
-			ExtentManager.logger.log(Status.PASS,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] executed successfully");
-				
 		} catch (Exception e) {
 			//Assert.assertTrue(iProcessStatus==0, "Sahi executed successfully");
-			ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] failed");
+			System.out.println("Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed");
+			ExtentManager.logger.log(Status.FAIL,"Sahi script [ <a href='"+sActualLogPath+" '>"+sMessage+" </a> ] execution failed "+e);
+			process.destroyForcibly();
 			throw e;
 		}
 		
@@ -2753,7 +2793,6 @@ public class CommonUtility {
 		 
 
 	}
-	
 	/**
 	 * Return the last modified file name for a specific extension
 	 * 

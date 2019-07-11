@@ -121,7 +121,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Calendar now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 6);
+		now1.set(Calendar.HOUR, 24);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
 		String endtimezero = sdf.format(now1.getTime());
@@ -229,7 +229,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		   sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		   now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 6);
+		now1.set(Calendar.HOUR, 24);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
 		   endtimezero = sdf.format(now1.getTime());

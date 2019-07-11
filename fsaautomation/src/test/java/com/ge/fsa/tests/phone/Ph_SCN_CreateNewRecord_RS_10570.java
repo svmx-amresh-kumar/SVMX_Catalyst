@@ -57,15 +57,15 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		
 		//Creating Work Order from FSA
 		ph_CreateNewPo.getEleCreateNew().click();
-		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_10570").click();
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("SFM_10570"));
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Open");
-		ph_CreateNewPo.getEleEmail().sendKeys(sEmail);
+		ph_CreateNewPo.getEleEmail().sendKeys(sEmail+"\n");
 		ph_CreateNewPo.getEleAdd().click();
 		ExtentManager.logger.log(Status.INFO, "New Process has been added for SFM_10570 process");
 		
 		//Creating Location from GoApp
 		ph_CreateNewPo.getEleCreateNew().click();
-		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_Loc_10570").click();
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("SFM_Loc_10570"));
 		ph_CreateNewPo.getEleLocationName().sendKeys(sLocName+"\n");
 		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,ph_CreateNewPo.getEleAccountFied(), sAccountName);
 		ph_CreateNewPo.getEleAdd().click();
@@ -73,11 +73,11 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 		
 		//Creating Case from GoApp
 		ph_CreateNewPo.getEleCreateNew().click();
-		ph_CalendarPo.getEleSelectProcessNewProcess("SFM_Case_10570").click();
+		commonUtility.custScrollToElementAndClick(ph_CalendarPo.getEleSelectProcessNewProcess("SFM_Case_10570"));
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getEleStatus(), "New");
 		ph_WorkOrderPo.selectFromlookupSearchList(commonUtility,ph_CreateNewPo.getEleContactIDLookup(), sContactName);
 		commonUtility.custScrollToElementAndClick(ph_CreateNewPo.getEleSubject());
-		ph_CreateNewPo.getEleSubject().sendKeys(sCaseSubject);
+		ph_CreateNewPo.getEleSubject().sendKeys(sCaseSubject+"\n");
 		ph_CreateNewPo.getEleAdd().click();
 		ExtentManager.logger.log(Status.INFO, "New Case has been added for SFM_Case_10570 process");
 		
