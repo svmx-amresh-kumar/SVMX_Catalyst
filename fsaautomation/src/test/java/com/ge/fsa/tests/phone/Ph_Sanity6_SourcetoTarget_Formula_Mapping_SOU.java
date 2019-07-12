@@ -70,7 +70,7 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID="00001550";
 		commonUtility.executeSahiScript("appium/scenario6_prerequisite.sah");
 		
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");	
+			
 	}
 
 	//@Test()

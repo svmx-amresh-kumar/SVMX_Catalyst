@@ -65,7 +65,7 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 		//sCaseID="00001147";
 	/*	commonUtility.executeSahiScript("appium/scenario6_prerequisite.sah", sTestCaseID);
 		Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+		
 	*/	
 	}
 

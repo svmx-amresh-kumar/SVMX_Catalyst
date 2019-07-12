@@ -1693,7 +1693,6 @@ public class CommonUtility {
 
 			System.out.println("SFM Process returned is null, Creating SFM Process!");
 			executeSahiScript(sScriptName);
-			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseId + "Sahi verification is successful");
 			return true;
 
 		}

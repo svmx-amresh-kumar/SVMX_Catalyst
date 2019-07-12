@@ -48,7 +48,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	
 		 commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
 			
-			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+			
 			lauchNewApp("true");
 		
 	

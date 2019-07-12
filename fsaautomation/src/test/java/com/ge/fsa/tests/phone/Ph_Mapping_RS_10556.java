@@ -71,7 +71,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 		 commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
-			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
+			
 
 		// read from file
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
