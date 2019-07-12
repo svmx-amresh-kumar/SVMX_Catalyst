@@ -67,7 +67,6 @@ public void iphone() throws Exception
 		
 		String sTestID = null;
 		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 		
 
 		

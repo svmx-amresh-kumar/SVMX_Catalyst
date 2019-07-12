@@ -51,7 +51,6 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 		//sahi
  	
   		 	commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
-			ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +  "Sahi verification is successful");
 
   		
 		String sWO_SFDC_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SFDC_2");

@@ -2489,7 +2489,7 @@ public class CommonUtility {
 	}
 
 	/**
-	 * Function to execute and return the values for libimobiledevice contents like for devicedate,device id etc
+	 * Function to execute and return the values for libimobiledevice contents like for devicedate , device id etc
 	 * @param sLibMobileDeviceExecFile
 	 * @param commonUtility
 	 * @return
@@ -2523,7 +2523,15 @@ public class CommonUtility {
 		return sDataRead;
 	}
 
-	public static void writeExcelData(String sFilePath, String sSheetName, String sKey, String sValue) throws IOException {
+	/**
+	 * Write data in excel based on the column name
+	 * @param sFilePath
+	 * @param sSheetName
+	 * @param sColumnName
+	 * @param sValue
+	 * @throws IOException
+	 */
+	public static void writeExcelData(String sFilePath, String sSheetName, String sColumnName, String sValue) throws IOException {
 		String sData = null;
 		FileInputStream fis = null;
 		FileOutputStream fos =null;
@@ -2540,7 +2548,7 @@ public class CommonUtility {
 					for(int j=0;j<iCellNum;j++)
 					{
 						//System.out.println("row"+i+"  column"+j);
-						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sColumnName))
 							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
 							sht.getRow(i+1).createCell(j).setCellValue(sValue);
 							break;
@@ -2562,7 +2570,15 @@ public class CommonUtility {
 		
 	}
 
-	public static String readExcelData(String sFilePath, String sSheetName, String sKey) throws IOException {
+	/**
+	 * Read the excel data based on the column name
+	 * @param sFilePath
+	 * @param sSheetName
+	 * @param sColumnName
+	 * @return
+	 * @throws IOException
+	 */
+	public static String readExcelData(String sFilePath, String sSheetName, String sColumnName) throws IOException {
 		String sData = null;
 		FileInputStream fis = new FileInputStream(sFilePath);
 		
@@ -2579,7 +2595,7 @@ public class CommonUtility {
 					
 					for(int j=0;j<iCellNum;j++)
 					{
-						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
+						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sColumnName))
 							{sData = sht.getRow(i+1).getCell(j).toString();
 							break;
 							}
@@ -2598,50 +2614,13 @@ public class CommonUtility {
 		return sData;
 	}
 
-	/*
-	 * @author: LAKSHMI BS Description: To write test data from excel sheet
-	 */
-	public static void setExcelData(String sTestCaseID, String sKey, String sValue) throws IOException {
-		String sData = null;
-		FileInputStream fis = null;
-		FileOutputStream fos =null;
-		try {
 	
-			fis = new FileInputStream(CommonUtility.sTestDataFile);
-			Workbook wb = (Workbook) WorkbookFactory.create(fis);
-			Sheet sht = wb.getSheet("sTestCaseID");
-			int iRowNum = sht.getLastRowNum();
-			int k = 0;
-			for (int i = 1; i <= iRowNum; i++) {
-				if (sht.getRow(i).getCell(0).toString().equals(sTestCaseID)) {
-					int iCellNum = sht.getRow(i).getLastCellNum();
-					
-					for(int j=0;j<iCellNum;j++)
-					{
-						if(sht.getRow(i).getCell(j).getStringCellValue().equals(sKey))
-							{//sData = sht.getRow(i+1).getCell(j).getStringCellValue();}
-							sht.getRow(i+1).createCell(j).setCellValue(sValue);
-							}
-					}
-					break;
-				}
-			}
-			fos = new FileOutputStream(CommonUtility.sTestDataFile);
-			wb.write(fos);
-			
-			wb.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		fos.close();
-		
-	}
 
-	/*
-	 * @author: LAKSHMI BS Description: To set the settings data in dc_config.properties
-	 * data from config file
+	/**
+	 * Set the config values in properties file
+	 * @param sFile
+	 * @param sKey
+	 * @param sValue
 	 */
 	public static void setConfigValue(String sFile, String sKey, String sValue) {
 		Properties prop = new Properties();
@@ -2661,9 +2640,11 @@ public class CommonUtility {
 		}
 	}
 
-	/*
-	 * @author: LAKSHMI BS Description: To read the basic environment settings from dc_config.properties
-	 * data from config file
+	/**
+	 * Get the config value form properties file
+	 * @param sFile
+	 * @param sKey
+	 * @return
 	 */
 	public static String getConfigValue(String sFile, String sKey) {
 		Properties prop = new Properties();
@@ -2681,8 +2662,12 @@ public class CommonUtility {
 		return sValue;
 	}
 	
-	
-	public void createShellFile(String sSahiFile) throws IOException
+	/**
+	 * Shell file to execute sahi via testrunner
+	 * @param sSahiFile
+	 * @throws IOException
+	 */
+	public void createSahiTestrunnerShellFile(String sSahiFile) throws IOException
 	{
 		String sSahiShellFile = System.getProperty("user.dir")+"//..//Executable//sahiExecutable.sh";
 		File file = new File(sSahiShellFile);
@@ -2693,6 +2678,10 @@ public class CommonUtility {
 		writer.close();
 	}
 	
+	/**
+	 * Shell File to start sahi
+	 * @throws Exception
+	 */
 	public void startSahiShellFile() throws Exception
 	{
 		String sSahiShellFile = sStartSahiShellFile;//System.getProperty("user.dir")+"//..//Executable//startSahi.sh";
@@ -2722,7 +2711,17 @@ public class CommonUtility {
 				}
 	}
 
-	
+	/**
+	 * Execute the sahi scripts from Sahi_Lightning_Project
+	 * The execution will return true, if sahi execution is complete and the "sahiResultCommon.txt" file has "true".
+	 * The execution will return false, if sahi execution is complete and the "sahiResultCommon.txt" file has "false".
+	 * The execution will stop/fail, if sahi execution is not-complete and the "sahiResultCommon.txt" file has "true".
+	 * 
+	 * @param sSahiScript
+	 * @param bSoftFail
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean executeSahiScript(String sSahiScript,Boolean... bSoftFail ) throws Exception
 	{	
 		
@@ -2737,7 +2736,7 @@ public class CommonUtility {
 		startSahiShellFile();
 		
 		//Create Shell script to execute Sahi file
-		createShellFile(sSahiScript);
+		createSahiTestrunnerShellFile(sSahiScript);
 		File file = new File(CommonUtility.sShellFile);
 		Runtime.getRuntime().exec("chmod u+x " +file);
 		ProcessBuilder processBuilder =null;
