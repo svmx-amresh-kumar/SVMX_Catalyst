@@ -7,9 +7,13 @@
          <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
     </listeners>
   <test name="WorkBench_2">
-		<classes>
-			
-			
-			</classes>
-			</test>
+	<classes>	
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10540" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10541" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10542" />	
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_CreateNewRecord_RS_10570" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_10527" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_10528" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Calendar">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+	<test name="Test">
+	
+		<classes>	
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10540" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10541" />
+			<class name="com.ge.fsa.tests.phone.Ph_SCN_SrctoTrgt_RS_10542" />	
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_CreateNewRecord_RS_10570" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_10527" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_10528" />
+		</classes>
+	
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
