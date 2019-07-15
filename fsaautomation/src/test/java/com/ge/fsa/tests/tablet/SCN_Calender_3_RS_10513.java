@@ -48,8 +48,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	
 	String sSheetName =null;
 	
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_10513() throws Exception {
 		sSheetName ="RS_10513";
 		
@@ -62,8 +62,8 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 		//sahi
 		
 		 
-		//  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-		//  lauchNewApp("false");
+		  commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
+		  lauchNewApp("false");
 	
 	//read from file
 		
