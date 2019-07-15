@@ -58,8 +58,8 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		// sahi
 		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_1.sah");
 
-		lauchNewApp("true");
-		System.out.println("RS_10514");
+//		lauchNewApp("true");
+//		System.out.println("RS_10514");
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
@@ -67,30 +67,30 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		toolsPo.configSync(commonUtility);
 
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 
 		try {
-			calendarPO.geteleNewdisabled().click();
+			calendarPO.geteleNewdisabled().isDisplayed();
 		} catch (Exception e) {
-			System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL, "New button is enabled, expected is disabled");
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_2.sah");
 
-		lauchNewApp("true");
-		System.out.println("RS_10514");
-
-		loginHomePo.login(commonUtility, exploreSearchPo);
+//		lauchNewApp("true");
+//		System.out.println("RS_10514");
+//
+//		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		// config sync
 		toolsPo.configSync(commonUtility);
-
+		
 		commonUtility.tap(calendarPO.getEleCalendarClick());
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		try {
-			calendarPO.geteleNewdisabled().click();
+			calendarPO.geteleNewClick().isDisplayed();
 		} catch (Exception e) {
-			System.out.println(e);
+			ExtentManager.logger.log(Status.FAIL, "New button is disabled, expected is enabled");
 		}
 		commonUtility.tap(calendarPO.geteleNewClick());
 		calendarPO.getvalidatecreatenew().isDisplayed();
@@ -120,12 +120,12 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 
 		// Globel setting should be set to servicemax event for tech2
 		sObjectApi = "SVMXC__Service_Group_Members__c";
-		sSqlEventQuery = "SELECT+id+from+SVMXC__Service_Group_Members__c+Where+Name+=\'" + TechName + "\'"; // add to sheet
-		String techID = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
-		System.out.println(techID);
+//		sSqlEventQuery = "SELECT+SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+id+=\'" + TechName + "\'"; // add to sheet
+//		String salesforceId = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
+//		System.out.println(techID);
 		// updating event
 		String sWOJson = "{\"SVMXC__Salesforce_User__c\":\"\"}";
-		restServices.restUpdaterecord(sObjectApi, sWOJson, techID);
+		restServices.restUpdaterecord(sObjectApi, sWOJson, TechName);
 		lauchNewApp("false");
 
 		loginHomePo.login(commonUtility, exploreSearchPo, "TECH_USN_1");
@@ -151,15 +151,15 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 		commonUtility.tap(toolsPo.geteleSignOutBtn());
 		commonUtility.tap(toolsPo.getelepopSignOutBtn());
 		Thread.sleep(5000);
-
+		
 		sObjectApi = "SVMXC__Service_Group_Members__c";
-		String salsforceID = "SELECT+SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+Id+=\'" + TechName + "\'";
-		String getsalsforceID = restServices.restGetSoqlValue(salsforceID, "SVMXC__Salesforce_User__c");
-		System.out.println(getsalsforceID);
-
+//		String salsforceID = "SELECT+SVMXC__Salesforce_User__c+from+SVMXC__Service_Group_Members__c+Where+Id+=\'" + TechName + "\'";
+//		String getsalsforceID = restServices.restGetSoqlValue(salsforceID, "SVMXC__Salesforce_User__c");
+//		System.out.println(getsalsforceID);
+		String salesforceID = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "SALESFORCE_ID1");
 		System.out.println(sSalesforceuser);
-		String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\"" + getsalsforceID + "\"}";
-		restServices.restUpdaterecord(sObjectApi, sWOJson1, techID);
+		String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\"" + salesforceID + "\"}";
+		restServices.restUpdaterecord(sObjectApi, sWOJson1, TechName);
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

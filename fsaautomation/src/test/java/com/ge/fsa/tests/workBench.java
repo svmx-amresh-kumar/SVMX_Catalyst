@@ -96,10 +96,8 @@ public class workBench extends BaseLib
 public void workBenchAnd() throws Exception
 {	
 	
-		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		
-		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
-		
+		//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+				
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 //		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
