@@ -95,7 +95,8 @@ public class CalendarPO
 		return eleNewClick;
 	}
 	
-	@FindBy(xpath="//span[text()='+New']//..//..//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default x-haslabel x-layout-box-item x-layout-hbox-item x-stretched']")
+	//@FindBy(xpath="//span[text()='+New']//..//..//div[@class='x-component x-button x-button-no-icon x-button-svmx-default x-component-svmx-default x-haslabel x-layout-box-item x-layout-hbox-item x-stretched']")
+	@FindBy(xpath="//div[./span[text()='+New']][contains(@class,'disabled')]")
 	private WebElement eleNewClickdisabled;
 	public WebElement geteleNewdisabled()
 	{
