@@ -7,9 +7,9 @@
          <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
     </listeners>
   <test name="WorkBench_2">
-		<classes>
-			
-			
-			</classes>
-			</test>
+	<classes>		
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_CreateNewRecord_RS_10570" />
+
+		</classes>
+	</test>
 </suite> <!-- Suite -->
