@@ -214,7 +214,8 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 		
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("55"+"\n");
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionOneQ1).sendKeys(sSectionOneQAns+"\n");
+		// Do no Add /n as it is causing section jumps to fail as /n is considered as new character exit criteria wont work
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSectionOneQ1).sendKeys(sSectionOneQAns);
 		driver.findElement(By.xpath("//*[@*='"+sSectionOneQ1+"']")).click();
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 
