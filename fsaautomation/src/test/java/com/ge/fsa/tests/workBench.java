@@ -98,7 +98,7 @@ public void workBenchAnd() throws Exception
 	
 		//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 				
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		loginHomePo.login(commonUtility, exploreSearchPo);
 	
 //		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 //		commonUtility.longPress(wElement,32,32);
