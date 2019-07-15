@@ -41,35 +41,19 @@ import io.appium.java_client.touch.offset.PointOption;
 public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	int iWhileCnt = 0;
-	String sExploreSearch = null;
-	String sExploreChildSearchTxt = null;
+	
+	
 	String sSqlEventQuery = null;
 	String sSqlWOQuery = null;
-	String sObjectProID = null;
 	String sObjectApi = null;
 	String sJsonData = null;
-	String sAccountName = null;
-	String sFieldServiceName = null;
-	String sproductname = null;
-	String sSqlQuery = null;
-	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
-	WebElement productname = null;
-	String sSheetName = null;
 
-	@BeforeMethod
-	public void initializeObject() throws IOException {
-
-	}
 
 	@Test(retryAnalyzer=Retry.class)
 
 	public void Calender_6350() throws Exception {
-		//sSheetName = "RS_10513";
-		
-
-		String sTestCaseID = "Calender_6350";
 
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
@@ -79,8 +63,6 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		commonUtility.executeSahiScript("appium/Ph_FON_6350.sah");
 		
-		
- 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
@@ -98,7 +80,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	String	hrs = commonUtility.gethrsfromdevicetime();
 	commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d", Integer.parseInt(hrs) + 3), "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d", Integer.parseInt(hrs) + 1), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -118,15 +100,17 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" +sEventSubject +"'";
 		sEventIdSVMX_1 = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 		System.out.println(sEventIdSVMX_1);
+		
+		
+		String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(3);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Calendar now1 = Calendar.getInstance();
 		now1.set(Calendar.HOUR, 24);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
 		String endtimezero = sdf.format(now1.getTime());
-		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);
+		System.out.println(endtimezero);*/
 
 		String sWOJson = "{\"SVMXC__EndDateTime__c\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSVMX_1);
@@ -208,7 +192,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		 
 		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
 		//add one hr to device time
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d",Integer.parseInt(hrs) + 3), "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d",Integer.parseInt(hrs) + 1), "00");
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -227,14 +211,15 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		// On server/DC, edit one of the events created SFDC
 
 
-		   sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		/*   sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		   now1 = Calendar.getInstance();
 		now1.set(Calendar.HOUR, 24);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
 		   endtimezero = sdf.format(now1.getTime());
 		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);
+		System.out.println(endtimezero);*/
+		 endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(3);
 
 		   sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSFDC);
