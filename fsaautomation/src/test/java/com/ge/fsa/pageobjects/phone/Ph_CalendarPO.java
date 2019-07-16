@@ -286,7 +286,7 @@ public class Ph_CalendarPO
 			eleeventdate=driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]/android.view.ViewGroup/android.widget.TextView[2]"));
 			return eleeventdate;
 		}else {
-			eleeventdate=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[3]"));
+			eleeventdate=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[2]"));
 			return eleeventdate;
 		}
 	
@@ -399,8 +399,11 @@ public class Ph_CalendarPO
 		String endtimezero = sdf.format(now1.getTime());
 		System.out.println(endtimezero);
 		return endtimezero;
+	
+	
 	}
 
+	
 	//XCUIElementTypeOther[@name="CALENDAR.CARET_DOWN"]
 	@FindBy(xpath="//*[@*='CALENDAR.CARET_DOWN']")
 	private WebElement eleyearandmonth;

@@ -105,7 +105,8 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
-		Thread.sleep(2000);
+		//Do not remove the below hardwait as its not clicking with fluent wait or wait for element
+		Thread.sleep(3000);
 		ph_ChecklistPO.geteleInProgress().click();
 		ph_ChecklistPO.checklistAttach(commonUtility, "Choose from Camera Roll","");
 		
@@ -117,13 +118,8 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		
 		//retreiving completed checklist
 		ph_ChecklistPO.getelechecklistinstance().click();
-		// to be reverted once number is fixed for android!
-				try {
-					ph_ChecklistPO.geteleChecklistCompleted().click();
-
-				} catch (Exception e) {
-					ph_ChecklistPO.geteleInProgress().click();
-				}		
+		Thread.sleep(2000);
+		ph_ChecklistPO.geteleBackbutton().click();
 		ph_MorePo.syncData(commonUtility);
 
 		// ------------------SERVER SIDE VALIDATIONS
