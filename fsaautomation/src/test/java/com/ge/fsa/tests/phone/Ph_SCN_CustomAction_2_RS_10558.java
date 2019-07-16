@@ -2,6 +2,8 @@ package com.ge.fsa.tests.phone;
 
 import java.util.Set;
 
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ge.fsa.lib.BaseLib;
@@ -30,11 +32,11 @@ public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
 		Thread.sleep(CommonUtility.i30SecSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
 		Set<String> contextNames = driver.getContextHandles();
-		System.out.println(contextNames.size());
-		Thread.sleep(15000000);
-
-		
+//		System.out.println(contextNames.size());
+//		System.out.println(contextNames);
+		String url = driver.findElement(By.xpath("//android.widget.TextView[@content-desc='multiLineHeaderTitle']")).getText();
+//		System.out.println(url);
+		Assert.assertTrue(url.contains("MotoGP"));
 
 	}
-
 }
