@@ -1,3 +1,7 @@
+/**
+ * !!
+ * Refresh from salesforce feature will not be implemented, hence thought this test is automated we will not be executing it.
+ */
 package com.ge.fsa.tests.phone;
 
 import org.testng.Assert;
