@@ -25,6 +25,7 @@ import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSBy;
 import io.appium.java_client.pagefactory.iOSXCUITBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindAll;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -103,7 +104,7 @@ public class Ph_CalendarPO
 	
 	@AndroidFindAll({@AndroidBy(xpath="//*[@text='Subject*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 		@AndroidBy(xpath="//*[@text='Subject']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")})
-	@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")
+	@iOSXCUITFindAll({@iOSXCUITBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])"),@iOSXCUITBy(xpath="(//XCUIElementTypeOther[@name=\"Subject\"])")})
 
 	private WebElement eleCalendarEventSubject;
 	public WebElement getEleCalendarEventSubject()
@@ -604,7 +605,7 @@ else {
 			
 
 	@AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.VIEW\"]/android.view.ViewGroup/android.widget.TextView")
-		@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")
+		@iOSXCUITFindBy(xpath="//XCUIElementTypeStaticText[@name=\"Unable to create a ServiceMax event. User is not associated with a ServiceMax Technician.\"]")
 	private WebElement eleCalendarerrormsg;
 	public WebElement getCalendarerrormsg()
 	{
