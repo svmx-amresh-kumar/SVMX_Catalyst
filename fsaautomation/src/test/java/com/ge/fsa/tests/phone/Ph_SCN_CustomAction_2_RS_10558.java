@@ -6,8 +6,10 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
+import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
 
 public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
@@ -16,6 +18,7 @@ public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
 	String sScriptName = "appium/SCN_CustomAction_RS_10558.sah";
 	String sTestCaseID = "RS_10558";
 	Boolean bProcessCheckResult;
+	String sUrl = "";
 	@Test//(retryAnalyzer=Retry.class)
 	public void Ph_RS_10558() throws Exception {
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
@@ -34,9 +37,21 @@ public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
 		Set<String> contextNames = driver.getContextHandles();
 //		System.out.println(contextNames.size());
 //		System.out.println(contextNames);
-		String url = driver.findElement(By.xpath("//android.widget.TextView[@content-desc='multiLineHeaderTitle']")).getText();
-//		System.out.println(url);
-		Assert.assertTrue(url.contains("MotoGP"));
+		if(sOSName.contains("android")) {
+			driver.context("NATIVE_APP");
+			Thread.sleep(5000);
+			sUrl =  driver.findElement(By.xpath("//android.widget.TextView[@content-desc='multiLineHeaderTitle']")).getText();
+			Assert.assertTrue(sUrl.contains("MotoGP"));
+			ExtentManager.logger.log(Status.PASS, "Newly added Fields to Process: City and Country is displayed after config sync");
+		}
+		else {
+			driver.context(contextNames.toArray()[contextNames.size()-1].toString());
+			Thread.sleep(CommonUtility.i30SecSleep);
+			sUrl = driver.getCurrentUrl();
+			 Assert.assertTrue(sUrl.contains("motogp")&&sUrl.contains(sWOName));
+		}
+		ExtentManager.logger.log(Status.PASS, "The Url is launched succesfully");
+
 
 	}
 }
