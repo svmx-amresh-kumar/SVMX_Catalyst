@@ -8,7 +8,7 @@
     </listeners>
   <test name="WorkBench_2">
 	<classes>		
-		<class name="com.ge.fsa.tests.phone.Ph_SCN_CreateNewRecord_RS_10570" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_ConfigSync_RS_10563" />
 
 		</classes>
 	</test>
