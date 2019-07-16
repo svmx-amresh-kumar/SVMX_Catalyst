@@ -65,11 +65,11 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		String SFMCustomerDown=BaseLib.sOSName.equalsIgnoreCase("android")?"ON":"1";
 		
 		
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		
-		 commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
+		// commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
 			
 
@@ -83,7 +83,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		//config sync
-		//ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
+		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	Thread.sleep(CommonUtility.iMedSleep);
 
 		// datasync

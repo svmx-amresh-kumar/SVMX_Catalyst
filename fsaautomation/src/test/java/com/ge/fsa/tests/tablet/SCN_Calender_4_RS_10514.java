@@ -157,7 +157,6 @@ public class SCN_Calender_4_RS_10514 extends BaseLib {
 //		String getsalsforceID = restServices.restGetSoqlValue(salsforceID, "SVMXC__Salesforce_User__c");
 //		System.out.println(getsalsforceID);
 		String salesforceID = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile, sSelectConfigPropFile, "SALESFORCE_ID1");
-		System.out.println(sSalesforceuser);
 		String sWOJson1 = "{\"SVMXC__Salesforce_User__c\":\"" + salesforceID + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson1, TechName);
 

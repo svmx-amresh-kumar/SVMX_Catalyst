@@ -602,5 +602,14 @@ else {
 			
 		}
 			
+
+	@AndroidFindBy(xpath="//android.view.ViewGroup[@content-desc=\"SFM.VIEW\"]/android.view.ViewGroup/android.widget.TextView")
+		@iOSXCUITFindBy(xpath="(//XCUIElementTypeOther[@name=\"Subject*\"])")
+	private WebElement eleCalendarerrormsg;
+	public WebElement getCalendarerrormsg()
+	{
+		return eleCalendarerrormsg;
+	}
+	
 	
 }
