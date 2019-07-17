@@ -2097,7 +2097,7 @@ public class CommonUtility {
 		List<WebElement> wElementNav=null;
 		int tabNo =0;
 		int i;
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < 8; i++) {
 			if(BaseLib.sOSName.equalsIgnoreCase("android")) {//For Android
 			wElementNav = driver.findElements(By.xpath("//android.widget.HorizontalScrollView//android.widget.TextView"));
 			tabNo = wElementNav.size();

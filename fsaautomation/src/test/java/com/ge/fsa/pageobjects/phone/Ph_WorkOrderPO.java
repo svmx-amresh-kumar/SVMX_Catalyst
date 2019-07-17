@@ -1381,7 +1381,7 @@ public class Ph_WorkOrderPO {
 		return eleBillingTypeField;
 	}
 	
-	@AndroidFindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@text='--None--']")
+	@AndroidFindBy(xpath="//*[@class='android.widget.TextView'][@text='Priority']/following-sibling::*[@class='android.view.ViewGroup'][1]/*")
 		@iOSXCUITFindBy(xpath="//*[@*='Priority']/following-sibling::*")
 		private WebElement elePriorityField;
 

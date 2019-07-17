@@ -6,7 +6,11 @@ package com.ge.fsa.tests.phone;
 
 import static org.testng.Assert.assertNotNull;
 
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,6 +19,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 
 public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sTestCaseID = null;
@@ -41,6 +46,8 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 	String sSection1Q1 = "What is the Work Order Number?";
 	String sSection1Q2 = "2. Number Should not be greater than 100";
+	String sSection1Q2w = "Number Should not be greater than 100";
+
 	String sSection2Q1 = "Section Two Question One";
 	String sSection3q1 = "1. Section Three Question One";
 	String sSection3q1Ans = "ok";
@@ -74,8 +81,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		sChecklistOpDocName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ChecklistOpDocName");
 		// Rest to Create Workorder - Work Order -
 
-		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?",
-				"{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
+		sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\",\"SVMXC__Scheduled_Date__c\":\"2018-08-28\",\"SVMXC__Scheduled_Date_Time__c\":\"2018-08-28T09:42:00.000+0000\",\"SVMXC__Idle_Time__c\":\"30\",\"SVMXC__Priority__c\":\"High\"}");
 		System.out.println(sWORecordID);
 		sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);
@@ -84,9 +90,17 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 		// sWOName1 = "WO-00001615";
 	}
+	
+	
+	public void validations() {
+		// TODO Auto-generated method stub
+		System.out.println("Throwable assertion");
+		ph_ChecklistPO.geteleChecklistGenericContainsTxt(sSection2Q1).toString().contains(sSection2Q1);
 
-	//@Test()
-	@Test(retryAnalyzer=Retry.class)
+	}
+
+	@Test()
+	//@Test(retryAnalyzer=Retry.class)
 	public void RS_10585() throws Exception {
 
 		prerequisites();
@@ -114,7 +128,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
@@ -221,11 +235,54 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Thread.sleep(15000);
 		commonUtility.waitforElement(ph_ChecklistPO.geteleFinalize(), 15);
 		ph_ChecklistPO.geteleFinalize().click();
-
+	
 		// Navigation back to Work Order after Service Report
 		Assert.assertTrue(ph_ExploreSearchPo.geteleExploreIcn().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS, "Creation of Checklist OPDOC passed");
 
+		//Validation of OPDOC in Android we need to parse through TEXT.
+		// Navigating to Checklist
+		
+		if(BaseLib.sOSName.equalsIgnoreCase("android"))
+{
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringDocuments());
+		ph_ChecklistPO.geteleDocumentInstance().click();
+		//mandatory hard sleep 10 seconds 
+		Thread.sleep(10000);
+		
+		String text1 = driver.findElement(By.xpath("//*[@*[contains(.,'Checklist Report')]]")).getText();
+		System.out.println("oksd"+text1);
+		
+		
+			Assert.assertTrue((ph_ChecklistPO.geteleChecklistGenericContainsTxt("Checklist Report").toString().contains("Checklist Report")),"Checklist Report was not displayed");
+			ExtentManager.logger.log(Status.PASS, "Checklist Report is displayed");
+
+			Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt("Completed").toString().contains("Completed"), "Completed is displayed in PDF");
+			ExtentManager.logger.log(Status.PASS, "Completed is displayed in PDF");
+
+			//raised defect for below
+/*			Assert.assertEquals(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sChecklistName).getText(), sChecklistName, "Checklist Name is displayed");
+			ExtentManager.logger.log(Status.PASS, "Checklist Name is displayed");
+*/
+			Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sSection1Q2w).toString().contains(sSection1Q2w), "Section 1 Question two is not displayed in OPDOC");
+			ExtentManager.logger.log(Status.PASS, "Section 1 question two is displayed in OPDOC");
+
+			
+			 Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sNumberSectionJumpAns).toString().contains(sNumberSectionJumpAns), "Section 1q2 answer is not displayed in OPDOC");
+			 ExtentManager.logger.log(Status.PASS,"Section 1 question two answer is displayed in OPDOC");
+			 
+			 
+			 
+			 Assert.assertThrows(NoSuchElementException.class, () -> validations());
+			ExtentManager.logger.log(Status.PASS, "Section two question two is not displayed in the OPDOC as it is a skipped section");
+		
+			
+		driver.navigate().back();
+		Thread.sleep(5000);
+		System.out.println("IT WORKED!!!");
+		ph_WorkOrderPo.getEleBackButton().click();
+}
 		// checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo,
 		// "Auto_RS10585_ChecklistOPDOC_InProgOP2",sWOName);
 
