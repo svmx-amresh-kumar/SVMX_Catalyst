@@ -33,7 +33,7 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 	public void RS_10553() throws Exception {
 
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
-		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "SCN_Explore_RS_10545_prerequisite", "LinkedSFMProcess_10553");
+		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "appium/scenario_10553.sah", "LinkedSFMProcess_10553");
 
 
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
@@ -137,16 +137,13 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 		// To Add PS Lines and Parts to the Work Order and save ans Sync the Data
 		ph_WorkOrderPo.addPartsManageWD(commonUtility,ph_ExploreSearchPo, sProductName);
 		ph_WorkOrderPo.getEleAddButton().click();
-		//Thread.sleep(1000);
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Thread.sleep(3000);
 		System.out.println(ph_WorkOrderPo.getEleBackButton());
 		ph_WorkOrderPo.getEleBackButton().click();
+		
 		// Sync the Data and verify in the Server end if both the data are present
-		//Thread.sleep(2000);
 		ph_MorePo.syncData(commonUtility);
-		//Thread.sleep(2000);t
-		// Verify the Queries
 		String sSoqlquerychildlines = "Select+Count()+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"
 				+ sworkOrderName + "\')";
 		String sChildlines = restServices.restGetSoqlValue(sSoqlquerychildlines, "totalSize");
@@ -156,22 +153,18 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 			String sSoqlquerychildlineps = "Select+RecordType.Name+from+SVMXC__Service_Order_Line__c+where+SVMXC__Service_Order__c+In(Select+Id+from+SVMXC__Service_Order__c+where+Name+=\'"
 					+ sworkOrderName + "\')";
 			JSONArray sChildlinesarray = restServices.restGetSoqlJsonArray(sSoqlquerychildlineps);
-			System.out.println(sChildlinesarray.length());
 			try {
 				for (int i = 0; i < sChildlinesarray.length(); i++) {
 					String value = sChildlinesarray.getJSONObject(i).getJSONObject("RecordType").getString("Name");
 
 					if (value.equals("Products Serviced")) {
 						ExtentManager.logger.log(Status.PASS, "Products Serviced is added to WO ");
-						System.out.println(value);
 					}
 					else if (value.equals("Usage/Consumption")) {
 						ExtentManager.logger.log(Status.PASS, "Work Detail is added to WO");
-						System.out.println(value);
 					}
 					else {
 						ExtentManager.logger.log(Status.FAIL, value+" is wrongly added to WO");
-						System.out.println(value);
 					}
 				}
 
