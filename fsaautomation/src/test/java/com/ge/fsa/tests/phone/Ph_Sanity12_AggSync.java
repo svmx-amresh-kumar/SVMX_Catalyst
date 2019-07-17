@@ -187,7 +187,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			Assert.assertTrue(newWorkDetailCount==expensesCount-1," Expenses count is not matching after deleting");
 			ExtentManager.logger.log(Status.PASS, "Expenses count is matching after deleting from app. Expected : "+(expensesCount-1)+" , Actual : "+newWorkDetailCount);
 			ph_WorkOrderPo.getElesave().click();
-			Thread.sleep(10000);
+			Thread.sleep(12000);
 			ph_MorePo.getEleDataSync().click();
 			//commonUtility.waitForElementNotVisible(ph_MorePo.getEleSmartSync(), 15);
 			if(commonUtility.isDisplayedCust(ph_MorePo.getEleDataSynccompleted())) {
@@ -220,7 +220,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Parts are correctly synced to server after deleting from app. Expected : "+partsCount+", Actual : "+workDetails.get("Parts"));
 			Assert.assertTrue(laborCount==workDetails.get("Labor"), "Labor count is not matching after deleting from app.");
 			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced to server after deleting from app. Expected : "+laborCount+", Actual : "+workDetails.get("Labor"));
-			Assert.assertTrue(partsCount==workDetails.get("Expenses"), "Expenses count is not matching after deleting from app.");
+			Assert.assertTrue(expensesCount==workDetails.get("Expenses"), "Expenses count is not matching after deleting from app.");
 			ExtentManager.logger.log(Status.PASS, "Expenses are correctly synced to server after deleting from app. Expected : "+expensesCount+", Actual : "+workDetails.get("Expenses"));
 			int dbAttachmentCount=Integer.parseInt(restServices.restGetSoqlValue("SELECT count(Id) FROM Attachment WHERE ParentId ='"+sWorkOrderID+"'", "expr0"));
 			Assert.assertTrue(dbAttachmentCount==attachmentCount,"Attachment count is not matching after deleting from app.");
@@ -243,7 +243,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced after deleting from server. Expected : 2, Actual : "+laborCount);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + e.getMessage());
 		}
 		finally {
 			commonUtility.executeSahiScript("appium/Sanity12_postcleanup.sah");
