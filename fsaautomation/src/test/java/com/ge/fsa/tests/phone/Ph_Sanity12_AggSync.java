@@ -167,7 +167,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Attachment added from server and displayed count is matching. Expected : 1, Actual : "+attachmentCount);
 			ph_WorkOrderPo.getEleAttachedImage().click();
 			String dbImageName=ph_WorkOrderPo.getEleImageTitle().getText();
-			Assert.assertTrue(sImageName.equals(dbImageName)," Image names are not matching");
+			Assert.assertEquals(sImageName.substring(0, sImageName.indexOf(".")),dbImageName," Image names are not matching");
 			ExtentManager.logger.log(Status.PASS, "Image names are matching. Expected : "+sImageName+" , Actual : "+dbImageName);
 			ph_WorkOrderPo.getEleBackButton().click();
 			ph_WorkOrderPo.getEleBackButton().click();
