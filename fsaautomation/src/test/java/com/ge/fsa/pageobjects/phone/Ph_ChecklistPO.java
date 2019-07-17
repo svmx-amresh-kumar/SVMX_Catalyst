@@ -169,6 +169,17 @@ public class Ph_ChecklistPO
 		}
 		
 	}
+	
+	
+
+	
+	private WebElement eleChecklistGenericContainsTxt;
+	public WebElement geteleChecklistGenericContainsTxt(String sGenericText)
+	{
+		return eleChecklistGenericContainsTxt = driver.findElement(By.xpath("//*[@*[contains(.,'"+sGenericText+"')]]"));
+	}
+	
+	
 
 	private WebElement elechecklistRadioButtonQAns;
 	public WebElement elechecklistRadioButtonQAns(String sRadioQuestion, String sRadiovalue)
@@ -285,6 +296,14 @@ public class Ph_ChecklistPO
 	public WebElement getelechecklistinstance() 
 	{
 		return elechecklistinstance = driver.findElementByAccessibilityId("CHECKLIST.INSTANCE.ITEM.0");
+	}
+	
+	
+	private WebElement eleDocumentInstance;
+	public WebElement geteleDocumentInstance() 
+	
+	{
+		return eleDocumentInstance = driver.findElementByAccessibilityId("Item0");
 	}
 	
 	private WebElement elechecklistdate;
