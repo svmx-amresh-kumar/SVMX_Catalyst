@@ -1039,8 +1039,8 @@ public class Ph_WorkOrderPO {
 		return eleMore;
 	}
 
-	@FindAll({
-			@FindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']") })
+	@AndroidFindBy(xpath = "//*[./*[@text='Manage Work Details for Products Serviced']][@class='android.view.ViewGroup']")
+	@iOSXCUITFindBy(xpath="//*[@name='Manage Work Details for Products S...']")
 	private WebElement eleManageWorkDetails;
 
 	public WebElement getEleManageWorkDetails() {
