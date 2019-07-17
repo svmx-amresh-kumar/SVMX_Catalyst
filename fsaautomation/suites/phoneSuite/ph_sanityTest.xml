@@ -13,6 +13,7 @@
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU"/>		
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" /> 
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity11_Verify_Calendar_Functionality_GO_6350" /> 
+			<class name="com.ge.fsa.tests.phone.Ph_Sanity12_AggSync" /> 
 			
 
 		</classes>
