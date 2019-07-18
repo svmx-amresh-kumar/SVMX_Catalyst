@@ -561,8 +561,10 @@ public class CalendarPO
 	public void VerifyWOInCalenderafterconfchange(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 		gettaponcalevent(workordername).getLocation();
+		gettaponcalevent(workordername).click();
+		gettaponcalevent(workordername).getLocation();
+		gettaponcalevent(workordername).click();
 				Thread.sleep(3000);
-
 		commonUtility.waitforElement(getelegetWOnum(workordername), 10);
 		
 	
@@ -629,7 +631,7 @@ public class CalendarPO
 		private WebElement taponcalevent;
 		public WebElement gettaponcalevent(String WOname)
 		{
-			taponcalevent = driver.findElement(By.xpath("//div[contains(text(),'"+WOname+"')]"));
+			taponcalevent = driver.findElement(By.xpath("(//div[contains(text(),'"+WOname+"')])[last()]"));
 			return taponcalevent;
 		}
 

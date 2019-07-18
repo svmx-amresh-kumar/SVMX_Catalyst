@@ -90,15 +90,12 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		// Collecting the Work Order number from the Server.
 		String sSoqlQuery = "SELECT+Name+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'"
 				+ sProformainVoice + "\'";
-		restServices.getAccessToken();
 		String sworkOrderName = restServices.restGetSoqlValue(sSoqlQuery, "Name");
-		System.out.println(sworkOrderName);
-
+		
 		// recenItemsPO.clickonWorkOrder(commonsUtility, sworkOrderName);
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		Thread.sleep(1000);
 		String fetchedWOfromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
-		System.out.println(fetchedWOfromrecents);
 		Assert.assertTrue(fetchedWOfromrecents.contains(sworkOrderName), "workOrderName value is not displayed. Expected : "+sworkOrderName+" , Actual : "+fetchedWOfromrecents);
 		ExtentManager.logger.log(Status.PASS, "Workorder valaditation in recent item is successful. Expected : "+sworkOrderName+", Actual : "+fetchedWOfromrecents);
 		// open case
@@ -109,7 +106,6 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		
 		// commonsUtility.tap(recenItemsPO.gettaponobject("Case ("));
 		String fetchedcasefromrecents = ph_RecentsItemsPo.getEleWorkOrderRecentUsed().getText();
-		System.out.println(fetchedcasefromrecents);
 		Assert.assertTrue(fetchedcasefromrecents.contains(sCaseID), "case value  is not displayed.  Expected : "+sCaseID+" , Actual : "+fetchedcasefromrecents);
 		ExtentManager.logger.log(Status.PASS, "Cases valaditation in recent item is successful. Expected : "+sCaseID+", Actual : "+fetchedcasefromrecents);
 
@@ -141,13 +137,11 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 		ph_RecentsItemsPo.getEleClickRecentItems().click();
 		try {
 			ph_RecentsItemsPo.getEleEmptyRecentItems().isDisplayed();
+			ExtentManager.logger.log(Status.PASS, "Recent Items validation is successful as no records are getting displayed");
 		} catch (Exception e) {
 			ExtentManager.logger.log(Status.FAIL,
 					" Items are getting displayed in Recents tab even after erase and reinitializing app data");
 		}
-
-		ExtentManager.logger.log(Status.PASS, "Recent Items validation is successful as no records are getting displayed");
-
 	}
 
 }
