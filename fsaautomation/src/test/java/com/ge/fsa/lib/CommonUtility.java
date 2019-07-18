@@ -2114,7 +2114,7 @@ public class CommonUtility {
 					//break;
 				}	
 			}catch(Exception e){}
-			System.out.println("Scrolling Horizontally for index "+tabNo);
+			System.out.println("Scrolling Horizontally for index "+tabNo+" text of last tab:"+wElementNav.get(Math.abs(tabNo-1)).getText()+wElementNav.get(Math.abs(0)).getText());
 			wElementNav.get(Math.abs(tabNo-1)).click();
 		}
 		else {//For IOS
