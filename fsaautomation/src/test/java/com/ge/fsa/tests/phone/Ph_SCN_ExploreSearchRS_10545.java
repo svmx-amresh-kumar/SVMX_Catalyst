@@ -173,7 +173,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib {
 		 * restServices.restUpdaterecord(sObjectApi, sJsonData, "a263D000000AagdQAC");
 		 */
 //		
-		boolean configSync = commonUtility.ProcessCheck(restServices, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
+//		boolean configSync = commonUtility.ProcessCheck(restServices, sExploreSearch, "SCN_Explore_RS_10545_prerequisite", sTestID);
 
 		commonUtility.executeSahiScript("appium/SCN_Explore_RS_10545_prerequisite.sah");
 
@@ -458,9 +458,9 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib {
 			restServices.restUpdaterecord(sObjectApi, sJsonData, sObjectIDWO2);
 
 			// Updating WorkOrder5 with Location5 and scheduled date to tomorrow
-			sObjectApi = "SVMXC__Service_Order__c";
-			sJsonData = "{\"SVMXC__Scheduled_Date_Time__c\":\"" + sTomDateTxt + "\",\"SVMXC__Site__c\":\"" + sLocationE + "\"}";
-			restServices.restUpdaterecord(sObjectApi, sJsonData, sObjectIDWO5);
+//			sObjectApi = "SVMXC__Service_Order__c";
+//			sJsonData = "{\"SVMXC__Scheduled_Date_Time__c\":\"" + sTomDateTxt + "\",\"SVMXC__Site__c\":\"" + sLocationE + "\"}";
+//			restServices.restUpdaterecord(sObjectApi, sJsonData, sObjectIDWO5);
 
 			// Updating WorkOrder3 and scheduled date to today
 			sObjectApi = "SVMXC__Service_Order__c";
@@ -469,7 +469,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib {
 
 			// Updating WorkOrder4 with scheduled Day after tomorrow
 			sObjectApi = "SVMXC__Service_Order__c";
-			sJsonData = "{\"SVMXC__Scheduled_Date_Time__c\":\"" + sDateAfterTomTxt + "\"}";
+			sJsonData = "{\"SVMXC__Scheduled_Date_Time__c\":\"" + sTomDateTxt + "\"}";
 			restServices.restUpdaterecord(sObjectApi, sJsonData, sObjectIDWO4);
 			
 			ph_MorePo.syncData(commonUtility);
@@ -479,7 +479,7 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib {
 			ph_ExploreSearchPo.getEleSearchNameTxt(sExploreSearch).click();
 			ph_ExploreSearchPo.getEleSearchListItem("Work Orders (DATE LITERALS)").click();
 
-			// Validation of WO1, WO3 and WO5
+			// Validation of WO1, WO3 and WO
 			validateSearch(sWOName2);
 			Assert.assertTrue(ph_ExploreSearchPo.getEleNoRecords().isDisplayed(), sWOName1 + " Work Order is not displayed after updating the scheduled date time");
 			ExtentManager.logger.log(Status.PASS, "After updation of scheduler date time Work Order " + sWOName1 + " Record is successfully displayed");
@@ -488,8 +488,8 @@ public class Ph_SCN_ExploreSearchRS_10545 extends BaseLib {
 			Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName3).isDisplayed(), sWOName3 + " Work Order is not displayed after updating the scheduled date time");
 			ExtentManager.logger.log(Status.PASS, "After updation of scheduler date time Work Order " + sWOName3 + " Record is successfully displayed");
 
-			validateSearch(sWOName5);
-			Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName5).isDisplayed(), sWOName5 + " Work Order is not displayed after updating the scheduled date time");
+			validateSearch(sWOName4);
+			Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sWOName4).isDisplayed(), sWOName5 + " Work Order is not displayed after updating the scheduled date time");
 			ExtentManager.logger.log(Status.PASS, "After updation of scheduler date time Work Order " + sWOName5 + " Record is successfully displayed");
 
 			ph_ExploreSearchPo.geteleExploreIcn().click();

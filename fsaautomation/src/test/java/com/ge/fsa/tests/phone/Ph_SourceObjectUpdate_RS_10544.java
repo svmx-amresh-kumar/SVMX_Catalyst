@@ -49,7 +49,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 	String sRecordTypeId = null;
 	String sworkDetail = null;
 	Boolean bProcessCheckResult = false;
-	String sScriptName = "RS_10544_Source_Object_Update";
+	String sScriptName = "appium/RS_10544_Source_Object_Update.sah";
 	// Source object update values
 
 	String sBillingType = null;
@@ -180,7 +180,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
 
 		// Adding Parts - to be uncommented after defect fix.
-		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		//ph_WorkOrderPo.addParts(commonUtility, sProductName);
 
 		ph_WorkOrderPo.getEleSaveLnk().click();
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
@@ -250,7 +250,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,
 				"Email SOU Header sucessful in Client Expected : " + sEmailSOU + " Actual: " + sClientEmail + "");
 
-		sClientProblemDesc = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		sClientProblemDesc = ph_WorkOrderPo.getTxtProblemDescription().getText();
 		Assert.assertEquals(sClientProblemDesc, sProblemDescriptionSOU,
 				" No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS, "Text Area SOU Header sucessful in Client Expected : "
@@ -357,7 +357,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,
 				"Email SOU Header sucessful in Client Expected : " + sEmailSOU + " Actual: " + sClientEmail + "");
 
-		sClientProblemDesc = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		sClientProblemDesc = ph_WorkOrderPo.getTxtProblemDescription().getText();
 		Assert.assertEquals(sClientProblemDesc, sProblemDescriptionSOU,
 				" No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS, "Text Area SOU Header sucessful in Client Expected : "

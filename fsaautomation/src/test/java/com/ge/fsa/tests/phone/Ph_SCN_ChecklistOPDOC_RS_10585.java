@@ -7,6 +7,7 @@ package com.ge.fsa.tests.phone;
 import static org.testng.Assert.assertNotNull;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,7 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
+import com.ge.fsa.pageobjects.phone.Ph_ChecklistPO;
 
 public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sTestCaseID = null;
@@ -41,6 +43,8 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 
 	String sSection1Q1 = "What is the Work Order Number?";
 	String sSection1Q2 = "2. Number Should not be greater than 100";
+	String sSection1Q2w = "Number Should not be greater than 100";
+
 	String sSection2Q1 = "Section Two Question One";
 	String sSection3q1 = "1. Section Three Question One";
 	String sSection3q1Ans = "ok";
@@ -85,6 +89,12 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// sWOName1 = "WO-00001615";
 	}
 
+	public void throwexceptionvalidation() {
+		// TODO Auto-generated method stub
+		System.out.println("Throwable assertion");
+		ph_ChecklistPO.geteleChecklistGenericContainsTxt(sSection2Q1).toString().contains(sSection2Q1);
+	}
+
 	//@Test()
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10585() throws Exception {
@@ -114,7 +124,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
@@ -123,7 +133,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		// Clicking on Section1
 		ph_ChecklistPO.getElementSection(0).click();
 
-		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection1Q2).sendKeys(sNumberSectionJumpAns+"\n");
+		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection1Q2).sendKeys(sNumberSectionJumpAns + "\n");
 
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 
@@ -182,21 +192,21 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		ph_ChecklistPO.getElementSection(2).click();
 
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sSection3q1).sendKeys("ok");
-		driver.findElement(By.xpath("//*[@*='"+sSection3q1+"']")).click();
+		driver.findElement(By.xpath("//*[@*='" + sSection3q1 + "']")).click();
 		ph_ChecklistPO.geteleSubmitbtn().click();
 
 		// VT check if something can be done for all these back buttons?
 		ph_ChecklistPO.geteleBackbutton().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 		ph_ChecklistPO.geteleBackbutton().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 		ph_ChecklistPO.geteleBackbutton().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 		ph_ChecklistPO.geteleBackbutton().click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 
 		ph_MorePo.syncData(commonUtility);
 		Thread.sleep(CommonUtility.iMedSleep);
@@ -226,17 +236,80 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(ph_ExploreSearchPo.geteleExploreIcn().isDisplayed(), "Work Order screen is displayed");
 		ExtentManager.logger.log(Status.PASS, "Creation of Checklist OPDOC passed");
 
-		// checklistPo.validateChecklistServiceReport(commonUtility, workOrderPo,
-		// "Auto_RS10585_ChecklistOPDOC_InProgOP2",sWOName);
+		// Validation of OPDOC in Android we need to parse through TEXT.
+		// Navigating to Checklist
+
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringDocuments());
+		ph_ChecklistPO.geteleDocumentInstance().click();
+		// mandatory hard sleep 10 seconds
+		Thread.sleep(10000);
+
+		Assert.assertTrue((ph_ChecklistPO.geteleChecklistGenericContainsTxt("Checklist Report").toString().contains("Checklist Report")), "Checklist Report was not displayed");
+		ExtentManager.logger.log(Status.PASS, "Checklist Report is displayed");
+
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt("Completed").toString().contains("Completed"), "Completed is displayed in PDF");
+		ExtentManager.logger.log(Status.PASS, "Completed is displayed in PDF");
+
+		// raised defect for below
+		/*
+		 * Assert.assertEquals(ph_ChecklistPO.geteleChecklistGenericContainsTxt(
+		 * sChecklistName).getText(), sChecklistName, "Checklist Name is displayed");
+		 * ExtentManager.logger.log(Status.PASS, "Checklist Name is displayed");
+		 */
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sSection1Q2w).toString().contains(sSection1Q2w), "Section 1 Question two is not displayed in OPDOC");
+		ExtentManager.logger.log(Status.PASS, "Section 1 question two is displayed in OPDOC");
+
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sNumberSectionJumpAns).toString().contains(sNumberSectionJumpAns), "Section 1q2 answer is not displayed in OPDOC");
+		ExtentManager.logger.log(Status.PASS, "Section 1 question two answer is displayed in OPDOC");
+
+		Assert.assertThrows(NoSuchElementException.class, () -> throwexceptionvalidation());
+		ExtentManager.logger.log(Status.PASS, "Section two question two is not displayed in the OPDOC as it is a skipped section");
+
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			driver.navigate().back();
+		} else
+			commonUtility.getEleDonePickerWheelBtn().click();
+
+		Thread.sleep(5000);
+		ph_WorkOrderPo.getEleBackButton().click();
+
+		ph_WorkOrderPo.selectAction(commonUtility, "Auto_RS10585_ChecklistOPDOC_InProgOP2");
+		commonUtility.waitforElement(ph_ChecklistPO.geteleFinalize(), 15);
+		System.out.println("location of x" + ph_ChecklistPO.geteleFinalize().getLocation().getX());
+		System.out.println("location of y" + ph_ChecklistPO.geteleFinalize().getLocation().getY());
+		Thread.sleep(8000);
+		ph_ChecklistPO.geteleFinalize().click();
+
+		// cust displayed did not work
+		Thread.sleep(8000);
+		// Navigation back to Work Order after Service Report
+		Assert.assertTrue(ph_ExploreSearchPo.geteleExploreIcn().isDisplayed(), "Work Order screen is displayed");
+		ExtentManager.logger.log(Status.PASS, "Creation of Checklist OPDOC passed");
+
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sEditProcessName);
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringDocuments());
+		ph_ChecklistPO.geteleDocumentInstance().click();
+
+		// rework and improve performance by adding fluent wait
+		// cust displayed did not work
+		Thread.sleep(18000);
+
+		Assert.assertTrue(ph_ChecklistPO.geteleChecklistGenericContainsTxt(sSection2Q1).toString().contains(sSection2Q1), "Section2 is not being displayed");
+		ExtentManager.logger.log(Status.PASS, "Section two question two is displayed in the OPDOC as it is a skipped section- validating include skipped section");
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			driver.navigate().back();
+		} else
+			commonUtility.getEleDonePickerWheelBtn().click();
+
+		ph_WorkOrderPo.getEleBackButton().click();
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
 
 		// Verifying if checklistopdoc is synced to server
 		System.out.println("Validating if OPDOC attachment is syned to server.");
-		Thread.sleep(CommonUtility.i30SecSleep);
 		Thread.sleep(CommonUtility.iAttachmentSleep);
-		Thread.sleep(CommonUtility.iMedSleep);
 		sSoqlqueryAttachment = "Select+Id+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "\')";
 		sSoqlquerypdf = "Select+Name+from+Attachment+where+ParentId+In(Select+Id+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "\')";
 		sSoqlquerypdf1 = restServices.restGetSoqlValue(sSoqlquerypdf, "Name");
@@ -244,7 +317,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 		Assert.assertTrue(sSoqlquerypdf1.contains("pdf"), "fileformat stored is not pdf");
 		ExtentManager.logger.log(Status.PASS, "file is in pdf format in server");
 
-		//restServices.getAccessToken();
+		// restServices.getAccessToken();
 		sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlqueryAttachment, "Id");
 		assertNotNull(sAttachmentIDAfter);
 		ExtentManager.logger.log(Status.PASS, "OPDOC is synced to Server");

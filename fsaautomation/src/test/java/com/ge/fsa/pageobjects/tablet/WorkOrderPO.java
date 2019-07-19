@@ -491,7 +491,8 @@ import io.appium.java_client.TouchAction;
 	
 	
 	
-		@FindBy(xpath="//span[@class='x-button-icon x-shown x-fa fa-list']")
+		@FindAll({@FindBy(xpath="//div[./span[@class='x-button-icon x-shown x-fa fa-list']]"),
+		@FindBy(xpath="//i[contains(@class,'ellipsis')]")})
 		private WebElement eleLinkedSFM;
 		public  WebElement getEleLinkedSFM()
 		{
