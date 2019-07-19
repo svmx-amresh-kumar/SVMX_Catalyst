@@ -250,7 +250,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,
 				"Email SOU Header sucessful in Client Expected : " + sEmailSOU + " Actual: " + sClientEmail + "");
 
-		sClientProblemDesc = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		sClientProblemDesc = ph_WorkOrderPo.getTxtProblemDescription().getText();
 		Assert.assertEquals(sClientProblemDesc, sProblemDescriptionSOU,
 				" No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS, "Text Area SOU Header sucessful in Client Expected : "
@@ -357,7 +357,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,
 				"Email SOU Header sucessful in Client Expected : " + sEmailSOU + " Actual: " + sClientEmail + "");
 
-		sClientProblemDesc = ph_WorkOrderPo.geteleProblemDescriptiontxt().getText();
+		sClientProblemDesc = ph_WorkOrderPo.getTxtProblemDescription().getText();
 		Assert.assertEquals(sClientProblemDesc, sProblemDescriptionSOU,
 				" No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS, "Text Area SOU Header sucessful in Client Expected : "
