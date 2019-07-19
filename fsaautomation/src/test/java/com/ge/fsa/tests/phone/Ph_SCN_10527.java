@@ -1,8 +1,10 @@
 package com.ge.fsa.tests.phone;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,6 +14,10 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.ExtentManager;
 
 import com.ge.fsa.lib.Retry;
+
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class Ph_SCN_10527 extends BaseLib {
 	
@@ -27,7 +33,7 @@ public class Ph_SCN_10527 extends BaseLib {
 	Boolean bProcessCheckResult;
 	String sProcessName = "Auto_Reg_10527";
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
 	
 	// ******Creating Account******x
@@ -106,7 +112,8 @@ public class Ph_SCN_10527 extends BaseLib {
 	// ************Start of Scenario 7******************
 	ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getCountryPicklst(), sCountry);
 	ph_WorkOrderPo.getLblSite().click();
-	String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'Australia\'", "totalSize");
+	String sLocCnt = restServices.restGetSoqlValue("SELECT+Count()+from+SVMXC__Site__c+Where+SVMXC__Country__c+=\'"+sCountry+"\'", "totalSize");
+	System.out.println(sLocCnt);							
 	Assert.assertTrue(ph_WorkOrderPo.getLblResults().getText().contains(sLocCnt));
 	ExtentManager.logger.log(Status.PASS, "All contacts with "+sCountry+" are displayed "+sLocCnt);
 	ph_WorkOrderPo.getBtnClose().click();
@@ -121,12 +128,21 @@ public class Ph_SCN_10527 extends BaseLib {
 	ph_WorkOrderPo.getBtnClose().click();
 	Thread.sleep(5000);
 	ph_WorkOrderPo.getBtnClose().click();
-	if(sOSName.equalsIgnoreCase("android")) {
-		ph_WorkOrderPo.getEleDiscardChangesButton().click();
-	}
+	ph_WorkOrderPo.getEleDiscardChangesButton().click();
+	Thread.sleep(5000);
 	// ************End of Scenario 8******************
 	// ************Start of Scenario 9****************
-	ph_WorkOrderPo.getEleOverViewTab().click();
+//	ph_WorkOrderPo.getEleOverViewTab().click();
+    Dimension size = driver.manage().window().getSize(); //For Swiping Left
+    int startX = 0;
+    int endX = 0;
+    int startY = 0;
+    int endY = 0;
+    startY = (int) (size.height / 2);
+    startX = (int) (size.width * 0.05);
+    endX = (int) (size.width * 0.90);
+	TouchAction ts = new TouchAction(driver);
+	ts.press(new PointOption().withCoordinates(startX, startY)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000))).moveTo(new PointOption().withCoordinates(endX, startY)).release().perform();
 	ph_WorkOrderPo.selectFromPickList(commonUtility, ph_WorkOrderPo.getCountryPicklst(), sCountry1);
 	ph_WorkOrderPo.getTabParts().click();
 	Thread.sleep(3000);
