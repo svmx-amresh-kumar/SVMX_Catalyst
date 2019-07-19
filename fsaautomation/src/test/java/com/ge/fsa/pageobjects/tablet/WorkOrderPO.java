@@ -1855,7 +1855,7 @@ import io.appium.java_client.TouchAction;
 		}
 	
 	
-		@FindBy(xpath="(//*[text()='Problem Description']/../..//div[@class='x-innerhtml']/../..//textarea)[2]")
+		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/*)[last()]")
 		private WebElement ProblemDescription;
 		public WebElement getProblemDescription()
 		{

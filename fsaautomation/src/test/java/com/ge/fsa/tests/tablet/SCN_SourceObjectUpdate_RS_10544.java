@@ -196,7 +196,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		Assert.assertEquals(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value").toString(), sNooftimesAssignedSOU, " No source Object update failed No Of Times is not set to 2");
 		ExtentManager.logger.log(Status.PASS,"Number Source Object Update  Header sucessful in Client");
 		
-		Assert.assertEquals(workOrderPo.getProblemDescription().getText().toString(), sProblemDescriptionSOU, " No source Object update failed for problem Description");
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("innerText"), sProblemDescriptionSOU, " No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS,"Text Area Source Object Update  Header sucessful in Client");
 		
 		Assert.assertEquals(workOrderPo.getAccountvalue().getAttribute("value"), sAccountName, "Lookup Source Object update failed.Account is not being displayed");
@@ -248,7 +248,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 
 		toolsPo.syncData(commonUtility);
 
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		
 		String sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
 		String sSoqlNoOfTimes = "Select+SVMXC__NoOfTimesAssigned__c+from+SVMXC__Service_Order__c+Where+Name+=\'"+sWOName+"'"; 
@@ -303,7 +303,7 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 		Assert.assertEquals(workOrderPo.GetEleNoOfTimesAssigned_Edit_Input().getAttribute("value").toString(), sNooftimesAssignedSOU, " No source Object update failed No Of Times is not set to 2");
 		ExtentManager.logger.log(Status.PASS,"After Data Sync-Number Source Object Update  Header sucessful in Client");
 		
-		Assert.assertEquals(workOrderPo.getProblemDescription().getText().toString(), sProblemDescriptionSOU, " No source Object update failed for problem Description");
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("innerText"), sProblemDescriptionSOU, " No source Object update failed for problem Description");
 		ExtentManager.logger.log(Status.PASS,"After Data Sync-Text Area Source Object Update  Header sucessful in Client");
 		
 		Assert.assertEquals(workOrderPo.getAccountvalue().getAttribute("value"), sAccountName, "Lookup Source Object update failed.Account is not being displayed");
