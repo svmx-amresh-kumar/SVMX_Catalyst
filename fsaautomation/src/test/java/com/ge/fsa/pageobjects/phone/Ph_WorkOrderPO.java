@@ -238,6 +238,15 @@ public class Ph_WorkOrderPO {
 
 	}
 	
+	public WebElement getEleSearchList(String sValue) {
+		
+			// return
+			// driver.findElement(By.xpath("//*[contains(@label,'"+sValue+"')]/*[contains(@name,'ITEM')]"));
+			return driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name='" + sValue + "'])[1][last()]"));
+
+	}
+	
+	
 	public WebElement getEleSearchListItemFirst(String sValue) {
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			return driver.findElement(By.xpath("//*[contains(@text,'" + sValue
@@ -858,7 +867,7 @@ public class Ph_WorkOrderPO {
 
 		// Adding Value for InstalledproductID
 		getEleInstalledProductstar().click();
-		getEleInstalledProductstar().sendKeys(InstalledProductID);
+		getEleInstalledProductstar().sendKeys(InstalledProductID+"\n");
 
 		// Adding Value for Account
 		commonUtility.tap(getAccountstar());
@@ -903,7 +912,7 @@ public class Ph_WorkOrderPO {
 	
 	
 	@AndroidFindBy(xpath = "//*[@text='Site']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Site Lookup']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Site']/../XCUIElementTypeOther")
 
 	private WebElement eleSite;
 
@@ -1016,7 +1025,7 @@ public class Ph_WorkOrderPO {
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Line Qty']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@class='android.widget.TextView'][@text='Line Qty*']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@*='Line Qty']/following-sibling::*"),
-			@FindBy(xpath = "//*[@*='Line Qty*']/following-sibling::*") })
+			@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Line Qty*']/..//XCUIElementTypeTextField") })
 	private WebElement eleLineQtyField;
 
 	public WebElement getEleLineQtyField() {
@@ -1025,7 +1034,7 @@ public class Ph_WorkOrderPO {
 
 	
 	@AndroidFindBy(xpath = "//*[@class='android.widget.TextView'][@text='Line Price Per Unit']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//*[@*='Line Price Per Unit']/following-sibling::*")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Line Price Per Unit']/..//XCUIElementTypeTextField")
 	private WebElement eleLinePriceField;
 
 	public WebElement getEleLinePriceField() {
@@ -1444,7 +1453,7 @@ public class Ph_WorkOrderPO {
 
 
 	@AndroidFindBy(xpath = "//*[@class='android.widget.TextView'][@text='Work Description']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//*[@*='Work Description']/following-sibling::*")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Work Description']/..//XCUIElementTypeTextView")
 	private WebElement eleWorkDescription;
 
 	public WebElement geteleWorkDescription() {
@@ -1495,7 +1504,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath = "//*[@class='android.widget.TextView'][@text='Number']/following-sibling::*[@class='android.view.ViewGroup'][1]/*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Number']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Number']/..//XCUIElementTypeTextField")
 	private WebElement eleNumber;
 
 	public WebElement getEleNumber() {
@@ -1551,7 +1560,7 @@ public class Ph_WorkOrderPO {
 	
 	
 	@AndroidFindBy(xpath = "//*[@text='Email']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Email']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Email']/..//XCUIElementTypeTextField")
 
 	private WebElement eleEmailvalue;
 
@@ -1569,7 +1578,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath = "//*[@text='Currency']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Currency']/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Currency']/..//XCUIElementTypeTextField")
 
 	private WebElement elecurrency;
 
@@ -1801,5 +1810,7 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleWorkDetailsItemCheckbox() {
 		return eleWorkDetailItemCheckbox;
 	}
+	
+	
 
 }

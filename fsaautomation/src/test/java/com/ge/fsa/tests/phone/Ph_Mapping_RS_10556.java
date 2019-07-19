@@ -65,11 +65,11 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		String SFMCustomerDown=BaseLib.sOSName.equalsIgnoreCase("android")?"ON":"1";
 		
 		
-	//	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		
-		// commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
+		commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
 			
 
@@ -80,10 +80,10 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		String sworkordernumber = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WorkOrder Number");
 
 		// Pre Login to app
-		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
 		//config sync
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	Thread.sleep(CommonUtility.iMedSleep);
 
 		// datasync
@@ -96,7 +96,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		ph_CalendarPo.getEleworkordernumonCalendar("Event_10556").click();
 		ph_CalendarPo.getEleworkordernumon(sworkordernumber).click();
 		
-		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
+			ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
 	
 		// to get orderstatus nd ordertype from workorder
 
@@ -267,7 +267,19 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 					ExtentManager.logger.log(Status.FAIL, "Site(Lookup) value mapping Failed ");
 				}
 
-				ph_WorkOrderPo.addParts(commonUtility,  "P10556_Auto");
+				
+		
+				if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+				commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
+				commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getElePartLnk());
+				ph_WorkOrderPo.getElelookupsearch().click();
+				ph_WorkOrderPo.getElelookupsearch().sendKeys("P10556_Auto" + "\n");
+				ph_WorkOrderPo.getEleSearchList("P10556_Auto").click();
+				ph_WorkOrderPo.getEleAddSelected().click();}
+				else {ph_WorkOrderPo.addParts(commonUtility,  "P10556_Auto");}
+				
+				
+				
 				Thread.sleep(3000);
 				ph_WorkOrderPo.getEletapon(SFMProduct).click();
 				Thread.sleep(3000);
@@ -408,7 +420,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 
 
 				ExtentManager.logger.log(Status.PASS, "Work details  Mapping is Successful before save");
-				Thread.sleep(15000);
+				Thread.sleep(5000);
 				ph_WorkOrderPo.getEleBackButton().click();
 				ph_WorkOrderPo.getElesave().click();
 
@@ -698,7 +710,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			 fetchedOrderStatus = ph_WorkOrderPo.geteleOrderStatus().getText();
 			System.out.println(fetchedOrderStatus);
 			try {
-				Assert.assertTrue(fetchedOrderStatus.equals("open"));//change it
+				Assert.assertTrue(fetchedOrderStatus.equals(sorderstatus));//change it
 				ExtentManager.logger.log(Status.PASS, "OrderStatus (Picklist) value mapped Successful");
 			} catch (AssertionError e) {
 				System.out.println(e);
@@ -992,7 +1004,6 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				System.out.println(e);
 				ExtentManager.logger.log(Status.FAIL, "CanceledBy(Lookup(User)) value mapping Failed ");
 			}
-
 
 			
 			

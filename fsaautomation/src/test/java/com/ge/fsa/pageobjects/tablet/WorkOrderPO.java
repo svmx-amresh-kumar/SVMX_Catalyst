@@ -491,7 +491,8 @@ import io.appium.java_client.TouchAction;
 	
 	
 	
-		@FindBy(xpath="//span[@class='x-button-icon x-shown x-fa fa-list']")
+		@FindAll({@FindBy(xpath="//div[./span[@class='x-button-icon x-shown x-fa fa-list']]"),
+		@FindBy(xpath="//i[contains(@class,'ellipsis')]")})
 		private WebElement eleLinkedSFM;
 		public  WebElement getEleLinkedSFM()
 		{
@@ -1854,7 +1855,7 @@ import io.appium.java_client.TouchAction;
 		}
 	
 	
-		@FindBy(xpath="(//*[text()='Problem Description']/../..//div[@class='x-innerhtml']/../..//textarea)[2]")
+		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/*)[last()]")
 		private WebElement ProblemDescription;
 		public WebElement getProblemDescription()
 		{

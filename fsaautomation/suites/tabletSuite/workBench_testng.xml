@@ -5,7 +5,8 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
-		<class name="com.ge.fsa.tests.workBench" /> 
+		<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10581" />	
+		<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Attachment_RS_10584" />	
 			
 		</classes>
 	</test> <!-- Test -->
