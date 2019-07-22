@@ -594,7 +594,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 				String lineqty = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Actual_Quantity2__c");
 				try {
-					assertEquals("17.0", lineqty);
+					assertEquals(SFMLineQty+".0", lineqty);
 					ExtentManager.logger.log(Status.PASS, "lineqty(Number) value mapped Successful ");
 				} catch (AssertionError e) {
 					System.out.println(e);
@@ -603,7 +603,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 				String linepriceperunit = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Actual_Price2__c");
 				try {
-					assertEquals("46.0", linepriceperunit);
+					assertEquals(SFMCurrency, linepriceperunit);
 					ExtentManager.logger.log(Status.PASS, "linepriceperunit(Currency) value mapped Successful ");
 				} catch (AssertionError e) {
 					System.out.println(e);

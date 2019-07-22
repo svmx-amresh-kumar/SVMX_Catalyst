@@ -94,7 +94,42 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
 		String sworkordernumber = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WorkOrder Number");
+		String sTechName=CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		
+		
+	//creating one hr event
+		sDeviceDate = commonUtility.getDeviceDate().split(" ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DATE, Integer.parseInt(sDeviceDate[2].trim()));
+		cal.set(Calendar.YEAR, Integer.parseInt(sDeviceDate[5].trim()));
+		cal.set(Calendar.MONTH, new SimpleDateFormat("MMM").parse(sDeviceDate[1].trim()).getMonth());
+		cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(sDeviceDate[3].trim().substring(0, 2)));
+		cal.set(Calendar.MINUTE,0);
+		String sStartDateTime = sdf.format(cal.getTime());
+		cal.add(Calendar.HOUR, 1);
+		String sEndDateTime = sdf.format(cal.getTime());
+
+		String sSqlWOQuery1 = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkordernumber+"\'";				
+		String WOID = restServices.restGetSoqlValue(sSqlWOQuery1,"Id"); 
+		
+		
+		String sObjectApi = "SVMXC__SVMX_Event__c?";
+		String sJsonData = "{\"Name\": \"Sanity12\",\"SVMXC__Service_Order__c\": \"" + WOID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + WOID
+				+ "\"}";
+
+		String sObjecteventID = restServices.restCreate(sObjectApi, sJsonData);
+		String sSqlAccQuery = "SELECT+Name+from+SVMXC__SVMX_Event__c+Where+id+=\'" + sObjecteventID + "\'";
+		String sEventName = restServices.restGetSoqlValue(sSqlAccQuery, "Name");
+		System.out.println(sEventName);
+		
+		
+		
+		
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 
@@ -156,18 +191,17 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "contact(Lookup) value mapping Failed ");
 		}
 
-		String fetchCustomerDown = workOrderPo.getEleCustomerDownOnRdBtn().getAttribute("value");
-		System.out.println(fetchCustomerDown);
+		
 		try {
-			Assert.assertEquals(fetchCustomerDown, SFMCustomerDown);
+			Assert.assertTrue(workOrderPo.getEleCustomerDownOnRdBtn().isDisplayed(), " Customer Down is not ON");
 			ExtentManager.logger.log(Status.PASS, "CustomerDown(Checkbox) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
-			ExtentManager.logger.log(Status.PASS, "CustomerDown(Checkbox) value mapping Failed ");
+			ExtentManager.logger.log(Status.FAIL, "CustomerDown(Checkbox) value mapping Failed ");
 		}
 
 		Thread.sleep(CommonUtility.iMedSleep);
-		String fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("value");
+		String fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("innerText");
 		System.out.println(fetchProblemDescription);
 		try {
 			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype));
@@ -720,14 +754,13 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "contact value mapping Failed ");
 		}
 
-		fetchCustomerDown = workOrderPo.getCustomerDown().getAttribute("checked");
-		System.out.println(fetchCustomerDown);
+
 		try {
-			Assert.assertEquals(fetchCustomerDown, SFMCustomerDown);
+			Assert.assertTrue(workOrderPo.getEleCustomerDownOnRdBtn().isDisplayed(), " Customer Down is not ON");
 			ExtentManager.logger.log(Status.PASS, "CustomerDown value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
-			ExtentManager.logger.log(Status.PASS, "CustomerDown value mapping Failed ");
+			ExtentManager.logger.log(Status.FAIL, "CustomerDown value mapping Failed ");
 		} // change it
 
 		Thread.sleep(CommonUtility.iMedSleep);

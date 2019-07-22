@@ -50,17 +50,18 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 		String sTestCaseID="RS_10511_Calender_1";
 		//sahi
  	
-  		 	commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
+  		 commonUtility.executeSahiScript("appium/SCN_Calendar_1_RS_10511.sah");
 
   		
 		String sWO_SFDC_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SFDC_2");
 		String sWO_SVMX_2 = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "WO_SVMX_2");
 		
 		
-		String sSalesforceuser= CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID");
+		String sSalesforceuser= CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "SALESFORCE_ID1");
 		String sTechname2 = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID_1");
-	
+		lauchNewApp("false");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
+		
 			
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		//verify WO event is present or not
@@ -101,6 +102,7 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 			ph_CalendarPo.custScroll(commonUtility,SFDC_Event1);
 			ph_CalendarPo.VerifyEventdeletion(commonUtility,SFDC_Event1);
 			ph_CalendarPo.VerifyEventdeletion(commonUtility,SVMX_Event1);
+			ph_CalendarPo.custScroll(commonUtility,SFDC_Event2);
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event2);
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event3);
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event2);
@@ -164,7 +166,7 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 			ph_LoginHomePo.login(commonUtility, ph_MorePo,"TECH_USN_1");
 			
 			ph_CalendarPo.getEleCalendarBtn().click();
-			ph_CalendarPo.custScroll(commonUtility,"SFDC_Event2");
+			ph_CalendarPo.custScroll(commonUtility,SFDC_Event2);
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,SFDC_Event2);
 			ph_CalendarPo.VerifyEventInCalender(commonUtility,SVMX_Event2);
 		
