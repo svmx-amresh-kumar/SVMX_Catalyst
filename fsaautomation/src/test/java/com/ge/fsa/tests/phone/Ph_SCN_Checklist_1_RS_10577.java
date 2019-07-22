@@ -92,7 +92,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sProcessID = null;
 	String sPrcessname1 = "vt";
 	String sPrcname2 = "inactivetest";
-	String sScriptName = "Scenario_RS-10577_Checklist_SOU";
+	String sScriptName = "/appium/Scenario_RS-10577_Checklist_SOU.sah";
 	String sProcessname = "Default title for Checklist";
 
 	public void prerequisites() throws Exception {

@@ -28,7 +28,7 @@ public class Ph_SCN_Checklist_2_RS_10578 extends BaseLib {
 	String sOrderStatusVal = null;
 	String sEditProcessName = null;
 	String sWORecordID = null;
-	String sScriptName = "Scenario_RS10578_Checklist_DVR";
+	String sScriptName = "/appium/Scenario_RS10578_Checklist_DVR.sah";
 	String sProcessname = "Default title for Checklist";
 
 	// checklist q's set--
