@@ -30,12 +30,14 @@ public class Ph_SCN_10530 extends BaseLib {
 	String sScriptName = "appium/Scenario_10530.sah";
 	String sSearchTxt = "HarryProd";
 	String sScriptName1 = "appium/Scenario_10530_edit.sah";
+	Boolean bProcessCheckResult;
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
 		
 		//**********Create Processes on Sahi**********
-		commonUtility.executeSahiScript(sScriptName);
+//		commonUtility.executeSahiScript(sScriptName);
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName,sTestCaseID);
 			   
 			//**********Create Product1**********
 			String sProdName1 = "P1_10530";
@@ -166,7 +168,8 @@ public class Ph_SCN_10530 extends BaseLib {
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
 			ph_MorePo.syncData(commonUtility);
-			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+//			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+			ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 			ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearch, sWOName, sProcessName);
 			// ************Start of Scenario 1****************
 			commonUtility.custScrollToElementAndClick(ph_WorkOrderPo.getLblProduct());
@@ -219,6 +222,8 @@ public class Ph_SCN_10530 extends BaseLib {
 				Assert.assertTrue(ph_WorkOrderPo.getChkboxFilter().getAttribute("content-desc").toLowerCase().contains("checked"));	
 			}
 			// ************End of Scenario 4****************
+			
+			/*			
 			// *************Edit Sahi Process***************
 			commonUtility.executeSahiScript(sScriptName1);
 			// ************Start of Scenario 5****************
@@ -234,6 +239,8 @@ public class Ph_SCN_10530 extends BaseLib {
 			System.out.println(ph_WorkOrderPo.getChkboxFilter().getAttribute("clickable"));
 			Assert.assertEquals(ph_WorkOrderPo.getChkboxFilter().getAttribute("clickable"), "false");
 			// ************End of Scenario 5****************
+			 
+			 */
 } 			
 
 }
