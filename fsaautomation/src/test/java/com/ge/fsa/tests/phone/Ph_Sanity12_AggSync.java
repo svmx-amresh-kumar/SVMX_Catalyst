@@ -239,7 +239,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Parts are correctly synced after deleting from server. Expected : 3, Actual : "+partsCount);
 			commonUtility.gotToTabHorizontal("LABOR");
 			laborCount=Integer.parseInt(ph_WorkOrderPo.getEleWorkDetailCount().getText().replaceAll("[^0-9]", ""));
-			Assert.assertTrue(laborCount==workDetails.get("labor") - 1, "Labor count is not matching after deleting from server");
+			Assert.assertTrue(laborCount==workDetails.get("Labor") - 1, "Labor count is not matching after deleting from server");
 			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced after deleting from server. Expected : 2, Actual : "+laborCount);
 		}
 		catch(Exception e) {

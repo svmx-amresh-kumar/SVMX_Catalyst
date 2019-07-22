@@ -10,7 +10,15 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Month;
@@ -22,7 +30,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -90,15 +101,16 @@ public class workBench extends BaseLib
 //		return eleMenuIcn;
 //	}
 
-
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
 	//@Test
 public void workBenchAnd() throws Exception
 {	
 	
 		//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-				
-		loginHomePo.login(commonUtility, exploreSearchPo);
+		
+		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
+		
+		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 	
 //		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 //		commonUtility.longPress(wElement,32,32);
@@ -157,6 +169,72 @@ public void workBenchAnd() throws Exception
 //	
 }
 
+
+@Test
+public void porcessRestTest() throws IOException {
+	  String jsonPayload = "{\"entityType\":\"SFM/OPDOC\"}";
+	  String requestType = "POST";
+	  String restService = "listOfProcesses";
+	porcessRestApi(requestType, restService, jsonPayload);
+}
+
+
+public void porcessRestApi(String requestType, String restService,String jsonPayload) throws IOException {
+	restServices.getAccessToken();
+
+	String sURL =  "https://cs97.salesforce.com/services/apexrest/SVMXC/svmx/rest/SFMDesigner2ServiceIntf/"+restService+"/";
+	URL url = new URL(sURL);
+	System.out.println(sURL);
+	HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
+	httpsUrlCon.setDoOutput(true);
+	httpsUrlCon.setRequestMethod(requestType);
+ 	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
+	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+restServices.sAccessToken);
+	httpsUrlCon.setRequestProperty("Username",commonUtility.readExcelData(commonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
+	httpsUrlCon.setRequestProperty("Password", commonUtility.readExcelData(commonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
+
+	//Setting Json body
+  
+    System.out.println("httpsUrlCon = "+httpsUrlCon);
+	 	OutputStream os = httpsUrlCon.getOutputStream();
+	     os.write(jsonPayload.getBytes());
+	     os.flush();
+	
+	BufferedReader bufferedReader = null;
+	StringBuilder stringBuilder = new StringBuilder();
+	String line;
+	try {
+	   bufferedReader = new BufferedReader(new InputStreamReader(httpsUrlCon.getInputStream(),StandardCharsets.UTF_8));
+	   while ((line =bufferedReader.readLine())!=null){
+	         stringBuilder.append(line);
+	   }
+	} catch (IOException e) {
+	   e.printStackTrace();
+	} finally {
+	   if (bufferedReader != null) {
+	         try {
+	                bufferedReader.close();
+	         } catch (IOException e) {
+	                e.printStackTrace();
+	         }
+	   }
+	
+
+		}
+
+
+	JSONObject json = new JSONObject(stringBuilder.toString());
+	System.out.println("::::::: \n"+json);
+	
+	String sOutPutFile = "/auto/SVMX_Catalyst/Executable/jsonReturned.json";
+	
+	File file = new File(sOutPutFile);
+	file.createNewFile();
+	FileWriter writer = new FileWriter(file);
+	writer.write(""+json);
+	writer.flush();
+	writer.close();
+}
 
 	
 }

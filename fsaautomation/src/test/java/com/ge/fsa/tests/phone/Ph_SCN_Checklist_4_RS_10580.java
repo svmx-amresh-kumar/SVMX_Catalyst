@@ -85,7 +85,7 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 	String sProblemDescriptionSOUServer = "Souce Object Update Sucess";
 	String sSheetName =null;
 	
-	String sScriptName="Scenario_RS10580_Checklist_Sections";
+	String sScriptName="/appium/Scenario_RS10580_Checklist_Sections.sah";
 	Boolean bProcessCheckResult  = false;
 	
 	

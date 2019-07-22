@@ -48,7 +48,7 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 	String sProcessname = "Default title for Checklist";
 
 	//For SFM Process Sahi Script name
-	String sScriptName="Scenario_RS10584_Checklist_Attachments";
+	String sScriptName="/appium/Scenario_RS10584_Checklist_Attachments.sah";
 	//Attachment questions
 	String sAttachText ="AttachmentChecklistupload";
 	String sAttachmentQuestion1 = null;

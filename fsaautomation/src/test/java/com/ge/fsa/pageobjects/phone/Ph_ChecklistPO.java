@@ -139,6 +139,15 @@ public class Ph_ChecklistPO
 		return eleRadioTwoSelected;
 	}
 	
+	@FindBy(xpath="//*[@*[contains(.,'RadioOne_selected=true')]]")
+	private WebElement eleRadionOneSelected;
+	public WebElement geteleRadionOneSelected()
+	{
+		return eleRadionOneSelected;
+	}
+
+	
+	
 	private WebElement elechecklistinprogress;
 	public WebElement getelechecklistinprogress(String sChecklistName)
 	{
@@ -291,6 +300,19 @@ public class Ph_ChecklistPO
 
 	}
 	
+	private WebElement elechecklistdatewithMoreinfo;
+	public WebElement getelechecklistdatewithMoreinfo(String sdates)
+	{
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("(//*[@text='"+sdates+"']//following-sibling::*[@class='android.view.ViewGroup']//*[@class='android.widget.TextView'])[last()]"));
+		}
+		else
+		{																											
+			return driver.findElement(By.xpath("(//*[@name='"+sdates+"']/..//XCUIElementTypeStaticText)[last()]"));
+		}	
+		
+		
+	}
 	
 	private WebElement elechecklistinstance;
 	public WebElement getelechecklistinstance() 

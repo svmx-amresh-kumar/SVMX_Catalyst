@@ -60,7 +60,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	String sProcessname = "Default title for Checklist";
 
 	// For SFM Process Sahi Script name
-	String sScriptName = "Scenario_RS10585_ChecklistOPDOC_SkippedSections";
+	String sScriptName = "/appium/Scenario_RS10585_ChecklistOPDOC_SkippedSections.sah";
 	Boolean bProcessCheckResult = false;
 
 	public void prerequisites() throws Exception {
