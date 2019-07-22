@@ -101,7 +101,7 @@ public class workBench extends BaseLib
 //		return eleMenuIcn;
 //	}
 
-	@Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer=Retry.class)
 	//@Test
 public void workBenchAnd() throws Exception
 {	
@@ -169,27 +169,35 @@ public void workBenchAnd() throws Exception
 //	
 }
 
-//@Test
+
+@Test
 public void porcessRestTest() throws IOException {
+	  String jsonPayload = "{\"entityType\":\"SFM/OPDOC\"}";
+	  String requestType = "POST";
+	  String restService = "listOfProcesses";
+	porcessRestApi(requestType, restService, jsonPayload);
+}
+
+
+public void porcessRestApi(String requestType, String restService,String jsonPayload) throws IOException {
 	restServices.getAccessToken();
-	
-	
-	String sURL =  "https://cs97.salesforce.com/services/apexrest/SVMXC/svmx/rest/SFMDesigner2ServiceIntf/listOfProcesses/";
+
+	String sURL =  "https://cs97.salesforce.com/services/apexrest/SVMXC/svmx/rest/SFMDesigner2ServiceIntf/"+restService+"/";
 	URL url = new URL(sURL);
 	System.out.println(sURL);
 	HttpsURLConnection httpsUrlCon = (HttpsURLConnection) url.openConnection();
 	httpsUrlCon.setDoOutput(true);
-	httpsUrlCon.setRequestMethod("POST");
+	httpsUrlCon.setRequestMethod(requestType);
  	httpsUrlCon.setRequestProperty("Content-Type", "application/json");
 	httpsUrlCon.setRequestProperty("Authorization", "OAuth "+restServices.sAccessToken);
 	httpsUrlCon.setRequestProperty("Username",commonUtility.readExcelData(commonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_USN") );
 	httpsUrlCon.setRequestProperty("Password", commonUtility.readExcelData(commonUtility.sConfigPropertiesExcelFile,BaseLib.sSelectConfigPropFile, "ADMIN_PWD"));
 
 	//Setting Json body
-    String sWOJson = "{\"entityType\":\"SFM/OPDOC\"}";
+  
     System.out.println("httpsUrlCon = "+httpsUrlCon);
 	 	OutputStream os = httpsUrlCon.getOutputStream();
-	     os.write(sWOJson.getBytes());
+	     os.write(jsonPayload.getBytes());
 	     os.flush();
 	
 	BufferedReader bufferedReader = null;
