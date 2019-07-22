@@ -630,4 +630,13 @@ public class Ph_ChecklistPO
 		}		
 	}
 	
+	@FindBy(xpath="(//*[@*[contains(.,'Question 3 is required')]])")
+	private WebElement eleQuestion3Required;
+	public WebElement geteleQuestion3Required()
+	{
+		return eleQuestion3Required;
+	}
+
+	
+	
 }
