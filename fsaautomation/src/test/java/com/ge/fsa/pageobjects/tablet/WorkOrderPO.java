@@ -517,7 +517,7 @@ import io.appium.java_client.TouchAction;
 		public WebElement getEleSFMfromLinkedSFM2(String sSFMName)
 		{
 	
-			eleSFMfromLinkedSFM2 = driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='Manage Work Details for Products Serviced'])[2]"));
+			eleSFMfromLinkedSFM2 = driver.findElement(By.xpath("(//span[@class='x-button-label'][text()='Manage Work Details for Products Serviced'])[last()]"));
 			return eleSFMfromLinkedSFM2;
 		}
 		@FindBy(xpath="//span[@class='x-button-label'][text()='Discard Changes']")
@@ -1854,8 +1854,9 @@ import io.appium.java_client.TouchAction;
 			return Currency;
 		}
 	
-	
-		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Problem Description']/../..//div[@class='x-innerhtml']/*)[last()]")
+		@FindAll({
+		@FindBy(xpath="(//span[@class='x-label-text-el'][contains(text(),'Problem Description')]/../..//div[@class='x-innerhtml']/*)[last()]"),
+		@FindBy(xpath="(//*[text()='Problem Description']/../..//div[@class='x-innerhtml']/../..//textarea)[2]")})
 		private WebElement ProblemDescription;
 		public WebElement getProblemDescription()
 		{

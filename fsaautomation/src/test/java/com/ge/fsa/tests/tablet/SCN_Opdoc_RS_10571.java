@@ -70,7 +70,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"");
 		Assert.assertEquals(workOrderPo.getScheduledDatetimevalue().getAttribute("value"),"");
-		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),"");//Check on Android
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("innerText").replaceAll("\\u00A0", ""),"");//Check on Android
 		iValNoOfTimesAssigned = Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value"));
 		Assert.assertEquals(workOrderPo.getTxtNumber().getAttribute("value"),"10");
 		commonUtility.tap(workOrderPo.getEleClickSave());
@@ -91,7 +91,7 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 		Assert.assertEquals(Integer.parseInt(workOrderPo.getTxtNumber().getAttribute("value")),iValNoOfTimesAssigned);
 		Assert.assertEquals(workOrderPo.getScheduledDatevalue().getAttribute("value"),"1/1/2019");
 //		Assert.assertTrue(workOrderPo.getScheduledDatetimevalue().getAttribute("value").contains(sCurrentDate));
-		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("value"),sProbDesc);//Check on Android
+		Assert.assertEquals(workOrderPo.getProblemDescription().getAttribute("innerText"),sProbDesc);//Check on Android
 				
 	}
 }
