@@ -217,7 +217,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 
 		// Picklist Static Reponse Question
 
-		commonUtility.custScrollToElement(sRadioButtonStaticQ, false);
+		commonUtility.custScrollToElement(sPicklistStaticAns, false);
 		// commonUtility.custScrollToElement(ph_ChecklistPO.getelechecklistPickListQAns(sPicklistStaticQ,
 		// sPicklistStaticAns));
 		String sPicklistStaticAnsApp = ph_ChecklistPO.getelechecklistPickListQAns(sPicklistStaticQ, sPicklistStaticAns).getText();
