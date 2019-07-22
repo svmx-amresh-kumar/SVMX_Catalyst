@@ -561,9 +561,6 @@ public class CalendarPO
 	public void VerifyWOInCalenderafterconfchange(CommonUtility commonUtility, String workordername) throws Exception 
 	{
 		gettaponcalevent(workordername).getLocation();
-		gettaponcalevent(workordername).click();
-		gettaponcalevent(workordername).getLocation();
-		gettaponcalevent(workordername).click();
 				Thread.sleep(3000);
 		commonUtility.waitforElement(getelegetWOnum(workordername), 10);
 		
