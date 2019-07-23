@@ -10,7 +10,6 @@
 	<classes>		
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_10529" />
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_10530" /> 
-
 		</classes>
 	</test>
 </suite> <!-- Suite -->
