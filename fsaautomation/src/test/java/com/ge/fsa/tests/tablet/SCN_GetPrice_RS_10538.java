@@ -51,6 +51,14 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10538() throws Exception {
 		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10538");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12102");
+
+		}
+		
 		//commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");
