@@ -20,6 +20,13 @@ public class SCN_Lookups_2_RS_10528 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10528() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10528");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12112");
+
+		}
 		
 		String sTestID = "RS_10528"; 
 		String sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");

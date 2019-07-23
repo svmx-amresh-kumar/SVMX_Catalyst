@@ -33,8 +33,16 @@ public class SCN_Opdoc_RS_10571 extends BaseLib{
 //	int iValToIncrease = 0;
 	int iValNoOfTimesAssigned = 0;
 	
-	@Test//(retryAnalyzer=Retry.class)
+	@Test(retryAnalyzer=Retry.class)
 	public void SCN_Opdoc_RS_10571() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10571");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12127");
+
+		}
+		
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 		System.out.println(sExploreSearch);
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreChildSearch");

@@ -73,6 +73,13 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10569() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10569");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12071");
+
+		}
 		
 		commonUtility.preReqSetup();
 		// Resinstall the app
