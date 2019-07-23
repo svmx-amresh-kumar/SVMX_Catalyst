@@ -146,6 +146,13 @@ public class SCN_SourceObjectUpdate_RS_10544 extends BaseLib{
 			
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10544() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10544");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12096");
+
+		}
 		
 		prerequisites();					
 		//Pre Login to app

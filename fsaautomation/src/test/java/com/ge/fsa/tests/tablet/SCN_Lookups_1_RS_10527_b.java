@@ -25,7 +25,14 @@ public class SCN_Lookups_1_RS_10527_b extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527_b() throws IOException, InterruptedException {
-		
+		//Test has been split
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10527");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12113");
+
+		}
 		// Create Account
 //		String sAccId = restServices.restCreate("Account?","{\"Name\": \"Ferrari3\" }");
 //		System.out.println("Fer "+sAccId);

@@ -38,6 +38,13 @@ public class SCN_LinkedSFMProcess_RS_10553 extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10553() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10553");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12087");
+
+		}
 
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
 

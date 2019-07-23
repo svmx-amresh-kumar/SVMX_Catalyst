@@ -28,7 +28,13 @@ public class SCN_Lookups_3_RS_10529 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10529() throws Exception{
-		
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10529");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12111");
+
+		}
 //		commonUtility.executeSahiScript(sScriptName, sTestCaseID);
 		
 		// Create Product without Description
