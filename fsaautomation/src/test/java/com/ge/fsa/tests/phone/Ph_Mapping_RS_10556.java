@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -24,7 +25,7 @@ import com.ge.fsa.lib.Retry;
 public class Ph_Mapping_RS_10556 extends BaseLib {
 
 	int iWhileCnt = 0;
-
+	String[] sDeviceDate = null;
 	String sExploreSearch = null;
 	String sExploreChildSearchTxt = null;
 	String sObjectAccID = null;
@@ -59,15 +60,12 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 	@Test()
 	public void RS_10556() throws Exception {
 		sSheetName = "RS_10556";
-		String sTestCaseID = "RS-10556_mapping";
 
-		
 		String SFMCustomerDown=BaseLib.sOSName.equalsIgnoreCase("android")?"ON":"1";
 		
 		
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
+		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
@@ -78,7 +76,40 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
 		String sworkordernumber = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "WorkOrder Number");
+		String sTechName=CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
+		
+		sDeviceDate = commonUtility.getDeviceDate().split(" ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DATE, Integer.parseInt(sDeviceDate[2].trim()));
+		cal.set(Calendar.YEAR, Integer.parseInt(sDeviceDate[5].trim()));
+		cal.set(Calendar.MONTH, new SimpleDateFormat("MMM").parse(sDeviceDate[1].trim()).getMonth());
+		cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(sDeviceDate[3].trim().substring(0, 2)));
+		cal.set(Calendar.MINUTE,0);
+		String sStartDateTime = sdf.format(cal.getTime());
+		cal.add(Calendar.HOUR, 1);
+		String sEndDateTime = sdf.format(cal.getTime());
 
+		String sSqlWOQuery1 = "SELECT+Id+from+SVMXC__Service_Order__c+Where+Name+=\'"+sworkordernumber+"\'";				
+		String WOID = restServices.restGetSoqlValue(sSqlWOQuery1,"Id"); 
+		
+		
+		String sObjectApi = "SVMXC__SVMX_Event__c?";
+		String sJsonData = "{\"Name\": \"Event_10556\",\"SVMXC__Service_Order__c\": \"" + WOID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + WOID
+				+ "\"}";
+
+		String sObjecteventID = restServices.restCreate(sObjectApi, sJsonData);
+		String sSqlAccQuery = "SELECT+Name+from+SVMXC__SVMX_Event__c+Where+id+=\'" + sObjecteventID + "\'";
+		String sEventName = restServices.restGetSoqlValue(sSqlAccQuery, "Name");
+		System.out.println(sEventName);
+		
+		
+		
+		
+		
+		
+		
 		// Pre Login to app
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 

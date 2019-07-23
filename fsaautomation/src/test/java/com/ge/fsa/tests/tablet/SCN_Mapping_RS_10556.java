@@ -119,7 +119,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		
 		
 		String sObjectApi = "SVMXC__SVMX_Event__c?";
-		String sJsonData = "{\"Name\": \"Sanity12\",\"SVMXC__Service_Order__c\": \"" + WOID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + WOID
+		String sJsonData = "{\"Name\": \"Event_10556\",\"SVMXC__Service_Order__c\": \"" + WOID + "\",\"SVMXC__Technician__c\": \"" + sTechName + "\",\"SVMXC__StartDateTime__c\": \"" + sStartDateTime + "\", \"SVMXC__EndDateTime__c\":\"" + sEndDateTime + "\",\"SVMXC__WhatId__c\": \"" + WOID
 				+ "\"}";
 
 		String sObjecteventID = restServices.restCreate(sObjectApi, sJsonData);
