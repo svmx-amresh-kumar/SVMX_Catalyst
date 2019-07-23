@@ -51,6 +51,14 @@ public class SCN_GetPrice_RS_10536 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10536() throws Exception {
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10536");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12104");
+
+		}
 		sSheetName1 ="RS_10539";
 		sSheetName2 = "RS_10538";
 		sSheetName3 = "RS_10536";

@@ -51,6 +51,14 @@ public class SCN_GetPrice_RS_10533 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10533() throws Exception {
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10533");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12107");
+
+		}
 		sSheetName1 ="RS_10533";
 		System.out.println("SCN_GetPrice_RS_10533");
 		// To run the Sahi Script before the Execution of Appium - 10539

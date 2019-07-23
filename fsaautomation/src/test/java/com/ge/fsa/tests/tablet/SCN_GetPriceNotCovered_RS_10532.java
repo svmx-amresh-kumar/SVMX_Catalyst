@@ -46,6 +46,14 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10532() throws Exception {
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10532");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12018");
+
+		}
 		sSheetName1 ="RS_10532";
 		sSheetName2 ="RS_10538";
 		sSheetName3 ="RS_10539";

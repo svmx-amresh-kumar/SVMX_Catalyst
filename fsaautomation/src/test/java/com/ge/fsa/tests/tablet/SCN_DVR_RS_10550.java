@@ -103,6 +103,14 @@ public class SCN_DVR_RS_10550 extends BaseLib{
 	@Test//(retryAnalyzer=Retry.class)
 	public void RS_10550() throws Exception {
 		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10550");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12090");
+
+		}
+		
 		prerequisites();
 		//Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);		
