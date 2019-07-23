@@ -9,6 +9,7 @@
 		<classes>
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity8_Lookup_DOD" />
 		  	<class name="com.ge.fsa.tests.phone.Ph_Sanity2_Explore_Checklist" />
+		  	<class name="com.ge.fsa.tests.phone.Ph_Sanity7_Dynamic_Response_Checklist_OPDOC_TOU"/>
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity5_DVR_Mapping_Qualification_Criteria" />
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU"/>		
 			<class name="com.ge.fsa.tests.phone.Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179" /> 
