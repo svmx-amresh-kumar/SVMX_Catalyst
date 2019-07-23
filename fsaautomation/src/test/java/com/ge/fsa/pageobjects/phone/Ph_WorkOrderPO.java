@@ -870,7 +870,8 @@ public class Ph_WorkOrderPO {
 		getEleInstalledProductstar().sendKeys(InstalledProductID+"\n");
 
 		// Adding Value for Account
-		commonUtility.tap(getAccountstar());
+		//commonUtility.tap(getAccountstar());
+		getAccountstar().click();
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			ph_ExploreSearchPO.getEleExploreSearchTxtFld().sendKeys(accountName + "\\n");
 		} else {

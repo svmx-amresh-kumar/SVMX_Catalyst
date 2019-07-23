@@ -272,7 +272,7 @@ public class Ph_CalendarPO
 			eleeventtime=driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]/android.view.ViewGroup/android.widget.TextView[3]"));
 			return eleeventtime;
 		}else {
-			eleeventtime=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[4]"));
+			eleeventtime=driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[3]"));
 			return eleeventtime;
 		}
 	
@@ -394,6 +394,7 @@ public class Ph_CalendarPO
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Calendar now1 = Calendar.getInstance();
+		System.out.println(now1.get(Calendar.HOUR));
 		now1.set(Calendar.HOUR, hrs);
 		now1.set(Calendar.MINUTE, 0);
 		now1.set(Calendar.SECOND, 0);
@@ -401,9 +402,29 @@ public class Ph_CalendarPO
 		System.out.println(endtimezero);
 		return endtimezero;
 	
-	
 	}
+	
+	public String Addinghrstosfdcformat(int hrs,String date) throws Exception 
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
+		 Date  dTempDate1 = sdf.parse(date);
+		 SimpleDateFormat formatter1 = new SimpleDateFormat("HH");
+	        String stempDate =  formatter1.format(dTempDate1);
+	        System.out.println("Converted to date "+stempDate); 
+		
+		
+		Calendar now1 = Calendar.getInstance();
+		now1.set(Calendar.HOUR, (Integer.parseInt(stempDate)+3));
+		now1.set(Calendar.MINUTE, 0);
+		now1.set(Calendar.SECOND, 0);
+		String endtimezero = sdf.format(now1.getTime());
+		System.out.println(endtimezero); 
+		return endtimezero;
+		
+		
+		
+	}
 	
 	//XCUIElementTypeOther[@name="CALENDAR.CARET_DOWN"]
 	@FindBy(xpath="//*[@*='CALENDAR.CARET_DOWN']")
