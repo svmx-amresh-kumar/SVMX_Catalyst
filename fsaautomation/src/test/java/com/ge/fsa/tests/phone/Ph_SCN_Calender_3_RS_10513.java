@@ -37,8 +37,6 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		sSheetName = "RS_10513";
 		
 
-		String sTestCaseID = "RS_10513_Calender_3";
-
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generateRandomNumber("");

@@ -41,7 +41,7 @@ public class Ph_Calender_4_RS_10514 extends BaseLib {
 	String sEventIdSVMX14 = null;
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
-	String techname = "a240t000000GglLAAS";
+
 	WebElement productname = null;
 	String sSheetName = null;
 

@@ -68,7 +68,8 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
 		Thread.sleep(CommonUtility.iMedSleep);
-
+		ph_MorePo.syncData(commonUtility);
+		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -78,9 +79,10 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarEventSubject().click();
 		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(sEventSubject+"\n");
 
-	String	hrs = commonUtility.gethrsfromdevicetime();
-	commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d", Integer.parseInt(hrs) + 1), "00");
+
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "10", "00");
+		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, "11", "00");
+		
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -95,26 +97,25 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 		// On server/DC, edit one of the events created
-
+		
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+='" +sEventSubject +"'";
 		sEventIdSVMX_1 = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 		System.out.println(sEventIdSVMX_1);
 		
+	
+	/*	sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
+		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
+		System.out.println(sEventenddatetimeserver);*/
+		
 		
 		String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(3);
-
-	/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		Calendar now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 24);
-		now1.set(Calendar.MINUTE, 0);
-		now1.set(Calendar.SECOND, 0);
-		String endtimezero = sdf.format(now1.getTime());
-		System.out.println(endtimezero);*/
-
+		
 		String sWOJson = "{\"SVMXC__EndDateTime__c\":\"" + endtimezero + "\"}";
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSVMX_1);
 
+		
+		
 
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
@@ -128,7 +129,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	ph_MorePo.syncData(commonUtility);
 	Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
-
+		ph_CalendarPo.custScroll(commonUtility,sEventSubject);
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		Thread.sleep(2000);
 
@@ -176,8 +177,6 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		//setting to SFDC event
 		commonUtility.executeSahiScript("appium/SCN_Calender_4_RS-10514_3.sah");
 		
-		
-
 		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
 
 
@@ -188,11 +187,12 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_CalendarPo.getEleCalendarEventSubject().click();
 		ph_CalendarPo.getEleCalendarEventSubject().sendKeys(SFDC_Event+"\n");
 
-
-		 
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, hrs, "00");
-		//add one hr to device time
-		commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, String.format("%02d",Integer.parseInt(hrs) + 1), "00");
+		
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleStartDateTimecal(), 0, "10", "00");
+			commonUtility.setDateTime24hrs(ph_CalendarPo.geteleEndDateTimecal(), 0, "11", "00");
+			
+		
+		
 		ph_WorkOrderPo.getEleAdd().click();
 		Thread.sleep(3000);
 		ph_MorePo.getEleMoreBtn().click();
@@ -211,14 +211,6 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		// On server/DC, edit one of the events created SFDC
 
 
-		/*   sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		   now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 24);
-		now1.set(Calendar.MINUTE, 0);
-		now1.set(Calendar.SECOND, 0);
-		   endtimezero = sdf.format(now1.getTime());
-		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);*/
 		 endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(3);
 
 		   sWOJson = "{\"EndDateTime\":\"" + endtimezero + "\"}";
@@ -238,6 +230,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
 	Thread.sleep(2000);
+	ph_CalendarPo.custScroll(commonUtility,SFDC_Event);
 	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
 	Thread.sleep(2000);
 

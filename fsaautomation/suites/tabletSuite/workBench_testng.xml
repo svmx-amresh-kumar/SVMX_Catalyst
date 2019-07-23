@@ -5,7 +5,6 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
-		<class name="com.ge.fsa.tests.tablet.SCN_Calendar_5_RS_10515" />	
 		
 			
 		</classes>
