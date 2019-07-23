@@ -6,8 +6,6 @@
     </listeners>
 <test name="Checklist">
 		<classes>
-		<class name="com.ge.fsa.tests.phone.Ph_Sanity2_Explore_Checklist"/>
-		<class name="com.ge.fsa.tests.phone.Ph_Sanity7_Dynamic_Response_Checklist_OPDOC_TOU"/>
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_1_RS_10577" />
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_2_RS_10578" />
 		<class name="com.ge.fsa.tests.phone.Ph_SCN_Checklist_4_RS_10580" />
