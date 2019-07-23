@@ -44,7 +44,13 @@ public void Scenario1Test() throws Exception
 {		
 	String sTestDataValue = "SCN_RS_11179";
 	sSheetName ="RS_11179";
-	
+	//JiraLink
+	if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11179");
+	}else {
+		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12051");
+
+	}
 //	commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah", "sTestCaseID");
 //	Assert.assertTrue(commonsUtility.verifySahiExecution(), "Execution of Sahi script is failed");
 
