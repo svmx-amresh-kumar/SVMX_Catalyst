@@ -137,7 +137,6 @@ public class Ph_SCN_10527 extends BaseLib {
     int startX = 0;
     int endX = 0;
     int startY = 0;
-    int endY = 0;
     startY = (int) (size.height / 2);
     startX = (int) (size.width * 0.05);
     endX = (int) (size.width * 0.90);
