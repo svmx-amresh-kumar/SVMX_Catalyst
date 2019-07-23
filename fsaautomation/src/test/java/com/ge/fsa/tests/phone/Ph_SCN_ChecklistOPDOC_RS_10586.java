@@ -231,6 +231,7 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		Assert.assertTrue(sDateStaticAns.equals(sDateStaticAnsApp), "Static response date failed");
 		ExtentManager.logger.log(Status.PASS, "Static response with Date datatype Passed expected :" + sDateStaticAns + "actual:" + sDateStaticAnsApp + "");
 
+		commonUtility.custScrollToElement(sDateDynamicQ, false);
 		String sDateTimeStaticAnsApp = ph_ChecklistPO.getelechecklistdatewithMoreinfo(sDateTimeStaticQ).getText().trim();
 		System.out.println(sDateTimeStaticQ);
 		Assert.assertTrue(sDateTimeStaticAnsApp.equals(sDateTimeStaticAns), "Static response with DateTime datatype failed");

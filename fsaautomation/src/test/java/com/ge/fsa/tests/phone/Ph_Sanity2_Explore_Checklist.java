@@ -41,7 +41,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	String sWORecordID = null;
 	boolean bProcessCheckResult = false;
 	// For SFM Process Sahi Script name
-	String sScriptName = "scenario2_preRequisite";
+	String sScriptName = "/appium/scenario2_preRequisite.sah";
 
 	public void prereq() throws Exception {
 
