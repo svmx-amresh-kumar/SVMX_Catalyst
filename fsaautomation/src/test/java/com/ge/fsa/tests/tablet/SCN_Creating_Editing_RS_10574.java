@@ -177,6 +177,8 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	///@Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
+		
+		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10574");
 		}else {

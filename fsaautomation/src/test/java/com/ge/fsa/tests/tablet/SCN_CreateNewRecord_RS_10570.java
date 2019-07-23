@@ -12,6 +12,8 @@ public class SCN_CreateNewRecord_RS_10570 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10570Test() throws Exception {
+		
+		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10570");
 		}else {

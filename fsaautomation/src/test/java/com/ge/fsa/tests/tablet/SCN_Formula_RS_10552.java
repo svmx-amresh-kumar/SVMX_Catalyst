@@ -107,6 +107,15 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void SCN_RS_10552() throws Exception {
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10552");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12088");
+
+		}
+		
 		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");

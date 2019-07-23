@@ -54,6 +54,14 @@ public class SCN_CustomPicklist_RS_10547 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10547() throws Exception {
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10547");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12093");
+
+		}
 		System.out.println("SCN_CustomPicklist_RS_10547");
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		Thread.sleep(10000);
