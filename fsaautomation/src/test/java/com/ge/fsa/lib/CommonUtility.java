@@ -2884,4 +2884,10 @@ public class CommonUtility {
 	}
     }
   //Generation of XML files END
+    
+    
+    public void addLinkInExtentReport(String sLinkURL) {
+		ExtentManager.logger.log(Status.INFO,"Jira Link [ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] ");
+	
+    }
 }

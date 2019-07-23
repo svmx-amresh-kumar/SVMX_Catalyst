@@ -558,7 +558,7 @@ public class BaseLib {
 		}
 		System.out.println("[BaseLib] " + getBaseTimeStamp() + " " + sRunningSymbol + " RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
-
+		ExtentManager.logger.assignCategory(sSuiteTestName);
 		if (sOSName.equalsIgnoreCase("browser")) {
 			// do nothing
 		} else {
