@@ -129,7 +129,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	ph_MorePo.syncData(commonUtility);
 	Thread.sleep(5000);
 		ph_CalendarPo.getEleCalendarBtn().click();
-
+		ph_CalendarPo.custScroll(commonUtility,sEventSubject);
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		Thread.sleep(2000);
 
@@ -230,6 +230,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	Thread.sleep(5000);
 	ph_CalendarPo.getEleCalendarBtn().click();
 	Thread.sleep(2000);
+	ph_CalendarPo.custScroll(commonUtility,SFDC_Event);
 	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
 	Thread.sleep(2000);
 
