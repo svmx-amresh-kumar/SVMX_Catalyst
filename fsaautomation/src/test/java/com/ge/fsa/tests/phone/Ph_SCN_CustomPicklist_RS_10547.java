@@ -50,6 +50,14 @@ public class Ph_SCN_CustomPicklist_RS_10547 extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10547() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6489");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6761");
+
+		}
+			
 		System.out.println("SCN_CustomPicklist_RS_10547");
 		String sProcessname = "RS_10547CreateWOfromIB";
 		

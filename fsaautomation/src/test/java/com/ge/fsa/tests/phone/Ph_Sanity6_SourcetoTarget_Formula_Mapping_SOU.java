@@ -75,7 +75,15 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 
 	//@Test()
 	@Test(retryAnalyzer=Retry.class)
-	public void scenario6Test() throws Exception {
+	public void Go_6503() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6503");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6795");
+
+		}
+		
 		sSheetName ="SANITY6";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		sTestCaseID = "SANITY6";

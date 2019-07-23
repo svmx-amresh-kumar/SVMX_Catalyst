@@ -20,7 +20,15 @@ public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
 	Boolean bProcessCheckResult;
 	String sUrl = "";
 	@Test//(retryAnalyzer=Retry.class)
-	public void Ph_RS_10558() throws Exception {
+	public void RS_10558() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6514");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6787");
+
+		}
+			
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");

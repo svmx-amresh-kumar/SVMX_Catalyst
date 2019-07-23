@@ -71,8 +71,16 @@ public class Ph_SCN_ExploreSearchRS_10546 extends BaseLib{
 	}
 
 	@Test(retryAnalyzer=Retry.class)
-	public void RS_10546Test() throws Exception 
+	public void RS_10546() throws Exception 
 	{
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6492");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6762");
+
+		}
+			
 		sTestID = "RS_10549";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		preRequiste();

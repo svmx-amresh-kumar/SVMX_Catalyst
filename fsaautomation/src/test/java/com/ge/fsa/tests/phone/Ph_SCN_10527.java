@@ -35,6 +35,14 @@ public class Ph_SCN_10527 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10527() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6446");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6801");
+
+		}
+		
 	
 	// ******Creating Account******x
 	String sAccCount = restServices.restGetSoqlValue("SELECT+Count()+from+Account+Where+name+=\'"+sAccountName+"\'", "totalSize");

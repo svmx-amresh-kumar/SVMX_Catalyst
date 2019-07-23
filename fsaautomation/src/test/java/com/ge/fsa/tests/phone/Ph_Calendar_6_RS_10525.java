@@ -48,6 +48,14 @@ int iWhileCnt = 0;
 	@Test(retryAnalyzer=Retry.class)
 	
 	public void Ph_10525() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10525");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12564");
+
+		}
+		
 		sSheetName ="RS_10525";
 	
 		String sTestCaseID="RS_10525_Calender_6";

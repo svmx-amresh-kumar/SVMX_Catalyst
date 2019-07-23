@@ -129,7 +129,14 @@ public class Ph_SCN_Checklist_4_RS_10580 extends BaseLib {
 	//@Test()
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10580() throws Exception {
-		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6475");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6759");
+
+		}
+			
 		prerequisites();
 		
 		// Pre Login to app

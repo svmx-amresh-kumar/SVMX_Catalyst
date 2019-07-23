@@ -16,8 +16,15 @@ public class Ph_SCN_CreateNewRecord_RS_10570 extends BaseLib{
 
 
 	@Test(retryAnalyzer=Retry.class)
-	public void RS_10570Test() throws Exception {
-		
+	public void RS_10570() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6452");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6737");
+
+		}
+			
 		String sTestCaseID = "RS_10570";
 		String sScriptName = "appium/Scenario_10570.sah";
 		String sProcessName = "SFM_10570";

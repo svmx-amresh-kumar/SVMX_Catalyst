@@ -141,7 +141,16 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 	}
 
 	@Test(retryAnalyzer = Retry.class)
-	public void RS_10556() throws Exception {
+	public void GO_6933() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6933");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6342");
+
+		}
+		
+		
 		try {
 			prerequisite();
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);

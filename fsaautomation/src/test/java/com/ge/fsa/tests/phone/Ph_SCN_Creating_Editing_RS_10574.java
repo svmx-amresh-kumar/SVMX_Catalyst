@@ -100,7 +100,14 @@ public class Ph_SCN_Creating_Editing_RS_10574 extends BaseLib {
 	}
 
 	public void DeletionOfWorkOrder() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6465");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6734");
 
+		}
+			
 		sObjectApi = "SVMXC__Service_Order__c?";
 		sSqlWOQuery1 = "SELECT+id+from+SVMXC__Service_Order__c+Where+SVMXC__Proforma_Invoice__c+=\'" + sProformainVoice
 				+ "\'";

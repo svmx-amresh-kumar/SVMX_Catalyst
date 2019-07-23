@@ -34,6 +34,13 @@ public class Ph_SCN_10530 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10530() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6442");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6751");
+
+		}
 		
 		//**********Create Processes on Sahi**********
 //		commonUtility.executeSahiScript(sScriptName);

@@ -148,10 +148,17 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 
 	}
 
-	@Test()
-	//@Test(retryAnalyzer=Retry.class)
+	//@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void RS_10544() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6496");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6764");
 
+		}
+			
 		prerequisites();
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

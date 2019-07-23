@@ -32,9 +32,17 @@ public class Ph_Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 
 	//For SFM Process Sahi Script name
 		String sScriptName="/appium/scenario7_preRequisite.sah";
-	@Test()
-	//@Test(retryAnalyzer=Retry.class)
+	//@Test()
+	@Test(retryAnalyzer=Retry.class)
 	public void scenario7() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6501");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6793");
+
+		}
+		
 		sSheetName ="Scenario7_Checklist";
 		sTestCaseID = "Scenario7_Checklist";
 		sCaseWOID = "Data_Scenario7_Checklist";

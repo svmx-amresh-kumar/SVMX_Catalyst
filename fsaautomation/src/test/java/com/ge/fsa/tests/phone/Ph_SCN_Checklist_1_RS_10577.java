@@ -124,7 +124,14 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10577() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6478");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6746");
 
+		}
+			
 		// Running Pre-Req
 		commonUtility.preReqSetup();
 

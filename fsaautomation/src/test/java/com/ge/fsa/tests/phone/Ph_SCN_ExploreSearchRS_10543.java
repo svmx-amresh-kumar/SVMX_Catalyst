@@ -62,8 +62,15 @@ public class Ph_SCN_ExploreSearchRS_10543 extends BaseLib{
 	}
 
 	@Test(retryAnalyzer=Retry.class)
-	public void RS_10543Test() throws Exception {
-		
+	public void RS_10543() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6498");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6767");
+
+		}
+			
 		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");

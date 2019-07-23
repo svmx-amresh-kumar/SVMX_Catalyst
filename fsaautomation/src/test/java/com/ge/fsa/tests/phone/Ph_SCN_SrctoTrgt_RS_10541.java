@@ -83,8 +83,16 @@ public class Ph_SCN_SrctoTrgt_RS_10541 extends BaseLib {
 
 	}
 
-	@Test(enabled = true, retryAnalyzer = Retry.class)
+	@Test(retryAnalyzer = Retry.class)
 	public void RS_10541Test() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6463");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6771");
+
+		}
+			
 		sTestID = "RS_10541";
 
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreSearch");

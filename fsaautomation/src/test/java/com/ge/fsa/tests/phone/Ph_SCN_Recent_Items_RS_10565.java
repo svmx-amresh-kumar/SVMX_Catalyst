@@ -43,6 +43,14 @@ public class Ph_SCN_Recent_Items_RS_10565 extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void Recent_Items_RS_10565() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6458");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6812");
+
+		}
+			
 		sSheetName = "RS_10565";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 

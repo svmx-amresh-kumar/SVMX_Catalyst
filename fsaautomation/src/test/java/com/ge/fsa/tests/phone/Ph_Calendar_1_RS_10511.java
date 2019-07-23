@@ -43,7 +43,14 @@ public class Ph_Calendar_1_RS_10511 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void Ph_10511() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10511");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12125");
 
+		}
+		
 	commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		sSheetName ="RS_10511";

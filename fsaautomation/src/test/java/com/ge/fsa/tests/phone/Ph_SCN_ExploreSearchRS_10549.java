@@ -26,9 +26,17 @@ public class Ph_SCN_ExploreSearchRS_10549 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestID + "Sahi verification is successful");
 	}
 
-	@Test(enabled = true, retryAnalyzer=Retry.class)
-	public void RS_10549Test() throws Exception 
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10549() throws Exception 
 	{
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6486");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6781");
+
+		}
+			
 		sTestID = "RS_10549";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		
