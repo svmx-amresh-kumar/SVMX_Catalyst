@@ -9,7 +9,7 @@
 	<suite-files>
 		<!-- First Delivery -->
 			<suite-file path="ph_workBench.xml" />
-<suite-file path="ph_workBench2.xml" />
+
 
 	</suite-files>
 
