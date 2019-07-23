@@ -58,6 +58,8 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	public void prerequisites() throws Exception
 	
 	{
+		
+		
 		sSheetName ="RS_10578";
 		System.out.println("SCN_RS10578_Checklist_DVR");
 		String time = driver.getDeviceTime();
@@ -90,10 +92,11 @@ public class SCN_Checklist_2_RS_10578 extends BaseLib {
 	//@Test()
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10578() throws Exception {	
-		
-		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10578");
-		}else {
+		} else {
 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12064");
 
 		}

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="WorkBench_2">
- <listeners>
-     <!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener>
-         
-         <listener class-name="com.ge.fsa.lib.TestListener"></listener>-->
-    </listeners>
-  <test name="WorkBench_2">
-	<classes>		
-		<class name="com.ge.fsa.tests.phone.Ph_SCN_10529" />
-		<class name="com.ge.fsa.tests.phone.Ph_SCN_10530" /> 
-		</classes>
-	</test>
+<suite name="RegressionTest">
+	<listeners>
+		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
+			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
+	</listeners>
+
+	<suite-files>
+		<!-- First Delivery -->
+			<suite-file path="ph_workBench.xml" />
+
+
+	</suite-files>
+
+
 </suite> <!-- Suite -->

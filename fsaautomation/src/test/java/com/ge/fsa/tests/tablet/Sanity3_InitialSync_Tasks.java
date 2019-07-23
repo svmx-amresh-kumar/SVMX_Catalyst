@@ -15,6 +15,14 @@ public class Sanity3_InitialSync_Tasks extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario3Test() throws InterruptedException, IOException {
+		//JiraLink
+				if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+					commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12048");
+				}else {
+					commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12034");
+
+				}
+				
 		String sTaskName = "";
 		lauchNewApp("false");
 		loginHomePo.login(commonUtility, exploreSearchPo);

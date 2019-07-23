@@ -52,6 +52,14 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void Acc_pro_history_RS_10566() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10566");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12074");
+
+		}	
+		
 		sSheetName ="RS_10566";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		

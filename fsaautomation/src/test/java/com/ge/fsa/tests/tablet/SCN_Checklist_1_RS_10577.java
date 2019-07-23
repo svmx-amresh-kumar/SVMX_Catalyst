@@ -97,6 +97,13 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sScriptName = "Scenario_RS-10577_Checklist_SOU";
 
 	public void prerequisites() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10514");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10577");
+
+		}
 
 		sSheetName = "RS_10577";
 		System.out.println("SCN_RS10577_Checklist_SOU");

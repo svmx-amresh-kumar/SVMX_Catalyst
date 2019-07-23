@@ -107,13 +107,15 @@ public class SCN_Checklist_Attachment_RS_10584 extends BaseLib {
 	}
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10584() throws Exception {
-		
-		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10584");
-		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12058");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12565");
 
 		}
+
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);

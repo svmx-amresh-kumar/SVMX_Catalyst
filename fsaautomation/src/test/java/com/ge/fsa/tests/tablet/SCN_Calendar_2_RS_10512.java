@@ -50,6 +50,14 @@ public class SCN_Calendar_2_RS_10512 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	
 	public void RS_10512() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10512");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12124");
+
+		}
+				
 		sSheetName ="RS_10512";
 		
 	
