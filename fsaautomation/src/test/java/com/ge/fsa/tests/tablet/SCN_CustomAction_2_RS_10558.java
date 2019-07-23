@@ -23,6 +23,14 @@ public class SCN_CustomAction_2_RS_10558 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10558() throws Exception {
 		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10558");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12082");
+
+		}
+		
 		commonUtility.executeSahiScript(sScriptName);
 		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
