@@ -80,6 +80,13 @@ public class SCN_SrctoTrgt_RS_10540 extends BaseLib {
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10540Test() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10540");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12100");
+
+		}
 		
 		commonUtility.preReqSetup();
 		// Resinstall the app

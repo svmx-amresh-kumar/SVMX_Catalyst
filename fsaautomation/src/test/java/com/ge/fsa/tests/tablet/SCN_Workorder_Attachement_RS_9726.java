@@ -101,8 +101,15 @@ public class SCN_Workorder_Attachement_RS_9726 extends BaseLib {
 	
 	     }
 	 @Test(retryAnalyzer=Retry.class)
-	     public void RS_10584() throws Exception {
+	     public void RS_9276() throws Exception {
+			// JiraLink
+			if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+				commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-9726");
+			} else {
+				commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12570");
 
+			}
+			
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		prereq();

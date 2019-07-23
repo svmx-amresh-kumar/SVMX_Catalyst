@@ -79,6 +79,14 @@ public class SCN_SrctoTrgt_RS_10541 extends BaseLib {
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10541Test() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10541");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12099");
+
+		}
+		
 		sTestID = "RS_10541";
 		
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ExploreSearch");
