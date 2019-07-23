@@ -139,9 +139,9 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	public void RS_10577() throws Exception {
 		
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6491");
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10577");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6785");
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12065");
 
 		}
 
@@ -448,3 +448,4 @@ public class SCN_Checklist_1_RS_10577 extends BaseLib {
 	}
 
 }
+

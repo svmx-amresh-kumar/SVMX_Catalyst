@@ -21,6 +21,12 @@ public class SCN_CustomAction_1_RS_10559 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10559() throws Exception {
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10577");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12065");
+
+		}
 		
 //		//Running Pre-Req
 //		 commonsUtility.preReqSetup(genericLib);

@@ -111,6 +111,13 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10586() throws Exception {
 		
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10586");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12056");
+
+		}
+		
 		//Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";

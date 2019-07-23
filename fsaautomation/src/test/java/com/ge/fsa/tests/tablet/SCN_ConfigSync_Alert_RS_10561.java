@@ -50,6 +50,13 @@ public class SCN_ConfigSync_Alert_RS_10561 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10561() throws Exception {
 		
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10561");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12079");
+
+		}
+		
 		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");	

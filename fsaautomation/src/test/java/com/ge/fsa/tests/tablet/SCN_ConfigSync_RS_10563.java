@@ -20,6 +20,13 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10563() throws Exception {
 		
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10563");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12077");
+
+		}
+		
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");

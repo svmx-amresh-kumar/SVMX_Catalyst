@@ -136,6 +136,12 @@ public class SCN_Checklist_3_RS_10579 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10579() throws Exception {
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10579");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12063");
+
+		}
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
