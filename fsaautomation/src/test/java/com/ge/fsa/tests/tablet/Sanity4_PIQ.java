@@ -18,6 +18,14 @@ public class Sanity4_PIQ extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario4Test() throws Exception {
+		//JiraLink
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12047");
+		}else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12035");
+
+		}
+		
 		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 		
 

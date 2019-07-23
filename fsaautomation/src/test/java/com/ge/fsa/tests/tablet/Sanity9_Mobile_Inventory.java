@@ -14,6 +14,13 @@ public class Sanity9_Mobile_Inventory extends BaseLib {
 @Test(retryAnalyzer=Retry.class)
 public void Scenario9Test() throws Exception
 {
+	// JiraLink
+	if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12040");
+	} else {
+		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12042");
+
+	}
 	
 	commonUtility.preReqSetup();
 	// Resinstall the app

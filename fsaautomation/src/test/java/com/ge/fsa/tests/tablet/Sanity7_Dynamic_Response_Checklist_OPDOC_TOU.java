@@ -38,6 +38,14 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void scenario7() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12038");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12044");
+
+		}
+
 		sSheetName ="Scenario7_Checklist";
 		sTestCaseID = "Scenario7_Checklist";
 		sCaseWOID = "Data_Scenario7_Checklist";

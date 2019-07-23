@@ -37,6 +37,15 @@ public class Sanity8_Lookup_DOD extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void Scenario8Test() throws Exception {
+
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12039");
+		} else {
+			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12043");
+
+		}
+
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in
 		// Mobile Configuration
 		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
