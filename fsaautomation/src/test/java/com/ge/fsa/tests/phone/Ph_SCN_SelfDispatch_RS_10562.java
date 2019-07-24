@@ -56,9 +56,16 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 	}
 
 	@Test(enabled = true, retryAnalyzer=Retry.class)
-	public void RS_10562Test() throws Exception {
+	public void RS_10562() throws Exception {
 		
-		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6459");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6797");
+
+		}
+			
 		preRequiste();
 		sSubject = "Testing "+sWOName1+" "+sTestID;
 		

@@ -56,6 +56,14 @@ public class SCN_ExploreSearchRS_10543 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10543Test() throws Exception {
 		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10543");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12097");
+
+		}
+		
 		commonUtility.preReqSetup();
 		// Resinstall the app
 		lauchNewApp("false");

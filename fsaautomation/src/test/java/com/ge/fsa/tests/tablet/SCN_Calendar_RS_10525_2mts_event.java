@@ -57,6 +57,15 @@ public class SCN_Calendar_RS_10525_2mts_event extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10525_2months_event() throws Exception {
+		//This scenario has been split from RS-10525
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10525");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12564");
+
+		}
+
 		sSheetName ="RS_10525";
 		
 		String sProformainVoice = commonUtility.generateRandomNumber("Proforma");

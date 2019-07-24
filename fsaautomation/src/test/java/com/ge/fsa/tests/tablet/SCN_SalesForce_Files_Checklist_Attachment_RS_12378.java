@@ -122,7 +122,14 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	
 	//@Test(retryAnalyzer=Retry.class)
 	@Test()
-	public void RS_12367() throws Exception {
+	public void RS_12378() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12378");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12568");
+
+		}
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);

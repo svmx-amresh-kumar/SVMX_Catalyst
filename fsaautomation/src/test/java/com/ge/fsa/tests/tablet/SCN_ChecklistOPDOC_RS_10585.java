@@ -97,7 +97,15 @@ public class SCN_ChecklistOPDOC_RS_10585 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10585() throws Exception {
-	
+
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10585");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12057");
+
+		}
+
 		prerequisites();
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);

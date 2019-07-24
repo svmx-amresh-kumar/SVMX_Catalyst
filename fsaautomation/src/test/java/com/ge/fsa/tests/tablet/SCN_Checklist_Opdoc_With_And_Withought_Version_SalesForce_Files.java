@@ -117,7 +117,14 @@ import io.appium.java_client.touch.offset.PointOption;
 		}
 		
 		@Test(retryAnalyzer=Retry.class)
-		public void RS_9726() throws Exception {
+		public void RS_12526() throws Exception {
+			// JiraLink
+			if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+				commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12526");
+			} else {
+				commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12567");
+
+			}
 
 			// Pre Login to app
 			loginHomePo.login(commonUtility, exploreSearchPo);

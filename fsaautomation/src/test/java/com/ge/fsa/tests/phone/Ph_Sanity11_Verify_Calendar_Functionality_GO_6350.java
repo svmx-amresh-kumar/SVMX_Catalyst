@@ -54,7 +54,14 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 
 	public void Calender_6350() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6350");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6932");
 
+		}
+		
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generateRandomNumber("");

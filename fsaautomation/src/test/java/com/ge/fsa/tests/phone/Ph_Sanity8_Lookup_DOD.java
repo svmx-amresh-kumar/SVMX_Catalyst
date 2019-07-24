@@ -33,7 +33,14 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void Scenario8Test() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6522");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6791");
 
+		}
+		
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in
 		// Mobile Configuration
 		try

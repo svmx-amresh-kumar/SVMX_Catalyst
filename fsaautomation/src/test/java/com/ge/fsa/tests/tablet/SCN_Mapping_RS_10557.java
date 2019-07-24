@@ -62,10 +62,18 @@ String Location=null;
 		
 	} 
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	
 	public void RS_10557() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10557");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12083");
+
+		}
+		
 		sSheetName ="RS_10557";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 		

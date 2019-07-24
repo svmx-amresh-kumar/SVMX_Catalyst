@@ -33,6 +33,14 @@ public class Ph_SCN_Calender_3_RS_11859 extends BaseLib {
 	@Test()
 
 	public void Calender_3_RS_11859() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6487");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6783");
+
+		}
+			
 		//sSheetName = "RS_10513";
 		
 

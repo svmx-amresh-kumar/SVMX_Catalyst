@@ -37,6 +37,14 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void Ph_SCN_Opdoc_RS_10571() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6451");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6736");
+
+		}
+			
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreSearch");
 //		System.out.println(sExploreSearch);
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestCaseID,"ExploreChildSearch");

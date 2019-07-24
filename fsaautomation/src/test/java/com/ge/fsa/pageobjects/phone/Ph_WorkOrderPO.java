@@ -1570,7 +1570,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	
-	@AndroidFindBy(xpath = "//*[@text='Customer Down']//following-sibling::*[@*='ON']")
+	@AndroidFindBy(xpath = "//*[@text='Customer Down']//following-sibling::*[@*[contains(.,'SFM.LAYOUT.BOOLEAN_SWITCH')]]")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Customer Down')]//XCUIElementTypeSwitch[contains(@name,'SFM.LAYOUT.BOOLEAN_SWITCH')]")
 	private WebElement eleCustomerDowntoggle;
 
@@ -1812,6 +1812,44 @@ public class Ph_WorkOrderPO {
 		return eleWorkDetailItemCheckbox;
 	}
 	
+	public WebElement getEleAutoChkBx(String status) {
+		return driver.findElement(By.xpath("//*[@*='RS_10552_AutoChkBx']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]][@*='"+status+"']"));
+	}
 	
+	@FindBy(xpath="//*[@*='RS_10552_AutoChkBx']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
+	private WebElement eleAutoChkBx;
+	public WebElement getEleAutoChkBx() {
+		return eleAutoChkBx;
+	}
+	
+	@FindBy(xpath="//*[@*='Use Price From Pricebook/Contract']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
+	private WebElement eleUsePriceFromPricebook;
+	public WebElement getEleUsePriceFromPricebook() {
+		return eleUsePriceFromPricebook;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'AutoActivityMonth')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	private WebElement eleAutoActivityMonth;
+	public WebElement getEleAutoActivityMonth() {
+		return eleAutoActivityMonth;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'AutoActivityYear')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	private WebElement eleAutoActivityYear;
+	public WebElement getEleAutoActivityYear() {
+		return eleAutoActivityYear;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'AutoDiscountLinePrice')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	private WebElement eleAutoDiscountLinePrice;
+	public WebElement getEleAutoDiscountLinePrice() {
+		return eleAutoDiscountLinePrice;
+	}
+	
+	@FindBy(xpath="//*[@*[contains(.,'AutoCalLinePrice')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	private WebElement eleAutoCalLinePrice;
+	public WebElement getEleAutoCalLinePrice() {
+		return eleAutoCalLinePrice;
+	}
 
 }

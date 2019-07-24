@@ -5,7 +5,9 @@
     </listeners>
 <test name="WorkBench">
 		<classes>	
-		<class name="com.ge.fsa.tests.WorkBench" /> 
+<class name="com.ge.fsa.tests.phone.Ph_SCN_10529" />
+		<class name="com.ge.fsa.tests.phone.Ph_SCN_10530" /> 
+		
 	
 		</classes>
 	</test> <!-- Test -->

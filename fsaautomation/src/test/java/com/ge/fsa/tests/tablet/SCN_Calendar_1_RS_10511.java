@@ -57,6 +57,14 @@ public class SCN_Calendar_1_RS_10511 extends BaseLib {
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10511() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10511");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12125");
+
+		}
+
 		sSheetName ="RS_10511";
 		sDeviceDate = driver.getDeviceTime().split(" ");
 	

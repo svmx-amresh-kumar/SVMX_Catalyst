@@ -51,6 +51,14 @@ public class SCN_Calender_3_RS_10513 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	//@Test()
 	public void RS_10513() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10513");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12123");
+
+		}
+
 		sSheetName ="RS_10513";
 		
 	

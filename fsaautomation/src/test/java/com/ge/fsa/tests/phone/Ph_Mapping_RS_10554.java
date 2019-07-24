@@ -52,6 +52,14 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	//@Test(retryAnalyzer=Retry.class)
 	@Test()
 	public void RS_10554() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10554");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12086");
+
+		}
+		
 		sSheetName ="RS_10554";
 		String sProformainVoice = commonUtility.generateRandomNumber("AUTO");
 		String sTestCaseID="RS-10554_mapping";

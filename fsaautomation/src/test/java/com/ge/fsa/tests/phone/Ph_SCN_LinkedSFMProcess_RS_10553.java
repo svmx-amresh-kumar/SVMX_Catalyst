@@ -31,7 +31,14 @@ public class Ph_SCN_LinkedSFMProcess_RS_10553 extends BaseLib{
 
 	@Test(retryAnalyzer = Retry.class)
 	public void RS_10553() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6500");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6794");
 
+		}
+			
 		System.out.println("SCN_LinkedSFMProcess_RS_10553");
 		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "appium/scenario_10553.sah", "LinkedSFMProcess_10553");
 

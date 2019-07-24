@@ -27,7 +27,14 @@ public class Ph_SCN_ZeroLines_RS_10516 extends BaseLib{
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10516() throws Exception {
-		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6502");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6817");
+
+		}
+			
 		System.out.println("SCN_RS10516_ZeroLines");
 		String sProcessname = "SFMProcessforRS_10516";
 		boolean configSync=commonUtility.ProcessCheck(restServices, sProcessname, "scenario_10516", "SCN_RS10516_ZeroLines");

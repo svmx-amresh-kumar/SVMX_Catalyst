@@ -178,6 +178,14 @@ public class SCN_Creating_Editing_RS_10574 extends BaseLib {
 	///@Test(enabled = true,dependsOnMethods= {"SCN_SrctoTrgt_RS_10562Test"})
 	public void RS_10574() throws Exception {
 		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10574");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12068");
+
+		}
+		
 	//	new SCN_SelfDispatch_RS_10562().SCN_SrctoTrgt_RS_10562();
 		
 	//	restServices.getAccessToken();

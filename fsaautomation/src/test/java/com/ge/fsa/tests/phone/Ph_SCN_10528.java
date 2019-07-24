@@ -32,7 +32,14 @@ public class Ph_SCN_10528 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10528() throws Exception {
-	
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6445");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6799");
+
+		}
+		
 	bProcessCheckResult = commonUtility.ProcessCheck(restServices, sProcessName, sScriptName, sTestCaseID);
 	
 // **********Create Account**********

@@ -34,7 +34,15 @@ public class SCN_Calander_7_RS_10526 extends BaseLib
 
 	@Test(retryAnalyzer=Retry.class)
 public void RS_10526() throws Exception
-{		
+{	
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10526");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12114");
+
+		}	
+		
 		lauchNewApp("false");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");

@@ -68,6 +68,15 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 	@Test(enabled = true, retryAnalyzer=Retry.class)
 	public void RS_10546Test() throws Exception 
 	{
+		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10546");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12094");
+
+		}
+		
 		sTestID = "RS_10549";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID,"ExploreSearch");
 		preRequiste();

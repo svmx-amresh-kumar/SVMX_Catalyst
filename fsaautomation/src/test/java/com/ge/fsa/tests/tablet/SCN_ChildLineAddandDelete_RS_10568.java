@@ -37,7 +37,13 @@ public class SCN_ChildLineAddandDelete_RS_10568 extends BaseLib {
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10568() throws Exception {
 		
-		System.out.println("SCN_RS10568_ChildLineAddDelete");
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10568");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12072");
+
+		}
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 

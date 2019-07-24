@@ -105,10 +105,18 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		 */
 	}
 
-	@Test()
-	// @Test(retryAnalyzer=Retry.class)
-	public void SCN_RS_10552() throws Exception {
-		sSheetName = "RS_10552";
+
+	@Test(retryAnalyzer=Retry.class)
+	public void RS_10552() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6523");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6796");
+
+		}
+			
+		sSheetName ="RS_10552";
 		sTestCaseID = "RS_10552";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
