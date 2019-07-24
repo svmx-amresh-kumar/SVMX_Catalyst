@@ -1,5 +1,10 @@
 package com.ge.fsa.tests.phone;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,9 +17,8 @@ import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.RestServices;
 import com.ge.fsa.lib.Retry;
 
-public class Ph_SCN_Formula_RS_10552 extends BaseLib{
+public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 
-	
 	int iWhileCnt = 0;
 	String sTestCaseID = null;
 	String sWorkOrderID = null;
@@ -28,247 +32,204 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib{
 	String sProductName = null;
 	String sWOName = null;
 	String sWOSqlQuery = null;
-	String sSheetName =null;
+	String sSheetName = null;
 	String sTestID = null;
-	String[] sDate=null;
-	String sCompletedDateTxt=null;
-	String sActualDateTxt=null;
-	String sAutoDate=null;
-	String sPreviousDate=null;
-	String sOnsiteDate=null;
-	String sSerialNumber=null;
-	String sJsonData=null;
-	String sObjectApi=null;
-	String sSqlQuery=null;
-	int iDay=0;
-	int iMonth=0;
-	int iYear=0;
-	boolean presence=false;
-	
-	public void preRequiste() throws Exception { 
-		
-		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
-		iYear=Integer.parseInt(sDate[0])+1;
-		sAutoDate=sDate[1]+"/"+1+"/"+iYear;
-		iDay = Integer.parseInt(sDate[2])-1;
-		sPreviousDate = Integer.parseInt(sDate[1])+"/"+iDay+"/"+sDate[0];
-		sOnsiteDate=Integer.parseInt(sDate[1])+"/"+Integer.parseInt(sDate[2])+"/"+sDate[0];	
-		
-		if(Integer.parseInt(sDate[2])>28)
-		{
-			sDate[2]="1";
-			iMonth=Integer.parseInt(sDate[1])+1;
-			if(iMonth>12) {
-				iMonth=01;
-			}
-			sDate[1]=""+iMonth;
-		}
-		sCompletedDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
-		iDay=Integer.parseInt(sDate[2])+2;
-		sDate[2]=""+iDay;
-		sActualDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
+//	String sDate = null;
+	String sCompletedDateTxt = null;
+	String sActualDateTxt = null;
+	String sAutoDate = null;
+	String sPreviousDate = null;
+	String sOnsiteDate = null;
+	String sSerialNumber = null;
+	String sJsonData = null;
+	String sObjectApi = null;
+	String sSqlQuery = null;
+	int iDay = 0;
+	int iMonth = 0;
+	int iYear = 0;
+	boolean presence = false;
+	boolean bProcessCheckResult = false;
+	Calendar cal = null;
+
+	public void preRequiste() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");
+		Date date = format.parse(ph_ChecklistPO.get_device_date(commonUtility));// E MMM d HH:mm:ss z yyyy
+		SimpleDateFormat restServiceFormat = new SimpleDateFormat("yyyy-MM-dd");
+		cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.YEAR, 1);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		sAutoDate = format.format(cal.getTime());
+		cal.setTime(date);
+		sCompletedDateTxt = restServiceFormat.format(cal.getTime());
+		cal.add(Calendar.DAY_OF_MONTH, 2);
+		sActualDateTxt = restServiceFormat.format(cal.getTime());
+		cal.setTime(date);
+		sOnsiteDate = format.format(cal.getTime());
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		sPreviousDate = format.format(cal.getTime());
+		cal.setTime(date);
+		System.out.println("Completed *****" + sCompletedDateTxt);
+		System.out.println("Actual *****" + sActualDateTxt);
+		System.out.println("sAutoDate *****" + sAutoDate);
+		System.out.println("sOnsiteDate *****" + sOnsiteDate);
+		System.out.println("sPreviousDate *****" + sPreviousDate);
 //		
-		System.out.println("Completed *****"+sCompletedDateTxt);
-		System.out.println("Actual *****"+sActualDateTxt);
-		System.out.println("sAutoDate *****"+sAutoDate);
-		System.out.println("sOnsiteDate *****"+sOnsiteDate);
-		System.out.println("sPreviousDate *****"+sPreviousDate);
-//		
-	restServices = new RestServices();
-	restServices.getAccessToken();
-	sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
+//		restServices = new RestServices();
+//		restServices.getAccessToken();
+		sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
 //		
 //		//Creation of dynamic Work Order
-	sWOObejctApi="SVMXC__Service_Order__c?";
-	sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__Actual_Initial_Response__c\":\""+sActualDateTxt+"\",\"SVMXC__Completed_Date_Time__c\":\""+sCompletedDateTxt+"\",\"SVMXC__State__c\":\"Haryana\"}";
-	sWorkOrderID=restServices.restCreate(sWOObejctApi,sWOJsonData);
-	sWOSqlQuery ="SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWorkOrderID+"\'";				
-	sWOName =restServices.restGetSoqlValue(sWOSqlQuery,"Name"); //"WO-00000455"; 
-	
+		sWOObejctApi = "SVMXC__Service_Order__c?";
+		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__Actual_Initial_Response__c\":\"" + sActualDateTxt + "\",\"SVMXC__Completed_Date_Time__c\":\""
+				+ sCompletedDateTxt + "\",\"SVMXC__State__c\":\"Haryana\"}";
+		sWorkOrderID = restServices.restCreate(sWOObejctApi, sWOJsonData);
+		sWOSqlQuery = "SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWorkOrderID + "\'";
+		sWOName = restServices.restGetSoqlValue(sWOSqlQuery, "Name"); // "WO-00000455";
 
 //		
 //		//Creation of product
-	sJsonData = "{\"Name\": \""+sSerialNumber+"\", \"IsActive\": \"true\"}";
-	sObjectApi = "Product2?";
-	sObjectID=restServices.restCreate(sObjectApi,sJsonData);
-	sSqlQuery ="SELECT+name+from+Product2+Where+id+=\'"+sObjectID+"\'";				
-	sProductName  =restServices.restGetSoqlValue(sSqlQuery,"Name"); 
-		
-/*		commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah", sTestCaseID);
-		
-		ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID + "Sahi verification failure");
-*/		
+		sJsonData = "{\"Name\": \"" + sSerialNumber + "\", \"IsActive\": \"true\"}";
+		sObjectApi = "Product2?";
+		sObjectID = restServices.restCreate(sObjectApi, sJsonData);
+		sSqlQuery = "SELECT+name+from+Product2+Where+id+=\'" + sObjectID + "\'";
+		sProductName = restServices.restGetSoqlValue(sSqlQuery, "Name");
+		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, "/appium/RS_10552_prerequisite.sah", sTestCaseID);
+
+		/*
+		 * commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah",
+		 * sTestCaseID);
+		 * 
+		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
+		 * "Sahi verification failure");
+		 */
 	}
-	
-	
+
 	@Test()
-	//@Test(retryAnalyzer=Retry.class)
+	// @Test(retryAnalyzer=Retry.class)
 	public void SCN_RS_10552() throws Exception {
-		sSheetName ="RS_10552";
+		sSheetName = "RS_10552";
 		sTestCaseID = "RS_10552";
-		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
-		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreSearch");
+		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ExploreChildSearch");
+		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "ProcessName");
 		preRequiste();
-		
-		//Pre Login to app
+
+		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
-		//Config Sync for process
-		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		Thread.sleep(CommonUtility.iMedSleep);
-			
-		//Data Sync for WO's created
+
+		// Data Sync for WO's created
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep); 
-		//sFieldServiceName="RS_10552Process";
-		
-		//Navigation to SFM
+
+		// Navigation to SFM
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 		Thread.sleep(CommonUtility.iMedSleep);
-		
-		//Validation of Next Scheduled date, Actual Onsite Response, Customer OFF button
-		
-		
-		Assert.assertTrue(sAutoDate.contains(ph_WorkOrderPo.getAutoDate().getText()),"Next Scheduled Date is not set to 1st day of the created month in next year.");
-		ExtentManager.logger.log(Status.PASS,"Next Scheduled Date is set to 1st day of the created month in next year.");
 
-/*		Assert.assertTrue(ph_WorkOrderPo.getAutomationDateTime().getText().contains(sOnsiteDate) || (workOrderPo.getEleDateTimeLst().get(3).getAttribute("value")).contains(sPreviousDate),"Actual Onsite Response is not set to current date.");
-		ExtentManager.logger.log(Status.PASS,"Actual Onsite Response is set to current date.");
+		// Validation of Next Scheduled date, Actual Onsite Response, Customer OFF
+		// button
+
+		Assert.assertEquals(ph_WorkOrderPo.getAutoDate().getText().trim(),sAutoDate, "Next Scheduled Date is not set to 1st day of the created month in next year.");
+		ExtentManager.logger.log(Status.PASS, "Next Scheduled Date is set to 1st day of the created month in next year.");
+
+		Assert.assertEquals(ph_WorkOrderPo.getAutomationNumber().getText().trim(),"2", "Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
+		ExtentManager.logger.log(Status.PASS, "Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
 		
-*/		Assert.assertTrue(ph_WorkOrderPo.getAutomationNumber().getText().equals("2"),"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
-		ExtentManager.logger.log(Status.PASS,"Difference in days from Actual Initial Response to Completed Date Time, should be updated for Initial To Completion Days field.");
-/*		Assert.assertTrue(ph_WorkOrderPo.getToggleCustomerDown().isDisplayed(), " Customer Down is not OFF for contract");
-		ExtentManager.logger.log(Status.PASS,"Order status is open and Customer down is OFF");
-*/		
-		//Validation of Order status and change the status
-		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Closed"), " Order status is not open.");
-		ExtentManager.logger.log(Status.PASS,"Order status is open.");
-		Thread.sleep(CommonUtility.iMedSleep);
-		commonUtility.switchContext("Webview");
+		// Validation of Order status and change the status
+		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.geteleOrderStatus(), "Open", "Closed"), " Order status is not open.");
+		ExtentManager.logger.log(Status.PASS, "Order status is open.");
+
+		// Validation of Autocheck box off for Billing type contract
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Contract.");
+
+		// Validation of Billing type not changed and changing the billing type
+		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.getEleBillingTypeField(), "Contract", "Courtesy"), " Billing type is not contract.");
+		ExtentManager.logger.log(Status.PASS, "Billing type is Contract.");
+		ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
+
+		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.geteleOrderStatus(), "Open", "Open"), " Order status is not open.");
+		ExtentManager.logger.log(Status.PASS, "Order status is still open as customer down is OFF");
+
+		// Validating for check box is OFF when Billing type is Coutesy
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Courtesy.");
+		ph_WorkOrderPo.getEleAutoChkBx().click();
 		
-		//Validation of Autocheck box off for Billing type contract
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Contract.");
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		//Validation of Billing type not changed and changing the billing type
-		Assert.assertTrue(verifyListValue(workOrderPo.getEleWOBillingTypeCaseLst(),"Contract","Courtesy"), " Billing type is not contract.");
-		ExtentManager.logger.log(Status.PASS,"Billing type is Contract.");
-		Thread.sleep(CommonUtility.iMedSleep);
-		commonUtility.switchContext("Webview");
-		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		Assert.assertTrue(verifyListValue(workOrderPo.getEleOrderStatusCase2Lst(),"Open","Open"), " Order status is not open.");
-		ExtentManager.logger.log(Status.PASS,"Order status is still open as customer down is OFF");
-		Thread.sleep(CommonUtility.iMedSleep);
-		commonUtility.switchContext("Webview");
-		
-		//Validating for check box is OFF when Billing type is Coutesy
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
-		commonUtility.longPress(workOrderPo.getEleAutoChkBxRdBtn());
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOnRdBtn().isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is ON for Billing Type Contract.");
-		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(CommonUtility.iMedSleep);
-		//Validating for check box is OFF when Billing type is Coutesy
-		Assert.assertTrue(workOrderPo.getEleAutoChkBxOFFRdBtn().isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
-		ExtentManager.logger.log(Status.PASS,"Auto Check Box is OFF for Billing Type Courtesy.");
-		
-		//Addition of Parts
-		workOrderPo.addParts(commonUtility, workOrderPo, sProductName);
-		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		//Enter line price in parts
-		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		commonUtility.tap(workOrderPo.getEleUsePriceToggleBtn());
-		commonUtility.tap(workOrderPo.getEleLineQtyTxtFld());
-		workOrderPo.getEleLineQtyTxtFld().clear();
-		workOrderPo.getEleLineQtyTxtFld().sendKeys("10");
-		commonUtility.tap(workOrderPo.getEleLinePerUnitTxtFld());
-		workOrderPo.getEleLinePerUnitTxtFld().clear();
-		workOrderPo.getEleLinePerUnitTxtFld().sendKeys("10.5");
-		Thread.sleep(1000);
-		
-		commonUtility.tap(workOrderPo.getEleDiscountTxtFld());
-		workOrderPo.getEleDiscountTxtFld().sendKeys("3");
-		//Set Start time for event
-		commonUtility.setDateTime24hrs(workOrderPo.getEleStartDateandTimeTxtFld(), 0, "0", "0");
-		commonUtility.setDateTime24hrs(workOrderPo.getEleEndDateandTimeTxtFld(), 1, "0", "0");
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		
-		//Save the parts details
-		commonUtility.tap(workOrderPo.getEleQuickSaveIcn());
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		//Validation of formula after adding parts
-		workOrderPo.getEleAutoActivityMonthTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals(""+Integer.parseInt(sDate[1])), "Activity month is displayed ");
-		ExtentManager.logger.log(Status.PASS,"Activity month value is displayed as expected.");
-		
-		workOrderPo.getEleAutoActivityYearTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoActivityYearTxtFld().getAttribute("value").equals(sDate[0]), "Activity year is displayed");
-		ExtentManager.logger.log(Status.PASS,"Activity year value is displayed as expected.");
-		
-		workOrderPo.getEleAutoDiscountLinePriceTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoDiscountLinePriceTxtFld().getAttribute("value").equals("10.5"), "Auto Discount line price is not displayed.");
-		ExtentManager.logger.log(Status.PASS,"Auto Discount Line price is displayed as expected.");
-		
-		System.out.println(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value"));
-		workOrderPo.getEleAutoCalLinePriceTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value").equals("0"), "Auto call line price is not displayed.");
-		ExtentManager.logger.log(Status.PASS,"Auto Call Line price is displayed as expected.");
-		
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		Thread.sleep(CommonUtility.iMedSleep);
-			
-		//Validating for change of order status when customer down is on.
-		commonUtility.longPress(workOrderPo.getEleCustomerDownRdBtn());
-		Assert.assertTrue(workOrderPo.getEleCustomerDownOnRdBtn().isDisplayed(), " Customer Down is not ON");
-		ExtentManager.logger.log(Status.PASS,"Customer down is set to ON");
-		Thread.sleep(CommonUtility.iMedSleep);
-		
-		//Update the WorkOrder and validate if the Order status is now changed
-		commonUtility.setPickerWheelValue(workOrderPo.getEleOrderStatusCase2Lst(), "Completed");
-		Thread.sleep(CommonUtility.iMedSleep);
-		commonUtility.switchContext("Webview");
-		commonUtility.tap(workOrderPo.getEleSaveLnk());
-		Thread.sleep(CommonUtility.iLowSleep);
-		
-		//Navigation to SFM
-		workOrderPo.navigateToWOSFM(commonUtility, exploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
-		Thread.sleep(CommonUtility.iMedSleep);
-		Assert.assertTrue(workOrderPo.getEleThisRecorddoesnotMeetTxt().isDisplayed(), "WorkOrder status is changed after customer down is checked");
-		ExtentManager.logger.log(Status.PASS,"Order status is successfully changed once the customer down is checked");
-		
-		
-		try {workOrderPo.getEleOKBtn().click();}catch(Exception e) {commonUtility.tap(workOrderPo.getEleOKBtn());}
-		
+		// Validating for check box is OFF when Billing type is Coutesy
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Courtesy.");
+
+		// Addition of Parts
+		ph_WorkOrderPo.addParts(commonUtility, sProductName);
+		ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
+
+		// Enter line price in parts
+		ph_WorkOrderPo.getChildLineAddedItem(sProductName).click();
+		ph_WorkOrderPo.getEleUsePriceFromPricebook().click();
+		ph_WorkOrderPo.getEleLineQtyField().click();
+		ph_WorkOrderPo.getEleLineQtyField().clear();
+		ph_WorkOrderPo.getEleLineQtyField().sendKeys("10");
+		ph_WorkOrderPo.getEleLinePriceField().click();
+		ph_WorkOrderPo.getEleLinePriceField().clear();
+		ph_WorkOrderPo.getEleLinePriceField().sendKeys("10.5");
+
+		ph_WorkOrderPo.getEleDiscountPercentage().click();
+		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys("3");
+		// Set Start time for event
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
+		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
+		ph_WorkOrderPo.getElesave().click();
+
+		// Save the parts details
+		ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
+
+		ph_WorkOrderPo.getChildLineAddedItem(sProductName).click();
+
+		// Validation of formula after adding parts
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityMonth().getText().trim(),String.valueOf(cal.get(Calendar.MONTH)), "Activity month is displayed ");
+		ExtentManager.logger.log(Status.PASS, "Activity month value is displayed as expected.");
+
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityYear().getText().trim(),String.valueOf(cal.get(Calendar.MONTH)), "Activity year is displayed");
+		ExtentManager.logger.log(Status.PASS, "Activity year value is displayed as expected.");
+
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoDiscountLinePrice().getText().trim(),"10.5", "Auto Discount line price is not displayed.");
+		ExtentManager.logger.log(Status.PASS, "Auto Discount Line price is displayed as expected.");
+
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoCalLinePrice().getText().trim(),"0", "Auto call line price is not displayed.");
+		ExtentManager.logger.log(Status.PASS, "Auto Call Line price is displayed as expected.");
+
+		ph_WorkOrderPo.getElesave().click();
+
+
+		// Validating for change of order status when customer down is on.
+		ph_WorkOrderPo.getEleCustomerDown().click();
+		Assert.assertTrue(ph_WorkOrderPo.getEleCustomerDown().getText().equals("ON"), " Customer Down is not ON");
+		ExtentManager.logger.log(Status.PASS, "Customer down is set to ON");
+
+		// Update the WorkOrder and validate if the Order status is now changed
+		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Completed");
+		ph_WorkOrderPo.getElesave().click();
+
+
+		// Navigation to SFM
+		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
+		Assert.assertTrue(ph_WorkOrderPo.getEleThisRecordDoesNotPopup().isDisplayed(), "WorkOrder status is changed after customer down is checked");
+		ExtentManager.logger.log(Status.PASS, "Order status is successfully changed once the customer down is checked");
+
+		ph_WorkOrderPo.getEleBackButton().click();
+
 	}
-	
-	public boolean verifyListValue(WebElement elePickerLst,String sStatus, String sSetlistTxt) throws InterruptedException {
-		
-		if(BaseLib.sOSName.equals("android")){
-			commonUtility.tap(elePickerLst);
-			commonUtility.switchContext("Native");
-			presence=commonUtility.getEleAndroidWheelPopUp().getText().equals(sStatus);
-			commonUtility.getElePicklistValue(sSetlistTxt).click();
-		}
-		else {
-			elePickerLst.click();
-			commonUtility.switchContext("Native");
-			presence=commonUtility.getElePickerWheelPopUp().getText().equals(sStatus);
-			commonUtility.getElePickerWheelPopUp().sendKeys(sSetlistTxt);
-			commonUtility.getEleDonePickerWheelBtn().click();
-		}
-		commonUtility.switchContext("webview");
+
+	public boolean verifyListValue(WebElement elePickerLst, String sStatus, String sSetlistTxt) throws InterruptedException {
+
+		presence = elePickerLst.getText().trim().equals(sStatus);
+		elePickerLst.click();
+		driver.findElement(By.xpath("//*[@*='" + sSetlistTxt + "']")).click();
 		return presence;
 	}
-
 
 }
