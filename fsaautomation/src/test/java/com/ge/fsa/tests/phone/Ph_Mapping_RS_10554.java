@@ -49,8 +49,8 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	Boolean bProcessCheckResult = false;
 	String ScheduledDate="29/8/2018";
 
-	//@Test(retryAnalyzer=Retry.class)
-	@Test()
+	@Test(retryAnalyzer=Retry.class)
+	//@Test()
 	public void RS_10554() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
@@ -110,6 +110,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		
 		 String stempDate = ph_CalendarPo.convertedformate(sIBLastModifiedBy,"yyyy-MM-dd'T'HH:mm:ss","d/M/y HH:mm");
 		
+		 lauchNewApp("false");
 			//Pre Login to app
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
