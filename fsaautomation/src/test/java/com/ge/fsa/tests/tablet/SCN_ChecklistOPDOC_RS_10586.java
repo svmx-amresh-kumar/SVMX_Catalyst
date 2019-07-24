@@ -110,6 +110,20 @@ public class SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10586() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10586");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12056");
+
+		}
+		
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10586");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12056");
+
+		}
 		
 		//Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";

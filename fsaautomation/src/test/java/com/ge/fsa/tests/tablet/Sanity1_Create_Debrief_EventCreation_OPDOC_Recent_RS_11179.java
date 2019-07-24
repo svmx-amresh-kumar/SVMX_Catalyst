@@ -42,6 +42,14 @@ public class Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 extends 
 	@Test(retryAnalyzer=Retry.class)
 public void Scenario1Test() throws Exception
 {		
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11179");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12051");
+
+		}
+
 	String sTestDataValue = "SCN_RS_11179";
 	sSheetName ="RS_11179";
 	

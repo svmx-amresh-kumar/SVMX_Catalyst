@@ -106,6 +106,13 @@ public class SCN_SalesForce_Files_WO_Debrief_RS_12367 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_12367() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12367");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12569");
+
+		}
 
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);

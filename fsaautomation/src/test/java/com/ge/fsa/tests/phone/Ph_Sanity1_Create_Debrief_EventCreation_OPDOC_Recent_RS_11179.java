@@ -60,8 +60,14 @@ public class Ph_Sanity1_Create_Debrief_EventCreation_OPDOC_Recent_RS_11179 exten
 
 	//@Test()
 	@Test(retryAnalyzer=Retry.class)
-	public void iphone() throws Exception
+	public void GO_6491() throws Exception
 	{	
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6491");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6785");
+
+		}
 /*	commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
 	
 	ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");

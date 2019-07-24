@@ -83,8 +83,15 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 
 	// @Test()
 	@Test(enabled = true, retryAnalyzer = Retry.class)
-	public void RS_10542Test() throws Exception {
-		
+	public void RS_10542() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6462");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6769");
+
+		}
+			
 		sTestID = "RS_10542";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreSearch");
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sTestID, "ExploreChildSearch");

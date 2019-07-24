@@ -113,7 +113,14 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	@Test()
 	// @Test(retryAnalyzer=Retry.class)
 	public void RS_10586() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6482");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6770");
 
+		}
+			
 		// Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";

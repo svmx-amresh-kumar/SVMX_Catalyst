@@ -74,7 +74,14 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 	// @Test()
 	@Test(retryAnalyzer = Retry.class)
 	public void scenario2_checklist() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6490");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6784");
 
+		}
+		
 		sSheetName = "RS_2389";
 		sTestCaseID = "RS_2389_checklist";
 		sCaseWOID = "RS_2389_checklistID";

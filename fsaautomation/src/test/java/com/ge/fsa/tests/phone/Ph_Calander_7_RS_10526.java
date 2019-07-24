@@ -36,7 +36,14 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 
 	@Test(retryAnalyzer = Retry.class)
 	public void Ph_10526() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10526");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12114");
 
+		}
+		
 		String sTestCaseID = "Ph_10526_Calender_7";
 
 		lauchNewApp("false");

@@ -129,7 +129,14 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 	
 	     @Test(retryAnalyzer=Retry.class)
 
-	     public void RS_10584() throws Exception {
+	     public void RS_12341() throws Exception {
+	    	// JiraLink
+	 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+	 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12341");
+	 		} else {
+	 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12566");
+
+	 		}
 
 		 // Pre Login to app
 		 loginHomePo.login(commonUtility, exploreSearchPo);

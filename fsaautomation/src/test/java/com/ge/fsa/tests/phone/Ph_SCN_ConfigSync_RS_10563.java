@@ -21,7 +21,14 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void Ph_RS_10563() throws Exception {
-		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6443");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6814");
+
+		}
+			
 		String sWORecordID = restServices.restCreate("SVMXC__Service_Order__c?","{}");
 		System.out.println(sWORecordID);
 		String sWOName = restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'"+sWORecordID+"\'", "Name");

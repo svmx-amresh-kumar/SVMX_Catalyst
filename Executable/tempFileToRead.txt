@@ -1,78 +1,76 @@
 ActivationState: Activated
 ActivationStateAcknowledged: true
 BasebandActivationTicketVersion: V2
-BasebandCertId: 2315222105
-BasebandChipID: 241889
-BasebandFactoryMasterKeyHash: 0CBE95067D0AA64C5D73189436BC7A5DDD342580BB65C100E5C9EAE9AF09E4BB
+BasebandCertId: 165673526
+BasebandChipID: 94
+BasebandFactoryMasterKeyHash: F1A0CA631C0D55C3C86F185A55AB915DD6D201DF8E91CAF887C207787C3FD94649A3375B37417C404AB5E2EC7B51A447
 BasebandKeyHashInformation: 
- AKeyStatus: 2
- SKeyHash: u+/tcCwvaQ+1Y9t40I4yegCEmB28mALlaROhaIVGBWo=
- SKeyStatus: 0
-BasebandMasterKeyHash: 8CB15EE4C8002199070D9500BB8FB183B02713A5CA2A6B92DB5E75CE15536182
+ AKeyStatus: 64
+ SKeyStatus: 2
+BasebandMasterKeyHash: 1B41607650EBF11C6B39F41CB267DC64C121A9BCF44DBA5D28F55ACC86361BBA366554CD57B4C466055803E1EF81C870
 BasebandRegionSKU: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
-BasebandSerialNumber: RRb0FA==
+BasebandSerialNumber: a9oR/PMDdVQAAAAA
 BasebandStatus: BBInfoAvailable
-BasebandVersion: 3.31.00
-BluetoothAddress: 94:f6:d6:a5:9c:0e
-BoardId: 2
+BasebandVersion: 1.02.18
+BluetoothAddress: f4:06:16:79:76:94
+BoardId: 12
 BrickState: false
-BuildVersion: 16D57
-CPUArchitecture: arm64
+BuildVersion: 16C104
+CPUArchitecture: arm64e
 CarrierBundleInfoArray[0]: 
-CertID: 2315222105
-ChipID: 32789
-ChipSerialNo: RRb0FA==
+CertID: 165673526
+ChipID: 32800
+ChipSerialNo: a9oR/PMDdVQAAAAA
 DeviceClass: iPhone
 DeviceColor: 1
-DeviceName: Mohanlal
-DieID: 2384901150081070
-EthernetAddress: 94:f6:d6:a4:0b:91
+DeviceName: Rajinikanth
+DieID: 2832694715154478
+EthernetAddress: f4:06:16:77:3b:14
 FirmwareVersion: iBoot-4513.230.10
 FusingStatus: 3
-HardwareModel: D20AP
-HardwarePlatform: t8015
+HardwareModel: N841AP
+HardwarePlatform: t8020
 HasSiDP: true
 HostAttached: true
-InternationalMobileEquipmentIdentity: 354898097411721
-MLBSerialNumber: C7H90570TXTJ0Y1AF
-MobileEquipmentIdentifier: 35489809741172
+InternationalMobileEquipmentIdentity: 353059103168133
+InternationalMobileEquipmentIdentity2: 353059102975959
+MLBSerialNumber: F3X90170CFRL1P1A
+MobileEquipmentIdentifier: 35305910316813
 MobileSubscriberCountryCode: 
 MobileSubscriberNetworkCode: 
-ModelNumber: MQ6K2
+ModelNumber: MRYU2
 NonVolatileRAM: 
  auto-boot: dHJ1ZQ==
- backlight-level: MTQ5OQ==
+ backlight-level: MTQ1NA==
  boot-args: 
  bootdelay: MA==
- com.apple.System.tz0-size: MHgxN0NDMDAw
+ com.apple.System.tz0-size: MHg4RDAwMDAw
 PartitionType: GUID_partition_scheme
 PasswordProtected: false
-PkHash: if98WU1oTt+jcaZlvUC9AOG/rlbJxZpIN+cg7Rv1bCY=
+PkHash: Cd/6NgojZdvFdrua7kmhbhH9801PcduVa9Xn90f53Ro=
 ProductName: iPhone OS
-ProductType: iPhone10,1
-ProductVersion: 12.1.4
+ProductType: iPhone11,8
+ProductVersion: 12.1.2
 ProductionSOC: true
 ProtocolVersion: 2
-ProximitySensorCalibration: f3oABTIAHgD/d0BBZNgNQgAAyEL7hxhBD7EDQgAAFkP7hxhBD7EDQgAAFkMWYLFC9+CZwJV/g0QD7oJEMGiERKrAhEShA8lBlq/RQRy86EF7HexBAAAgQp/E7EIBaQJCAABIQisLpkMZcKVDMy73RXLMXEOXZxgiARsIDkEGiEWif4hDBJUqRQMAAAAAAACC
+ProximitySensorCalibration: f3oABTIAHgBygm5BvR4KQgAAyEI5zyxBUXzPQQAAFkM5zyxBUXzPQQAAFkMR0HRC3ngywT6Ot0TpALZEkEG0RBBLs0Qg6mRBFHZ4QX2qnEE2BKVBAAAgQvrjF0PP3LtBAABIQop61UP0wtRDdW4aRon/b0OahechARoIGu4Bs0UCRaJDqBw2RQMAAAAAAADk
 RegionInfo: LL/A
 SIMStatus: kCTSIMSupportSIMStatusNotInserted
 SIMTrayStatus: kCTSIMSupportSIMTrayInsertedNoSIM
-SerialNumber: C8QY7Y3GJC6C
+SerialNumber: DNPY2H81KXKQ
 SoftwareBehavior: EQAAAAAAAAAAAAAAAAAAAA==
 SoftwareBundleVersion: 
 SupportedDeviceFamilies[1]: 
  0: 1
 TelephonyCapability: true
-TimeIntervalSince1970: 1561634063.311887
+TimeIntervalSince1970: 1563267038.184033
 TimeZone: GMT
 TimeZoneOffsetFromUTC: 0.000000
 TrustedHostAttached: true
-UniqueChipID: 2384901150081070
-UniqueDeviceID: 17fb08f63c4886cce70d6de3d344a08776f22a4a
+UniqueChipID: 2832694715154478
+UniqueDeviceID: 00008020-000A10522241002E
 UseRaptorCerts: true
 Uses24HourClock: false
-WiFiAddress: 94:f6:d6:a5:d0:f1
-WirelessBoardSerialNumber: F001450E0B5
-kCTPostponementInfoPRLName: 0
-kCTPostponementInfoServiceProvisioningState: false
+WiFiAddress: f4:06:16:6b:ba:74
+WirelessBoardSerialNumber: 8B2ABAB00A9
 kCTPostponementStatus: kCTPostponementStatusActivated

@@ -87,9 +87,16 @@ public class Ph_SCN_SrctoTrgt_RS_10540 extends BaseLib {
 
 	}
 
-	@Test(enabled = true, retryAnalyzer = Retry.class)
+	@Test(retryAnalyzer = Retry.class)
 	public void RS_10540Test() throws Exception {
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6466");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6753");
 
+		}
+			
 		// commonUtility.preReqSetup(genericLib);
 		// Resinstall the app
 		lauchNewApp("false");

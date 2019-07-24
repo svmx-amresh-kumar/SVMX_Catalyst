@@ -15,7 +15,7 @@ public class Retry implements IRetryAnalyzer {
 
 	// set maxcounter value this will execute our test 3 times
 
-	int maxretryCount = 1;
+	int maxretryCount = 0;
 
 	// override retry Method
 

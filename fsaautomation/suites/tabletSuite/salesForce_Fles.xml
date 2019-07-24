@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SalesForce_Fles">
+ <listeners>
+    
+    </listeners>
+<test name="SalesForce_Files">
+		<classes>
+			<class name="com.ge.fsa.tests.tablet.SCN_SalesForce_Files_WO_Debrief_RS_12367" /> 
+			<class name="com.ge.fsa.tests.tablet.SCN_SalesForce_Files_Checklist_Attachment_RS_12378" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_Opdoc_With_And_Withought_Version_SalesForce_Files" />
+			<class name="com.ge.fsa.tests.tablet.SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files" />
+		</classes>
+	</test> <!-- Test -->
+
+</suite> <!-- Suite -->

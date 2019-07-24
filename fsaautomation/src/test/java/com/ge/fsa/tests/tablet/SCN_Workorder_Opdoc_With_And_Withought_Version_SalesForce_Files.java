@@ -88,7 +88,14 @@ public class SCN_Workorder_Opdoc_With_And_Withought_Version_SalesForce_Files ext
 	
 	@Test()
 	public void RS_9726() throws Exception {
+		//Split from RS-9726
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-9726");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12570");
 
+		}
 		// Pre Login to app
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		prereq();

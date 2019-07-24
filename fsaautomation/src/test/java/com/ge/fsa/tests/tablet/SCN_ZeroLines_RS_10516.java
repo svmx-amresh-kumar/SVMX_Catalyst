@@ -39,6 +39,13 @@ public class SCN_ZeroLines_RS_10516 extends BaseLib {
 	
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10516() throws Exception {
+		// JiraLink
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10516");
+		} else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12121");
+
+		}
 		
 		System.out.println("SCN_RS10516_ZeroLines");
 		

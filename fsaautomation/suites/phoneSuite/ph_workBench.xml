@@ -8,8 +8,6 @@
 		<classes>
 			<!--  <class name="com.ge.fsa.tests.phone.Ph_SCN_DVR_RS_10550" />-->
 			<class name = "com.ge.fsa.tests.workBench"></class>
-			<!-- 			<class name="com.ge.fsa.tests.workBench2" />
-						<class name="com.ge.fsa.tests.workBench3" /> -->
 			
 			
 		</classes>

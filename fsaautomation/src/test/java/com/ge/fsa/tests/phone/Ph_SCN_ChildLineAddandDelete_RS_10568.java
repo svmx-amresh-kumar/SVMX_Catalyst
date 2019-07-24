@@ -24,7 +24,14 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10568() throws Exception {
-		
+		//Jira Link
+		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6454");
+		}else {
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6809");
+
+		}
+			
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		
