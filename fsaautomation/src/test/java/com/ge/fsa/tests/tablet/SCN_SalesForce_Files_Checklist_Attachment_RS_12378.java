@@ -125,9 +125,9 @@ public class SCN_SalesForce_Files_Checklist_Attachment_RS_12378 extends BaseLib 
 	public void RS_12378() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12378");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12378");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12568");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12568");
 
 		}
 

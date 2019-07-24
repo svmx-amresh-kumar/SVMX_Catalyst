@@ -53,9 +53,9 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 		
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10538");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10538");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12102");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12102");
 
 		}
 		

@@ -71,9 +71,9 @@ public class SCN_ExploreSearchRS_10546 extends BaseLib {
 		
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10546");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10546");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12094");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12094");
 
 		}
 		

@@ -55,9 +55,9 @@ public class SCN_Recent_Items_RS_10565 extends BaseLib {
 	public void Recent_Items_RS_10565() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10565");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10565");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12075");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12075");
 
 		}
 		

@@ -56,9 +56,9 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	public void Calender_6350() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6350");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6350");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6932");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6932");
 
 		}
 		

@@ -35,9 +35,9 @@ public class Ph_Sanity8_Lookup_DOD extends BaseLib {
 	public void Scenario8Test() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6522");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6522");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6791");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6791");
 
 		}
 		

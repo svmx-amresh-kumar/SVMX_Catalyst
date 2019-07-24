@@ -75,9 +75,9 @@ public class SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	public void RS_10569() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10569");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10569");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12071");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12071");
 
 		}
 		

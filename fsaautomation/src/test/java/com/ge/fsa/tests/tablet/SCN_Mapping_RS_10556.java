@@ -79,9 +79,9 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 	public void RS_10556() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10556");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10556");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12084");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12084");
 
 		}
 		

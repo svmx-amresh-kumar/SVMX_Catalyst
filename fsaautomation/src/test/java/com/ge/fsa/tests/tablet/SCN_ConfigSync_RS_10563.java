@@ -22,9 +22,9 @@ public class SCN_ConfigSync_RS_10563 extends BaseLib {
 		
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10563");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10563");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12077");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12077");
 
 		}
 		

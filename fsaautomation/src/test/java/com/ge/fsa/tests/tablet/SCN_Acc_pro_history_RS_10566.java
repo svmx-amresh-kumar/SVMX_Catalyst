@@ -54,9 +54,9 @@ public class SCN_Acc_pro_history_RS_10566 extends BaseLib {
 	public void Acc_pro_history_RS_10566() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10566");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10566");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12074");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12074");
 
 		}	
 		

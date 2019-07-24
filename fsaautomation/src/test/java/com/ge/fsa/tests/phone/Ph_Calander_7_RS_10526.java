@@ -38,9 +38,9 @@ public class Ph_Calander_7_RS_10526 extends BaseLib {
 	public void Ph_10526() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10526");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10526");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12114");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12114");
 
 		}
 		

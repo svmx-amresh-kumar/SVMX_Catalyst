@@ -49,9 +49,9 @@ public class SCN_GetPriceNotCovered_RS_10532 extends BaseLib {
 		
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10532");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-10532");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12018");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12018");
 
 		}
 		sSheetName1 ="RS_10532";

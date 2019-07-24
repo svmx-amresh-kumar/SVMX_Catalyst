@@ -106,9 +106,9 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib{
 	public void RS_10552() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6523");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6523");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6796");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6796");
 
 		}
 			

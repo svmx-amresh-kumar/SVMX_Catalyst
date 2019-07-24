@@ -86,9 +86,9 @@ public class Ph_SCN_SrctoTrgt_RS_10542 extends BaseLib {
 	public void RS_10542() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6462");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6462");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6769");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6769");
 
 		}
 			

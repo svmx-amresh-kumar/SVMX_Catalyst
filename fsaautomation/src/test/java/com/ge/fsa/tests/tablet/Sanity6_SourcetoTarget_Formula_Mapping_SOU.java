@@ -73,9 +73,9 @@ public class Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	public void scenario6Test() throws Exception {
 		//JiraLink
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12037");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12037");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12045");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12045");
 
 		}
 		

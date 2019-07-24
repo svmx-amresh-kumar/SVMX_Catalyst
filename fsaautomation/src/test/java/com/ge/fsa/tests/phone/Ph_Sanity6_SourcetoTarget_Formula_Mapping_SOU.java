@@ -78,9 +78,9 @@ public class Ph_Sanity6_SourcetoTarget_Formula_Mapping_SOU extends BaseLib {
 	public void Go_6503() throws Exception {
 		//Jira Link
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6503");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6503");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6795");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6795");
 
 		}
 		

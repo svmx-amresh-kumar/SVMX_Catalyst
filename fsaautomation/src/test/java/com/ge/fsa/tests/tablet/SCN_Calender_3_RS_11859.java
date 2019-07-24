@@ -45,9 +45,9 @@ public class SCN_Calender_3_RS_11859 extends BaseLib {
 	public void RS_11859() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11859");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11859");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12049");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12049");
 
 		}
 

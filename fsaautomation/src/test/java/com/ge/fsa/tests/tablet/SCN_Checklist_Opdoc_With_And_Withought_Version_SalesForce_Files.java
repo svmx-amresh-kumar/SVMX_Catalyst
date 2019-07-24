@@ -120,9 +120,9 @@ import io.appium.java_client.touch.offset.PointOption;
 		public void RS_12526() throws Exception {
 			// JiraLink
 			if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-				commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12526");
+				commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12526");
 			} else {
-				commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12567");
+				commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12567");
 
 			}
 

@@ -66,9 +66,9 @@ public class Sanity2_Explore_Checklist_Config_Sync_DataSync_RS11180 extends Base
 	public void scenario2_checklist() throws Exception {
 		//JiraLink
 		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11180");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11180");
 		}else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12050");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12050");
 
 		}
 		

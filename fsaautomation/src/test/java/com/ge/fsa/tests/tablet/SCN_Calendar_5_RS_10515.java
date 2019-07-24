@@ -55,9 +55,9 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 	public void RS_10512() throws Exception {
 		// JiraLink
 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11857");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-11857");
 		} else {
-			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12563");
+			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12563");
 
 		}
 		

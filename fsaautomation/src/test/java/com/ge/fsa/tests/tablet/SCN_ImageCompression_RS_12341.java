@@ -132,9 +132,9 @@ public class SCN_ImageCompression_RS_12341 extends BaseLib {
 	     public void RS_12341() throws Exception {
 	    	// JiraLink
 	 		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-	 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12341");
+	 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12341");
 	 		} else {
-	 			commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12566");
+	 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12566");
 
 	 		}
 

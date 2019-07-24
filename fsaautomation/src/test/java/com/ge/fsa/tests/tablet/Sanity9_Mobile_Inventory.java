@@ -16,9 +16,9 @@ public void Scenario9Test() throws Exception
 {
 	// JiraLink
 	if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
-		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12040");
+		commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12040");
 	} else {
-		commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12042");
+		commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12042");
 
 	}
 	

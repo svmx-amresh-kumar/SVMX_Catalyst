@@ -64,9 +64,9 @@ public class Sanity5_DVR_Mapping_Qualification_Criteria extends BaseLib {
 	public void toTest() throws Exception {
 		//JiraLink
 				if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
-					commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12036");
+					commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12036");
 				}else {
-					commonUtility.addLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12046");
+					commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/RS-12046");
 
 				}
 				
