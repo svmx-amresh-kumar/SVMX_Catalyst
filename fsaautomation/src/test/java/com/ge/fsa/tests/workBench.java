@@ -110,11 +110,7 @@ public void workBenchAnd() throws Exception
 		
 		ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
 		
-		loginHomePo.login(commonUtility, exploreSearchPo);		
-		workOrderPo.getEleLinkedSFM().click();
-//		}
-		commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM2("Manage Work Details for Products Serviced"));
-	
+		
 //		WebElement wElement =driver.findElement(By.xpath("//div[@class='x-component x-img x-sized x-widthed x-heighted x-floating ']"));
 //		commonUtility.longPress(wElement,32,32);
 //		System.out.println("Date = "+commonUtility.getDeviceDate()+"   device info= "+commonUtility.executeLibiMobileDeviceExecFile("ideviceinfo"));
