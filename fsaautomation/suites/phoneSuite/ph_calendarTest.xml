@@ -10,7 +10,7 @@
 		<classes>		
 		
 		<!-- <class name="com.ge.fsa.tests.phone.Ph_Sanity11_Verify_Calendar_Functionality_GO_6350" /> -->
-		<class name="com.ge.fsa.tests.tablet.SCN_Calendar_5_RS_10515" />
+		
 		<class name="com.ge.fsa.tests.phone.Ph_Calendar_6_RS_10525" />
 		<class name="com.ge.fsa.tests.phone.Ph_Calendar_RS_10525_2mts_event" />
 		<class name="com.ge.fsa.tests.phone.Ph_Calendar_1_RS_10511" />

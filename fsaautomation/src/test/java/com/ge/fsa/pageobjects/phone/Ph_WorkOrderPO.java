@@ -867,7 +867,7 @@ public class Ph_WorkOrderPO {
 
 		// Adding Value for InstalledproductID
 		getEleInstalledProductstar().click();
-		getEleInstalledProductstar().sendKeys(InstalledProductID+"\n");
+		getEleInstalledProductstar().sendKeys(InstalledProductID);
 
 		// Adding Value for Account
 		//commonUtility.tap(getAccountstar());
@@ -880,7 +880,7 @@ public class Ph_WorkOrderPO {
 
 		Thread.sleep(1000);
 		getEleSearchListItem(accountName).click();
-		ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
+		//ph_ExploreSearchPO.selectFromLookupSearchList(commonUtility, getAccountstar(), accountName);
 
 		Thread.sleep(1000);
 

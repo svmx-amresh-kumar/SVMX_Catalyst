@@ -639,4 +639,19 @@ public class Ph_ChecklistPO
 
 	
 	
+	@FindBy(xpath="(//*[@*[contains(.,'More info')]])[last()]")
+	private WebElement eleMoreInfo;
+	public WebElement geteleMoreInfo()
+	{
+		return eleMoreInfo;
+	}
+	@FindBy(xpath="//*[@*[contains(.,'GE | Imagination at Work')]])")
+	private WebElement eleHelpURLGE;
+	public WebElement geteleHelpURLGE()
+	{
+		return eleHelpURLGE;
+	}
+
+	
+	
 }
