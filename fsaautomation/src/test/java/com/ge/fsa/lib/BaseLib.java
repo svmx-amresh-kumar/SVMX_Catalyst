@@ -558,7 +558,6 @@ public class BaseLib {
 		}
 		System.out.println("[BaseLib] " + getBaseTimeStamp() + " " + sRunningSymbol + " RUNNING TEST CLASS : " + result.getMethod().getRealClass().getSimpleName());
 		ExtentManager.logger(sSuiteTestName + " : " + result.getMethod().getRealClass().getSimpleName());
-		ExtentManager.logger.assignCategory(sSuiteTestName);
 		if (sOSName.equalsIgnoreCase("browser")) {
 			// do nothing
 		} else {
@@ -653,6 +652,7 @@ public class BaseLib {
 			sCompletedSymbol = "^^";
 			sRetryState = "";
 			// Add the retry log
+			ExtentManager.logger.assignCategory(sSuiteTestName);
 			ExtentManager.extent.flush();
 		}
 
