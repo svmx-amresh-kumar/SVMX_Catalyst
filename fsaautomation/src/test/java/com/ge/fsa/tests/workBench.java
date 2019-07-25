@@ -100,10 +100,25 @@ public class workBench extends BaseLib
 //	{
 //		return eleMenuIcn;
 //	}
-
+	@Test
+	public void workBenchAnd4() throws Exception
+	{	
+		
+			//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+			
+			ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
+	}
+	@Test
+	public void workBenchAnd() throws Exception
+	{	
+		
+			//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+			
+			ExtentManager.logger.log(Status.PASS,"Sahi verification is successful");
+	}
 	//@Test(retryAnalyzer=Retry.class)
 	@Test
-public void workBenchAnd() throws Exception
+public void workBenchAnd2() throws Exception
 {	
 	
 		//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
