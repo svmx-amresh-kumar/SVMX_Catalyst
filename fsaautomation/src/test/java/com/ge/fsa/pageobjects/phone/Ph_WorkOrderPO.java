@@ -301,7 +301,7 @@ public class Ph_WorkOrderPO {
 
 	
 	@AndroidFindBy(xpath = "//*[@text='Discount %']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@label=\"Discount %\"]/../XCUIElementTypeOther")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@label=\"Discount %\"]/..//XCUIElementTypeTextField")
 	private WebElement eleDiscountPercentage;
 
 	public WebElement getEleDiscountPercentage() {
@@ -901,9 +901,7 @@ public class Ph_WorkOrderPO {
 
 	
 
-	@AndroidFindBy(xpath = "//*[@text='Customer Down']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Customer Down']/../XCUIElementTypeOther")
-
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'Customer Down')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
 	private WebElement eleCustomerDown;
 
 	public WebElement getEleCustomerDown() {
@@ -1399,7 +1397,7 @@ public class Ph_WorkOrderPO {
 		return elePriorityField;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]") })
+	@FindBy(xpath = "//*[@*[contains(.,'Auto_Date')]]/following-sibling::*/*[1]")
 	private WebElement autoDate;
 
 	public WebElement getAutoDate() {
@@ -1413,7 +1411,8 @@ public class Ph_WorkOrderPO {
 		return automationDateTime;
 	}
 
-	@FindAll({ @FindBy(xpath = "//*[@*[contains(.,'RS_10552_Automation_Number')]]/following-sibling::*/*[1]") })
+	@AndroidFindBy(xpath = "//*[@*[contains(.,'RS_10552_Automation_Number')]]/following-sibling::*/*[1]")
+	@iOSXCUITFindBy(xpath="//*[@*[contains(.,'RS_10552_Automation_Number')]]/following-sibling::*//*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
 	private WebElement automationNumber;
 
 	public WebElement getAutomationNumber() {
@@ -1813,43 +1812,50 @@ public class Ph_WorkOrderPO {
 	}
 	
 	public WebElement getEleAutoChkBx(String status) {
-		return driver.findElement(By.xpath("//*[@*='RS_10552_AutoChkBx']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]][@*='"+status+"']"));
+		status=BaseLib.sOSName.equalsIgnoreCase("ios")?status.equals("ON")?"1":"0":status;
+		return driver.findElement(By.xpath("//*[@*[contains(.,'RS_10552_AutoChkBx')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]][@*='"+status+"']"));
 	}
 	
-	@FindBy(xpath="//*[@*='RS_10552_AutoChkBx']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
+	@FindBy(xpath="//*[@*[contains(.,'RS_10552_AutoChkBx')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
 	private WebElement eleAutoChkBx;
 	public WebElement getEleAutoChkBx() {
 		return eleAutoChkBx;
 	}
 	
-	@FindBy(xpath="//*[@*='Use Price From Pricebook/Contract']/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
+	@FindBy(xpath="//*[@*[contains(.,'Use Price From Pricebook/Contract')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
 	private WebElement eleUsePriceFromPricebook;
 	public WebElement getEleUsePriceFromPricebook() {
 		return eleUsePriceFromPricebook;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'AutoActivityMonth')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	@FindBy(xpath="//*[@*[contains(.,'AutoActivityMonth')]]/following-sibling::*//*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
 	private WebElement eleAutoActivityMonth;
 	public WebElement getEleAutoActivityMonth() {
 		return eleAutoActivityMonth;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'AutoActivityYear')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	@FindBy(xpath="//*[@*[contains(.,'AutoActivityYear')]]/following-sibling::*//*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
 	private WebElement eleAutoActivityYear;
 	public WebElement getEleAutoActivityYear() {
 		return eleAutoActivityYear;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'AutoDiscountLinePrice')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	@FindBy(xpath="//*[@*[contains(.,'AutoDiscountLinePrice')]]/following-sibling::*//*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
 	private WebElement eleAutoDiscountLinePrice;
 	public WebElement getEleAutoDiscountLinePrice() {
 		return eleAutoDiscountLinePrice;
 	}
 	
-	@FindBy(xpath="//*[@*[contains(.,'AutoCalLinePrice')]]/following-sibling::*/*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
+	@FindBy(xpath="//*[@*[contains(.,'AutoCalLinePrice')]]/following-sibling::*//*[@*[contains(.,'SFM.LAYOUT.EDIT.TEXTINPUT')]]")
 	private WebElement eleAutoCalLinePrice;
 	public WebElement getEleAutoCalLinePrice() {
 		return eleAutoCalLinePrice;
+	}
+	
+	@FindBy(xpath="//*[@*='OVERVIEW']")
+	private WebElement eleOverviewHeader;
+	public WebElement getEleOverviewHeader() {
+		return eleOverviewHeader;
 	}
 
 }

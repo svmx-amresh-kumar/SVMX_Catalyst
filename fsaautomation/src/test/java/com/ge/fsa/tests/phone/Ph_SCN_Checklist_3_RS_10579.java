@@ -4,23 +4,21 @@
  */
 package com.ge.fsa.tests.phone;
 
-import static org.testng.Assert.assertTrue;
-
 import java.util.Set;
-import org.json.JSONArray;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
-import com.ge.fsa.pageobjects.tablet.WorkOrderPO;
+
+import io.appium.java_client.MobileElement;
 
 public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 	String sTestCaseID = null;
@@ -136,16 +134,16 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 
 	}
 
-	//@Test()
-	 @Test(retryAnalyzer=Retry.class)
+	// @Test()
+
+	@Test(retryAnalyzer = Retry.class)
 	public void RS_10579() throws Exception {
 
 		prerequisites();
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo,
-		bProcessCheckResult);
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		// Pre Login to app
 
 		// Data Sync for WO's created
@@ -213,8 +211,8 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).clear();
 
 		ph_ChecklistPO.geteleNumberQAnswithMoreInfo(sNumberq).sendKeys("100" + "\n");
-		//ph_ChecklistPO.geteleChecklistGenericContainsTxt(sNumberq).click();
-		
+		// ph_ChecklistPO.geteleChecklistGenericContainsTxt(sNumberq).click();
+
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 
 		Integer iSectionSize1 = ph_ChecklistPO.geteleGenericList("Section Three").size();
@@ -257,6 +255,8 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		// Navigation to WO
 
+		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName2 + "");
+
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName2);
 
 		// Navigate to Field Service process
@@ -281,6 +281,7 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		ph_WorkOrderPo.getEleBackButton().click();
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 
+		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName3 + "");
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName3);
 
 		// Navigate to Field Service process
@@ -316,7 +317,7 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		ph_ChecklistPO.geteleBackbutton().click();
 
 		ph_ExploreSearchPo.geteleExploreIcn().click();
-
+		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName4 + "");
 		ph_WorkOrderPo.navigatetoWO(commonUtility, ph_ExploreSearchPo, sExploreSearch, sExploreChildSearchTxt, sWOName4);
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
 
@@ -340,21 +341,22 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		ph_ChecklistPO.geteleChecklistNextButton().click();
 		ph_ChecklistPO.geteleMoreInfo().click();
-		Thread.sleep(CommonUtility.iAttachmentSleep);		
-		String sUrl= "";
+
+		// hard wait required.
+		Thread.sleep(60000);
+		String sUrl = "";
 		Set<String> contextNames = driver.getContextHandles();
-		if(sOSName.contains("android")) {
+		if (sOSName.contains("android")) {
 			driver.context("NATIVE_APP");
-			Thread.sleep(5000);
-			sUrl =  driver.findElement(By.xpath("//android.widget.TextView[@content-desc='multiLineHeaderTitle']")).getText();
+			sUrl = driver.findElement(By.xpath("//android.widget.TextView[@content-desc='multiLineHeaderTitle']")).getText();
 			Assert.assertTrue(sUrl.contains("GE"));
 			ExtentManager.logger.log(Status.PASS, "URL launched sucessfully");
-		}
-		else {
+		} else {
 			Thread.sleep(CommonUtility.i30SecSleep);
 			sUrl = driver.findElement(By.xpath("//*[@*[contains(.,'GE')]]")).getText();
-			 Assert.assertTrue(sUrl.contains("GE"));
+			Assert.assertTrue(sUrl.contains("GE"));
 		}
+
 		ExtentManager.logger.log(Status.PASS, "The Url is launched succesfully");
 		commonUtility.switchContext("Native");
 
@@ -370,7 +372,6 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName1 + "'";
 		sSoqlqueryWOProb = "Select+SVMXC__Problem_Description__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName1 + "'";
 
-		restServices.getAccessToken();
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO, "SVMXC__Billing_Type__c");
 		Assert.assertTrue(sBillTypeServer.equals(sBillingTpeSOUServer), "Billing type Picklist source object not syned to server");
 		ExtentManager.logger.log(Status.PASS, "Billing type Picklist Source object update has synced to server");
