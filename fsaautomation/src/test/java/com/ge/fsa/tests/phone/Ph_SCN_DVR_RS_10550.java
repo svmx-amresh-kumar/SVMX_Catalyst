@@ -265,6 +265,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
 		ph_WorkOrderPo.getEleSaveLnk().click();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleConfirm());
 		ph_WorkOrderPo.geteleConfirm().click();
 
@@ -301,6 +302,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(), 3), sPartsLinePriceDVR);
 		ExtentManager.logger.log(Status.PASS, "Parts DVR PASS :Line Quantity confirmation message displayed" + sPartsLinePriceDVR + "");
+		//commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		ph_WorkOrderPo.geteleConfirm().click();
 		ExtentManager.logger.log(Status.PASS, "Clicked on Confirm button");
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
