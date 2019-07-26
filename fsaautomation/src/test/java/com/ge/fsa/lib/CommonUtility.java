@@ -1544,21 +1544,21 @@ public class CommonUtility {
 
 		String sSuccessString = null;
 		int lElapsedTime = 0;
-		return waitforElement(wElement, lTime);
-//		while (lElapsedTime != lTime) {
-//			// Ignore Errors from string not found and wait
-//			try {
-//				sSuccessString = wElement.getText();
-//			} catch (Exception e) {
-//			}
-//			if (sSuccessString.equals(sExpectedValue)) {
-//				return true;
-//			}
-//			lElapsedTime++;
-//
-//		}
-		// If string not found after waiting return false
-		//return false;
+		waitforElement(wElement, 30);
+		while (lElapsedTime != lTime) {
+			// Ignore Errors from string not found and wait
+			try {
+				sSuccessString = wElement.getText();
+			} catch (Exception e) {
+			}
+			if (sSuccessString.equals(sExpectedValue)) {
+				return true;
+			}
+			lElapsedTime++;
+
+		}
+		// If string not found after waiting
+		return false;
 
 	}
 
@@ -2873,11 +2873,30 @@ public class CommonUtility {
     
     
     public void addJiraLinkInExtentReport(String sLinkURL) {
-		ExtentManager.logger.log(Status.INFO,"TEST SCENARIO JIRA LINK : [ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] ");
-	
+		ExtentManager.logger.log(Status.INFO,"<font color=\" #1405fc \">&#128236️<style>\n" + 
+				"\n" + 
+				"\n" + 
+				".glow {\n" + 
+				"  color: green;\n" + 
+				"  text-align: center;\n" + 
+				"  -webkit-animation: glow 1s ease-in-out infinite alternate;\n" + 
+				"  -moz-animation: glow 1s ease-in-out infinite alternate;\n" + 
+				"  animation: glow 1s ease-in-out infinite alternate;\n" + 
+				"}\n" + 
+				"\n" + 
+				"@-webkit-keyframes glow {\n" + 
+				"  from {\n" + 
+				"    text-shadow:  0 0 20px teal\n" + 
+				"  }\n" + 
+				"  \n" + 
+				"  to {\n" + 
+				"    text-shadow: 0 0 20px white;\n" + 
+				"  }\n" + 
+				"}\n" + 
+				"</style><b class=\"glow\">TEST SCENARIO JIRA LINK : [ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] </b> </font>");
     }
     
-    public void addLsinkInExtentReport(String sLinkURL) {
+    public void addLinkInExtentReport(String sLinkURL) {
 		ExtentManager.logger.log(Status.INFO,"[ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] ");
 	
     }

@@ -232,9 +232,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 
 		// naviagating back to Work Orders
 		ph_WorkOrderPo.getEleBackButton().click();
-
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sEditProcessName);
