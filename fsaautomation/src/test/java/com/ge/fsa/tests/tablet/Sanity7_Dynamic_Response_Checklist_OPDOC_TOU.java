@@ -138,7 +138,7 @@ public class Sanity7_Dynamic_Response_Checklist_OPDOC_TOU extends BaseLib{
 		Assert.assertTrue(checklistPo.getelefillrequiredfieldlbl().isDisplayed(),"Failed to provide:Please fill this required field and submit again-checklist");
 		ExtentManager.logger.log(Status.PASS,"checklist required question validation passed");
 
-		commonUtility.waitforElement(checklistPo.geteleissuefoundlbl(),1000);
+		commonUtility.waitforElement(checklistPo.geteleissuefoundlbl(),10);
 		Assert.assertTrue(checklistPo.geteleissuefoundlbl().isDisplayed(),"Failed to display issue found for required question-checklist");
 		ExtentManager.logger.log(Status.PASS,"checklist required question validation issue display passed");
 
