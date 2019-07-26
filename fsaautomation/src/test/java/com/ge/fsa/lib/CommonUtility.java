@@ -1570,7 +1570,7 @@ public class CommonUtility {
 			lElapsedTime++;
 
 		}
-		 If string not found after waiting return false
+		// If string not found after waiting
 		return false;
 
 	}
