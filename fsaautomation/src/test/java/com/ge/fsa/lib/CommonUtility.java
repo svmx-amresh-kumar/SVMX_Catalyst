@@ -2886,7 +2886,7 @@ public class CommonUtility {
     
     
     public void addJiraLinkInExtentReport(String sLinkURL) {
-		ExtentManager.logger.log(Status.INFO,"<font color=\" #1405fc \"><style>\n" + 
+		ExtentManager.logger.log(Status.INFO,"<font color=\" #1405fc \">&#128236️<style>\n" + 
 				"\n" + 
 				"\n" + 
 				".glow {\n" + 
@@ -2899,17 +2899,17 @@ public class CommonUtility {
 				"\n" + 
 				"@-webkit-keyframes glow {\n" + 
 				"  from {\n" + 
-				"    text-shadow:  0 0 20px #40E0D0\n" + 
+				"    text-shadow:  0 0 20px teal\n" + 
 				"  }\n" + 
 				"  \n" + 
 				"  to {\n" + 
-				"    text-shadow: 0 0 20px green,0 0 60px green, 0 0 70px green, 0 0 80px teal;\n" + 
+				"    text-shadow: 0 0 20px white;\n" + 
 				"  }\n" + 
 				"}\n" + 
 				"</style><b class=\"glow\">TEST SCENARIO JIRA LINK : [ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] </b> </font>");
     }
     
-    public void addLsinkInExtentReport(String sLinkURL) {
+    public void addLinkInExtentReport(String sLinkURL) {
 		ExtentManager.logger.log(Status.INFO,"[ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] ");
 	
     }
