@@ -1557,21 +1557,21 @@ public class CommonUtility {
 
 		String sSuccessString = null;
 		int lElapsedTime = 0;
-		return waitforElement(wElement, lTime);
-//		while (lElapsedTime != lTime) {
-//			// Ignore Errors from string not found and wait
-//			try {
-//				sSuccessString = wElement.getText();
-//			} catch (Exception e) {
-//			}
-//			if (sSuccessString.equals(sExpectedValue)) {
-//				return true;
-//			}
-//			lElapsedTime++;
-//
-//		}
-		// If string not found after waiting return false
-		//return false;
+		waitforElement(wElement, 30);
+		while (lElapsedTime != lTime) {
+			// Ignore Errors from string not found and wait
+			try {
+				sSuccessString = wElement.getText();
+			} catch (Exception e) {
+			}
+			if (sSuccessString.equals(sExpectedValue)) {
+				return true;
+			}
+			lElapsedTime++;
+
+		}
+		 If string not found after waiting return false
+		return false;
 
 	}
 
