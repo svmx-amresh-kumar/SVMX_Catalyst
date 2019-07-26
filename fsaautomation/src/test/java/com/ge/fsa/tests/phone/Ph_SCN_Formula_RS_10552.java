@@ -69,16 +69,8 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		sPreviousDate = format.format(cal.getTime());
 		cal.setTime(date);
-		System.out.println("Completed *****" + sCompletedDateTxt);
-		System.out.println("Actual *****" + sActualDateTxt);
-		System.out.println("sAutoDate *****" + sAutoDate);
-		System.out.println("sOnsiteDate *****" + sOnsiteDate);
-		System.out.println("sPreviousDate *****" + sPreviousDate);
-//		
-//		restServices = new RestServices();
-//		restServices.getAccessToken();
 		sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
-//		
+		
 //		//Creation of dynamic Work Order
 		sWOObejctApi = "SVMXC__Service_Order__c?";
 		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__Actual_Initial_Response__c\":\"" + sActualDateTxt + "\",\"SVMXC__Completed_Date_Time__c\":\""
@@ -86,23 +78,18 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		sWorkOrderID = restServices.restCreate(sWOObejctApi, sWOJsonData);
 		sWOSqlQuery = "SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWorkOrderID + "\'";
 		sWOName = restServices.restGetSoqlValue(sWOSqlQuery, "Name"); // "WO-00000455";
+		ExtentManager.logger.log(Status.INFO, "Work Order has been created through rest web service with Name : "+sWOName+" WorkOrderId : "+sWorkOrderID);
 
-//		
 //		//Creation of product
 		sJsonData = "{\"Name\": \"" + sSerialNumber + "\", \"IsActive\": \"true\"}";
 		sObjectApi = "Product2?";
 		sObjectID = restServices.restCreate(sObjectApi, sJsonData);
 		sSqlQuery = "SELECT+name+from+Product2+Where+id+=\'" + sObjectID + "\'";
 		sProductName = restServices.restGetSoqlValue(sSqlQuery, "Name");
+		ExtentManager.logger.log(Status.INFO, "Product has been created through rest web service with Name : "+sProductName+" ProductId : "+sWorkOrderID);
+		
 		bProcessCheckResult = commonUtility.ProcessCheck(restServices, sFieldServiceName, "/appium/RS_10552_prerequisite.sah", sTestCaseID);
 
-		/*
-		 * commonUtility.executeSahiScript("appium/RS_10552_prerequisite.sah",
-		 * sTestCaseID);
-		 * 
-		 * ExtentManager.logger.log(Status.PASS,"Testcase " + sTestCaseID +
-		 * "Sahi verification failure");
-		 */
 	}
 
 
@@ -146,46 +133,54 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		// Validation of Order status and change the status
 		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.geteleOrderStatus(), "Open", "Closed"), " Order status is not open.");
 		ExtentManager.logger.log(Status.PASS, "Order status is open.");
+		
+		Assert.assertEquals(ph_WorkOrderPo.geteleOrderStatus().getText().trim(), "Open", "Order Status is not correctly set to open after changing.");
 
 		// Validation of Autocheck box off for Billing type contract
 		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
 		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Contract.");
 
-		// Validation of Billing type not changed and changing the billing type
-		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.getEleBillingTypeField(), "Contract", "Courtesy"), " Billing type is not contract.");
-		ExtentManager.logger.log(Status.PASS, "Billing type is Contract.");
-		ph_WorkOrderPo.getElesave().click();
-		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-
-		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.geteleOrderStatus(), "Open", "Open"), " Order status is not open.");
-		ExtentManager.logger.log(Status.PASS, "Order status is still open as customer down is OFF");
-
-		// Validating for check box is OFF when Billing type is Coutesy
-		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
-		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Courtesy.");
 		ph_WorkOrderPo.getEleAutoChkBx().click();
 		
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("ON").isDisplayed(), "Auto Check Box is not ON for Billing Type Contract.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is ON for Billing Type Contract.");
+		
+		ph_WorkOrderPo.getEleAutoChkBx().click();
+		
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Contract.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Contract.");
+		
+		// Validation of Billing type not changed and changing the billing type
+		Assert.assertTrue(verifyListValue(ph_WorkOrderPo.getEleBillingTypeField(), "Contract", "Courtesy"), " Billing type is not contract.");
+		ExtentManager.logger.log(Status.PASS, "Billing type is Courtesy.");
+
 		// Validating for check box is OFF when Billing type is Coutesy
-		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("OFF").isDisplayed(), "Auto Check Box is not OFF for Billing Type Courtesy.");
-		ExtentManager.logger.log(Status.PASS, "Auto Check Box is OFF for Billing Type Courtesy.");
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("ON").isDisplayed(), "Auto Check Box is OFF for Billing Type Courtesy.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is ON for Billing Type Courtesy.");
+		//ph_WorkOrderPo.getEleAutoChkBx().click();
+		
+		// Validating for check box is OFF when Billing type is Coutesy
+		ph_WorkOrderPo.getEleAutoChkBx().click();
+		Assert.assertTrue(ph_WorkOrderPo.getEleAutoChkBx("ON").isDisplayed(), "Auto Check Box is OFF for Billing Type Courtesy after changing.");
+		ExtentManager.logger.log(Status.PASS, "Auto Check Box is ON for Billing Type Courtesy after changing.");
 
 		// Addition of Parts
 		ph_WorkOrderPo.addParts(commonUtility, sProductName);
 		ph_WorkOrderPo.getElesave().click();
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-
 		// Enter line price in parts
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		ph_WorkOrderPo.getChildLineAddedItem(sProductName).click();
 		ph_WorkOrderPo.getEleUsePriceFromPricebook().click();
 		ph_WorkOrderPo.getEleLineQtyField().click();
 		ph_WorkOrderPo.getEleLineQtyField().clear();
-		ph_WorkOrderPo.getEleLineQtyField().sendKeys("10");
+		ph_WorkOrderPo.getEleLineQtyField().sendKeys("10"+"\n");
 		ph_WorkOrderPo.getEleLinePriceField().click();
 		ph_WorkOrderPo.getEleLinePriceField().clear();
-		ph_WorkOrderPo.getEleLinePriceField().sendKeys("10.5");
+		ph_WorkOrderPo.getEleLinePriceField().sendKeys("10.5"+"\n");
 
 		ph_WorkOrderPo.getEleDiscountPercentage().click();
-		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys("3");
+		ph_WorkOrderPo.getEleDiscountPercentage().sendKeys("3"+"\n");
 		// Set Start time for event
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, "0", "0");
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 1, "0", "0");
@@ -194,28 +189,32 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		// Save the parts details
 		ph_WorkOrderPo.getElesave().click();
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-
+		commonUtility.gotToTabHorizontal(ph_WorkOrderPo.getStringParts());
 		ph_WorkOrderPo.getChildLineAddedItem(sProductName).click();
 
 		// Validation of formula after adding parts
-		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityMonth().getText().trim(),String.valueOf(cal.get(Calendar.MONTH)), "Activity month is displayed ");
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleStartDateTimeTxtFld());
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityMonth().getText().trim(),String.valueOf(cal.get(Calendar.MONTH)+1), "Activity month is displayed ");
 		ExtentManager.logger.log(Status.PASS, "Activity month value is displayed as expected.");
 
-		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityYear().getText().trim(),String.valueOf(cal.get(Calendar.MONTH)), "Activity year is displayed");
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoActivityYear().getText().trim(),String.valueOf(cal.get(Calendar.YEAR)), "Activity year is displayed");
 		ExtentManager.logger.log(Status.PASS, "Activity year value is displayed as expected.");
 
 		Assert.assertEquals(ph_WorkOrderPo.getEleAutoDiscountLinePrice().getText().trim(),"10.5", "Auto Discount line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS, "Auto Discount Line price is displayed as expected.");
 
-		Assert.assertEquals(ph_WorkOrderPo.getEleAutoCalLinePrice().getText().trim(),"0", "Auto call line price is not displayed.");
+		Assert.assertEquals(ph_WorkOrderPo.getEleAutoCalLinePrice().getText().trim(),"105", "Auto call line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS, "Auto Call Line price is displayed as expected.");
 
-		ph_WorkOrderPo.getElesave().click();
+		ph_WorkOrderPo.getEleBackButton().click();
 
 
 		// Validating for change of order status when customer down is on.
+		ph_WorkOrderPo.getEleOverviewHeader().click();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleCustomerDown());
 		ph_WorkOrderPo.getEleCustomerDown().click();
-		Assert.assertTrue(ph_WorkOrderPo.getEleCustomerDown().getText().equals("ON"), " Customer Down is not ON");
+		String customerDown=ph_WorkOrderPo.getEleCustomerDown().getText().replace("1", "ON").replace("0", "OFF");
+		Assert.assertEquals(customerDown,"ON", " Customer Down is not ON");
 		ExtentManager.logger.log(Status.PASS, "Customer down is set to ON");
 
 		// Update the WorkOrder and validate if the Order status is now changed
