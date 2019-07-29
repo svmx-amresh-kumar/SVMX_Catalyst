@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="SalesForce_Fles">
- <listeners>
-    
-    </listeners>
+
 <test name="SalesForce_Files">
 		<classes>
 			<class name="com.ge.fsa.tests.tablet.SCN_SalesForce_Files_WO_Debrief_RS_12367" /> 
