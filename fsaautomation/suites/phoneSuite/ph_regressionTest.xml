@@ -10,7 +10,7 @@
 		<!-- First Delivery -->
 		<suite-file path="ph_sanityTest.xml" />
 		
-		
+		<suite-file path="ph_calendarTest.xml" /> <!-- 8 -->
 		<suite-file path="ph_selfDispatchTest.xml" /> <!-- 1 -->
 		<suite-file path="ph_exploreTest.xml" /> <!-- 5 -->
 		<suite-file path="ph_customPicklistTest.xml" /> <!-- 1 -->
@@ -33,7 +33,7 @@
         <suite-file path="ph_formulaTest.xml" />  <!-- 1 -->
 		<suite-file path="ph_opDocTest.xml" />  <!-- 1 --> 
 
-		<suite-file path="ph_calendarTest.xml" /> <!-- 8 -->
+		
 		<suite-file path="ph_configSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="ph_dataSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="ph_getPriceTest.xml" /> <!-- 8 -->

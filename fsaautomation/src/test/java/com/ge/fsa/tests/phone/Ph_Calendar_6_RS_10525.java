@@ -41,10 +41,7 @@ int iWhileCnt = 0;
 	WebElement productname=null;
 	String sSheetName =null;
 	@BeforeMethod
-	public void initializeObject() throws IOException { 
-		
-	} 
-
+	
 	@Test(retryAnalyzer=Retry.class)
 	
 	public void Ph_10525() throws Exception {
@@ -76,12 +73,12 @@ int iWhileCnt = 0;
 			String TechName = CommonUtility.readExcelData(CommonUtility.sConfigPropertiesExcelFile,sSelectConfigPropFile, "TECH_ID");
 			
 			
-			
+			lauchNewApp("false");
 			// Pre Login to app
 			ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		ph_MorePo.syncData(commonUtility);
-			Thread.sleep(CommonUtility.iMedSleep);
+		//ph_MorePo.syncData(commonUtility);
+			
 			
 			//get Wo is and event start date and end date.
 			String sSoqlwoid= "SELECT+id+from+SVMXC__Service_Order__c+Where+Name=\'"+sworkOrderName+"\'";

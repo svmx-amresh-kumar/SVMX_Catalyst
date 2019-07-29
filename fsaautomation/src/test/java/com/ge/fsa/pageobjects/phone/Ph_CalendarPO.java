@@ -494,6 +494,7 @@ public class Ph_CalendarPO
 			 
 		 custScroll(commonUtility,workordername);
 		 Thread.sleep(2000);
+		 custScroll(commonUtility,startcalDate);
 		 Point startDate=getEleWOendpoint(startcalDate).getLocation(); 
 		 System.out.println("startcalDate"+startcalDate);
 		 Point WorkOrderLocation=getEleworkordernumonCalendar(workordername).getLocation();

@@ -68,7 +68,7 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		String sEventSubject = "Event_" + sRandomNumber;
 		// sahi
 
-		commonUtility.executeSahiScript("appium/Ph_FON_6350.sah");
+	commonUtility.executeSahiScript("appium/Ph_FON_6350.sah");
 		
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);

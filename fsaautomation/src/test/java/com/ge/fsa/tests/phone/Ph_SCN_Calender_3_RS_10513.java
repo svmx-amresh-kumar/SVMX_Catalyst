@@ -31,7 +31,7 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 	String sEventIdSVMX_1 = null;
 	String sEventIdSVMX = null;
 	String sSheetName = null;
-
+	String[] sDeviceDate;
 	@Test(retryAnalyzer=Retry.class)
 	public void RS_10513() throws Exception {
 		//Jira Link
@@ -49,17 +49,14 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		String sRandomNumber = commonUtility.generateRandomNumber("");
 		String sEventSubject = "EventName" + sRandomNumber;
-		// sahi
-
-	
-		 commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
-			
-			
-			lauchNewApp("true");
 		
+		
+		
+		// sahi
+ commonUtility.executeSahiScript("appium/SCN_Calender_3_RS-10513.sah");
+		lauchNewApp("true");
 	
-		 
-		 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		 
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
@@ -106,15 +103,6 @@ public class Ph_SCN_Calender_3_RS_10513 extends BaseLib {
 		sSqlEventQuery = "SELECT+id+from+SVMXC__SVMX_Event__c+Where+name+=\'A10513_SVMX_Event1\'";
 		sEventIdSVMX_1 = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 		System.out.println(sEventIdSVMX_1);
-
-	/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		Calendar now1 = Calendar.getInstance();
-		now1.set(Calendar.HOUR, 11);
-		now1.set(Calendar.MINUTE, 0);
-		now1.set(Calendar.SECOND, 0);
-		String endtimezero = sdf.format(now1.getTime());
-		// now1.set(Calendar.HOUR_OF_DAY, 12);
-		System.out.println(endtimezero);*/
 		
 		String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(11);
 
