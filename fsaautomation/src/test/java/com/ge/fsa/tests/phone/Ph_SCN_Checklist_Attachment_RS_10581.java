@@ -139,7 +139,7 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		Thread.sleep(2000);
 		ph_ChecklistPO.geteleBackbutton().click();
 		ph_MorePo.syncData(commonUtility);
-		TimeUnit.SECONDS.sleep(90);
+	//	TimeUnit.SECONDS.sleep(90);
 
 		// ------------------SERVER SIDE VALIDATIONS
 		System.out.println("Validating if  attachment is syned to server.");
@@ -150,6 +150,19 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");
 		String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"
 				+ schecklistid + "\')";
+		while (restServices.restGetSoqlValue(sSoqlAttachment, "Id") == null) System.out.println("ok entereed while"); {
+			for (int i = 0; i < 4; i++) {
+				TimeUnit.SECONDS.sleep(30);
+				if (restServices.restGetSoqlValue(sSoqlAttachment, "Id") == null) {
+					i++;
+				} else {
+					System.out.println("attachment found");
+					break;
+				}
+				System.out.println("attachment still not found"+i);
+			}
+
+		}
 
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlAttachment, "Id");
 		assertNotNull(sAttachmentIDAfter);
