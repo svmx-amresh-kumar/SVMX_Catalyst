@@ -169,19 +169,16 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 
 		// Data Sync for WO's created
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
 		// toolsPo.configSync(commonsUtility);
 
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sFieldServiceName);
 
-		Thread.sleep(CommonUtility.iLowSleep);
 		// Set the order status
 
 		System.out.println("Waiting to set order status");
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), sOrderStatus);
-		Thread.sleep(CommonUtility.iLowSleep);
 
 		// SEtting Account
 		ph_CreateNewPo.selectFromlookupSearchList(commonUtility, ph_CreateNewPo.getEleAccountLookUp(), sAccountName);
@@ -193,13 +190,11 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getEleOverViewTab(), 3),
 				"Overview tab is not displayed, might not have saved correctly please check!");
 		ExtentManager.logger.log(Status.PASS, "OverView Tab is displayed post saving.");
-		Thread.sleep(CommonUtility.iMedSleep);
 
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sEditProcessName);
 
-		Thread.sleep(2000);
 		sClientBillingTypeSOU = ph_CreateNewPo.getElebillingtype().getText();
 		Assert.assertEquals(sClientBillingTypeSOU, sBillingTypeSOU,
 				"Picklist source object update failed billing type not set to warranty");
@@ -327,7 +322,6 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sEditProcessName);
 
-		Thread.sleep(2000);
 		sClientBillingTypeSOU = ph_CreateNewPo.getElebillingtype().getText();
 		Assert.assertEquals(sClientBillingTypeSOU, sBillingTypeSOU,
 				"Picklist source object update failed billing type not set to warranty");

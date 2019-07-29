@@ -49,7 +49,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		//*************** Start of Scenario 1 ***************
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		Thread.sleep(3000);
-		commonUtility.swipeGeneric("up");
+		commonUtility.custScrollToElement(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch));//commonUtility.swipeGeneric("up");
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch).isDisplayed());
 		ExtentManager.logger.log(Status.PASS, "Explore Search: "+sExploreSearch+" is displayed");
 		//**************** End of Scenario 1 ****************
@@ -84,7 +84,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		Thread.sleep(3000);
-		commonUtility.swipeGeneric("up");
+		commonUtility.custScrollToElement(ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch));
 		ph_ExploreSearchPo.getEleSearchListItem(sExploreSearch).click();
 		Thread.sleep(3000);
 		Assert.assertTrue(ph_ExploreSearchPo.getEleSearchListItem("Cases").isDisplayed());
@@ -100,7 +100,7 @@ public class Ph_SCN_ConfigSync_RS_10563 extends BaseLib {
 		Thread.sleep(3000);
 		ph_ExploreSearchPo.getEleSearchListItem(sWOName).click();
 		ph_WorkOrderPo.selectAction(commonUtility, sProcessName);
-		commonUtility.custScrollToElement(ph_WorkOrderPo.getLblCity());
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getLblCountry());
 		Assert.assertTrue(ph_WorkOrderPo.getLblCity().isDisplayed());
 		Assert.assertTrue(ph_WorkOrderPo.getLblCountry().isDisplayed());
 		ExtentManager.logger.log(Status.PASS, "Newly added Fields to Process: City and Country is displayed after config sync");

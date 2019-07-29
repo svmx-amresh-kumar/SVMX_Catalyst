@@ -40,7 +40,7 @@ public class Ph_SCN_CustomAction_2_RS_10558 extends BaseLib {
 		ph_MorePo.syncData(commonUtility);
 		
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo,  "AUTOMATION SEARCH", "Work Orders",sWOName,sProcessName);
-		Thread.sleep(CommonUtility.i30SecSleep);
+		Thread.sleep(CommonUtility.iAttachmentSleep);
 		System.out.println("Context count " + driver.getContextHandles().size());
 		Set<String> contextNames = driver.getContextHandles();
 //		System.out.println(contextNames.size());

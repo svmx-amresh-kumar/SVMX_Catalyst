@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="DataSync">
-	<listeners>
-		<!-- <listener class-name="com.kirwa.nxgreport.listners.NXGTestListner"></listener> 
-			<listener class-name="com.ge.fsa.lib.TestListener"></listener> -->
-	</listeners>
+
 		<test name="DataSync">
 		<classes>		
+				<class name="com.ge.fsa.tests.phone.Ph_SCN_ScheduledDataSync_RS_10569" />
 		
 		</classes>
 	</test> <!-- Test -->

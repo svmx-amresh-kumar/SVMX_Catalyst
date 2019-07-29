@@ -111,16 +111,16 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 	}
 
 	@Test()
-	// @Test(retryAnalyzer=Retry.class)
+	//@Test(retryAnalyzer = Retry.class)
 	public void RS_10586() throws Exception {
-		//Jira Link
-		if(BaseLib.sOSName.equalsIgnoreCase("ios")) {
+		// Jira Link
+		if (BaseLib.sOSName.equalsIgnoreCase("ios")) {
 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6482");
-		}else {
+		} else {
 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6770");
 
 		}
-			
+
 		// Static Questions and Answers
 		String sCheckboxStaticQ = "Checkbox Static Question";
 		String sCheckboxStaticAns = "CheckBoxOne";
@@ -238,7 +238,11 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		Assert.assertTrue(sDateStaticAns.equals(sDateStaticAnsApp), "Static response date failed");
 		ExtentManager.logger.log(Status.PASS, "Static response with Date datatype Passed expected :" + sDateStaticAns + "actual:" + sDateStaticAnsApp + "");
 
-		commonUtility.custScrollToElement(sDateDynamicQ, false);
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			commonUtility.custScrollToElement(sDateStaticQ, false);
+		} else {
+			commonUtility.custScrollToElement(sDateDynamicQ, false);
+		}
 		String sDateTimeStaticAnsApp = ph_ChecklistPO.getelechecklistdatewithMoreinfo(sDateTimeStaticQ).getText().trim();
 		System.out.println(sDateTimeStaticQ);
 		Assert.assertTrue(sDateTimeStaticAnsApp.equals(sDateTimeStaticAns), "Static response with DateTime datatype failed");

@@ -5,10 +5,7 @@
 package com.ge.fsa.tests.phone;
 
 import java.util.Set;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -17,8 +14,6 @@ import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
 import com.ge.fsa.lib.ExtentManager;
 import com.ge.fsa.lib.Retry;
-
-import io.appium.java_client.MobileElement;
 
 public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 	String sTestCaseID = null;
@@ -153,7 +148,7 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		// Navigating to Checklist
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName1, sProcessname);
 		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName1 + "");
-
+		
 		// Scrolling
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
 			commonUtility.custScrollToElement(sChecklistName, false);
@@ -164,11 +159,9 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(3000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
-		Thread.sleep(2000);
 
 		// ph_ChecklistPO.geteleInProgress().click();
 
@@ -247,7 +240,6 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		ph_MorePo.syncData(commonUtility);
 
-		Thread.sleep(CommonUtility.iMedSleep);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
 		// -------------Validating work order not satisfying Qualification
 		// Criteria----------------
@@ -286,7 +278,6 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 
 		// Navigate to Field Service process
 		ph_WorkOrderPo.selectAction(commonUtility, sFieldServiceName);
-		Thread.sleep(CommonUtility.iLowSleep);
 		// Navigating to the checklist
 		// Scrolling
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
@@ -298,11 +289,9 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(3000);
-
+		
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
-		Thread.sleep(2000);
 
 		Integer iSectionSize3 = ph_ChecklistPO.geteleGenericList("Section One").size();
 		if (iSectionSize3 == 0) {
@@ -330,11 +319,9 @@ public class Ph_SCN_Checklist_3_RS_10579 extends BaseLib {
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
-		Thread.sleep(3000);
 
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
-		Thread.sleep(2000);
 
 		// Clicking on Section1
 		ph_ChecklistPO.getElementSection(0).click();

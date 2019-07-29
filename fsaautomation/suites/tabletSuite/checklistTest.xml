@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Checklist">
- <listeners>
-    
-    </listeners>
+
 <test name="Checklist">
 		<classes>
 			<class name="com.ge.fsa.tests.tablet.SCN_Checklist_1_RS_10577" />

@@ -128,13 +128,11 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 
 		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(3000);
 
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sFieldServiceName);
 
 		// Setting up Data for DVR billing type picklist
-		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.custScrollToElement(ph_CreateNewPo.getElebillingtype());
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_CreateNewPo.getElebillingtype(), sBillingTypeDVR);
 
@@ -216,7 +214,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "0", "0", "0");
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.getDvrText(sScheduledDateDVR), 3), "DateTime Literal Today DVR did not trigger");
 		ExtentManager.logger.log(Status.PASS, "DATE Literal Today validation passed");
-		Thread.sleep(CommonUtility.iLowSleep);
 		commonUtility.setSpecificDate(ph_WorkOrderPo.getEleScheduledDate(), "June", "1", "2019");
 		// eleAccountLookUp DVR
 		Thread.sleep(2000);
@@ -254,7 +251,6 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		 * }
 		 */
 
-		Thread.sleep(CommonUtility.iLowSleep);
 		ph_CalendarPo.getEleCalendarBtn().click();
 		Thread.sleep(CommonUtility.iLowSleep);
 		ph_ExploreSearchPo.geteleExploreIcn().click();
@@ -265,6 +261,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		ph_WorkOrderPo.geteleProblemDescriptiontxt().sendKeys("Ok");
 		ph_WorkOrderPo.getEleSaveLnk().click();
+		commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		commonUtility.custScrollToElement(ph_WorkOrderPo.geteleConfirm());
 		ph_WorkOrderPo.geteleConfirm().click();
 
@@ -301,6 +298,7 @@ public class Ph_SCN_DVR_RS_10550 extends BaseLib {
 
 		Assert.assertTrue(commonUtility.waitforElement(ph_WorkOrderPo.geteleLinePriceConfirmationtxt(), 3), sPartsLinePriceDVR);
 		ExtentManager.logger.log(Status.PASS, "Parts DVR PASS :Line Quantity confirmation message displayed" + sPartsLinePriceDVR + "");
+		//commonUtility.custScrollToElement(ph_WorkOrderPo.getEleAutoDate1_Edit_Input());
 		ph_WorkOrderPo.geteleConfirm().click();
 		ExtentManager.logger.log(Status.PASS, "Clicked on Confirm button");
 		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
