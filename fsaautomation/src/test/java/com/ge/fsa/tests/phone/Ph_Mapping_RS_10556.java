@@ -114,10 +114,6 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 		
 		
-		
-		
-		
-		
 		// Pre Login to app
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
@@ -513,7 +509,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				}
 		
 				String scheddatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
-				 scheddatetime = ph_CalendarPo.convertedformate(scheddatetime,"yyyy-MM-dd'T'HH:mm:ss","d/M/yyyy HH:mm");
+				 scheddatetime = ph_CalendarPo.convertedformate(scheddatetime,"dd/MM/yyyy HH:mm",commonUtility);
 
 				System.out.println(scheddatetime);
 				try {
@@ -525,7 +521,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				}
 		
 				String scheddate = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date__c");
-				scheddate = ph_CalendarPo.convertedformate(scheddate,"yyyy-MM-dd","d/M/yyyy");
+				scheddate = ph_CalendarPo.convertedformate(scheddate,"dd/MM/yyyy",commonUtility);
 
 				System.out.println(scheddate);
 				try {
@@ -684,7 +680,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			}
 
 			String Date_Requested = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Date_Requested__c");
-			String SFMDate_Requested = ph_CalendarPo.convertedformate(Date_Requested,"yyyy-MM-dd","d/M/yyyy");
+			String SFMDate_Requested = ph_CalendarPo.convertedformate(Date_Requested,"dd/MM/yyyy",commonUtility);
 			 
 			try {
 				assertEquals(SFMScheduledDatetime, SFMDate_Requested);
@@ -695,7 +691,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			}
 
 			String Start_Date_and_Time = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Start_Date_and_Time__c");
-			String SFMStartsatetime  = ph_CalendarPo.convertedformate(Start_Date_and_Time,"yyyy-MM-dd'T'HH:mm:ss","d/M/yyyy HH:mm");
+			String SFMStartsatetime  = ph_CalendarPo.convertedformate(Start_Date_and_Time,"dd/MM/yyyy HH:mm",commonUtility);
 			try {
 				assertEquals((SFMScheduledDate + " 00:00"), SFMStartsatetime);
 				ExtentManager.logger.log(Status.PASS, "StartDateandTime(Date/Time) value mapped Successful ");

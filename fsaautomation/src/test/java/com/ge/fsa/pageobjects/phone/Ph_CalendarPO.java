@@ -379,9 +379,10 @@ public class Ph_CalendarPO
 		return stempDate;
 	}
 	
-	public String convertedformate( String Datetime,String format1,String format2) throws Exception 
+	public String convertedformate( String Datetime,String format2,CommonUtility commonUtility) throws Exception 
 	{
-		SimpleDateFormat parser1 = new SimpleDateFormat(format1);
+
+		SimpleDateFormat parser1 = new SimpleDateFormat(commonUtility.getDateFormat(Datetime));
 		 Date  dTempDate1 = parser1.parse(Datetime);
 		 SimpleDateFormat formatter1 = new SimpleDateFormat(format2);
 	        String stempDate =  formatter1.format(dTempDate1);
@@ -633,6 +634,38 @@ else {
 	{
 		return eleCalendarerrormsg;
 	}
+
+	
+	
+	private WebElement elemultieventdate;
+	public WebElement getElemultieventdate(String Subject)
+	{
+
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]//android.widget.TextView[5]"));
+			
+		}else {
+			return driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[6]"));
+			
+		}	
+	
+	}
+	
+	
+	private WebElement elemultieventtime;
+	public WebElement getElemultieventtime(String Subject)
+	{
+
+		if(BaseLib.sOSName.equalsIgnoreCase("android")) {
+			return driver.findElement(By.xpath("//android.widget.ScrollView[@content-desc=\"EVENT_DETAIL.VIEW\"]//android.widget.TextView[7]"));
+			
+		}else {
+			return	driver.findElement(By.xpath("(//XCUIElementTypeStaticText[@name=\""+Subject+"\"]/..//..//XCUIElementTypeStaticText)[7]"));
+			
+		}
+	
+	}
+	
 	
 	
 }
