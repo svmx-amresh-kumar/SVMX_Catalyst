@@ -552,7 +552,7 @@ public class Ph_ChecklistPO
 		System.out.println("Device Date" + sDeviceDateTUF);
 		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
 		Date date = (Date) formatter.parse(sDeviceDateTUF);
-		SimpleDateFormat formatter1 = new SimpleDateFormat("d/M/yyyy");
+		SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
 		formatter1.setTimeZone(TimeZone.getTimeZone(sDeviceDateTUF.split(" ")[4]));
 		String sTodayDate = formatter1.format(date);
 		

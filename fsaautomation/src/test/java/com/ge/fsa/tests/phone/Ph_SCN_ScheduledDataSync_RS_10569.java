@@ -119,6 +119,8 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "Scheduled Data Sync Failed");
 		}
 
+		
+		ph_ExploreSearchPo.geteleExploreIcn().click();
 		// Navigation to WO
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName,
 				sFieldServiceName);
