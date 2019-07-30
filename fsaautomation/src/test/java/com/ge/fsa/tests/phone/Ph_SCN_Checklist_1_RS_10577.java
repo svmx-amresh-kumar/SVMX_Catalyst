@@ -57,8 +57,8 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sCityPrefill = "Delhi";
 	String sOrderStatusPrefill = "Open";
 	String sIdleTimePrefill = "30";
-	String sScheduleddatePrefill = "8/28/18";
-	String sScheduledDateTimePrefill = "8/28/18 02:42";
+	String sScheduleddatePrefill = "08/28/18";
+	String sScheduledDateTimePrefill = "08/28/18 02:42";
 
 	// Source object update values
 
@@ -71,7 +71,7 @@ public class Ph_SCN_Checklist_1_RS_10577 extends BaseLib {
 	String sScheduledDate = null;
 	String sScheduledDateSOU = null;
 	String sScheduledDateTime = null;
-	String sScheduledDateTimeSou = "28/8/2018 09:42";
+	String sScheduledDateTimeSou = "28/08/2018 09:42";
 	String sNoofTimesAssigned = null;
 	String sNooftimesAssignedSOU = "2";
 	String sProformaInvoice = null;

@@ -26,6 +26,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -74,7 +76,7 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		System.out.println(sWORecordID);
 		sWOName= restServices.restGetSoqlValue("SELECT+name+from+SVMXC__Service_Order__c+Where+id+=\'" + sWORecordID + "\'", "Name");
 		System.out.println("WO no =" + sWOName);			
-		//sWOName = "WO-00004603";
+		//sWOName = "WO-00004034";
 		bProcessCheckResult =commonUtility.ProcessCheck(restServices, sChecklistName, sScriptName, sTestCaseID);		
 	}
 	
@@ -106,10 +108,19 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 				sProcessname);
 		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName + "");
 		
+		
+		// Scrolling
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			commonUtility.custScrollToElement(sChecklistName, false);
+		} else {
+			commonUtility.custScrollToElement(sChecklistName);
+		}
+		
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();		
 		ExtentManager.logger.log(Status.INFO, "Clicked ChecklistProcess" + sChecklistName + "");
-
+		Thread.sleep(2000);
+		
 		// Starting new Checklist
 		ph_ChecklistPO.getelecheckliststartnew(sChecklistName).click();
 		//Do not remove the below hardwait as its not clicking with fluent wait or wait for element
@@ -128,16 +139,30 @@ public class Ph_SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 		Thread.sleep(2000);
 		ph_ChecklistPO.geteleBackbutton().click();
 		ph_MorePo.syncData(commonUtility);
+	//	TimeUnit.SECONDS.sleep(90);
 
 		// ------------------SERVER SIDE VALIDATIONS
 		System.out.println("Validating if  attachment is syned to server.");
 		//The below 60seconds wait is must as attachment takes time to sync to server and there is no ways we can predict how long it takes.
-		Thread.sleep(60000);
+		//Thread.sleep(60000);
 		String sSoqlchecklistid = "SELECT SVMXC__What_Id__c,ID FROM SVMXC__Checklist__c where SVMXC__Work_Order__c in (select id from SVMXC__Service_Order__c where name =\'"
 				+ sWOName + "\')";
 		String schecklistid = restServices.restGetSoqlValue(sSoqlchecklistid, "Id");
 		String sSoqlAttachment = "SELECT Id FROM Attachment where ParentId in(select Id from SVMXC__Checklist__c where id =\'"
 				+ schecklistid + "\')";
+		while (restServices.restGetSoqlValue(sSoqlAttachment, "Id") == null) System.out.println("ok entereed while"); {
+			for (int i = 0; i < 4; i++) {
+				TimeUnit.SECONDS.sleep(30);
+				if (restServices.restGetSoqlValue(sSoqlAttachment, "Id") == null) {
+					i++;
+				} else {
+					System.out.println("attachment found");
+					break;
+				}
+				System.out.println("attachment still not found"+i);
+			}
+
+		}
 
 		String sAttachmentIDAfter = restServices.restGetSoqlValue(sSoqlAttachment, "Id");
 		assertNotNull(sAttachmentIDAfter);

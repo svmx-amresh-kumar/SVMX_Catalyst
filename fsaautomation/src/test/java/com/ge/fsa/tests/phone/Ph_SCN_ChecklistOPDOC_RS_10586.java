@@ -127,11 +127,11 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sDateStaticQ = "7. Date Static Question";
 		String sDateStaticQv = "Date Static Question";
 
-		String sDateStaticAns = "1/1/2018";
+		String sDateStaticAns = "01/01/2018";
 		String sDateTimeStaticQ = "8. Datetime Static question";
 		String sDateTimeStaticQv = "Datetime Static question";
 
-		String sDateTimeStaticAns = "1/1/2018 00:00";
+		String sDateTimeStaticAns = "01/01/2018 00:00";
 		String sMultiPicklistStaticQ = "MultiPicklist Static Question";
 		String sMultiPicklistStaticAns = "MultiOne;MultiTwo";
 		String sNumberStaticQ = "1. Number Static Question";
@@ -155,9 +155,9 @@ public class Ph_SCN_ChecklistOPDOC_RS_10586 extends BaseLib {
 		String sDateDynamicQ = "9. Dynamic Date From Scheduled Date";
 		String sDateDynamicQv = "Dynamic Date From Scheduled Date";
 
-		String sDateDynamicAns = "1/1/2018";
+		String sDateDynamicAns = "01/01/2018";
 		String sDateTimeDynamicQ = "Dynamic DateTime from ScheduledDateTime";
-		String sDateTimeDynamicAns = "1/1/2018 00:00";
+		String sDateTimeDynamicAns = "01/01/2018 00:00";
 		String sNumberDynamicQ = "10. Dynamic Number from No Of Times Assigned";
 		String sNumberDynamicQv = "Dynamic Number from No Of Times";
 

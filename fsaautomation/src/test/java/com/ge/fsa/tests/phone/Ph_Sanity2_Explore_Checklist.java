@@ -107,7 +107,7 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		String sNumberQAns = null;
 		// String sValue = "MultiOn, MultiTwo";
 		String sProcessname = "Default title for Checklist";
-		String sDateExpected = "1/1/2019";
+		String sDateExpected = "01/01/2019";
 
 		prereq();
 		lauchNewApp("false");
@@ -126,6 +126,13 @@ public class Ph_Sanity2_Explore_Checklist extends BaseLib {
 		ph_ExploreSearchPo.navigateToSFM(commonUtility, ph_WorkOrderPo, sExploreSearch, sExploreChildSearchTxt, sWOName, sProcessname);
 		ExtentManager.logger.log(Status.INFO, "WorkOrder dynamically created and used is :" + sWOName + "");
 
+		// Scrolling
+		if (BaseLib.sOSName.equalsIgnoreCase("android")) {
+			commonUtility.custScrollToElement(sChecklistName, false);
+		} else {
+			commonUtility.custScrollToElement(sChecklistName);
+		}
+		
 		// Click on ChecklistName
 		ph_ChecklistPO.getEleChecklistName(sChecklistName).click();
 		System.out.println("clicked checklistname");
