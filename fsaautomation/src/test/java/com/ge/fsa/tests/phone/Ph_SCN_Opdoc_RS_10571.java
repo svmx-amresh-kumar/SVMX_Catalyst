@@ -31,7 +31,7 @@ public class Ph_SCN_Opdoc_RS_10571 extends BaseLib{
 	String sFieldServiceName = null;
 	String sProbDesc = null;
 	int iValNoOfTimesAssigned = 0;
-	String sDate = "1/1/2019";
+	String sDate = "01/01/2019";
 	Boolean bProcessCheckResult;
 	String sProcessName = "Auto_Regression_10571";
 	
