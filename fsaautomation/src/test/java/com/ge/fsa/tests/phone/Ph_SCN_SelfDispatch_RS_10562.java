@@ -33,7 +33,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 	String sSubject =null;
 	String sSqlQuery = null;
 	List<WebElement> lsWoList = null;
-	boolean configSync;
+	boolean bProcessCheckResult;
 	public void preRequiste() throws Exception { 
 		
 		restServices.getAccessToken();
@@ -50,7 +50,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sTestID, "ProcessName");
 		
 		
-		configSync=commonUtility.ProcessCheck(restServices, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestID);
+		bProcessCheckResult=commonUtility.ProcessCheck(restServices, sFieldServiceName, "SCN_SelfDispatch_RS_10562_prerequisite", sTestID);
 		
 		
 	}
@@ -72,9 +72,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		//Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//Config Sync
-		if(configSync) {
-			ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-		}
+		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 		
 		//Data Sync
 		ph_MorePo.syncData(commonUtility);

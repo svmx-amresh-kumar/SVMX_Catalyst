@@ -52,7 +52,7 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 	Calendar cal = null;
 
 	public void preRequiste() throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = format.parse(ph_ChecklistPO.get_device_date(commonUtility));// E MMM d HH:mm:ss z yyyy
 		SimpleDateFormat restServiceFormat = new SimpleDateFormat("yyyy-MM-dd");
 		cal = Calendar.getInstance();
@@ -218,6 +218,7 @@ public class Ph_SCN_Formula_RS_10552 extends BaseLib {
 		ExtentManager.logger.log(Status.PASS, "Customer down is set to ON");
 
 		// Update the WorkOrder and validate if the Order status is now changed
+		commonUtility.swipeGeneric("down");
 		ph_CreateNewPo.selectFromPickList(commonUtility, ph_WorkOrderPo.geteleOrderStatus(), "Completed");
 		ph_WorkOrderPo.getElesave().click();
 
