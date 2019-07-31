@@ -70,13 +70,10 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 
 	commonUtility.executeSahiScript("appium/Ph_FON_6350.sah");
 		
+	lauchNewApp("false");
 		// Pre Login to app
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 
-		ph_MorePo.configSync(commonUtility,ph_CalendarPo);
-		Thread.sleep(CommonUtility.iMedSleep);
-		ph_MorePo.syncData(commonUtility);
-		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -110,10 +107,6 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		sEventIdSVMX_1 = restServices.restGetSoqlValue(sSqlEventQuery, "Id");
 		System.out.println(sEventIdSVMX_1);
 		
-	
-	/*	sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
-		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
-		System.out.println(sEventenddatetimeserver);*/
 		
 		
 		String endtimezero=	ph_CalendarPo.Addinghrstosfdcformat(3);
@@ -122,8 +115,6 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		restServices.restUpdaterecord(sObjectApi, sWOJson, sEventIdSVMX_1);
 
 		
-		
-
 		sObjectApi = "SVMXC__SVMX_Event__c";
 		sSqlEventQuery ="SELECT+SVMXC__EndDateTime__c+from+SVMXC__SVMX_Event__c+Where+id+=\'"+sEventIdSVMX_1+"\'";				
 		String sEventenddatetimeserver =restServices.restGetSoqlValue(sSqlEventQuery,"SVMXC__EndDateTime__c"); 
@@ -140,7 +131,9 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		ph_CalendarPo.getEleworkordernumonCalendar(sEventSubject).click();
 		Thread.sleep(2000);
 
-
+		
+try {
+	
 		String getappointmentdate = ph_CalendarPo.getEleeventdate(sEventSubject).getText();
 		System.out.println("get dates:"+getappointmentdate);
 
@@ -153,6 +146,25 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 		String datetimefromclient=enddatefromcal+" "+getappointmenttime[1];
 		System.out.println("datetimefromclient"+datetimefromclient);
 		Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
+		
+} catch (Exception e) {
+	
+	String getappointmentdate = ph_CalendarPo.getElemultieventdate(sEventSubject).getText();
+	System.out.println("get dates:"+getappointmentdate);
+
+	String enddatefromcal = calendarPO.convertedformate(getappointmentdate,"E, MMM dd, yyyy","M/d/yyyy");
+	System.out.println("date1:"+enddatefromcal);
+
+
+	String getappointmenttime= ph_CalendarPo.getElemultieventtime(sEventSubject).getText();
+	
+	String datetimefromclient=enddatefromcal+" "+getappointmenttime;
+	System.out.println("datetimefromclient"+datetimefromclient);
+	Assert.assertEquals(datetimefromclient,enddatetimefromserver, "End Date time is mismatch");
+	
+}	
+		
+		
 		ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the events and validated in client is successful");
 		System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 
@@ -241,7 +253,8 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	ph_CalendarPo.getEleworkordernumonCalendar(SFDC_Event).click();
 	Thread.sleep(2000);
 
-
+try {
+	
 	String getappointmentdateSFDC = ph_CalendarPo.getEleeventdate(SFDC_Event).getText();
 	System.out.println("get time:"+getappointmentdateSFDC);
 
@@ -254,6 +267,22 @@ public class Ph_Sanity11_Verify_Calendar_Functionality_GO_6350 extends BaseLib {
 	String datetimefromclientSFDC=enddatefromcalSFDC+" "+getappointmenttimeSFDC[1];
 	System.out.println("datetimefromclient"+datetimefromclientSFDC);
 	Assert.assertEquals(datetimefromclientSFDC,enddatetimefromserverSFDC, "End Date time is mismatch");
+} catch (Exception e) {
+	String getappointmentdateSFDC = ph_CalendarPo.getEleeventdate(SFDC_Event).getText();
+	System.out.println("get time:"+getappointmentdateSFDC);
+
+	String enddatefromcalSFDC = calendarPO.convertedformate(getappointmentdateSFDC,"E, MMM dd, yyyy","M/d/yyyy");
+	System.out.println("get date:"+enddatefromcalSFDC);
+
+
+	String getappointmenttimeSFDC= ph_CalendarPo.getEleeventtime(SFDC_Event).getText();
+	System.out.println("get end  time:"+getappointmenttimeSFDC);
+	String datetimefromclientSFDC=enddatefromcalSFDC+" "+getappointmenttimeSFDC;
+	System.out.println("datetimefromclient"+datetimefromclientSFDC);
+	Assert.assertEquals(datetimefromclientSFDC,enddatetimefromserverSFDC, "End Date time is mismatch");
+}
+	
+	
 	ExtentManager.logger.log(Status.PASS,"On server/DC, edit one of the SFDC events and validated in client is successful");
 	System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

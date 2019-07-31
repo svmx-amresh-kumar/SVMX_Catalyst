@@ -901,7 +901,7 @@ public class Ph_WorkOrderPO {
 
 	
 
-	@AndroidFindBy(xpath = "//*[@*[contains(.,'Customer Down')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
+	@FindBy(xpath = "//*[@*[contains(.,'Customer Down')]]/following-sibling::*[@*[contains(.,'BOOLEAN_SWITCH')]]")
 	private WebElement eleCustomerDown;
 
 	public WebElement getEleCustomerDown() {
@@ -1787,12 +1787,14 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath="//*[@*[contains(.,'ItemCount')]]//*[@class='android.widget.ImageView']")
+	@iOSXCUITFindBy(xpath="//*[@name='Item1']")
 	private WebElement eleAttachedImage;
 	public WebElement getEleAttachedImage() {
 		return eleAttachedImage;
 	}
 	
 	@AndroidFindBy(xpath="//*[@text='Title']/following-sibling::*[1]/*[@class='android.widget.EditText']")
+	@iOSXCUITFindBy(xpath="//*[@name='Title']//XCUIElementTypeTextField")
 	private WebElement eleImageTitle;
 	public WebElement getEleImageTitle() {
 		return eleImageTitle;

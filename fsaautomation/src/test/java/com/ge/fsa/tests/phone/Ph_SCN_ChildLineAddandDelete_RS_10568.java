@@ -31,7 +31,8 @@ public class Ph_SCN_ChildLineAddandDelete_RS_10568 extends BaseLib{
 			commonUtility.addJiraLinkInExtentReport("https://servicemax.atlassian.net/browse/GO-6809");
 
 		}
-			
+		lauchNewApp("false");
+	
 		System.out.println("SCN_RS10568_ChildLineAddDelete");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		

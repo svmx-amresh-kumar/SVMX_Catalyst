@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.ge.fsa.lib.BaseLib;
 import com.ge.fsa.lib.CommonUtility;
@@ -252,7 +253,7 @@ public class Ph_Sanity12_AggSync extends BaseLib {
 			ExtentManager.logger.log(Status.PASS, "Labor are correctly synced after deleting from server. Expected : 2, Actual : "+laborCount);
 		}
 		catch(Exception e) {
-			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + e.getMessage());
+			ExtentManager.logger.log(Status.FAIL,"Testcase " + sTestID + e.getMessage()+MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		finally {
 			commonUtility.executeSahiScript("appium/Sanity12_postcleanup.sah");

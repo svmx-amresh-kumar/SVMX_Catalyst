@@ -2900,4 +2900,39 @@ public class CommonUtility {
 		ExtentManager.logger.log(Status.INFO,"[ <a href='"+sLinkURL+" '>"+sLinkURL+" </a> ] ");
 	
     }
+    
+  /**
+   * Function to return the date format to parse
+   * e.g getDateFormat("Tuesday, Jul 30, 2019") will return "E, MMM dd, yyyy"
+   * @param sRawDateFormat
+   * @return
+   */
+    public  String getDateFormat(String sRawDateFormat) {
+    	String[] formats = { "E, MMM dd, yyyy","yyyy-MM-dd'T'HH:mm:ss","E MMM dd HH:mm:ss Z yyyy",
+   			 "yyyy-MM-dd","d/M/y HH:mm","yyyy-MM-dd","d/M/yyyy","M/d/yyyy","dd/M/yyyy",
+               "yyyy-MM-dd'T'HH:mm:ss'Z'",   "yyyy-MM-dd'T'HH:mm:ssZ",
+               "yyyy-MM-dd'T'HH:mm:ss",      "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+               "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd HH:mm:ss", 
+               "MM/dd/yyyy HH:mm:ss",        "MM/dd/yyyy'T'HH:mm:ss.SSS'Z'", 
+               "MM/dd/yyyy'T'HH:mm:ss.SSSZ", "MM/dd/yyyy'T'HH:mm:ss.SSS", 
+               "MM/dd/yyyy'T'HH:mm:ssZ",     "MM/dd/yyyy'T'HH:mm:ss", 
+               "yyyy:MM:dd HH:mm:ss",        "yyyyMMdd", };
+       
+   	 String dateFormatCaptured="";
+        if (sRawDateFormat != null) {
+            for (String parse : formats) {
+                SimpleDateFormat sdf = new SimpleDateFormat(parse);
+                try {
+                    sdf.parse(sRawDateFormat);
+                    System.out.println("Raw DatePassed = " + sRawDateFormat+" : Date format parsed ="+ parse);
+                    dateFormatCaptured = parse;
+                   break;
+
+                } catch (Exception e) {
+
+                }
+            }
+        }
+        return dateFormatCaptured;
+    }
 }

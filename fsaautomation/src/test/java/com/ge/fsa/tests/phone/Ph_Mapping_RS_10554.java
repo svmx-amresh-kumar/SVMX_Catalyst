@@ -47,7 +47,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 	String assertionMessage="";
 	WebElement productname=null;
 	Boolean bProcessCheckResult = false;
-	String ScheduledDate="29/8/2018";
+	String ScheduledDate="29/08/2018";
 
 	@Test(retryAnalyzer=Retry.class)
 	//@Test()
@@ -108,19 +108,19 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		 System.out.println(sIBLastModifiedBy);
 		
 		
-		 String stempDate = ph_CalendarPo.convertedformate(sIBLastModifiedBy,"yyyy-MM-dd'T'HH:mm:ss","d/M/y HH:mm");
+		 String stempDate = ph_CalendarPo.convertedformate(sIBLastModifiedBy,"dd/MM/yyyy HH:mm",commonUtility);
 		
 		 lauchNewApp("false");
 			//Pre Login to app
 				ph_LoginHomePo.login(commonUtility, ph_MorePo);
 			
-			//config sync
+		/*	//config sync
 				ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
 			Thread.sleep(CommonUtility.iMedSleep);
 			
 			//Data Sync for WO's created
 			ph_MorePo.syncData(commonUtility);
-			Thread.sleep(CommonUtility.iMedSleep);
+			Thread.sleep(CommonUtility.iMedSleep);*/
 			
 			//Navigation to SFM
 
@@ -225,14 +225,14 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 		
 			
 			String sScheduledDate = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date__c");
-			String convertedScheduledDate = ph_CalendarPo.convertedformate(sScheduledDate,"yyyy-MM-dd","d/M/yyyy");
+			String convertedScheduledDate = ph_CalendarPo.convertedformate(sScheduledDate,"dd/MM/yyyy",commonUtility);
 			assertionMessage= "Scheduled Date value mapping from the Server   Expected =" +convertedScheduledDate+ "Actual = "+ScheduledDate;
 			try{assertEquals(convertedScheduledDate, ScheduledDate);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 			
 			String sScheduledDatetime = restServices.getJsonValue(sJsonArrayWO, "SVMXC__Scheduled_Date_Time__c");
 		
-			 String stempDate1 = ph_CalendarPo.convertedformate(sScheduledDatetime,"yyyy-MM-dd'T'HH:mm:ss","d/M/y HH:mm");
+			 String stempDate1 = ph_CalendarPo.convertedformate(sScheduledDatetime,"d/M/y HH:mm",commonUtility);
 			SimpleDateFormat formatter2 = new SimpleDateFormat("d/M/y HH:mm");
 			Date dTempDate = formatter2.parse(stempDate1);
 	        //adding 7 hours to set to UTC/GMT time.. this is from PST timezone as 
@@ -260,7 +260,7 @@ public class Ph_Mapping_RS_10554 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
 				
 			String srequesteddateDate = restServices.getJsonValue(sJsonArrayparts, "SVMXC__Date_Requested__c");
-			 convertedScheduledDate = ph_CalendarPo.convertedformate(srequesteddateDate,"yyyy-MM-dd","d/M/yyyy");
+			 convertedScheduledDate = ph_CalendarPo.convertedformate(srequesteddateDate,"dd/MM/yyyy",commonUtility);
 			assertionMessage= "Date Requested value mapping from the Server  Expected = "+convertedScheduledDate+" Actual = "+ScheduledDate;
 			try{assertEquals(ScheduledDate, convertedScheduledDate);ExtentManager.logger.log(Status.PASS,assertionMessage);}catch(AssertionError e) {System.out.println(e);
 			ExtentManager.logger.log(Status.FAIL,assertionMessage);}
