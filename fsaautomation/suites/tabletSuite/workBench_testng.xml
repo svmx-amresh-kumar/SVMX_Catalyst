@@ -5,8 +5,8 @@
     </listeners>
 <test name="WorkBench">
 		<classes>
-		
-			
+		<class name="com.ge.fsa.tests.tablet.SCN_GetPrice_RS_10538" />
+		<class name="com.ge.fsa.tests.tablet.SCN_GetPriceSCON_RS_10539" />
 		</classes>
 	</test> <!-- Test -->
 	
