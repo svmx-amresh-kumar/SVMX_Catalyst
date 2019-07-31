@@ -170,7 +170,7 @@ public class SCN_GetPrice_RS_10537 extends BaseLib {
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonUtility,sProcessname2);
 		commonUtility.tap(workOrderPo.getEleLinkedSFM());
-		commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM("Manage Work Details for Products Serviced"));
+		commonUtility.tap(workOrderPo.getEleSFMfromLinkedSFM2(""));
 		commonUtility.tap(workOrderPo.getEleOKBtn());
 		workOrderPo.addPartsManageWD(commonUtility, workOrderPo,sProductName10538);
 		commonUtility.tap(workOrderPo.getEleClickSave());
