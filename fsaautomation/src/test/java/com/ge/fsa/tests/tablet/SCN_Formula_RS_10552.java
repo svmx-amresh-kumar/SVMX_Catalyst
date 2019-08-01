@@ -3,6 +3,10 @@
  */
 package com.ge.fsa.tests.tablet;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -35,7 +39,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 	String sWOSqlQuery = null;
 	String sSheetName =null;
 	String sTestID = null;
-	String[] sDate=null;
+	//String[] sDate=null;
 	String sCompletedDateTxt=null;
 	String sActualDateTxt=null;
 	String sAutoDate=null;
@@ -50,28 +54,46 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 	int iYear=0;
 	boolean presence=false;
 	boolean bProcessCheckResult=true;
+	Calendar cal = null;
 	public void preRequiste() throws Exception { 
 		
-		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
-		iYear=Integer.parseInt(sDate[0])+1;
-		sAutoDate=sDate[1]+"/"+1+"/"+iYear;
-		iDay = Integer.parseInt(sDate[2])-1;
-		sPreviousDate = Integer.parseInt(sDate[1])+"/"+iDay+"/"+sDate[0];
-		sOnsiteDate=Integer.parseInt(sDate[1])+"/"+Integer.parseInt(sDate[2])+"/"+sDate[0];	
-		
-		if(Integer.parseInt(sDate[2])>28)
-		{
-			sDate[2]="1";
-			iMonth=Integer.parseInt(sDate[1])+1;
-			if(iMonth>12) {
-				iMonth=01;
-			}
-			sDate[1]=""+iMonth;
-		}
-		sCompletedDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
-		iDay=Integer.parseInt(sDate[2])+2;
-		sDate[2]=""+iDay;
-		sActualDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
+//		sDate=new java.sql.Date(System.currentTimeMillis()).toString().split("-");
+//		iYear=Integer.parseInt(sDate[0])+1;
+//		sAutoDate=sDate[1]+"/"+1+"/"+iYear;
+//		iDay = Integer.parseInt(sDate[2])-1;
+//		sPreviousDate = Integer.parseInt(sDate[1])+"/"+iDay+"/"+sDate[0];
+//		sOnsiteDate=Integer.parseInt(sDate[1])+"/"+Integer.parseInt(sDate[2])+"/"+sDate[0];	
+//		
+//		if(Integer.parseInt(sDate[2])>28)
+//		{
+//			sDate[2]="1";
+//			iMonth=Integer.parseInt(sDate[1])+1;
+//			if(iMonth>12) {
+//				iMonth=01;
+//			}
+//			sDate[1]=""+iMonth;
+//		}
+//		sCompletedDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
+//		iDay=Integer.parseInt(sDate[2])+2;
+//		sDate[2]=""+iDay;
+//		sActualDateTxt=sDate[0]+"-"+sDate[1]+"-"+sDate[2];//+"T09:00:00.000+0000";
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = format.parse(ph_ChecklistPO.get_device_date(commonUtility));// E MMM d HH:mm:ss z yyyy
+		SimpleDateFormat restServiceFormat = new SimpleDateFormat("yyyy-MM-dd");
+		cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.YEAR, 1);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		sAutoDate = format.format(cal.getTime());
+		cal.setTime(date);
+		sCompletedDateTxt = restServiceFormat.format(cal.getTime());
+		cal.add(Calendar.DAY_OF_MONTH, 2);
+		sActualDateTxt = restServiceFormat.format(cal.getTime());
+		cal.setTime(date);
+		sOnsiteDate = format.format(cal.getTime());
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		sPreviousDate = format.format(cal.getTime());
+		cal.setTime(date);
 		
 		System.out.println("Completed *****"+sCompletedDateTxt);
 		System.out.println("Actual *****"+sActualDateTxt);
@@ -80,7 +102,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		System.out.println("sPreviousDate *****"+sPreviousDate);
 		
 		restServices = new RestServices();
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		sSerialNumber = commonUtility.generateRandomNumber("RS_10552_");
 		
 		//Creation of dynamic Work Order
@@ -120,7 +142,8 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		sTestCaseID = "RS_10552";
 		sExploreSearch = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreSearch");
 		sExploreChildSearchTxt = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ExploreChildSearch");
-		sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		//sFieldServiceName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName, "ProcessName");
+		sFieldServiceName="RS_10552Process";
 		preRequiste();
 		
 		//Pre Login to app
@@ -198,7 +221,7 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		
 		//Enter line price in parts
 		commonUtility.tap(workOrderPo.getElePartsIcn(sProductName));
-		commonUtility.tap(workOrderPo.getEleUsePriceToggleBtn());
+		commonUtility.tap(workOrderPo.getEleUsePriceToggleBtn(),20,20);
 		commonUtility.tap(workOrderPo.getEleLineQtyTxtFld());
 		workOrderPo.getEleLineQtyTxtFld().clear();
 		workOrderPo.getEleLineQtyTxtFld().sendKeys("10");
@@ -223,20 +246,20 @@ public class SCN_Formula_RS_10552 extends BaseLib {
 		
 		//Validation of formula after adding parts
 		workOrderPo.getEleAutoActivityMonthTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value").equals(""+Integer.parseInt(sDate[1])), "Activity month is displayed ");
+		Assert.assertEquals(workOrderPo.getEleAutoActivityMonthTxtFld().getAttribute("value"),String.valueOf(cal.get(Calendar.MONTH)+1), "Activity month is displayed ");
 		ExtentManager.logger.log(Status.PASS,"Activity month value is displayed as expected.");
 		
 		workOrderPo.getEleAutoActivityYearTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoActivityYearTxtFld().getAttribute("value").equals(sDate[0]), "Activity year is displayed");
+		Assert.assertEquals(workOrderPo.getEleAutoActivityYearTxtFld().getAttribute("value"),String.valueOf(cal.get(Calendar.YEAR)), "Activity year is displayed");
 		ExtentManager.logger.log(Status.PASS,"Activity year value is displayed as expected.");
 		
 		workOrderPo.getEleAutoDiscountLinePriceTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoDiscountLinePriceTxtFld().getAttribute("value").equals("10.5"), "Auto Discount line price is not displayed.");
+		Assert.assertEquals(workOrderPo.getEleAutoDiscountLinePriceTxtFld().getAttribute("value"),"10.5", "Auto Discount line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Auto Discount Line price is displayed as expected.");
 		
 		System.out.println(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value"));
 		workOrderPo.getEleAutoCalLinePriceTxtFld().click();
-		Assert.assertTrue(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value").equals("0"), "Auto call line price is not displayed.");
+		Assert.assertEquals(workOrderPo.getEleAutoCalLinePriceTxtFld().getAttribute("value"),"105", "Auto call line price is not displayed.");
 		ExtentManager.logger.log(Status.PASS,"Auto Call Line price is displayed as expected.");
 		
 		commonUtility.tap(workOrderPo.getEleDoneBtn());

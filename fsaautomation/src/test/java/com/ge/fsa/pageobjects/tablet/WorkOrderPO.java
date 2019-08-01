@@ -357,7 +357,8 @@ import io.appium.java_client.TouchAction;
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
+		//@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[contains(@class,'toggleslider')]")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
