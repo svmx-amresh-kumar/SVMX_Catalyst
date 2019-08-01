@@ -59,23 +59,26 @@ public class SCN_GetPrice_RS_10538 extends BaseLib {
 
 		}
 		
+		
+//		 To run the Sahi Script before the Execution of Appium
+			commonUtility.executeSahiScript("appium/Scenario_10538.sah");
+		
 		//commonsUtility.preReqSetup(genericLib);
 		// Resinstall the app
-		lauchNewApp("false");
+		//lauchNewApp("false");
 		
 		sSheetName ="RS_10538";
-		//Thread.sleep(50000);
-		System.out.println("SCN_GetPrice_RS_10538");
+		Thread.sleep(50000);
+				System.out.println("SCN_GetPrice_RS_10538");
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		Thread.sleep(50000);
 
-	//	 To run the Sahi Script before the Execution of Appium
-		commonUtility.executeSahiScript("appium/Scenario_10538.sah");
+	
 		
 
 		// Have a config Sync
-		//toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
 		Thread.sleep(CommonUtility.iMedSleep);

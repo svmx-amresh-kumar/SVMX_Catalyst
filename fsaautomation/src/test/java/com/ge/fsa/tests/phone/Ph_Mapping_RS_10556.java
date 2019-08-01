@@ -72,8 +72,8 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		String SFMCustomerDown=BaseLib.sOSName.equalsIgnoreCase("android")?"ON":"1";
 		
 		
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
-		//commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
+		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
 		
 		commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
@@ -119,11 +119,11 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 
 		//config sync
 	ph_MorePo.configSync(commonUtility, ph_CalendarPo);
-	Thread.sleep(CommonUtility.iMedSleep);
+	
 
 		// datasync
-		ph_MorePo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
+		 ph_MorePo.syncData(commonUtility);
+		
 			//open WO from calendar
 
 		ph_CalendarPo.getEleCalendarBtn().click();
@@ -189,7 +189,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				String fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText();
 				System.out.println(fetchedScheduledDate);
 
-				DateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Date date = new Date();
 				SFMScheduledDate = dateFormat.format(date);
 				try {
@@ -203,7 +203,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDateTime());
 				String fetchedScheduledDatetime = ph_WorkOrderPo.getEleScheduledDateTime().getText();
 				System.out.println(fetchedScheduledDatetime);
-				SimpleDateFormat parser1 = new SimpleDateFormat("d/M/yyyy");
+				SimpleDateFormat parser1 = new SimpleDateFormat("dd/MM/yyyy");
 				Instant insDate = date.toInstant().plus(1, ChronoUnit.DAYS);
 				Date dTempDate1 = Date.from(insDate);
 				SFMScheduledDatetime = parser1.format((dTempDate1));
@@ -790,7 +790,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			 fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText();
 			System.out.println(fetchedScheduledDate);
 
-			 dateFormat = new SimpleDateFormat("d/M/yyyy");
+			 dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			 date = new Date();
 			SFMScheduledDate = dateFormat.format(date);
 			try {
@@ -804,7 +804,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 			commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDateTime());
 			 fetchedScheduledDatetime = ph_WorkOrderPo.getEleScheduledDateTime().getText();
 			System.out.println(fetchedScheduledDatetime);
-			 parser1 = new SimpleDateFormat("d/M/yyyy");
+			 parser1 = new SimpleDateFormat("dd/MM/yyyy");
 			 insDate = date.toInstant().plus(1, ChronoUnit.DAYS);
 			 dTempDate1 = Date.from(insDate);
 			SFMScheduledDatetime = parser1.format((dTempDate1));
