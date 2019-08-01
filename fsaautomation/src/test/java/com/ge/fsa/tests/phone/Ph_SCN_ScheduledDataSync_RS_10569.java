@@ -56,14 +56,14 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		sEditProcessName = CommonUtility.readExcelData(CommonUtility.sTestDataFile, sSheetName, "EditProcessName");
 		// sWOName = "WO-00002005";
 		// running the Sahi Script Pre-requisites - to set scheduled data sync
-		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah");
+		commonUtility.executeSahiScript("/appium/Scenario_RS_10569_ScheduledDataSync_Pre.sah");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
 	}
 
 	public void postscript() throws Exception {
 		// running the Sahi Script Post check - to reset scheduled data sync back to
 		// 1000
-		commonUtility.executeSahiScript("appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
+		commonUtility.executeSahiScript("/appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
 		// lauchNewApp("true");
 		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
