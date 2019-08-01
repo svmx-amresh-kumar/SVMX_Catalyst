@@ -2813,6 +2813,13 @@ public class CommonUtility {
         return map;
     }
 
+	/**
+	 * Generates Custom failed suite for re-executions
+	 * @param sXmlFilePath
+	 * @param dbArr
+	 * @param parameters
+	 * @throws IOException
+	 */
     private static void generateTestSuiteXML(String sXmlFilePath, Map<String, List<String>> dbArr, Map<String, String> parameters) throws IOException {
 		
 
