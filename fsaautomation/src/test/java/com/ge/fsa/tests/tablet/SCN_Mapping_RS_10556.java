@@ -7,7 +7,7 @@ package com.ge.fsa.tests.tablet;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -142,12 +142,12 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		loginHomePo.login(commonUtility, exploreSearchPo);
 
 		// config sync
-		// toolsPo.configSync(commonsUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
+		//toolsPo.configSync(commonUtility);
+		//Thread.sleep(CommonUtility.iMedSleep);
 
 		// datasync
 		//toolsPo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
+		//Thread.sleep(CommonUtility.iMedSleep);
 
 		// calendarPO.openWoFromCalendar(commonsUtility, sworkordernumber);
 		commonUtility.tap(calendarPO.getEleCalendarClick());
@@ -157,7 +157,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		workOrderPo.selectAction(commonUtility, sFieldServiceName);
 
 		// to get orderstatus nd ordertype from workorder
-		restServices.getAccessToken();
+		//restServices.getAccessToken();
 		JSONArray sJsonArrayWO1 = restServices.restGetSoqlJsonArray(
 				"Select+SVMXC__Order_Status__c,+SVMXC__Order_Type__c+from+SVMXC__Service_Order__c+where+SVMXC__Service_Order__c.name=\'"
 						+ sworkordernumber + "\'");
@@ -172,7 +172,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchedOrderStatus = workOrderPo.getEleOrderStatusCaseLst().getAttribute("value");
 		System.out.println(fetchedOrderStatus);
 		try {
-			Assert.assertTrue(fetchedOrderStatus.equals(sorderstatus));
+			Assert.assertEquals(fetchedOrderStatus,sorderstatus);
 			ExtentManager.logger.log(Status.PASS, "OrderStatus (Picklist) value mapped Successful");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -182,7 +182,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
 		System.out.println(fetchBillingType);
 		try {
-			Assert.assertTrue(fetchBillingType.equals(SFMBillingtype));
+			Assert.assertEquals(fetchBillingType,SFMBillingtype);
 			ExtentManager.logger.log(Status.PASS, "BillingType(Picklist)  mapping Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -192,7 +192,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchedContact = workOrderPo.getTxtContact().getAttribute("value");
 		System.out.println(fetchedContact);
 		try {
-			Assert.assertTrue(fetchedContact.equals(SFMcontact));
+			Assert.assertEquals(fetchedContact,SFMcontact);
 			ExtentManager.logger.log(Status.PASS, "contact(Lookup) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -212,7 +212,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("innerText");
 		System.out.println(fetchProblemDescription);
 		try {
-			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype));
+			Assert.assertEquals(fetchProblemDescription,SFMBillingtype);
 			ExtentManager.logger.log(Status.PASS, "ProblemDescription(Long Text Area) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -221,7 +221,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchEmail = workOrderPo.getEmailvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchEmail.equals(SFMEmail));
+			Assert.assertEquals(fetchEmail,SFMEmail);
 			ExtentManager.logger.log(Status.PASS, "Email(Email) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -230,7 +230,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchURL = workOrderPo.getURLvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchURL.equals(SFMURL));
+			Assert.assertEquals(fetchURL,SFMURL);
 			ExtentManager.logger.log(Status.PASS, "URL(Url) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -240,7 +240,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchNumber = workOrderPo.getNumbervalue().getAttribute("value");
 		System.out.println(fetchNumber);
 		try {
-			Assert.assertTrue(fetchNumber.equals(SFMNumber));
+			Assert.assertEquals(fetchNumber,SFMNumber);
 			ExtentManager.logger.log(Status.PASS, "Number(Number) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -249,7 +249,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchPhone = workOrderPo.getPhonevalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchPhone.equals(SFMPhone));
+			Assert.assertEquals(fetchPhone,SFMPhone);
 			ExtentManager.logger.log(Status.PASS, "Phone(Phone) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -258,7 +258,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchCurrency = workOrderPo.getCurrencyvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchCurrency.equals(SFMCurrency));
+			Assert.assertEquals(fetchCurrency,SFMCurrency);
 			ExtentManager.logger.log(Status.PASS, "Currency(Currency) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -267,7 +267,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchclosedby = workOrderPo.getclosedby().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchclosedby.equals(SFMclosedby));
+			Assert.assertEquals(fetchclosedby,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "closedby(Lookup) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -276,7 +276,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		String fetchSite = workOrderPo.getTxtSite().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchSite.equals(SFMSite));
+			Assert.assertEquals(fetchSite,SFMSite);
 			ExtentManager.logger.log(Status.PASS, "Site(Lookup) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -290,7 +290,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		Date date = new Date();
 		SFMScheduledDate = dateFormat.format(date);
 		try {
-			Assert.assertTrue(fetchedScheduledDate.equals(SFMScheduledDate));
+			Assert.assertEquals(fetchedScheduledDate,SFMScheduledDate);
 			ExtentManager.logger.log(Status.PASS, "ScheduledDate(Date) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -304,7 +304,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		Date dTempDate1 = Date.from(insDate);
 		SFMScheduledDatetime = parser1.format((dTempDate1));
 		try {
-			Assert.assertTrue(fetchedScheduledDatetime.equals(SFMScheduledDatetime + " 00:00"),
+			Assert.assertEquals(fetchedScheduledDatetime,SFMScheduledDatetime + " 00:00",
 					"ScheduledDatetime(Date/Time) value mapped is not displayed");
 			ExtentManager.logger.log(Status.PASS, "ScheduledDate value mapped Successful ");
 		} catch (AssertionError e) {
@@ -327,7 +327,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchedlocation = workOrderPo.getElePartsLocation().getAttribute("value");
 		System.out.println(fetchedlocation);
 		try {
-			Assert.assertTrue(fetchedlocation.equals(SFMSite));
+			Assert.assertEquals(fetchedlocation,SFMSite);
 			ExtentManager.logger.log(Status.PASS, "location(Lookup(Location)) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -337,7 +337,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchedpart = workOrderPo.getElePartLaborLkUp().getAttribute("value");
 		System.out.println(fetchedpart);
 		try {
-			Assert.assertTrue(fetchedpart.equals(SFMProduct));
+			Assert.assertEquals(fetchedpart,SFMProduct);
 			ExtentManager.logger.log(Status.PASS, "Part(Lookup(Product)) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -347,7 +347,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchlineqty = workOrderPo.getEleLineQtyTxtFld().getAttribute("value");
 		System.out.println(fetchlineqty);
 		try {
-			Assert.assertTrue(fetchlineqty.equals(SFMLineQty));
+			Assert.assertEquals(fetchlineqty,SFMLineQty);
 			ExtentManager.logger.log(Status.PASS, "lineqty(Number) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -357,7 +357,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchlinepriceperunit = workOrderPo.getEleLinePerUnitTxtFld().getAttribute("value");
 		System.out.println(fetchlinepriceperunit);
 		try {
-			Assert.assertTrue(fetchlinepriceperunit.equals(SFMLinePerUnit));
+			Assert.assertEquals(fetchlinepriceperunit,SFMLinePerUnit);
 			ExtentManager.logger.log(Status.PASS, "LinePerUnit(Currency) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -367,7 +367,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getAttribute("value");
 		System.out.println(fetchworkdescription);
 		try {
-			Assert.assertTrue(fetchworkdescription.equals(SFMWorkdiscription));
+			Assert.assertEquals(fetchworkdescription,SFMWorkdiscription);
 			ExtentManager.logger.log(Status.PASS, "workdescription(Long Text Area) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -377,7 +377,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchRecordType = workOrderPo.getRecordType().getAttribute("value");
 		System.out.println(fetchRecordType);
 		try {
-			Assert.assertTrue(fetchRecordType.equals(SFMRecordType));
+			Assert.assertEquals(fetchRecordType,SFMRecordType);
 			ExtentManager.logger.log(Status.PASS, "RecordType(Record Type) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -387,7 +387,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchlinetype = workOrderPo.getLineType().getAttribute("value");
 		System.out.println(fetchlinetype);
 		try {
-			Assert.assertTrue(fetchlinetype.equals(SFMlinetype));
+			Assert.assertEquals(fetchlinetype,SFMlinetype);
 			ExtentManager.logger.log(Status.PASS, "linetype(Picklist) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -397,7 +397,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchdaterequired = workOrderPo.getDateRequired().getAttribute("value");
 		System.out.println(fetchdaterequired);
 		try {
-			Assert.assertTrue(fetchdaterequired.equals(SFMScheduledDatetime));
+			Assert.assertEquals(fetchdaterequired,SFMScheduledDatetime);
 			ExtentManager.logger.log(Status.PASS, "DateRequired(Date) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -407,7 +407,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 		System.out.println(fetchedstartdateandtime);
 		try {
-			Assert.assertTrue(fetchedstartdateandtime.equals(SFMScheduledDate + " 00:00"));
+			Assert.assertEquals(fetchedstartdateandtime,SFMScheduledDate + " 00:00");
 			ExtentManager.logger.log(Status.PASS, "startdateandtime(Date/Time) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -417,7 +417,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchclosedbyinpart = workOrderPo.getclosedby().getAttribute("value");
 		System.out.println(fetchclosedbyinpart);
 		try {
-			Assert.assertTrue(fetchclosedbyinpart.equals(SFMclosedby));
+			Assert.assertEquals(fetchclosedbyinpart,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "closedby(Lookup(User)) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -427,7 +427,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		String fetchcancledby = workOrderPo.getCanceledBy().getAttribute("value");
 		System.out.println(fetchcancledby);
 		try {
-			Assert.assertTrue(fetchcancledby.equals(SFMclosedby));
+			Assert.assertEquals(fetchcancledby,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "CanceledBy(Lookup(User)) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -735,7 +735,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchedOrderStatus = workOrderPo.getEleOrderStatusCaseLst().getAttribute("value");
 		System.out.println(fetchedOrderStatus);
 		try {
-			Assert.assertTrue(fetchedOrderStatus.equals("Open"));
+			Assert.assertEquals(fetchedOrderStatus,"Open");
 			ExtentManager.logger.log(Status.PASS, "OrderStatus Picklist value mapped Successful");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -745,7 +745,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchBillingType = workOrderPo.getEleBillingTypeLst().getAttribute("value");
 		System.out.println(fetchBillingType);
 		try {
-			Assert.assertTrue(fetchBillingType.equals(SFMBillingtype));
+			Assert.assertEquals(fetchBillingType,SFMBillingtype);
 			ExtentManager.logger.log(Status.PASS, "BillingType(Picklist)  mapping Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -755,7 +755,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchedContact = workOrderPo.getTxtContact().getAttribute("value");
 		System.out.println(fetchedContact);
 		try {
-			Assert.assertTrue(fetchedContact.equals(SFMcontact));
+			Assert.assertEquals(fetchedContact,SFMcontact);
 			ExtentManager.logger.log(Status.PASS, "contact value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -772,19 +772,19 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		} // change it
 
 		Thread.sleep(CommonUtility.iMedSleep);
-		fetchProblemDescription = workOrderPo.getProblemDescription().getText();
+		fetchProblemDescription = workOrderPo.getProblemDescription().getAttribute("innerText");
 		System.out.println(fetchProblemDescription);
 		try {
-			Assert.assertTrue(fetchProblemDescription.equals(SFMBillingtype));
+			Assert.assertEquals(fetchProblemDescription,SFMBillingtype);
 			ExtentManager.logger.log(Status.PASS, "ProblemDescription value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
-			ExtentManager.logger.log(Status.PASS, "ProblemDescription value mapping Failed ");
+			ExtentManager.logger.log(Status.FAIL, "ProblemDescription value mapping Failed ");
 		} // change it
 
 		fetchEmail = workOrderPo.getEmailvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchEmail.equals(SFMEmail));
+			Assert.assertEquals(fetchEmail,SFMEmail);
 			ExtentManager.logger.log(Status.PASS, "Email value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -793,7 +793,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		fetchURL = workOrderPo.getURLvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchURL.equals(SFMURL));
+			Assert.assertEquals(fetchURL,SFMURL);
 			ExtentManager.logger.log(Status.PASS, "URL value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -803,7 +803,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchNumber = workOrderPo.getNumbervalue().getAttribute("value");
 		System.out.println(fetchNumber);
 		try {
-			Assert.assertTrue(fetchNumber.equals(SFMNumber));
+			Assert.assertEquals(fetchNumber,SFMNumber);
 			ExtentManager.logger.log(Status.PASS, "Number value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -812,7 +812,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		fetchPhone = workOrderPo.getPhonevalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchPhone.equals(SFMPhone));
+			Assert.assertEquals(fetchPhone,SFMPhone);
 			ExtentManager.logger.log(Status.PASS, "Phone value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -821,7 +821,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		fetchCurrency = workOrderPo.getCurrencyvalue().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchCurrency.equals(SFMCurrency));
+			Assert.assertEquals(fetchCurrency,SFMCurrency);
 			ExtentManager.logger.log(Status.PASS, "Currency value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -830,7 +830,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		fetchclosedby = workOrderPo.getclosedby().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchclosedby.equals(SFMclosedby));
+			Assert.assertEquals(fetchclosedby,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "closedby value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -839,7 +839,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 
 		fetchSite = workOrderPo.getTxtSite().getAttribute("value");
 		try {
-			Assert.assertTrue(fetchSite.equals(SFMSite));
+			Assert.assertEquals(fetchSite,SFMSite);
 			ExtentManager.logger.log(Status.PASS, "Site value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -853,7 +853,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		date = new Date();
 		SFMScheduledDate = dateFormat.format(date);
 		try {
-			Assert.assertTrue(fetchedScheduledDate.equals(SFMScheduledDate));
+			Assert.assertEquals(fetchedScheduledDate,SFMScheduledDate);
 			ExtentManager.logger.log(Status.PASS, "ScheduledDate value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -867,7 +867,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		dTempDate1 = Date.from(insDate);
 		SFMScheduledDatetime = parser1.format((dTempDate1));
 		try {
-			Assert.assertTrue(fetchedScheduledDatetime.equals(SFMScheduledDatetime + " 00:00"),
+			Assert.assertEquals(fetchedScheduledDatetime,SFMScheduledDatetime + " 00:00",
 					"ScheduledDatetime value mapped is not displayed");
 			ExtentManager.logger.log(Status.PASS, "ScheduledDate value mapped Successful ");
 		} catch (AssertionError e) {
@@ -889,7 +889,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchedlocation = workOrderPo.getElePartsLocation().getAttribute("value");
 		System.out.println(fetchedlocation);
 		try {
-			Assert.assertTrue(fetchedlocation.equals(SFMSite));
+			Assert.assertEquals(fetchedlocation,SFMSite);
 			ExtentManager.logger.log(Status.PASS, "location(Site) value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -899,7 +899,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchedpart = workOrderPo.getElePartLaborLkUp().getAttribute("value");
 		System.out.println(fetchedpart);
 		try {
-			Assert.assertTrue(fetchedpart.equals(SFMProduct));
+			Assert.assertEquals(fetchedpart,SFMProduct);
 			ExtentManager.logger.log(Status.PASS, "Part value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -909,7 +909,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchlineqty = workOrderPo.getEleLineQtyTxtFld().getAttribute("value");
 		System.out.println(fetchlineqty);
 		try {
-			Assert.assertTrue(fetchlineqty.equals(SFMLineQty));
+			Assert.assertEquals(fetchlineqty,SFMLineQty);
 			ExtentManager.logger.log(Status.PASS, "lineqty value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -919,7 +919,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchlinepriceperunit = workOrderPo.getEleLinePerUnitTxtFld().getAttribute("value");
 		System.out.println(fetchlinepriceperunit);
 		try {
-			Assert.assertTrue(fetchlinepriceperunit.equals(SFMLinePerUnit));
+			Assert.assertEquals(fetchlinepriceperunit,SFMLinePerUnit);
 			ExtentManager.logger.log(Status.PASS, "LinePerUnit value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -929,7 +929,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchworkdescription = workOrderPo.getEleWODesMappedTxt().getAttribute("value");
 		System.out.println(fetchworkdescription);
 		try {
-			Assert.assertTrue(fetchworkdescription.equals(SFMWorkdiscription));
+			Assert.assertEquals(fetchworkdescription,SFMWorkdiscription);
 			ExtentManager.logger.log(Status.PASS, "workdescription value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -939,7 +939,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchRecordType = workOrderPo.getRecordType().getAttribute("value");
 		System.out.println(fetchRecordType);
 		try {
-			Assert.assertTrue(fetchRecordType.equals(SFMRecordType));
+			Assert.assertEquals(fetchRecordType,SFMRecordType);
 			ExtentManager.logger.log(Status.PASS, "RecordType value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -949,7 +949,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchlinetype = workOrderPo.getLineType().getAttribute("value");
 		System.out.println(fetchlinetype);
 		try {
-			Assert.assertTrue(fetchlinetype.equals(SFMlinetype));
+			Assert.assertEquals(fetchlinetype,SFMlinetype);
 			ExtentManager.logger.log(Status.PASS, "linetype value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -959,7 +959,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchdaterequired = workOrderPo.getDateRequired().getAttribute("value");
 		System.out.println(fetchdaterequired);
 		try {
-			Assert.assertTrue(fetchdaterequired.equals(SFMScheduledDatetime));
+			Assert.assertEquals(fetchdaterequired,SFMScheduledDatetime);
 			ExtentManager.logger.log(Status.PASS, "DateRequired value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -969,7 +969,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchedstartdateandtime = workOrderPo.getEleStartDateAndTimeTxtFld().getAttribute("value");
 		System.out.println(fetchedstartdateandtime);
 		try {
-			Assert.assertTrue(fetchedstartdateandtime.equals(SFMScheduledDate + " 00:00"));
+			Assert.assertEquals(fetchedstartdateandtime,SFMScheduledDate + " 00:00");
 			ExtentManager.logger.log(Status.PASS, "startdateandtime value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -979,7 +979,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchclosedbyinpart = workOrderPo.getclosedby().getAttribute("value");
 		System.out.println(fetchclosedbyinpart);
 		try {
-			Assert.assertTrue(fetchclosedbyinpart.equals(SFMclosedby));
+			Assert.assertEquals(fetchclosedbyinpart,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "closedby value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
@@ -989,7 +989,7 @@ public class SCN_Mapping_RS_10556 extends BaseLib {
 		fetchcancledby = workOrderPo.getCanceledBy().getAttribute("value");
 		System.out.println(fetchcancledby);
 		try {
-			Assert.assertTrue(fetchcancledby.equals(SFMclosedby));
+			Assert.assertEquals(fetchcancledby,SFMclosedby);
 			ExtentManager.logger.log(Status.PASS, "CanceledBy value mapped Successful ");
 		} catch (AssertionError e) {
 			System.out.println(e);
