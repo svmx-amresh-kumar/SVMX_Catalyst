@@ -80,7 +80,8 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 																											
 	}
 	
-	@Test(retryAnalyzer=Retry.class)
+	@Test()
+	//@Test(retryAnalyzer=Retry.class)
 	public void RS_10581() throws Exception {
 
 		// JiraLink
@@ -150,7 +151,7 @@ public class SCN_Checklist_Attachment_RS_10581 extends BaseLib {
 	//	eleDoneButton.click();
 		ExtentManager.logger.log(Status.PASS,"done button was clicked below the image");
 		commonUtility.switchContext("WebView");
-		
+		Thread.sleep(5000);
 		//Navigating back to WorkOrder Screen as Tools button will not be visible from checklists
 		checklistPo.navigateBacktoWorkOrder(commonUtility);
 		toolsPo.syncData(commonUtility);
