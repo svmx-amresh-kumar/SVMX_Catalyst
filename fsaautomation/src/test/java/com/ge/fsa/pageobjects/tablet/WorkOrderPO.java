@@ -100,6 +100,15 @@ import io.appium.java_client.TouchAction;
 			return eleBillingTypeValue;
 		}
 	
+		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Travel Rate']//..//..//input[@class='x-input-el'])")
+		private WebElement eleTravelRateValue;
+		public WebElement getEleTravelRateValue()
+		{
+			return eleTravelRateValue;
+		}
+	
+		
+		
 		@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 		private WebElement eleAddTravelLnk;
 		public WebElement getEleAddTravelLnk()

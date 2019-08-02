@@ -58,16 +58,16 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
 		// To run the Sahi Script before the Execution of Appium - 10539
-		commonUtility.executeSahiScript("appium/Scenario_10539.sah");
+		//commonUtility.executeSahiScript("appium/Scenario_10539.sah");
 		
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
 
-		//toolsPo.configSync(commonsUtility);
+		toolsPo.configSync(commonUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
-		Thread.sleep(CommonUtility.iMedSleep);
+		
 		// Get the Work Order from the sheet
 		String sTestDataValue = "SCN_GetPriceSCON_RS_10539";
 		sworkOrderName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"Work Order Number");
@@ -79,7 +79,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSCONName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"ServiceContract Name");
 		System.out.println(sSCONName);
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "Record T&M";// Standard SFM Process
+		String sProcessname = "RS_10539_getprice";// Standard SFM Process
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonUtility,sProcessname);
 		
@@ -212,13 +212,13 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		String sBillableQty_labor = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
-		if(sLinePricePUnit_labor.equals("500"))
+		if(sLinePricePUnit_labor.equals("1000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"LABOR:Line Price Per Unit:Expected Value is 500 Actual Value is"+sLinePricePUnit_labor);
+			ExtentManager.logger.log(Status.PASS,"LABOR:Line Price Per Unit:Expected Value is 1000 Actual Value is"+sLinePricePUnit_labor);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"LABOR:Line Price Per Unit:Expected Value is 500 Actual Value is"+sLinePricePUnit_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"LABOR:Line Price Per Unit:Expected Value is 1000 Actual Value is"+sLinePricePUnit_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Quantity Value verification
 		if(sBillableQty_labor.equals("2.000"))
@@ -230,13 +230,13 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"LABOR:Billable Quantity:Expected Value is 2.000 Actual Value is"+sBillableQty_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_labor.equals("1000.000"))
+		if(sBillableLinePrice_labor.equals("2000.000"))
 		{
-			ExtentManager.logger.log(Status.PASS,"LABOR:Billable Line Price:Expected Value is 1000.000 Actual Value is"+sBillableQty_labor);
+			ExtentManager.logger.log(Status.PASS,"LABOR:Billable Line Price:Expected Value is 2000.000 Actual Value is"+sBillableQty_labor);
 		}
 		else
 		{
-			ExtentManager.logger.log(Status.FAIL,"LABOR:Billable Line Price:Expected Value is 1000.000 Actual Value is"+sBillableQty_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
+			ExtentManager.logger.log(Status.FAIL,"LABOR:Billable Line Price:Expected Value is 2000.000 Actual Value is"+sBillableQty_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		commonUtility.tap(workOrderPo.getEleDoneBtn());
 		
@@ -404,6 +404,11 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		}
 		
+		String sTravelRateValue = workOrderPo.getEleTravelRateValue().getAttribute("value");
+		Assert.assertEquals(800, sTravelRateValue);
+		
+		
+		/*
 		String sLinePricePerUnit_travel = workOrderPo.getelechildlinefields("Line Price Per Unit").getAttribute("value");
 		String sBillableQty_travel = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_travel = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
@@ -434,12 +439,12 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		else
 		{
 			ExtentManager.logger.log(Status.FAIL,"TRAVEL:Billable Line Prices:Expected Value is 450.000  Actual Value is"+sBillableLinePrice_travel,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
-		}
+		}*/
 		
 		/**
 		 * END OF TRAVEL VERIFICATION
 		 */
-		commonUtility.tap(workOrderPo.getEleDoneBtn());
+		//commonUtility.tap(workOrderPo.getEleDoneBtn());
 		commonUtility.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
 		toolsPo.syncData(commonUtility);

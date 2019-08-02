@@ -100,7 +100,8 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		calendarPO.VerifyWOInCalenderafterconfchange(commonUtility, sWO_SVMX_4);
 		calendarPO.VerifyWOInCalenderafterconfchange(commonUtility, sWO_SVMX_5);
 		calendarPO.VerifyWOInCalenderafterconfchange(commonUtility, sWO_SVMX_6);
-
+		ExtentManager.logger.log(Status.PASS,"Six events are displayed in calendar");
+		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		commonUtility.tap(calendarPO.getEleCalendarClick());
@@ -117,7 +118,8 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		assertEquals(gettitle, sWO_SVMX_1);
 		assertEquals(getAccount, "A10515_SVMX_Event");
 		assertEquals(getlocation, "Bangalore, Karntaka");
-
+		ExtentManager.logger.log(Status.PASS,"Account, location, subject should be displayed for WO1");
+		
 		// WO2
 		gettitle = calendarPO.getelegetWOtitle(sWO_SVMX_2).getText();
 		assertEquals(gettitle, sWO_SVMX_2);
@@ -125,15 +127,19 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		try {
 			getAccount = calendarPO.getEleworkordernumonCalendarWeek(sWO_SVMX_2).getText();
 			System.out.println(getAccount);
+			ExtentManager.logger.log(Status.FAIL,"Account  should not be displayed for WO2");
+			
 		} catch (Exception e) {
 			System.out.println("Account is not displayed for WO2");
+			ExtentManager.logger.log(Status.PASS,"Account should be displayed for WO2");
 		}
 
 		try {
 			getlocation = calendarPO.getelegetWOlocationontop(sWO_SVMX_2).getText();
 			System.out.println(getlocation);
+			ExtentManager.logger.log(Status.FAIL,"location should not be displayed for WO2");
 		} catch (Exception e) {
-			System.out.println("Location is not displayed for WO2");
+			ExtentManager.logger.log(Status.PASS," location should be displayed for WO2");
 		}
 
 		// WO3
@@ -143,20 +149,24 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		try {
 			getAccount = calendarPO.getEleworkordernumonCalendarWeek(sWO_SVMX_3).getText();
 			System.out.println(getAccount);
+			ExtentManager.logger.log(Status.FAIL,"Account should not be displayed for WO3");
 		} catch (Exception e) {
 			System.out.println("Account is not displayed for WO3");
+			ExtentManager.logger.log(Status.PASS,"Account should  be displayed for WO3");
 		}
 
 		getlocation = calendarPO.getelegetWOlocationontop(sWO_SVMX_3).getText();
 		System.out.println(getlocation);
 		assertEquals(getlocation, "KGF, Uttar Pradesh");
-
+		ExtentManager.logger.log(Status.PASS,"location should  be displayed for WO3");
 		try {
 			String getsub = calendarPO.getelegetsubjectcal(sWO_SVMX_3).getText();
 			System.out.println(getsub);
 			assertEquals(getsub, "A10515_SVMX_Event3");
+			ExtentManager.logger.log(Status.PASS,"subject should  be displayed for WO3");
 		} catch (Exception e) {
 			System.out.println("Subject is not displayed for WO3");
+			ExtentManager.logger.log(Status.FAIL,"subject should not be displayed for WO3");
 		}
 
 		// WO4
@@ -166,8 +176,10 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 		try {
 			getAccount = calendarPO.getEleworkordernumonCalendarWeek(sWO_SVMX_4).getText();
 			System.out.println(getAccount);
+			
 		} catch (Exception e) {
-			System.out.println("Account is not displayed for WO4");
+			ExtentManager.logger.log(Status.PASS,"Account is not displayed for WO4");
+	
 		}
 
 		try {
@@ -175,14 +187,14 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			System.out.println(getlocation);
 			assertEquals(getlocation, "Kolar");
 		} catch (Exception e) {
-			System.out.println("Location is not displayed for WO4");
+			ExtentManager.logger.log(Status.FAIL,"Location is not displayed for WO4");
 		}
 		try {
 			String getsub = calendarPO.getelegetsubjectcal(sWO_SVMX_4).getText();
 			System.out.println(getsub);
 			assertEquals(getsub, "A10515_SVMX_Event4");
 		} catch (Exception e) {
-			System.out.println("Subject is not displayed for WO4");
+			ExtentManager.logger.log(Status.FAIL,"Subject is not displayed for WO4");
 		}
 
 		// WO5
@@ -193,7 +205,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			getAccount = calendarPO.getEleworkordernumonCalendarWeek(sWO_SVMX_5).getText();
 			System.out.println(getAccount);
 		} catch (Exception e) {
-			System.out.println("Account is not displayed for WO5");
+			ExtentManager.logger.log(Status.PASS,"Account is not displayed for WO5");
 		}
 
 		try {
@@ -202,6 +214,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			assertEquals(getlocation, "Delhi");
 		} catch (Exception e) {
 			System.out.println("Location is not displayedfor WO5");
+			ExtentManager.logger.log(Status.FAIL,"Location is not displayedfor WO5");
 		}
 
 		try {
@@ -220,6 +233,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			System.out.println(getAccount);
 		} catch (Exception e) {
 			System.out.println("Account is not displayed for WO6");
+			ExtentManager.logger.log(Status.FAIL,"Account is not displayedfor WO5");
 		}
 
 		try {
@@ -228,6 +242,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			assertEquals(getlocation, "Kolar");
 		} catch (Exception e) {
 			System.out.println("Location is not displayed for WO6");
+			ExtentManager.logger.log(Status.PASS,"Location is not displayedfor WO6");
 		}
 
 		try {
@@ -236,6 +251,7 @@ public class SCN_Calendar_5_RS_10515 extends BaseLib {
 			assertEquals(getsub, "A10515_SVMX_Event6");
 		} catch (Exception e) {
 			System.out.println("Subject is not displayed for WO6");
+			ExtentManager.logger.log(Status.FAIL,"subject is not displayedfor WO6");
 		}
 	}
 
