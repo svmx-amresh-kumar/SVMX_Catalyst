@@ -64,7 +64,6 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
-/
 		toolsPo.configSync(commonUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
