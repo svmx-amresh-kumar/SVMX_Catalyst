@@ -57,13 +57,14 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		}
 		sSheetName ="RS_10539";
 		System.out.println("SCN_GetPriceSCON_RS_10539");
+		String sProcessname = "RS_10539_getprice";// Standard SFM Process
 		// To run the Sahi Script before the Execution of Appium - 10539
-		//commonUtility.executeSahiScript("appium/Scenario_10539.sah");
+		commonUtility.executeSahiScript("appium/Scenario_10539.sah");
 		
 		
 		loginHomePo.login(commonUtility, exploreSearchPo);
 		// Have a config Sync
-
+/
 		toolsPo.configSync(commonUtility);
 		// Do a Data sync
 		toolsPo.syncData(commonUtility);
@@ -79,14 +80,14 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		sSCONName = CommonUtility.readExcelData(CommonUtility.sTestDataFile,sSheetName,"ServiceContract Name");
 		System.out.println(sSCONName);
 		workOrderPo.navigatetoWO(commonUtility, exploreSearchPo, "AUTOMATION SEARCH", "Work Orders", sworkOrderName);	
-		String sProcessname = "RS_10539_getprice";// Standard SFM Process
+		
 		Thread.sleep(2000);
 		workOrderPo.selectAction(commonUtility,sProcessname);
 		
 		
-	/**
-	 * PARTS - Verification of Fields
-	 */
+	
+	// PARTS - Verification of Fields
+	 
 		workOrderPo.addParts(commonUtility, workOrderPo, sProductName1);
 		// To verify if Billing Type = Warranty
 		
@@ -186,7 +187,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"PARTS:Discount :Expected Value is 15 Actual Value is"+sDiscountpercent,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		commonUtility.tap(workOrderPo.getEleDoneBtn());
-		
+	
 	/**
 	 * PARTS - END OF PARTS VERIFICATION
 	 */			
