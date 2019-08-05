@@ -74,7 +74,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 		
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"SVMXC__SVMX_Event__c");
 		commonUtility.deleteCalendarEvents(restServices,calendarPO,"Event");
-		
+	
 		commonUtility.executeSahiScript("appium/SCN_Mapping_RS_10556.sah");
 			
 			
@@ -172,7 +172,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 					ExtentManager.logger.log(Status.FAIL, "contact(Lookup) value mapping Failed ");
 				}
 
-				
+			
 				commonUtility.custScrollToElement(ph_WorkOrderPo.geteleCustomerDowntoggle());
 				String fetchCustomerDown = ph_WorkOrderPo.geteleCustomerDowntoggle().getText();
 				System.out.println(fetchCustomerDown);//Androin ON
@@ -184,7 +184,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 					ExtentManager.logger.log(Status.PASS, "CustomerDown(Checkbox) value mapping Failed ");
 				}
 
-				
+			
 				commonUtility.custScrollToElement(ph_WorkOrderPo.getEleScheduledDate());
 				String fetchedScheduledDate = ph_WorkOrderPo.getEleScheduledDate().getText();
 				System.out.println(fetchedScheduledDate);
@@ -230,7 +230,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 					ExtentManager.logger.log(Status.FAIL, "ProblemDescription(Long Text Area) value mapping Failed ");
 				} // change it
 
-				
+			
 				commonUtility.custScrollToElement(ph_WorkOrderPo.getEmailvalue());
 				String fetchEmail = ph_WorkOrderPo.getEmailvalue().getText();
 				try {
@@ -1039,8 +1039,7 @@ public class Ph_Mapping_RS_10556 extends BaseLib {
 				System.out.println(e);
 				ExtentManager.logger.log(Status.FAIL, "CanceledBy(Lookup(User)) value mapping Failed ");
 			}
-
-			
+		
 			
 	
 	}

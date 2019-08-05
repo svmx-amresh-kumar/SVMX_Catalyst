@@ -5,7 +5,7 @@
     </listeners>
 <test name="WorkBench">
 		<classes>	
-		<class name="com.ge.fsa.tests.phone.Ph_SCN_ScheduledDataSync_RS_10569" />
+		<class name="com.ge.fsa.tests.phone.Ph_Mapping_RS_10556" />	
 		</classes>
 	</test> <!-- Test -->
 	
