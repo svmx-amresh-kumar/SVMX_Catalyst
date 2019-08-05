@@ -210,7 +210,7 @@ public class Ph_SourceObjectUpdate_RS_10544 extends BaseLib {
 		
 		String sScheduledDateTimeSOU  = ph_WorkOrderPo.getEleScheduledDateTime().getText().trim();
 		String dt = sTodaysDate;  // Start date
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date datev = (Date) sdf.parse(dt);
 		Calendar c = Calendar.getInstance();
 		c.setTime(sdf.parse(dt));

@@ -2813,6 +2813,13 @@ public class CommonUtility {
         return map;
     }
 
+	/**
+	 * Generates Custom failed suite for re-executions
+	 * @param sXmlFilePath
+	 * @param dbArr
+	 * @param parameters
+	 * @throws IOException
+	 */
     private static void generateTestSuiteXML(String sXmlFilePath, Map<String, List<String>> dbArr, Map<String, String> parameters) throws IOException {
 		
 
@@ -2908,31 +2915,45 @@ public class CommonUtility {
    * @return
    */
     public  String getDateFormat(String sRawDateFormat) {
-    	String[] formats = { "E, MMM dd, yyyy","yyyy-MM-dd'T'HH:mm:ss","E MMM dd HH:mm:ss Z yyyy",
-   			 "yyyy-MM-dd","d/M/y HH:mm","yyyy-MM-dd","d/M/yyyy","M/d/yyyy","dd/M/yyyy",
-               "yyyy-MM-dd'T'HH:mm:ss'Z'",   "yyyy-MM-dd'T'HH:mm:ssZ",
-               "yyyy-MM-dd'T'HH:mm:ss",      "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-               "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd HH:mm:ss", 
-               "MM/dd/yyyy HH:mm:ss",        "MM/dd/yyyy'T'HH:mm:ss.SSS'Z'", 
-               "MM/dd/yyyy'T'HH:mm:ss.SSSZ", "MM/dd/yyyy'T'HH:mm:ss.SSS", 
-               "MM/dd/yyyy'T'HH:mm:ssZ",     "MM/dd/yyyy'T'HH:mm:ss", 
-               "yyyy:MM:dd HH:mm:ss",        "yyyyMMdd", };
-       
-   	 String dateFormatCaptured="";
-        if (sRawDateFormat != null) {
-            for (String parse : formats) {
-                SimpleDateFormat sdf = new SimpleDateFormat(parse);
-                try {
-                    sdf.parse(sRawDateFormat);
-                    System.out.println("Raw DatePassed = " + sRawDateFormat+" : Date format parsed ="+ parse);
-                    dateFormatCaptured = parse;
-                   break;
+    	String dateFormatMatched="";
+    	//If any additional date is needed please add it here
+    	String[] formatsToCheckWith = {
+    			"E, MMM dd, yyyy", 
+    			"yyyy-MM-dd'T'HH:mm:ss",
+    			"E MMM dd HH:mm:ss Z yyyy",
+    			"yyyy-MM-dd", "d/M/y HH:mm",
+    			"yyyy-MM-dd", "d/M/yyyy",
+    			"M/d/yyyy", "dd/M/yyyy",
+    			"yyyy-MM-dd'T'HH:mm:ss'Z'",
+    			"yyyy-MM-dd'T'HH:mm:ssZ",
+    			"yyyy-MM-dd'T'HH:mm:ss",
+    			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+    			"yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+    			"yyyy-MM-dd HH:mm:ss",
+    			"MM/dd/yyyy HH:mm:ss",
+    			"MM/dd/yyyy'T'HH:mm:ss.SSS'Z'",
+    			"MM/dd/yyyy'T'HH:mm:ss.SSSZ",
+    			"MM/dd/yyyy'T'HH:mm:ss.SSS",
+    			"MM/dd/yyyy'T'HH:mm:ssZ",
+    			"MM/dd/yyyy'T'HH:mm:ss",
+    			"yyyy:MM:dd HH:mm:ss",
+    			"yyyyMMdd"
+    	};
 
-                } catch (Exception e) {
+    	if (sRawDateFormat != null) {
+    		for (String parse : formatsToCheckWith) {
+    			SimpleDateFormat sdf = new SimpleDateFormat(parse);
+    			try {
+    				sdf.parse(sRawDateFormat);
+    				System.out.println("Raw DatePassed = " + sRawDateFormat+" : Date format parsed = "+ parse);
+    				dateFormatMatched = parse;
+    				break;
 
-                }
-            }
-        }
-        return dateFormatCaptured;
+    			} catch (Exception e) {
+
+    			}
+    		}
+    	}
+    	return dateFormatMatched;
     }
 }

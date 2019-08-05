@@ -100,6 +100,15 @@ import io.appium.java_client.TouchAction;
 			return eleBillingTypeValue;
 		}
 	
+		@FindBy(xpath="(//span[@class='x-label-text-el'][text()='Travel Rate']//..//..//input[@class='x-input-el'])")
+		private WebElement eleTravelRateValue;
+		public WebElement getEleTravelRateValue()
+		{
+			return eleTravelRateValue;
+		}
+	
+		
+		
 		@FindBy(xpath="//*[contains(text(),'Travel (')]/../../../../..//*[contains(text(),'Add')]")
 		private WebElement eleAddTravelLnk;
 		public WebElement getEleAddTravelLnk()
@@ -357,7 +366,8 @@ import io.appium.java_client.TouchAction;
 			return eleDoneBtn;
 		}
 	
-		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
+		//@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[@class= 'x-icon-el x-font-icon']//..//div[@class='x-size-monitors scroll']")
+		@FindBy(xpath="//span[text()='Use Price From Pricebook/Contract']//..//..//div[contains(@class,'toggleslider')]")
 		private WebElement eleUsePriceToggleBtn;
 		public WebElement getEleUsePriceToggleBtn()
 		{
