@@ -36,7 +36,6 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 	boolean bProcessCheckResult;
 	public void preRequiste() throws Exception { 
 		
-		restServices.getAccessToken();
 		sWOObejctApi="SVMXC__Service_Order__c?";
 		
 		sWOJsonData = "{\"SVMXC__Order_Status__c\":\"Open\",\"SVMXC__Billing_Type__c\":\"Contract\",\"SVMXC__City__c\":\"Delhi\",\"SVMXC__Zip__c\":\"110003\",\"SVMXC__Country__c\":\"India\",\"SVMXC__State__c\":\"Haryana\"}";
@@ -70,6 +69,7 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		sSubject = "Testing "+sWOName1+" "+sTestID;
 		
 		//Pre Login to app
+		lauchNewApp("false");
 		ph_LoginHomePo.login(commonUtility, ph_MorePo);
 		//Config Sync
 		ph_MorePo.OptionalConfigSync(commonUtility, ph_CalendarPo, bProcessCheckResult);
@@ -87,12 +87,10 @@ public class Ph_SCN_SelfDispatch_RS_10562 extends BaseLib {
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleStartDateTimeTxtFld(), 0, hours, "00");
 		
 		//Edit the subject
-		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getEleSubjectTxtFld().sendKeys(sSubject);
 		
 		//Set end time
 		commonUtility.setDateTime24hrs(ph_WorkOrderPo.getEleEndDateTimeTxtFld(), 0, String.format("%02d", Integer.parseInt(hours)+1), "00");
-		commonUtility.switchContext("native");
 		ph_WorkOrderPo.getElesave().click();
 		ExtentManager.logger.log(Status.INFO, "Creation of new event from work order is successful");
 		

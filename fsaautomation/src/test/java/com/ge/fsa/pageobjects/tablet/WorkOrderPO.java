@@ -470,7 +470,8 @@ import io.appium.java_client.TouchAction;
 		}
 	
 		// Added by Meghana
-		@FindBy(xpath="//span[@class='x-label-text-el'][text()='IB Serial Number']/../..//div[@class='x-mask-el']")
+		//@FindBy(xpath="//span[@class='x-label-text-el'][text()='IB Serial Number']/../..//div[@class='x-mask-el']")
+		@FindBy(xpath="//span[@class='x-label-text-el'][text()='IB Serial Number']/../..//input")
 		private WebElement eleIbSerialnumTap;
 		public WebElement getEleIbSerialnumTap()
 		{

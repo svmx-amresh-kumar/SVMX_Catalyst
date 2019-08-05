@@ -1,7 +1,12 @@
 package com.ge.fsa.pageobjects.tablet;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rotatable;
@@ -806,7 +811,29 @@ public WebElement geteleConfirmDeleteButton()
 			commonUtility.tap(geteleeleSaveButton());
 			navigateBacktoWorkOrder(commonUtility);
 }
-	
+            
+            
+            public String get_device_date(CommonUtility commonUtility) throws Exception
+        	{
+        		String sDeviceDateTUF = commonUtility.getDeviceDate();
+        		System.out.println("Device Date" + sDeviceDateTUF);
+        		DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+        		Date date = (Date) formatter.parse(sDeviceDateTUF);
+        		SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+        		formatter1.setTimeZone(TimeZone.getTimeZone(sDeviceDateTUF.split(" ")[4]));
+        		String sTodayDate = formatter1.format(date);
+        		
+        		return sTodayDate;
+        	}
+        	
+            public String server_date(CommonUtility commonUtility, String sDate) throws Exception
+        	{
+        		DateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+        		Date date = (Date) formatter1.parse(sDate);
+        		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+        		String sServerDate = formatter2.format(date);
+        		return sServerDate;
+        	}
 	
 }
 
