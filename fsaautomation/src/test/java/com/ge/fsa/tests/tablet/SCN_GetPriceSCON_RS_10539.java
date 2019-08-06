@@ -234,7 +234,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		String sBillableQty_labor = workOrderPo.getelechildlinefields("Billable Qty").getAttribute("value");
 		String sBillableLinePrice_labor = workOrderPo.getelechildlinefields("Billable Line Price").getAttribute("value");
 		
-		if(sLinePricePUnit_labor.equals("1000"))
+		if(sLinePricePUnit_labor.equals("500"))
 		{
 			ExtentManager.logger.log(Status.PASS,"LABOR:Line Price Per Unit:Expected Value is 1000 Actual Value is"+sLinePricePUnit_labor);
 		}
@@ -252,7 +252,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"LABOR:Billable Quantity:Expected Value is 2.000 Actual Value is"+sBillableQty_labor,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}
 		// Billable Line Price Value verification
-		if(sBillableLinePrice_labor.equals("2000.000"))
+		if(sBillableLinePrice_labor.equals("1000.000"))
 		{
 			ExtentManager.logger.log(Status.PASS,"LABOR:Billable Line Price:Expected Value is 2000.000 Actual Value is"+sBillableQty_labor);
 		}
