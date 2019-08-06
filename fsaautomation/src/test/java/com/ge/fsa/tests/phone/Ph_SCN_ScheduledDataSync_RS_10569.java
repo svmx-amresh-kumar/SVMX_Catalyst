@@ -65,7 +65,7 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		// 1000
 		commonUtility.executeSahiScript("/appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
-		lauchNewApp("true");
+		lauchNewApp("false");
 		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	}
 
@@ -81,7 +81,7 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 			
 		commonUtility.preReqSetup();
 		// Resinstall the app
-		// lauchNewApp("false");
+		lauchNewApp("false");
 
 		PreRequisites();
 
