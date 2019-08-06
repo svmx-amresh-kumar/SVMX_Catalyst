@@ -65,8 +65,8 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 		// 1000
 		commonUtility.executeSahiScript("/appium/Scenario_RS_10569_ScheduledDataSync_Post.sah");
 		ExtentManager.logger.log(Status.PASS, "Testcase " + sTestCaseID + "Sahi verification is successful");
-		// lauchNewApp("true");
-		ph_MorePo.configSync(commonUtility, ph_CalendarPo);
+		lauchNewApp("true");
+		//ph_MorePo.configSync(commonUtility, ph_CalendarPo);
 	}
 
 	@Test(retryAnalyzer = Retry.class)
@@ -148,7 +148,6 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL, "Scheduled Data Sync Failed");
 		}
 		
-		
 		//Validating server side
 		sSoqlqueryWO = "Select+SVMXC__Billing_Type__c+from+SVMXC__Service_Order__c+Where+Name+=\'" + sWOName + "'";
 		sBillTypeServer = restServices.restGetSoqlValue(sSoqlqueryWO, "SVMXC__Billing_Type__c");
@@ -163,7 +162,7 @@ public class Ph_SCN_ScheduledDataSync_RS_10569 extends BaseLib {
 	public void tearDown() throws Exception {
 		postscript();
 		System.out.println("Running the post script");
-		ExtentManager.logger.log(Status.INFO, "Post script run sucessfully at aftermethod");
+	//	ExtentManager.logger.log(Status.INFO, "Post script run sucessfully at aftermethod");
 
 	}
 
