@@ -84,6 +84,28 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 		workOrderPo.selectAction(commonUtility,sProcessname);
 		
 		
+		/**
+		 * TRAVEL - VERIFICATION OF THE FIELDS
+		 */
+
+		int sEndDateint1 = Integer.parseInt("03") + 4;
+		String sEndDate1 = Integer.toString(sEndDateint1);
+
+		workOrderPo.addTravelwithTime(commonUtility, workOrderPo, sProcessname, "03", sEndDate1);
+		
+		commonUtility.tap(workOrderPo.geteleGetPrice());
+		
+		
+		String sTravelRateValue = workOrderPo.getEleTravelRateValue().getAttribute("value");
+		Assert.assertEquals("800", sTravelRateValue);
+		
+
+		/**
+		 * END OF TRAVEL VERIFICATION
+		 */
+		
+		
+		
 	
 	// PARTS - Verification of Fields
 	 
@@ -380,32 +402,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			commonUtility.tap(workOrderPo.getEleDiscardChanges());
 		}
 		
-		/**
-		 * TRAVEL - VERIFICATION OF THE FIELDS
-		 */
-
-		int sEndDateint1 = Integer.parseInt("03") + 4;
-		String sEndDate1 = Integer.toString(sEndDateint1);
-
-		workOrderPo.addTravelwithTime(commonUtility, workOrderPo, sProcessname, "03", sEndDate1);
 		
-		commonUtility.tap(workOrderPo.geteleGetPrice());
-		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonUtility.tap(workOrderPo.getEleDiscardChanges());
-		}
-		
-		commonUtility.tap(workOrderPo.geteleTraveltap(sEndDate1));
-		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonUtility.tap(workOrderPo.getEleDiscardChanges());
-		}
-		
-		commonUtility.tap(workOrderPo.geteleTraveltap(sEndDate1),10,10);
-		if(commonUtility.isDisplayedCust(workOrderPo.getEleDiscardChanges())) {
-			commonUtility.tap(workOrderPo.getEleDiscardChanges());
-		}
-		
-		String sTravelRateValue = workOrderPo.getEleTravelRateValue().getAttribute("value");
-		Assert.assertEquals(800, sTravelRateValue);
 		
 		
 		/*
@@ -441,9 +438,7 @@ public class SCN_GetPriceSCON_RS_10539 extends BaseLib {
 			ExtentManager.logger.log(Status.FAIL,"TRAVEL:Billable Line Prices:Expected Value is 450.000  Actual Value is"+sBillableLinePrice_travel,MediaEntityBuilder.createScreenCaptureFromPath(commonUtility.takeScreenShot()).build());
 		}*/
 		
-		/**
-		 * END OF TRAVEL VERIFICATION
-		 */
+	
 		//commonUtility.tap(workOrderPo.getEleDoneBtn());
 		commonUtility.tap(workOrderPo.getEleClickSave());
 		// Verifying after sync the system
