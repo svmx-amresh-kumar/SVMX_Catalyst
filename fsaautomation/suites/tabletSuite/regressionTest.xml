@@ -31,7 +31,7 @@
 		<suite-file path="opDocTest.xml" />  <!-- 1 --> 
 		<suite-file path="configSyncTest.xml" /> <!-- 2 -->
 		<suite-file path="dataSyncTest.xml" /> <!-- 2 -->
-		<suite-file path="salesForce_Fles.xml" /> <!-- 4 -->
+		<suite-file path="salesForce_Files.xml" /> <!-- 4 -->
 		<suite-file path="getPriceTest.xml" /> <!-- 8 -->
 
 
