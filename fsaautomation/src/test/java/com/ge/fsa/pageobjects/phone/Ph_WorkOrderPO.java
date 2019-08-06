@@ -1369,11 +1369,11 @@ public class Ph_WorkOrderPO {
 	}
 
 	@FindAll({
+		@FindBy(xpath = "(//XCUIElementTypeStaticText[@name='Problem Description']/..//XCUIElementTypeTextView)"),
 			@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@text='Problem Description*']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.EditText']"),
 			@FindBy(xpath = "//*[@text='Problem Description']//following-sibling::*[@class='android.view.ViewGroup'][1]//*[@class='android.widget.TextView']"),
 			@FindBy(xpath = "//XCUIElementTypeOther[@label='Problem Description*']"),
-			//@FindBy(xpath = "//XCUIElementTypeOther[@name='Problem Description']//XCUIElementTypeStaticText ") 
 			@FindBy(xpath="//XCUIElementTypeStaticText[@name='Problem Description']/following-sibling::*/*")})
 	private WebElement eleProblemDescriptiontxt;
 

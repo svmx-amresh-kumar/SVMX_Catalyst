@@ -34,6 +34,7 @@ public class Sanity8_Lookup_DOD extends BaseLib {
 	String woID = null;
 	String sProcessname = "EditWoAutoTimesstamp";
 	String sExploreChildSearchTxt = "Work Orders";
+	String sObjectApi,sSqlEventQuery,sWOJson,sEventIdSFDC_2;
 
 	@Test(retryAnalyzer = Retry.class)
 	public void Scenario8Test() throws Exception {
@@ -48,7 +49,14 @@ public class Sanity8_Lookup_DOD extends BaseLib {
 
 		// running the Sahi Script Pre-requisites - To make All Records to My Records in
 		// Mobile Configuration
-		commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
+		//commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToMyRecords.sah");
+		sObjectApi = "SVMXC__ServiceMax_Config_Data__c";
+		sSqlEventQuery ="SELECT+Id+FROM+SVMXC__ServiceMax_Config_Data__c+WHERE+SVMXC__Object_Name__c='SVMXC__Service_Order__c'+AND+SVMXC__RecordType_Name__c='Mobile Configuration'+ORDER+BY+ID+DESC+LIMIT+1";		
+		sEventIdSFDC_2 =restServices.restGetSoqlValue(sSqlEventQuery,"Id"); 
+		System.out.println(sEventIdSFDC_2);
+		//updating event
+		 sWOJson="{\"SVMXC__Ownership_Type__c\":\"My Records\"}";
+		restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSFDC_2 );
 
 		System.out.println("Scenario 8");
 		loginHomePo.login(commonUtility, exploreSearchPo);
@@ -175,12 +183,13 @@ public class Sanity8_Lookup_DOD extends BaseLib {
 	@AfterMethod
 	public void cleanup() throws Exception {
 		
-		try {
-			commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		} catch (Exception e) {
-			commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
-		}
-
+//		try {
+//			commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+//		} catch (Exception e) {
+//			commonUtility.executeSahiScript("appium/setDownloadCriteriaWoToAllRecords.sah");
+//		}
+		sWOJson="{\"SVMXC__Ownership_Type__c\":\"All Records\"}";
+		restServices.restUpdaterecord(sObjectApi,sWOJson,sEventIdSFDC_2 );
 		toolsPo.syncData(commonUtility);
 	}
 
