@@ -1,11 +1,13 @@
 package com.ge.fsa.pageobjects.phone;
 
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +21,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindAll;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -1794,7 +1798,7 @@ public class Ph_WorkOrderPO {
 	}
 	
 	@AndroidFindBy(xpath="//*[@text='Title']/following-sibling::*[1]/*[@class='android.widget.EditText']")
-	@iOSXCUITFindBy(xpath="//*[@name='Title']//XCUIElementTypeTextField")
+	@iOSXCUITFindBy(xpath="//*[contains(@name,'Title')]//XCUIElementTypeTextField")
 	private WebElement eleImageTitle;
 	public WebElement getEleImageTitle() {
 		return eleImageTitle;
@@ -1859,5 +1863,157 @@ public class Ph_WorkOrderPO {
 	public WebElement getEleOverviewHeader() {
 		return eleOverviewHeader;
 	}
+	
+	@FindBy(xpath="//*[@*='MEDIA_ATTACHMENT.BUTTON_ADD']")
+	private WebElement eleAddAttachDoc;
+	public WebElement getEleAddAttachDoc() {
+		return eleAddAttachDoc;
+	}
+	
+	@FindBy(xpath="//*[@*='Take Photo / Video']")
+	private WebElement eleTakePhotoVideo;
+	public WebElement getEleTakePhotoVideo() {
+		return eleTakePhotoVideo;
+	}
+	
+	@FindBy(xpath="//*[@*='Take Photo']")
+	private WebElement eleTakePhoto;
+	public WebElement getEleTakePhoto() {
+		return eleTakePhoto;
+	}
+	
+	@FindBy(xpath="//*[@*='Take Video']")
+	private WebElement eleTakeVideo;
+	public WebElement getEleTakeVideo() {
+		return eleTakeVideo;
+	}
+	
+	@FindBy(xpath="//*[@*='Choose from Camera Roll']")
+	private WebElement eleChooseFromCameraRoll;
+	public WebElement getEleChooseFromCameraRoll() {
+		return eleChooseFromCameraRoll;
+	}
+	
+	@FindBy(xpath="//*[@*='PhotoCapture']")
+	private WebElement elePhotoCapture;
+	public WebElement getElePhotoCapture() {
+		return elePhotoCapture;
+	}
+	
+	@FindBy(xpath="//*[@*='VideoCapture']")
+	private WebElement eleVideoCapture;
+	public WebElement getEleVideoCapture() {
+		return eleVideoCapture;
+	}
+	
+	@FindBy(xpath="//*[@*='Use Photo']")
+	private WebElement eleUsePhoto;
+	public WebElement getEleUsePhoto() {
+		return eleUsePhoto;
+	}
+	
+	@FindBy(xpath="//*[@*='Use Video']")
+	private WebElement eleUseVideo;
+	public WebElement getEleUseVideo() {
+		return eleUseVideo;
+	}
 
+	@FindBy(xpath="//*[@*='CameraMode']")
+	private WebElement eleCameraMode;
+	public WebElement getEleCameraMode() {
+		return eleCameraMode;
+	}
+	
+	@iOSXCUITFindBy(xpath="(//*[@*[contains(.,'Photo, Portrait')]])[last()]")
+	@AndroidFindBy(xpath="//*[@*='MEDIA_LIBRARY.IMAGE_CLICK'][1]")
+	private WebElement eleSelectPhoto;
+	public WebElement getEleSelectPhoto() {
+		return eleSelectPhoto;
+	}
+	
+	@FindBy(xpath="//*[@*='All Photos']")
+	private WebElement eleAllPhotos;
+	public WebElement getEleAllPhotos() {
+		return eleAllPhotos;
+	}
+	
+	@FindBy(xpath="(//*[@*='Add'])[last()]")
+	private WebElement eleBtnAdd;
+	public WebElement getEleBtnAdd() {
+		return eleBtnAdd;
+	}
+	
+	@FindBy(xpath="//*[@*='Shutter']")
+	private WebElement eleShutter;
+	public WebElement getEleShutter() {
+		return eleShutter;
+	}
+	
+	@FindBy(xpath="//*[@*='Done']")
+	private WebElement eleDone;
+	public WebElement getEleDone() {
+		return eleDone;
+	}
+	
+	public void allowOKButton(){
+		try {
+			driver.findElement(By.xpath("//*[@*='OK']")).click();
+		} catch (Exception e) {
+			System.out.println("Could not Find OK Popup for camera");
+		}
+	}
+	
+	public void workOrderAttach(CommonUtility commonUtility,String attachmentType,String attachmentName) throws Exception {
+		getEleAddAttachDoc().click();
+		if(BaseLib.sOSName.equals("ios")) {
+			if(attachmentType.equals("image")) {
+				getEleTakePhotoVideo().click();
+				allowOKButton();
+				getElePhotoCapture().click();
+				getEleUsePhoto().click();
+			}
+			else if(attachmentType.equals("video")) {
+				getEleTakePhotoVideo().click();
+				allowOKButton();
+				Point point=getEleCameraMode().getLocation();
+				new TouchAction(driver).press(new PointOption().withCoordinates(point.getX()/2,point.getY())).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
+					.moveTo(new PointOption().withCoordinates(point.getX()/2+30,point.getY())).release().perform();
+				allowOKButton();
+				getEleVideoCapture().click();
+				Thread.sleep(1000);
+				getEleVideoCapture().click();
+				getEleUseVideo().click();
+			}
+			else {
+				getEleChooseFromCameraRoll().click();
+				allowOKButton();
+				getEleAllPhotos().click();
+				getEleSelectPhoto().click();
+			}
+		}
+		else if(BaseLib.sOSName.equals("android")) {
+			
+			if(attachmentType.equals("cameraRoll")){
+				getEleChooseFromCameraRoll().click();
+				getEleSelectPhoto().click();
+			}
+			else {
+				if(attachmentType.equals("image")) {
+					eleTakePhoto.click();
+				}
+				else if(attachmentType.equals("video")) {
+					eleTakeVideo.click();
+					getEleShutter().click();
+					Thread.sleep(1000);
+				}
+				getEleShutter().click();
+				getEleDone().click();
+			}
+		}
+		getEleImageTitle().clear();
+		getEleImageTitle().sendKeys(attachmentName);
+		getEleBtnAdd().click();
+		
+	}
+	
 }
