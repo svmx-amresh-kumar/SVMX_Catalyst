@@ -1101,7 +1101,8 @@ public class CommonUtility {
 			if(sMonth =="0" && sDay == "0" && sYear =="0") {
 				getEleDonePickerWheelBtn().click();
 			} else {
-				int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?1:0;
+				//int cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?1:0;
+				int cylinderPosition=1;
 				getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sMonth);
 				timeSetter(sDay, sYear, "", true,false);
 				getEleDonePickerWheelBtn().click();
@@ -1358,16 +1359,21 @@ public class CommonUtility {
 	 */
 	public void timeSetter(String sTimeHrs, String sTimeMin, String sTimeAMPM, Boolean is24hrs,Boolean isUkRegionDateTime) {
 		int cylinderPosition=0;
-		if (sTimeHrs != "0") {
+		/*if (sTimeHrs != "0") {
 			if(isUkRegionDateTime==true) {
 				 cylinderPosition=1;
 
 			}else {
-				 cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
+				// cylinderPosition=BaseLib.sDeviceType.equalsIgnoreCase("phone")?0:1;
 
-			}
+			}*/
 			int breakCount=0;
-			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
+				getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
+				breakCount++;
+			}
+
+/*			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 				//Phone needs multiple calls to date picker to set the correct date
 				while(!getEleDatePickerPopUp().get(cylinderPosition).getText().replaceAll("[^0-9]", "").equals(sTimeHrs) && breakCount<20) {
 					getEleDatePickerPopUp().get(cylinderPosition).sendKeys(sTimeHrs);
@@ -1383,21 +1389,21 @@ public class CommonUtility {
 
 			}
 
-		}
+		}*/
 		if (sTimeMin != "0") {
-			int breakCount=0;
-			if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
+			 breakCount=0;
+			/*if(BaseLib.sDeviceType.equalsIgnoreCase("phone")) {
 			//Phone needs multiple calls to date picker to set the correct date
 				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
 				}
 			}
-			else {
+			else {*/
 				while(!getEleDatePickerPopUp().get(2).getText().replaceAll("[^0-9]", "").equals(sTimeMin) && breakCount<20) {
 					getEleDatePickerPopUp().get(2).sendKeys(sTimeMin);
 					breakCount++;
-				}
+				//}
 			}
 
 		}
